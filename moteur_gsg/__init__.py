@@ -15,7 +15,7 @@ API publique :
         brief={"objectif": "...", "audience": "...", "angle": "..."},
     )
 
-Anti-patterns à éviter (cf DESIGN_DOC_V26_AA.md §8) :
+Anti-patterns à éviter (cf .claude/docs/reference/DESIGN_DOC_V26_AA.md §8) :
   - Mega-prompt sursaturé > 15K chars → découpage en pipeline
   - Ré-inventer une grille différente de V3.2 → tout juge consomme doctrine.py
   - Industrialiser sur 51 clients avant validation 3-clients qualité absolue

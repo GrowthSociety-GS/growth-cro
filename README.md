@@ -27,13 +27,14 @@ GrowthCRO est un **consultant CRO senior automatisé** pour les ~100 clients de 
 
 À LIRE dans cet ordre **OBLIGATOIRE** :
 
-1. **`CLAUDE.md`** — entrypoint init session + checklist anti-oubli
-2. **Notion** : `Mathis Project x GrowthCRO Web App` + `Le Guide Expliqué Simplement` (vision produit canonique)
-3. **`STRATEGIC_AUDIT_AND_ROUTING_2026-05-04.md`** — plan d'action ordonné (Sprints F-L)
-4. **`AUDIT_TOTAL_V26AE_2026-05-04.md`** — diagnostic complet état actuel
-5. **`GROWTHCRO_MANIFEST.md`** — source de vérité architecturale (changelog §12)
-6. **`memory/MEMORY.md`** — index mémoires
-7. Run `python3 state.py` + `python3 scripts/audit_capabilities.py` — état disque réel + registry
+1. **`CLAUDE.md`** (= symlink → `.claude/CLAUDE.md`) — entrypoint init session + checklist anti-oubli
+2. **`.claude/README.md`** — index de la doctrine (state / reference / architecture / memory)
+3. **Notion** : `Mathis Project x GrowthCRO Web App` + `Le Guide Expliqué Simplement` (vision produit canonique)
+4. **`.claude/docs/state/STRATEGIC_AUDIT_AND_ROUTING_2026-05-04.md`** — plan d'action ordonné (Sprints F-L)
+5. **`.claude/docs/state/AUDIT_TOTAL_V26AE_2026-05-04.md`** — diagnostic complet état actuel
+6. **`.claude/docs/reference/GROWTHCRO_MANIFEST.md`** — source de vérité architecturale (changelog §12)
+7. **`.claude/memory/MEMORY.md`** — index mémoires
+8. Run `python3 state.py` + `python3 scripts/audit_capabilities.py` — état disque réel + registry
 
 ---
 
@@ -59,19 +60,18 @@ GrowthCRO est un **consultant CRO senior automatisé** pour les ~100 clients de 
 ```
 .
 ├── README.md                         ← tu es ici
-├── CLAUDE.md                         ← entrypoint init session
-├── GROWTHCRO_MANIFEST.md             ← source vérité architecturale
-├── DESIGN_DOC_V26_AA.md              ← architecture cible 5 modes GSG
-├── architecture/PRODUCT_BOUNDARIES_V26AH.md  ← frontières produit post-sauvetage
-├── architecture/GSG_CANONICAL_CONTRACT_V27_2026-05-05.md  ← GSG unique + matrice keep/migrate/freeze
-├── architecture/RESCUE_DECISION_V26AH_2026-05-04.md  ← décision Day 7 + rollback
-├── FRAMEWORK_CADRAGE_GSG_V26AC.md    ← spec BriefV2 (formulaire 5 sections)
-├── STRATEGIC_AUDIT_AND_ROUTING_2026-05-04.md  ← plan d'action ordonné
-├── AUDIT_TOTAL_V26AE_2026-05-04.md   ← diagnostic complet V26.AE
-├── RUNBOOK.md                        ← procédures opérations
-├── HANDOFF_TO_CLAUDE_CODE.md         ← setup Claude Code
-├── START_HERE_NEW_SESSION.md         ← TL;DR
-├── CAPABILITIES_REGISTRY.json + SUMMARY.md ← anti-oubli auto-généré
+├── CLAUDE.md → .claude/CLAUDE.md     ← symlink (autoload Claude Code)
+├── AGENTS.md → .claude/CLAUDE.md     ← symlink (autoload Codex CLI)
+├── .claude/                          ← TOUTE la doctrine Claude+Codex (V26.AG)
+│   ├── CLAUDE.md                     ← entrypoint compact
+│   ├── README.md                     ← index hiérarchie
+│   ├── agents/, commands/            ← subagents + slash commands
+│   ├── docs/
+│   │   ├── state/                    ← AUDIT_TOTAL, STRATEGIC, CAPABILITIES_SUMMARY
+│   │   ├── reference/                ← MANIFEST, DESIGN_DOC, RUNBOOK, FRAMEWORK_CADRAGE, HANDOFF, START_HERE
+│   │   └── architecture/             ← V27 contracts + reconstruction specs + rescue decision
+│   └── memory/                       ← MEMORY/HISTORY/SPECS + project_*.md + snapshots/
+├── CAPABILITIES_REGISTRY.json        ← anti-oubli registry (auto-généré, racine)
 │
 ├── playbook/                         ← Doctrine V3.2.1 (25 fichiers)
 │   ├── bloc_*_v3.json × 7 (54 critères)
@@ -125,11 +125,8 @@ GrowthCRO est un **consultant CRO senior automatisé** pour les ~100 clients de 
 │   ├── japhy/                        ← data Japhy historique
 │   └── weglot-listicle-V26AD-PLUS-FULL-STACK.html  ← dernier livrable test
 │
-├── memory/                           ← HISTORY + MEMORY + SPECS + project_files
-├── architecture/                     ← V1 docs Next.js + Supabase (cible long-terme)
 ├── reports/v143_validator/           ← Baselines validation v143
 ├── SCHEMA/                           ← 7 schemas + validate_all.py
-├── .claude/                          ← agents (5) + commands (5) + settings
 │
 └── _archive/                         ← Tout l'historique gelé (~2500 fichiers consolidés V26.AE)
     ├── data_backups, docs, scripts, skills_legacy, playbook_legacy
@@ -182,7 +179,7 @@ python3 -m moteur_gsg.orchestrator --mode complete --client weglot \
   --page-type lp_listicle --objectif "..." --audience "..." --angle "..."
 ```
 
-Voir `RUNBOOK.md` pour procédures complètes.
+Voir `.claude/docs/reference/RUNBOOK.md` pour procédures complètes.
 
 ---
 
@@ -240,16 +237,16 @@ Voir `RUNBOOK.md` pour procédures complètes.
 ## 8. Pour aller plus loin
 
 - **Vision produit complète** : Notion `Le Guide Expliqué Simplement`
-- **Plan d'action ordonné** : `STRATEGIC_AUDIT_AND_ROUTING_2026-05-04.md`
-- **Diagnostic forensic** : `AUDIT_TOTAL_V26AE_2026-05-04.md`
-- **Frontières produit V26.AH** : `architecture/PRODUCT_BOUNDARIES_V26AH.md`
-- **Contrat GSG canonique V27** : `architecture/GSG_CANONICAL_CONTRACT_V27_2026-05-05.md`
-- **Spec reconstruction GSG V27.2** : `architecture/GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md`
-- **Décision sauvetage V26.AH** : `architecture/RESCUE_DECISION_V26AH_2026-05-04.md`
-- **Tracker refonte totale** : `architecture/REFONTE_TOTAL_TRACKER_2026-05-05.md`
-- **Reality Layer pilote V26.AI** : `architecture/REALITY_LAYER_PILOT_V26AI_2026-05-05.md`
-- **Webapp V27 Command Center** : `architecture/WEBAPP_V27_COMMAND_CENTER_2026-05-05.md`
-- **Proposition panel V27** : `architecture/PANEL_CANONIQUE_V27_PROPOSAL_2026-05-05.md`
+- **Plan d'action ordonné** : `.claude/docs/state/STRATEGIC_AUDIT_AND_ROUTING_2026-05-04.md`
+- **Diagnostic forensic** : `.claude/docs/state/AUDIT_TOTAL_V26AE_2026-05-04.md`
+- **Frontières produit V26.AH** : `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md`
+- **Contrat GSG canonique V27** : `.claude/docs/architecture/GSG_CANONICAL_CONTRACT_V27_2026-05-05.md`
+- **Spec reconstruction GSG V27.2** : `.claude/docs/architecture/GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md`
+- **Décision sauvetage V26.AH** : `.claude/docs/architecture/RESCUE_DECISION_V26AH_2026-05-04.md`
+- **Tracker refonte totale** : `.claude/docs/architecture/REFONTE_TOTAL_TRACKER_2026-05-05.md`
+- **Reality Layer pilote V26.AI** : `.claude/docs/architecture/REALITY_LAYER_PILOT_V26AI_2026-05-05.md`
+- **Webapp V27 Command Center** : `.claude/docs/architecture/WEBAPP_V27_COMMAND_CENTER_2026-05-05.md`
+- **Proposition panel V27** : `.claude/docs/architecture/PANEL_CANONIQUE_V27_PROPOSAL_2026-05-05.md`
 - **Contrat panel V27 runtime** : `data/curated_clients_v27.json`
 - **Reco quality audit V26.AH** : `reports/RECO_QUALITY_AUDIT_V26AH_2026-05-04.md`
 - **Architecture cible Next.js+Supabase** : `architecture/GROWTHCRO_ARCHITECTURE_V1.md`

@@ -22,7 +22,7 @@ Ton job :
 ## Sources de vérité
 
 1. `CAPABILITIES_REGISTRY.json` — registry auto-généré (source unique des capacités)
-2. `CAPABILITIES_SUMMARY.md` — version humaine (à lire en début de session)
+2. `.claude/docs/state/CAPABILITIES_SUMMARY.md` — version humaine (à lire en début de session)
 3. `scripts/audit_capabilities.py` — script d'auto-discovery (regenerer si stale)
 4. `ROUTING_MAP.md` — câblage dans le dur du pipeline (à créer Phase 5)
 
@@ -31,7 +31,7 @@ Ton job :
 ### Étape 1 — Lire le registry
 ```bash
 python3 scripts/audit_capabilities.py  # regenère si stale (>1 jour)
-cat CAPABILITIES_SUMMARY.md
+cat .claude/docs/state/CAPABILITIES_SUMMARY.md
 ```
 
 ### Étape 2 — Identifier capacités pertinentes pour le sprint à venir

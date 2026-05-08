@@ -54,8 +54,8 @@ Fichier cible : `data/cro_criteria_v3.json` (à construire bloc par bloc).
 ### Couche 3 — Moteur reco + apprentissage
 Fichiers cibles :
 - `data/reco_templates_v3.json` (~50 templates, 1:1 avec les critères V3)
-- `memory/memory_validated.md` (audits validés)
-- `memory/memory_corrections.md` (erreurs apprises, avec **Why** + **How to apply**)
+- `.claude/memory/memory_validated.md` (audits validés)
+- `.claude/memory/memory_corrections.md` (erreurs apprises, avec **Why** + **How to apply**)
 - `scripts/syncNotionChecklist.ts` (pont Notion ↔ GrowthCRO, à créer plus tard)
 
 Priorisation : P0 / P1 / P2 (harmonisation SPECS.md — on abandonne le P1/P2/P3 du reco_engine legacy).
@@ -99,8 +99,8 @@ On construit la grille V3 un pilier à la fois. Chaque bloc = 4 étapes + valida
 
 - `data/cro_criteria_v3.json` — grille complète /117, ~60 critères
 - `data/reco_templates_v3.json` — ~50 templates de recos
-- `memory/memory_validated.md` — audits validés avec patterns gagnants
-- `memory/memory_corrections.md` — erreurs apprises avec Why + How to apply
+- `.claude/memory/memory_validated.md` — audits validés avec patterns gagnants
+- `.claude/memory/memory_corrections.md` — erreurs apprises avec Why + How to apply
 - Adapter JS dans le prototype V5.x pour lire la grille V3
 - Mise à jour `skills/cro-auditor/SKILL.md` pour pointer vers V3
 - Migration Supabase (phase ultérieure, après figeage V3)

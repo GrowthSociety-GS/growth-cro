@@ -1,6 +1,6 @@
 """moteur_gsg.core.brief_v2 — V26.AD Sprint I.
 
-Spec figée : `FRAMEWORK_CADRAGE_GSG_V26AC.md`. Anti-hallucination : 30+ inputs
+Spec figée : `.claude/docs/reference/FRAMEWORK_CADRAGE_GSG_V26AC.md`. Anti-hallucination : 30+ inputs
 structurés en 5 sections. L'utilisateur ne livre plus 3 textareas vagues
 {objectif, audience, angle} — il remplit un wizard avec required fields stricts.
 

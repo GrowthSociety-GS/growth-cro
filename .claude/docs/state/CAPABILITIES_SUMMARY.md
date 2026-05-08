@@ -1,4 +1,4 @@
-# Capabilities Summary — 2026-05-07T14:33:17
+# Capabilities Summary — 2026-05-08T13:02:03
 
 **Source de vérité** : `CAPABILITIES_REGISTRY.json` (auto-généré par `scripts/audit_capabilities.py`).
 
@@ -49,7 +49,7 @@
 
 ## 🛡️ Doctrine anti-oubli
 
-Cette registry est la SOURCE DE VÉRITÉ des capacités existantes. Avant tout sprint code GSG/audit : `python3 scripts/audit_capabilities.py` puis lire CAPABILITIES_SUMMARY.md. Si une capacité critique 'ORPHANED_FROM_GSG' pertinente pour le sprint à venir, OBLIGATION de soit la brancher soit expliquer pourquoi on la skip.
+Cette registry est la SOURCE DE VÉRITÉ des capacités existantes. Avant tout sprint code GSG/audit : `python3 scripts/audit_capabilities.py` puis lire .claude/docs/state/CAPABILITIES_SUMMARY.md. Si une capacité critique 'ORPHANED_FROM_GSG' pertinente pour le sprint à venir, OBLIGATION de soit la brancher soit expliquer pourquoi on la skip.
 
 **Pour Claude (sub-agents et conv principal)** : avant tout sprint code GSG/audit :
 1. Lire ce fichier

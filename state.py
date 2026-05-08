@@ -171,9 +171,9 @@ def render_header():
     print(f"GrowthCRO state — {datetime.now().strftime('%Y-%m-%d %H:%M')}  — root: {ROOT.name}")
 
 def render_hint():
-    _hr("NEXT STEPS — lit toujours GROWTHCRO_MANIFEST.md avant d'agir")
-    print("  1. cat GROWTHCRO_MANIFEST.md            # architecture cascade")
-    print("  2. cat memory/MEMORY.md                  # index mémoires")
+    _hr("NEXT STEPS — lit toujours .claude/docs/reference/GROWTHCRO_MANIFEST.md avant d'agir")
+    print("  1. cat .claude/docs/reference/GROWTHCRO_MANIFEST.md   # architecture cascade")
+    print("  2. cat .claude/memory/MEMORY.md                       # index mémoires")
     print("  3. python3 state.py --recent             # ce qui a bougé récemment")
 
 def main():

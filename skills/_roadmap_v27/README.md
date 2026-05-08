@@ -30,8 +30,8 @@ Ces 4 skills décrivent l'**écosystème CIBLE V27+** mais ne sont **pas implém
 Quand le code correspondant est shippé :
 1. Mettre à jour le SKILL.md (rebump V27.X) pour aligner sur le code réel
 2. `git mv skills/_roadmap_v27/<skill>/ skills/<skill>/`
-3. Ajouter au `GROWTHCRO_MANIFEST.md` §12 changelog
-4. Mettre à jour `memory/MEMORY.md` index
+3. Ajouter au `.claude/docs/reference/GROWTHCRO_MANIFEST.md` §12 changelog
+4. Mettre à jour `.claude/memory/MEMORY.md` index
 
 ---
 

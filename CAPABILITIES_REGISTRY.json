@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-07T14:33:17",
+  "generated_at": "2026-05-08T13:02:03",
   "stats": {
     "total_files": 153,
     "active_wired": 4,
@@ -148,8 +148,8 @@
         "score_ux",
         "vision_spatial"
       ],
-      "size_bytes": 20181,
-      "mtime": "2026-05-06",
+      "size_bytes": 20288,
+      "mtime": "2026-05-08",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -400,8 +400,8 @@
         "__future__",
         "dataclasses"
       ],
-      "size_bytes": 19333,
-      "mtime": "2026-05-04",
+      "size_bytes": 19356,
+      "mtime": "2026-05-08",
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
         "moteur_gsg/core/brief_v2_validator.py",
@@ -825,7 +825,7 @@
         "planner",
         "visual_system"
       ],
-      "size_bytes": 46569,
+      "size_bytes": 50721,
       "mtime": "2026-05-07",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
@@ -1640,7 +1640,7 @@
         "prompt_assembly",
         "visual_intelligence"
       ],
-      "size_bytes": 23610,
+      "size_bytes": 24443,
       "mtime": "2026-05-07",
       "consumed_by": [
         "moteur_gsg/modes/mode_3_extend.py",
@@ -2226,8 +2226,8 @@
         "spatial_scoring",
         "subprocess"
       ],
-      "size_bytes": 39563,
-      "mtime": "2026-04-14",
+      "size_bytes": 39591,
+      "mtime": "2026-05-08",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -3005,7 +3005,7 @@
         "__future__",
         "planner"
       ],
-      "size_bytes": 8105,
+      "size_bytes": 10375,
       "mtime": "2026-05-07",
       "consumed_by": [
         "moteur_gsg/core/controlled_renderer.py"
@@ -3471,5 +3471,5 @@
     "client_intent.json": "ACTIVE — audience/objective context via GenerationContextPack",
     "aura_tokens.json": "ACTIVE_PARTIAL — design_tokens consumes AURA with VisualIntelligencePack input; full aura_compute migration pending"
   },
-  "_doctrine": "Cette registry est la SOURCE DE VÉRITÉ des capacités existantes. Avant tout sprint code GSG/audit : `python3 scripts/audit_capabilities.py` puis lire CAPABILITIES_SUMMARY.md. Si une capacité critique 'ORPHANED_FROM_GSG' pertinente pour le sprint à venir, OBLIGATION de soit la brancher soit expliquer pourquoi on la skip."
+  "_doctrine": "Cette registry est la SOURCE DE VÉRITÉ des capacités existantes. Avant tout sprint code GSG/audit : `python3 scripts/audit_capabilities.py` puis lire .claude/docs/state/CAPABILITIES_SUMMARY.md. Si une capacité critique 'ORPHANED_FROM_GSG' pertinente pour le sprint à venir, OBLIGATION de soit la brancher soit expliquer pourquoi on la skip."
 }

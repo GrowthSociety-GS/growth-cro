@@ -18,7 +18,7 @@ Pipeline :
   3. Cross-reference : qui import qui (graph imports)
   4. Walk data/captures/<client>/<page_type>/ → types de .json artefacts
   5. Cross-reference avec EXPECTED_GSG_CONSUMERS (ce que le GSG DEVRAIT consume)
-  6. Output CAPABILITIES_REGISTRY.json + CAPABILITIES_SUMMARY.md (Mathis review)
+  6. Output CAPABILITIES_REGISTRY.json + .claude/docs/state/CAPABILITIES_SUMMARY.md (Mathis review)
 
 Usage :
     python3 scripts/audit_capabilities.py
@@ -36,7 +36,7 @@ from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REGISTRY_PATH = ROOT / "CAPABILITIES_REGISTRY.json"
-SUMMARY_PATH = ROOT / "CAPABILITIES_SUMMARY.md"
+SUMMARY_PATH = ROOT / ".claude" / "docs" / "state" / "CAPABILITIES_SUMMARY.md"
 
 # Folders à scanner pour .py
 SCAN_FOLDERS = [
@@ -341,7 +341,7 @@ def build_registry() -> dict:
         "_doctrine": (
             "Cette registry est la SOURCE DE VÉRITÉ des capacités existantes. "
             "Avant tout sprint code GSG/audit : `python3 scripts/audit_capabilities.py` "
-            "puis lire CAPABILITIES_SUMMARY.md. Si une capacité critique 'ORPHANED_FROM_GSG' "
+            "puis lire .claude/docs/state/CAPABILITIES_SUMMARY.md. Si une capacité critique 'ORPHANED_FROM_GSG' "
             "pertinente pour le sprint à venir, OBLIGATION de soit la brancher soit "
             "expliquer pourquoi on la skip."
         ),
@@ -435,8 +435,8 @@ def main():
     print(f"  ⚠️ Partial wired     : {registry['stats']['partial_wired']}")
     print(f"  Potentially orph    : {registry['stats']['potentially_orphaned']}")
     print(f"\n  ✓ Saved : CAPABILITIES_REGISTRY.json")
-    print(f"  ✓ Saved : CAPABILITIES_SUMMARY.md")
-    print(f"\n  → Read CAPABILITIES_SUMMARY.md to see what's orphaned + what should be wired.")
+    print(f"  ✓ Saved : .claude/docs/state/CAPABILITIES_SUMMARY.md")
+    print(f"\n  → Read .claude/docs/state/CAPABILITIES_SUMMARY.md to see what's orphaned + what should be wired.")
 
 
 if __name__ == "__main__":

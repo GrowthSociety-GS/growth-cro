@@ -6,7 +6,7 @@ Produit 4 artefacts synchronisés à chaque appel :
   1. STATE.md          — arborescence, schéma de l'outil, interconnexions
   2. ARCHITECTURE.md   — flux de données, dépendances entre modules
   3. BACKLOG.md        — historique todo + à faire (source de vérité unique)
-  4. memory/snapshots/YYYY-MM-DD_HH-MM.json — snapshot machine-readable
+  4. .claude/memory/snapshots/YYYY-MM-DD_HH-MM.json — snapshot machine-readable
 
 Usage :
     python skills/site-capture/scripts/project_snapshot.py
@@ -37,7 +37,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[3]
 PLAYBOOK = ROOT / "playbook"
 SCRIPTS = ROOT / "skills" / "site-capture" / "scripts"
 DATA_CAP = ROOT / "data" / "captures"
-MEM_DIR = ROOT / "memory"
+MEM_DIR = ROOT / ".claude" / "memory"
 SNAPSHOTS_DIR = MEM_DIR / "snapshots"
 SNAPSHOTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -590,7 +590,7 @@ def render_state_md(snap: dict) -> str:
     lines.append("")
 
     lines.append("---")
-    lines.append(f"*Snapshot sauvegardé : `memory/snapshots/{NOW.replace(':','-')[:16]}.json`*")
+    lines.append(f"*Snapshot sauvegardé : `.claude/memory/snapshots/{NOW.replace(':','-')[:16]}.json`*")
     lines.append("")
     return "\n".join(lines)
 

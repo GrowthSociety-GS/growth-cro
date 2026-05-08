@@ -83,11 +83,9 @@ skills/site-capture/data/
 
 
 # ─── Codex / OpenAI agent runner artefacts ────────────
-# AGENTS.md = équivalent CLAUDE.md (entrypoint projet pour Codex).
-# .codex/   = configs sub-agents + shell env policy Codex.
-# .agents/  = skills mirror Codex (équivalents slash commands Claude).
-# Ces artefacts sont locaux à chaque setup d'agent runner, pas du code source.
-AGENTS.md
+# AGENTS.md = symlink → .claude/CLAUDE.md (V26.AG, autoload Codex CLI), tracké.
+# .codex/   = configs sub-agents + shell env policy Codex (local).
+# .agents/  = skills mirror Codex (local).
 .codex/
 .agents/
 
