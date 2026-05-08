@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GrowthCRO V27 Command Center</title>
+<style>
+:root{
+  --bg:#0c1018;--panel:#121823;--panel-2:#171f2d;--line:#273246;--line-soft:#1e2839;
+  --text:#f4f1e8;--muted:#98a2b3;--soft:#c8cfda;--gold:#d7b46a;--cyan:#65d6cf;
+  --green:#80d48b;--red:#f07178;--amber:#f3c76b;--blue:#7ba7ff;--ink:#080b10;
+  --radius:8px;--shadow:0 18px 54px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45;letter-spacing:0}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}
+.side{border-right:1px solid var(--line);background:#0a0e15;padding:18px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);font-weight:800;margin-bottom:18px}
+.nav{display:flex;flex-direction:column;gap:6px}
+.nav button{width:100%;border:1px solid transparent;background:transparent;color:var(--muted);border-radius:6px;padding:11px 12px;text-align:left;display:flex;justify-content:space-between;gap:10px}
+.nav button.active{background:var(--panel);border-color:var(--line);color:var(--text)}
+.nav small{color:var(--muted);font-size:11px}
+.side-block{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800;margin-bottom:8px}
+.main{min-width:0;padding:22px}
+.topbar{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+.title h1{font-size:28px;line-height:1.05;margin:0 0 6px;font-weight:850}
+.title p{margin:0;color:var(--muted);font-size:14px;max-width:820px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:6px;padding:9px 12px;font-weight:750;font-size:13px}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:#17130a}
+.btn.ghost{background:transparent}
+.grid-kpi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:13px;min-height:96px}
+.kpi b{display:block;font-size:25px;line-height:1.05;margin-top:5px}
+.kpi span{font-size:12px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr);gap:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.panel-head{padding:13px 14px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel-head h2{font-size:15px;margin:0}
+.panel-body{padding:14px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.filters input,.filters select,.select{width:100%;background:#0b1018;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:9px 10px;min-width:0}
+.client-list{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 310px);overflow:auto;padding-right:4px}
+.client-row{border:1px solid var(--line-soft);background:#0f1520;border-radius:6px;padding:10px;text-align:left;color:var(--text);transition:border-color .15s,background .15s}
+.client-row:hover,.client-row.active{border-color:var(--gold);background:#151d2a}
+.client-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.client-name{font-weight:800;min-width:0;overflow-wrap:anywhere}
+.score{font-weight:900;font-variant-numeric:tabular-nums}
+.meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:3px 7px;font-size:11px;color:var(--soft);background:#0b1018;max-width:100%;white-space:normal}
+.pill.red{color:var(--red);border-color:rgba(240,113,120,.45);background:rgba(240,113,120,.08)}
+.pill.amber{color:var(--amber);border-color:rgba(243,199,107,.45);background:rgba(243,199,107,.08)}
+.pill.green{color:var(--green);border-color:rgba(128,212,139,.45);background:rgba(128,212,139,.08)}
+.pill.gold{color:var(--gold);border-color:rgba(215,180,106,.45);background:rgba(215,180,106,.08)}
+.pill.cyan{color:var(--cyan);border-color:rgba(101,214,207,.45);background:rgba(101,214,207,.08)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button{border:1px solid var(--line);background:#0b1018;color:var(--muted);border-radius:6px;padding:8px 10px;font-size:13px}
+.tabs button.active{background:var(--gold);border-color:var(--gold);color:#151009}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px}
+.shot{background:#090d14;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-height:360px}
+.shot img{display:block;width:100%;height:520px;object-fit:cover;object-position:top}
+.shot-empty{padding:50px 18px;color:var(--muted);text-align:center}
+.page-strip{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.page-strip button{border:1px solid var(--line);background:#0b1018;color:var(--text);border-radius:6px;padding:8px 10px;font-size:12px}
+.page-strip button.active{border-color:var(--cyan);color:var(--cyan)}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:90px minmax(0,1fr) 44px;align-items:center;gap:8px;font-size:12px}
+.track{height:8px;background:#0b1018;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.fill{height:100%;background:var(--green)}
+.reco-list{display:flex;flex-direction:column;gap:8px}
+.reco{border:1px solid var(--line-soft);border-left:3px solid var(--line);background:#0f1520;border-radius:6px;padding:10px}
+.reco.p0{border-left-color:var(--red)}.reco.p1{border-left-color:var(--amber)}.reco.p2{border-left-color:var(--green)}
+.reco-head{display:flex;gap:7px;align-items:flex-start;justify-content:space-between}
+.reco h3{font-size:14px;line-height:1.25;margin:7px 0 6px}
+.reco p{margin:0;color:var(--muted);font-size:13px}
+.gsg-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(360px,1.05fr);gap:14px}
+.brief{background:#090d14;border:1px solid var(--line);border-radius:var(--radius);padding:12px;white-space:pre-wrap;overflow:auto;max-height:680px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:#dbe3ef}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:12px 0}
+.flow div{border:1px solid var(--line);border-radius:6px;padding:10px;background:#0f1520;min-height:86px}
+.flow b{display:block;font-size:12px;margin-bottom:5px;color:var(--gold);overflow-wrap:anywhere}
+.flow span{font-size:12px;color:var(--muted)}
+.preview{background:#f7f4ee;color:#111318;border-radius:8px;overflow:hidden;border:1px solid #dfe3ea}
+.preview-inner{padding:28px;display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;min-height:420px}
+.preview h2{font-size:42px;line-height:.98;margin:0 0 14px;letter-spacing:0;font-weight:900}
+.preview p{color:#5c6472;font-size:16px;margin:0}
+.preview .cta{display:inline-block;margin-top:20px;background:#111318;color:white;padding:12px 16px;border-radius:6px;font-weight:800}
+.preview img{width:100%;height:330px;object-fit:cover;object-position:top;border:1px solid #dfe3ea;border-radius:6px;background:white}
+.empty{padding:42px 18px;text-align:center;color:var(--muted)}
+.hide{display:none!important}
+@media(max-width:1180px){.app{grid-template-columns:1fr}.side{position:relative;height:auto}.layout,.detail-grid,.gsg-grid{grid-template-columns:1fr}.grid-kpi{grid-template-columns:repeat(2,minmax(0,1fr))}.client-list{max-height:420px}.preview-inner{grid-template-columns:1fr}.shot img{height:420px}}
+@media(max-width:640px){.main{padding:14px}.topbar{display:block}.toolbar{justify-content:flex-start;margin-top:12px}.grid-kpi{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.preview h2{font-size:32px}}
+</style>
+</head>
+<body>
+<div id="app" class="app">
+  <aside class="side">
+    <div class="brand">GrowthCRO V27</div>
+    <div class="nav">
+      <button class="active" data-view="command">Command Center <small id="nav-fleet">--</small></button>
+      <button data-view="audit">Audit & Recos <small id="nav-p0">--</small></button>
+      <button data-view="gsg">GSG Handoff <small>V27</small></button>
+      <button data-view="demo">End-to-end Demo <small>Weglot</small></button>
+    </div>
+    <div class="side-block">
+      <div class="label">Panel Role</div>
+      <select id="roleFilter" class="select"></select>
+    </div>
+    <div class="side-block">
+      <div class="label">Selected</div>
+      <div id="sideSelected" style="font-size:13px;color:var(--soft)">--</div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="title">
+        <h1 id="viewTitle">Command Center</h1>
+        <p id="viewSub">Audit, recos et GSG sur le même rail produit. Reality reste dormant tant qu'il n'y a pas de données réelles.</p>
+      </div>
+      <div class="toolbar">
+        <button class="btn ghost" id="openLegacy">Open V26</button>
+        <button class="btn primary" id="copyBrief">Copy GSG brief</button>
+      </div>
+    </div>
+
+    <section id="view-command">
+      <div class="grid-kpi" id="kpis"></div>
+      <div class="layout">
+        <section class="panel">
+          <div class="panel-head"><h2>Fleet</h2><span class="pill" id="clientCount">--</span></div>
+          <div class="panel-body">
+            <div class="filters">
+              <input id="search" placeholder="Client, reco, page"/>
+              <select id="sort"><option value="p0">P0 first</option><option value="score">Lowest score</option><option value="name">Name</option></select>
+            </div>
+            <div class="client-list" id="clients"></div>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2 id="clientTitle">Client</h2><span id="clientRole" class="pill">--</span></div>
+          <div class="panel-body" id="clientDetail"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-audit" class="hide">
+      <div class="panel">
+        <div class="panel-head"><h2>Audit & Reco Command Center</h2><span class="pill red" id="auditFocus">--</span></div>
+        <div class="panel-body" id="auditView"></div>
+      </div>
+    </section>
+
+    <section id="view-gsg" class="hide">
+      <div class="gsg-grid">
+        <section class="panel">
+          <div class="panel-head"><h2>Deterministic GSG Brief</h2><span class="pill cyan" id="briefMeta">--</span></div>
+          <div class="panel-body"><div class="brief" id="briefJson"></div></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2>Controlled Preview</h2><span class="pill gold">No full HTML LLM</span></div>
+          <div class="panel-body" id="gsgPreview"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-demo" class="hide">
+      <div class="panel">
+        <div class="panel-head"><h2>End-to-end Demo</h2><span class="pill green">Audit -> Reco -> Brief -> Preview</span></div>
+        <div class="panel-body" id="demoView"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="growth_audit_data.js"></script>
+<script>
+(function(){
+  const DATA = window.GROWTH_AUDIT_DATA;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s).replace(/[<>&"']/g, c => ({ "<":"&lt;", ">":"&gt;", "&":"&amp;", "\"":"&quot;", "'":"&#39;" })[c]);
+  const fmt = (n) => Number(n || 0).toLocaleString("fr-FR");
+  const labels = {benchmark:"Benchmark",business_client_candidate:"Client a valider",golden_reference:"Golden ref",mathis_pick:"Choix Mathis",diversity_supplement:"Supplement",business_client:"Client GS"};
+  const pillars = {hero:"Hero",persuasion:"Persuasion",ux:"UX",coherence:"Coherence",psycho:"Psycho",tech:"Tech"};
+  let selected = DATA.clients.find(c => c.id === "weglot") || DATA.clients[0];
+  let selectedPage = selected.pages?.[0]?.page_type || "";
+  let roleFilter = "";
+  let query = "";
+  let sort = "p0";
+  let view = "command";
+
+  function role(c){ return c.panel?.role || "runtime_panel"; }
+  function scoreColor(v){ const n = Math.max(0, Math.min(100, Number(v)||0)); return `hsl(${Math.round(n*1.2)}, 62%, 58%)`; }
+  function rank(r){ return {P0:0,P1:1,P2:2,P3:3}[r.priority] ?? 9; }
+  function currentPage(){ return selected.pages.find(p => p.page_type === selectedPage) || selected.pages[0]; }
+  function topRecos(page, n=8){ return [...(page?.recos || [])].sort((a,b)=>rank(a)-rank(b)||(b.ice_score||0)-(a.ice_score||0)).slice(0,n); }
+  function allTopRecos(c, n=10){ return [...(c.pages||[]).flatMap(p => (p.recos||[]).map(r => ({...r,_page:p.page_type})))].sort((a,b)=>rank(a)-rank(b)||(b.ice_score||0)-(a.ice_score||0)).slice(0,n); }
+  function compact(s,n=220){ const t=String(s||"").replace(/\s+/g," ").trim(); return t.length>n ? t.slice(0,n-1)+"…" : t; }
+  function riskFlags(r){
+    const t = `${r.problem_headline||""} ${r.before||""} ${r.after||""} ${r.why||""}`.toLowerCase();
+    const flags = [];
+    if(/verbatim|testimonial|témoignage|avis client|quote|customer quote/.test(t)) flags.push("requires_real_voc");
+    if(/g2|trustpilot|review|avis|111,368|source vérifiable|source verifiable/.test(t)) flags.push("requires_external_proof_source");
+    if(/urgence|rareté|rarete|stock|countdown|places? restantes?/.test(t)) flags.push("urgency_must_be_truthful");
+    return flags;
+  }
+  function safeAction(r,n=300){
+    const flags = riskFlags(r);
+    if(flags.includes("requires_real_voc")) return "Collecter de vrais verbatims clients avant rendu. Le GSG réserve l'emplacement, sans inventer de citations.";
+    if(flags.includes("requires_external_proof_source") && !(r.evidence_ids||[]).length) return "Ajouter une preuve vérifiable ou masquer le claim. Le GSG ne doit pas inventer de rating, source ou chiffre.";
+    return compact(r.after,n);
+  }
+  function localizeCtaVerb(verb){
+    const v = String(verb || "").toLowerCase();
+    if(v.includes("get started") || v === "start") return "Commencer";
+    if(v.includes("join")) return "Rejoindre";
+    if(v.includes("choose")) return "Choisir";
+    if(v.includes("translate")) return "Traduire";
+    return verb || "Commencer";
+  }
+
+  function brandTokens(c){
+    const dna = c.v26?.brand_dna || {};
+    const colors = dna.visual_tokens?.colors || {};
+    const palette = colors.palette_full || [];
+    return {
+      primary_color: colors.primary?.hex || palette[0]?.hex || "#d7b46a",
+      secondary_colors: palette.slice(1,5).map(x=>x.hex).filter(Boolean),
+      tone: dna.voice_tokens?.tone || [],
+      cta_verbs: dna.voice_tokens?.preferred_cta_verbs || [],
+      signature: dna.voice_tokens?.voice_signature_phrase || "",
+      forbidden: dna.voice_tokens?.forbidden_words || []
+    };
+  }
+
+  function buildBrief(){
+    const page = currentPage();
+    const recos = topRecos(page, 10);
+    const tokens = brandTokens(selected);
+    const primary = recos[0] || {};
+    return {
+      version:"v27.0.0-browser-brief",
+      client:selected.id,
+      client_name:selected.name,
+      page_type:page?.page_type,
+      page_url:page?.url,
+      score_pct:page?.score_pct,
+      p0:page?.priority_distribution?.P0 || 0,
+      boundary:{llm:"copy variants only",deterministic:"layout, evidence, CTA, brand tokens",reality:"not required"},
+      brand_tokens:tokens,
+      dominant_problem:compact(primary.problem_headline || primary.before,260),
+      top_recos:recos.map(r=>({priority:r.priority,ice:Math.round(r.ice_score||0),criterion:r.criterion_id||r.cluster_id||"",problem:compact(r.problem_headline||r.before,210),action:safeAction(r,300),risk_flags:riskFlags(r)})),
+      layout:["hero","proof_stack","mechanism","objection_resolver","final_cta"],
+      cta_label:localizeCtaVerb(tokens.cta_verbs?.[0])+" maintenant"
+    };
+  }
+
+  function renderKpis(){
+    const f = DATA.fleet;
+    const ms = DATA.module_status || {};
+    $("kpis").innerHTML = [
+      ["Clients", f.n_clients, `${f.n_pages} pages auditees`, ""],
+      ["P0 blockers", f.p0, "priorite critique", "red"],
+      ["Recos", fmt(f.n_recos), "LP-level webapp", ""],
+      ["Brand DNA", `${ms.brand_dna?.count||0}/${ms.brand_dna?.total||f.n_clients}`, "tokens disponibles", "gold"],
+      ["GSG", "Frozen", "brief V27 deterministe", "cyan"]
+    ].map(([l,v,s,cls])=>`<div class="kpi"><span>${esc(l)}</span><b class="${cls||""}">${esc(v)}</b><span>${esc(s)}</span></div>`).join("");
+    $("nav-fleet").textContent = `${f.n_clients}`;
+    $("nav-p0").textContent = `${f.p0} P0`;
+  }
+
+  function filteredClients(){
+    let list = [...DATA.clients];
+    if(roleFilter) list = list.filter(c => role(c) === roleFilter);
+    if(query){
+      const q = query.toLowerCase();
+      list = list.filter(c => [c.name,c.id,c.business_type,role(c),...(c.pages||[]).map(p=>p.page_type),...allTopRecos(c,4).map(r=>r.problem_headline||r.before||"")].join(" ").toLowerCase().includes(q));
+    }
+    if(sort === "score") list.sort((a,b)=>(a.avg_score_pct||0)-(b.avg_score_pct||0));
+    else if(sort === "name") list.sort((a,b)=>a.name.localeCompare(b.name));
+    else list.sort((a,b)=>(b.priority_distribution?.P0||0)-(a.priority_distribution?.P0||0));
+    return list;
+  }
+
+  function renderClients(){
+    const list = filteredClients();
+    $("clientCount").textContent = `${list.length} clients`;
+    $("clients").innerHTML = list.map(c => {
+      const p0 = c.priority_distribution?.P0 || 0;
+      return `<button class="client-row ${c.id===selected.id?"active":""}" data-client="${esc(c.id)}">
+        <div class="client-top"><div class="client-name">${esc(c.name)}</div><div class="score" style="color:${scoreColor(c.avg_score_pct)}">${esc(c.avg_score_pct)}</div></div>
+        <div class="meta"><span class="pill">${esc(c.business_type)}</span><span class="pill gold">${esc(labels[role(c)]||role(c))}</span>${p0?`<span class="pill red">${p0} P0</span>`:""}<span class="pill">${c.n_pages} pages</span></div>
+      </button>`;
+    }).join("");
+    document.querySelectorAll("[data-client]").forEach(b => b.addEventListener("click", () => { selected = DATA.clients.find(c=>c.id===b.dataset.client); selectedPage = selected.pages?.[0]?.page_type || ""; renderAll(); }));
+  }
+
+  function renderDetail(){
+    const page = currentPage();
+    $("clientTitle").textContent = selected.name;
+    $("clientRole").textContent = labels[role(selected)] || role(selected);
+    $("sideSelected").innerHTML = `<b>${esc(selected.name)}</b><br>${esc(selected.business_type)} · ${selected.n_recos_total} recos`;
+    const recos = topRecos(page,5);
+    $("clientDetail").innerHTML = `
+      <div class="page-strip">${selected.pages.map(p=>`<button class="${p.page_type===page.page_type?"active":""}" data-page="${esc(p.page_type)}">${esc(p.page_type)} · ${Math.round(p.score_pct||0)}%</button>`).join("")}</div>
+      <div class="detail-grid">
+        <div>
+          <div class="shot">${page?.screenshots?.desktop_full ? `<img src="${esc(page.screenshots.desktop_full)}" alt="${esc(selected.name)} ${esc(page.page_type)}"/>` : `<div class="shot-empty">No screenshot</div>`}</div>
+        </div>
+        <div>
+          <div class="bars">${Object.entries(page?.pillars||{}).map(([k,p])=>`<div class="bar"><span>${esc(pillars[k]||k)}</span><div class="track"><div class="fill" style="width:${Math.max(0,Math.min(100,p.pct||0))}%;background:${scoreColor(p.pct)}"></div></div><b style="color:${scoreColor(p.pct)}">${Math.round(p.pct||0)}</b></div>`).join("")}</div>
+          <div style="height:12px"></div>
+          <div class="reco-list">${recos.map(renderReco).join("")}</div>
+        </div>
+      </div>`;
+    document.querySelectorAll("[data-page]").forEach(b => b.addEventListener("click", () => { selectedPage = b.dataset.page; renderAll(); }));
+  }
+
+  function renderReco(r){
+    const p = (r.priority || "P3").toLowerCase();
+    return `<article class="reco ${p}"><div class="reco-head"><span class="pill ${p==="p0"?"red":p==="p1"?"amber":"green"}">${esc(r.priority||"P3")} · ICE ${Math.round(r.ice_score||0)}</span><span class="pill">${esc(r.criterion_id||r.cluster_id||"")}</span></div><h3>${esc(compact(r.problem_headline || r.before,150))}</h3><p>${esc(compact(r.after || r.why,260))}</p></article>`;
+  }
+
+  function renderAudit(){
+    const page = currentPage();
+    const recos = topRecos(page, 12);
+    $("auditFocus").textContent = `${selected.name} / ${page?.page_type}`;
+    $("auditView").innerHTML = `
+      <div class="grid-kpi" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+        <div class="kpi"><span>Page score</span><b style="color:${scoreColor(page?.score_pct)}">${Math.round(page?.score_pct||0)}</b><span>${esc(page?.url||"")}</span></div>
+        <div class="kpi"><span>P0</span><b style="color:var(--red)">${page?.priority_distribution?.P0||0}</b><span>blockers</span></div>
+        <div class="kpi"><span>P1</span><b style="color:var(--amber)">${page?.priority_distribution?.P1||0}</b><span>high priority</span></div>
+        <div class="kpi"><span>Evidence</span><b>${selected.v26?._summary?.evidence_count || selected.v26?.evidence_count || 0}</b><span>client trail</span></div>
+      </div>
+      <div class="reco-list">${recos.map(renderReco).join("")}</div>`;
+  }
+
+  function renderGsg(){
+    const brief = buildBrief();
+    $("briefMeta").textContent = `${brief.client} / ${brief.page_type}`;
+    $("briefJson").textContent = JSON.stringify(brief, null, 2);
+    const page = currentPage();
+    const token = brief.brand_tokens;
+    $("gsgPreview").innerHTML = `
+      <div class="flow">${brief.layout.map(x=>`<div><b>${esc(x)}</b><span>${x==="hero"?"clarity + one CTA":x==="proof_stack"?"trust above doubt":x==="mechanism"?"why it works":x==="objection_resolver"?"friction removal":"single action"}</span></div>`).join("")}</div>
+      <div class="preview"><div class="preview-inner">
+        <div><div style="font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:${esc(token.primary_color)};font-weight:900">GSG V27 Preview</div><h2>${esc(`${selected.name}: clarifier la promesse, prouver plus vite, garder un seul CTA.`)}</h2><p>${esc(brief.dominant_problem)}</p><a class="cta">${esc(brief.cta_label)}</a></div>
+        <div>${page?.screenshots?.desktop_full ? `<img src="${esc(page.screenshots.desktop_full)}" alt="Preview source"/>` : ""}</div>
+      </div></div>`;
+  }
+
+  function renderDemo(){
+    const saved = selected;
+    if(DATA.clients.find(c=>c.id==="weglot")) selected = DATA.clients.find(c=>c.id==="weglot");
+    selectedPage = selected.pages.find(p=>p.page_type==="home")?.page_type || selected.pages[0]?.page_type;
+    const page = currentPage();
+    const brief = buildBrief();
+    selected = saved;
+    $("demoView").innerHTML = `
+      <div class="flow">
+        <div><b>1 Audit</b><span>Weglot home · score ${Math.round(page.score_pct||0)}/100</span></div>
+        <div><b>2 Recos</b><span>${page.priority_distribution?.P0||0} P0 · ${page.recos?.length||0} total</span></div>
+        <div><b>3 Brief</b><span>${brief.layout.length} sections locked</span></div>
+        <div><b>4 Renderer</b><span>controlled HTML sections</span></div>
+        <div><b>5 Judges</b><span>post-run only</span></div>
+      </div>
+      <div class="gsg-grid"><div class="reco-list">${topRecos(page,4).map(renderReco).join("")}</div><div class="brief">${esc(JSON.stringify(brief, null, 2))}</div></div>`;
+  }
+
+  function renderView(){
+    document.querySelectorAll("main > section").forEach(s => s.classList.add("hide"));
+    $(`view-${view}`).classList.remove("hide");
+    document.querySelectorAll(".nav button").forEach(b => b.classList.toggle("active", b.dataset.view===view));
+    const titles = {command:["Command Center","Fleet, priorites et client focus."],audit:["Audit & Recos","Backlog CRO actionnable depuis les vraies recos."],gsg:["GSG Handoff","Brief deterministe Audit -> GSG, sans mega-prompt."],demo:["End-to-end Demo","Weglot home de l'audit au preview GSG."]};
+    $("viewTitle").textContent = titles[view][0]; $("viewSub").textContent = titles[view][1];
+  }
+
+  function renderAll(){
+    renderKpis(); renderClients(); renderDetail(); renderAudit(); renderGsg(); renderDemo(); renderView();
+  }
+
+  function init(){
+    const roles = [...new Set(DATA.clients.map(role))].sort();
+    $("roleFilter").innerHTML = `<option value="">All roles</option>${roles.map(r=>`<option value="${esc(r)}">${esc(labels[r]||r)}</option>`).join("")}`;
+    $("roleFilter").addEventListener("change", e => { roleFilter = e.target.value; renderClients(); });
+    $("search").addEventListener("input", e => { query = e.target.value; renderClients(); });
+    $("sort").addEventListener("change", e => { sort = e.target.value; renderClients(); });
+    document.querySelectorAll(".nav button").forEach(b => b.addEventListener("click", () => { view = b.dataset.view; renderView(); }));
+    $("openLegacy").addEventListener("click", () => { window.location.href = "GrowthCRO-V26-WebApp.html"; });
+    $("copyBrief").addEventListener("click", async () => { const txt = JSON.stringify(buildBrief(), null, 2); try { await navigator.clipboard.writeText(txt); $("copyBrief").textContent = "Copied"; setTimeout(()=>$("copyBrief").textContent="Copy GSG brief",1200); } catch(e) { alert(txt); } });
+    renderAll();
+  }
+  if(!DATA){ document.body.innerHTML = "<div class='empty'>growth_audit_data.js missing</div>"; return; }
+  init();
+})();
+</script>
+</body>
+</html>

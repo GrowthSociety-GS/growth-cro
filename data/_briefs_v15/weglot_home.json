@@ -1,0 +1,338 @@
+{
+  "version": "15.0.1-sprint-b-v26-aa-skeleton",
+  "generated_at": "2026-05-04T01:50:07",
+  "client": "weglot",
+  "page_type": "home",
+  "mode": "2_replace",
+  "section_1_identity": {
+    "client_id": "weglot",
+    "name": "weglot",
+    "url": "https://www.weglot.com",
+    "voice_signature_phrase": "Simple, fast, and accessible—no friction, just results",
+    "tone": [
+      "confident",
+      "warm",
+      "direct"
+    ],
+    "_TODO_sprint_c": "fully populate identity from brand_dna + clients_database"
+  },
+  "section_2_page_audit": {
+    "audit_url": "https://www.weglot.com",
+    "audit_date": "2026-04-29T18:27:25.681347Z",
+    "audit_score_total_pct": 55.3,
+    "_TODO_sprint_c": "extract by_pillar + top_critical_recos with evidence_ids"
+  },
+  "section_3_audience": {
+    "primary_intent": "signup_commit",
+    "schwartz_awareness": null,
+    "objections": [],
+    "_TODO_sprint_c": "structure persona detailed + triggers_buy"
+  },
+  "section_4_copy_blocks": {
+    "_TODO_sprint_c": "6 blocs canoniques (hero/body/social_proof/faq/cta_final/footer) avec overrides depuis recos audit"
+  },
+  "section_5_technical": {
+    "responsive": "dual_viewport_required",
+    "perf_targets": {
+      "LCP": "<2.5s",
+      "CLS": "<0.1",
+      "FID": "<100ms"
+    },
+    "accessibility": "WCAG_AA",
+    "seo_required": true
+  },
+  "section_6_brand_identity": {
+    "palette_priority_1_client_real": {
+      "primary": {
+        "hex": "#e9dcf0",
+        "coverage_pct": 0.3174,
+        "usage_hint": "cta|brand|headline"
+      },
+      "secondary": [
+        {
+          "hex": "#c1e0f8",
+          "coverage_pct": 0.2284
+        },
+        {
+          "hex": "#493ce0",
+          "coverage_pct": 0.1669
+        }
+      ],
+      "neutrals": [],
+      "palette_full": [
+        {
+          "hex": "#e9dcf0",
+          "rgb": [
+            233,
+            220,
+            240
+          ],
+          "coverage_pct": 0.3174
+        },
+        {
+          "hex": "#c1e0f8",
+          "rgb": [
+            193,
+            224,
+            248
+          ],
+          "coverage_pct": 0.2284
+        },
+        {
+          "hex": "#493ce0",
+          "rgb": [
+            73,
+            60,
+            224
+          ],
+          "coverage_pct": 0.1669
+        },
+        {
+          "hex": "#c5bbd3",
+          "rgb": [
+            197,
+            187,
+            211
+          ],
+          "coverage_pct": 0.0962
+        },
+        {
+          "hex": "#9492cd",
+          "rgb": [
+            148,
+            146,
+            205
+          ],
+          "coverage_pct": 0.0692
+        },
+        {
+          "hex": "#1a184d",
+          "rgb": [
+            26,
+            24,
+            77
+          ],
+          "coverage_pct": 0.0528
+        },
+        {
+          "hex": "#786479",
+          "rgb": [
+            120,
+            100,
+            121
+          ],
+          "coverage_pct": 0.0403
+        },
+        {
+          "hex": "#d0318a",
+          "rgb": [
+            208,
+            49,
+            138
+          ],
+          "coverage_pct": 0.0289
+        }
+      ],
+      "method": "python:Pillow+sklearn.KMeans",
+      "n_clusters": 8
+    },
+    "typography": {
+      "h1": {
+        "family": "Ppneuemontreal, Arial, sans-serif",
+        "size_px": 63,
+        "weight": "700",
+        "line_height": "63px",
+        "letter_spacing": "normal",
+        "text_transform": "none"
+      },
+      "h2": {
+        "family": "Ppneuemontreal, Arial, sans-serif",
+        "size_px": 20,
+        "weight": "700",
+        "line_height": "24px",
+        "letter_spacing": "normal",
+        "text_transform": "none"
+      },
+      "h3": {
+        "family": "Ppneuemontreal, Arial, sans-serif",
+        "size_px": 24,
+        "weight": "700",
+        "line_height": "28.8px",
+        "letter_spacing": "normal",
+        "text_transform": "none"
+      },
+      "body": {
+        "family": "Inter, sans-serif",
+        "size_px": 16,
+        "weight": "400",
+        "line_height": "25.6px",
+        "letter_spacing": "normal",
+        "text_transform": "none"
+      },
+      "button": {
+        "family": "Rubik, sans-serif",
+        "size_px": 14,
+        "weight": "700",
+        "line_height": "17.5px",
+        "letter_spacing": "normal",
+        "text_transform": "none"
+      },
+      "scale": {
+        "h1_to_body": 3.94,
+        "h2_to_body": 1.25
+      }
+    },
+    "diff_prescriptif": {
+      "client": "WEGLOT",
+      "diff_version": "v26.z.E1.1",
+      "preserve": [
+        {
+          "item": "Palette purple-blue signature (#493ce0 CTA + pastels)",
+          "evidence": "Couleur primaire #493ce0 à 16.69% coverage + pastels #e9dcf0/#c1e0f8 dominants dans screenshots hero"
+        },
+        {
+          "item": "Typo Ppneuemontreal bold pour headlines, ratio H1/body 3.94x",
+          "evidence": "H1 63px weight 700 'The easiest way to translate a website' — échelle forte établie"
+        },
+        {
+          "item": "Product demo visuel central (UI mockup screenshot)",
+          "evidence": "Screenshot 1 hero right: mockup navigateur avec interface Weglot visible, composition text_dominant confirmée"
+        },
+        {
+          "item": "Ton direct sans friction 'mind-blowingly simple'",
+          "evidence": "Body copy hero 'It's mind-blowingly simple!' — voice_signature_phrase 'no friction, just results' actif"
+        },
+        {
+          "item": "Social proof ratings immédiat sous CTA (4.8-4.9 stars)",
+          "evidence": "Screenshot 1: G2/WordPress/Trustpilot ratings affichés fold 1, ancre crédibilité Cialdini"
+        },
+        {
+          "item": "Illustrations géométriques orange/navy custom (non-stock)",
+          "evidence": "Screenshot 2-3: illustration stylo/crayon géométrique orange #d0318a + navy, signature_visual_motif cohérent"
+        }
+      ],
+      "amplify": [
+        {
+          "item": "Contraste navy foncé (#1a184d) en backgrounds hero",
+          "evidence": "Navy présent à 5.28% coverage seulement — sous-exploité vs potentiel 'Bold navy blue backgrounds' dans image_direction",
+          "how": "Pousser hero full-bleed navy #1a184d avec typo blanche, éliminer pastels dilués en above-fold"
+        },
+        {
+          "item": "Hiérarchie typographique H1 → H2 (actuellement ratio faible 1.25x)",
+          "evidence": "H2 20px vs H1 63px mais screenshot 2 'Articles to help you unlock new markets' en italique dilue autorité",
+          "how": "Maintenir H1 bold upright, creuser écart H2 à 28-32px minimum, interdire italiques en headlines"
+        },
+        {
+          "item": "Urgence active dans CTAs (actuellement 'Get started for free' passif)",
+          "evidence": "CTA screenshot 1 'Get started for free' + checkmarks 'Works with any website' — manque impératif",
+          "how": "Remplacer par verbes actifs 'Translate your site now' 'Go multilingual today' — preferred_cta_verbs trop safe"
+        },
+        {
+          "item": "Illustration custom orange/navy en hero (actuellement reléguée blog)",
+          "evidence": "Screenshots 2-3 montrent illustrations fortes mais absentes du hero principal screenshot 1",
+          "how": "Intégrer motif géométrique orange en hero left 40% asymétrique, équilibrer mockup produit right 60%"
+        }
+      ],
+      "fix": [
+        {
+          "item": "Hiérarchie visuelle plate hero — H1 et body quasi même poids",
+          "evidence": "Screenshot 1: 'The easiest way to translate a website' en navy mais body 'Translate your website instantly...' densité similaire, pas de respiration",
+          "fix_directive": "Creuser contraste: H1 navy bold 72px+, body gris #786479 18px max-width 520px, white-space 48px minimum entre blocs",
+          "priority": "high"
+        },
+        {
+          "item": "CTA secondaire 'Contact sales' dilue urgence primaire",
+          "evidence": "Nav top-right: 'Contact sales' + 'Login' + 'Try for free' — 3 actions concurrentes",
+          "fix_directive": "Éliminer 'Contact sales' du nav principal, garder uniquement 'Try for free' CTA purple bold, 'Login' en ghost button gris",
+          "priority": "high"
+        },
+        {
+          "item": "Palette pastel (#e9dcf0 31.74%) affaiblit contraste hero",
+          "evidence": "Couleur primaire lavande trop douce pour above-fold B2B SaaS — manque punch",
+          "fix_directive": "Inverser hiérarchie: navy #1a184d background 60%+, purple #493ce0 CTA uniquement, pastels relégués sections secondaires",
+          "priority": "high"
+        },
+        {
+          "item": "Témoignages ratings sans contexte humain (logos seuls)",
+          "evidence": "Screenshot 1: '4.8 G2 Reviews' '4.9 WordPress Plugin Directory' — chiffres anonymes, pas de visage/quote",
+          "fix_directive": "Ajouter 1 testimonial card avec photo client + quote courte + logo entreprise sous ratings, activer sympathie Cialdini",
+          "priority": "medium"
+        },
+        {
+          "item": "Headline italique 'new markets' affaiblit autorité",
+          "evidence": "Screenshot 2: 'Articles to help you unlock new markets' en italique — ton éditorial dilué",
+          "fix_directive": "Interdire italiques en H1/H2, garder bold upright Ppneuemontreal exclusivement, italiques réservés body citations",
+          "priority": "medium"
+        },
+        {
+          "item": "Densité texte uniforme hero — pas de bullet points visuels",
+          "evidence": "Screenshot 1 body: paragraphe continu 'Translate your website instantly with AI, refine with human edits...' — wall of text",
+          "fix_directive": "Fragmenter en 3 bullet points iconographiés: '⚡ AI translation in seconds' '✏️ Human refinement' '🌍 Go live multilingual'",
+          "priority": "medium"
+        },
+        {
+          "item": "Email capture form basique sans value prop immédiate",
+          "evidence": "Screenshot 3: 'Email Address' + 'Submit' button — friction sans bénéfice explicite",
+          "fix_directive": "Ajouter micro-copy au-dessus input: 'Get weekly translation tips' ou '5-min setup guide' — clarifier ROI immédiat",
+          "priority": "low"
+        }
+      ],
+      "forbid": [
+        {
+          "item": "Gradients mesh ou dégradés complexes backgrounds",
+          "reason": "do_not asset_rules 'Gradient mesh' — off-brand flat color blocks navy/purple établis"
+        },
+        {
+          "item": "Photography lifestyle ou human subjects hero",
+          "reason": "image_direction do_not_use 'lifestyle photography, people/human subjects' — product-first UI mockups signature"
+        },
+        {
+          "item": "Mots hedging 'might' 'could' 'possibly' 'perhaps' dans copy",
+          "reason": "Tone 'confident, direct' + forbidden_words 'complex, difficult' — aucune ambiguïté permise"
+        },
+        {
+          "item": "Typo serif ou script fonts en headlines",
+          "reason": "Typography h1/h2/h3 exclusivement Ppneuemontreal sans-serif bold — aucune exception"
+        },
+        {
+          "item": "CTAs passifs 'Learn more' 'Discover' 'Explore'",
+          "reason": "preferred_cta_verbs 'Get started, Start, Join' — impératifs actifs requis, pas de verbes exploratoires"
+        },
+        {
+          "item": "Palette muted/desaturated ou tons terreux",
+          "reason": "image_direction do_not_use 'muted or desaturated colors' + color_treatment 'saturated' — vibrance purple/blue non-négociable"
+        },
+        {
+          "item": "Iconographie filled solide sans outline",
+          "reason": "asset_rules iconography_style 'outline|filled' mais screenshots montrent outline dominant — maintenir légèreté"
+        },
+        {
+          "item": "Layouts symétriques centrés 50/50",
+          "reason": "Screenshot 1 montre asymétrie text-left/mockup-right — symétrie = régression vers template générique"
+        }
+      ],
+      "summary": "Weglot doit DEVENIR une marque B2B SaaS à contraste maximal — navy foncé dominant (#1a184d backgrounds 60%+), purple vibrant (#493ce0) CTA exclusif, hiérarchie typo creusée (H1 72px+ vs body 18px max), et urgence active dans tous les CTAs. La palette pastel actuelle (31% lavande) AFFAIBLIT l'autorité — elle doit être reléguée aux sections secondaires. Les illustrations géométriques orange/navy custom sont une force sous-exploitée à AMPLIFIER en hero asymétrique 40/60. Éliminer toute friction: un seul CTA primaire, bullet points iconographiés, testimonial humain sous ratings. Ce n'est plus 'simple and accessible' — c'est 'instant and unstoppable'.",
+      "model_used": "claude-sonnet-4-5-20250929",
+      "tokens_in": 7330,
+      "tokens_out": 2457,
+      "screenshots_used": [
+        "data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "data/captures/weglot/blog/screenshots/spatial_fold_desktop.png",
+        "data/captures/weglot/collection/screenshots/spatial_fold_desktop.png"
+      ]
+    },
+    "_TODO_sprint_c": "extract faits_vérifiés from brand_dna for use as claims"
+  },
+  "section_7_assets": {
+    "screenshots_existants": "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society/data/captures/weglot/home/screenshots",
+    "inspirations_externes": []
+  },
+  "section_8_directives_mode_2": {
+    "page_to_replace_url": "https://www.weglot.com",
+    "current_score_pct": 55.3,
+    "target_score_pct": 85.0,
+    "pipeline_recommended": "single_pass",
+    "creative_route": "premium",
+    "_TODO_sprint_c": "extract gaps audit comme contraintes constructives explicites"
+  }
+}

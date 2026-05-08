@@ -1,0 +1,50 @@
+{
+  "runAt": "2026-04-18T10:45:36.772400Z",
+  "phase": "P2.C",
+  "doctrine": "v3.2.0-draft — overlay-aware enricher",
+  "pages_total": 291,
+  "pages_run": 91,
+  "pages_ok": 91,
+  "pages_err": 0,
+  "elapsed_seconds": 7.0,
+  "priority_distribution": {
+    "P0": 49,
+    "P1": 116,
+    "P2": 0,
+    "P3": 2602
+  },
+  "status_distribution": {
+    "active": 1411,
+    "bonus_opportunity": 0,
+    "deferred": 1356,
+    "suppressed": 0
+  },
+  "schwartz_distribution": {
+    "problem_aware": 53,
+    "product_aware": 23,
+    "unaware": 5,
+    "solution_aware": 9,
+    "most_aware": 1
+  },
+  "business_distribution": {
+    "app": 11,
+    "lead_gen": 11,
+    "fintech": 11,
+    "ecommerce": 33,
+    "saas": 25
+  },
+  "overlay_applied": {
+    "applicability_applied": 32,
+    "contextual_applied": 7
+  },
+  "v32_overlay_stats_totals": {
+    "required_promoted_p0": 49,
+    "na_suppressed": 0,
+    "bonus_flagged": 0,
+    "optional_flagged": 0,
+    "weight_boosted": 1541,
+    "rescue_demoted": 8,
+    "manipulation_flagged": 0
+  },
+  "errors": []
+}

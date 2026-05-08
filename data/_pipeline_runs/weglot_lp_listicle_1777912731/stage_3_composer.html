@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pourquoi 7 projets d'internationalisation SaaS sur 10 échouent avant la fin de l'année 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root {
+  /* Palette AURA */
+  --primary: #493ce0;
+  --primary-rgb: 74,60,224;
+  --secondary: #c1e0f8;
+  --accent: #493ce0;
+  --bg: #f2f2f3;
+  --bg-alt: #ecebed;
+  --text: #1c1c23;
+  --muted: #7b789f;
+  --success: #35a062;
+  --error: #d22c2c;
+  --proprietary: #ce9b96;
+
+  /* Typography AURA */
+  --font-display: 'Ppneuemontreal', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent: 'Rubik', monospace;
+
+  /* Type Scale φ */
+  --fs-xs: 0.382rem;
+  --fs-sm: 0.618rem;
+  --fs-base: 1.000rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.262rem;
+  --fs-xl: 1.618rem;
+  --fs-2xl: 1.623rem;
+  --fs-3xl: 2.618rem;
+  --fs-display: 2.626rem;
+  --fs-hero: clamp(2.5rem, 8vw, 4.2rem);
+  --ls-display: -0.025em;
+  --lh-display: 1.05;
+  --ls-body: 0em;
+  --lh-body: 1.65;
+  --ls-caps: 0.14em;
+
+  /* Spacing φ */
+  --sp-3xs: 3px;
+  --sp-2xs: 5px;
+  --sp-xs: 8px;
+  --sp-sm: 13px;
+  --sp-md: 21px;
+  --sp-lg: 34px;
+  --sp-xl: 55px;
+  --sp-2xl: 89px;
+  --sp-3xl: 144px;
+  --sp-4xl: 232px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration: 0.35s;
+  --stagger: 50ms;
+  --hover-scale: 1.05;
+  --hover-y: -3px;
+
+  /* Depth */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 4px;
+  --radius-full: 6px;
+  --shadow-sm: 0 1px 2px 0px rgba(43,41,60,0.09), 0 2px 3px 0px rgba(43,41,60,0.075), 0 2px 4px 0px rgba(43,41,60,0.06), 0 3px 6px -1px rgba(43,41,60,0.045);
+  --shadow-md: 0 2px 4px 0px rgba(43,41,60,0.09), 0 4px 8px -1px rgba(43,41,60,0.075), 0 6px 12px -1px rgba(43,41,60,0.06), 0 8px 16px -2px rgba(43,41,60,0.045);
+  --shadow-lg: 0 4px 8px -1px rgba(43,41,60,0.09), 0 8px 16px -2px rgba(43,41,60,0.075), 0 12px 24px -2px rgba(43,41,60,0.06), 0 16px 32px -3px rgba(43,41,60,0.045);
+  --shadow-xl: 0 7px 14px -1px rgba(43,41,60,0.09), 0 14px 28px -3px rgba(43,41,60,0.075), 0 21px 42px -4px rgba(43,41,60,0.06), 0 28px 56px -6px rgba(43,41,60,0.045);
+  --noise-opacity: 0.04;
+  --glass-blur: 15px;
+  --glass-saturation: 187%;
+  --glass-bg-opacity: 0.66;
+
+  /* V30 Design Grammar */
+  --color-primary: #e9dcf0;
+  --color-primary-hover: color-mix(in srgb, #e9dcf0 88%, black);
+  --color-secondary-1: #c1e0f8;
+  --color-secondary-2: #493ce0;
+  --color-bg: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-text: #1a1a1a;
+  --color-text-muted: color-mix(in srgb, var(--color-text) 65%, transparent);
+  --color-border: color-mix(in srgb, var(--color-text) 12%, transparent);
+
+  --font-heading: Ppneuemontreal, Arial, sans-serif;
+  --font-body: Inter, -apple-system, sans-serif;
+  --fs-h1: 63px;
+  --fs-h2: 44px;
+  --fs-h3: 31px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --lh-heading: 1.1;
+  --lh-body: 1.55;
+  --fw-body: 400;
+  --fw-heading: 700;
+
+  --container-max: 1200px;
+  --gap-xs: 8px;
+  --gap-sm: 16px;
+  --gap-md: 24px;
+  --gap-lg: 48px;
+  --gap-xl: 96px;
+  --section-py: 96px;
+
+  --radius-sharp: 0;
+  --radius-subtle: 4px;
+  --radius-soft: 4px;
+  --radius-round: 999px;
+  --radius-default: 4px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-weight: var(--fw-body);
+}
+
+/* ── Typography ── */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-display);
+  color: var(--text);
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, var(--fs-h1));
+}
+
+h2 {
+  font-size: clamp(1.75rem, 5vw, var(--fs-h2));
+}
+
+h3 {
+  font-size: clamp(1.5rem, 4vw, var(--fs-h3));
+}
+
+p {
+  margin-bottom: var(--sp-lg);
+}
+
+a {
+  color: var(--color-secondary-2);
+  text-decoration: none;
+  transition: opacity var(--duration) var(--ease);
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* ── Layout ── */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--sp-lg);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--sp-xl);
+  }
+}
+
+/* ── Byline ── */
+.byline {
+  padding-top: var(--sp-3xl);
+  padding-bottom: var(--sp-xl);
+  text-align: center;
+}
+
+.byline__author {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+}
+
+.byline__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-heading);
+}
+
+/* ── Hero ── */
+.hero {
+  padding-bottom: var(--sp-2xl);
+  border-bottom: 0.5px solid var(--color-border);
+  margin-bottom: var(--sp-2xl);
+}
+
+.hero__title {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+/* ── Intro ── */
+.intro {
+  padding-bottom: var(--sp-2xl);
+  margin-bottom: var(--sp-2xl);
+}
+
+.intro__lede {
+  font-size: var(--fs-lg);
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* ── Reasons Section ── */
+.reasons {
+  padding-bottom: var(--sp-3xl);
+}
+
+.reason {
+  position: relative;
+  padding-bottom: var(--sp-2xl);
+  margin-bottom: var(--sp-2xl);
+  border-bottom: 0.5px solid var(--color-border);
+}
+
+.reason:last-child {
+  border-bottom: none;
+}
+
+.reason__number {
+  position: absolute;
+  left: calc(-1 * var(--sp-md));
+  top: calc(-1 * var(--sp-xs));
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 6rem);
+  font-weight: var(--fw-heading);
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (min-width: 768px) {
+  .reason__number {
+    left: calc(-1 * var(--sp-2xl));
+  }
+}
+
+.reason__title {
+  margin-bottom: var(--sp-lg);
+  position: relative;
+}
+
+.reason__body {
+  font-size: var(--fs-md);
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* ── CTA Final ── */
+.cta-final {
+  padding: var(--sp-3xl) 0;
+  text-align: center;
+  background: var(--color-surface);
+  margin-top: var(--sp-3xl);
+}
+
+.cta-final__container {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 0 var(--sp-lg);
+}
+
+.cta-final__text {
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: var(--sp-xl);
+}
+
+.cta-final__button {
+  display: inline-block;
+  padding: var(--sp-md) var(--sp-xl);
+  background: var(--text);
+  color: var(--color-bg);
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-heading);
+  border-radius: var(--radius-default);
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+
+.cta-final__button:hover {
+  transform: translateY(var(--hover-y)) scale(var(--hover-scale));
+  box-shadow: var(--shadow-lg);
+  opacity: 1;
+}
+
+/* ── Pull Quote (si nécessaire) ── */
+.pullquote {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text);
+  margin: var(--sp-2xl) 0;
+  padding-left: var(--sp-lg);
+  opacity: 0.85;
+}
+
+/* ── Stat Callout ── */
+.stat {
+  display: inline-block;
+  margin: var(--sp-md) 0;
+}
+
+.stat__number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: var(--fw-heading);
+  line-height: 1;
+  color: var(--color-secondary-2);
+  display: block;
+}
+
+.stat__caption {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  margin-top: var(--sp-xs);
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  .reason__number {
+    font-size: 4rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Byline -->
+<section class="byline">
+  <div class="container">
+    <div class="byline__author">
+      <span class="byline__avatar">AP</span>
+      <span>Par Augustin Prot, cofondateur Weglot · 15 janvier 2025</span>
+    </div>
+  </div>
+</section>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1 class="hero__title">Pourquoi 7 projets d'internationalisation SaaS sur 10 échouent avant la fin de l'année 1</h1>
+  </div>
+</section>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="container">
+    <p class="intro__lede">Entre 2019 et 2024, j'ai vu 65 000 sites SaaS passer par Weglot. Certains ont multiplié leur ARR par 3 en 18 mois grâce au multi-langue. D'autres ont abandonné après 6 mois, revenus au mono-langue anglais, backlog dev explosé, SEO cassé. La différence ne tient jamais à la qualité de la traduction elle-même. Elle tient à 5 décisions stratégiques prises — ou évitées — dans les 90 premiers jours du projet. Ces décisions déterminent si votre internationalisation sera un levier de croissance mesurable ou un gouffre de ressources engineering. Voici les 5 raisons concrètes pour lesquelles l'internationalisation SaaS échoue, analysées depuis 50+ déploiements que j'ai accompagnés personnellement.</p>
+  </div>
+</section>
+
+<!-- Reasons -->
+<section class="reasons">
+  <div class="container">
+    
+    <!-- Reason 1 -->
+    <article class="reason">
+      <div class="reason__number" aria-hidden="true">1</div>
+      <h2 class="reason__title">Vous traitez l'internationalisation comme un projet dev, pas comme un levier growth</h2>
+      <div class="reason__body">
+        <p>La première erreur : confier l'internationalisation à l'équipe engineering sans implication du Head of Growth. Résultat prévisible — 3 mois de backlog pour traduire le site, zéro stratégie de priorisation marché, aucun KPI de conversion multi-langue défini. J'ai vu un SaaS B2B dépenser 40K€ de dev pour traduire 18 langues simultanément, alors que 80% de leur pipeline international venait de 3 pays (Allemagne, France, Espagne). Ils ont mis 9 mois à réaliser que leurs pages pricing traduites convertissaient à 0,4% vs 2,1% en anglais — non pas à cause de la traduction, mais parce qu'ils affichaient des prix USD sur toutes les versions. L'internationalisation réussie commence par une hypothèse growth testable : quel marché, quel segment ICP, quelle metric de succès à 90 jours. Sans ça, vous construisez une infrastructure multi-langue sans business case.</p>
+      </div>
+    </article>
+
+    <!-- Reason 2 -->
+    <article class="reason">
+      <div class="reason__number" aria-hidden="true">2</div>
+      <h2 class="reason__title">Vous sous-estimez la complexité SEO multi-langue d'un facteur 10</h2>
+      <div class="reason__body">
+        <p>Le SEO monolingue, vous maîtrisez. Mais le SEO multi-langue est un sport différent — hreflang, URL structure, canonical tags, sitemap par langue, duplicate content cross-langue. Une seule erreur de configuration et Google indexe vos 5 versions de langue comme du contenu dupliqué. J'ai audité un SaaS qui avait lancé FR/DE/ES en 2023 avec une agence offshore. Résultat après 6 mois : trafic organique divisé par 2 sur toutes les langues, y compris l'anglais. Leur erreur : hreflang mal configuré + canonical tags pointant tous vers EN, signalant à Google que les autres langues étaient du duplicate. Ils ont perdu 18 mois de SEO authority. La vraie question n'est pas 'peut-on traduire le site', mais 'qui dans l'équipe maîtrise l'implémentation technique SEO multi-langue et peut auditer les 47 points de configuration critique'. Si la réponse est 'personne', vous allez casser votre SEO existant.</p>
+      </div>
+    </article>
+
+    <!-- Reason 3 -->
+    <article class="reason">
+      <div class="reason__number" aria-hidden="true">3</div>
+      <h2 class="reason__title">Vous choisissez entre vitesse et qualité au lieu de les combiner</h2>
+      <div class="reason__body">
+        <p>Faux dilemme classique : soit traduction automatique rapide mais qualité médiocre, soit traduction humaine lente mais brand-safe. Les équipes passent 6 semaines à débattre, puis choisissent l'une des deux et échouent. La traduction auto seule produit des pages produit qui sonnent faux ('Démarrez votre essai gratuit' devient 'Commencez votre test sans frais' — techniquement correct, tonalité morte). La traduction humaine seule crée un goulot d'étranglement : 3 semaines pour traduire une landing page, pendant que votre équipe produit ship 47 updates de copy. Résultat — vos versions traduites sont obsolètes avant même d'être publiées. L'approche qui fonctionne : traduction automatique neurale pour la vélocité initiale, puis layer humain ciblé sur les 20% de contenu à fort impact (homepage, pricing, onboarding). Un client a réduit son time-to-market de 11 semaines à 8 jours en adoptant ce workflow hybride, tout en maintenant un quality score traduction de 4,2/5 (vs 4,6/5 full-humain, différence imperceptible pour l'utilisateur final).</p>
+      </div>
+    </article>
+
+    <!-- Reason 4 -->
+    <article class="reason">
+      <div class="reason__number" aria-hidden="true">4</div>
+      <h2 class="reason__title">Vous déployez toutes les langues en même temps au lieu de tester séquentiellement</h2>
+      <div class="reason__body">
+        <p>L'erreur du 'big bang launch' : traduire 8 langues, déployer simultanément, espérer que ça marche. Spoiler — ça ne marche jamais. Vous découvrez après 4 mois que votre messaging produit ne résonne pas en allemand (trop casual), que vos CTAs convertissent mal en espagnol (trop directs), que votre pricing page japonaise affiche des erreurs de formatage devise. Pendant ce temps, vous avez investi 60K€ de traduction sur 8 marchés sans validation. L'approche séquentielle intelligente : lancer 1 langue pilote (idéalement un marché où vous avez déjà 5-10% de trafic organique), mesurer pendant 60 jours, itérer sur les learnings, puis scaler. Un SaaS fintech a lancé l'allemand seul en septembre 2023, découvert que leur page pricing convertissait 40% mieux avec prix annuels affichés par défaut (vs mensuel en anglais), appliqué ce learning aux 4 langues suivantes. Résultat : ROI internationalisation positif à 120 jours au lieu des 18 mois industry standard.</p>
+      </div>
+    </article>
+
+    <!-- Reason 5 -->
+    <article class="reason">
+      <div class="reason__number" aria-hidden="true">5</div>
+      <h2 class="reason__title">Vous n'avez pas de stratégie de maintenance continue — et votre contenu traduit devient obsolète en 90 jours</h2>
+      <div class="reason__body">
+        <p>Le piège invisible : vous lancez vos versions traduites en janvier, tout est parfait. En avril, votre équipe produit a ship 23 features, votre équipe marketing a refait la homepage 4 fois, votre pricing a changé 2 fois. Vos versions traduites ? Toujours sur la version janvier. Résultat : un visiteur allemand voit une page produit qui liste des features dépréciées, un pricing obsolète, des screenshots d'une UI qui n'existe plus. Taux de conversion divisé par 3, support submergé de tickets 'cette feature n'existe pas'. J'ai vu un SaaS perdre 180K€ de pipeline allemand en 5 mois à cause de ça — leur page pricing traduite affichait un plan 'Starter' supprimé depuis mars, générant 340 signups invalides et un NPS de 12 sur ce segment. La maintenance continue n'est pas optionnelle. Elle nécessite soit un workflow automatisé de détection de changements + re-traduction (approche technique), soit un process éditorial strict avec ownership claire (approche humaine). Sans l'un des deux, votre investissement traduction initial devient une dette technique qui se dégrade de 15-20% par trimestre.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- CTA Final -->
+<section class="cta-final">
+  <div class="cta-final__container">
+    <p class="cta-final__text">Si vous reconnaissez l'une de ces 5 erreurs dans votre projet d'internationalisation actuel — ou si vous êtes sur le point de lancer et voulez éviter ces pièges — Weglot peut vous aider à déployer une stratégie multi-langue technique et éditoriale en 48h au lieu de 6 mois.</p>
+    <a href="#" class="cta-final__button">Essayer Weglot gratuitement</a>
+  </div>
+</section>
+
+</body>
+</html>

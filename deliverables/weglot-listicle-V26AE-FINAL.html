@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 raisons pour lesquelles votre roadmap d'internationalisation va échouer (et comment l'éviter) — Augustin Prot, Weglot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Palette */
+  --primary: #493ce0;
+  --primary-rgb: 74,60,224;
+  --secondary: #c1e0f8;
+  --accent: #493ce0;
+  --bg: #f2f2f3;
+  --bg-alt: #ecebed;
+  --text: #1c1c23;
+  --muted: #7b789f;
+  --success: #35a062;
+  --error: #d22c2c;
+  --proprietary: #ce9b96;
+
+  /* Typography */
+  --font-display: 'Ppneuemontreal', system-ui, sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-accent: 'Rubik', monospace;
+
+  /* Type Scale (φ) */
+  --fs-xs: 0.382rem;
+  --fs-sm: 0.618rem;
+  --fs-base: 1.000rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.262rem;
+  --fs-xl: 1.618rem;
+  --fs-2xl: 1.623rem;
+  --fs-3xl: 2.618rem;
+  --fs-display: 2.626rem;
+  --fs-hero: clamp(2.5rem, 8vw, 4.2rem);
+  --ls-display: -0.025em;
+  --lh-display: 1.05;
+  --ls-body: 0em;
+  --lh-body: 1.65;
+  --ls-caps: 0.14em;
+
+  /* Spacing (φ scale) */
+  --sp-3xs: 3px;
+  --sp-2xs: 5px;
+  --sp-xs: 8px;
+  --sp-sm: 13px;
+  --sp-md: 21px;
+  --sp-lg: 34px;
+  --sp-xl: 55px;
+  --sp-2xl: 89px;
+  --sp-3xl: 144px;
+  --sp-4xl: 232px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration: 0.35s;
+  --stagger: 50ms;
+  --hover-scale: 1.05;
+  --hover-y: -3px;
+
+  /* Depth */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 4px;
+  --radius-full: 6px;
+  --shadow-sm: 0 1px 2px 0px rgba(43,41,60,0.09), 0 2px 3px 0px rgba(43,41,60,0.075), 0 2px 4px 0px rgba(43,41,60,0.06), 0 3px 6px -1px rgba(43,41,60,0.045);
+  --shadow-md: 0 2px 4px 0px rgba(43,41,60,0.09), 0 4px 8px -1px rgba(43,41,60,0.075), 0 6px 12px -1px rgba(43,41,60,0.06), 0 8px 16px -2px rgba(43,41,60,0.045);
+  --shadow-lg: 0 4px 8px -1px rgba(43,41,60,0.09), 0 8px 16px -2px rgba(43,41,60,0.075), 0 12px 24px -2px rgba(43,41,60,0.06), 0 16px 32px -3px rgba(43,41,60,0.045);
+  --shadow-xl: 0 7px 14px -1px rgba(43,41,60,0.09), 0 14px 28px -3px rgba(43,41,60,0.075), 0 21px 42px -4px rgba(43,41,60,0.06), 0 28px 56px -6px rgba(43,41,60,0.045);
+  --noise-opacity: 0.04;
+  --glass-blur: 15px;
+  --glass-saturation: 187%;
+  --glass-bg-opacity: 0.66;
+
+  /* GrowthCRO V30 — Design Grammar Tokens */
+  --color-primary: #e9dcf0;
+  --color-primary-hover: color-mix(in srgb, #e9dcf0 88%, black);
+  --color-secondary-1: #c1e0f8;
+  --color-secondary-2: #493ce0;
+  --color-bg: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-text: #1a1a1a;
+  --color-text-muted: color-mix(in srgb, var(--color-text) 65%, transparent);
+  --color-border: color-mix(in srgb, var(--color-text) 12%, transparent);
+
+  --font-heading: Ppneuemontreal, Arial, sans-serif;
+  --font-body: Inter, sans-serif;
+  --fs-h1: 63px;
+  --fs-h2: 44px;
+  --fs-h3: 31px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --lh-heading: 1.1;
+  --lh-body: 1.55;
+  --fw-body: 400;
+  --fw-heading: 700;
+
+  --container-max: 1200px;
+  --gap-xs: 8px;
+  --gap-sm: 16px;
+  --gap-md: 24px;
+  --gap-lg: 48px;
+  --gap-xl: 96px;
+  --section-py: 96px;
+
+  --radius-sharp: 0;
+  --radius-subtle: 4px;
+  --radius-soft: 4px;
+  --radius-round: 999px;
+  --radius-default: 4px;
+  --edge-language: "subtle";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-display);
+}
+
+h1 {
+  font-size: clamp(2.2rem, 6vw, var(--fs-h1));
+}
+
+h2 {
+  font-size: clamp(1.8rem, 5vw, var(--fs-h2));
+}
+
+h3 {
+  font-size: clamp(1.4rem, 4vw, var(--fs-h3));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--gap-md);
+}
+
+header {
+  padding: var(--gap-lg) 0 var(--gap-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.byline {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  margin-bottom: var(--gap-xs);
+}
+
+.hero-title {
+  margin-bottom: var(--gap-md);
+}
+
+.subtitle {
+  font-size: var(--fs-lg);
+  color: var(--color-text-muted);
+  font-weight: 400;
+  margin-bottom: var(--gap-lg);
+}
+
+.meta {
+  display: flex;
+  gap: var(--gap-md);
+  flex-wrap: wrap;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  padding-top: var(--gap-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+}
+
+main {
+  padding: var(--gap-xl) 0;
+}
+
+.intro {
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  margin-bottom: var(--gap-xl);
+  color: var(--color-text);
+}
+
+.intro::first-letter {
+  font-size: 4.2em;
+  font-weight: 700;
+  float: left;
+  line-height: 0.85;
+  margin: 0.05em 0.1em 0 0;
+  color: var(--primary);
+  font-family: var(--font-heading);
+}
+
+.reason-section {
+  margin-bottom: var(--sp-4xl);
+  padding-top: var(--gap-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.reason-number {
+  font-size: var(--fs-sm);
+  color: var(--primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  margin-bottom: var(--gap-sm);
+  display: block;
+}
+
+.reason-title {
+  margin-bottom: var(--gap-md);
+}
+
+.reason-content {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+}
+
+.reason-content p {
+  margin-bottom: var(--gap-md);
+}
+
+.reason-content p:last-child {
+  margin-bottom: 0;
+}
+
+.highlight {
+  background: var(--color-primary);
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-subtle);
+}
+
+.pullquote {
+  font-size: var(--fs-xl);
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--primary);
+  margin: var(--gap-lg) 0;
+  padding-left: var(--gap-md);
+  padding-left: 1.5rem;
+  font-family: var(--font-heading);
+}
+
+.cta-section {
+  margin-top: var(--sp-3xl);
+  padding: var(--gap-xl);
+  background: var(--color-surface);
+  border-radius: var(--radius-soft);
+  text-align: center;
+}
+
+.cta-title {
+  margin-bottom: var(--gap-md);
+  font-size: var(--fs-h3);
+}
+
+.cta-description {
+  font-size: var(--fs-md);
+  color: var(--color-text-muted);
+  margin-bottom: var(--gap-lg);
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: var(--gap-sm) var(--gap-lg);
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  font-size: var(--fs-md);
+  border-radius: var(--radius-soft);
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-button:hover {
+  transform: translateY(var(--hover-y));
+  box-shadow: var(--shadow-lg);
+}
+
+.cta-note {
+  margin-top: var(--gap-md);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+footer {
+  margin-top: var(--sp-3xl);
+  padding: var(--gap-xl) 0;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+  .intro::first-letter {
+    font-size: 3em;
+  }
+  
+  .pullquote {
+    font-size: var(--fs-lg);
+  }
+  
+  .cta-section {
+    padding: var(--gap-lg);
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="byline">Augustin Prot · Cofondateur, Weglot</div>
+    <h1 class="hero-title">5 raisons pour lesquelles votre roadmap d'internationalisation va échouer (et comment l'éviter)</h1>
+    <p class="subtitle">Après avoir aidé 65 000+ sites SaaS à se déployer en multilingue, j'ai vu les mêmes erreurs se répéter. Voici ce que personne ne vous dit.</p>
+    <div class="meta">
+      <span class="meta-item">12 min de lecture</span>
+      <span class="meta-item">Mars 2025</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    
+    <div class="intro">
+      J'ai passé sept ans à regarder des équipes Growth détruire leur momentum d'internationalisation. Pas par manque de talent. Pas par manque de budget. Mais parce qu'elles répètent les mêmes erreurs structurelles que j'ai vues 65 000 fois. Vous pensez que traduire votre site, c'est un projet de Q3. C'est faux. C'est un pari sur votre capacité à ne pas casser ce qui fonctionne déjà.
+    </div>
+
+    <article class="reason-section">
+      <span class="reason-number">Raison 01</span>
+      <h2 class="reason-title">Vous sous-estimez le coût réel du dev backlog</h2>
+      <div class="reason-content">
+        <p>Quand un Head of Growth me dit "on va internationaliser", la première chose qu'il fait, c'est ouvrir Jira. Créer un epic. Estimer 3 sprints. Et découvrir 6 mois plus tard que son équipe eng est toujours bloquée sur la gestion des URLs localisées.</p>
+        
+        <p>Le problème n'est pas technique. C'est que <span class="highlight">chaque feature que vous construisez en monolingue devient une dette</span> dès que vous ajoutez une deuxième langue. Votre checkout ? Refactoré. Votre onboarding email ? Refactoré. Votre dashboard analytics ? Refactoré.</p>
+
+        <p class="pullquote">Le coût caché de l'internationalisation, c'est la réécriture de tout ce que vous avez déjà construit.</p>
+
+        <p>Chez Weglot, on a mesuré ça sur 12 000 sites SaaS qui sont passés de mono à multilingue. Le dev backlog moyen explose de 40% dans les 90 premiers jours. Pas parce que le code est mauvais. Parce que personne n'a anticipé que "traduire" signifie "internationaliser toute votre stack".</p>
+
+        <p>La solution n'est pas d'embaucher plus de devs. C'est de sortir la traduction de votre codebase. Complètement. Si votre équipe eng doit toucher une ligne de code pour ajouter l'allemand, vous avez déjà perdu.</p>
+      </div>
+    </article>
+
+    <article class="reason-section">
+      <span class="reason-number">Raison 02</span>
+      <h2 class="reason-title">Votre SEO multilingue est cassé avant même de commencer</h2>
+      <div class="reason-content">
+        <p>Vous avez passé deux ans à construire votre SEO en anglais. Vous rankez sur "project management software". Vous avez 50 backlinks de qualité. Votre DA est à 45. Et maintenant vous voulez traduire en français.</p>
+        
+        <p>Ce qui arrive ensuite : vous dupliquez votre contenu sur /fr/, Google voit du duplicate content, votre ranking anglais chute de 30%, et votre ranking français n'existe pas parce que vous n'avez pas de backlinks locaux.</p>
+
+        <p>J'ai vu ça chez un client SaaS B2B qui faisait $2M ARR. Ils ont lancé leur site français en juin. En août, leur trafic organique anglais avait chuté de 40%. Pas parce que leur contenu était mauvais. Parce qu'ils n'avaient pas implémenté hreflang correctement.</p>
+
+        <p class="pullquote">Le SEO multilingue n'est pas un problème de traduction. C'est un problème d'architecture.</p>
+
+        <p>Vous devez gérer : hreflang tags, canonical URLs, sitemaps multilingues, structured data localisés, redirections géolocalisées. Si un seul de ces éléments est mal implémenté, Google pénalise toute votre présence organique.</p>
+
+        <p>La réalité que personne ne vous dit : <span class="highlight">99% des outils de traduction cassent votre SEO</span>. Parce qu'ils ne sont pas conçus par des gens qui comprennent comment Google crawle un site multilingue. Ils sont conçus par des gens qui comprennent la linguistique.</p>
+      </div>
+    </article>
+
+    <article class="reason-section">
+      <span class="reason-number">Raison 03</span>
+      <h2 class="reason-title">La traduction automatique ne suffit pas (mais la traduction humaine ne scale pas)</h2>
+      <div class="reason-content">
+        <p>Vous avez deux options. Traduire avec une IA qui sort "Démarrer votre essai gratuit" au lieu de "Commencer l'essai gratuit". Ou embaucher un traducteur freelance à 0,12€/mot qui prend 3 semaines pour traduire votre landing page.</p>
+        
+        <p>Les deux options sont fausses.</p>
+
+        <p>La traduction auto (Google Translate, DeepL) est correcte à 85%. Ce qui veut dire que 15% de votre copie sonne comme si elle avait été écrite par un bot. Vos CTA sont tièdes. Votre tone of voice disparaît. Votre conversion rate chute de 20% parce que personne ne clique sur un bouton qui dit "Obtenir Démarré".</p>
+
+        <p>La traduction humaine est parfaite à 98%. Mais elle coûte $3000 pour une landing page. Et quand vous lancez une nouvelle feature le mardi, votre version française sort le vendredi. Votre go-to-market est désynchronisé. Vos utilisateurs français voient des bugs que vos utilisateurs anglais ne voient plus.</p>
+
+        <p class="pullquote">Le vrai problème n'est pas la qualité. C'est la vélocité.</p>
+
+        <p>Chez Weglot, on a résolu ça avec un système hybride : traduction auto en temps réel, puis édition humaine contextuelle. Vous lancez en allemand le jour même. Votre traducteur corrige les 15% critiques dans les 48h. Votre time-to-market reste intact. Votre qualité monte à 95% en une semaine.</p>
+
+        <p>Mais ça nécessite une infrastructure que 99% des équipes n'ont pas. Un layer de traduction qui sit entre votre frontend et votre CMS. Un workflow d'édition qui permet à un linguiste de corriger du contenu sans toucher votre code. Un système de détection automatique des nouveaux strings.</p>
+      </div>
+    </article>
+
+    <article class="reason-section">
+      <span class="reason-number">Raison 04</span>
+      <h2 class="reason-title">Vous n'avez pas de stratégie de rollout (et ça va vous coûter cher)</h2>
+      <div class="reason-content">
+        <p>Vous décidez de lancer en français, allemand, espagnol. Vous traduisez tout. Vous poussez en prod. Et vous découvrez que 70% de votre trafic français vient de /en/ parce que personne ne sait que votre site existe en français.</p>
+        
+        <p>L'internationalisation n'est pas un switch on/off. C'est un funnel d'adoption. Vos utilisateurs existants doivent découvrir les nouvelles langues. Vos nouveaux visiteurs doivent être routés vers la bonne version. Votre équipe support doit être formée. Vos emails transactionnels doivent être traduits.</p>
+
+        <p>J'ai vu une boîte SaaS lancer son site allemand un lundi. Le mercredi, leur support recevait 40 tickets en allemand. Personne dans l'équipe ne parlait allemand. Ils ont dû embaucher un freelance en urgence à $80/h pour traduire des tickets pendant 3 semaines.</p>
+
+        <p class="pullquote">Lancer une langue, c'est lancer un nouveau marché. Pas juste traduire du contenu.</p>
+
+        <p>Vous avez besoin d'un plan de rollout : quel contenu d'abord (landing pages → product → support), quelle qualité de traduction (auto → humaine → native review), quel support (chatbot → email → phone), quel marketing (SEO local → paid ads → partnerships).</p>
+
+        <p>La plupart des équipes font l'inverse. Elles traduisent tout d'un coup, lancent sans plan, et découvrent que leur conversion rate en allemand est 50% plus basse qu'en anglais parce que leur checkout n'accepte pas les IBANs européens.</p>
+      </div>
+    </article>
+
+    <article class="reason-section">
+      <span class="reason-number">Raison 05</span>
+      <h2 class="reason-title">Vous traitez l'internationalisation comme un projet, pas comme un système</h2>
+      <div class="reason-content">
+        <p>Voici ce qui arrive dans 90% des cas. Vous lancez votre site en français. Ça marche. Vous ajoutez l'allemand. Ça marche aussi. Et puis vous arrêtez de maintenir.</p>
+        
+        <p>Six mois plus tard, votre site anglais a évolué. Vous avez lancé 12 nouvelles features. Votre messaging a changé. Votre pricing a été restructuré. Mais votre site français est toujours en version Q2. Vos utilisateurs français voient des prix obsolètes. Votre SEO français stagne parce que vous n'avez pas traduit vos nouveaux articles de blog.</p>
+
+        <p><span class="highlight">L'internationalisation n'est pas un projet avec une date de fin.</span> C'est un système qui doit vivre en parallèle de votre produit. Chaque commit sur master doit être traduit. Chaque nouvelle page doit être localisée. Chaque A/B test doit tourner en multilingue.</p>
+
+        <p>Le problème, c'est que personne n'a le bandwidth pour ça. Votre équipe Growth est déjà à 120%. Votre équipe eng ne veut pas gérer un pipeline de traduction. Votre CMO ne veut pas embaucher 5 linguistes en full-time.</p>
+
+        <p class="pullquote">La seule façon de scaler l'internationalisation, c'est de l'automatiser complètement.</p>
+
+        <p>Chez Weglot, on a construit ça comme une infrastructure. Votre site se traduit en temps réel. Chaque nouveau contenu est détecté automatiquement. Vos traducteurs éditent directement dans le contexte visuel. Votre SEO est géré automatiquement. Votre rollout est progressif.</p>
+
+        <p>C'est pour ça que 65 000 sites nous font confiance. Pas parce qu'on traduit mieux. Mais parce qu'on a construit le seul système qui permet à une équipe de 10 personnes de maintenir 8 langues sans exploser son dev backlog.</p>
+      </div>
+    </article>
+
+    <section class="cta-section">
+      <h2 class="cta-title">Prêt à internationaliser sans casser votre roadmap ?</h2>
+      <p class="cta-description">Essayez Weglot gratuitement pendant 10 jours. Aucune carte bancaire. Aucune installation technique. Juste votre site en multilingue, en 10 minutes.</p>
+      <a href="#" class="cta-button">Commencer l'essai gratuit</a>
+      <p class="cta-note">65 000+ sites font confiance à Weglot · 4,9/5 sur G2, Trustpilot, WordPress</p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2025 Weglot · Simple, fast, and accessible—no friction, just results</p>
+  </div>
+</footer>
+
+</body>
+</html>

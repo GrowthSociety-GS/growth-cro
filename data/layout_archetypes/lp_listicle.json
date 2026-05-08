@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "page_type": "lp_listicle",
+  "philosophy": "Format éditorial premium type First Round Review / Stripe Press / Linear Blog. PAS un blog SaaS standard, PAS un listicle BuzzFeed. Une enquête signée founder avec rythme journalistique long-form.",
+  "structure_required": [
+    {
+      "section": "byline",
+      "where": "tout en haut, AVANT le H1",
+      "what": "Author photo (ou monogramme initiales noir sur blanc, PAS gradient avatar) + Name + Title + Company. Hairline rule 0.5px en bas. Date optionnelle.",
+      "why": "Signal éditorial premium — le lecteur sait qui parle avant le sujet."
+    },
+    {
+      "section": "hero_quote_or_h1",
+      "where": "fold 1, max 80 chars",
+      "what": "H1 court + déclaratif (pas marketing) + sous-titre/dek 1-2 phrases dense en valeur. Italique optionnel sur sub. Pas de CTA hero (anti-listicle classique).",
+      "why": "Pattern Weglot/Linear/Stripe blog : pas de CTA hero — le lecteur s'engage par la lecture."
+    },
+    {
+      "section": "intro_long_form",
+      "where": "après le H1, avant la première raison",
+      "what": "1-2 paragraphes contextualisation : pourquoi ce sujet maintenant, qui est l'auteur, source de données. 200-400 mots dense.",
+      "why": "Établit l'autorité éditoriale. Plus c'est long, plus le lecteur investit."
+    },
+    {
+      "section": "numbered_reasons",
+      "where": "corps de l'article",
+      "what": "10 raisons (ou N selon brief). Chaque raison = (a) numéro éditorial GROS (drop cap style ou marginalia), (b) H2 court + déclaratif (pas question), (c) 2-4 paragraphes d'argumentation avec exemple concret + chiffre sourcé, (d) optionnel : pull quote tournant OU stat callout marginalia.",
+      "why": "Densité visuelle = signature éditoriale. Drop caps numérotés = signature stripe-press."
+    },
+    {
+      "section": "single_cta_final",
+      "where": "tout en bas, APRÈS la dernière raison",
+      "what": "1 seul CTA discret. Pas de section bg primary plein écran (anti-marketing). Texte court + bouton minimal. Pas de bullets bénéfices, pas de countdown, pas d'urgency fake.",
+      "why": "Le lecteur convaincu par la lecture clique. Le forcer = casser l'illusion éditoriale."
+    },
+    {
+      "section": "footer_minimal",
+      "where": "bas de page",
+      "what": "Logo + 3-5 links + copyright. Hairline rule 0.5px en haut. Pas de footer mega-menu.",
+      "why": "Le footer dans l'éditorial = silencieux."
+    }
+  ],
+  "structure_forbidden": [
+    "CTA hero / above-the-fold (= LP marketing classique)",
+    "Cards alignées 3-colonnes avec icônes (= template SaaS 2018)",
+    "Bullets 'feature features features' (= anti-éditorial)",
+    "Hero stock photo lifestyle (= AI-slop)",
+    "Section testimonials slider (= marketing classique)",
+    "Pricing card visible inline (= rupture du flow éditorial)",
+    "Newsletter signup intercalé entre raisons (= friction)",
+    "Trust badges 'as seen on' rangée logos (= si nécessaire, font partie de l'intro_long_form)"
+  ],
+  "typography_required": [
+    "H1 : font-display, weight 700-900, ls -0.025em, lh 1.05-1.1, scale fluid clamp(2.5rem, 6vw, 4rem)",
+    "H2 (numéro raison) : font-display, weight 700, scale 1.5x body",
+    "Body : font-body, weight 400, lh 1.55-1.7 (long-form readable), max-width 65ch (= ~720px optimal lecture)",
+    "Drop cap raison N : font-display, scale 4-6x body, weight 800, color accent ou primary, float left optionnel"
+  ],
+  "spacing_required": {
+    "max_content_width": "720px-800px (= optimal lecture éditoriale, PAS 1200px container marketing)",
+    "vertical_rhythm": "section-spacing 96-128px (très aéré, signature éditorial premium)",
+    "paragraph_spacing": "1.2-1.4em (lh-body * 0.8)",
+    "phi_adherence": "spacing scale doit suivre nombre d'or 1.618"
+  },
+  "decorative_techniques_required": [
+    "Hairline rules 0.5-1px entre sections (pas de border-radius cards)",
+    "Marginalia : stats ou pull quotes en col-side (à gauche ou droite du body principal) sur desktop",
+    "Drop caps numérotés Raison N en très grand (pas badges blog 2018)",
+    "Pull quotes tournants — 1 toutes les 3-4 raisons, format italique scale 1.3-1.5x body, sans guillemets (lettrine ou bordure verticale gauche)",
+    "Stat callouts inline — chiffre énorme + caption courte, intégré au flow (pas card bordée)"
+  ],
+  "decorative_techniques_forbidden": [
+    "Border-radius cards arrondies (= blog SaaS 2018)",
+    "Box-shadow lift cards (= anti-éditorial)",
+    "Gradient backgrounds rgba (= AI-slop)",
+    "Avatar gradient 135deg (= mettre vraie photo OU monogramme noir sur blanc)",
+    "Border-left colored callout (= template blog 2018)",
+    "Insight-box gradient mesh (= AI-slop)",
+    "Badge 'Raison N' avec bg color + padding (préférer drop cap typo)"
+  ],
+  "color_strategy": "Mono-color éditorial : neutrals 90% + 1 seul accent (primary brand) en micro-doses (CTA, drop caps, hairlines, key data). Pas 4 couleurs accent (= AI-slop palette explosée).",
+  "examples_to_imitate": [
+    "First Round Review (review.firstround.com) — typography editorial top-tier",
+    "Stripe Press (press.stripe.com) — book-design layout",
+    "Linear blog (linear.app/blog) — minimal monochrome research-driven",
+    "Y Combinator blog (ycombinator.com/blog) — dense long-form",
+    "Pieter Levels essays (levels.io) — markdown-like radical minimalism"
+  ],
+  "anti_examples": [
+    "Wordpress blog template SaaS standard (border-radius cards + sidebar widgets)",
+    "Medium article (typo générique + gradient header)",
+    "BuzzFeed listicle (titles cliquables + emojis + GIFs)",
+    "Notion published page (typo correct mais structure trop chip blog moderne)"
+  ]
+}

@@ -1,0 +1,173 @@
+# ══════════════════════════════════════════════════════
+# GrowthCRO .gitignore — 2026-04-19 (P10 handoff Claude Code)
+# ══════════════════════════════════════════════════════
+# Philosophie : git track le CODE + DOCTRINE + DOCS.
+# Les données lourdes (captures, screenshots, data dumps) sont
+# régénérables via le pipeline. Snapshot manuel = tar externe.
+# ══════════════════════════════════════════════════════
+
+# ─── Secrets ──────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# WAKE_UP_NOTE historiquement contenaient des clés API en clair.
+# À rouvrir au cas par cas, mais par défaut on n'en push aucune.
+WAKE_UP_NOTE_*.md
+!WAKE_UP_NOTE_TEMPLATE.md
+
+# ─── macOS / OS ───────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# ─── Python ───────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# ─── Node ─────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+.npm/
+
+# ─── Backups éditeurs ─────────────────────────────────
+*.bak
+*.bak_pre_*
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# ─── DATA LOURDE — régénérable via pipeline ───────────
+# data/captures : 3.7 GB de screenshots + HTML rendered + scores.
+# Les scores eux-mêmes sont petits, mais les screenshots dominent.
+# Pour snapshotter les scores proprement, utilise :
+#   tar czf scores_snapshot_$(date +%F).tgz \
+#     $(find data/captures -name "score_*.json" -o -name "recos_*.json")
+# et stocke le tarball hors repo.
+data/captures/
+data/golden/
+data/v143_voc_tmp/
+data/screenshots/
+data/_archive_*/
+skills/site-capture/data/
+
+# clients_database.json est petit et central — on le garde tracké.
+!data/clients_database.json
+
+# ─── FUSE hidden (macOS mount artifacts) ──────────────
+.fuse_hidden*
+
+# ─── Claude Code local settings (user-specific permissions / env) ──
+# .claude/agents/ et .claude/commands/ contiennent les sub-agents + slash
+# commands GrowthCRO (capture-worker, scorer, /audit-client, etc.) → trackés.
+# Seuls les fichiers locaux/perso sont ignorés.
+.claude/settings.local.json
+.claude/worktrees/
+
+
+# ─── Codex / OpenAI agent runner artefacts ────────────
+# AGENTS.md = équivalent CLAUDE.md (entrypoint projet pour Codex).
+# .codex/   = configs sub-agents + shell env policy Codex.
+# .agents/  = skills mirror Codex (équivalents slash commands Claude).
+# Ces artefacts sont locaux à chaque setup d'agent runner, pas du code source.
+AGENTS.md
+.codex/
+.agents/
+
+# ─── Prototype — ancien playground V12, data lourde inline ─
+prototype/*.js
+prototype/*.html
+
+# ─── DELIVERABLES — dashboard V17 avec data embed ──────
+# growthcro_data_v17.json = 55 MB (584 screenshots base64).
+# Régénérable via `python3 skills/site-capture/scripts/build_dashboard_v17.py`
+deliverables/growthcro_data_v17.json
+deliverables/growthcro_data_v17.js
+deliverables/archive/
+# Client-specific LPs : lourds (HTML + assets). Gardés hors repo.
+deliverables/japhy/
+deliverables/asphalte/
+deliverables/abyssale/
+deliverables/andthegreen/
+# Mais on garde le shell HTML + app.js (c'est du code, pas de la data).
+!deliverables/GrowthCRO-V17-Dashboard.html
+!deliverables/dashboard_v17_app.js
+!deliverables/verify_dashboard_v17_2.js
+!deliverables/doctrinal_spot_check_checklist.md
+
+# ─── LEGACY dashboards (V15 data inline) ───────────────
+growthcro_v15_data.js
+growthcro_v15.html
+
+# ─── ANCIENS reports one-shot (lourds) ─────────────────
+outputs_distill/
+outputs/
+test_headed/
+test_stealth/
+
+# ─── Memory snapshots : petit (<500 KB), on garde tracké ─
+# !memory/snapshots/ → implicit keep (pas listé dans ignore)
+
+# ─── Archives locales (_archive_deprecated_*, archive/) ─
+_archive_deprecated_*/
+_archive/
+archive/
+!memory/archive/
+
+# ─── Logs ─────────────────────────────────────────────
+*.log
+data/captures/_batch_log.json
+data/captures/_batch_stdout.log
+data/captures/_logs/
+
+# ─── Scratch test files V26.Z+ (one-shot experiments) ──
+# Évite la pollution observée Sprint 2/3 V26.AA :
+#   60+ fichiers data/_*.{json,txt,md} créés par test runners ad-hoc.
+# Si un scratch devient une référence durable → renommer SANS le _ prefix.
+data/_audit_*.json
+data/_bestof_*.json
+data/_humanlike_*.json
+data/_compare_*.json
+data/_aura_*.json
+data/_brief_*.md
+data/_capture_batch_*.json
+data/_doctrine_judge*.{json,txt}
+data/_ghost_batch_*.json
+data/_gsg_*.{md,json}
+data/_humanlike_*.{json,log}
+data/_pipeline_weglot_*.{json,html}
+data/_phase*.{json,txt}
+data/_recapture_plan_*.json
+data/_route_*.json
+data/_routes_*.json
+data/_test_*.{log,txt}
+data/_v25d2_*.txt
+data/batch_spatial_v9_*.json
+data/fleet_*.json
+data/panel_*.json
+data/pending_capture_*.json
+data/phase_a_*.json
+
+# Vision API cache — régénérable via perception_v13
+data/.vision_cache/
+
+# ─── Docker / container builds ─────────────────────────
+.docker/
+deliverables/clients/

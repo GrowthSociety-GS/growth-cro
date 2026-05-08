@@ -1,0 +1,587 @@
+{
+  "bloc": "Structure & UX",
+  "id": "ux",
+  "version": "3.2.0-draft",
+  "lockedAt": "2026-04-10",
+  "amendedAt": "2026-04-18",
+  "max": 24,
+  "criteriaCount": 8,
+  "sources": [
+    "data/notion_cro_doc.md",
+    "skills/cro-auditor/references/audit_criteria.md (§4 Structure & UX)",
+    "data/cro_criteria_v2.json (pillar ux)",
+    "data/cro_principles.md",
+    "data/bloc_1_baseline_japhy_v2.json + bloc_2_baseline_japhy_v3.json (contexte Japhy)",
+    "playbook/audit_v3_vs_doctrine_enriched.md (2026-04-13)",
+    "playbook/doctrine_integration_matrix.json (2026-04-13)"
+  ],
+  "changelog": [
+    {
+      "version": "3.2.0-draft",
+      "date": "2026-04-18",
+      "notes": [
+        "P0.1 fix: semantic_overlay (Haiku 4.5) now consumed by score_page_type.py for 18 creative criteria — was silently orphaned before.",
+        "P0.2 full rerun: 366 pages rescored with semantic overlay applied.",
+        "P0.3 cleanup: 71 stale golden/ score_page_type.json archived + stray fichet/ dir archived.",
+        "P1.A doctrine: new data/doctrine/criteria_scope_matrix_v1.json classifying 47 criteria as ASSET (22) vs ENSEMBLE (25) with 7 synergy groups.",
+        "P1.B runtime: new score_contextual_overlay.py applying synergy compensation rules (HERO_RESCUE, PROOF_RESCUE, FIVE_SEC_RESCUE, BENEFIT_FLOW_RESCUE, MANIPULATION_FLAG, UX_RHYTHM_RESCUE, COHERENCE_QUORUM). 25/287 pages rescued, +29.5 pts net.",
+        "P1.C applicability: new data/doctrine/applicability_matrix_v1.json with business_type axis (ecommerce/lead_gen/saas/content/app) and legacy `lp` pageType alias. 8 failures → 0. Full pipeline 366/366.",
+        "ASSET criteria (tech_*, psy_02, counts) are INVARIANT from contextual layer. Only ENSEMBLE criteria eligible for rescue."
+      ]
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-04-13",
+      "amendments": [
+        "A-01 on ux_03: ajout Z-pattern pour LP simples (lp_leadgen, lp_sales short, squeeze) en complément de F-pattern (articles long-form)",
+        "A-02 on ux_05: ajout exigence thumb zone mobile (CTA primaire tiers inférieur écran, sticky bottom bar si scroll long)",
+        "A-03 on ux_02: ajout dimension IPP (Information Per Pixel) — densité équilibrée, pas de zone morte >1200px",
+        "A-05 on ux_08: décomposition en 5 types de friction (cognitive, émotionnelle, fonctionnelle, économique, temporelle)",
+        "STRUCTURAL: ajout viewport_check sur tous les critères pour scoring Desktop + Mobile séparé"
+      ],
+      "source": "Scan doctrine enrichie 2026-04-13 (Notion + PDF Doc_CRO_Final 88p + recherche)"
+    },
+    {
+      "version": "3.0.0",
+      "date": "2026-04-10",
+      "amendments": [
+        "Initial lock — 8 critères, 24 pts, 3 killers"
+      ],
+      "source": "GrowthCRO pipeline — baseline Japhy validée"
+    },
+    {
+      "version": "3.1.0-phase4",
+      "date": "2026-04-13",
+      "change": "Phase 4 V12 — businessCategoryWeighting granulaire par critère × 10 catégories ajouté"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "ux_01",
+      "label": "Hiérarchie visuelle claire (H1 unique > H2 > H3, tailles cohérentes)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "technical",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "killer": true,
+      "killerCondition": "H1 absent ou H1 multiple → cap pilier à 8/max_actif",
+      "scoring": {
+        "top": "1 seul H1, cascade H1>H2>H3 respectée, font-sizes décroissantes, pas de skip de niveau (H1→H3 direct). Cohérent desktop ET mobile (pas de H2 qui devient plus gros que H1 sur mobile par responsive mal géré).",
+        "ok": "H1 présent et unique mais hiérarchie imparfaite (skip de niveau OU tailles incohérentes) OU décalage desktop/mobile sur tailles relatives",
+        "critical": "H1 absent, H1 multiple (>1), ou hiérarchie totalement cassée (H3 avant H2)"
+      }
+    },
+    {
+      "id": "ux_02",
+      "label": "Rythme de page (alternance blocs denses / aérés, sections délimitées, IPP équilibré)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "killer": false,
+      "scoring": {
+        "top": "Alternance visible dense/aéré, sections séparées par espacement généreux (>40px desktop, >24px mobile), pas de mur de texte consécutif. IPP équilibré: aucune section >1200px de haut sans break visuel (image, icône, quote, séparateur), aucune zone morte >500px vide de contenu utile.",
+        "ok": "Sections identifiables mais espacement insuffisant ou monotone (tout dense ou tout aéré), OU IPP déséquilibré (zones mortes ou murs de texte >800px)",
+        "critical": "Mur de texte continu sans séparation visuelle, page ultra-courte sans structure, OU page bourrée sans whitespace (IPP >0.8 continu)"
+      },
+      "amendments_applied": [
+        "A-03 IPP"
+      ],
+      "amendments": [
+        "A-03 IPP (Information Per Pixel) — densité équilibrée"
+      ]
+    },
+    {
+      "id": "ux_03",
+      "label": "Scan-ability + pattern de lecture adapté au page_type (F-pattern content, Z-pattern LP simples)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "technical",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "killer": false,
+      "scoring": {
+        "top": "≥5 H2/H3 descriptifs + usage de <strong>/<b> + listes à puces + whitespace abondant. Pattern adapté: F-pattern pour content (blog, advertorial, home, sales long) = H2 alignés à gauche, first-lines denses ; Z-pattern pour LP simples (lp_leadgen, squeeze, pricing, thank_you) = layout en zigzag (logo HG → CTA HD → contenu gauche-droite → CTA BD).",
+        "ok": "Sous-titres et mise en forme présents mais pattern de lecture peu lisible OU mismatch pattern/page_type (Z-pattern sur article long, F-pattern sur squeeze 1-champ)",
+        "critical": "Aucun sous-titre significatif, paragraphes longs sans découpage, illisible en scan rapide, aucun pattern identifiable"
+      },
+      "amendments_applied": [
+        "A-01 Z-pattern vs F-pattern"
+      ],
+      "amendments": [
+        "A-01 Z-pattern pour landing simples (complément F-pattern)"
+      ]
+    },
+    {
+      "id": "ux_04",
+      "label": "CTA répétés aux bons endroits (après chaque argument majeur, sticky ou floating)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "technical",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "killer": true,
+      "killerCondition": "0 CTA fonctionnel sur la page (desktop OU mobile) → cap pilier à 4/max_actif",
+      "scoring": {
+        "top": "≥3 CTA identiques (même href/action) répartis dans la page + sticky/floating CTA ou CTA dans le dernier fold. Présence vérifiée sur desktop ET mobile (pas de CTA qui disparaît au responsive).",
+        "ok": "2 CTA (ATF + bas) mais rien entre les sections de contenu, ou CTA non-sticky sur page longue, ou CTA desktop absent sur mobile",
+        "critical": "0-1 CTA sur la page, ou CTA uniquement dans le menu/footer (pas dans le contenu)"
+      }
+    },
+    {
+      "id": "ux_05",
+      "label": "Mobile-first réel (touch targets ≥44px, pas de scroll horizontal, thumb zone respectée)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "technical",
+      "viewport_check": [
+        "mobile_only"
+      ],
+      "killer": true,
+      "killerCondition": "Scroll horizontal détecté OU touch targets < 30px → cap pilier à 6/max_actif",
+      "scoring": {
+        "top": "Viewport 375px OK, touch targets ≥44px, pas de scroll horizontal, images responsive, texte lisible sans zoom. CTA primaire placé dans thumb zone (tiers inférieur écran, accessible pouce droitier) OU sticky bottom bar CTA présente sur pages longues (>2 folds).",
+        "ok": "Mobile fonctionnel mais touch targets entre 30-44px, ou texte trop petit, ou images non-responsive, OU CTA primaire uniquement hors thumb zone (haut d'écran ou milieu de section longue sans sticky)",
+        "critical": "Scroll horizontal, texte illisible, boutons < 30px, page visiblement non-responsive, ou CTA primaire totalement inaccessible en scroll naturel mobile"
+      },
+      "amendments_applied": [
+        "A-02 thumb zone"
+      ],
+      "amendments": [
+        "A-02 Thumb zone mobile (CTAs zone pouce)"
+      ]
+    },
+    {
+      "id": "ux_06",
+      "label": "Navigation non-parasite (pas de menu dispersif sur LP — focus mono-objectif)",
+      "max": 3,
+      "pageTypes": [
+        "pdp",
+        "lp_leadgen",
+        "lp_sales",
+        "quiz_vsl",
+        "squeeze",
+        "vsl",
+        "advertorial",
+        "listicle",
+        "challenge",
+        "thank_you_page",
+        "webinar"
+      ],
+      "checkMethod": "technical",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "killer": false,
+      "scoring": {
+        "top": "Zéro menu de navigation global, ou menu minimal (logo + CTA uniquement). Pas de footer avec 20 liens. Identique desktop et mobile (pas de burger menu qui révèle nav parasite).",
+        "ok": "Menu présent mais simplifié (3-4 items), ou footer light",
+        "critical": "Navigation complète avec 8+ items, sous-menus, footer chargé — le visiteur peut fuir dans 15 directions"
+      }
+    },
+    {
+      "id": "ux_07",
+      "label": "Micro-interactions guidantes (hover states, sticky CTA, progress bar, scroll indicators)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "killer": false,
+      "scoring": {
+        "top": "≥2 micro-interactions détectées : sticky CTA / back-to-top / progress bar / hover sur cards / lazy-load images. Desktop = hover states riches, Mobile = tap feedback + sticky éléments adaptés.",
+        "ok": "1 micro-interaction présente (ex: juste un sticky header) OU désequilibre desktop/mobile (desktop riche, mobile statique)",
+        "critical": "Aucune micro-interaction détectable — page statique sans guidage visuel"
+      }
+    },
+    {
+      "id": "ux_08",
+      "label": "Friction minimisée — 5 types à auditer (cognitive, émotionnelle, fonctionnelle, économique, temporelle)",
+      "max": 3,
+      "pageTypes": [
+        "lp_leadgen",
+        "checkout",
+        "pricing",
+        "pdp",
+        "quiz_vsl",
+        "squeeze",
+        "webinar",
+        "thank_you_page"
+      ],
+      "checkMethod": "technical",
+      "viewport_check": [
+        "both"
+      ],
+      "killer": true,
+      "killerCondition": "Formulaire ≥8 champs OU checkout ≥5 étapes → cap pilier à 10/max_actif",
+      "friction_decomposition": {
+        "cognitive": "Complexité de l'info : jargon, arbres décisionnels cachés, choix non-guidés (ex: 12 plans SaaS identiques, configurateur 15 options sans reco)",
+        "emotional": "Doute, peur, embarras : absence de réassurance, pas de RGPD explicite, pas de garantie visible, témoignages peu crédibles",
+        "functional": "Bug ou accroche UX : formulaire cassé, validation absente, erreurs non explicites, champs auto-remplis mal gérés, CTA qui lag",
+        "economic": "Frais cachés, prix qui apparaît tard, taxes rajoutées au dernier moment, options payantes checked par défaut, abonnement caché",
+        "temporal": "Étapes trop longues, chargement >3s, formulaires ≥8 champs, checkout ≥5 étapes, obligation de créer compte avant paiement"
+      },
+      "scoring": {
+        "top": "0/5 types de friction détectés. Formulaire ≤3 champs OU pas de formulaire requis, labels clairs, validation inline, prix visible dès ATF, aucune complexité décisionnelle cachée.",
+        "ok": "1-2/5 types de friction détectés. Formulaire 4-5 champs, ou labels vagues, ou pas de validation inline, ou 1 friction cognitive/emotionnelle légère.",
+        "critical": "≥3/5 types de friction détectés, formulaire ≥6 champs, tunnel ≥4 étapes, frais cachés, ou complexité cognitive lourde non résolue."
+      },
+      "amendments_applied": [
+        "A-05 décomposition 5 frictions"
+      ],
+      "amendments": [
+        "A-05 5 types de friction (cognitive/émotionnelle/fonctionnelle/économique/temporelle)"
+      ]
+    }
+  ],
+  "pageTypeWeights": {
+    "ux_01": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "collection": 0.9,
+      "lp_leadgen": 1.0,
+      "lp_sales": 1.0,
+      "blog": 1.1,
+      "quiz_vsl": 0.8,
+      "pricing": 1.0,
+      "checkout": 0.7,
+      "listicle": 1.1,
+      "advertorial": 1.1,
+      "comparison": 1.0,
+      "vsl": 0.8,
+      "challenge": 1.0,
+      "thank_you_page": 0.7,
+      "bundle_standalone": 1.0,
+      "squeeze": 0.8,
+      "webinar": 0.9
+    },
+    "ux_02": {
+      "home": 1.0,
+      "pdp": 0.9,
+      "collection": 0.8,
+      "lp_leadgen": 1.0,
+      "lp_sales": 1.2,
+      "blog": 1.2,
+      "quiz_vsl": 0.8,
+      "pricing": 0.9,
+      "checkout": 0.7,
+      "listicle": 1.2,
+      "advertorial": 1.3,
+      "comparison": 0.9,
+      "vsl": 0.7,
+      "challenge": 1.0,
+      "thank_you_page": 0.7,
+      "bundle_standalone": 1.0,
+      "squeeze": 0.6,
+      "webinar": 0.9
+    },
+    "ux_03": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "collection": 0.9,
+      "lp_leadgen": 1.2,
+      "lp_sales": 1.3,
+      "blog": 1.3,
+      "quiz_vsl": 0.8,
+      "pricing": 1.0,
+      "checkout": 0.7,
+      "listicle": 1.3,
+      "advertorial": 1.3,
+      "comparison": 1.0,
+      "vsl": 0.6,
+      "challenge": 1.1,
+      "thank_you_page": 0.7,
+      "bundle_standalone": 1.0,
+      "squeeze": 1.1,
+      "webinar": 1.0
+    },
+    "ux_04": {
+      "home": 1.0,
+      "pdp": 1.1,
+      "collection": 0.8,
+      "lp_leadgen": 1.2,
+      "lp_sales": 1.3,
+      "blog": 0.9,
+      "quiz_vsl": 1.0,
+      "pricing": 1.1,
+      "checkout": 0.8,
+      "listicle": 1.2,
+      "advertorial": 1.2,
+      "comparison": 1.1,
+      "vsl": 0.9,
+      "challenge": 1.2,
+      "thank_you_page": 1.0,
+      "bundle_standalone": 1.2,
+      "squeeze": 1.3,
+      "webinar": 1.2
+    },
+    "ux_05": {
+      "home": 1.0,
+      "pdp": 1.2,
+      "collection": 1.1,
+      "lp_leadgen": 1.2,
+      "lp_sales": 1.1,
+      "blog": 1.0,
+      "quiz_vsl": 1.2,
+      "pricing": 1.0,
+      "checkout": 1.3,
+      "listicle": 1.2,
+      "advertorial": 1.1,
+      "comparison": 1.0,
+      "vsl": 1.3,
+      "challenge": 1.1,
+      "thank_you_page": 1.0,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.3,
+      "webinar": 1.1
+    },
+    "ux_06": {
+      "home": 0.0,
+      "pdp": 1.0,
+      "collection": 0.0,
+      "lp_leadgen": 1.3,
+      "lp_sales": 1.3,
+      "blog": 0.0,
+      "quiz_vsl": 1.2,
+      "pricing": 0.0,
+      "checkout": 0.0,
+      "listicle": 1.2,
+      "advertorial": 1.2,
+      "comparison": 0.0,
+      "vsl": 1.4,
+      "challenge": 1.2,
+      "thank_you_page": 1.0,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.5,
+      "webinar": 1.2
+    },
+    "ux_07": {
+      "home": 1.0,
+      "pdp": 1.1,
+      "collection": 1.0,
+      "lp_leadgen": 0.9,
+      "lp_sales": 1.0,
+      "blog": 0.8,
+      "quiz_vsl": 1.2,
+      "pricing": 1.0,
+      "checkout": 1.1,
+      "listicle": 0.9,
+      "advertorial": 0.9,
+      "comparison": 1.0,
+      "vsl": 1.0,
+      "challenge": 1.1,
+      "thank_you_page": 0.9,
+      "bundle_standalone": 1.0,
+      "squeeze": 0.8,
+      "webinar": 1.0
+    },
+    "ux_08": {
+      "home": 0.0,
+      "pdp": 1.0,
+      "collection": 0.0,
+      "lp_leadgen": 1.3,
+      "lp_sales": 0.8,
+      "blog": 0.0,
+      "quiz_vsl": 1.2,
+      "pricing": 1.1,
+      "checkout": 1.5,
+      "listicle": 0.0,
+      "advertorial": 0.0,
+      "comparison": 0.0,
+      "vsl": 0.0,
+      "challenge": 1.0,
+      "thank_you_page": 0.0,
+      "bundle_standalone": 1.0,
+      "squeeze": 1.3,
+      "webinar": 1.2
+    }
+  },
+  "status": "locked",
+  "lockedBy": "GrowthCRO pipeline — baseline Japhy validée + amendements doctrine enrichie 2026-04-13",
+  "businessCategoryWeighting": {
+    "_description": "Matrice pondération granulaire par critère × business category pour Bloc 3 UX. V12 doctrine 2026-04-13.",
+    "_usage": "multiplier = bcw[criterion_id][category] — applied to criterion raw score during site-level aggregation",
+    "_categories": [
+      "dtc_subscription",
+      "ecom_product",
+      "saas_b2b",
+      "saas_b2c",
+      "lead_gen",
+      "marketplace",
+      "media_content",
+      "luxe",
+      "service_local",
+      "edu"
+    ],
+    "_baseline": "1.0 = neutre. >1.0 = critique pour cette catégorie. <1.0 = moins déterminant pour cette catégorie.",
+    "_philosophy": "Chaque pondération ≠1.0 est justifiée dans _notes — pas d'arbitraire. Version évolutive selon feedbacks agence.",
+    "_addedIn": "v3.1.0 — doctrine V12 — 2026-04-13",
+    "matrix": {
+      "ux_01": {
+        "dtc_subscription": 1.0,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.1,
+        "marketplace": 1.0,
+        "media_content": 1.2,
+        "luxe": 0.9,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "ux_02": {
+        "dtc_subscription": 1.0,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.2,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.1,
+        "marketplace": 0.9,
+        "media_content": 1.2,
+        "luxe": 1.1,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "ux_03": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.2,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.2,
+        "marketplace": 1.1,
+        "media_content": 1.3,
+        "luxe": 0.9,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "ux_04": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.2,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 1.0,
+        "media_content": 0.9,
+        "luxe": 0.8,
+        "service_local": 1.2,
+        "edu": 1.2
+      },
+      "ux_05": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.3,
+        "saas_b2b": 0.8,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.0,
+        "marketplace": 1.2,
+        "media_content": 1.2,
+        "luxe": 1.1,
+        "service_local": 1.3,
+        "edu": 1.1
+      },
+      "ux_06": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 0.9,
+        "saas_b2b": 1.0,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.3,
+        "marketplace": 0.8,
+        "media_content": 0.9,
+        "luxe": 1.0,
+        "service_local": 1.1,
+        "edu": 1.1
+      },
+      "ux_07": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.0,
+        "marketplace": 1.2,
+        "media_content": 1.0,
+        "luxe": 0.9,
+        "service_local": 0.9,
+        "edu": 1.1
+      },
+      "ux_08": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.2,
+        "marketplace": 1.2,
+        "media_content": 0.9,
+        "luxe": 1.0,
+        "service_local": 1.2,
+        "edu": 1.1
+      }
+    },
+    "_notes": {
+      "ux_01": {
+        "media_content": "1.2 — un article long sans H1/H2 clairs = bounce. La hiérarchie EST la lecture.",
+        "luxe": "0.9 — hiérarchie minimaliste (parfois 1 seul H1 discret). Trop de structure = cheapness.",
+        "saas_b2b": "1.1 — pages features denses, structure H2/H3 vitale pour scan exec."
+      },
+      "ux_02": {
+        "media_content": "1.2 — alternance denses/aérés vitale pour lecture longue (articles).",
+        "saas_b2b": "1.2 — pages features souvent surchargées, le rythme sauve l'engagement.",
+        "marketplace": "0.9 — pages catalogue volontairement denses, rythme secondaire."
+      },
+      "ux_03": {
+        "media_content": "1.3 — F-pattern vital pour scan articles. Sans scan-ability, bounce >80%.",
+        "lead_gen": "1.2 — décision rapide (5s), scan-ability > lecture linéaire.",
+        "luxe": "0.9 — lecture contemplative, scan moins pertinent (on vend du désir, pas de l'info)."
+      },
+      "ux_04": {
+        "lead_gen": "1.3 — la conversion EST l'objectif unique, chaque argument = CTA adjacent obligatoire.",
+        "luxe": "0.8 — un seul CTA discret en fin de page, parfois aucun. Multiplier les CTA tue la marque.",
+        "dtc_subscription": "1.2 — impulsion d'achat, CTA à chaque scroll = conversion.",
+        "media_content": "0.9 — CTA contextuels in-line oui, mais pas agressifs (casse l'expérience lecture)."
+      },
+      "ux_05": {
+        "dtc_subscription": "1.3 — 80%+ trafic mobile sur DTC abo, touch targets + thumb zone = survie.",
+        "ecom_product": "1.3 — conversion mobile DTC = la norme, desktop = secondaire.",
+        "saas_b2b": "0.8 — 70% signups depuis desktop (bureau), mobile pour preview seulement.",
+        "service_local": "1.3 — 'dentiste près de moi' = 90%+ mobile, clic-to-call vital."
+      },
+      "ux_06": {
+        "lead_gen": "1.3 — toute LP lead gen doit retirer la nav parasite. Fuite = perte de lead.",
+        "ecom_product": "0.9 — navigation de catégorie ESSENTIELLE, pas parasite. Exception PDP.",
+        "marketplace": "0.8 — search + catégories = UX core, jamais parasites."
+      },
+      "ux_07": {
+        "saas_b2c": "1.2 — app-like feel crucial pour onboarding freemium (hover, progress, confirmations).",
+        "marketplace": "1.2 — UX interactive (filtres live, favoris, map) différencie.",
+        "luxe": "0.9 — micro-interactions = cheapness si over-designed. Less is more.",
+        "service_local": "0.9 — UX basique suffit (form simple, carte, horaires)."
+      },
+      "ux_08": {
+        "ecom_product": "1.3 — chaque friction checkout = abandonned cart direct. 5 types à auditer zealously.",
+        "dtc_subscription": "1.3 — UX parfaite sur quiz/onboarding = conversion. 1 question de trop = drop.",
+        "media_content": "0.9 — friction inhérente (pubs, newsletters, paywalls), moins critique que pure conversion."
+      }
+    }
+  },
+  "_amendments_audit": [
+    {
+      "at": "2026-04-14",
+      "event": "P0.4 markers added for A-01, A-02, A-03, A-05"
+    }
+  ],
+  "doctrineReferences": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v1.json",
+    "note": "v3.2 adds ENSEMBLE-aware scoring via score_contextual_overlay.py. ASSET criteria unaffected."
+  }
+}

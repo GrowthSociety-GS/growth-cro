@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_hero_05_tighten_lax_lead_gen",
+  "type": "tighten_threshold",
+  "subtype": "lax_rule_under_discriminating",
+  "affected_criteria": [
+    "hero_05"
+  ],
+  "scope": {
+    "business_category": "lead_gen"
+  },
+  "evidence": {
+    "n_pages_evaluated": 14,
+    "pct_top": 85.7,
+    "pct_critical": 14.3,
+    "avg_score_pct": 85.7,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère hero_05 marqué TOP sur 86% des pages de lead_gen (12/14). Règle sous-discriminante — presque tout le monde l'atteint. Durcir scoring.top pour identifier les vraies excellences.",
+  "risk": "Durcir trop pourrait pénaliser pages déjà bonnes",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

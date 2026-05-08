@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/recos_enriched.json",
+  "title": "Recos enriched — output Sonnet 4.5 reco_enricher_v13_api.py",
+  "type": "object",
+  "required": ["doctrine_version", "enricher_version", "generated_at", "page_type", "recos"],
+  "properties": {
+    "doctrine_version": { "type": "string" },
+    "enricher_version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "business_category": { "type": "string" },
+    "schwartz_awareness": { "type": "string", "enum": ["unaware", "problem_aware", "solution_aware", "product_aware", "most_aware"] },
+    "schwartz_detection": { "type": "object" },
+    "page_type": { "type": "string" },
+    "v32_applicability_overlay": { "type": "object" },
+    "v32_contextual_overlay": { "type": "object" },
+    "summary": { "type": "object" },
+    "perception": { "type": "object" },
+    "recos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criterion_id", "reco_text", "priority", "pillar"],
+        "properties": {
+          "criterion_id": { "type": "string", "pattern": "^(hero|per|ux|coh|psy|tech)_\\d{2,3}$" },
+          "reco_text": { "type": "string" },
+          "priority": { "type": "string", "enum": ["P0", "P1", "P2", "P3"] },
+          "impact": { "type": ["number", "null"] },
+          "effort": { "type": ["number", "null"] },
+          "feasibility": { "type": "object" },
+          "status": { "type": "string" },
+          "cascade": { "type": "object" },
+          "prerequisite_cascade": { "type": "object" },
+          "guardrails_triggered": { "type": "array" },
+          "anti_patterns": { "type": "array" },
+          "ab_variants": { "type": "object" },
+          "business_category": { "type": "string" },
+          "schwartz_awareness": { "type": "string" },
+          "ice_score": { "type": ["integer", "number"] },
+          "enriched_at": { "type": "string", "format": "date-time" },
+          "enricher_version": { "type": "string" },
+          "pillar": { "type": "string" },
+          "perception": { "type": "object" }
+        }
+      }
+    }
+  }
+}

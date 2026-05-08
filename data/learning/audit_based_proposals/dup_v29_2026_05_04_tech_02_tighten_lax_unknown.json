@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_tech_02_tighten_lax_unknown",
+  "type": "tighten_threshold",
+  "subtype": "lax_rule_under_discriminating",
+  "affected_criteria": [
+    "tech_02"
+  ],
+  "scope": {
+    "business_category": "unknown"
+  },
+  "evidence": {
+    "n_pages_evaluated": 14,
+    "pct_top": 85.7,
+    "pct_critical": 7.1,
+    "avg_score_pct": 89.3,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère tech_02 marqué TOP sur 86% des pages de unknown (12/14). Règle sous-discriminante — presque tout le monde l'atteint. Durcir scoring.top pour identifier les vraies excellences.",
+  "risk": "Durcir trop pourrait pénaliser pages déjà bonnes",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

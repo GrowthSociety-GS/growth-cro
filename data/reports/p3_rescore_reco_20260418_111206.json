@@ -1,0 +1,37 @@
+{
+  "runAt": "2026-04-18T11:12:06.329803Z",
+  "phase": "P3",
+  "total": 39,
+  "ran": 3,
+  "score_ok": 3,
+  "score_fail": 0,
+  "reco_ok": 3,
+  "reco_fail": 0,
+  "elapsed_s": 1.7,
+  "log": [
+    {
+      "client": "airbnb",
+      "pageType": "blog",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "airbnb",
+      "pageType": "lp_leadgen",
+      "score_ok": true,
+      "score_elapsed": 0.5,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "aircall",
+      "pageType": "pdp",
+      "score_ok": true,
+      "score_elapsed": 0.5,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "checked_at": "2026-05-06T14:48:38.929Z",
+  "html": "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society/deliverables/gsg_demo/weglot-advertorial-v272c.html",
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200
+    },
+    "title": "weglot — advertorial",
+    "htmlLang": "fr",
+    "h1": 1,
+    "h1Text": "weglot: une page advertorial plus claire",
+    "h1Box": {
+      "left": 160,
+      "right": 726,
+      "top": 285,
+      "bottom": 483,
+      "width": 566,
+      "height": 199
+    },
+    "heroVisual": true,
+    "heroVisualBox": {
+      "left": 822,
+      "right": 1280,
+      "top": 187,
+      "bottom": 839,
+      "width": 458,
+      "height": 652
+    },
+    "h1OverlapsHeroVisual": false,
+    "visualSystem": "gsg-visual-system-v27.2-c",
+    "pageType": "advertorial",
+    "visualKinds": [
+      "native_article",
+      "editorial_marginalia",
+      "disclosure_bar",
+      "product_bridge",
+      "proof_ledger"
+    ],
+    "visualKindCount": 9,
+    "componentSections": 4,
+    "reasons": 0,
+    "proofStripItems": 2,
+    "cta": true,
+    "images": [
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      }
+    ],
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 2607,
+    "errors": [],
+    "screenshot": "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society/deliverables/gsg_demo/weglot-advertorial-v272c-desktop.png"
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 1200
+    },
+    "title": "weglot — advertorial",
+    "htmlLang": "fr",
+    "h1": 1,
+    "h1Text": "weglot: une page advertorial plus claire",
+    "h1Box": {
+      "left": 20,
+      "right": 370,
+      "top": 210,
+      "bottom": 323,
+      "width": 350,
+      "height": 113
+    },
+    "heroVisual": true,
+    "heroVisualBox": {
+      "left": 20,
+      "right": 370,
+      "top": 651,
+      "bottom": 1167,
+      "width": 350,
+      "height": 516
+    },
+    "h1OverlapsHeroVisual": false,
+    "visualSystem": "gsg-visual-system-v27.2-c",
+    "pageType": "advertorial",
+    "visualKinds": [
+      "native_article",
+      "editorial_marginalia",
+      "disclosure_bar",
+      "product_bridge",
+      "proof_ledger"
+    ],
+    "visualKindCount": 9,
+    "componentSections": 4,
+    "reasons": 0,
+    "proofStripItems": 2,
+    "cta": true,
+    "images": [
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      }
+    ],
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 2607,
+    "errors": [],
+    "screenshot": "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society/deliverables/gsg_demo/weglot-advertorial-v272c-mobile.png"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "version": "1.0.0",
+  "page_type": "advertorial",
+  "philosophy": "Article éditorial sponsorisé authentique type The New Yorker sponsored / Vox sponsored / Atlantic Studios. PAS un advertorial Outbrain/Taboola sleazy. Native media style avec auteur identifié + structure article.",
+  "structure_required": [
+    {
+      "section": "publication_byline",
+      "what": "Header type média : nom publication (peut être inventé éditorial 'The Growth Society' / 'Founders Briefing'), section ('Studies', 'Reports', 'Founder Stories'), date.",
+      "why": "Établit le ton média avant le sujet. Crédibilité = lecture en mode 'article'."
+    },
+    {
+      "section": "author_byline",
+      "what": "Author name + position + photo monogramme noir/blanc (PAS gradient avatar). 'In partnership with [brand]' sub-line discret.",
+      "why": "L'auteur a un nom = humain réel. Disclosure 'partnership' = transparence."
+    },
+    {
+      "section": "h1_editorial_title",
+      "what": "Title style article éditorial. Pas marketing ('How X helped 65,000 SaaS scale'), pas clickbait ('The shocking truth'). Format article : déclaratif + spécifique.",
+      "why": "Le titre doit pouvoir vivre seul comme article réel."
+    },
+    {
+      "section": "lead_paragraph",
+      "what": "Lead 100-200 mots qui contextualise le sujet et l'auteur. Style journalistique. Drop cap optionnel.",
+      "why": "Atlantic / New Yorker pattern : 1 paragraphe d'ouverture qui pose le terrain."
+    },
+    {
+      "section": "narrative_body",
+      "what": "Article complet 800-1500 mots avec H2 sections. Inclut : (a) histoire / cas concret, (b) données + études, (c) interview/quotes vraies, (d) analyse. Pas listicle bullet (= advertorial cheap).",
+      "why": "Article éditorial = narrative + autorité. PAS contenu '5 raisons X'."
+    },
+    {
+      "section": "data_visualizations",
+      "what": "1-2 graphiques/infographies propres (data visualization minimal, pas chartjs cheap). OU pull quote tournant si pas de data.",
+      "why": "Atlantic / FT signature : data viz éditoriale = autorité."
+    },
+    {
+      "section": "soft_cta_partnership",
+      "what": "Section finale claire 'Sponsored by [brand]' avec sub-line + 1 CTA discret 'Learn more'. Pas de section bg color plein écran cri marketing.",
+      "why": "Le CTA est honnête transparence, pas conversion forcée."
+    },
+    {
+      "section": "footer_publication",
+      "what": "Footer type média : 'About', 'Other articles', 'Subscribe to newsletter'.",
+      "why": "Préserve l'illusion média jusqu'à la fin."
+    }
+  ],
+  "structure_forbidden": [
+    "Listicle bullet '7 ways' (= advertorial Taboola)",
+    "Hero CTA bg color plein (= LP marketing)",
+    "Pricing inline (= rupture éditoriale)",
+    "Testimonials slider (= cheap)",
+    "Pop-up newsletter sur entrée"
+  ],
+  "typography_required": [
+    "Title : font-display style EDITORIAL serif si possible (Playfair / Spectral / Source Serif), weight 700, ls -0.02em, lh 1.1, scale clamp(2.25rem, 5vw, 4rem)",
+    "Body : font-body sérif ou sans-confortable, weight 400, lh 1.65-1.75 (long-form readable), max-width 65-70ch",
+    "Pull quote : italique, scale 1.3-1.5x body, sans guillemets",
+    "Drop cap optionnel sur 1er paragraphe (scale 4-5x body, color accent)"
+  ],
+  "spacing_required": {
+    "max_content_width": "680-720px (= colonne lecture éditoriale)",
+    "vertical_rhythm": "section 80-120px, paragraphes 1.2em"
+  },
+  "decorative_techniques_required": [
+    "Hairline rules 0.5px entre sections",
+    "Marginalia notes / stats sur côté (desktop) ou inline (mobile)",
+    "Pull quotes tournants every 3-4 sections",
+    "Photos auteurs/personnes citées (vrai photos, pas avatars gradient)",
+    "Data viz minimal monochrome ou 2 couleurs (PAS chart 5 couleurs vives)"
+  ],
+  "decorative_techniques_forbidden": [
+    "Border-radius cards arrondies (= blog SaaS 2018)",
+    "Gradient backgrounds (= AI-slop)",
+    "Avatar gradient 135deg (= mettre vraie photo OU monogramme noir/blanc)",
+    "Border-left colored callouts (= template blog 2018)",
+    "Sticky social share floating bar (= cheap Wordpress)"
+  ],
+  "color_strategy": "Mono-color éditorial extrême : neutrals 95% + 1 accent SUBTIL (key data, drop caps). Le reste = noir sur blanc cassé.",
+  "examples_to_imitate": [
+    "Atlantic Re:think (advertorial Atlantic)",
+    "New Yorker sponsor stories",
+    "First Round Review (review.firstround.com)",
+    "Stripe Press essays",
+    "FT.com sponsored content"
+  ],
+  "anti_examples": [
+    "Outbrain / Taboola native ads (= shitty advertorial)",
+    "Forbes 'sponsored' garbage",
+    "BuzzFeed branded content"
+  ]
+}

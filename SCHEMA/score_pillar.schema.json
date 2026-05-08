@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/score_pillar.json",
+  "title": "Score Pillar — un fichier score_{hero|persuasion|ux|coherence|psycho|tech}.json",
+  "description": "Pragmatique. Les 6 scorers ont dérivé avec le temps : hero/tech utilisent {label}, persuasion/ux/coherence/psycho utilisent {client}. Les totaux peuvent être finalTotal OU finalRounded/finalCapped.",
+  "type": "object",
+  "anyOf": [
+    { "required": ["label", "pageType", "criteria"] },
+    { "required": ["client", "pageType", "criteria"] }
+  ],
+  "properties": {
+    "label": { "type": "string" },
+    "client": { "type": "string" },
+    "pageType": { "type": "string" },
+    "url": { "type": "string" },
+    "pillar": { "type": "string" },
+    "scoredBy": { "type": "string" },
+    "scoredAt": { "type": "string" },
+    "gridVersion": { "type": "string" },
+    "max": { "type": "integer" },
+    "finalMax": { "type": "integer" },
+    "finalTotal": { "type": "number" },
+    "finalRounded": { "type": "number" },
+    "finalCapped": { "type": "number" },
+    "finalNormalized": { "type": "number" },
+    "score100": { "type": "number" },
+    "verdict": { "type": "string" },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "score": { "type": "number" },
+          "max": { "type": "integer" },
+          "applicable": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

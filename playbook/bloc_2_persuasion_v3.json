@@ -1,0 +1,1187 @@
+{
+  "block": "2",
+  "pillar": "persuasion",
+  "label": "Persuasion & Copy",
+  "max": 33,
+  "maxLegacyV3_0": 24,
+  "description": "Qualité du message de vente et de la charge persuasive. 11 critères × 3 pts = 33 pts (V3.1.0 post-enrichissement doctrine). La Persuasion scelle la décision après que le Hero a filtré le visiteur : fond (per_01→per_06) + forme (per_07, per_08) + frameworks (per_09 Schwartz + per_10 Structure + per_11 Benefit Laddering profond). Pondérations pageType activées + 3 killers.",
+  "version": "3.2.0-draft",
+  "status": "locked",
+  "lockedAt": "2026-04-09",
+  "amendedAt": "2026-04-18",
+  "lockedBy": "batch-30-clients-cohérent-japhy-manuel-15.5-auto-16.5-delta-1.0 + amendements doctrine enrichie 2026-04-13",
+  "updatedAt": "2026-04-13",
+  "changelog": [
+    {
+      "version": "3.2.0-draft",
+      "date": "2026-04-18",
+      "notes": [
+        "P0.1 fix: semantic_overlay (Haiku 4.5) now consumed by score_page_type.py for 18 creative criteria — was silently orphaned before.",
+        "P0.2 full rerun: 366 pages rescored with semantic overlay applied.",
+        "P0.3 cleanup: 71 stale golden/ score_page_type.json archived + stray fichet/ dir archived.",
+        "P1.A doctrine: new data/doctrine/criteria_scope_matrix_v1.json classifying 47 criteria as ASSET (22) vs ENSEMBLE (25) with 7 synergy groups.",
+        "P1.B runtime: new score_contextual_overlay.py applying synergy compensation rules (HERO_RESCUE, PROOF_RESCUE, FIVE_SEC_RESCUE, BENEFIT_FLOW_RESCUE, MANIPULATION_FLAG, UX_RHYTHM_RESCUE, COHERENCE_QUORUM). 25/287 pages rescued, +29.5 pts net.",
+        "P1.C applicability: new data/doctrine/applicability_matrix_v1.json with business_type axis (ecommerce/lead_gen/saas/content/app) and legacy `lp` pageType alias. 8 failures → 0. Full pipeline 366/366.",
+        "ASSET criteria (tech_*, psy_02, counts) are INVARIANT from contextual layer. Only ENSEMBLE criteria eligible for rescue."
+      ]
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-04-13",
+      "amendments": [
+        "A-04 on per_01: ajout So What Test — chaque feature passe le test 'et alors ?' avec bénéfice utilisateur <10 mots",
+        "A-06 on per_05: pénaliser 100% 5⭐ (artificiel), valoriser distribution réaliste + avis mitigés répondus",
+        "A-07 on per_05: scoring Top exige ≥3 formats mixés (text nommé + photo + vidéo)",
+        "A-08 on per_01: pénaliser >5 USP (dilution), scoring Top = 3-5 USP priorisées",
+        "N-01 NEW per_09: Awareness match Schwartz — ton hero matche niveau conscience trafic",
+        "N-02 NEW per_10: Structure copy identifiable — page matche ≥1 framework {PAS, PASTOR, AIDA, BAB, FAB, StoryBrand SB7, 4P, Star-Story-Solution, Slippery Slide, CAP}",
+        "N-06 NEW per_11: Benefit Laddering profond — ≥2 bénéfices principaux ont 3+ niveaux (functional/emotional/identity)",
+        "STRUCTURAL: max 24 → 33, ajout viewport_check sur chaque critère"
+      ]
+    }
+  ],
+  "validatedOn": [
+    {
+      "client": "japhy",
+      "url": "https://www.japhy.fr",
+      "pageType": "home",
+      "manualV3": 15.5,
+      "autoV3": 16.5,
+      "delta": 1.0,
+      "note": "Cohérent V2=15 → V3 manuel=15.5 → V3 auto=16.5, per_01 auto +1 vs manuel (scorer tape ratio outcome/feature objectif vs jugement subjectif '80% centré produit')"
+    },
+    {
+      "client": "ocni_factory",
+      "url": "https://www.ocni-factory.com",
+      "pageType": "home",
+      "autoV3": 12.5,
+      "note": "Pas de FAQ détectée (per_06=0), storytelling absent, reste OK — discrimination fine ok"
+    },
+    {
+      "client": "matera",
+      "url": "https://www.matera.eu",
+      "pageType": "home",
+      "autoV3": 14.0,
+      "note": "SaaS B2B — ton signature détecté top (per_07=3), zero jargon (per_08=3), mais storytelling absent (per_02=0) et FAQ faible"
+    },
+    {
+      "client": "seoni",
+      "url": "https://seoni.io",
+      "pageType": "home",
+      "autoV3": 18.0,
+      "note": "Meilleur score portefeuille — 6/8 critères au moins OK ou Top"
+    },
+    {
+      "client": "stan",
+      "url": "stan",
+      "pageType": "home",
+      "autoV3": 5.0,
+      "note": "Min portefeuille — double killer per_01 + per_04 déclenchés, page pauvre en signaux persuasion"
+    }
+  ],
+  "batchStats": {
+    "date": "2026-04-09",
+    "clientsScored": 30,
+    "mean": 11.2,
+    "median": 12.0,
+    "min": 5.0,
+    "max": 18.0,
+    "killerCapped": 8,
+    "killerCappedPct": 27
+  },
+  "sourcesConsolidated": [
+    "Notion 'Doc Process & suivi CRO' sections Bénéfices / Preuves sociales / FAQ / Comparaison / Personae / Reason Why / Before-After",
+    "skills/cro-auditor/references/audit_criteria.md Catégorie 3 Persuasion /21 (V1, 7 critères 3.1-3.7)",
+    "data/cro_criteria_v2.json pillar persuasion (V2, 8 critères per_01→per_08)",
+    "skills/cro-auditor/references/cro_principles.md sections 2.4 Hiérarchie preuve sociale + 2.9 Benefit Laddering + 2.10 Niveaux de conscience Schwartz + 2.5.1 Friction cognitive",
+    "data/audit_japhy_v2.json criteriaDetails_persuasion (baseline 15/24)",
+    "playbook/bloc_2_sources.md (synthèse consolidée 2026-04-09)"
+  ],
+  "designDecisions": {
+    "D1_criteriaCount": "8 critères × 3 pts = /24 (on garde V2, per_08 anti-jargon capture un pattern DTC récurrent invisible aux 7 autres) — VALIDÉ USER 2026-04-09",
+    "D2_pageTypeWeighting": "pondérations 0.7/1/1.2/1.3 activées par critère × pageType, total renormalisé à /24 — VALIDÉ USER 2026-04-09",
+    "D3_killers": "per_01 critical → cap 8/24 ; per_04 critical → cap 10/24 ; per_08 critical → cap 20/24 (pénalité non éliminatoire) — VALIDÉ USER 2026-04-09",
+    "D4_checkMethods": "mix textual/heuristic/visual selon critère — cf champ checkMethod par critère",
+    "D5_captureDependency": "score_persuasion.py consomme capture.json v1.0 ; si structure.faqs ou socialProof.testimonials absents → fallback regex sur rawHtml, sinon ouvrir site-capture v1.1"
+  },
+  "pageTypeWeights": {
+    "per_01": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "lp_sales": 1.0,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.0,
+      "advertorial": 1.0,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 1.0
+    },
+    "per_02": {
+      "home": 1.0,
+      "pdp": 0.7,
+      "lp_sales": 1.3,
+      "lp_leadgen": 0.7,
+      "lp_saas": 0.7,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.3,
+      "pricing": 0.7,
+      "blog": 1.0
+    },
+    "per_03": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "lp_sales": 1.0,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.0,
+      "advertorial": 1.0,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 1.0
+    },
+    "per_04": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "lp_sales": 1.2,
+      "lp_leadgen": 1.2,
+      "lp_saas": 1.2,
+      "advertorial": 1.0,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 1.0
+    },
+    "per_05": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "lp_sales": 1.2,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.2,
+      "advertorial": 1.0,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 0.7
+    },
+    "per_06": {
+      "home": 0.7,
+      "pdp": 1.2,
+      "lp_sales": 1.2,
+      "lp_leadgen": 1.2,
+      "lp_saas": 1.0,
+      "advertorial": 0.7,
+      "quiz_vsl": 0.7,
+      "pricing": 1.2,
+      "blog": 0.7
+    },
+    "per_07": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "lp_sales": 1.0,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.0,
+      "advertorial": 1.2,
+      "quiz_vsl": 1.2,
+      "pricing": 1.0,
+      "blog": 1.0
+    },
+    "per_08": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "lp_sales": 1.0,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.0,
+      "advertorial": 1.0,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 1.0
+    },
+    "per_09": {
+      "home": 1.0,
+      "pdp": 0.9,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.3,
+      "lp_saas": 1.2,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.1,
+      "pricing": 1.0,
+      "blog": 0.7,
+      "listicle": 1.3,
+      "comparison": 1.0,
+      "vsl": 1.3,
+      "challenge": 1.2,
+      "squeeze": 1.2,
+      "bundle_standalone": 1.0,
+      "webinar": 1.1,
+      "checkout": 0.7,
+      "thank_you_page": 0.0
+    },
+    "per_10": {
+      "home": 0.9,
+      "pdp": 1.0,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.2,
+      "lp_saas": 1.0,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.0,
+      "pricing": 0.9,
+      "blog": 1.0,
+      "listicle": 1.3,
+      "comparison": 0.8,
+      "vsl": 1.3,
+      "challenge": 1.1,
+      "squeeze": 0.9,
+      "bundle_standalone": 1.1,
+      "webinar": 1.0,
+      "checkout": 0.0,
+      "thank_you_page": 0.0
+    },
+    "per_11": {
+      "home": 1.0,
+      "pdp": 1.2,
+      "lp_sales": 1.2,
+      "lp_leadgen": 1.1,
+      "lp_saas": 1.2,
+      "advertorial": 1.2,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 0.9,
+      "listicle": 1.1,
+      "comparison": 1.0,
+      "vsl": 1.2,
+      "challenge": 1.1,
+      "squeeze": 0.9,
+      "bundle_standalone": 1.1,
+      "webinar": 1.0,
+      "checkout": 0.0,
+      "thank_you_page": 0.0
+    }
+  },
+  "normalization": "Total pondéré = Σ(score_i × weight_i) sur les critères applicables (pageTypes match). Ensuite renormalisation : final = (total_pondéré / Σ(3 × weight_i_applicable)) × 33. Le score final reste toujours /33 V3.1.0. Pour comparabilité historique V3.0.0, une vue legacy = final × (24/33) est disponible dans reco_engine.",
+  "killers": [
+    {
+      "id": "per_01_critical",
+      "rule": "Si per_01 == 0 (page 100% features / zéro traduction outcome), cap du total Bloc 2 à 8/24"
+    },
+    {
+      "id": "per_04_critical",
+      "rule": "Si per_04 == 0 (zéro preuve concrète : ni chiffre, ni cas client, ni étude, ni before/after, ni stat), cap du total Bloc 2 à 10/24"
+    },
+    {
+      "id": "per_08_critical_penalty",
+      "rule": "Si per_08 == 0 (jargon creux en volume), cap du total Bloc 2 à 20/24 — pénalité non éliminatoire"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "per_01",
+      "label": "Bénéfices > features (So What Test + USP priorisées 3-5)",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "≥ 80 % des sections produit/service traduisent chaque feature en outcome concret utilisateur. **So What Test** : chaque feature listée peut être complétée par un 'et alors ?' avec bénéfice utilisateur explicite en <10 mots. Les USP respectent le format Notion : titre bénéfice court + explication + icône/visuel. **3 à 5 USP majeures visibles (pas 8+)** — au-delà, dilution qui pénalise le score. Chaque USP survit au Benefit Laddering : Feature → Avantage → Bénéfice → Transformation. Pas de USP identique à un concurrent direct. Exemples : 'Hydratation optimale pendant l'effort' (pas 'Contient 300mg d'électrolytes'), 'Résultats démontrés en 90j — 90% des participants ont constaté une diminution de la chute des cheveux'.",
+        "ok": "50-80 % des features sont traduites en bénéfices. Quelques USP restent centrées produit ('ingrédients naturels', 'sans gluten') sans expliquer le résultat pour l'utilisateur. Nombre d'USP à la limite : 6-7 USP listées (dilution modérée). So What Test réussi pour les bénéfices principaux mais pas tous. Pattern Japhy baseline.",
+        "critical": "< 50 % de traduction. Page 100 % features / caractéristiques techniques sans outcome. OU ≥3 features n'ont aucune traduction outcome (So What Test échoué). OU **>7 USP sans hiérarchie** (dilution forte) OU 1 seul USP vague. OU USP vagues non spécifiques ('qualité premium', 'solution innovante', 'expertise reconnue'). OU USP copiées-collables chez tous les concurrents. Déclenche le killer per_01_critical."
+      },
+      "amendments_applied": [
+        "A-04 So What Test",
+        "A-08 USP ≤5"
+      ],
+      "examples": {
+        "top": [
+          "'Ton chien digère mieux en 14 jours, tu nettoies 3× moins' (pet food — outcome chien + outcome maître)",
+          "'Gagne 5 minutes chaque matin en laissant l'IA trier tes mails urgents' (SaaS productivity — Benefit Laddering complet)",
+          "'Résultats démontrés en 90j — 90 % des participants ont constaté une diminution de la chute des cheveux' (Notion verbatim)"
+        ],
+        "ok": [
+          "'Croquettes avec taille adaptée à sa race pour une mastication et digestion optimales' (Japhy actuel — 1 feature bien traduite mais 80 % restent centrées produit)",
+          "'Une alimentation sur-mesure, fabriquée en France' (mix bénéfice + feature, pas de transformation)"
+        ],
+        "critical": [
+          "'Contient 300mg d'électrolytes par sachet' (feature brute)",
+          "'Ingrédients naturels, sans gluten, sans conservateurs' (3 features, zéro outcome)",
+          "'Solution innovante à haut niveau d'exigence' (jargon creux sans bénéfice)",
+          "Liste de 10 USP sans hiérarchie sur la home"
+        ]
+      },
+      "antiPatterns": [
+        "Catalogue de caractéristiques techniques sans 'pour vous / pour ton chien / pour ton équipe'",
+        "Plus de 6 USP alignées → dilution",
+        "USP que le concurrent direct affiche à l'identique",
+        "USP qui ne survit pas au test 'Et alors ?' une seule fois",
+        "Traduction bénéfice générique ('vous gagnerez du temps') sans chiffre ni spécificité"
+      ],
+      "killer": true,
+      "killerRule": "Si score == 0 → cap Bloc 2 à 8/24",
+      "notionRefId": "section-benefices-usp",
+      "principleRefs": [
+        "benefit_laddering",
+        "test_et_alors",
+        "usp_unique_specifique_credible"
+      ],
+      "v1Mapping": [
+        "3.1 Hiérarchie info (partiel)"
+      ],
+      "v2Mapping": [
+        "per_01 Bénéfices > features"
+      ],
+      "amendments": [
+        "A-04 So What Test (chaque bloc répond à 'so what?')",
+        "A-08 USP ≤5 bullets (au-delà = dilution)"
+      ]
+    },
+    {
+      "id": "per_02",
+      "label": "Angle narratif / storytelling fondateur présent",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "home",
+        "lp_sales",
+        "pdp",
+        "quiz_vsl",
+        "advertorial",
+        "blog",
+        "listicle",
+        "vsl",
+        "challenge",
+        "webinar"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Histoire fondatrice claire et spécifique : origine de la marque (un vétérinaire frustré, une cofondatrice dont le chien est tombé malade, un développeur qui a perdu 2 ans sur un bug…) explicitement présente sur la page. Arc narratif : problème → déclencheur → solution → mission. Storytelling aligné avec le niveau de conscience du trafic (Schwartz : unaware → problem → solution → product → most aware). Ton narratif cohérent tout au long de la page, pas une simple liste de cas clients.",
+        "ok": "Traces de storytelling (mention 'créé par', 'notre histoire', cas clients nommés avec contexte) mais pas d'arc complet. Pas de déclencheur émotionnel fort. La marque reste descriptive plutôt que narrative. Pattern Japhy baseline (cas clients nommés mais aucun 'pourquoi nous existons').",
+        "critical": "Zéro storytelling. Pas d'histoire fondatrice. Pas de mention 'pourquoi cette marque existe'. Page 100 % catalogue. OU storytelling clairement désaligné avec le niveau de conscience (ex: ton 'most aware' sur trafic cold)."
+      },
+      "examples": {
+        "top": [
+          "HelloFresh : mission 'mieux manger chez soi' racontée avec les fondateurs et le déclencheur",
+          "'Quand mon chien Sésame est tombé malade à 3 ans, aucun véto ne m'a dit que c'était l'alim industrielle. J'ai passé 6 mois à tout réapprendre. Japhy est né de cette colère.' (exemple cible pour Japhy)"
+        ],
+        "ok": [
+          "Japhy actuel : cas maître/animal nommés (George/Vicky, Meggie/Waffle) mais aucun arc fondateur"
+        ],
+        "critical": [
+          "Page home DTC 100 % produit-prix sans aucune mention d'origine ni fondateur",
+          "Marque sans page 'About' et sans aucun paragraphe narratif dans la home"
+        ]
+      },
+      "antiPatterns": [
+        "Liste de prénoms clients appelée 'témoignages' sans histoire",
+        "Bloc 'About' générique 'Notre mission : offrir le meilleur' sans déclencheur",
+        "Storytelling de 10 paragraphes au-dessus du fold qui retarde la promesse",
+        "Ton narratif en rupture avec le ton des ads qui amènent le visiteur"
+      ],
+      "killer": false,
+      "notionRefId": "section-reason-why-personae",
+      "principleRefs": [
+        "niveaux_conscience_schwartz",
+        "stages_of_awareness",
+        "arc_narratif"
+      ],
+      "v1Mapping": [
+        "3.1 Structure narrative (partiel)"
+      ],
+      "v2Mapping": [
+        "per_02 Angle narratif / storytelling"
+      ]
+    },
+    {
+      "id": "per_03",
+      "label": "Objections principales levées explicitement",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "heuristic",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "3 à 5 objections clés du secteur identifiées et traitées EXPLICITEMENT sur la page (dans FAQ, comparaison, témoignages, section dédiée, ou reason why). Objections sectorielles respectées — e-commerce : qualité/livraison/garantie/retour ; SaaS B2B : complexité/ROI/déploiement/sécurité ; lead gen : spam/délai/engagement ; infoproduits : 'pour mon niveau'/durée/résultats. Ton d'admission + solution + preuve tangible (pas 'non c'est faux'). Les objections sont spécifiques au secteur, pas génériques.",
+        "ok": "2 à 3 objections adressées ou traitées de façon indirecte. Couvre l'essentiel mais laisse passer une objection business majeure (ex: objection prix, objection 'et si ça marche pas pour moi'). Pattern Japhy baseline.",
+        "critical": "< 2 objections identifiées. OU objections traitées superficiellement ('c'est simple, facile, rapide' sans preuve). OU ton défensif ('non vous vous trompez'). OU objections génériques ('qui sommes-nous') au lieu des vraies objections business."
+      },
+      "examples": {
+        "top": [
+          "Page SaaS B2B avec FAQ qui traite nominativement : 'Combien de temps pour l'onboarding ?' + 'Quel ROI en 90 jours ?' + 'Données hébergées où ?' + 'Et si ça ne marche pas pour mon cas ?' — chaque réponse avec chiffre ou garantie",
+          "Page pet food avec section 'Nous vs Royal Canin' comparant qualité/prix/origine + 'Et si mon chien refuse ?' (offre découverte 2 semaines gratuites)"
+        ],
+        "ok": [
+          "Japhy : FAQ couvre livraison/abonnement/origine/chiots mais manque objection prix (vs Royal Canin) et 'et si mon chien n'aime pas' peu appuyée"
+        ],
+        "critical": [
+          "Page qui répète 'c'est facile et rapide' sans jamais traiter 'et si c'est complexe pour moi ?'",
+          "Page SaaS sans aucune mention de sécurité/RGPD/hébergement",
+          "Page e-commerce sans mention retour/garantie/livraison"
+        ]
+      },
+      "antiPatterns": [
+        "Objections imaginaires non-ressenties par le trafic ciblé",
+        "Réponse 'rassurante' sans preuve tangible (juste 'on s'en occupe')",
+        "Traitement d'objection caché sous le fold sur un secteur à forte méfiance (SaaS B2B, finance, santé)",
+        "Objections listées mais pas de vraie réponse ('nous comprenons que…') sans solution"
+      ],
+      "killer": false,
+      "notionRefId": "section-comparaison-objections",
+      "principleRefs": [
+        "anticipation_objection",
+        "ton_admission_solution",
+        "objections_sectorielles"
+      ],
+      "v1Mapping": [
+        "3.4 Traitement des objections"
+      ],
+      "v2Mapping": [
+        "per_03 Objections levées"
+      ]
+    },
+    {
+      "id": "per_04",
+      "label": "Preuves concrètes (chiffres sourcés, études, cas client, before/after)",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+visual",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "scoring": {
+        "top": "≥ 4 types de preuves concrètes visibles dispersées sur la page : (a) chiffres clés spécifiques ('45 000 000 repas servis', '80 % protéines animales'), (b) études ou résultats cliniques sourcés, (c) cas clients nommés avec résultat quantifié, (d) before/after tangible, (e) screenshots avis vérifiés, (f) logos presse ou partenaires reconnus. Toutes les claims chiffrées sont sourcées ou vérifiables. Pas de 'augmentez de 500 %' sans étude. Comparaisons loyales. Taille d'échantillon communiquée quand pertinent.",
+        "ok": "2 à 3 types de preuves présents. Quelques chiffres sourcés, quelques cas clients, mais manque de before/after ou d'études. Baseline Japhy : '45M repas' + '80 % protéines' + 3 bénéfices claims = ok mais absence d'études cliniques et before/after.",
+        "critical": "0 à 1 preuve concrète. OU chiffres invérifiables ('des milliers de clients satisfaits' sans source). OU claims suspects ('x10 de croissance en 7 jours'). OU 100 % du copy est affirmation sans preuve. Déclenche le killer per_04_critical."
+      },
+      "examples": {
+        "top": [
+          "'45 000 000 repas servis', '80 % protéines animales', étude clinique 6 mois, before/after photo réelle, badge Trustpilot 4,8/5 avec 12k avis, logo Le Monde + Capital",
+          "'En 90 jours, 90 % des 500 participants à notre étude ont constaté une diminution de la chute des cheveux (étude dermato, mars 2025)'"
+        ],
+        "ok": [
+          "Japhy : '45M repas' + '80 % protéines' + bénéfices claims digestion/poil/appétit — chiffres présents mais pas d'étude ni before/after"
+        ],
+        "critical": [
+          "'+500 % de croissance en 7 jours' sans étude citée",
+          "'Meilleure solution du marché' sans source",
+          "Page sans un seul chiffre et sans un seul cas client nommé"
+        ]
+      },
+      "antiPatterns": [
+        "Chiffres ronds suspects ('x10', '+1000 %') sans source",
+        "Étude citée sans date ni méthodologie (invérifiable)",
+        "Before/after avec photos stock ou incohérentes",
+        "Claim 'N°1 du marché' sans source tierce",
+        "Taille d'échantillon cachée ('500 % avec 2 clients')"
+      ],
+      "killer": true,
+      "killerRule": "Si score == 0 → cap Bloc 2 à 10/24",
+      "notionRefId": "section-preuves-sociales-claims",
+      "principleRefs": [
+        "hierarchie_preuve_sociale",
+        "claims_verifiables",
+        "transparence"
+      ],
+      "v1Mapping": [
+        "3.2 Preuves sociales",
+        "3.5 Claims vérifiables"
+      ],
+      "v2Mapping": [
+        "per_04 Preuves concrètes"
+      ]
+    },
+    {
+      "id": "per_05",
+      "label": "Témoignages ≥3 formats (text+photo+vidéo) + distribution avis réaliste",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "visual+textual",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "scoring": {
+        "top": "**≥ 3 formats mixés** : (1) ≥ 1 vidéo témoignage client + (2) avis vérifiés intégrés (widget Trustpilot/Judge.me/Google Reviews visible) + (3) témoignages texte avec prénom + photo + ville + détail concret + ressenti + bénéfice précis. **Distribution avis réaliste** : note moyenne 4.2-4.8/5 avec présence d'avis <5⭐ visibles (pas 100% 5⭐ artificiel), réponses de la marque aux avis mitigés visibles. Chaque témoignage traite une objection spécifique (pas de 'super produit'). Témoignages dispersés sur la page (pas 1 unique bloc 'ils parlent de nous'). Pour autorité : experts nommés (véto, médecin, expert secteur) avec crédentiels visibles.",
+        "ok": "**2 formats** présents (ex: text + photo, ou text + vidéo). Témoignages nommés présents avec prénom mais sans vidéo. OU widget avis vérifiés présent mais témoignages texte génériques. Format 'liste légère' plutôt que témoignage fort. OU distribution avis crédible (présence <5⭐) mais formats limités. Baseline Japhy : Dr Masson + Tony Silvestre (autorité) + cas maître/animal nommés mais pas de vidéos, témoignages 1-phrase, pas d'étoiles associées.",
+        "critical": "**≤1 format** (text only). Témoignages anonymes ('John est très satisfait'), OU 1 unique section 'témoignages' en bas de page, OU témoignages clairement génériques ('super produit, je recommande'), OU aucun témoignage visible. OU **100% 5⭐ zéro avis négatif visible** = artificiel, pénalisé car perte confiance."
+      },
+      "amendments_applied": [
+        "A-06 avis mitigés visibles",
+        "A-07 ≥3 formats"
+      ],
+      "examples": {
+        "top": [
+          "Widget Trustpilot 4,8/5 + 3 vidéos clients dans le hero + 5 témoignages texte avec prénom/photo/ville/résultat + 2 experts nommés (véto + dermato) avec crédentiels",
+          "'Marie, 34 ans, Lyon — Mon chien Milo a arrêté de se gratter en 3 semaines. J'ai arrêté de payer le véto tous les mois.' (photo réelle, détail, bénéfice)"
+        ],
+        "ok": [
+          "Japhy : Dr Laurent Masson (véto 30 ans) + Tony Silvestre (Esprit Dog) nommés avec autorité + cas maître/animal listés, mais pas de vidéos et témoignages 1-phrase"
+        ],
+        "critical": [
+          "'John, client satisfait' sans photo sans ville sans contexte",
+          "'Super produit, je recommande ! — Sarah' × 5 (génériques)",
+          "1 unique bloc 'témoignages' en bas de page avec 3 citations anonymes"
+        ]
+      },
+      "antiPatterns": [
+        "Photos stock utilisées comme témoignages (Google Image reverse search révélateur)",
+        "Témoignages identiques sur tous les concurrents du secteur (copy-paste réseau affiliation)",
+        "Témoignages sans aucun détail spécifique au produit",
+        "Pas de widget vérifié quand le secteur l'exige (e-commerce → Trustpilot/Avis Vérifiés)"
+      ],
+      "killer": false,
+      "notionRefId": "section-avis-clients",
+      "principleRefs": [
+        "hierarchie_preuve_sociale",
+        "temoignage_anti_objection",
+        "autorite_expert"
+      ],
+      "v1Mapping": [
+        "3.2 Preuves sociales dispersées"
+      ],
+      "v2Mapping": [
+        "per_05 Témoignages nommés"
+      ],
+      "amendments": [
+        "A-06 Social proof — ne PAS cacher avis mitigés",
+        "A-07 Ratio testimonials ≥3 formats (text/photo/vidéo)"
+      ]
+    },
+    {
+      "id": "per_06",
+      "label": "FAQ ciblée sur objections réelles (arme anti-doute, pas base d'aide)",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "pdp",
+        "pricing",
+        "lp_sales",
+        "lp_leadgen",
+        "lp_saas",
+        "home",
+        "bundle_standalone",
+        "comparison",
+        "webinar"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "heuristic",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "FAQ présente avec 5 à 8 questions (sweet spot CRO 6-7) uniquement bloquantes conversion : prix/paiement, livraison, retours/garantie, efficacité, compatibilité, délais résultats, engagement. Ordre stratégique : financier → logistique → efficacité → compatibilité → support. Réponses courtes < 50 mots, format 'réponse directe + précision rassurante + micropreuve'. Accordion fermé par défaut. Position : après buybox, après preuves sociales, avant footer. Tolérance : jusqu'à 9 questions si toutes pertinentes (cas Japhy). Règle Notion appliquée : 'si la réponse n'influence pas l'achat → elle ne doit pas être là'.",
+        "ok": "FAQ présente avec 4 à 10 questions, dont l'essentiel est bloquant conversion mais 1 à 2 questions hors-sujet ('qui sommes-nous', 'histoire de la marque'). Ordre partiellement logique. Réponses acceptables mais parfois trop longues.",
+        "critical": "Pas de FAQ. OU < 4 questions. OU > 10 questions. OU FAQ = base d'aide / documentation produit avec questions techniques mineures ('comment changer ma photo de profil'). OU ordre aléatoire. OU réponses vagues."
+      },
+      "examples": {
+        "top": [
+          "Japhy : 9 questions toutes sur objections business (délais, abonnement, origine, naturel, algorithme menu, chiots/chatons, seniors, modification, transition). Baseline V2 = 3/3.",
+          "SaaS : 6 questions ordre {tarif → déploiement → ROI → sécurité → support → résiliation} avec réponses < 50 mots + micro CTA 'voir politique' dans 2 réponses"
+        ],
+        "ok": [
+          "FAQ de 7 questions dont 2 orientées 'qui sommes-nous / valeurs de la marque' (hors-sujet conversion)",
+          "FAQ pertinente mais avec réponses de 100+ mots qui fatiguent"
+        ],
+        "critical": [
+          "Pas de FAQ du tout sur une PDP e-commerce",
+          "FAQ de 25 questions techniques ('comment réinitialiser mon mot de passe')",
+          "'FAQ' = 3 questions : 'Qui sommes-nous', 'Notre histoire', 'Nos valeurs'"
+        ]
+      },
+      "antiPatterns": [
+        "Questions de documentation produit qui n'influencent pas l'achat",
+        "FAQ générée par brainstorming interne au lieu de tickets support / reviews / objections sales",
+        "Réponse qui rediscute la proposition de valeur (perte de la conversion)",
+        "Accordion ouvert par défaut → mur de texte",
+        "FAQ placée avant preuves sociales (ordre inverse de Notion)"
+      ],
+      "killer": false,
+      "notionRefId": "section-faq",
+      "principleRefs": [
+        "faq_arme_anti_doute",
+        "ordre_strategique_objections",
+        "source_tickets_support"
+      ],
+      "v1Mapping": [
+        "3.3 FAQ orientée conversion"
+      ],
+      "v2Mapping": [
+        "per_06 FAQ ciblée"
+      ]
+    },
+    {
+      "id": "per_07",
+      "label": "Ton cohérent avec la cible et la catégorie",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Ton signature identifiable dès le hero et maintenu jusqu'au footer. Aligné au niveau de conscience Schwartz du trafic entrant (cold → éducatif, warm → comparatif, hot → promo/urgence). Aligné au ton of voice des ads qui amènent le visiteur (punchy→punchy, posé→posé). Punchlines ou formulations signature présentes (la marque a une voix reconnaissable). Adresse cohérente (tutoiement vs vouvoiement stable). Marqueurs culturels pertinents à la cible (référentiel, vocabulaire, exemples).",
+        "ok": "Ton cohérent avec l'audience macro mais 'moyen' — pas de signature forte. Aucune punchline mémorable. Le visiteur reconnaît le secteur mais pas la marque. Pattern Japhy baseline : 'ton chaleureux cohérent avec DTC pet food mais trop lisse, ton moyen qui parle à tout le monde = à personne'.",
+        "critical": "Ton incohérent dans la page (mix formel/informel, mix tutoiement/vouvoiement). OU ton en rupture totale avec le ton des ads qui amènent le visiteur (scent trail brisé). OU ton 'most aware' / promo agressive sur trafic cold. OU ton corporate-lisse sur audience jeune/urbaine (cible ratée)."
+      },
+      "examples": {
+        "top": [
+          "Oatly : ton signature 'honnête-absurde' maintenu packaging → site → ads",
+          "Cursor : ton tech peer-to-peer 'built by devs who ship' cohérent avec cible développeurs",
+          "Feed. : ton ultra-direct 'tu veux pas te faire chier à cuisiner, on a ce qu'il te faut' cohérent cible urbain pressé"
+        ],
+        "ok": [
+          "Japhy : ton chaleureux DTC pet food, correct mais sans signature, 'plusieurs dizaines de recettes élaborées avec soin' = ton moyen"
+        ],
+        "critical": [
+          "Site SaaS B2B tutoyant agressivement sur trafic cold enterprise",
+          "E-commerce DTC au ton corporate 'Nous avons le plaisir de vous présenter notre gamme exclusive'",
+          "Rupture : ads punchy 'Arrête de payer le véto' → LP 'Bienvenue chez Japhy, acteur majeur de la nutrition canine'"
+        ]
+      },
+      "antiPatterns": [
+        "Ton qui change entre le hero et la section produit",
+        "Mix tutoiement/vouvoiement dans la même page",
+        "Vocabulaire trop formel sur une cible jeune (ou inverse)",
+        "Punchlines forcées qui sonnent faux (ton marketing qui essaie d'être cool)",
+        "Absence totale de signature → ton remplaçable"
+      ],
+      "killer": false,
+      "notionRefId": "section-copywriting-personae-ton",
+      "principleRefs": [
+        "niveaux_conscience_schwartz",
+        "scent_trail_ton",
+        "ton_of_voice_signature"
+      ],
+      "v1Mapping": [
+        "3.1 Structure narrative (partiel)"
+      ],
+      "v2Mapping": [
+        "per_07 Ton cohérent"
+      ]
+    },
+    {
+      "id": "per_08",
+      "label": "Absence de jargon creux / generic AI tone / DTC 2018 template",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Aucune phrase de la blacklist jargon détectée, OU ≤ 1 occurrence isolée dans toute la page. Chaque claim vague est systématiquement remplacée par un chiffre ou une spécificité concrète ('plusieurs dizaines de recettes' → '23 recettes validées par 4 vétos nutritionnistes'). Pas de superlatifs gratuits ('leader', 'innovant', 'unique'). Pas de 'buzzword stacking' ('solution innovante à haut niveau d'exigence conçue avec passion'). Le copy pourrait avoir été écrit par un humain spécifique qui a un point de vue.",
+        "ok": "2 à 4 occurrences de jargon creux détectées mais le reste du copy est concret. Quelques superlatifs non sourcés mais la plupart des claims sont chiffrés. Une ou deux phrases 'template' cohabitent avec du copy spécifique.",
+        "critical": "≥ 5 occurrences de jargon creux / phrases DTC template. Volume significatif de formulations comme 'créée avec soin', 'haut niveau d'exigence', 'nous mettons un point d'honneur', 'plusieurs dizaines de', 'solution innovante', 'haut de gamme', 'sur-mesure' (sans expliquer en quoi), 'qualité premium', 'expertise reconnue', 'passion pour…'. Pattern 'DTC 2018 template' généralisé. Déclenche le killer per_08_critical_penalty → cap 20/24."
+      },
+      "examples": {
+        "top": [
+          "'23 recettes validées par 4 vétos nutritionnistes, cuisinées à 70°C pour préserver les protéines' (remplace '\"plusieurs dizaines de recettes élaborées avec soin\"')",
+          "'Notre fondateur a passé 6 mois chez un vétérinaire de Nantes pour concevoir la formule' (point de vue + spécificité)",
+          "Copy avec chiffres spécifiques, noms propres, dates, unités de mesure"
+        ],
+        "ok": [
+          "Copy concret avec 2-3 phrases template résiduelles ('fabriqué avec passion', 'haut niveau d'exigence') noyées dans des claims chiffrés"
+        ],
+        "critical": [
+          "Japhy baseline : 'créée avec soin', 'avec un haut niveau d'exigence', 'nous mettons un point d'honneur', 'plusieurs dizaines de recettes élaborées avec soin' = 4+ phrases template → cap 20/24",
+          "'Solution innovante à haut niveau d'exigence, conçue avec passion par des experts reconnus' (full template)"
+        ]
+      },
+      "antiPatterns": [
+        "'créée/conçu(e) avec soin' / 'avec passion' / 'avec amour'",
+        "'haut niveau d'exigence' / 'exigence de qualité'",
+        "'nous mettons un point d'honneur'",
+        "'plusieurs dizaines de' / 'plusieurs centaines de' (quand on peut compter précisément)",
+        "'solution innovante' / 'innovant' sans description de l'innovation",
+        "'expertise reconnue' / 'leader du marché' sans source",
+        "'sur-mesure' / 'premium' / 'haut de gamme' sans spécifique",
+        "'qualité irréprochable' / 'satisfaction garantie' / 'équipe passionnée'",
+        "Stacking buzzwords ('innovant, unique, premium, sur-mesure')"
+      ],
+      "blacklistRegex": [
+        "cr[ée]{2,3}e?s?\\s+avec\\s+soin",
+        "avec\\s+passion",
+        "haut\\s+niveau\\s+d['']exigence",
+        "point\\s+d['']honneur",
+        "plusieurs\\s+(dizaines|centaines|milliers)\\s+de",
+        "solution\\s+innovante",
+        "(expertise|savoir-faire)\\s+reconnue?",
+        "leader\\s+(du|sur\\s+le)\\s+march[ée]",
+        "qualit[ée]\\s+(irr[ée]prochable|premium|sup[ée]rieure)",
+        "équipe\\s+passionn[ée]e?",
+        "haut\\s+de\\s+gamme"
+      ],
+      "killer": true,
+      "killerRule": "Si score == 0 → cap Bloc 2 à 20/24 (pénalité non éliminatoire)",
+      "notionRefId": "friction-cognitive-jargon",
+      "principleRefs": [
+        "friction_cognitive",
+        "anti_generic_ai_tone",
+        "specificite_chiffree"
+      ],
+      "v1Mapping": [
+        "3.5 Claims vérifiables (partiel)"
+      ],
+      "v2Mapping": [
+        "per_08 Absence de jargon creux"
+      ]
+    },
+    {
+      "id": "per_09",
+      "label": "Awareness match Schwartz — ton hero matche niveau conscience trafic",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "heuristic+traffic_source",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "source_enrichment": "N-01 doctrine enrichie 2026-04-13",
+      "schwartz_default_by_page_type": {
+        "home": "mixte Problem-aware ↔ Solution-aware",
+        "collection": "Solution-aware ↔ Product-aware",
+        "pdp": "Product-aware (close proche)",
+        "lp_leadgen": "Problem-aware (cold paid entry)",
+        "lp_sales": "Solution-aware → Product-aware",
+        "advertorial": "Unaware → Problem-aware (cold native-ad)",
+        "listicle": "Unaware → Problem-aware",
+        "vsl": "Problem-aware → Product-aware (progression scroll/time)",
+        "challenge": "Solution-aware",
+        "pricing": "Solution-aware → Product-aware",
+        "checkout": "Most-aware (close final)",
+        "thank_you_page": "Most-aware (post-conversion)",
+        "bundle_standalone": "Product-aware → Most-aware",
+        "squeeze": "Unaware → Problem-aware",
+        "webinar": "Problem-aware → Solution-aware",
+        "blog": "Unaware → Problem-aware (SEO top funnel)"
+      },
+      "utm_override_rules": {
+        "utm_medium=cpc OR utm_source=facebook|instagram|tiktok cold": "Unaware → Problem-aware",
+        "utm_campaign contains 'retarget|remarketing'": "Problem-aware → Solution-aware",
+        "utm_medium=email OR utm_source=newsletter": "Solution-aware → Product-aware",
+        "utm_source=direct OR utm_medium=organic with brand keyword": "Most-aware"
+      },
+      "scoring": {
+        "top": "Ton hero matche précisément le niveau Schwartz attendu du trafic entrant (règle par page_type + override UTM si dispo). Exemples : cold paid → Unaware → hero éducatif pain-first (pas prix/offre); retarget PDP → Product-aware → hero offre/urgence justifiée; checkout → Most-aware → réassurance + conversion pure. Scent trail ad→LP confirmé sur le niveau de conscience.",
+        "ok": "Ton générique qui ne contredit pas le niveau Schwartz attendu, mais manque d'adaptation fine (ex: LP cold paid qui reste neutre descriptif au lieu d'adresser douleur). Scoring Top loupé par manque de précision, pas par erreur.",
+        "critical": "Mismatch flagrant : cold paid → LP qui parle prix avant douleur (Unaware audience jugée Most-aware) → diagnostic V11 type 'hero générique qui ne convertit pas'. OU retarget → hero qui re-éduque (comme si visiteur n'avait jamais entendu parler). OU checkout → hero marketing au lieu de close + réassurance."
+      },
+      "examples": {
+        "top": [
+          "LP cold paid DTC beauty → hero = 'Tu as testé 5 crèmes sans résultat ? Voici pourquoi ta peau ne répond pas' (Problem-aware entry ✓)",
+          "Retarget PDP → hero = 'Cette crème a changé la peau de 12 000 femmes — aujourd'hui -20% sur ton premier pot' (Product-aware + urgence ✓)",
+          "Checkout → hero = '✓ Livraison offerte / ✓ Retour 60j / ✓ Paiement 3x sans frais' (Most-aware réassurance ✓)"
+        ],
+        "ok": [
+          "LP cold paid → hero neutre descriptif 'Crème visage bio nutrition profonde' (ni pain-first ni prix-first, milieu mou)"
+        ],
+        "critical": [
+          "LP cold paid → hero 'Achète maintenant -30% expire dans 24h' (Most-aware tone sur Unaware audience = rebond)",
+          "Retarget visiteur chaud → hero 'Découvre une nouvelle façon de prendre soin de ta peau' (re-éducation d'un visiteur déjà éduqué = perte temps)"
+        ]
+      },
+      "antiPatterns": [
+        "Copy identique toutes page_types indépendamment du niveau de conscience attendu",
+        "Ton promo agressif sur trafic cold sans éducation préalable",
+        "Ton éducatif long sur retarget / checkout (rallonge inutile le funnel)",
+        "Aucune différenciation hero entre trafic paid cold vs retarget vs email vs direct"
+      ],
+      "killer": false,
+      "notionRefId": "section-niveaux-conscience-schwartz",
+      "principleRefs": [
+        "niveaux_conscience_schwartz",
+        "stages_of_awareness",
+        "scent_trail",
+        "traffic_source_matching"
+      ],
+      "v3Mapping": [
+        "N-01 doctrine_integration_matrix.json"
+      ]
+    },
+    {
+      "id": "per_10",
+      "label": "Structure copy identifiable — framework reconnaissable sur page",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "lp_leadgen",
+        "lp_sales",
+        "advertorial",
+        "listicle",
+        "vsl",
+        "pdp",
+        "challenge",
+        "webinar",
+        "bundle_standalone",
+        "home"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "heuristic+LLM",
+      "viewport_check": [
+        "both"
+      ],
+      "source_enrichment": "N-02 doctrine enrichie 2026-04-13",
+      "frameworks_accepted": [
+        "PAS (Problem / Agitate / Solution)",
+        "PASTOR (Problem / Amplify / Story / Transformation / Offer / Response)",
+        "AIDA (Attention / Interest / Desire / Action)",
+        "BAB (Before / After / Bridge)",
+        "FAB (Feature / Advantage / Benefit)",
+        "StoryBrand SB7 (Character / Problem / Guide / Plan / CTA / Success / Failure)",
+        "4P (Picture / Promise / Prove / Push)",
+        "Star-Story-Solution",
+        "Slippery Slide (each sentence pulls next)",
+        "CAP (Credibility / Authority / Proof)"
+      ],
+      "scoring": {
+        "top": "Structure narrative claire identifiable sur toute la page : ≥4 blocs séquentiels alignés avec un framework reconnu. Exemples : LP sales = PASTOR complet (Problem → Amplify → Story → Transformation → Offer → Response); advertorial = PAS + témoignage humain; VSL = Star-Story-Solution; PDP = FAB avec laddering; bundle = BAB (vie avant/après bundle). Transitions entre blocs fluides, pas de rupture de logique narrative.",
+        "ok": "Structure partielle détectable : 2-3 blocs alignés avec un framework mais ruptures entre certains blocs (ex: PAS mais skip Agitate, passage direct Problem → Solution). OU framework hybride pas totalement propre.",
+        "critical": "Aucune structure narrative identifiable — page = collage de blocs indépendants (hero → features → témoignages → CTA sans transition). OU framework choisi mais mal exécuté (AIDA sans Attention ni Desire, reste A_A_A)."
+      },
+      "examples": {
+        "top": [
+          "Advertorial Japhy concept : 'Mon chien a failli mourir à 3 ans' (Problem) → 'Les vétos m'ont menti' (Agitate) → 'Puis j'ai découvert la vérité sur l'alim industrielle' (Story) → 'Aujourd'hui mon chien est en pleine forme' (Transformation) → 'Offre découverte 2 semaines' (Offer) → 'Ta commande en 2 clics' (Response) = PASTOR complet",
+          "SaaS B2B StoryBrand : 'Tu gères 5 projets' (Character) → 'Tes outils sont dispersés' (Problem) → 'Notre plateforme unifie tout' (Guide) → 'Onboarding 3 étapes' (Plan) → 'Démarre ton essai' (CTA) → 'Reprends ton temps' (Success) → 'Arrête de perdre 10h/semaine' (Failure)"
+        ],
+        "ok": [
+          "LP saas qui fait AIDA mais sans vraie Desire (Attention ok, Interest ok, passe direct à Action)",
+          "PDP qui fait FAB mais sans monter au Benefit identitaire"
+        ],
+        "critical": [
+          "Page DTC qui enchaîne hero image + 6 bénéfices + 3 témoignages + CTA sans fil narratif",
+          "LP B2B qui liste 12 features en grid puis saute à tarif sans convaincre"
+        ]
+      },
+      "antiPatterns": [
+        "Collage 'blocs' sans fil rouge",
+        "Framework annoncé en promesse mais exécution incohérente",
+        "Mix de 3 frameworks à la fois (PAS + StoryBrand + AIDA concurrents)",
+        "Chaque section pourrait être ré-ordonnée sans perte de sens = pas de structure"
+      ],
+      "killer": false,
+      "notionRefId": "frameworks-copywriting",
+      "principleRefs": [
+        "copywriting_structures",
+        "narrative_flow",
+        "slippery_slide"
+      ],
+      "v3Mapping": [
+        "N-02 doctrine_integration_matrix.json"
+      ]
+    },
+    {
+      "id": "per_11",
+      "label": "Benefit Laddering profond (functional → emotional → identity, ≥2 niveaux sur bénéfices principaux)",
+      "pillar": "persuasion",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+LLM",
+      "viewport_check": [
+        "both"
+      ],
+      "source_enrichment": "N-06 doctrine enrichie 2026-04-13",
+      "laddering_levels": {
+        "feature": "Ce que fait le produit (ingredient, spec, process)",
+        "functional_benefit": "Ce que ça apporte concrètement à l'utilisateur (gain temps, résultat mesurable)",
+        "emotional_benefit": "Ce que l'utilisateur ressent (fierté, apaisement, confiance, liberté)",
+        "identity_benefit": "Ce que l'utilisateur devient (type de personne / statut / tribu)"
+      },
+      "scoring": {
+        "top": "≥2 bénéfices principaux du produit/service montent 3+ niveaux dans le laddering : feature → functional → emotional → identity. Exemple : 'Croquettes 80% protéines animales' (feature) → 'Ton chien digère mieux' (functional) → 'Tu cesses de culpabiliser à chaque repas' (emotional) → 'Tu deviens le maître informé qui refuse le Royal Canin' (identity). Laddering non forcé, chaque niveau crédible et spécifique.",
+        "ok": "Bénéfices principaux montent 2 niveaux (feature + functional OU functional + emotional). Pas de niveau identitaire atteint. Le copy aide mais ne transforme pas la perception du visiteur sur lui-même. Pattern DTC fréquent.",
+        "critical": "Bénéfices restent au niveau feature (1 niveau, catalogue pur). OU 100% copy identity/lifestyle sans fondation fonctionnelle (slogan creux 'Become who you truly are' sans preuve du quoi/comment). OU laddering simulé mais bénéfices interchangeables par concurrents."
+      },
+      "examples": {
+        "top": [
+          "Japhy cible : 'Recettes conçues avec nutritionnistes vétos' (feature) → 'Digestion et poil visibles en 14j' (functional) → 'Tu arrêtes de t'inquiéter à chaque repas' (emotional) → 'Tu es le maître qui a fait le choix éclairé, pas celui qui suit la pub TV' (identity)",
+          "Cursor : 'AI completion locale' (feature) → 'Tu tapes 10x plus vite' (functional) → 'Tu retrouves le flow du code' (emotional) → 'Tu fais partie des devs 10x' (identity)"
+        ],
+        "ok": [
+          "DTC beauty : 'Acide hyaluronique 3%' (feature) → 'Peau repulpée en 7 jours' (functional). Pas d'emotional ni identity, reste utilitaire."
+        ],
+        "critical": [
+          "Catalogue pur : 'Bio, vegan, fabriqué en France, made with love' = 4 features aucun niveau",
+          "Identity sans fondation : 'Rejoins la révolution du clean beauty' sans dire quoi/comment"
+        ]
+      },
+      "antiPatterns": [
+        "100% feature dump (per_01 killer)",
+        "100% identity aspiration sans substance",
+        "Laddering forcé/artificiel (ex: 'nos protéines = tu deviens un leader')",
+        "Même laddering applicable à tous les concurrents = commodity"
+      ],
+      "killer": false,
+      "notionRefId": "benefit-laddering-profond",
+      "principleRefs": [
+        "benefit_laddering",
+        "test_et_alors",
+        "maslow_laddering"
+      ],
+      "v3Mapping": [
+        "N-06 doctrine_integration_matrix.json"
+      ]
+    }
+  ],
+  "automationNotes": {
+    "source": "skills/site-capture/scripts/score_persuasion.py v1.0 (LOCKED 2026-04-09)",
+    "dependencies": [
+      "capture.json v1.0 : structure.headings, structure.sections, socialProof.*, rawHtml, pageHtmlBodyText",
+      "Fallback regex sur rawHtml si structure.faqs ou socialProof.testimonials absents"
+    ],
+    "rules": [
+      "per_01 : extraire bénéfices section par section, détecter features (unités, mg, specs techniques) vs outcomes (verbes d'action utilisateur), calculer ratio outcome/feature.",
+      "per_02 : chercher patterns 'fondé en / il était une fois / notre histoire / pourquoi nous existons / notre mission' + détection arc narratif (présence simultanée problème + déclencheur + solution).",
+      "per_03 : détection FAQ + section comparaison + mention garantie/retour/délai/ROI/sécurité selon businessCategory.",
+      "per_04 : compter chiffres ≥ 3 digits, % sourcés, before/after, études citées, screenshots avis. Appliquer hiérarchie preuve sociale pour pondérer.",
+      "per_05 : détecter widgets Trustpilot/Judge.me/Google Reviews + patterns DOM .testimonial + noms propres + photos + vidéos.",
+      "per_06 : détecter <details> / accordion / itemprop=mainEntity, compter questions, analyser ratio 'objection business / total'.",
+      "per_07 : analyse lexicale (tutoiement/vouvoiement ratio, marqueurs ton), comparaison avec ton of voice ads si disponible.",
+      "per_08 : appliquer blacklistRegex sur rawHtml / pageHtmlBodyText, compter occurrences, graduer selon seuils."
+    ],
+    "fixLog": [
+      "2026-04-09 : per_01 killer ne se déclenche plus sur pages à headings pauvres en verbes (ex: myvariations raw 15/24 faussement cappé à 8). Nouvelle règle : critical 0 seulement si body_outcome==0 ET body_feature>=5 (vraie page 100% features). Sinon weak 1. Validation : myvariations passe de 8→16, et Reverso/Stan/Voggt gardent leur killer per_04 car preuves vraiment absentes."
+    ]
+  },
+  "backlog": [
+    "v1.1 : intégrer ton of voice ads via connecteur Meta Ads Library API pour per_07 scent trail",
+    "v1.1 : ajouter detection before/after visuelle via analyse screenshots (ML classifier) pour per_04",
+    "v1.1 : enrichir blacklistRegex per_08 avec patterns spécifiques par langue (EN, ES, DE)",
+    "v2.0 : intégration niveaux de conscience Schwartz — dériver le niveau cible depuis URL de provenance ads"
+  ],
+  "businessCategoryWeighting": {
+    "_description": "Matrice pondération granulaire par critère × business category pour Bloc 2 Persuasion. V12 doctrine 2026-04-13.",
+    "_usage": "weight_final(crit, biz) = pageTypeWeight[crit,pageType] × businessCategoryWeighting.matrix[crit][biz]",
+    "_categories": [
+      "dtc_subscription",
+      "ecom_product",
+      "saas_b2b",
+      "saas_b2c",
+      "lead_gen",
+      "marketplace",
+      "media_content",
+      "luxe",
+      "service_local",
+      "edu"
+    ],
+    "_baseline": "1.0 = neutre. >1.0 = critique pour cette catégorie. <1.0 = moins déterminant pour cette catégorie.",
+    "_philosophy": "La persuasion n'a pas le même enjeu selon la catégorie : SaaS B2B = proof/objection/FAQ dominants ; Luxe = ton/storytelling/benefit laddering ; DTC = tone + social proof + emotional ladder ; Lead Gen = awareness match + objections.",
+    "_addedIn": "V12 — 2026-04-14",
+    "matrix": {
+      "per_01": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.2,
+        "saas_b2b": 1.3,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.2,
+        "marketplace": 1.0,
+        "media_content": 1.0,
+        "luxe": 0.8,
+        "service_local": 1.1,
+        "edu": 1.1
+      },
+      "per_02": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.0,
+        "saas_b2b": 0.9,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.0,
+        "marketplace": 0.8,
+        "media_content": 1.2,
+        "luxe": 1.3,
+        "service_local": 1.1,
+        "edu": 1.2
+      },
+      "per_03": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.3,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 1.0,
+        "media_content": 0.9,
+        "luxe": 0.9,
+        "service_local": 1.2,
+        "edu": 1.2
+      },
+      "per_04": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.4,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.3,
+        "marketplace": 1.1,
+        "media_content": 1.0,
+        "luxe": 0.8,
+        "service_local": 1.2,
+        "edu": 1.3
+      },
+      "per_05": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.2,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.1,
+        "marketplace": 1.2,
+        "media_content": 0.9,
+        "luxe": 0.9,
+        "service_local": 1.3,
+        "edu": 1.2
+      },
+      "per_06": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.3,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.2,
+        "marketplace": 1.0,
+        "media_content": 0.8,
+        "luxe": 0.9,
+        "service_local": 1.1,
+        "edu": 1.2
+      },
+      "per_07": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.0,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.0,
+        "marketplace": 0.9,
+        "media_content": 1.2,
+        "luxe": 1.4,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "per_08": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.0,
+        "marketplace": 0.9,
+        "media_content": 1.3,
+        "luxe": 1.4,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "per_09": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 1.0,
+        "media_content": 1.0,
+        "luxe": 0.9,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "per_10": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.2,
+        "marketplace": 0.9,
+        "media_content": 1.0,
+        "luxe": 0.9,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "per_11": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.0,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.0,
+        "marketplace": 0.9,
+        "media_content": 1.1,
+        "luxe": 1.4,
+        "service_local": 1.0,
+        "edu": 1.1
+      }
+    },
+    "_notes": [
+      "per_01 max en SaaS B2B (1.3) : buyers cherchent ROI concret, features seules → bounce.",
+      "per_02 max en Luxe (1.3) : le storytelling EST le produit (héritage, savoir-faire).",
+      "per_03 max en SaaS B2B + Lead Gen (1.3) : cycle long, multi-stakeholder, objections = friction principale.",
+      "per_04 max en SaaS B2B (1.4) : Axiom 4 — la preuve concrète (ROI chiffré, case studies) est décisive.",
+      "per_05 max en DTC/Ecom (1.3) : UGC + video reviews = 2-5x conversion.",
+      "per_07 max en Luxe (1.4) : tout écart de ton détruit la perception de valeur.",
+      "per_08 max en Luxe (1.4) : générique = fatal. Voix unique obligatoire.",
+      "per_09 max en Lead Gen (1.3) : awareness mismatch = CPL multiplié par 3.",
+      "per_11 max en Luxe (1.4) + DTC (1.3) : identity layer = lifetime value."
+    ]
+  },
+  "_amendments": [
+    {
+      "marker": "V12 — BCW matrix for Persuasion",
+      "at": "2026-04-14",
+      "applied_by": "project_snapshot + manual CRO expert weighting"
+    }
+  ],
+  "_amendments_audit": [
+    {
+      "at": "2026-04-14",
+      "event": "P0.4 markers added for A-04, A-06, A-07, A-08"
+    }
+  ],
+  "doctrineReferences": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v1.json",
+    "note": "v3.2 adds ENSEMBLE-aware scoring via score_contextual_overlay.py. ASSET criteria unaffected."
+  }
+}

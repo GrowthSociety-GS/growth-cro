@@ -1,0 +1,40 @@
+# GrowthCRO Pipeline — Python dependencies
+# pip install -r requirements.txt
+#
+# Version source: 2026-04-19 (P10 handoff Claude Code)
+# Scanned from actual imports — pas d'artéfact legacy
+
+# ══════════════════════════════════════════════════════
+# CORE — Capture engine (Stage 1)
+# ══════════════════════════════════════════════════════
+# Playwright = moteur PROD. ghost_capture.js (Node) OU capture_full.py (Python)
+playwright>=1.40.0
+
+# ══════════════════════════════════════════════════════
+# PIPELINE — Perception, scoring, recos (Stages 2-8)
+# ══════════════════════════════════════════════════════
+# Haiku 4.5 (semantic scorer) + Sonnet 4.5 (reco enricher)
+anthropic>=0.40.0
+
+# Perception V13 — DBSCAN clustering + TF-IDF similarité zones
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# Overlay_burn + criterion_crops : annotations visuelles sur screenshots
+Pillow>=10.0.0
+
+# ══════════════════════════════════════════════════════
+# API — Web server (api_server.py, futur SaaS)
+# ══════════════════════════════════════════════════════
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.7    # File upload endpoints
+pydantic>=2.5.0            # Models FastAPI (BaseModel, HttpUrl)
+
+# ══════════════════════════════════════════════════════
+# DEV — Tests & verification
+# ══════════════════════════════════════════════════════
+# Uncomment si tu ajoutes les tests pytest dans Claude Code
+# pytest>=8.0.0
+# httpx>=0.27.0              # Client async pour tests FastAPI
+# jsonschema>=4.21.0         # Validation SCHEMA/*.schema.json

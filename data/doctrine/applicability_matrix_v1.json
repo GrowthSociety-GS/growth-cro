@@ -1,0 +1,190 @@
+{
+  "version": "1.0.0",
+  "doctrine": "v3.2.0-draft",
+  "generatedAt": "2026-04-18",
+  "purpose": "Criterion × pageType × business_type applicability matrix. Layer 3 of doctrine (after scope classification, after synergy compensation). Declares when a criterion is APPLICABLE, N/A, or weighted differently. Does NOT override exclusions already in page_type_criteria.json — augments them.",
+  "references": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json (P1.A)",
+    "page_type_criteria": "playbook/page_type_criteria.json (existing pageType exclusions)",
+    "clients_database": "data/clients_database.json (business_type per client)"
+  },
+  "business_types": {
+    "ecommerce": {
+      "description": "Transactional ecommerce — conversion = purchase. Includes DTC, beauty, fashion, food, home, wellness, entertainment.",
+      "source_categories": [
+        "ecommerce",
+        "ecommerce_beauty",
+        "ecommerce_fashion",
+        "ecommerce_food",
+        "ecommerce_home",
+        "ecommerce_wellness",
+        "ecommerce_entertainment"
+      ],
+      "conversion_goal": "purchase",
+      "weight_bias": {"persuasion": 1.1, "psycho": 1.1, "tech": 1.0, "coherence": 1.0, "hero": 1.0, "ux": 1.0}
+    },
+    "lead_gen": {
+      "description": "Lead generation — conversion = form submission / demo booking. Includes services, insurance, B2B non-SaaS, and many LPs.",
+      "source_categories": [
+        "services_lead_gen",
+        "services_insurance",
+        "services",
+        "coaching"
+      ],
+      "conversion_goal": "form_submit",
+      "weight_bias": {"persuasion": 1.2, "psycho": 1.15, "coherence": 1.1, "hero": 1.1, "ux": 0.95, "tech": 1.0}
+    },
+    "saas": {
+      "description": "Software-as-a-service — conversion = signup / trial / demo. Includes B2B SaaS, fintech SaaS.",
+      "source_categories": [
+        "saas_b2b",
+        "saas_b2c",
+        "saas_fintech"
+      ],
+      "conversion_goal": "signup_or_trial",
+      "weight_bias": {"coherence": 1.15, "hero": 1.1, "persuasion": 1.05, "psycho": 0.95, "tech": 1.0, "ux": 1.0}
+    },
+    "content": {
+      "description": "Content / media / learning. Conversion = article read, email signup, engagement.",
+      "source_categories": [
+        "content",
+        "media",
+        "education",
+        "learning"
+      ],
+      "conversion_goal": "engagement_or_subscribe",
+      "weight_bias": {"ux": 1.15, "coherence": 1.1, "hero": 1.0, "persuasion": 0.9, "psycho": 0.85, "tech": 1.0}
+    },
+    "app": {
+      "description": "Mobile / consumer apps — conversion = app install, onboarding start.",
+      "source_categories": [
+        "app_consumer",
+        "app_b2b"
+      ],
+      "conversion_goal": "install_or_onboard",
+      "weight_bias": {"hero": 1.15, "psycho": 1.1, "persuasion": 1.0, "coherence": 1.0, "ux": 1.0, "tech": 1.05}
+    }
+  },
+  "page_type_aliases": {
+    "lp": "lp_leadgen",
+    "signup": "lp_leadgen",
+    "lead_gen_simple": "lp_leadgen",
+    "lp_listicle": "listicle"
+  },
+  "applicability_statuses": {
+    "APPLICABLE": "Standard scoring.",
+    "OPTIONAL": "May score; N/A if absent (don't penalize).",
+    "NA": "Criterion does not apply; excluded from rawMax.",
+    "REQUIRED": "Critical — 2× penalty multiplier if score=0.",
+    "BONUS": "Doesn't count in rawMax, but score added as bonus (+X% up to cap)."
+  },
+  "applicability_rules": [
+    {
+      "id": "rule_excl_via_page_type_criteria",
+      "description": "All entries already in playbook/page_type_criteria.json.pageTypeSpecs.[pt].universalExclusions remain NA and are honored first.",
+      "source": "page_type_criteria.json",
+      "status": "NA"
+    },
+    {
+      "id": "rule_ecom_proof_required",
+      "description": "Social proof (per_04, per_05) and risk reversal (psy_04) are REQUIRED on ecommerce PDPs and checkouts.",
+      "applies_to": {"business_type": ["ecommerce"], "pageType": ["pdp", "checkout", "bundle_standalone"]},
+      "criteria": ["per_04", "per_05", "psy_04"],
+      "status": "REQUIRED"
+    },
+    {
+      "id": "rule_leadgen_risk_reversal_required",
+      "description": "Lead gen forms must have a clear risk reversal (no spam, GDPR, unsubscribe).",
+      "applies_to": {"business_type": ["lead_gen"], "pageType": ["lp_leadgen", "squeeze", "webinar", "challenge"]},
+      "criteria": ["psy_04", "coh_03"],
+      "status": "REQUIRED"
+    },
+    {
+      "id": "rule_saas_coherence_required",
+      "description": "SaaS pages must hit scent trail + positioning cleanly — value prop coherence is table stakes.",
+      "applies_to": {"business_type": ["saas"], "pageType": ["home", "pricing", "lp_leadgen", "lp_sales"]},
+      "criteria": ["coh_01", "coh_02", "coh_03", "coh_04"],
+      "status": "REQUIRED"
+    },
+    {
+      "id": "rule_content_urgency_na",
+      "description": "Content/editorial pages (blogs, listicles, advertorials, comparisons) should NOT use urgency or scarcity tactics — anti-brand pour SaaS premium type Weglot/Linear/Stripe blog. Étendu V3.2.1 (Sprint 2.5 V26.AA) : ajout psy_02 + advertorial/comparison.",
+      "applies_to": {"pageType": ["blog", "listicle", "advertorial", "comparison"]},
+      "criteria": ["psy_01", "psy_02"],
+      "status": "NA"
+    },
+    {
+      "id": "rule_app_hero_required",
+      "description": "App marketing relies on hero → install. Hero quality is mission-critical.",
+      "applies_to": {"business_type": ["app"], "pageType": ["home", "lp_leadgen"]},
+      "criteria": ["hero_01", "hero_02", "hero_04", "hero_05"],
+      "status": "REQUIRED"
+    },
+    {
+      "id": "rule_thank_you_minimal",
+      "description": "Thank-you pages are post-conversion; most persuasion criteria N/A, tech + coherence still apply.",
+      "applies_to": {"pageType": ["thank_you_page"]},
+      "criteria": ["per_01", "per_02", "per_03", "per_04", "per_05", "per_06", "psy_01", "psy_03", "psy_04", "psy_06", "psy_07", "hero_04", "hero_06"],
+      "status": "NA"
+    },
+    {
+      "id": "rule_checkout_trust_required",
+      "description": "Checkout pages must display trust signals (psy_05), security (tech_02), and clear totals. Everything else N/A.",
+      "applies_to": {"pageType": ["checkout"]},
+      "criteria": ["psy_05", "tech_02", "coh_02", "ux_05"],
+      "status": "REQUIRED"
+    },
+    {
+      "id": "rule_blog_scan_required",
+      "description": "Blog articles must be scannable and readable on mobile — ux_01 + ux_05 REQUIRED.",
+      "applies_to": {"pageType": ["blog", "listicle", "advertorial"]},
+      "criteria": ["ux_01", "ux_05"],
+      "status": "REQUIRED"
+    },
+    {
+      "id": "rule_vsl_hero_bonus",
+      "description": "VSL / video pages: hero_05 (visual) evaluates the video thumbnail — bonus-weighted.",
+      "applies_to": {"pageType": ["vsl", "quiz_vsl"]},
+      "criteria": ["hero_05"],
+      "status": "BONUS"
+    },
+    {
+      "id": "rule_squeeze_minimal",
+      "description": "Squeeze pages: only hero + single CTA + simple form matter. Most criteria N/A.",
+      "applies_to": {"pageType": ["squeeze"]},
+      "criteria": ["per_02", "per_03", "per_08", "coh_05", "coh_07", "coh_08", "coh_09", "psy_02", "psy_03", "psy_06", "psy_07", "ux_02", "ux_04"],
+      "status": "NA"
+    }
+  ],
+  "legacy_page_type_migrations": {
+    "lp": {
+      "target": "lp_leadgen",
+      "rationale": "Legacy 'lp' pageType used by emma_matelas, monday, revolut, stripe. Inspection shows they are all lead-gen-style landing pages. Alias to lp_leadgen resolves 8 batch failures without data migration.",
+      "affected_captures": [
+        "emma_matelas/lp",
+        "monday/lp",
+        "revolut/lp",
+        "stripe/lp",
+        "golden/emma_matelas/lp",
+        "golden/monday/lp",
+        "golden/revolut/lp",
+        "golden/stripe/lp"
+      ]
+    }
+  },
+  "implementation_notes": [
+    "The aliases + rules are consumed at runtime by page_type_filter.py + score_contextual_overlay.py + score_page_type.py.",
+    "page_type_filter must treat alias pageTypes transparently (lp → lp_leadgen lookup).",
+    "Applicability status REQUIRED doubles the penalty when score=0 (applied at aggregation).",
+    "Status BONUS removes criterion from rawMax and adds score as extra points (capped at +5% of pillar max).",
+    "Status NA removes criterion entirely from kept_criteria (same mechanism as existing universalExclusions).",
+    "Weight bias is applied to the final pillar score100 in aggregate, so business-type specialization affects overall ranking without corrupting per-pillar interpretability.",
+    "Audit trace: every applied rule logs {rule_id, applicability, before, after} in score_page_type.json.applicability_overlay."
+  ],
+  "stats": {
+    "total_rules": 12,
+    "total_business_types": 5,
+    "total_pageTypes_supported": 19,
+    "total_aliases": 1
+  }
+}

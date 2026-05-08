@@ -1,0 +1,23 @@
+{
+  "phase": "P2.B",
+  "generatedAt": "2026-04-18T10:32:53.881649Z",
+  "pages_ok": 291,
+  "pages_err": 0,
+  "elapsed_seconds": 21.9,
+  "reco_total": 8658,
+  "reco_mean_per_page": 29.75,
+  "reco_min": 18,
+  "reco_max": 45,
+  "business_category_distribution": {
+    "saas": 95,
+    "ecommerce": 128,
+    "app": 26,
+    "fintech": 14,
+    "insurtech": 2,
+    "lead_gen": 26
+  },
+  "schwartz_awareness_distribution": {
+    "problem_aware": 291
+  },
+  "errors_sample": []
+}

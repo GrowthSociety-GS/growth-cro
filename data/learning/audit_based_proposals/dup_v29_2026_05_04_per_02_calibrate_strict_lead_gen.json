@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_per_02_calibrate_strict_lead_gen",
+  "type": "calibrate_threshold",
+  "subtype": "strict_rule_too_punitive",
+  "affected_criteria": [
+    "per_02"
+  ],
+  "scope": {
+    "business_category": "lead_gen"
+  },
+  "evidence": {
+    "n_pages_evaluated": 16,
+    "pct_critical": 81.2,
+    "pct_top": 6.2,
+    "avg_score_pct": 18.5,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère per_02 marqué CRITICAL sur 81% des pages de lead_gen (13/16). La règle peut être trop stricte pour ce segment business — vérifier le scoring.critical définition. Score moyen : 18%.",
+  "risk": "Si le pattern est légitime (vraie faiblesse marché), assouplir masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon.",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

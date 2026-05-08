@@ -1,0 +1,123 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-04-18",
+  "purpose": "Classifies each CRO criterion as ASSET (standalone element) or ENSEMBLE (context-dependent, requires other elements to evaluate correctly). Also declares synergy groups: sets of criteria that must be co-evaluated (weak-one-compensated-by-strong-others principle).",
+  "doctrine": "v3.2.0-draft",
+  "scope_definitions": {
+    "ASSET": {
+      "description": "Criterion can be evaluated by looking at ONE element in isolation. Presence, size, format, count, technical metric. Score is deterministic from the element alone.",
+      "examples": ["hero_05 (social proof presence ATF)", "tech_01 (CLS metric)", "per_05 (count of testimonial formats)"]
+    },
+    "ENSEMBLE": {
+      "description": "Criterion requires MULTIPLE elements to be evaluated together. Context-dependent. A weak score on element A can be compensated by strong elements B, C, D in the same group. Score should be penalized only if the WHOLE ensemble fails.",
+      "examples": ["hero_01 (H1 only meaningful with subtitle + visual + CTA)", "coh_01 (5-sec test = whole page)", "per_02 (narrative arc across page)"]
+    }
+  },
+
+  "synergy_groups": {
+    "HERO_ENSEMBLE": {
+      "description": "Zone hero above-the-fold — H1, subtitle, visual, primary CTA, social proof, 5-sec test must be coherent together.",
+      "members": ["hero_01", "hero_02", "hero_03", "hero_04", "hero_05", "hero_06"],
+      "compensation_rule": "If H1 scores critical (0) but subtitle + CTA + visual convey the promise clearly, downgrade critical to ok. If all elements are weak, keep critical."
+    },
+    "BENEFIT_FLOW": {
+      "description": "Message persuasion flow — benefits language, narrative, objection handling, tone across the page.",
+      "members": ["per_01", "per_02", "per_03", "per_07", "per_08", "per_09", "per_10", "per_11"],
+      "compensation_rule": "Tone consistency (per_07) must be held; but a weak storytelling (per_02) can be compensated by strong benefit framing (per_01) on shorter pages."
+    },
+    "SOCIAL_PROOF_STACK": {
+      "description": "Proofs + testimonials + authority signals — work together to build trust.",
+      "members": ["per_04", "per_05", "psy_05", "psy_08"],
+      "compensation_rule": "3+ testimonial formats compensate for absence of stats; verified authority logos compensate for weak VOC."
+    },
+    "VISUAL_HIERARCHY": {
+      "description": "Scan-ability, hierarchy, rhythm, mobile layout.",
+      "members": ["ux_01", "ux_02", "ux_03", "ux_05"],
+      "compensation_rule": "Strong H1/H2/H3 hierarchy (ux_01) with mobile-friendly fonts (ux_05) compensates for dense rhythm (ux_02) on content-heavy pages."
+    },
+    "COHERENCE_FULL": {
+      "description": "The 5-second test, target identifiability, scent matching, positioning — whole-page alignment.",
+      "members": ["coh_01", "coh_02", "coh_03", "coh_04", "coh_05", "coh_07", "coh_08", "coh_09"],
+      "compensation_rule": "coh_06 (single focus) is ASSET-level and stays isolated. The rest form an ensemble where strong positioning (coh_04) + clear target (coh_02) compensate for unclear 5-sec test (coh_01)."
+    },
+    "EMOTIONAL_DRIVERS": {
+      "description": "Psycho-emotional triggers that work together — risk reversal, urgency, anchoring, emotions.",
+      "members": ["psy_01", "psy_02", "psy_03", "psy_04", "psy_06", "psy_07"],
+      "compensation_rule": "Over-indexing on urgency (psy_01) if paired with weak risk reversal (psy_04) = manipulation flag. Strong anchoring (psy_03) + clear risk reversal (psy_04) makes urgency optional."
+    },
+    "TECH_FOUNDATION": {
+      "description": "Pure technical — each metric is ASSET (no compensation possible). CLS is CLS. HTTPS is HTTPS.",
+      "members": ["tech_01", "tech_02", "tech_03", "tech_04", "tech_05"],
+      "compensation_rule": "None. Each metric evaluated independently."
+    }
+  },
+
+  "criteria": [
+    {"id": "hero_01", "pillar": "hero", "scope": "ENSEMBLE", "synergy_group": "HERO_ENSEMBLE", "rationale": "H1 quality only meaningful with subtitle, visual, and CTA. A weak H1 can be rescued by a powerful subtitle + visual."},
+    {"id": "hero_02", "pillar": "hero", "scope": "ENSEMBLE", "synergy_group": "HERO_ENSEMBLE", "rationale": "Subtitle completes the H1. Evaluate together."},
+    {"id": "hero_03", "pillar": "hero", "scope": "ASSET", "synergy_group": "HERO_ENSEMBLE", "rationale": "Primary CTA presence/placement ATF is checkable in isolation; but copy quality links to ensemble."},
+    {"id": "hero_04", "pillar": "hero", "scope": "ENSEMBLE", "synergy_group": "HERO_ENSEMBLE", "rationale": "Hero visual must match promise (H1+subtitle). Cannot be evaluated alone."},
+    {"id": "hero_05", "pillar": "hero", "scope": "ASSET", "synergy_group": "HERO_ENSEMBLE", "rationale": "Social proof presence ATF is asset-level (count/presence); but placement is ensemble."},
+    {"id": "hero_06", "pillar": "hero", "scope": "ENSEMBLE", "synergy_group": "HERO_ENSEMBLE", "rationale": "5-second test + focus ratio evaluates the whole hero. Pure ensemble."},
+
+    {"id": "per_01", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Benefit-over-feature requires evaluation of whole copy sequence."},
+    {"id": "per_02", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Narrative arc is cross-section flow."},
+    {"id": "per_03", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Objection handling spans FAQ + body + hero."},
+    {"id": "per_04", "pillar": "persuasion", "scope": "ASSET", "synergy_group": "SOCIAL_PROOF_STACK", "rationale": "Presence of stats/case studies is quantifiable."},
+    {"id": "per_05", "pillar": "persuasion", "scope": "ASSET", "synergy_group": "SOCIAL_PROOF_STACK", "rationale": "Count + format of testimonials is measurable."},
+    {"id": "per_06", "pillar": "persuasion", "scope": "ASSET", "synergy_group": "BENEFIT_FLOW", "rationale": "FAQ presence and count are asset-level; quality links to ensemble."},
+    {"id": "per_07", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Tone consistency requires sampling across page."},
+    {"id": "per_08", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Jargon detection requires full-page context."},
+    {"id": "per_09", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Awareness match Schwartz — traffic source × tone alignment is contextual."},
+    {"id": "per_10", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Copy framework identification requires full-page view."},
+    {"id": "per_11", "pillar": "persuasion", "scope": "ENSEMBLE", "synergy_group": "BENEFIT_FLOW", "rationale": "Benefit laddering needs depth across copy."},
+
+    {"id": "ux_01", "pillar": "ux", "scope": "ENSEMBLE", "synergy_group": "VISUAL_HIERARCHY", "rationale": "Hierarchy is relative across H1/H2/H3."},
+    {"id": "ux_02", "pillar": "ux", "scope": "ENSEMBLE", "synergy_group": "VISUAL_HIERARCHY", "rationale": "Rhythm is cross-section alternation."},
+    {"id": "ux_03", "pillar": "ux", "scope": "ENSEMBLE", "synergy_group": "VISUAL_HIERARCHY", "rationale": "Scan pattern evaluates whole page."},
+    {"id": "ux_04", "pillar": "ux", "scope": "ASSET", "synergy_group": null, "rationale": "CTA repetition is counted per position."},
+    {"id": "ux_05", "pillar": "ux", "scope": "ASSET", "synergy_group": "VISUAL_HIERARCHY", "rationale": "Mobile touch target size is per-element metric."},
+    {"id": "ux_06", "pillar": "ux", "scope": "ASSET", "synergy_group": null, "rationale": "Nav items count / focus is measurable in isolation."},
+    {"id": "ux_07", "pillar": "ux", "scope": "ASSET", "synergy_group": null, "rationale": "Presence of micro-interactions is countable."},
+    {"id": "ux_08", "pillar": "ux", "scope": "ENSEMBLE", "synergy_group": null, "rationale": "Checkout friction is flow-level."},
+
+    {"id": "coh_01", "pillar": "coherence", "scope": "ENSEMBLE", "synergy_group": "COHERENCE_FULL", "rationale": "5-sec test is by definition ensemble."},
+    {"id": "coh_02", "pillar": "coherence", "scope": "ENSEMBLE", "synergy_group": "COHERENCE_FULL", "rationale": "Target identifiability comes from copy + visual + context."},
+    {"id": "coh_03", "pillar": "coherence", "scope": "ENSEMBLE", "synergy_group": "COHERENCE_FULL", "rationale": "Scent match requires meta + hero + value prop alignment."},
+    {"id": "coh_04", "pillar": "coherence", "scope": "ENSEMBLE", "synergy_group": "COHERENCE_FULL", "rationale": "Positioning vs competitors needs full-page context."},
+    {"id": "coh_05", "pillar": "coherence", "scope": "ENSEMBLE", "synergy_group": "COHERENCE_FULL", "rationale": "Voice & Tone consistency across the page."},
+    {"id": "coh_06", "pillar": "coherence", "scope": "ASSET", "synergy_group": null, "rationale": "Single-focus counting is deterministic."},
+    {"id": "coh_07", "pillar": "coherence", "scope": "ASSET", "synergy_group": "COHERENCE_FULL", "rationale": "Positioning statement format check (text template)."},
+    {"id": "coh_08", "pillar": "coherence", "scope": "ENSEMBLE", "synergy_group": "COHERENCE_FULL", "rationale": "Message hierarchy is cross-section."},
+    {"id": "coh_09", "pillar": "coherence", "scope": "ASSET", "synergy_group": "COHERENCE_FULL", "rationale": "Presence of a named mechanism is checkable in copy."},
+
+    {"id": "psy_01", "pillar": "psycho", "scope": "ASSET", "synergy_group": "EMOTIONAL_DRIVERS", "rationale": "Urgency signals presence is countable; credibility is semi-ensemble."},
+    {"id": "psy_02", "pillar": "psycho", "scope": "ASSET", "synergy_group": "EMOTIONAL_DRIVERS", "rationale": "Scarcity mentions are quantifiable."},
+    {"id": "psy_03", "pillar": "psycho", "scope": "ENSEMBLE", "synergy_group": "EMOTIONAL_DRIVERS", "rationale": "Price anchoring requires comparison context."},
+    {"id": "psy_04", "pillar": "psycho", "scope": "ASSET", "synergy_group": "EMOTIONAL_DRIVERS", "rationale": "Risk reversal (guarantees, trials) is presence-based."},
+    {"id": "psy_05", "pillar": "psycho", "scope": "ASSET", "synergy_group": "SOCIAL_PROOF_STACK", "rationale": "Authority signals (logos, certifications) are countable."},
+    {"id": "psy_06", "pillar": "psycho", "scope": "ENSEMBLE", "synergy_group": "EMOTIONAL_DRIVERS", "rationale": "Micro-engagement progression is flow-level."},
+    {"id": "psy_07", "pillar": "psycho", "scope": "ENSEMBLE", "synergy_group": "EMOTIONAL_DRIVERS", "rationale": "Emotion activation checks language patterns across copy."},
+    {"id": "psy_08", "pillar": "psycho", "scope": "ASSET", "synergy_group": "SOCIAL_PROOF_STACK", "rationale": "VOC verbatims presence is countable."},
+
+    {"id": "tech_01", "pillar": "tech", "scope": "ASSET", "synergy_group": "TECH_FOUNDATION", "rationale": "CLS, LCP, INP are pure metrics."},
+    {"id": "tech_02", "pillar": "tech", "scope": "ASSET", "synergy_group": "TECH_FOUNDATION", "rationale": "Semantic HTML tag counting."},
+    {"id": "tech_03", "pillar": "tech", "scope": "ASSET", "synergy_group": "TECH_FOUNDATION", "rationale": "SEO fundamentals are per-tag checks."},
+    {"id": "tech_04", "pillar": "tech", "scope": "ASSET", "synergy_group": "TECH_FOUNDATION", "rationale": "Tracking pixels presence check."},
+    {"id": "tech_05", "pillar": "tech", "scope": "ASSET", "synergy_group": "TECH_FOUNDATION", "rationale": "HTTPS, charset, viewport are single-attribute checks."}
+  ],
+
+  "stats": {
+    "total": 47,
+    "asset_count": 22,
+    "ensemble_count": 25,
+    "by_pillar": {
+      "hero": {"total": 6, "asset": 2, "ensemble": 4},
+      "persuasion": {"total": 11, "asset": 3, "ensemble": 8},
+      "ux": {"total": 8, "asset": 4, "ensemble": 4},
+      "coherence": {"total": 9, "asset": 3, "ensemble": 6},
+      "psycho": {"total": 8, "asset": 5, "ensemble": 3},
+      "tech": {"total": 5, "asset": 5, "ensemble": 0}
+    }
+  }
+}

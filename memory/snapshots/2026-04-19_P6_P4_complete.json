@@ -1,0 +1,66 @@
+{
+  "date": "2026-04-19",
+  "phase": "P6 Dashboard UX redesign + P4 Cleanup",
+  "previous": "P5 Dashboard V17 Observatoire (2026-04-18)",
+  "dashboard_version": "v17.2.0",
+  "artifacts": {
+    "deliverables/GrowthCRO-V17-Dashboard.html": "55.9 KB shell V17 (6 vues)",
+    "deliverables/dashboard_v17_app.js": "64.3 KB app renderer v17.2.0",
+    "deliverables/growthcro_data_v17.json": "55.7 MB data enrichi P6.A",
+    "deliverables/growthcro_data_v17.js": "55.7 MB wrapper window.DASHBOARD_V17_DATA"
+  },
+  "p6_enrichment": {
+    "screenshots_embedded": 582,
+    "screenshot_key_format": "{client}__{page}__{viewport}",
+    "criterion_labels": 54,
+    "rule_labels": 7,
+    "pillar_descriptions": 6
+  },
+  "p6_ux_changes": [
+    "6th nav tab: Fiche client (full-width route)",
+    "Drawer legacy disabled (display:none)",
+    "Breadcrumbs on Client + Labo",
+    "Big screenshots Desktop+Mobile in Client hero + Page cards + Labo hero",
+    "Reco text parsed into colored sections (problem/before/after/why/how/context/meta)",
+    "Human-readable labels everywhere (criterion_id → criterion_labels, rule_id → rule_labels.label + why tooltip)"
+  ],
+  "p6_verification": {
+    "jsdom_shim": "outputs/verify_dashboard_v17_2.js",
+    "routes_verified": ["galaxie", "p0radar", "portfolio", "client", "labo", "doctrine"],
+    "showclient_qonto": { "body": "29 KB", "hero_screenshots": 2, "tabs": 3 },
+    "gotolabo_qonto_blog": { "labo_screens": 2, "kpis": 6, "recos": 3, "parsed_sections": 1 },
+    "result": "PASS"
+  },
+  "p4_cleanup": {
+    "policy": "archive not delete (mount refuse rm)",
+    "tier1_archived": [
+      "GrowthCRO-V16-Dashboard.html (11 MB)",
+      "growthcro_data_safe.js (11.7 MB)",
+      "growthcro_data_inline.js (2.5 MB)",
+      "growthcro_dashboard_data.json (3.4 MB)",
+      "growthcro_screenshots.json (1.1 MB)"
+    ],
+    "tier2_scripts_archived_site_capture": [
+      "apify_enrich.py", "reco_enricher.py", "perception_pipeline.py",
+      "component_detector.py", "component_perception.py", "component_validator.py",
+      "score_site.py", "spatial_scoring.py", "build_dashboard_v12.py", "_dashboard_template.html"
+    ],
+    "tier2b_scripts_archived_root": ["reco_engine.py", "spatial_reco.py"],
+    "tier3_archived": "gemini_audit_package_2026-04-14 (1.4 GB)",
+    "orphan_file_to_delete_manually": "deliverables/archive/gemini_audit_package_2026-04-14.tar.gz (1.2 GB, tarball abandonné)",
+    "deliverables_final_contents": [
+      "GrowthCRO-V17-Dashboard.html",
+      "dashboard_v17_app.js",
+      "growthcro_data_v17.js",
+      "growthcro_data_v17.json",
+      "japhy/", "asphalte/", "abyssale/", "andthegreen/",
+      "archive/",
+      "doctrinal_spot_check_checklist.md"
+    ]
+  },
+  "manifest_changelog_entries": ["P6.A", "P6.B", "P6.C", "P6.D", "P4 Tiers 1-3"],
+  "next_steps": [
+    "Update Notion page https://www.notion.so/growth-society/Mathis-Project-x-GrowthCRO-Web-App-3457148e95a58009b81efdf185f11ade",
+    "Transition to GrowthCRO V18 (scope TBD, awaiting Mathis clarification)"
+  ]
+}

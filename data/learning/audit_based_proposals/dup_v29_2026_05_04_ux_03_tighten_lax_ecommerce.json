@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_ux_03_tighten_lax_ecommerce",
+  "type": "tighten_threshold",
+  "subtype": "lax_rule_under_discriminating",
+  "affected_criteria": [
+    "ux_03"
+  ],
+  "scope": {
+    "business_category": "ecommerce"
+  },
+  "evidence": {
+    "n_pages_evaluated": 70,
+    "pct_top": 90.0,
+    "pct_critical": 2.9,
+    "avg_score_pct": 93.6,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère ux_03 marqué TOP sur 90% des pages de ecommerce (63/70). Règle sous-discriminante — presque tout le monde l'atteint. Durcir scoring.top pour identifier les vraies excellences.",
+  "risk": "Durcir trop pourrait pénaliser pages déjà bonnes",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

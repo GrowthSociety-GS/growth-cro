@@ -1,0 +1,190 @@
+{
+  "_meta": {
+    "name": "GrowthCRO V12 — Guardrails recommandations",
+    "version": "1.0.0 — doctrine V12 — 2026-04-13",
+    "description": "Liste de garde-fous à appliquer AVANT de livrer une reco au client. Chaque guardrail est déclenché par (a) keywords dans le texte de reco, (b) critère concerné, (c) business_category. Si déclenché : attacher warning + preferred_alternative.",
+    "sources": [
+      "Ogilvy — Confessions of an Advertising Man (1963) : pricing = signal de qualité, baisse = destruction équité marque",
+      "Hermann Simon — Confessions of the Pricing Man (2015) : value-based pricing > cost-plus",
+      "Robert Cialdini — Influence (1984 / revision 2021) : scarcity fake détruit trust",
+      "April Dunford — Obviously Awesome (2019) : positionnement premium vs discount irréversible",
+      "Google AdWords Policies + FTC Endorsement Guidelines (testimonial authenticity)"
+    ],
+    "applicationMode": "post-reco check — enricher.py lit la sortie de get_reco() et attache 'guardrails_triggered' + warning"
+  },
+  "guardrails": {
+    "pricing_race_to_bottom": {
+      "id": "pricing_race_to_bottom",
+      "name": "Race to the bottom pricing",
+      "trigger_keywords": ["baisser le prix", "reduire le prix", "promo", "discount", "solder", "-20%", "-30%", "-50%", "offre speciale", "prix casse", "moins cher"],
+      "applies_to_criteria": ["per_05", "per_08", "hero_03", "psy_05", "coh_02"],
+      "applies_to_business_categories": ["luxe", "saas_b2b", "dtc_subscription", "edu"],
+      "warning": "⚠️ Guardrail pricing : baisser le prix est rarement la bonne réponse CRO. Sur {business_category}, le prix signale la qualité — une baisse érode la valeur perçue et empêche toute remontée future.",
+      "preferred_alternative": "Augmenter la valeur perçue : bundle + garantie étendue + personnalisation + urgence narrative (pas chiffrée). Tester l'effet prix premium avec mécanisme unique (coh_09) avant toute baisse.",
+      "severity": "high",
+      "evidence_required_to_override": "Étude marge + test A/B contrôlé sur segment non-loyal + validation direction commerciale"
+    },
+    "discount_erosion_luxe": {
+      "id": "discount_erosion_luxe",
+      "name": "Discount erosion en luxe / premium",
+      "trigger_keywords": ["promo", "solde", "code promo", "cashback", "black friday", "flash sale"],
+      "applies_to_criteria": ["hero_03", "psy_03", "coh_05", "coh_07"],
+      "applies_to_business_categories": ["luxe"],
+      "warning": "⚠️ En luxe, une promo visible détruit le positionnement (référence : politique Hermès/Chanel = zéro solde public). Les solutions sont soit exclusives/invitées, soit absentes.",
+      "preferred_alternative": "Privé — accès early, édition limitée, service VIP, bundle gifts offerts — jamais de %.",
+      "severity": "critical"
+    },
+    "free_trial_without_gate_b2b": {
+      "id": "free_trial_without_gate_b2b",
+      "name": "Free trial sans gate SaaS B2B",
+      "trigger_keywords": ["essai gratuit", "free trial", "14 jours gratuits", "essai sans cb", "gratuit sans carte"],
+      "applies_to_criteria": ["hero_03", "per_02", "ux_04"],
+      "applies_to_business_categories": ["saas_b2b"],
+      "warning": "⚠️ En B2B mid/enterprise, free trial sans qualification attire des leads non-ICP (bas PQL→SQL), explose le CAC serving. Benchmark : <8% SQL rate sur trials non-gated vs 30%+ sur demo-gated.",
+      "preferred_alternative": "Book-a-demo en CTA primaire, free trial en secondaire + progressive profiling (email pro requis + company size + use case).",
+      "severity": "medium",
+      "override_if": "Self-serve PLG clair ET ACV <$2k/an ET onboarding produit autonome"
+    },
+    "urgency_fake_countdown": {
+      "id": "urgency_fake_countdown",
+      "name": "Fausse urgence / countdown qui reset",
+      "trigger_keywords": ["timer", "countdown", "compte a rebours", "plus que", "expire dans", "stock limite"],
+      "applies_to_criteria": ["psy_01", "psy_03", "hero_03"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Urgence chiffrée non-réelle = perte de trust irréversible. Google SERP pénalise les timers qui reset (signal manipulation). Cialdini : scarcity fake dégrade tous les triggers honnêtes de la page.",
+      "preferred_alternative": "Urgence narrative (saison, cohorte, rentrée) OU scarcity réelle (X places/stock réel, visible dans back-office). Jamais de timer à moins qu'il expire *vraiment*.",
+      "severity": "critical",
+      "regulatory_risk": "DGCCRF France — pratique commerciale trompeuse (Art. L121-1 Code conso)"
+    },
+    "testimonials_invented_or_unattributed": {
+      "id": "testimonials_invented_or_unattributed",
+      "name": "Témoignages inventés ou non-attribués",
+      "trigger_keywords": ["creer des temoignages", "generer des avis", "faux temoignage", "temoignages genraux"],
+      "applies_to_criteria": ["per_06", "per_07", "psy_04"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Jamais recommander de générer des témoignages. FTC Endorsement Guides (US) et DGCCRF (FR) — amendes jusqu'à 10% CA. Google Reviews policy = délistage SERP.",
+      "preferred_alternative": "Collecter vrais témoignages (post-onboarding emails, call NPS, intégration Trustpilot/Google). Si zéro témoignage disponible : UGC screenshot + accord écrit + attribution visible.",
+      "severity": "critical"
+    },
+    "roi_inflated_claim": {
+      "id": "roi_inflated_claim",
+      "name": "Claim ROI/résultats non-substantiés",
+      "trigger_keywords": ["10x", "100x", "perdez 10kg en", "+300%", "roi garanti", "resultats garantis", "100% clients satisfaits"],
+      "applies_to_criteria": ["hero_01", "hero_02", "per_01", "per_04", "coh_01"],
+      "applies_to_business_categories": ["saas_b2b", "saas_b2c", "edu", "dtc_subscription", "service_local"],
+      "warning": "⚠️ Claim chiffré sans source = discrédit immédiat (Oli Gardner 'Conversion Centered Design' règle #1) + risque juridique FTC/DGCCRF.",
+      "preferred_alternative": "Chiffre + source attribuée (étude, n=clients, méthodologie) en tooltip/footnote. Ou fourchette réaliste (\"jusqu'à X%\" avec disclaimer médiane).",
+      "severity": "high"
+    },
+    "health_finance_claims_no_disclaimer": {
+      "id": "health_finance_claims_no_disclaimer",
+      "name": "Claims santé/finance/investissement sans disclaimer",
+      "trigger_keywords": ["perdez du poids", "guerit", "rendement garanti", "investissement", "traitement", "medical", "pharmaceutique"],
+      "applies_to_criteria": ["hero_01", "hero_02", "per_01", "per_04", "coh_01", "coh_05"],
+      "applies_to_business_categories": ["dtc_subscription", "saas_b2c", "service_local", "edu"],
+      "warning": "⚠️ Secteurs régulés (ANSM santé, AMF finance). Toute reco sur copy produit doit inclure la nécessité d'un disclaimer légal + validation conseil juridique.",
+      "preferred_alternative": "Formulation conforme (ex: santé = 'contribue à' vs 'guérit'; finance = 'les performances passées ne préjugent pas...') + validation avocat.",
+      "severity": "critical",
+      "regulatory_risk": "ANSM, AMF, ASA (UK), FDA (US), MiFID II"
+    },
+    "popup_immediate_intrusive": {
+      "id": "popup_immediate_intrusive",
+      "name": "Popup intrusif avant engagement",
+      "trigger_keywords": ["popup immediat", "exit intent", "lightbox a l'arrivee", "popup newsletter immediat"],
+      "applies_to_criteria": ["ux_05", "ux_08", "psy_02"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Popup <10s sur mobile = pénalité Google Interstitial Penalty (mars 2017) + -15 à -30% conversion mesuré (baymard.com, CXL institute).",
+      "preferred_alternative": "Scroll-triggered (50%+ scroll) OR exit-intent desktop uniquement OR embedded inline après 1 bénéfice lu.",
+      "severity": "high",
+      "mobile_specific": true
+    },
+    "benefit_stack_overload": {
+      "id": "benefit_stack_overload",
+      "name": "Empilement bénéfices sans hiérarchie",
+      "trigger_keywords": ["10 benefices", "liste complete des benefices", "tous les avantages"],
+      "applies_to_criteria": ["per_01", "per_11", "coh_08"],
+      "applies_to_business_categories": ["saas_b2b", "saas_b2c", "dtc_subscription"],
+      "warning": "⚠️ >5 bénéfices = paralysie (Iyengar Jam Study 2000). Chaque bénéfice ajouté au-delà de 3-5 dilue la promesse.",
+      "preferred_alternative": "1 promesse hero + 3-5 bénéfices support. Features détaillées en tabs/accordion plus bas. Mini-FAQ pour objections résiduelles.",
+      "severity": "medium"
+    },
+    "cta_hide_behind_form": {
+      "id": "cta_hide_behind_form",
+      "name": "Cacher info critique derrière un formulaire",
+      "trigger_keywords": ["cacher le prix", "prix sur demande", "nous contacter pour prix", "formulaire avant prix"],
+      "applies_to_criteria": ["hero_03", "per_05", "ux_04", "coh_02"],
+      "applies_to_business_categories": ["ecom_product", "dtc_subscription", "saas_b2c"],
+      "warning": "⚠️ Cacher le prix B2C/ecom = -40 à -60% conversion (Nielsen Norman 2019). Acceptable uniquement en B2B enterprise custom.",
+      "preferred_alternative": "Prix visible + 'à partir de' + configurateur. Si vraiment custom : fourchette indicative.",
+      "severity": "high",
+      "b2b_enterprise_override": true
+    },
+    "image_carousel_autoplay": {
+      "id": "image_carousel_autoplay",
+      "name": "Carousel autoplay hero",
+      "trigger_keywords": ["carousel", "slider autoplay", "hero slider"],
+      "applies_to_criteria": ["hero_04", "hero_05", "ux_01", "ux_05"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Carousel autoplay = taux de clic slide 2+ <1% (NNG 2013, 2019 replicated). Banner blindness.",
+      "preferred_alternative": "Hero statique OU carousel user-controlled (click to advance) avec 3 slides max OU version hero différente par segment (UTM/audience).",
+      "severity": "medium"
+    },
+    "preserve_usp": {
+      "id": "preserve_usp",
+      "name": "Préserver l'USP / différenciateur détecté",
+      "trigger_keywords": ["remplacer", "reformuler", "changer", "modifier le copy"],
+      "applies_to_criteria": ["hero_01", "hero_02", "hero_03", "coh_01", "per_01", "per_02"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Si le H1/CTA/claim est détecté comme USP (différenciateur unique du client), AMPLIFY don't REWRITE. La reco doit ajouter preuve/spécificité AUTOUR du texte existant, jamais le remplacer.",
+      "preferred_alternative": "Garder texte existant + ajouter sous-CTA preuve chiffrée + spécificité audience + lien micro-engagement secondaire.",
+      "severity": "critical",
+      "doctrine_link": "April Dunford 'Obviously Awesome' (2019) — différenciateur = asset positioning, jamais le sacrifier",
+      "detection_method": "usp_detector.py — score USP >= 0.7 OU texte cité comme cluster headline dans Vision/perception",
+      "override_if": "Critère lié scoré <= 40% (vraiment cassé) ET USP détecté triggers anti-pattern (ex: scarcity_countdown_fake)"
+    },
+    "respect_what_works": {
+      "id": "respect_what_works",
+      "name": "Respecter ce qui fonctionne déjà",
+      "trigger_keywords": ["*"],
+      "applies_to_criteria": ["*"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Si le critère est scoré >= 75%, le client le fait DÉJÀ bien. Reco doit être P3 AMPLIFY (polish) ou SKIP. Diluer P1/P2 sur du déjà-bon = signal de mauvais audit.",
+      "preferred_alternative": "Score >= 75 → reco type='amplify' P3 (renforcer, polish) OU pas de reco. Score 60-74 → P2 optimize. Score <60 → P1 fix.",
+      "severity": "high",
+      "rule": "Threshold gating: >=75 amplify/skip, 60-74 P2 optimize, <60 P1 fix"
+    },
+    "business_context_required": {
+      "id": "business_context_required",
+      "name": "Contexte business obligatoire dans le 'why'",
+      "trigger_keywords": ["*"],
+      "applies_to_criteria": ["*"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Le 'why' de chaque reco DOIT citer explicitement (a) le business_model du client, (b) la persona audience, (c) le funnel intent. Sans ça, la reco est hors-sol.",
+      "preferred_alternative": "Format 'why': '[Business model {category}] + [audience {persona}] + [intent {funnel}] → [pourquoi cette reco précisément]'. Ex: 'En DTC subscription pour propriétaires d'animaux (audience émotionnelle, anxieuse pour la santé du chien) avec intent discovery_quiz, l'urgence narrative > urgence chiffrée car...'",
+      "severity": "high",
+      "implementation": "Schema validation post-LLM : reco.why doit contenir business_category + audience_term + intent_term"
+    },
+    "vocab_consistency_within_page": {
+      "id": "vocab_consistency_within_page",
+      "name": "Cohérence vocabulaire à travers les recos d'une page",
+      "trigger_keywords": ["*"],
+      "applies_to_criteria": ["*"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Toutes les recos d'une même page doivent utiliser le même vocabulaire pour la même action client. Pas de drift 'menu' / 'profil' / 'diagnostic'.",
+      "preferred_alternative": "Pre-LLM : extraire vocab_canonical (verbe + objet de l'action principale) depuis perception/Vision. Injecter dans system_prompt comme contrainte. Post-LLM : valider cohérence cross-recos.",
+      "severity": "medium",
+      "implementation": "build_user_prompt() injecte 'CLIENT_VOCAB_LOCK: { action_verb: \"créer\", action_object: \"son menu\", duration_promise: \"2 min\" }' — toute reco doit réutiliser ce vocabulaire"
+    },
+    "amplify_vs_rewrite": {
+      "id": "amplify_vs_rewrite",
+      "name": "AMPLIFY don't REWRITE (threshold-based)",
+      "trigger_keywords": ["*"],
+      "applies_to_criteria": ["*"],
+      "applies_to_business_categories": ["*"],
+      "warning": "⚠️ Reco type doit matcher score:\n- >=75: AMPLIFY (renforcer ce qui marche)\n- 60-74: OPTIMIZE (ajustement ciblé)\n- <60: FIX (refonte structurée)\n- USP détecté: AMPLIFY only sauf override anti-pattern critique",
+      "preferred_alternative": "Tagger chaque reco avec reco_type ∈ {amplify, optimize, fix, skip}. Le LLM doit choisir avant d'écrire le before/after.",
+      "severity": "high",
+      "rule": "Reco schema doit inclure 'reco_type' obligatoire — validation post-LLM"
+    }
+  }
+}

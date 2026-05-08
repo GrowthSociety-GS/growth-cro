@@ -1,0 +1,1037 @@
+{
+  "version": "V27-panel-roles-proposal-2026-05-05",
+  "status": "proposal_not_business_locked",
+  "source": "data/curated_clients_v26.json",
+  "note": "Panel runtime V26 enrichi avec panel_role/status pour séparer business clients, goldens, benchmarks, Mathis picks et diversity supplements. À valider avec Mathis avant usage business.",
+  "meta": {
+    "generated_at": "2026-05-05T00:00:00+02:00",
+    "created_from_version": "V26.AA-curated-base-2026-04-30",
+    "created_from_note": "Base officielle GrowthCRO V26.AA — 56 clients curatés (auto-build 2026-04-30 par build_growth_audit_data.py). Tous les sprints V26.AA+ utilisent cette base, PAS les 105 captures brutes (qui contiennent audits cassés/non pertinents pré-V25).",
+    "created_from_declared_fleet": {
+      "n_clients": 56,
+      "n_pages": 185,
+      "n_recos": 3186,
+      "p0": 1029,
+      "p1": 1076,
+      "p2": 54,
+      "p3": 1027,
+      "avg_score_pct": 53.9
+    },
+    "roles_contract": [
+      "business_client",
+      "business_client_candidate",
+      "golden_reference",
+      "benchmark",
+      "mathis_pick",
+      "diversity_supplement"
+    ],
+    "status_contract": [
+      "keep",
+      "review",
+      "remove"
+    ],
+    "role_counts": {
+      "benchmark": 31,
+      "business_client_candidate": 10,
+      "diversity_supplement": 5,
+      "golden_reference": 3,
+      "mathis_pick": 7
+    },
+    "status_counts": {
+      "keep": 10,
+      "review": 46
+    }
+  },
+  "fleet": {
+    "n_clients": 56,
+    "n_pages": 185,
+    "n_recos": 3045,
+    "p0": 932,
+    "p1": 1115,
+    "p2": 50,
+    "p3": 948,
+    "avg_score_pct": 54.0,
+    "role_counts": {
+      "benchmark": 31,
+      "business_client_candidate": 10,
+      "diversity_supplement": 5,
+      "golden_reference": 3,
+      "mathis_pick": 7
+    },
+    "status_counts": {
+      "keep": 10,
+      "review": 46
+    }
+  },
+  "clients": [
+    {
+      "id": "aesop",
+      "display_name": "Aesop",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "pdp"
+      ],
+      "n_pages": 1,
+      "avg_score_pct": 50.2,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "airbnb",
+      "display_name": "Airbnb",
+      "business_type": "app",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "signup"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 40.6,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "alan_golden",
+      "display_name": "Alan",
+      "business_type": "insurtech",
+      "panel_role": "golden_reference",
+      "status": "keep",
+      "role_confidence": "high",
+      "page_types": [
+        "home",
+        "lp_sales",
+        "signup"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 43.5,
+      "reason_in_panel": "explicit *_golden reference in V26 runtime panel",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "andthegreen",
+      "display_name": "Andthegreen",
+      "business_type": "ecommerce",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "collection",
+        "home",
+        "lp_sales",
+        "pdp",
+        "quiz_vsl"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 51.4,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "asphalte_golden",
+      "display_name": "Asphalte",
+      "business_type": "ecommerce",
+      "panel_role": "golden_reference",
+      "status": "keep",
+      "role_confidence": "high",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 46.7,
+      "reason_in_panel": "explicit *_golden reference in V26 runtime panel",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "back_market",
+      "display_name": "Back Market",
+      "business_type": "ecommerce",
+      "panel_role": "mathis_pick",
+      "status": "keep",
+      "role_confidence": "medium",
+      "page_types": [
+        "home"
+      ],
+      "n_pages": 1,
+      "avg_score_pct": 61.5,
+      "reason_in_panel": "historical Mathis pick from V26 fleet selection",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "canva",
+      "display_name": "Canva",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "pricing",
+        "signup"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 44.2,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "captain_contrat",
+      "display_name": "Captain Contrat",
+      "business_type": "lead_gen",
+      "panel_role": "diversity_supplement",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "signup"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 47.0,
+      "reason_in_panel": "supplement added to cover vertical/intent diversity gaps",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "coursera",
+      "display_name": "Coursera",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "pdp",
+        "pricing"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 57.5,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "cuure",
+      "display_name": "Cuure",
+      "business_type": "ecommerce",
+      "panel_role": "mathis_pick",
+      "status": "keep",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp",
+        "quiz_vsl"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 54.9,
+      "reason_in_panel": "historical Mathis pick from V26 fleet selection",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "detective_box",
+      "display_name": "Detective Box",
+      "business_type": "ecommerce",
+      "panel_role": "mathis_pick",
+      "status": "keep",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "lp_sales",
+        "pdp"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 57.5,
+      "reason_in_panel": "historical Mathis pick from V26 fleet selection",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "doctolib",
+      "display_name": "Doctolib",
+      "business_type": "lead_gen",
+      "panel_role": "mathis_pick",
+      "status": "keep",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "quiz_vsl",
+        "signup"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 44.6,
+      "reason_in_panel": "historical Mathis pick from V26 fleet selection",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "dollar_shave_club",
+      "display_name": "Dollar Shave Club",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 58.9,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "drunk_elephant",
+      "display_name": "Drunk Elephant",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home"
+      ],
+      "n_pages": 2,
+      "avg_score_pct": 60.4,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "duolingo",
+      "display_name": "Duolingo",
+      "business_type": "app",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "pricing"
+      ],
+      "n_pages": 2,
+      "avg_score_pct": 73.2,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "edone_paris",
+      "display_name": "Edone Paris",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 53.1,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "emma_matelas",
+      "display_name": "Emma Matelas",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 65.3,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "epycure",
+      "display_name": "Epycure",
+      "business_type": "ecommerce",
+      "panel_role": "mathis_pick",
+      "status": "keep",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "quiz_vsl"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 62.1,
+      "reason_in_panel": "historical Mathis pick from V26 fleet selection",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "furifuri",
+      "display_name": "Furifuri",
+      "business_type": "unknown",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 57.9,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "fygr",
+      "display_name": "Fygr",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "pricing",
+        "signup"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 52.7,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "gymshark",
+      "display_name": "Gymshark",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home"
+      ],
+      "n_pages": 2,
+      "avg_score_pct": 59.7,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "headspace",
+      "display_name": "Headspace",
+      "business_type": "app",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "pdp",
+        "pricing"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 58.7,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "hellofresh",
+      "display_name": "Hellofresh",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen"
+      ],
+      "n_pages": 2,
+      "avg_score_pct": 62.7,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "japhy",
+      "display_name": "Japhy",
+      "business_type": "ecommerce",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "collection",
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "quiz_vsl"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 63.8,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "kaiju",
+      "display_name": "Kaiju",
+      "business_type": "ecommerce",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "home",
+        "pdp"
+      ],
+      "n_pages": 2,
+      "avg_score_pct": 58.9,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "la-marque-en-moins",
+      "display_name": "La Marque En Moins",
+      "business_type": "unknown",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 55.3,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "le_labo",
+      "display_name": "Le Labo",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 57.1,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "linear_golden",
+      "display_name": "Linear",
+      "business_type": "saas",
+      "panel_role": "golden_reference",
+      "status": "keep",
+      "role_confidence": "high",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "pricing",
+        "signup"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 47.4,
+      "reason_in_panel": "explicit *_golden reference in V26 runtime panel",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "maison_martin",
+      "display_name": "Maison Martin",
+      "business_type": "ecommerce",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp",
+        "signup"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 44.2,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "masterclass",
+      "display_name": "Masterclass",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "quiz_vsl"
+      ],
+      "n_pages": 1,
+      "avg_score_pct": 36.8,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "matera",
+      "display_name": "Matera",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "quiz_vsl"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 49.1,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "may",
+      "display_name": "May",
+      "business_type": "unknown",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "home",
+        "lp_leadgen"
+      ],
+      "n_pages": 2,
+      "avg_score_pct": 59.9,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "monday",
+      "display_name": "Monday",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "pricing"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 58.4,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "myvariations",
+      "display_name": "Myvariations",
+      "business_type": "ecommerce",
+      "panel_role": "mathis_pick",
+      "status": "keep",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 60.5,
+      "reason_in_panel": "historical Mathis pick from V26 fleet selection",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "nobo",
+      "display_name": "Nobo",
+      "business_type": "lead_gen",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen"
+      ],
+      "n_pages": 2,
+      "avg_score_pct": 57.5,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "notion",
+      "display_name": "Notion",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "quiz_vsl"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 51.1,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "oma",
+      "display_name": "Oma",
+      "business_type": "unknown",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "collection",
+        "home",
+        "lp_leadgen",
+        "pdp",
+        "quiz_vsl"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 59.0,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "pennylane",
+      "display_name": "Pennylane",
+      "business_type": "saas",
+      "panel_role": "diversity_supplement",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "pricing"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 52.4,
+      "reason_in_panel": "supplement added to cover vertical/intent diversity gaps",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "petit_bambou",
+      "display_name": "Petit Bambou",
+      "business_type": "app",
+      "panel_role": "diversity_supplement",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "pricing",
+        "signup"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 42.5,
+      "reason_in_panel": "supplement added to cover vertical/intent diversity gaps",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "poppins_mila_learn",
+      "display_name": "Poppins Mila Learn",
+      "business_type": "app",
+      "panel_role": "diversity_supplement",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "pricing",
+        "quiz_vsl"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 57.0,
+      "reason_in_panel": "supplement added to cover vertical/intent diversity gaps",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "pretto",
+      "display_name": "Pretto",
+      "business_type": "lead_gen",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "quiz_vsl"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 62.4,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "qonto",
+      "display_name": "Qonto",
+      "business_type": "fintech",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "pricing",
+        "quiz_vsl"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 58.2,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "respire",
+      "display_name": "Respire",
+      "business_type": "ecommerce",
+      "panel_role": "mathis_pick",
+      "status": "keep",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 56.6,
+      "reason_in_panel": "historical Mathis pick from V26 fleet selection",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "reverso",
+      "display_name": "Reverso",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "pricing"
+      ],
+      "n_pages": 1,
+      "avg_score_pct": 51.0,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "revolut",
+      "display_name": "Revolut",
+      "business_type": "fintech",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_sales",
+        "pricing"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 57.9,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "seazon",
+      "display_name": "Seazon",
+      "business_type": "ecommerce",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "home",
+        "lp_sales",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 38.8,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "selectra",
+      "display_name": "Selectra",
+      "business_type": "lead_gen",
+      "panel_role": "diversity_supplement",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 62.0,
+      "reason_in_panel": "supplement added to cover vertical/intent diversity gaps",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "steamone",
+      "display_name": "Steamone",
+      "business_type": "unknown",
+      "panel_role": "business_client_candidate",
+      "status": "review",
+      "role_confidence": "low",
+      "page_types": [
+        "home"
+      ],
+      "n_pages": 1,
+      "avg_score_pct": 36.7,
+      "reason_in_panel": "candidate business client from V26 runtime panel; needs Mathis validation",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "stripe",
+      "display_name": "Stripe",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "pricing"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 52.2,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "typology",
+      "display_name": "Typology",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp",
+        "quiz_vsl"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 56.6,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "vercel",
+      "display_name": "Vercel",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "pdp",
+        "pricing",
+        "signup"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 46.9,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "vinted",
+      "display_name": "Vinted",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "signup"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 53.7,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "voggt",
+      "display_name": "Voggt",
+      "business_type": "app",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "pdp"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 46.4,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "weglot",
+      "display_name": "Weglot",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "pricing"
+      ],
+      "n_pages": 3,
+      "avg_score_pct": 53.8,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "whoop",
+      "display_name": "Whoop",
+      "business_type": "ecommerce",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "home",
+        "lp_leadgen",
+        "lp_sales",
+        "signup"
+      ],
+      "n_pages": 4,
+      "avg_score_pct": 52.2,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    },
+    {
+      "id": "wise",
+      "display_name": "Wise",
+      "business_type": "saas",
+      "panel_role": "benchmark",
+      "status": "review",
+      "role_confidence": "medium",
+      "page_types": [
+        "collection",
+        "home",
+        "lp_leadgen",
+        "pricing",
+        "signup"
+      ],
+      "n_pages": 5,
+      "avg_score_pct": 57.7,
+      "reason_in_panel": "third-party benchmark/reference; useful for comparison, not a GS client by default",
+      "source": "curated_clients_v26"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_ux_03_tighten_lax_lead_gen",
+  "type": "tighten_threshold",
+  "subtype": "lax_rule_under_discriminating",
+  "affected_criteria": [
+    "ux_03"
+  ],
+  "scope": {
+    "business_category": "lead_gen"
+  },
+  "evidence": {
+    "n_pages_evaluated": 16,
+    "pct_top": 87.5,
+    "pct_critical": 6.2,
+    "avg_score_pct": 90.6,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère ux_03 marqué TOP sur 88% des pages de lead_gen (14/16). Règle sous-discriminante — presque tout le monde l'atteint. Durcir scoring.top pour identifier les vraies excellences.",
+  "risk": "Durcir trop pourrait pénaliser pages déjà bonnes",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/perception_v13.json",
+  "title": "Perception V13",
+  "description": "Spatial clustering + primary CTA. Les bbox peuvent avoir (x,y,width,height) OU (x,y,w,h) selon le producer.",
+  "type": "object",
+  "required": ["version", "elements", "clusters"],
+  "properties": {
+    "version": { "type": "string" },
+    "meta": { "type": "object" },
+    "stats": { "type": "object" },
+    "elements": { "type": "array" },
+    "clusters": { "type": "array" },
+    "primary_cta": {}
+  }
+}

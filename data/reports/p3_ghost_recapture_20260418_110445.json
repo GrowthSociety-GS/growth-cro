@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:04:45.179612Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 30.5,
+  "log": [
+    {
+      "client": "emma_matelas",
+      "pageType": "pdp",
+      "url": "https://www.emma.fr/matelas-emma-one.html",
+      "ok": true,
+      "elapsed_s": 13.3,
+      "sections": 7,
+      "elements": 682
+    },
+    {
+      "client": "gymshark",
+      "pageType": "collection",
+      "url": "https://www.gymshark.com/collections/all-products/mens",
+      "ok": true,
+      "elapsed_s": 17.1,
+      "sections": 172,
+      "elements": 5924
+    }
+  ]
+}

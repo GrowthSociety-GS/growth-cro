@@ -1,0 +1,7 @@
+V26.AE Final test Weglot listicle
+==================================
+HTML: deliverables/weglot-listicle-V26AE-FINAL.html
+chars=18105 var=88 pneue=True dm_sans=True inter=False
+fr_indic=6 en_indic=0
+violations: aura=[] grammar=[] slop=[]
+completeness=38.1 vision=4 cost=0.136 wall=110.2

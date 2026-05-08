@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pourquoi les SaaS B2B mettent leur site en production multilingue en moins d'une heure — Augustin Prot, Weglot</title>
+  <meta name="description" content="Sept observations empiriques après avoir accompagné 65 000 déploiements internationaux — et pourquoi la peur du dev backlog, du SEO cassé et de la traduction automatique pourrie n'est plus une fatalité">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ── Design Tokens ── */
+    :root {
+      /* Palette */
+      --primary: #493ce0;
+      --primary-rgb: 74,60,224;
+      --secondary: #c1e0f8;
+      --accent: #493ce0;
+      --bg: #f2f2f3;
+      --bg-alt: #ecebed;
+      --text: #1c1c23;
+      --muted: #7b789f;
+      --success: #35a062;
+      --error: #d22c2c;
+      --proprietary: #ce9b96;
+
+      /* Typography */
+      --font-display: 'Ppneuemontreal', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-accent: 'Rubik', monospace;
+
+      /* Type Scale (φ) */
+      --fs-xs: 0.382rem;
+      --fs-sm: 0.618rem;
+      --fs-base: 1.000rem;
+      --fs-md: 1.125rem;
+      --fs-lg: 1.262rem;
+      --fs-xl: 1.618rem;
+      --fs-2xl: 1.623rem;
+      --fs-3xl: 2.618rem;
+      --fs-display: 2.626rem;
+      --fs-hero: clamp(2.5rem, 8vw, 4.2rem);
+      --ls-display: -0.025em;
+      --lh-display: 1.05;
+      --ls-body: 0em;
+      --lh-body: 1.65;
+      --ls-caps: 0.14em;
+
+      /* Spacing (φ scale) */
+      --sp-3xs: 3px;
+      --sp-2xs: 5px;
+      --sp-xs: 8px;
+      --sp-sm: 13px;
+      --sp-md: 21px;
+      --sp-lg: 34px;
+      --sp-xl: 55px;
+      --sp-2xl: 89px;
+      --sp-3xl: 144px;
+      --sp-4xl: 232px;
+
+      /* Motion */
+      --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --duration: 0.35s;
+      --stagger: 50ms;
+      --hover-scale: 1.05;
+      --hover-y: -3px;
+
+      /* Depth */
+      --radius-sm: 0px;
+      --radius-md: 2px;
+      --radius-lg: 3px;
+      --radius-xl: 4px;
+      --radius-full: 6px;
+      --shadow-sm: 0 1px 2px 0px rgba(43,41,60,0.09), 0 2px 3px 0px rgba(43,41,60,0.075), 0 2px 4px 0px rgba(43,41,60,0.06), 0 3px 6px -1px rgba(43,41,60,0.045);
+      --shadow-md: 0 2px 4px 0px rgba(43,41,60,0.09), 0 4px 8px -1px rgba(43,41,60,0.075), 0 6px 12px -1px rgba(43,41,60,0.06), 0 8px 16px -2px rgba(43,41,60,0.045);
+      --shadow-lg: 0 4px 8px -1px rgba(43,41,60,0.09), 0 8px 16px -2px rgba(43,41,60,0.075), 0 12px 24px -2px rgba(43,41,60,0.06), 0 16px 32px -3px rgba(43,41,60,0.045);
+      --shadow-xl: 0 7px 14px -1px rgba(43,41,60,0.09), 0 14px 28px -3px rgba(43,41,60,0.075), 0 21px 42px -4px rgba(43,41,60,0.06), 0 28px 56px -6px rgba(43,41,60,0.045);
+      --noise-opacity: 0.04;
+      --glass-blur: 15px;
+      --glass-saturation: 187%;
+      --glass-bg-opacity: 0.66;
+
+      /* GrowthCRO V30 — Design Grammar Tokens */
+      --color-primary: #e9dcf0;
+      --color-primary-hover: color-mix(in srgb, #e9dcf0 88%, black);
+      --color-secondary-1: #c1e0f8;
+      --color-secondary-2: #493ce0;
+      --color-bg: #ffffff;
+      --color-surface: #f5f5f5;
+      --color-text: #1a1a1a;
+      --color-text-muted: color-mix(in srgb, var(--color-text) 65%, transparent);
+      --color-border: color-mix(in srgb, var(--color-text) 12%, transparent);
+
+      --font-heading: Ppneuemontreal, Arial, sans-serif;
+      --fs-h1: 63px;
+      --fs-h2: 44px;
+      --fs-h3: 31px;
+      --fs-body: 16px;
+      --fs-small: 14px;
+      --lh-heading: 1.1;
+      --lh-body: 1.55;
+      --fw-body: 400;
+      --fw-heading: 700;
+
+      --container-max: 1200px;
+      --gap-xs: 8px;
+      --gap-sm: 16px;
+      --gap-md: 24px;
+      --gap-lg: 48px;
+      --gap-xl: 96px;
+      --section-py: 96px;
+
+      --radius-sharp: 0;
+      --radius-subtle: 4px;
+      --radius-soft: 4px;
+      --radius-round: 999px;
+      --radius-default: 4px;
+    }
+
+    /* ── Reset ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      font-weight: var(--fw-body);
+    }
+
+    /* ── Typography ── */
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: var(--fw-heading);
+      line-height: var(--lh-heading);
+      letter-spacing: var(--ls-display);
+      color: var(--color-text);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, var(--fs-h1));
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 5vw, var(--fs-h2));
+    }
+
+    h3 {
+      font-size: clamp(1.4rem, 4vw, var(--fs-h3));
+    }
+
+    p {
+      margin-bottom: var(--sp-lg);
+    }
+
+    a {
+      color: var(--color-secondary-2);
+      text-decoration: none;
+      transition: opacity var(--duration) var(--ease);
+    }
+
+    a:hover {
+      opacity: 0.7;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 var(--sp-lg);
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 var(--sp-2xl);
+      }
+    }
+
+    /* ── Byline ── */
+    .byline {
+      padding-top: var(--sp-3xl);
+      padding-bottom: var(--sp-xl);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-md);
+    }
+
+    .byline__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--color-text);
+      color: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-heading);
+      flex-shrink: 0;
+    }
+
+    .byline__text {
+      font-size: var(--fs-sm);
+      line-height: 1.4;
+      color: var(--color-text-muted);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding-bottom: var(--sp-2xl);
+      border-bottom: 0.5px solid var(--color-border);
+      margin-bottom: var(--sp-2xl);
+    }
+
+    .hero__h1 {
+      margin-bottom: var(--sp-lg);
+    }
+
+    .hero__dek {
+      font-size: var(--fs-md);
+      color: var(--color-text-muted);
+      line-height: var(--lh-body);
+      font-style: italic;
+    }
+
+    /* ── Intro ── */
+    .intro {
+      padding-bottom: var(--sp-2xl);
+      margin-bottom: var(--sp-2xl);
+      border-bottom: 0.5px solid var(--color-border);
+    }
+
+    .intro p:first-of-type::first-letter {
+      font-size: clamp(3.5rem, 8vw, 5rem);
+      line-height: 0.85;
+      float: left;
+      margin-right: var(--sp-sm);
+      margin-top: var(--sp-xs);
+      font-family: var(--font-display);
+      font-weight: var(--fw-heading);
+    }
+
+    /* ── Reason Section ── */
+    .reason {
+      padding-bottom: var(--sp-2xl);
+      margin-bottom: var(--sp-2xl);
+      border-bottom: 0.5px solid var(--color-border);
+      position: relative;
+    }
+
+    .reason:last-of-type {
+      border-bottom: none;
+    }
+
+    .reason__number {
+      position: absolute;
+      top: -0.15em;
+      left: -0.05em;
+      font-size: clamp(4rem, 10vw, 6rem);
+      font-family: var(--font-display);
+      font-weight: var(--fw-heading);
+      line-height: 1;
+      color: var(--color-text);
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .reason__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .reason__h2 {
+      margin-bottom: var(--sp-lg);
+      padding-top: var(--sp-sm);
+    }
+
+    /* ── Pull Quote ── */
+    .pullquote {
+      margin: var(--sp-xl) 0;
+      padding: var(--sp-lg) 0;
+      border-top: 0.5px solid var(--color-border);
+      border-bottom: 0.5px solid var(--color-border);
+    }
+
+    .pullquote__text {
+      font-size: var(--fs-xl);
+      line-height: 1.4;
+      font-style: italic;
+      color: var(--color-text);
+      margin-bottom: 0;
+    }
+
+    /* ── Stat Callout ── */
+    .stat {
+      margin: var(--sp-xl) 0;
+      text-align: left;
+    }
+
+    .stat__number {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-family: var(--font-display);
+      font-weight: var(--fw-heading);
+      line-height: 1;
+      color: var(--color-secondary-2);
+      display: block;
+      margin-bottom: var(--sp-sm);
+    }
+
+    .stat__caption {
+      font-size: var(--fs-sm);
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── CTA Final ── */
+    .cta-final {
+      padding: var(--sp-3xl) 0;
+      text-align: center;
+    }
+
+    .cta-final__eyebrow {
+      font-size: var(--fs-sm);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-caps);
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-md);
+      font-weight: 500;
+    }
+
+    .cta-final__h2 {
+      margin-bottom: var(--sp-lg);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-final__body {
+      font-size: var(--fs-md);
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-xl);
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-final__button {
+      display: inline-block;
+      padding: var(--sp-md) var(--sp-xl);
+      background: var(--color-text);
+      color: var(--color-bg);
+      font-family: var(--font-body);
+      font-size: var(--fs-md);
+      font-weight: 500;
+      border-radius: var(--radius-default);
+      transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cta-final__button:hover {
+      opacity: 1;
+      transform: translateY(var(--hover-y));
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: var(--sp-2xl) 0;
+      border-top: 0.5px solid var(--color-border);
+      text-align: center;
+    }
+
+    .footer__text {
+      font-size: var(--fs-sm);
+      color: var(--color-text-muted);
+      margin-bottom: 0;
+    }
+
+    /* ── Responsive Adjustments ── */
+    @media (max-width: 767px) {
+      .reason__number {
+        font-size: clamp(3rem, 12vw, 4.5rem);
+        opacity: 0.06;
+      }
+
+      .stat__number {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <article class="container">
+    
+    <!-- Byline -->
+    <header class="byline">
+      <div class="byline__avatar" aria-hidden="true">AP</div>
+      <div class="byline__text">Par Augustin Prot, cofondateur Weglot — 65 000+ sites internationalisés depuis 2016</div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero__h1">Pourquoi les SaaS B2B mettent leur site en production multilingue en moins d'une heure au lieu de bloquer 3 mois de dev</h1>
+      <p class="hero__dek">Sept observations empiriques après avoir accompagné 65 000 déploiements internationaux — et pourquoi la peur du dev backlog, du SEO cassé et de la traduction automatique pourrie n'est plus une fatalité</p>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro">
+      <p>Depuis 2016, j'observe la même scène se répéter : un Head of Growth SaaS B2B veut internationaliser, le VP Engineering annonce 3 mois de backlog, le SEO lead s'inquiète de la cannibalisation multilingue, et tout le monde redoute le résultat d'une traduction automatique sur le brand. Résultat ? L'expansion internationale est reportée au Q3, puis au Q4, puis à 2026.</p>
+      
+      <p>Cette friction n'est pas obligatoire. Après 65 000 sites mis en production multilingue, j'ai identifié sept raisons pour lesquelles certaines équipes déploient en moins d'une heure pendant que d'autres attendent des trimestres. Voici ce que les données montrent.</p>
+    </section>
+
+    <!-- Reason 1 -->
+    <section class="reason">
+      <div class="reason__number" aria-hidden="true">1</div>
+      <div class="reason__content">
+        <h2 class="reason__h2">Le dev backlog disparaît quand la traduction vit en dehors du code</h2>
+        
+        <p>La première friction que je vois ? L'engineering lead qui annonce trois mois pour internationaliser. Pourquoi ? Parce que l'approche classique impose de toucher au code : extraire les strings, gérer les fichiers de traduction, reconstruire le routing multilingue, tester chaque langue.</p>
+        
+        <p>Les équipes qui déploient en moins d'une heure ont compris une chose : la traduction n'a pas besoin de vivre dans le code. Une couche de détection automatique + proxy de traduction permet de servir du contenu multilingue sans modifier une ligne de votre stack existante. Vous ajoutez un snippet JavaScript, vous choisissez vos langues cibles, et votre site est live en production dans l'heure.</p>
+        
+        <div class="stat">
+          <span class="stat__number">&lt;1h</span>
+          <span class="stat__caption">Temps moyen de mise en production vs 3 mois de dev backlog</span>
+        </div>
+        
+        <p>Le contraste est brutal : zéro sprint engineering vs trois mois de backlog. Et quand votre site évolue ? Les mises à jour se propagent automatiquement à toutes les langues. Pas de synchronisation manuelle, pas de dette technique multilingue qui s'accumule.</p>
+      </div>
+    </section>
+
+    <!-- Reason 2 -->
+    <section class="reason">
+      <div class="reason__number" aria-hidden="true">2</div>
+      <div class="reason__content">
+        <h2 class="reason__h2">Le SEO multilingue ne casse pas si l'architecture hreflang est automatisée dès le départ</h2>
+        
+        <p>Deuxième peur récurrente : « On va cannibaliser notre SEO existant ». C'est légitime. Un site multilingue mal configuré peut effectivement détruire des années de travail organique.</p>
+        
+        <p>La réalité ? Le SEO multilingue n'est pas complexe techniquement — il est juste rigoureux. Vous avez besoin d'URLs dédiées par langue, de balises hreflang correctement implémentées, de sitemaps séparés, et d'une architecture qui signale clairement à Google quelle version servir à quelle audience.</p>
+        
+        <blockquote class="pullquote">
+          <p class="pullquote__text">Le SEO multilingue n'est pas complexe techniquement — il est juste rigoureux.</p>
+        </blockquote>
+        
+        <p>Les équipes qui réussissent leur SEO international utilisent des systèmes qui génèrent cette architecture automatiquement. Pas de configuration manuelle, pas de risque d'erreur humaine dans les balises hreflang. Chaque nouvelle page que vous créez est automatiquement indexable dans toutes vos langues cibles, avec la structure technique correcte.</p>
+        
+        <p>Résultat observé sur nos déploiements : pas de drop de trafic organique sur la langue source, et acquisition progressive de trafic qualifié sur les nouvelles langues. Le SEO devient un multiplicateur, pas un risque.</p>
+      </div>
+    </section>
+
+    <!-- Reason 3 -->
+    <section class="reason">
+      <div class="reason__number" aria-hidden="true">3</div>
+      <div class="reason__content">
+        <h2 class="reason__h2">La qualité de traduction n'est pas binaire — il existe un layer humain post-automatique</h2>
+        
+        <p>Troisième objection : « La traduction automatique va massacrer notre brand voice ». Je comprends. Personne ne veut que son site ressemble à un Google Translate de 2012.</p>
+        
+        <p>Mais voici ce qui a changé : la traduction automatique moderne (GPT-4, DeepL) produit une qualité de base acceptable pour 90% du contenu. Et pour les 10% critiques — homepage, pricing, landing pages clés — vous pouvez injecter un layer de révision humaine sans refaire tout le système.</p>
+        
+        <div class="stat">
+          <span class="stat__number">90%</span>
+          <span class="stat__caption">du contenu acceptable en traduction automatique moderne</span>
+        </div>
+        
+        <p>L'approche hybride gagnante : déploiement automatique rapide pour avoir un site multilingue fonctionnel, puis révision humaine progressive des pages à fort impact. Vous n'êtes pas bloqué par la perfection initiale, et votre brand voice reste intact là où ça compte.</p>
+        
+        <p>Les équipes qui réussissent leur internationalisation ne choisissent pas entre vitesse et qualité. Elles déploient vite, puis raffinent en continu.</p>
+      </div>
+    </section>
+
+    <!-- Reason 4 -->
+    <section class="reason">
+      <div class="reason__number" aria-hidden="true">4</div>
+      <div class="reason__content">
+        <h2 class="reason__h2">Le ROI devient mesurable quand chaque langue a son analytics séparé</h2>
+        
+        <p>Quatrième friction : l'incapacité à mesurer le retour sur investissement par marché. Si vous ne pouvez pas attribuer le revenue à une langue spécifique, comment justifier l'effort d'internationalisation ?</p>
+        
+        <p>Les systèmes modernes de traduction incluent un tracking par langue dès le départ. Vous voyez en temps réel quel marché génère du trafic, quelles pages convertissent dans quelle langue, et quel est le customer acquisition cost par région.</p>
+        
+        <blockquote class="pullquote">
+          <p class="pullquote__text">Si vous ne pouvez pas attribuer le revenue à une langue spécifique, comment justifier l'effort d'internationalisation ?</p>
+        </blockquote>
+        
+        <p>Cette visibilité change tout. Au lieu d'un pari aveugle sur l'international, vous avez des données pour itérer : désactiver les langues non rentables, doubler sur les marchés qui performent, optimiser le contenu par région.</p>
+        
+        <p>L'internationalisation devient un levier de croissance pilotable, pas un projet one-shot sans feedback loop.</p>
+      </div>
+    </section>
+
+    <!-- Reason 5 -->
+    <section class="reason">
+      <div class="reason__number" aria-hidden="true">5</div>
+      <div class="reason__content">
+        <h2 class="reason__h2">Zero maintenance — les updates du site source se propagent automatiquement</h2>
+        
+        <p>Cinquième problème récurrent : la dette de synchronisation. Vous lancez un site multilingue, puis trois mois plus tard, vous réalisez que la version anglaise a évolué mais pas les traductions. Résultat : des versions désynchronisées qui dégradent l'expérience utilisateur.</p>
+        
+        <p>Les équipes qui évitent ce piège utilisent des systèmes où la source de vérité reste unique. Quand vous modifiez votre site principal, les changements se propagent automatiquement à toutes les langues. Pas de copier-coller manuel, pas de risque d'oubli.</p>
+        
+        <div class="stat">
+          <span class="stat__number">0</span>
+          <span class="stat__caption">Heures de maintenance manuelle par mise à jour</span>
+        </div>
+        
+        <p>Cette architecture change radicalement l'équation économique. Au lieu d'un coût de maintenance qui croît linéairement avec le nombre de langues, vous avez un coût fixe proche de zéro. Ajouter une dixième langue ne coûte pas plus cher en maintenance que d'en avoir deux.</p>
+        
+        <p>L'internationalisation devient scalable, pas un fardeau opérationnel croissant.</p>
+      </div>
+    </section>
+
+    <!-- Reason 6 -->
+    <section class="reason">
+      <div class="reason__number" aria-hidden="true">6</div>
+      <div class="reason__content">
+        <h2 class="reason__h2">Le time-to-market devient un avantage concurrentiel durable</h2>
+        
+        <p>Sixième observation : dans un marché SaaS B2B compétitif, être présent dans une nouvelle région trois mois avant vos concurrents peut définir votre position de leader local.</p>
+        
+        <p>Quand votre concurrent annonce trois mois de dev pour internationaliser et que vous déployez en une heure, vous capturez le marché pendant qu'ils planifient encore leurs sprints. Cette fenêtre d'opportunité est particulièrement critique sur les marchés émergents où la compétition n'est pas encore établie.</p>
+        
+        <blockquote class="pullquote">
+          <p class="pullquote__text">Être présent dans une nouvelle région trois mois avant vos concurrents peut définir votre position de leader local.</p>
+        </blockquote>
+        
+        <p>Les équipes qui comprennent cela traitent l'internationalisation comme un levier de go-to-market, pas comme un projet technique. La vitesse de déploiement devient un moat défendable.</p>
+        
+        <p>Et quand un nouveau marché s'ouvre — réglementation favorable, adoption technologique qui décolle — vous pouvez réagir en heures, pas en trimestres.</p>
+      </div>
+    </section>
+
+    <!-- Reason 7 -->
+    <section class="reason">
+      <div class="reason__number" aria-hidden="true">7</div>
+      <div class="reason__content">
+        <h2 class="reason__h2">L'expérimentation multilingue devient possible — tester un marché coûte proche de zéro</h2>
+        
+        <p>Septième raison, souvent sous-estimée : quand le coût de lancement d'une nouvelle langue est proche de zéro, vous pouvez expérimenter sans risque.</p>
+        
+        <p>Au lieu de faire des études de marché pendant six mois pour décider si vous devez vous lancer en Allemagne, vous déployez l'allemand en une heure et vous regardez les données. Trafic qualifié ? Conversions ? Engagement ? Les métriques vous disent si le marché est viable.</p>
+        
+        <div class="stat">
+          <span class="stat__number">1h</span>
+          <span class="stat__caption">Pour tester un nouveau marché vs 6 mois d'études</span>
+        </div>
+        
+        <p>Cette approche expérimentale change radicalement votre stratégie d'expansion. Au lieu de parier gros sur deux ou trois marchés, vous pouvez tester dix langues, identifier les deux qui performent, et concentrer vos ressources marketing sur celles-ci.</p>
+        
+        <p>L'internationalisation devient un processus itératif data-driven, pas une décision stratégique irréversible prise en comité.</p>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-final">
+      <p class="cta-final__eyebrow">Prêt à déployer ?</p>
+      <h2 class="cta-final__h2">Mettez votre site en production multilingue aujourd'hui</h2>
+      <p class="cta-final__body">Rejoignez les 65 000+ sites qui ont choisi la vitesse sans compromis sur la qualité. Déploiement en moins d'une heure, SEO préservé, layer humain disponible.</p>
+      <a href="https://weglot.com" class="cta-final__button">Commencer gratuitement</a>
+    </section>
+
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">© 2024 Weglot — 65 000+ sites internationalisés depuis 2016</p>
+    </div>

@@ -1,0 +1,3 @@
+data/captures/abyssale/blog
+data/captures/abyssale/home
+data/captures/abyssale/pricing

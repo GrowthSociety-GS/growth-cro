@@ -1,0 +1,104 @@
+{
+  "checked_at": "2026-05-06T08:19:42.778Z",
+  "html": "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society/deliverables/weglot-lp_listicle-GSG-DOCTRINE-BRAND-V27-1.html",
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200
+    },
+    "h1": 1,
+    "h1Text": "10 raisons d'internationaliser votre site maintenant",
+    "h1Box": {
+      "left": 160,
+      "right": 725.890625,
+      "top": 232.28125,
+      "bottom": 497.21875,
+      "width": 565.890625
+    },
+    "heroVisual": true,
+    "heroImages": [
+      {
+        "src": "../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../data/captures/weglot/home/screenshots/mobile_clean_fold.png",
+        "complete": true,
+        "width": 1170,
+        "height": 2532
+      }
+    ],
+    "heroVisualBox": {
+      "left": 821.890625,
+      "right": 1280,
+      "top": 220.9375,
+      "bottom": 640.9375,
+      "width": 458.109375
+    },
+    "h1OverlapsHeroVisual": false,
+    "reasons": 10,
+    "reasonVisuals": 10,
+    "proofStripItems": 3,
+    "cta": true,
+    "htmlLang": "fr",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 10337,
+    "title": "10 raisons d'internationaliser votre site SaaS maintenant avec Weglot",
+    "errors": []
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 1200
+    },
+    "h1": 1,
+    "h1Text": "10 raisons d'internationaliser votre site maintenant",
+    "h1Box": {
+      "left": 20,
+      "right": 370,
+      "top": 210.28125,
+      "bottom": 360.96875,
+      "width": 350
+    },
+    "heroVisual": true,
+    "heroImages": [
+      {
+        "src": "../data/captures/weglot/home/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../data/captures/weglot/home/screenshots/mobile_clean_fold.png",
+        "complete": true,
+        "width": 1170,
+        "height": 2532
+      }
+    ],
+    "heroVisualBox": {
+      "left": 20,
+      "right": 370,
+      "top": 574.1875,
+      "bottom": 929.1875,
+      "width": 350
+    },
+    "h1OverlapsHeroVisual": false,
+    "reasons": 10,
+    "reasonVisuals": 10,
+    "proofStripItems": 3,
+    "cta": true,
+    "htmlLang": "fr",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 10288,
+    "title": "10 raisons d'internationaliser votre site SaaS maintenant avec Weglot",
+    "errors": []
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://growth-society.internal/schemas/clients_database/v14.3.json",
+  "title": "clients_database — V14.3 extension schema",
+  "description": "Extension schema for clients_database.json : nouveaux champs requis pour V14.2.3 patterns en mode saas_autonomous (fail-closed). En mode internal_agency, ces champs sont recommandés mais non bloquants ; l'opérateur GS peut y palier manuellement.",
+  "version": "14.3.0",
+  "based_on": "data/clients_database.json schema implicite v14.2.x",
+  "patterns_consumers": {
+    "psy_02": ["v143.scarcity"],
+    "psy_04": ["v143.loss_framing_opt_in", "v143.business_category_regulatory"],
+    "psy_05": ["v143.founder", "v143.company_age_years", "v143.company_revenue_m_eur"],
+    "psy_08": ["v143.voc_verbatims"],
+    "per_07": ["v143.archetype_macro", "v143.archetype_fine"],
+    "per_11": ["v143.audience_awareness_stage"],
+    "coh_03": ["v143.ad_copy_source"],
+    "coh_04": ["v143.differentiator_claims", "v143.dunford_positioning"],
+    "coh_05": ["v143.voice_tone_4d"],
+    "coh_09": ["v143.unique_mechanism"]
+  },
+  "type": "object",
+  "properties": {
+    "v143": {
+      "type": "object",
+      "description": "Namespace réservé aux champs V14.3. Injecté dans chaque client du tableau clients[] sous la clé v143.",
+      "properties": {
+
+        "scarcity": {
+          "type": "object",
+          "description": "Consommé par psy_02. En saas_autonomous mode, si proof_type=none ou absent → Oracle refuse toute mention scarcity.",
+          "properties": {
+            "proof_type": {
+              "type": "string",
+              "enum": ["inventory_db_linked", "batch_fixed_documented", "waitlist_public", "agenda_capacity_documented", "none"]
+            },
+            "proof_url": {"type": "string", "format": "uri", "description": "URL publique où la scarcity est vérifiable (page produit avec compteur DB, page waitlist, etc.)"},
+            "proof_note": {"type": "string"}
+          },
+          "required": ["proof_type"]
+        },
+
+        "loss_framing_opt_in": {
+          "type": "boolean",
+          "default": false,
+          "description": "Consommé par psy_04. Défaut false universel. Ne peut s'activer que si client signe explicitement l'opt-in ET business_category NOT IN blacklist (santé/fintech/psy/pharma/legal/kids/parenting/addiction)."
+        },
+
+        "business_category_regulatory": {
+          "type": "object",
+          "description": "Métadonnées réglementaires, dérivées automatiquement de identity.sector + identity.subsector. Oracle s'en sert pour appliquer les blacklists psy_04 et émettre disclaimers.",
+          "properties": {
+            "is_health": {"type": "boolean", "default": false},
+            "is_fintech": {"type": "boolean", "default": false},
+            "is_mental_health": {"type": "boolean", "default": false},
+            "is_pharma": {"type": "boolean", "default": false},
+            "is_legal": {"type": "boolean", "default": false},
+            "is_kids_parenting": {"type": "boolean", "default": false},
+            "is_addiction_risk": {"type": "boolean", "default": false, "description": "Fitness extrême, détox, crypto, trading — domaines où exploitation de vulnérabilité est à risque"},
+            "disclaimers_required": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+
+        "founder": {
+          "type": "object",
+          "description": "Consommé par psy_05. Si les 5 critères sont tous vrais ET company_age_years<3 OR company_revenue_m_eur<5 → tolère seuil ≥1 signal autorité. Sinon ≥3 strict.",
+          "properties": {
+            "named": {"type": "boolean", "default": false},
+            "full_name": {"type": "string", "description": "Prénom + nom complet, jamais prénom seul"},
+            "bio_words": {"type": "integer", "minimum": 0},
+            "bio_text": {"type": "string"},
+            "photo_url": {"type": "string", "format": "uri"},
+            "photo_real_verified": {"type": "boolean", "default": false, "description": "true ssi reverse image search Yandex/TinEye passed — pas un stock photo"},
+            "linkedin_url": {"type": "string", "format": "uri"},
+            "linkedin_active": {"type": "boolean", "default": false}
+          },
+          "required": ["named"]
+        },
+        "company_age_years": {"type": "integer", "minimum": 0},
+        "company_revenue_m_eur": {"type": "number", "minimum": 0},
+
+        "voc_verbatims": {
+          "type": "array",
+          "description": "Consommé par psy_08. En saas_autonomous, sans source_url → verbatim rejeté.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source_url": {"type": "string", "format": "uri"},
+              "source_type": {
+                "type": "string",
+                "enum": ["product_review", "interview_transcript", "support_ticket", "g2_review", "trustpilot_review", "google_review", "nps_comment", "social_post"]
+              },
+              "capture_date": {"type": "string", "format": "date"},
+              "customer_consent_level": {
+                "type": "string",
+                "enum": ["named_public", "initial_plus_role", "first_name_only", "anonymous_with_context"]
+              },
+              "customer_name_display": {"type": "string", "description": "Ex: 'Marie L., avocate en droit social'. Interdit 'J.M., satisfait'."},
+              "role_context": {"type": "string", "description": "Rôle/contexte obligatoire si consent_level != named_public"},
+              "original_text": {"type": "string", "description": "Verbatim exact, vocabulaire client non-reformulé"},
+              "cleaned_text": {"type": "string", "description": "Identique ou correction typo/ponctuation uniquement"},
+              "imperfection_preserved": {"type": "boolean", "default": false, "description": "true si tournure imparfaite intentionnellement gardée (règle imperfection rate ≥1/3)"}
+            },
+            "required": ["source_url", "source_type", "original_text", "customer_consent_level"]
+          }
+        },
+
+        "archetype_macro": {
+          "type": "string",
+          "enum": ["sage_ruler", "hero_outlaw", "lover_creator", "jester_everyman", "caregiver_innocent"],
+          "description": "Consommé par per_07. 5 macro-buckets pour décision déterministe Oracle."
+        },
+        "archetype_fine": {
+          "type": "string",
+          "enum": ["sage", "ruler", "hero", "outlaw", "lover", "creator", "jester", "everyman", "caregiver", "innocent", "magician", "explorer"],
+          "description": "Consommé par per_07 en métadonnée fine (pas utilisé par Oracle en mode saas_autonomous)."
+        },
+
+        "audience_awareness_stage": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Consommé par per_11 (Schwartz 5 Stages). 1=unaware, 2=pain-aware, 3=solution-aware, 4=product-aware, 5=most aware. Défauts proposés : 2 pour DTC consumer, 3 pour SaaS B2B mainstream, 4 pour luxury, 5 pour enterprise/niche."
+        },
+
+        "ad_copy_source": {
+          "type": "object",
+          "description": "Consommé par coh_03 pour scent matching. Optionnel — si absent, coh_03 ne peut pas calculer le scent_score.",
+          "properties": {
+            "ad_primary_headline": {"type": "string"},
+            "ad_body_copy": {"type": "string"},
+            "ad_dominant_colors_rgb": {"type": "array", "items": {"type": "array", "items": {"type": "integer"}, "minItems": 3, "maxItems": 3}},
+            "ad_persona_mention": {"type": "string"},
+            "ad_offer_amount": {"type": "string", "description": "Ex: '-30%', 'gratuit', '9.90€'"},
+            "lp_target_url": {"type": "string", "format": "uri"}
+          }
+        },
+
+        "differentiator_claims": {
+          "type": "array",
+          "description": "Consommé par coh_04. Chaque claim de différenciation exige proof_type. Si proof_type=none → Oracle force reformulation sans claim unique.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claim_text": {"type": "string", "description": "Ex: 'seul CRM avec matching IA 3-niveaux'"},
+              "proof_type": {
+                "type": "string",
+                "enum": ["certification", "patent", "publication", "exclusive_contract", "first_mover_date", "customer_proof_doc", "regulatory_approval", "none"]
+              },
+              "proof_url": {"type": "string", "format": "uri"},
+              "proof_date": {"type": "string", "format": "date"},
+              "proof_note": {"type": "string"}
+            },
+            "required": ["claim_text", "proof_type"]
+          }
+        },
+
+        "dunford_positioning": {
+          "type": "object",
+          "description": "Consommé par coh_04 — couche stratégique Dunford 5 composantes.",
+          "properties": {
+            "alternatives": {"type": "array", "items": {"type": "string"}, "description": "Catégories ou produits comparables, pas 'faire soi-même'"},
+            "unique_attributes": {"type": "array", "items": {"type": "string"}, "description": "Ce que vous seul avez, vérifiable via differentiator_claims"},
+            "value_statement": {"type": "string", "description": "Ce que ces attributes permettent"},
+            "who_for": {"type": "string", "description": "Persona précis avec critères démo/comportementaux"},
+            "market_frame": {"type": "string", "description": "Catégorie de marché choisie"}
+          }
+        },
+
+        "voice_tone_4d": {
+          "type": "object",
+          "description": "Consommé par coh_05. Chaque axe 0-100. Oracle applique les 20 ancres verbales selon position.",
+          "properties": {
+            "formel": {"type": "integer", "minimum": 0, "maximum": 100, "description": "0=très familier/argot, 100=très formel/vouvoiement strict"},
+            "expert": {"type": "integer", "minimum": 0, "maximum": 100, "description": "0=vocabulaire métier pointu, 100=zero jargon + analogies quotidien"},
+            "serieux": {"type": "integer", "minimum": 0, "maximum": 100, "description": "0=ton factuel zéro humour, 100=humour décomplexé + pop culture"},
+            "direct": {"type": "integer", "minimum": 0, "maximum": 100, "description": "0=affirmations tranchées, 100=très nuancé + qualificateurs"}
+          },
+          "required": ["formel", "expert", "serieux", "direct"]
+        },
+
+        "unique_mechanism": {
+          "type": "object",
+          "description": "Consommé par coh_09. Obligatoire si business_category != commoditized_high, sinon Oracle bascule sur coh_04.",
+          "properties": {
+            "name": {"type": "string", "description": "2-4 mots, container sémantique"},
+            "explanation": {"type": "string", "description": "Phrase explicative 12-20 mots fact-based"},
+            "validation_answer": {"type": "string", "description": "Réponse client à 'En quoi votre process produit un résultat différent de la concurrence ?' — 1 phrase vérifiable"},
+            "reuse_count_target": {"type": "integer", "minimum": 3, "description": "Nombre minimal d'occurrences sur la LP pour valider container mnésique"}
+          }
+        },
+
+        "competitive_context": {
+          "type": "object",
+          "description": "Consommé par coh_09 safety rail. Oracle bascule sur coh_04 si commoditized_high.",
+          "properties": {
+            "competitive_intensity": {"type": "string", "enum": ["low", "medium", "high", "very_high"]},
+            "market_saturation": {"type": "string", "enum": ["emerging", "growing", "mature", "saturated", "hyper_saturated"]},
+            "commoditized_flag": {"type": "boolean", "default": false, "description": "Dérivé : true ssi intensity≥high ET saturation≥saturated"}
+          }
+        }
+
+      },
+      "note_on_required_fields": "Aucun champ n'est required au niveau schema pour préserver backward compatibility. La règle 'required' se joue au niveau pattern : chaque pattern en mode saas_autonomous vérifie que le champ qu'il consomme existe, sinon fail-closed (pattern désactivé ou reformulé)."
+    }
+  },
+  "migration_notes": {
+    "strategy": "v143 est un namespace additif. Les 80 clients existants n'ont pas le champ v143 ; le bridge generate_lp_from_audit.py traite l'absence comme operator_mode=internal_agency (permissif) et émet des warnings pour chaque champ manquant consommé.",
+    "saas_autonomous_activation": "En mode SaaS, le pipeline exige que chaque client onboardé remplisse le sous-ensemble minimal de v143.* requis par les patterns qu'il consomme. Un script valider_client_v143.py (à créer en V14.3.1) fera le check à l'onboarding.",
+    "migration_script_status": "Non créé dans ce pass. À créer en V14.3.1 (backfill batch sur 80 clients existants depuis identity + strategy + audience déjà présents).",
+    "breaking_changes": "Aucun. Le pipeline existant lit les champs hérités (identity, strategy, audience, brand) exactement comme avant. v143.* est consulté en lecture optionnelle."
+  },
+  "_meta": {
+    "created_at": "2026-04-16",
+    "created_by": "patch_patterns_v142_to_v143.py + hand-design post-Mathis-verdicts",
+    "depends_on": "patterns.json v14.2.3",
+    "next_version": "14.3.1 (migration script + validator)"
+  }
+}

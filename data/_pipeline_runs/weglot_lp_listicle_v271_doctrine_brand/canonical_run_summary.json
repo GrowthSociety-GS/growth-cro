@@ -1,0 +1,121 @@
+{
+  "version": "GSG_CANONICAL_MINIMAL_V27",
+  "generation_path": "minimal",
+  "mode": "complete",
+  "client": "weglot",
+  "page_type": "lp_listicle",
+  "target_language": "FR",
+  "html_path": "deliverables/weglot-lp_listicle-GSG-DOCTRINE-BRAND-V27-1.html",
+  "brief_archive": "data/_briefs_v2/20260506_101522_weglot_com_lp_listicle_GSG_CANONICAL_V27.json",
+  "telemetry": {
+    "wall_seconds_total": 78.4,
+    "wall_seconds_gen": 77.4,
+    "wall_seconds_judge": 0,
+    "tokens_in_gen": 2582,
+    "tokens_out_gen": 3493,
+    "tokens_in_total": 2582,
+    "tokens_out_total": 3493,
+    "cost_estimate_usd": 0.06,
+    "minimal_gate_pass": true
+  },
+  "prompt_meta": {
+    "generation_strategy": "controlled",
+    "copy_prompt_chars": 7607,
+    "plan_sections": 15,
+    "layout_name": "editorial_listicle_longform",
+    "doctrine_upstream": {
+      "business_category": "b2b_saas",
+      "criteria_ids": [
+        "per_01",
+        "per_04",
+        "per_08",
+        "psy_05",
+        "hero_06",
+        "coh_01",
+        "coh_03",
+        "coh_04",
+        "coh_06",
+        "ux_01"
+      ],
+      "pillar_weights": {
+        "coherence": 0.4,
+        "hero": 0.1,
+        "persuasion": 0.3,
+        "psycho": 0.1,
+        "ux": 0.1
+      },
+      "evidence_policy": "proof_rich"
+    },
+    "n_critical": 5,
+    "target_language": "FR",
+    "primary_cta_label": "Tester gratuitement 10 jours",
+    "allowed_number_tokens": [
+      "1",
+      "10",
+      "110",
+      "111368",
+      "2",
+      "2026",
+      "3",
+      "30",
+      "50",
+      "500"
+    ],
+    "visual_assets": [
+      "desktop_fold",
+      "lp_leadgen_fold",
+      "mobile_fold",
+      "pricing_fold"
+    ]
+  },
+  "minimal_gates": {
+    "repairs": [
+      "two_or_three_languages: 2 rewrite(s)",
+      "after_three_months: 1 rewrite(s)",
+      "for_three_years: 1 rewrite(s)"
+    ],
+    "audit": {
+      "html_integrity_issues": [],
+      "font_violations": [],
+      "english_cta_violations": [],
+      "unsourced_numeric_claims": [],
+      "pass": true
+    },
+    "constraints": {
+      "target_language": "FR",
+      "primary_cta_label": "Tester gratuitement 10 jours",
+      "primary_cta_href": "https://dashboard.weglot.com/register",
+      "target_display_font": "Ppneuemontreal, Arial, sans-serif",
+      "target_body_font": "Inter, sans-serif",
+      "allowed_number_tokens": [
+        "1",
+        "10",
+        "110",
+        "111368",
+        "2",
+        "2026",
+        "3",
+        "30",
+        "50",
+        "500"
+      ]
+    }
+  },
+  "minimal_gate_repairs_recomputed": [
+    "two_or_three_languages: 2 rewrite(s)",
+    "after_three_months: 1 rewrite(s)",
+    "for_three_years: 1 rewrite(s)"
+  ],
+  "multi_judge": {
+    "path": "data/_pipeline_runs/weglot_lp_listicle_v271_doctrine_brand/multi_judge.json",
+    "final_score_pct": 53.8,
+    "verdict": "⚠️ Moyen",
+    "doctrine_pct": 50.0,
+    "humanlike_pct": 62.5,
+    "killer_rules_violated": true,
+    "killer_ids": [
+      "coh_03"
+    ],
+    "cost_estimate_usd": 0.367
+  }
+}

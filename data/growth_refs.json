@@ -1,0 +1,354 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-04-08",
+  "note": "30 Growth Refs world-class, 3 par catégorie business. Chaque ref est réconciliée avec la grille V2 via criteriaIds.",
+  "refs": [
+    {
+      "id": "typology",
+      "brand": "Typology",
+      "url": "https://typology.com",
+      "category": "dtc_beauty",
+      "pagesAudited": ["home", "pdp", "collection"],
+      "whyItConverts": "Quiz diagnostic + positionnement clean beauty + copy scientifique + UGC fort.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "Promesse 'skincare personnalisée, ingrédients en toutes lettres'", "criteriaIds": ["coh_01","coh_04"] },
+        { "pillar": "hero", "pattern": "Hero texture produit macro + CTA Quiz", "criteriaIds": ["hero_03","hero_04"] },
+        { "pillar": "psycho", "pattern": "Quiz = réciprocité (tu donnes = tu reçois reco personnalisée)", "criteriaIds": ["psy_06"] }
+      ]
+    },
+    {
+      "id": "glossier",
+      "brand": "Glossier",
+      "url": "https://glossier.com",
+      "category": "dtc_beauty",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Branding culte, UGC massif, ton intime, photos amateures assumées.",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "UGC authentique > photos studio", "criteriaIds": ["per_04","per_05"] },
+        { "pillar": "hero", "pattern": "Hero minimaliste couleur pastel + produit centré", "criteriaIds": ["hero_03"] }
+      ]
+    },
+    {
+      "id": "merit",
+      "brand": "Merit Beauty",
+      "url": "https://meritbeauty.com",
+      "category": "dtc_beauty",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Editorial premium, 'less is more', démo vidéo produit.",
+      "patterns": [
+        { "pillar": "ux", "pattern": "Rythme lent, whitespace massif, typographie serif", "criteriaIds": ["ux_02","ux_03"] },
+        { "pillar": "persuasion", "pattern": "Vidéo démo sur main/visage, format vertical mobile", "criteriaIds": ["per_04"] }
+      ]
+    },
+    {
+      "id": "oatly",
+      "brand": "Oatly",
+      "url": "https://oatly.com",
+      "category": "dtc_food",
+      "pagesAudited": ["home", "pdp", "blog"],
+      "whyItConverts": "Ton de marque absurde et mémorable, typographie oversized, packaging-first.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "Ton ultra-différenciant (anti-corporate, humour)", "criteriaIds": ["coh_05"] },
+        { "pillar": "hero", "pattern": "H1 typographique énorme, texte comme visuel", "criteriaIds": ["hero_01"] }
+      ]
+    },
+    {
+      "id": "feastables",
+      "brand": "Feastables",
+      "url": "https://feastables.com",
+      "category": "dtc_food",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Personal brand MrBeast, couleurs pop, storytelling ingrédients simples.",
+      "patterns": [
+        { "pillar": "hero", "pattern": "Couleurs primaires saturées, packshot centré", "criteriaIds": ["hero_03"] },
+        { "pillar": "psycho", "pattern": "Autorité via personal brand massive", "criteriaIds": ["psy_02"] }
+      ]
+    },
+    {
+      "id": "magicspoon",
+      "brand": "Magic Spoon",
+      "url": "https://magicspoon.com",
+      "category": "dtc_food",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Promesse claire 'cereal for adults', comparaison vs Kellogg's, UGC fun.",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "Tableau comparatif vs concurrents directs", "criteriaIds": ["per_04"] },
+        { "pillar": "psycho", "pattern": "Subscription bundle avec économie affichée", "criteriaIds": ["psy_04"] }
+      ]
+    },
+    {
+      "id": "linear",
+      "brand": "Linear",
+      "url": "https://linear.app",
+      "category": "saas_b2b",
+      "pagesAudited": ["home", "pricing", "blog"],
+      "whyItConverts": "Design obsédé, motion subtil, dark mode natif, message 'for modern teams'.",
+      "patterns": [
+        { "pillar": "hero", "pattern": "Screenshot app animé dans le hero, overlay gradient", "criteriaIds": ["hero_03"] },
+        { "pillar": "ux", "pattern": "Rythme typographique parfait, whitespace, motion contenu", "criteriaIds": ["ux_01","ux_02","ux_07"] }
+      ]
+    },
+    {
+      "id": "notion",
+      "brand": "Notion",
+      "url": "https://notion.so",
+      "category": "saas_b2b",
+      "pagesAudited": ["home", "pricing", "templates"],
+      "whyItConverts": "Use-cases multiples segmentés, library de templates, preuve par l'exemple.",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "Showcase clients par secteur (for designers / for PMs…)", "criteriaIds": ["per_05"] },
+        { "pillar": "ux", "pattern": "Illustrations custom + emojis, ton amical", "criteriaIds": ["ux_03"] }
+      ]
+    },
+    {
+      "id": "attio",
+      "brand": "Attio",
+      "url": "https://attio.com",
+      "category": "saas_b2b",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Hero produit animé pixel-perfect, positionnement 'CRM de la nouvelle génération'.",
+      "patterns": [
+        { "pillar": "hero", "pattern": "Animation produit continue + UI réelle", "criteriaIds": ["hero_03"] },
+        { "pillar": "coherence", "pattern": "Positionnement clair contre Salesforce/HubSpot", "criteriaIds": ["coh_04"] }
+      ]
+    },
+    {
+      "id": "duolingo",
+      "brand": "Duolingo",
+      "url": "https://duolingo.com",
+      "category": "saas_b2c",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Gamification, mascotte culte, onboarding en 1 clic, preuve sociale massive.",
+      "patterns": [
+        { "pillar": "psycho", "pattern": "Preuve sociale '500M+ learners' en hero", "criteriaIds": ["psy_01"] },
+        { "pillar": "ux", "pattern": "CTA unique 'Get Started' sans friction", "criteriaIds": ["ux_04","ux_08"] }
+      ]
+    },
+    {
+      "id": "calcom",
+      "brand": "Cal.com",
+      "url": "https://cal.com",
+      "category": "saas_b2c",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Open source, positionnement clair vs Calendly, preuves dev.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "'Open source Calendly alternative' — clarté absolue", "criteriaIds": ["coh_01","coh_04"] }
+      ]
+    },
+    {
+      "id": "headspace",
+      "brand": "Headspace",
+      "url": "https://headspace.com",
+      "category": "saas_b2c",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Illustrations rondes apaisantes, promesse émotionnelle, essai gratuit sans CB.",
+      "patterns": [
+        { "pillar": "psycho", "pattern": "Émotion + transformation via illustrations", "criteriaIds": ["psy_06"] }
+      ]
+    },
+    {
+      "id": "revolut",
+      "brand": "Revolut",
+      "url": "https://revolut.com",
+      "category": "fintech",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Proposition 'tout-en-un', chiffres (40M users), UI screenshots en hero.",
+      "patterns": [
+        { "pillar": "psycho", "pattern": "Preuve sociale '40M+ customers' + logos régulateurs", "criteriaIds": ["psy_01","psy_02"] }
+      ]
+    },
+    {
+      "id": "qonto",
+      "brand": "Qonto",
+      "url": "https://qonto.com",
+      "category": "fintech",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Positionnement 'la néobanque pro', design propre, tarifs transparents.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "Cible unique (pro / freelance / PME)", "criteriaIds": ["coh_02"] },
+        { "pillar": "tech", "pattern": "Site rapide, Core Web Vitals verts", "criteriaIds": ["tech_01","tech_02"] }
+      ]
+    },
+    {
+      "id": "wise",
+      "brand": "Wise",
+      "url": "https://wise.com",
+      "category": "fintech",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Simulateur de frais en hero (interactivité = réciprocité), transparence.",
+      "patterns": [
+        { "pillar": "hero", "pattern": "Simulateur interactif dans le hero", "criteriaIds": ["hero_04","hero_06"] },
+        { "pillar": "persuasion", "pattern": "Comparaison transparente vs banques", "criteriaIds": ["per_04"] }
+      ]
+    },
+    {
+      "id": "growthtribe",
+      "brand": "Growth Tribe",
+      "url": "https://growthtribe.io",
+      "category": "formation",
+      "pagesAudited": ["home", "lp_sales"],
+      "whyItConverts": "Témoignages vidéo nommés, logos étudiants (Google, ASOS), résultats chiffrés.",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "Logos d'entreprises des alumni en hero", "criteriaIds": ["per_04","per_05"] }
+      ]
+    },
+    {
+      "id": "livementor",
+      "brand": "LiveMentor",
+      "url": "https://livementor.com",
+      "category": "formation",
+      "pagesAudited": ["home", "lp_sales"],
+      "whyItConverts": "Storytelling fondateur, cas clients nommés (nom + photo + chiffres).",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "Cas client long format avec chiffres précis", "criteriaIds": ["per_02","per_04"] },
+        { "pillar": "psycho", "pattern": "Loss aversion 'rater la vague IA'", "criteriaIds": ["psy_05"] }
+      ]
+    },
+    {
+      "id": "koober",
+      "brand": "Koober",
+      "url": "https://koob.com",
+      "category": "formation",
+      "pagesAudited": ["home", "pricing"],
+      "whyItConverts": "Promesse simple 'résume des livres en 20 min', illustrations propres.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "Promesse temporelle chiffrée", "criteriaIds": ["coh_01"] }
+      ]
+    },
+    {
+      "id": "hellofresh",
+      "brand": "HelloFresh",
+      "url": "https://hellofresh.com",
+      "category": "subscription",
+      "pagesAudited": ["home", "pricing", "lp_sales"],
+      "whyItConverts": "Discount agressif first box, visuels plats appétissants, 'flexible: skip any week'.",
+      "patterns": [
+        { "pillar": "psycho", "pattern": "Discount percu énorme sur first box", "criteriaIds": ["psy_04"] },
+        { "pillar": "persuasion", "pattern": "Objection 'flexibilité' levée en hero", "criteriaIds": ["per_03"] }
+      ]
+    },
+    {
+      "id": "dollarshaveclub",
+      "brand": "Dollar Shave Club",
+      "url": "https://dollarshaveclub.com",
+      "category": "subscription",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Ton humoristique, vidéo virale fondateur, offre d'essai à petit prix.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "Ton irrévérencieux assumé", "criteriaIds": ["coh_05"] }
+      ]
+    },
+    {
+      "id": "nuud",
+      "brand": "Nuud",
+      "url": "https://nuud.com",
+      "category": "subscription",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Promesse unique '24h deodorant', copy directe, UGC testimonials.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "Une seule promesse hyper-spécifique", "criteriaIds": ["coh_01"] }
+      ]
+    },
+    {
+      "id": "vinted",
+      "brand": "Vinted",
+      "url": "https://vinted.fr",
+      "category": "marketplace",
+      "pagesAudited": ["home"],
+      "whyItConverts": "CTA 'Vends maintenant' ultra-visible, onboarding 0-friction, preuve sociale volume.",
+      "patterns": [
+        { "pillar": "ux", "pattern": "Un seul CTA massif, pas de distraction", "criteriaIds": ["ux_04","coh_06"] }
+      ]
+    },
+    {
+      "id": "malt",
+      "brand": "Malt",
+      "url": "https://malt.fr",
+      "category": "marketplace",
+      "pagesAudited": ["home"],
+      "whyItConverts": "Double cible claire (client / freelance), logos entreprises, chiffres.",
+      "patterns": [
+        { "pillar": "coherence", "pattern": "Toggle 'je cherche / je suis freelance' dans le hero", "criteriaIds": ["coh_02"] }
+      ]
+    },
+    {
+      "id": "etsy",
+      "brand": "Etsy",
+      "url": "https://etsy.com",
+      "category": "marketplace",
+      "pagesAudited": ["home", "collection"],
+      "whyItConverts": "Visuels chaleureux 'fait main', search-first, trust badges partout.",
+      "patterns": [
+        { "pillar": "psycho", "pattern": "Badge 'star seller' omniprésent", "criteriaIds": ["psy_02"] }
+      ]
+    },
+    {
+      "id": "aesop",
+      "brand": "Aesop",
+      "url": "https://aesop.com",
+      "category": "luxe",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Silence visuel, typographie éditoriale, descriptif produit littéraire.",
+      "patterns": [
+        { "pillar": "ux", "pattern": "Whitespace maximal, pas de CTA criard", "criteriaIds": ["ux_02","ux_03"] },
+        { "pillar": "persuasion", "pattern": "Copy produit littéraire (pas marketing)", "criteriaIds": ["per_07","per_08"] }
+      ]
+    },
+    {
+      "id": "loropiana",
+      "brand": "Loro Piana",
+      "url": "https://loropiana.com",
+      "category": "luxe",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Savoir-faire, matières mis en avant, photographie premium.",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "Storytelling matière (vigogne, cashmere)", "criteriaIds": ["per_02"] }
+      ]
+    },
+    {
+      "id": "sezane",
+      "brand": "Sézane",
+      "url": "https://sezane.com",
+      "category": "luxe",
+      "pagesAudited": ["home", "pdp", "collection"],
+      "whyItConverts": "Editorial mode, photos lifestyle parisien, scarcité (stock réel affiché).",
+      "patterns": [
+        { "pillar": "psycho", "pattern": "Stock restant affiché sur PDP", "criteriaIds": ["psy_03"] }
+      ]
+    },
+    {
+      "id": "whoop",
+      "brand": "Whoop",
+      "url": "https://whoop.com",
+      "category": "health",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Science-first, data visualisée, sportifs connus, membership model.",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "Dashboards réels du produit en hero", "criteriaIds": ["per_04"] }
+      ]
+    },
+    {
+      "id": "oura",
+      "brand": "Oura",
+      "url": "https://ouraring.com",
+      "category": "health",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Design produit premium, science, usage quotidien, UGC athlètes.",
+      "patterns": [
+        { "pillar": "hero", "pattern": "Produit photographié comme bijou", "criteriaIds": ["hero_03"] }
+      ]
+    },
+    {
+      "id": "asphalte",
+      "brand": "Asphalte",
+      "url": "https://asphalte.com",
+      "category": "health",
+      "pagesAudited": ["home", "pdp"],
+      "whyItConverts": "Pré-commande community-driven, transparence prix/marge, copy longue passionnée.",
+      "patterns": [
+        { "pillar": "persuasion", "pattern": "Transparence prix (combien coûte vraiment ce jean)", "criteriaIds": ["per_04"] },
+        { "pillar": "coherence", "pattern": "Modèle pré-commande comme proposition de valeur", "criteriaIds": ["coh_04"] }
+      ]
+    }
+  ]
+}

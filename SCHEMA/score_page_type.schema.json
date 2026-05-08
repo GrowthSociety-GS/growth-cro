@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/score_page_type.json",
+  "title": "Score Page Type — agrégat multi-piliers + overlays",
+  "description": "maxPerPageType peut être int (historique) OU object {universal, specific, total, rawMax, scoreBase} (post-v3.2).",
+  "type": "object",
+  "required": ["doctrineVersion", "label", "pageType", "aggregate"],
+  "properties": {
+    "doctrineVersion": { "type": "string" },
+    "generatedAt": { "type": "string" },
+    "label": { "type": "string" },
+    "pageType": { "type": "string" },
+    "maxPerPageType": { "type": ["integer", "object"] },
+    "exclusions": { "type": ["array", "object"] },
+    "universal": { "type": "object" },
+    "specific": { "type": "object" },
+    "aggregate": { "type": "object", "required": ["score100"], "properties": { "score100": { "type": "number" } } },
+    "utility_banner": { "type": "object" },
+    "semantic_overlay": { "type": "object" },
+    "contextual_overlay": { "type": "object" },
+    "applicability_overlay": { "type": "object" },
+    "notes": { "type": "array" }
+  }
+}

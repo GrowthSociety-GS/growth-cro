@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_tech_03_tighten_lax_fintech",
+  "type": "tighten_threshold",
+  "subtype": "lax_rule_under_discriminating",
+  "affected_criteria": [
+    "tech_03"
+  ],
+  "scope": {
+    "business_category": "fintech"
+  },
+  "evidence": {
+    "n_pages_evaluated": 8,
+    "pct_top": 100.0,
+    "pct_critical": 0.0,
+    "avg_score_pct": 100.0,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère tech_03 marqué TOP sur 100% des pages de fintech (8/8). Règle sous-discriminante — presque tout le monde l'atteint. Durcir scoring.top pour identifier les vraies excellences.",
+  "risk": "Durcir trop pourrait pénaliser pages déjà bonnes",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

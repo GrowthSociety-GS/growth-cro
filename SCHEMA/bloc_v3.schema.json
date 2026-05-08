@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/bloc_v3.json",
+  "title": "Doctrine bloc v3.x",
+  "description": "Shape historique variable : bloc_1 à bloc_6 utilisent {block}, bloc_utility utilise {bloc}. IDs critères : hero|per|ux|coh|psy|tech|ut_NN.",
+  "type": "object",
+  "anyOf": [
+    { "required": ["block", "criteria"] },
+    { "required": ["bloc", "criteria"] }
+  ],
+  "properties": {
+    "block": { "type": "string" },
+    "bloc": { "type": "string" },
+    "id": { "type": "string" },
+    "pillar": { "type": "string" },
+    "label": { "type": "string" },
+    "max": { "type": "integer" },
+    "description": { "type": "string" },
+    "version": { "type": "string" },
+    "status": { "type": "string" },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^(hero|per|ux|coh|psy|tech|ut)_\\d{2,3}$" },
+          "label": { "type": "string" },
+          "pillar": { "type": "string" },
+          "weight": { "type": "number" },
+          "scoring": { "type": "object" }
+        }
+      }
+    }
+  }
+}

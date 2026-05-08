@@ -1,0 +1,128 @@
+{
+  "_meta": {
+    "name": "GrowthCRO V23 — Killer Rules Notion (encodage doctrine V3.1)",
+    "version": "1.0.0 — 2026-04-27",
+    "description": "Règles 'killer' identifiées dans la doctrine Notion qui n'étaient pas encodées dans les playbooks scoring/reco. Une killer rule cap le score d'un bloc si elle est violée — elle doit être checkée AVANT la pondération overlay. Les LLM reco doivent en avoir conscience pour proposer la fix appropriée.",
+    "sources": [
+      "Notion CRO Doctrine V3.1 (Mathis — Growth Society)",
+      "NOTION_CRO_DOCTRINE_SUMMARY.md (interne projet)",
+      "Robert Cialdini — Influence (1984/2021), Expanded Edition",
+      "Eugene Schwartz — Breakthrough Advertising (1966), 5 stages of awareness"
+    ],
+    "applicationMode": "pre-overlay-cap — checked BEFORE pillar weighting. Si killer rule violée: pillar.score = min(pillar.score, killer_cap). LLM reco doit recevoir killer_violations dans le prompt pour aligner la reco."
+  },
+  "killer_rules": {
+    "hero_5second_test_failure": {
+      "id": "hero_5second_test_failure",
+      "name": "5-Second Test failure",
+      "criterion": "hero_06",
+      "pillar": "hero",
+      "cap_score": 6,
+      "max_score": 18,
+      "rule": "En 5 secondes, un visiteur doit pouvoir répondre à 3 questions: 1) Quoi (qu'est-ce que je vois)? 2) Pour qui (audience cible)? 3) Quoi faire ensuite (action attendue)?",
+      "detection_signals": [
+        "vision.h1 manquant ou générique",
+        "vision.subtitle absent",
+        "vision.primary_cta non visible above-fold",
+        "vision.fold_readability < 0.6"
+      ],
+      "violation_message": "Hero échoue le 5-second test : visiteur ne peut pas répondre à 'Quoi/Pour qui/Quoi faire' en 5s.",
+      "reco_directive": "Reco DOIT proposer un H1 qui répond aux 3 questions en <12 mots ET un CTA primaire visible above-fold.",
+      "doctrine_source": "Notion CRO V3.1 — hero_06 KILLER RULE"
+    },
+    "hero_ratio_1to1_broken": {
+      "id": "hero_ratio_1to1_broken",
+      "name": "Ratio 1:1 ATF cassé",
+      "criterion": "hero_03",
+      "pillar": "hero",
+      "cap_score": 6,
+      "max_score": 18,
+      "rule": "Above-the-fold doit avoir UN seul CTA primaire (1 message → 1 action). Si ≥2 CTAs primaires concurrents ATF → ratio 1:1 cassé → cap hero.",
+      "detection_signals": [
+        "vision.atf_distinct_cta_count > 1",
+        "anti_pattern cta_multiple_atf_competing détecté",
+        "primary_cta + secondary_cta ont contraste visuel similaire"
+      ],
+      "violation_message": "Ratio 1:1 ATF cassé : plusieurs CTAs primaires concurrents diluent l'attention (Hick-Hyman Law).",
+      "reco_directive": "Reco DOIT identifier UN seul CTA primaire (le plus aligné avec funnel intent) et reléguer les autres en secondaire faible contraste OU below-the-fold.",
+      "doctrine_source": "Notion CRO V3.1 — hero_06 KILLER RULE complement"
+    },
+    "feature_to_benefit_translation_low": {
+      "id": "feature_to_benefit_translation_low",
+      "name": "Translation feature→benefit < 50%",
+      "criterion": "per_01_critical",
+      "pillar": "persuasion",
+      "cap_score": 8,
+      "max_score": 24,
+      "rule": "Le 'So What Test' : pour chaque feature listée, peut-on répondre à la question 'So what?' (= bénéfice utilisateur tangible)? Si <50% des features ont une translation benefit explicite → cap Bloc 2.",
+      "detection_signals": [
+        "perception.bullet_lists_features_count > 3 AND benefit_translation_ratio < 0.5",
+        "anti_pattern benefit_features_confusion détecté",
+        "Texte type 'API REST, 99.9% uptime, Docker support' sans 'pour que vous puissiez X'"
+      ],
+      "violation_message": "Le client liste des features sans traduire en bénéfices. Visiteur ne sait pas 'so what?'.",
+      "reco_directive": "Reco DOIT proposer une formule Benefit Laddering pour CHAQUE feature : Feature → Functional benefit → Emotional benefit → Identity benefit. Lister features en tab/accordion détail seulement.",
+      "doctrine_source": "Notion CRO V3.1 — per_01_critical KILLER RULE",
+      "doctrine_methodology": "Christensen 'Jobs to be Done' (Harvard) : client achète une transformation, pas une feature."
+    },
+    "zero_concrete_proof": {
+      "id": "zero_concrete_proof",
+      "name": "Zéro proof concret",
+      "criterion": "per_04_critical",
+      "pillar": "persuasion",
+      "cap_score": 10,
+      "max_score": 24,
+      "rule": "Page doit contenir au moins 1 proof type concret parmi : (a) quantified outcome, (b) customer case study, (c) research study, (d) before/after, (e) statistic with source. Sinon → cap Bloc 2.",
+      "detection_signals": [
+        "perception.proof_types_count == 0",
+        "vision.social_proof_in_fold == false AND no_below_fold_proof",
+        "anti_pattern social_proof_numbers_vague détecté"
+      ],
+      "violation_message": "Page sans aucun proof concret : aucune preuve quantifiée, témoignage attribué, cas client, ou statistique sourcée.",
+      "reco_directive": "Reco DOIT proposer 1 proof type minimum, prioriser : (1) chiffre client réel, (2) témoignage attribué (nom+fonction+photo), (3) cas étude before/after.",
+      "doctrine_source": "Notion CRO V3.1 — per_04_critical KILLER RULE"
+    },
+    "schwartz_awareness_mismatch": {
+      "id": "schwartz_awareness_mismatch",
+      "name": "Schwartz Awareness mismatch",
+      "criterion": "per_09",
+      "pillar": "persuasion",
+      "cap_score": 14,
+      "max_score": 24,
+      "rule": "Le tone du copy doit matcher le niveau de conscience de l'audience (Schwartz 5 stages : unaware, problem_aware, solution_aware, product_aware, most_aware). Mismatch → message hors-cible.",
+      "detection_signals": [
+        "perception.tone_indicators incompatibles avec funnel.intent_stage",
+        "Ex: copy 'most_aware' (jargon, comparison directe) sur funnel 'problem_aware' (visiteur cherche encore le problème)",
+        "intent.confidence > 0.7 AND tone_mismatch_score > 0.5"
+      ],
+      "violation_message": "Le tone du copy ne match pas le niveau de conscience de l'audience. Message perdu.",
+      "reco_directive": "Reco DOIT identifier le Schwartz level de l'audience (depuis intent + funnel + persona) et proposer un copy matché. Ex: unaware → focus on emotional pain, most_aware → focus on differentiation/price.",
+      "doctrine_source": "Notion CRO V3.1 — per_09 NEW RULE",
+      "doctrine_methodology": "Eugene Schwartz 'Breakthrough Advertising' (1966) — 5 stages of awareness"
+    },
+    "benefit_laddering_shallow": {
+      "id": "benefit_laddering_shallow",
+      "name": "Benefit Laddering trop superficiel",
+      "criterion": "per_11",
+      "pillar": "persuasion",
+      "cap_score": 16,
+      "max_score": 24,
+      "rule": "Pour chaque promesse principale, le copy doit ladder à au moins 3 niveaux : Feature → Functional benefit → Emotional benefit → (idéalement) Identity benefit. <3 niveaux → cap.",
+      "detection_signals": [
+        "perception.promises_count > 0 AND avg_laddering_depth < 3",
+        "Pas de mention 'transformation' ou 'identité' liée à la promesse"
+      ],
+      "violation_message": "Les promesses du client ne ladderent pas assez profond. Restent au niveau fonctionnel.",
+      "reco_directive": "Reco DOIT proposer un Benefit Laddering 3+ niveaux explicite pour la promesse principale.",
+      "doctrine_source": "Notion CRO V3.1 — per_11 NEW RULE",
+      "doctrine_methodology": "Means-End Chain Theory (Reynolds & Gutman 1988)"
+    }
+  },
+  "application_order": [
+    "1. Compute base scores per pillar (existing scoring)",
+    "2. For each killer_rule: check detection_signals against perception+Vision",
+    "3. If violated: pillar.score = min(pillar.score, killer.cap_score)",
+    "4. Pass killer_violations[] to reco LLM prompt",
+    "5. LLM must address killer_violations in priority recos"
+  ]
+}

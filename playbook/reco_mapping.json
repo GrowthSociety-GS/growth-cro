@@ -1,0 +1,644 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "description": "Mapping audit → diagnostic lisible + recommandation actionnnable pour chaque critère × verdict",
+    "rule": "Pour chaque critère, on génère un diagnostic humain (ce qu'on constate) et une reco (ce qu'il faut faire). Le diagnostic utilise les evidence du scorer pour formuler en français. La reco est adaptée au verdict.",
+    "lockedAt": "2026-04-10",
+    "totalCriteria": 39
+  },
+
+  "hero_01": {
+    "label": "H1 = promesse spécifique",
+    "pillar": "hero",
+    "diagnostic": {
+      "top": "Le H1 est excellent : il contient la promesse, la cible et un différenciateur clair. Le visiteur comprend immédiatement l'offre.",
+      "ok": "Le H1 est correct mais incomplet — il manque soit la cible précise, soit le différenciateur. Le message reste générique.",
+      "critical": "Le H1 est vague, absent ou ne répond à aucune question du visiteur. Impossible de comprendre l'offre en le lisant."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Réécrire le H1 avec la formule : [Bénéfice concret] + [pour qui] + [différenciateur]. Ex : 'La seule croquette sur-mesure recommandée par les vétérinaires — recalculée au gramme pour votre chien.'",
+      "critical": "Réécrire entièrement le H1. Supprimer le slogan créatif et le remplacer par une promesse factuelle. Répondre à : Quoi ? Pour qui ? Pourquoi vous ? Maximum 12 mots, zéro jargon."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "hero_02": {
+    "label": "Sous-titre explicite",
+    "pillar": "hero",
+    "diagnostic": {
+      "top": "Le sous-titre complète parfaitement le H1 en ajoutant de l'information (méthode, résultat ou cible précise).",
+      "ok": "Le sous-titre existe mais reformule le H1 au lieu de l'enrichir, ou il est trop long (>25 mots).",
+      "critical": "Pas de sous-titre, ou sous-titre vide de sens. Le visiteur n'a que le H1 pour comprendre."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Raccourcir le sous-titre à <25 mots et y ajouter au moins un élément nouveau : la méthode ('en 3 minutes/jour'), le résultat chiffré ('+30% en 14 jours'), ou un différenciateur ('sans code, sans agence').",
+      "critical": "Ajouter un sous-titre sous le H1 qui répond à 'Comment ça marche ?' ou 'Quel résultat concret ?'. Maximum 25 mots, jamais de répétition du H1."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "hero_03": {
+    "label": "CTA principal visible",
+    "pillar": "hero",
+    "diagnostic": {
+      "top": "Le CTA principal est visible au-dessus de la ligne de flottaison, avec un verbe d'action orienté bénéfice, une taille tactile suffisante et un bon contraste.",
+      "ok": "Le CTA est présent mais son texte est trop générique ('En savoir plus'), son contraste est faible, ou sa taille est limite pour le tactile mobile.",
+      "critical": "Le CTA principal est absent du premier écran, ou son texte est creux ('Envoyer', 'Valider', 'OK'). Le visiteur ne sait pas quoi faire."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Remplacer le texte du CTA par un verbe d'action + bénéfice ('Recevoir mon audit gratuit', 'Essayer 7 jours gratuit'). Viser ≥44×44px pour le touch target. Augmenter le contraste si <4.5:1.",
+      "critical": "Ajouter un CTA au-dessus de la ligne de flottaison. Couleur accent contrastée, texte de 2-4 mots avec verbe d'action orienté utilisateur. Jamais 'Cliquer ici' ou 'Soumettre'."
+    },
+    "priority": { "ok": "high", "critical": "high" }
+  },
+
+  "hero_04": {
+    "label": "Visuel hero pertinent",
+    "pillar": "hero",
+    "diagnostic": {
+      "top": "Le visuel hero montre le produit en usage ou le résultat concret. Il renforce le message du H1.",
+      "ok": "Un visuel est présent mais il est statique (produit isolé sur fond neutre), ou déconnecté du message H1.",
+      "critical": "Pas de visuel hero significatif, ou image générique de banque d'images sans rapport avec l'offre."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Remplacer le visuel par une image du produit EN USAGE (pas posé sur fond blanc) ou un screenshot de l'interface en action. Le visuel doit répondre visuellement à la promesse du H1.",
+      "critical": "Ajouter un visuel hero de qualité ≥800px montrant le produit en contexte réel. SaaS → screenshot interface. E-commerce → produit en situation. Jamais de stock photo générique."
+    },
+    "priority": { "ok": "medium", "critical": "medium" }
+  },
+
+  "hero_05": {
+    "label": "Preuve sociale ATF",
+    "pillar": "hero",
+    "diagnostic": {
+      "top": "Une preuve sociale crédible est visible au-dessus de la ligne de flottaison (widget d'avis, chiffre client sourcé, logos presse).",
+      "ok": "Un élément de preuve sociale est présent mais vague ('des milliers de clients satisfaits') ou peu crédible.",
+      "critical": "Aucune preuve sociale dans le premier écran. Le visiteur n'a aucune raison de faire confiance immédiatement."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Remplacer les mentions vagues par des chiffres précis et sourcés : '4.8/5 sur 2 347 avis Trustpilot' ou '100 000+ utilisateurs'. Placer sous le CTA, pas au-dessus.",
+      "critical": "Ajouter un élément de preuve sociale sous le CTA du hero : widget Trustpilot/Google Reviews, nombre de clients chiffré, ou 3-5 logos presse/clients connus. Un seul suffit, mais il doit être spécifique et vérifiable."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "hero_06": {
+    "label": "Test 5 secondes + ratio 1:1",
+    "pillar": "hero",
+    "killer": true,
+    "diagnostic": {
+      "top": "Le test 5 secondes passe : en 5 sec sans scroll, on comprend Quoi/Pour qui/Quoi faire. Un seul focus, aucune distraction.",
+      "ok": "Le hero est clair mais légèrement parasité (cookie banner, chat widget ou CTA secondaire qui crée de la confusion).",
+      "critical": "Le test 5 secondes échoue : le visiteur ne comprend pas l'offre sans scroller. Multiples CTA concurrents, pop-up, ou bannière promo qui masque le message."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Réduire les distractions : cookie banner discret (petit bandeau vs overlay), supprimer le chat widget du hero, et s'assurer qu'un seul CTA domine visuellement.",
+      "critical": "Refonte du hero en urgence : 1 seul H1 clair, 1 seul CTA, supprimer toute bannière/pop-up au chargement. Le hero doit répondre à 3 questions en 5 sec : Quoi ? Pour qui ? Quoi faire ? KILLER : ce critère plafonne tout le bloc Hero."
+    },
+    "priority": { "ok": "high", "critical": "critical" }
+  },
+
+  "per_01": {
+    "label": "Bénéfices > Features",
+    "pillar": "persuasion",
+    "killer": true,
+    "diagnostic": {
+      "top": "Le copy est orienté bénéfices : chaque feature est traduite en résultat concret pour l'utilisateur. Les USPs passent le test 'Et alors ?'.",
+      "ok": "Le copy mélange bénéfices et features — certains arguments restent centrés produit au lieu d'être centrés utilisateur.",
+      "critical": "Le copy est 100% features/spécifications techniques sans traduction en bénéfice. Le visiteur ne comprend pas ce qu'il y gagne."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Pour chaque argument produit, appliquer la chaîne Feature → Avantage → Bénéfice → Transformation. Ex : 'Contient 300mg d'électrolytes' → 'Hydratation optimale pendant l'effort' → 'Vous tenez plus longtemps sans crampe'.",
+      "critical": "Réécrire toute la page argumentaire. Lister les 3-5 features clés et pour chacune écrire le résultat tangible pour le client. Supprimer tout ce qui ne passe pas le test 'Et alors ?'. KILLER : plafonne le bloc Persuasion."
+    },
+    "priority": { "ok": "high", "critical": "critical" }
+  },
+
+  "per_02": {
+    "label": "Storytelling fondateur",
+    "pillar": "persuasion",
+    "diagnostic": {
+      "top": "L'histoire de la marque est racontée avec un arc narratif clair : problème → déclencheur → solution → mission.",
+      "ok": "Des traces de storytelling existent ('créé par', cas clients nommés) mais pas d'arc narratif complet ni de déclencheur émotionnel.",
+      "critical": "Zéro storytelling. Aucune histoire fondatrice, aucun 'pourquoi cette marque existe'. La page est un catalogue sans âme."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter un bloc 'Notre histoire' avec le déclencheur fondateur : quel problème personnel a déclenché la création ? Nommer le fondateur, donner une date, un lieu. Rendre l'origine concrète et émotionnelle.",
+      "critical": "Créer un bloc storytelling avec la structure : 'Quand [fondateur] a vécu [problème], il/elle a découvert que [insight]. C'est pour ça qu'on a créé [marque].' 3-4 phrases suffisent. Placer après le hero ou après les USPs."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "per_03": {
+    "label": "Objections levées",
+    "pillar": "persuasion",
+    "diagnostic": {
+      "top": "Les objections principales du secteur sont identifiées et traitées explicitement (FAQ, comparaison, témoignages, section dédiée).",
+      "ok": "2-3 objections sont couvertes mais il manque une objection business majeure (prix, 'et si ça marche pas', engagement...).",
+      "critical": "Moins de 2 objections traitées. Les doutes du visiteur restent sans réponse."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Identifier l'objection manquante la plus bloquante (souvent le prix ou le risque) et y répondre avec la formule : Reconnaissance de l'objection + Explication + Preuve. Ajouter dans la FAQ ou en section dédiée.",
+      "critical": "Lister les 5 objections principales de votre secteur (qualité, prix, livraison, retours, résultat). Créer une section FAQ de 5-8 questions qui y répondent directement avec preuves à l'appui."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "per_04": {
+    "label": "Preuves concrètes",
+    "pillar": "persuasion",
+    "killer": true,
+    "diagnostic": {
+      "top": "La page affiche ≥4 types de preuves différentes : chiffres clés, études, cas clients nommés, avant/après, avis vérifiés, logos presse.",
+      "ok": "2-3 types de preuves présentes mais il manque les preuves les plus fortes (études, before/after, cas chiffrés).",
+      "critical": "0-1 preuve concrète. La page est remplie d'affirmations non sourcées. Aucun chiffre vérifiable."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter au moins un before/after chiffré ou un cas client nommé avec résultat quantifié. Sourcer chaque chiffre avancé. Ajouter un widget d'avis vérifiés (Trustpilot, Google Reviews).",
+      "critical": "Ajouter en urgence : (1) un chiffre clé sourcé (nombre de clients, produits vendus, satisfaction), (2) au moins un témoignage nommé avec résultat, (3) un widget d'avis vérifiés. Chaque affirmation doit être prouvée. KILLER : plafonne le bloc."
+    },
+    "priority": { "ok": "high", "critical": "critical" }
+  },
+
+  "per_05": {
+    "label": "Témoignages nommés + photo",
+    "pillar": "persuasion",
+    "diagnostic": {
+      "top": "Les témoignages sont de qualité max : nommés, avec photo/vidéo, détails spécifiques et bénéfice concret. Présence d'un widget d'avis vérifiés.",
+      "ok": "Des témoignages nommés existent mais sans photo/vidéo, ou le widget d'avis est présent mais les témoignages texte sont génériques.",
+      "critical": "Aucun témoignage visible, ou témoignages anonymes/génériques ('Super produit, je recommande')."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Enrichir les témoignages existants avec des photos, des détails spécifiques (prénom, ville, résultat concret) et un lien vers le bénéfice ('Depuis que j'utilise X, j'ai gagné Y'). Ajouter au moins 1 vidéo si possible.",
+      "critical": "Collecter 3-5 vrais témoignages avec prénom + photo + ville + résultat concret. Installer un widget d'avis vérifiés (Trustpilot/Judge.me). Disperser les témoignages sur toute la page, pas juste un bloc en bas."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "per_06": {
+    "label": "FAQ ciblée objections",
+    "pillar": "persuasion",
+    "diagnostic": {
+      "top": "La FAQ contient 5-8 questions ciblées sur les freins à l'achat (prix, livraison, résultat, engagement), bien ordonnées et avec des réponses courtes et rassurantes.",
+      "ok": "La FAQ existe mais contient des questions hors-sujet ou trop peu de questions pertinentes pour lever les doutes.",
+      "critical": "Pas de FAQ, ou FAQ de type 'aide technique' qui ne traite pas les freins à la conversion."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Supprimer les questions non liées à la conversion et les remplacer par les vrais freins : prix, délais, résultats, engagement, retours. Réponses <50 mots avec micro-preuve.",
+      "critical": "Créer une FAQ de 6-8 questions dans cet ordre : financier → logistique → efficacité → garantie → support. Chaque réponse = réponse directe + détail rassurant + micro-CTA si pertinent. Placer avant le footer, après la preuve sociale."
+    },
+    "priority": { "ok": "medium", "critical": "medium" }
+  },
+
+  "per_07": {
+    "label": "Ton cohérent avec la cible",
+    "pillar": "persuasion",
+    "diagnostic": {
+      "top": "Le ton est identifiable et constant du hero au footer. Adresse stable (tu ou vous), punchlines signature, vocabulaire adapté à la cible.",
+      "ok": "Le ton est globalement cohérent mais 'milieu' — pas de signature forte. Le visiteur reconnaît le secteur mais pas la marque.",
+      "critical": "Le ton est incohérent (mix tu/vous, sections formelles puis familières) ou totalement générique corporate."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Définir 3 adjectifs qui décrivent le ton de marque et réécrire les sections qui s'en écartent. Ajouter 2-3 punchlines signature par page. Choisir définitivement entre tutoiement et vouvoiement.",
+      "critical": "Unifier le ton sur toute la page : choisir tu ou vous et s'y tenir. Supprimer les formulations corporate creuses. Réécrire avec le vocabulaire de la cible (pas du jargon marketing)."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "per_08": {
+    "label": "Zéro jargon creux",
+    "pillar": "persuasion",
+    "killer": true,
+    "diagnostic": {
+      "top": "Aucun jargon creux détecté. Le copy est spécifique, chiffré et concret à chaque ligne.",
+      "ok": "Quelques occurrences de jargon creux ('expertise reconnue', 'solution innovante') mais le reste du copy est concret.",
+      "critical": "Le copy est saturé de formulations vides : 'créé avec soin', 'qualité premium', 'expertise reconnue', 'solution innovante'. Pattern DTC 2018 ou 'AI slop'."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Repérer et remplacer chaque formule creuse par un fait spécifique. 'Des dizaines de recettes' → '23 recettes validées par 4 nutritionnistes vétérinaires'. 'Expertise reconnue' → '15 ans d'expérience, 500+ audits réalisés'.",
+      "critical": "Réécriture complète nécessaire. Règle : chaque affirmation doit contenir un chiffre, un nom propre, une date ou un fait vérifiable. Supprimer tous les superlatifs non sourcés. KILLER (soft) : pénalise le score du bloc."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "ux_01": {
+    "label": "Hiérarchie visuelle claire",
+    "pillar": "ux",
+    "killer": true,
+    "diagnostic": {
+      "top": "La hiérarchie HTML est parfaite : 1 seul H1, cascade H1>H2>H3 respectée, aucun saut de niveau.",
+      "ok": "Le H1 est unique mais la cascade est imparfaite (saut de niveau ou tailles incohérentes).",
+      "critical": "Le H1 est absent ou multiple, ou la hiérarchie est cassée. Les moteurs de recherche et les lecteurs d'écran sont perdus."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Corriger les sauts de niveau (H1→H3 direct) et s'assurer que les tailles de police décroissent : H1 > H2 > H3. Chaque H2 doit introduire une nouvelle section.",
+      "critical": "Ajouter un H1 unique si absent, ou fusionner les H1 multiples en un seul. Restructurer la page avec H2 pour chaque section et H3 pour les sous-sections. KILLER : plafonne le bloc UX."
+    },
+    "priority": { "ok": "medium", "critical": "critical" }
+  },
+
+  "ux_02": {
+    "label": "Rythme de page",
+    "pillar": "ux",
+    "diagnostic": {
+      "top": "La page alterne entre blocs denses et blocs aérés. Les sections sont clairement délimitées avec de l'espace généreux.",
+      "ok": "Des sections sont identifiables mais l'espacement est insuffisant ou monotone (tout dense ou tout aéré).",
+      "critical": "La page est un mur de texte continu sans séparation visuelle, ou ultra-courte sans structure."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter du padding vertical entre les sections (≥40px). Alterner : bloc texte dense → visuel → témoignage → CTA → espace blanc. Varier les backgrounds (alternance blanc/gris clair).",
+      "critical": "Découper la page en 5-7 sections visuellement distinctes. Chaque section = 1 idée. Ajouter des séparateurs visuels (espace, couleur de fond, bordure subtile). Aucun bloc de texte ne doit dépasser 3 paragraphes sans coupure visuelle."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "ux_03": {
+    "label": "Scan-ability",
+    "pillar": "ux",
+    "diagnostic": {
+      "top": "La page est scannable en 10 secondes grâce aux sous-titres descriptifs, listes à puces, texte en gras et espaces blancs.",
+      "ok": "Quelques sous-titres mais peu de formatage (pas de gras, pas de listes, longs paragraphes non découpés).",
+      "critical": "La page n'est pas scannable : longs blocs de texte sans sous-titres, sans gras, sans listes. Le lecteur pressé ne trouvera rien."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter du gras sur les mots-clés importants, découper les paragraphes longs en listes à puces (max 5 points), et rendre chaque H2/H3 descriptif (pas 'Section 1' mais 'Comment ça marche en 3 étapes').",
+      "critical": "Reformater entièrement : ajouter ≥5 H2/H3 descriptifs, utiliser des listes à puces pour les arguments, mettre en gras les idées clés. Le visiteur doit pouvoir comprendre le message en scannant uniquement les titres et le gras."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "ux_04": {
+    "label": "CTA répétés aux bons endroits",
+    "pillar": "ux",
+    "killer": true,
+    "diagnostic": {
+      "top": "Le CTA principal est répété ≥3 fois dans la page (hero + après chaque argument majeur) avec un sticky ou floating CTA.",
+      "ok": "Le CTA est présent en haut et en bas mais il manque des répétitions entre les sections de contenu.",
+      "critical": "0-1 CTA sur toute la page, ou CTA uniquement dans le menu/footer. Le visiteur convaincu ne trouve pas où cliquer."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter un CTA identique (même texte, même lien) après chaque section argumentaire majeure. Ajouter un sticky CTA mobile (bouton flottant en bas d'écran). Minimum 3 CTA identiques par page.",
+      "critical": "Ajouter en urgence : CTA dans le hero + après les USPs + après les témoignages + sticky mobile. Tous doivent pointer vers la même action. KILLER : plafonne le bloc UX."
+    },
+    "priority": { "ok": "high", "critical": "critical" }
+  },
+
+  "ux_05": {
+    "label": "Mobile-first réel",
+    "pillar": "ux",
+    "killer": true,
+    "diagnostic": {
+      "top": "Le site est réellement mobile-first : viewport configuré, touch targets ≥44px, pas de scroll horizontal, images responsives.",
+      "ok": "Le site fonctionne sur mobile mais certains boutons sont trop petits (<44px) ou le texte est petit.",
+      "critical": "Le site présente du scroll horizontal, des boutons trop petits (<30px), ou du texte illisible sur mobile. Expérience cassée."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Augmenter la taille des boutons à ≥44×44px (norme Apple/Google). Vérifier que le texte est lisible sans zoom (min 16px). Tester sur un vrai appareil 375px.",
+      "critical": "Refonte mobile obligatoire. Ajouter la meta viewport si manquante. Corriger le scroll horizontal. Agrandir tous les touch targets à ≥44px. KILLER : plafonne le bloc UX."
+    },
+    "priority": { "ok": "medium", "critical": "critical" }
+  },
+
+  "ux_06": {
+    "label": "Navigation non-parasite",
+    "pillar": "ux",
+    "diagnostic": {
+      "top": "Navigation minimale ou absente : le visiteur ne peut pas s'échapper facilement. Focus total sur l'objectif de conversion.",
+      "ok": "Menu présent mais simplifié (3-4 items), ou footer allégé.",
+      "critical": "Navigation complète avec 8+ items, sous-menus et footer massif. Le visiteur a 15 sorties possibles avant de convertir."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Réduire le menu à logo + CTA uniquement sur les pages de conversion (LP, PDP). Alléger le footer en retirant les liens non essentiels.",
+      "critical": "Sur les pages de conversion : supprimer le menu global et ne garder que le logo (sans lien) + le CTA. Remplacer le footer complet par un mini-footer (mentions légales + contact uniquement)."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "ux_07": {
+    "label": "Micro-interactions guidantes",
+    "pillar": "ux",
+    "diagnostic": {
+      "top": "La page utilise ≥3 micro-interactions (sticky CTA, back-to-top, lazy-load images, hover sur cartes, progress bar...).",
+      "ok": "1-2 micro-interactions détectées (typiquement un header sticky).",
+      "critical": "Page 100% statique sans aucune micro-interaction. Aucun guidage visuel pour le visiteur."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter au moins un sticky CTA mobile et du lazy-loading sur les images. Un back-to-top est un quick win facile à implémenter.",
+      "critical": "Ajouter au minimum : (1) sticky CTA en bas d'écran mobile, (2) lazy-loading sur toutes les images, (3) transitions CSS sur les cartes/boutons au hover. Ces 3 éléments prennent 30 min à implémenter."
+    },
+    "priority": { "ok": "low", "critical": "low" }
+  },
+
+  "ux_08": {
+    "label": "Friction minimisée",
+    "pillar": "ux",
+    "killer": true,
+    "diagnostic": {
+      "top": "Les formulaires sont courts (≤3 champs) ou absents, avec des labels clairs et une validation inline.",
+      "ok": "Le formulaire a 4-5 champs ou des labels vagues.",
+      "critical": "Le formulaire a ≥6 champs, pas de labels clairs, ou le tunnel de conversion est trop long (≥4 étapes)."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Réduire le formulaire à 3 champs max (prénom, email, 1 champ métier). Ajouter la validation inline et des placeholders descriptifs.",
+      "critical": "Réduire drastiquement le formulaire. Chaque champ au-delà de 3 retire ~5% de taux de conversion. Si plus de 5 champs sont nécessaires, découper en multi-étapes progressives. KILLER si ≥8 champs."
+    },
+    "priority": { "ok": "medium", "critical": "critical" }
+  },
+
+  "coh_01": {
+    "label": "Promesse claire en 5 sec",
+    "pillar": "coherence",
+    "diagnostic": {
+      "top": "Le H1 + sous-titre répondent aux 3 questions (Quoi ? Pour qui ? Pourquoi ?) en moins de 15 mots.",
+      "ok": "2 questions sur 3 sont couvertes, ou la promesse est identifiable mais vague/générique.",
+      "critical": "Le visiteur ne peut pas comprendre l'offre en 5 secondes. Le H1 est un slogan creux ou absent."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Compléter l'élément manquant dans le H1+sous-titre. Si c'est le 'Pour qui' → ajouter la cible. Si c'est le 'Pourquoi' → ajouter le bénéfice différenciant.",
+      "critical": "Réécrire le duo H1 + sous-titre pour qu'ils répondent aux 3 questions en <15 mots au total. Test : montrer le hero 5 sec à quelqu'un qui ne connaît pas la marque — peut-il répéter l'offre ?"
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "coh_02": {
+    "label": "Cible identifiable",
+    "pillar": "coherence",
+    "diagnostic": {
+      "top": "La cible est explicite dans le fold (rôle, segment ou 'vous qui...') avec un contexte de besoin/défi clairement énoncé.",
+      "ok": "La cible est identifiable via le produit/visuels mais pas dans le copy. Le 'c'est pour moi' n'est pas immédiat.",
+      "critical": "Aucune indication de cible. La page s'adresse à tout le monde = personne."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter dans le H1 ou sous-titre une mention explicite de la cible : 'pour les [persona]' ou 'vous qui [défi/besoin]'. Le visiteur doit se reconnaître en 3 secondes.",
+      "critical": "Identifier le persona principal et l'énoncer clairement dans le fold. Ajouter le contexte du problème : 'Vous êtes [rôle] et vous [problème] ?' Rendre le 'c'est pour moi' automatique."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "coh_03": {
+    "label": "Alignement ad → LP",
+    "pillar": "coherence",
+    "diagnostic": {
+      "top": "Forte cohérence entre le title/meta et le H1/CTA. L'offre, le ton et les mots-clés sont alignés.",
+      "ok": "Cohérence partielle — quelques divergences entre le title et le H1 ou entre l'offre annoncée et le CTA.",
+      "critical": "Le visiteur a l'impression d'être sur la mauvaise page. Le message du H1 ne correspond pas au title ou à la meta description."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Aligner le H1 avec les mots-clés du title et de la meta description. S'assurer que le CTA reflète l'offre promise dans les ads/meta.",
+      "critical": "Réécrire le H1 pour reprendre les mots-clés exacts du title et de la meta description. Le 'scent trail' doit être parfait : le visiteur doit sentir qu'il est au bon endroit dès la première seconde."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "coh_04": {
+    "label": "Positionnement différenciant",
+    "pillar": "coherence",
+    "diagnostic": {
+      "top": "Le positionnement est clair avec des éléments propriétaires (ingrédient, méthode, certification, tech) + un ton signature unique.",
+      "ok": "Un positionnement identifiable mais des formulations génériques ('qualité premium') sans preuve de différenciation.",
+      "critical": "Le copy est interchangeable avec 5 concurrents. Aucun élément distinctif, ton neutre et lisse."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Remplacer chaque formule générique par un fait propriétaire. 'Qualité premium' → 'Fabriqué dans notre atelier de Nantes, contrôlé par [nom]'. Nommer ce qui vous est unique.",
+      "critical": "Identifier 3 éléments que vos concurrents ne peuvent pas copier (méthode, ingrédient, certification, histoire, tech) et les mettre en avant explicitement. Ajouter une section 'Pourquoi nous vs les alternatives'."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "coh_05": {
+    "label": "Ton de marque reconnaissable",
+    "pillar": "coherence",
+    "diagnostic": {
+      "top": "Le ton est signature et constant sur toute la page. Zéro 'AI slop', des punchlines reconnaissables, adresse stable.",
+      "ok": "Le ton est identifiable mais inconsistant entre sections ou contient quelques formulations génériques type IA.",
+      "critical": "Le ton est totalement neutre/générique, incohérent (mix tu/vous) ou saturé de formulations 'AI slop'."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Réécrire les sections qui sonnent 'template' avec le vocabulaire réel de la cible. Supprimer les formulations type IA. Ajouter 2-3 punchlines signature par page.",
+      "critical": "Définir une charte de ton (3 adjectifs + exemples) et réécrire toute la page en conséquence. Choisir tu ou vous et s'y tenir. Supprimer toute phrase qui pourrait être sur le site d'un concurrent."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "coh_06": {
+    "label": "Mono-objectif par page",
+    "pillar": "coherence",
+    "diagnostic": {
+      "top": "Un seul objectif clair par page. Tous les éléments convergent vers un CTA unique. Ratio d'attention ≤1:2.",
+      "ok": "L'objectif principal est clair mais 2-3 CTA secondaires créent une légère confusion.",
+      "critical": "Multiples objectifs concurrents : le visiteur ne sait pas s'il doit acheter, s'inscrire ou télécharger. Ratio d'attention >1:5."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Hiérarchiser visuellement : le CTA principal en couleur accent, les CTA secondaires en style 'ghost' (transparent, bordure discrète). Réduire à 2 destinations max.",
+      "critical": "Choisir UN seul objectif par page et supprimer ou déprioriser tous les autres CTA. Si la page doit servir plusieurs objectifs, la découper en pages séparées. Chaque page = 1 action."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "psy_01": {
+    "label": "Urgence & Rareté crédible",
+    "pillar": "psycho",
+    "killer": true,
+    "diagnostic": {
+      "top": "Des signaux d'urgence/rareté sont présents et crédibles : deadline réelle, stock vérifié, offre limitée dans le temps avec preuve.",
+      "ok": "Pas d'urgence/rareté détectée — c'est une opportunité manquée, pas un défaut.",
+      "critical": "Urgence ou rareté FAUSSE détectée : countdown qui se réinitialise, 'stock limité' permanent, deadline dépassée. Pratique manipulatoire."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter un levier d'urgence crédible si pertinent : 'Offre lancement -20% jusqu'au [date réelle]', 'Places limitées : [nombre réel] restantes', 'Stock : fabriqué par lots de [nombre]'. Ne jamais faker.",
+      "critical": "Supprimer immédiatement toute fausse urgence (countdown bidon, faux stock). Remplacer par de l'urgence réelle ou supprimer entièrement. L'urgence fake détruit la confiance. KILLER : plafonne tout le bloc Psycho."
+    },
+    "priority": { "ok": "low", "critical": "critical" }
+  },
+
+  "psy_02": {
+    "label": "Rareté & Exclusivité",
+    "pillar": "psycho",
+    "diagnostic": {
+      "top": "La page active ≥2 leviers de valeur perçue : rareté produit, exclusivité d'accès, personnalisation, ancrage comparatif.",
+      "ok": "1 levier activé mais de façon générique ou peu crédible.",
+      "critical": "Zéro levier de valeur perçue. Le produit/service est présenté comme interchangeable et banalisé."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Renforcer le levier existant avec des preuves (stock réel, nombre d'accès, screenshots de personnalisation) et activer un second levier complémentaire.",
+      "critical": "Activer au moins 2 leviers parmi : (1) personnalisation ('votre formule sur-mesure' + quiz/configurateur), (2) exclusivité ('accès anticipé', 'réservé aux membres'), (3) ancrage ('vs l'alternative à X€/mois'). Choisir ceux qui sont authentiques pour votre offre."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "psy_03": {
+    "label": "Ancrage prix/valeur",
+    "pillar": "psycho",
+    "diagnostic": {
+      "top": "≥2 techniques d'ancrage actives : prix barré, coût journalier, garantie, pricing multi-tiers, badge promo.",
+      "ok": "1 technique d'ancrage présente mais discrète ou mal placée.",
+      "critical": "Aucun ancrage. Le prix est affiché seul sans contexte — le visiteur n'a aucun repère pour juger si c'est cher ou pas."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter un second ancrage visible près du prix : coût journalier ('moins de 2€/jour'), ou garantie satisfait-ou-remboursé, ou comparaison avec l'alternative plus chère.",
+      "critical": "Contextualiser le prix avec au moins 2 ancrages : (1) prix barré ou valeur réelle, (2) coût ramené au quotidien ('= 1 café/jour'), (3) garantie satisfait-ou-remboursé bien visible. Ne jamais afficher un prix seul sans cadre de référence."
+    },
+    "priority": { "ok": "medium", "critical": "medium" }
+  },
+
+  "psy_04": {
+    "label": "Aversion à la perte & Risk Reversal",
+    "pillar": "psycho",
+    "diagnostic": {
+      "top": "La page réduit le risque perçu avec ≥2 leviers : garantie explicite, essai gratuit, loss framing, micro-réassurances près du CTA.",
+      "ok": "1 levier de risk reversal mais enterré ou peu visible.",
+      "critical": "Zéro risk reversal. Le visiteur porte 100% du risque perçu. Aucune garantie, aucun essai, aucune réassurance."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Remonter la garantie/essai gratuit à côté du CTA (pas en footer). Ajouter des micro-réassurances sous le bouton : 'Paiement sécurisé', 'Sans engagement', icône cadenas.",
+      "critical": "Ajouter en urgence : (1) une garantie visible ('Satisfait ou remboursé 30 jours' ou 'Essai gratuit 14 jours sans CB'), (2) des micro-réassurances sous chaque CTA. Le risque perçu est le 1er frein à la conversion."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "psy_05": {
+    "label": "Autorité & Crédibilité",
+    "pillar": "psycho",
+    "killer": true,
+    "diagnostic": {
+      "top": "≥3 signaux d'autorité différents : expert nommé avec titre, certifications, presse/média, récompenses, chiffres d'expérience.",
+      "ok": "1-2 signaux d'autorité présents mais vagues ou non vérifiables.",
+      "critical": "Zéro signal d'autorité. Le visiteur n'a aucune raison de faire confiance à cette marque plutôt qu'une autre."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Nommer les experts avec leurs titres réels, sourcer les certifications avec des logos officiels, et ajouter les chiffres d'expérience précis ('12 ans', '5 000+ clients', pas 'des années').",
+      "critical": "Ajouter en priorité : (1) un expert nommé avec titre ('Dr. Martin, vétérinaire nutritionniste'), (2) vos certifications/labels, (3) logos presse si existants. Chaque signal doit être vérifiable en 2 min. KILLER sur les pages principales."
+    },
+    "priority": { "ok": "medium", "critical": "critical" }
+  },
+
+  "psy_06": {
+    "label": "Réciprocité & Micro-engagements",
+    "pillar": "psycho",
+    "diagnostic": {
+      "top": "La page offre de la valeur avant de demander (guide gratuit, calculateur, quiz, démo, échantillon) avec des micro-engagements progressifs.",
+      "ok": "1 levier de réciprocité mais sous-développé (newsletter basique, brochure peu valuable).",
+      "critical": "Zéro réciprocité. La page demande directement l'achat/inscription sans rien offrir. Pas d'étape intermédiaire."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Enrichir le lead magnet existant (un vrai outil, pas un PDF de 2 pages) ou ajouter un quiz/configurateur qui donne un résultat utile avant de demander l'email.",
+      "critical": "Créer un micro-engagement avant la conversion : quiz de 3 questions, calculateur ROI, diagnostic gratuit, échantillon. Le visiteur doit recevoir de la valeur AVANT qu'on lui demande de payer/s'inscrire."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "tech_01": {
+    "label": "Performance — poids de page",
+    "pillar": "tech",
+    "diagnostic": {
+      "top": "La page est bien optimisée : lazy loading actif, nombre raisonnable de scripts externes, HTML léger, DOM compact.",
+      "ok": "Optimisation partielle : certains assets sont lazy-loadés mais trop de scripts externes ou HTML lourd.",
+      "critical": "Aucune optimisation de performance : pas de lazy loading, 8+ scripts externes, HTML >1MB. Page probablement lente."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Activer le lazy loading sur toutes les images (loading='lazy'). Auditer et supprimer les scripts externes non essentiels. Compresser les images.",
+      "critical": "Audit de performance complet : (1) activer lazy loading, (2) réduire les scripts externes à ≤5, (3) compresser le HTML et les images, (4) utiliser un CDN. Chaque seconde de chargement = -7% de conversion mobile."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "tech_02": {
+    "label": "Accessibilité basique",
+    "pillar": "tech",
+    "diagnostic": {
+      "top": "La page est bien structurée pour l'accessibilité : alt textes, ARIA labels, formulaires labellisés, hiérarchie heading logique.",
+      "ok": "Accessibilité partielle : quelques alt textes manquants ou pas de labels ARIA.",
+      "critical": "Accessibilité négligée : images sans alt, pas d'ARIA, pas de labels sur les formulaires, headings désordonnés."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter des alt textes descriptifs sur toutes les images et des ARIA labels sur les éléments interactifs. Vérifier que chaque input de formulaire a un label associé.",
+      "critical": "Passer toutes les images en revue et ajouter des alt textes. Ajouter des attributs aria-label sur les boutons/liens. Lier chaque input à un <label>. C'est aussi un critère SEO."
+    },
+    "priority": { "ok": "low", "critical": "medium" }
+  },
+
+  "tech_03": {
+    "label": "SEO on-page",
+    "pillar": "tech",
+    "killer": true,
+    "diagnostic": {
+      "top": "Les fondamentaux SEO sont en place : title optimisé, meta description, H1 unique, canonical, Open Graph, Schema.org, lang.",
+      "ok": "SEO partiel : title et H1 OK mais meta description absente/trop courte ou pas de Schema.org.",
+      "critical": "SEO quasi inexistant : pas de title, pas de meta description, pas de H1. La page est invisible pour Google."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter la meta description (100-165 caractères) avec les mots-clés cibles. Ajouter le Schema.org (Product, Organization, ou FAQ). Vérifier le canonical.",
+      "critical": "Ajouter en urgence : (1) un title tag de 30-65 caractères, (2) une meta description de 100-165 caractères, (3) un H1 unique. Sans ces 3 éléments, la page n'existe pas pour les moteurs de recherche. KILLER."
+    },
+    "priority": { "ok": "medium", "critical": "critical" }
+  },
+
+  "tech_04": {
+    "label": "Tracking & Analytics",
+    "pillar": "tech",
+    "diagnostic": {
+      "top": "Pipeline de données en place : GA4 + Pixel Meta + GTM + au moins un outil supplémentaire (Hotjar, Segment...).",
+      "ok": "Tracking basique : GA4 ou GTM seul, sans pixel ni outil de heatmap.",
+      "critical": "Aucun tracking détecté. Impossible de mesurer les conversions. L'entreprise navigue à l'aveugle."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter le Pixel Meta si des campagnes Facebook/Instagram sont prévues. Installer Hotjar ou Microsoft Clarity (gratuit) pour les heatmaps et enregistrements de sessions.",
+      "critical": "Installer immédiatement : (1) Google Tag Manager, (2) GA4 via GTM, (3) Pixel Meta si pertinent. Sans tracking, aucune optimisation n'est possible — on ne peut pas améliorer ce qu'on ne mesure pas."
+    },
+    "priority": { "ok": "medium", "critical": "high" }
+  },
+
+  "tech_05": {
+    "label": "Sécurité & Confiance technique",
+    "pillar": "tech",
+    "diagnostic": {
+      "top": "Site techniquement professionnel : HTTPS, viewport mobile, charset, favicon, robots.txt non bloquant.",
+      "ok": "Bases en place (HTTPS) mais viewport ou charset manquant.",
+      "critical": "Site perçu comme amateur ou non sécurisé : pas de HTTPS, pas de viewport (= pas mobile-ready), pas de charset."
+    },
+    "reco": {
+      "top": null,
+      "ok": "Ajouter la meta viewport si manquante (= le site n'est pas mobile-ready sans ça). Vérifier que le charset UTF-8 est déclaré. Ajouter un favicon.",
+      "critical": "Migrer en HTTPS immédiatement (Let's Encrypt est gratuit). Ajouter la meta viewport. Déclarer le charset. Un site en HTTP en 2026 est un signal d'alarme pour les visiteurs et les navigateurs."
+    },
+    "priority": { "ok": "low", "critical": "high" }
+  }
+}

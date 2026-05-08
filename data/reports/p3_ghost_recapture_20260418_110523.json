@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:05:23.261560Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 35.7,
+  "log": [
+    {
+      "client": "gymshark",
+      "pageType": "home",
+      "url": "https://www.gymshark.com/",
+      "ok": true,
+      "elapsed_s": 21.7,
+      "sections": 127,
+      "elements": 5463
+    },
+    {
+      "client": "gymshark",
+      "pageType": "pdp",
+      "url": "https://www.gymshark.com/products/gymshark-charge-t-shirt-ss-tops-black-ss26-a4c9y-bdqx",
+      "ok": true,
+      "elapsed_s": 13.9,
+      "sections": 46,
+      "elements": 2001
+    }
+  ]
+}

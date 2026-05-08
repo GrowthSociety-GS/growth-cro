@@ -1,0 +1,359 @@
+{
+  "module": "multi_page_audit",
+  "version": "1.0.0",
+  "status": "draft",
+  "createdAt": "2026-04-10",
+  "description": "Architecture du pipeline d'audit multi-pages GrowthCRO. Définit : découverte des pages, sélection, pondération, agrégation score global site, workflow complet.",
+
+  "pipeline": {
+    "summary": "URL client → crawl nav + sitemap → sélection pages clés → capture(url) × N pages → scoring 6 blocs en parallèle × N pages → agrégation par page (/117) → score global site (moyenne pondérée) → dashboard multi-onglets",
+    "steps": [
+      {
+        "step": 1,
+        "id": "input",
+        "label": "Entrée client",
+        "description": "2 modes : (A) client existant sélectionné depuis la base → URL + contexte pré-remplis, (B) nouveau client → URL obligatoire + infos optionnelles (nom, secteur, businessType). Mode B crée automatiquement un nouveau client dans clients_database.json.",
+        "inputs": ["url (obligatoire)", "clientName (optionnel)", "businessCategory (optionnel, auto-détecté sinon)", "pageType hint (optionnel)"],
+        "outputs": ["clientId", "rootUrl", "businessCategory"]
+      },
+      {
+        "step": 2,
+        "id": "discover",
+        "label": "Découverte des pages clés",
+        "description": "À partir du rootUrl, le système navigue le site entier pour identifier les pages les plus pertinentes à auditer. 3 sources combinées : (1) crawl de la navigation principale (header + footer), (2) parsing du sitemap.xml si dispo, (3) heuristiques d'URL patterns. Le résultat est une liste de pages candidates classées par pertinence, avec pageType auto-détecté.",
+        "method": "discover_pages.py",
+        "sources": [
+          {
+            "id": "nav_crawl",
+            "label": "Navigation crawl",
+            "description": "Capture du header + footer de la home, extraction de tous les liens internes, classification par heuristiques URL + anchorText. Le menu principal est la meilleure source car il reflète la hiérarchie voulue par le site.",
+            "priority": 1
+          },
+          {
+            "id": "sitemap",
+            "label": "Sitemap XML",
+            "description": "Fetch /sitemap.xml (ou /sitemap_index.xml), parser les <url><loc>. Filtrer par lastmod récent + priority haute. Utile pour trouver les pages blog/collection que la nav ne montre pas toutes.",
+            "priority": 2,
+            "fallback": "Si sitemap absent ou 404 → skip, se reposer sur nav_crawl seul"
+          },
+          {
+            "id": "url_heuristics",
+            "label": "Heuristiques URL",
+            "description": "Patterns regex pour classifier les URLs découvertes en pageTypes.",
+            "patterns": {
+              "home": "^/$|^/home$|^/fr/?$|^/en/?$",
+              "pdp": "/products?/|/p/|/-p-|/item/|/article/",
+              "collection": "/collections?/|/categor|/shop/|/boutique/",
+              "blog": "/blog/|/articles?/|/actualit|/news/|/magazine/",
+              "pricing": "/pricing|/tarifs?|/plans?$|/abonnement",
+              "checkout": "/checkout|/cart|/panier|/commande",
+              "lp_leadgen": "/landing|/lp/|/offre|/demo|/essai|/trial",
+              "lp_sales": "/sales|/promo|/offre-speciale",
+              "quiz_vsl": "/quiz|/test|/diagnostic|/profil|/assessment"
+            }
+          }
+        ],
+        "outputs": ["pages_candidates[]"],
+        "pageCandidate_shape": {
+          "url": "string",
+          "pageType": "string (auto-detected)",
+          "confidence": "float 0-1",
+          "source": "nav_crawl | sitemap | heuristic",
+          "anchorText": "string (si trouvé dans la nav)",
+          "depth": "int (distance depuis la home en clics)"
+        }
+      },
+      {
+        "step": 3,
+        "id": "select",
+        "label": "Sélection des pages à auditer",
+        "description": "À partir des pages candidates, sélection intelligente basée sur la businessCategory du client. La home est TOUJOURS sélectionnée. Les pages obligatoires manquantes génèrent une alerte 'missing_critical_page' dans l'audit. Les pages optionnelles sont incluses si trouvées. Max recommandé : 3-5 pages par client pour un audit standard, 5-8 pour un audit deep.",
+        "rules": [
+          "Home toujours incluse (poids max dans le score global)",
+          "Pages obligatoires par businessType : si absente du site → flag 'missing_critical_page' dans le rapport (note killer potentielle)",
+          "Pages optionnelles : incluses si trouvées, poids réduit dans l'agrégation",
+          "Si plusieurs pages du même type (ex: 50 PDP), sélectionner la plus représentative (plus de trafic OU mise en avant dans la nav OU flagship product)",
+          "Le système propose, l'utilisateur peut override (ajouter/retirer des pages)"
+        ],
+        "outputs": ["selected_pages[]"]
+      },
+      {
+        "step": 4,
+        "id": "capture",
+        "label": "Capture multi-pages",
+        "description": "Pour chaque page sélectionnée : capture(url) via site-capture v1.0. Produit capture.json + page.html + screenshots par page. Chaque capture est stockée dans data/captures/<clientId>/<pageType>/.",
+        "storage": "data/captures/<clientId>/<pageType>/capture.json",
+        "note": "Migration du storage actuel data/captures/<label>/ vers data/captures/<clientId>/<pageType>/ pour supporter multi-pages par client"
+      },
+      {
+        "step": 5,
+        "id": "score",
+        "label": "Scoring parallèle",
+        "description": "Pour chaque page capturée, lancer les 6 blocs en parallèle. Chaque scorer reçoit le pageType de la page et applique les pondérations correspondantes.",
+        "parallel": true,
+        "scorers": [
+          "score_hero.py → score_hero.json",
+          "score_persuasion.py → score_persuasion.json",
+          "score_ux.py → score_ux.json (à construire)",
+          "score_coherence.py → score_coherence.json (à construire)",
+          "score_psycho.py → score_psycho.json (à construire)",
+          "score_tech.py → score_tech.json (à construire)"
+        ],
+        "output_per_page": "6 fichiers JSON de scoring + 1 fichier agrégé score_page.json (normalisé /100)"
+      },
+      {
+        "step": 6,
+        "id": "aggregate_page",
+        "label": "Agrégation par page",
+        "description": "Somme des 6 blocs + critères spécifiques page, normalisé /100. Les pondérations pageType sont appliquées dans chaque scorer. Le rawMax varie par page type (cf. page_type_criteria.json).",
+        "formula": "page_score_100 = (score_brut / rawMax) × 100",
+        "max": 100
+      },
+      {
+        "step": 7,
+        "id": "aggregate_site",
+        "label": "Score global site",
+        "description": "Moyenne pondérée des scores par page. La home pèse toujours le plus. Les pages obligatoires ont un poids standard. Les pages optionnelles ont un poids réduit (-10% à -40%). Si une page obligatoire est manquante, malus appliqué.",
+        "formula": "site_score = Σ(page_score_100_i × page_weight_i) / Σ(100 × page_weight_i) × 100 - missing_penalty",
+        "outputs": ["site_score /100", "per_page_scores /100", "missing_pages_alerts[]"]
+      }
+    ]
+  },
+
+  "pageWeighting": {
+    "description": "Pondération de chaque page dans le score global site. La home est toujours la vitrine, elle pèse le plus. Les pages obligatoires ont un poids standard. Les optionnelles sont réduites.",
+    "tiers": {
+      "primary": {
+        "weight": 1.3,
+        "description": "Page vitrine principale. Toujours la home.",
+        "pages": ["home"]
+      },
+      "mandatory": {
+        "weight": 1.0,
+        "description": "Pages obligatoires selon le businessType. Si absente = alerte.",
+        "note": "Voir matrice businessType × pages ci-dessous"
+      },
+      "optional": {
+        "weight": 0.7,
+        "description": "Pages utiles mais non critiques. Incluses si trouvées.",
+        "note": "Poids réduit de 30% dans l'agrégation"
+      }
+    },
+    "missingMandatoryPenalty": {
+      "description": "Si une page obligatoire n'existe pas sur le site, on ne peut pas la scorer. Mais son absence est elle-même un signal CRO négatif.",
+      "rule": "Pour chaque page obligatoire manquante, appliquer un malus de -3 pts /100 sur le score global site (plafonné à -9 pts max, soit 3 pages manquantes max).",
+      "rationale": "Un e-commerce sans page collection ou un SaaS sans pricing = problème structurel. Le malus reflète ce manque sans écraser le score des pages existantes."
+    }
+  },
+
+  "businessTypePageMatrix": {
+    "description": "Pour chaque catégorie de business, quelles pages sont obligatoires vs optionnelles. La home est TOUJOURS obligatoire (implicite, pas listée). Le système découvre les pages et les classe, puis compare à cette matrice.",
+    "matrix": {
+      "dtc_beauty": {
+        "mandatory": ["pdp"],
+        "optional": ["collection", "blog", "quiz_vsl"],
+        "rationale": "DTC Beauty = la fiche produit est le coeur de conversion. Collection aide à l'orientation. Quiz personnalisation est un fort levier."
+      },
+      "dtc_food": {
+        "mandatory": ["pdp"],
+        "optional": ["collection", "blog", "quiz_vsl"],
+        "rationale": "Même logique que DTC Beauty. Le quiz (type profil alimentaire Japhy) peut être un énorme levier de conversion."
+      },
+      "saas_b2b": {
+        "mandatory": ["pricing"],
+        "optional": ["lp_leadgen", "blog"],
+        "rationale": "SaaS B2B = le pricing est la page de décision. LP lead gen pour démo/trial. Blog pour SEO."
+      },
+      "saas_b2c": {
+        "mandatory": ["pricing"],
+        "optional": ["lp_leadgen", "blog", "quiz_vsl"],
+        "rationale": "SaaS B2C = pricing + possible quiz d'onboarding."
+      },
+      "fintech": {
+        "mandatory": ["pricing"],
+        "optional": ["lp_leadgen", "blog"],
+        "rationale": "Fintech = transparence des frais (pricing) est critique pour la confiance."
+      },
+      "formation": {
+        "mandatory": ["lp_sales"],
+        "optional": ["pricing", "blog", "quiz_vsl"],
+        "rationale": "Formation / infoproduit = la sales page longue est LE convertisseur. Pricing souvent intégré dans la sales page."
+      },
+      "subscription": {
+        "mandatory": ["pdp"],
+        "optional": ["collection", "pricing", "quiz_vsl"],
+        "rationale": "Abonnement/box = la PDP présente l'offre d'abonnement. Pricing compare les formules."
+      },
+      "marketplace": {
+        "mandatory": ["pdp", "collection"],
+        "optional": ["blog"],
+        "rationale": "Marketplace = double face (acheteur/vendeur). PDP + Collection sont le coeur du browse/buy."
+      },
+      "luxe": {
+        "mandatory": ["pdp", "collection"],
+        "optional": ["blog"],
+        "rationale": "Luxe = l'expérience produit et la curation collection sont essentielles."
+      },
+      "health": {
+        "mandatory": ["pdp"],
+        "optional": ["blog", "quiz_vsl", "lp_sales"],
+        "rationale": "Health/Wellness = PDP avec claims scientifiques. Quiz personnalisation fréquent."
+      }
+    },
+    "universalNote": "La home est TOUJOURS obligatoire et TOUJOURS pondérée ×1.3 dans le score global. Elle n'est pas listée dans mandatory car elle est implicite."
+  },
+
+  "pageTypeDetection": {
+    "description": "Logique de détection automatique du type de page. Combinaison URL patterns + contenu HTML + anchorText navigation.",
+    "priority": "url_pattern > anchor_text > html_content",
+    "signals": {
+      "home": {
+        "url": ["path == '/' or '/home' or '/fr/' or '/en/'"],
+        "html": ["canonical == rootUrl", "og:type == 'website'"],
+        "anchor": ["Accueil", "Home"]
+      },
+      "pdp": {
+        "url": ["/products/", "/p/", "/-p-"],
+        "html": ["schema.org/Product", "og:type == 'product'", "add-to-cart button present"],
+        "anchor": ["contains product name"]
+      },
+      "collection": {
+        "url": ["/collections/", "/categories/", "/shop/"],
+        "html": ["multiple product cards (>3)", "filter/sort UI"],
+        "anchor": ["Collection", "Catégorie", "Nos produits", "Boutique"]
+      },
+      "pricing": {
+        "url": ["/pricing", "/tarifs", "/plans"],
+        "html": ["price table/cards with tiers", "toggle annual/monthly"],
+        "anchor": ["Tarifs", "Pricing", "Plans", "Abonnement"]
+      },
+      "blog": {
+        "url": ["/blog/", "/articles/", "/actualites/"],
+        "html": ["article tag", "publish date", "author byline"],
+        "anchor": ["Blog", "Actualités", "Articles", "Magazine"]
+      },
+      "lp_leadgen": {
+        "url": ["/landing/", "/lp/", "/demo", "/essai", "/trial"],
+        "html": ["form with email field", "no main navigation", "single CTA focus"],
+        "anchor": ["Essai gratuit", "Démo", "Free trial"]
+      },
+      "lp_sales": {
+        "url": ["/sales/", "/offre-speciale"],
+        "html": ["long page (>5000 words)", "countdown timer", "multiple CTA blocks", "no navigation"],
+        "anchor": ["Offre", "Promotion"]
+      },
+      "quiz_vsl": {
+        "url": ["/quiz", "/test", "/diagnostic", "/profil"],
+        "html": ["multi-step form", "progress bar", "radio/checkbox groups"],
+        "anchor": ["Quiz", "Test", "Diagnostic", "Mon profil"]
+      },
+      "checkout": {
+        "url": ["/checkout", "/cart", "/panier"],
+        "html": ["payment form", "order summary", "cart items"],
+        "anchor": ["Panier", "Cart", "Commander"]
+      }
+    }
+  },
+
+  "storageConvention": {
+    "current": "data/captures/<label>/capture.json (flat, 1 page par client)",
+    "target": "data/captures/<clientId>/<pageType>/capture.json (multi-pages par client)",
+    "migration": "Renommer les dossiers existants : data/captures/japhy/ → data/captures/japhy/home/ (puisque toutes les captures actuelles sont des homes)",
+    "perPageFiles": [
+      "capture.json",
+      "page.html",
+      "score_hero.json",
+      "score_persuasion.json",
+      "score_ux.json",
+      "score_coherence.json",
+      "score_psycho.json",
+      "score_tech.json",
+      "score_page.json (agrégé /117)"
+    ],
+    "clientLevelFiles": [
+      "data/captures/<clientId>/site_audit.json (score global site + résumé par page + alertes)"
+    ]
+  },
+
+  "siteAuditShape": {
+    "description": "Format du fichier d'audit global par client.",
+    "shape": {
+      "clientId": "string",
+      "clientName": "string",
+      "rootUrl": "string",
+      "businessCategory": "string",
+      "auditedAt": "ISO date",
+      "gridVersion": "3.0.0",
+      "pagesAudited": [
+        {
+          "pageType": "home",
+          "url": "string",
+          "tier": "primary",
+          "weight": 1.3,
+          "score": 70,
+          "max": 117,
+          "pillarScores": {
+            "hero": {"score": 16.5, "max": 18},
+            "persuasion": {"score": 16.5, "max": 24},
+            "ux": {"score": 17, "max": 24},
+            "coherence": {"score": 11, "max": 18},
+            "psycho": {"score": 10, "max": 18},
+            "tech": {"score": 9, "max": 15}
+          }
+        }
+      ],
+      "missingMandatoryPages": ["array of pageTypes expected but not found"],
+      "siteScore": {
+        "weighted": 65.3,
+        "max": 117,
+        "penalty": -5,
+        "final": 60.3,
+        "formula": "Σ(page_score × page_weight) / Σ(117 × page_weight) × 117 - missing_penalty"
+      },
+      "verdict": "FAIBLE | MOYEN | SOLIDE | TOP",
+      "verdictThresholds": {
+        "TOP": "≥ 85/117 (73%)",
+        "SOLIDE": "≥ 65/117 (56%)",
+        "MOYEN": "≥ 45/117 (38%)",
+        "FAIBLE": "< 45/117"
+      }
+    }
+  },
+
+  "discoverPagesSpec": {
+    "description": "Spécification du script discover_pages.py — le premier maillon du pipeline multi-pages.",
+    "input": "rootUrl (string)",
+    "output": "pages_discovered.json dans data/captures/<clientId>/",
+    "algorithm": [
+      "1. Fetch la home via Apify (capture.json existante ou nouveau run level 1)",
+      "2. Extraire tous les liens du header nav (menu principal) — ce sont les pages les plus importantes",
+      "3. Extraire tous les liens du footer — pages secondaires (CGV, mentions, mais aussi FAQ, Blog, About)",
+      "4. Fetch /sitemap.xml — si 200, parser les <url>, filtrer internes, classer par priority/lastmod",
+      "5. Merger les 3 sources, dédoubler par URL canonique",
+      "6. Classifier chaque URL en pageType via url_heuristics + anchorText",
+      "7. Appliquer la matrice businessType × pages pour marquer mandatory/optional",
+      "8. Ordonner par : mandatory first → optional → depth ASC → confidence DESC",
+      "9. Retourner les top N pages (défaut N=5, configurable)"
+    ],
+    "robustness": [
+      "Si sitemap 404 → skip, OK, nav_crawl suffit",
+      "Si nav_crawl vide (SPA sans liens serveur) → fallback sur capture.json structure.navigation si dispo",
+      "Si zéro pages trouvées hors home → flag 'single_page_site', auditer home seule",
+      "Si >100 URLs découvertes → filtrer agressivement par depth ≤ 2 + mandatory match"
+    ]
+  },
+
+  "backlog": {
+    "v1.1": [
+      "Détection automatique businessCategory depuis le contenu du site (sans input user)",
+      "Sélection intelligente de LA meilleure PDP parmi N (analyse nav, bestseller, mise en avant)",
+      "Support des sous-domaines (blog.example.com ≠ example.com/blog)",
+      "Crawl JavaScript-rendered nav (actuellement on lit le HTML serveur, SPAs React pourraient manquer la nav)"
+    ],
+    "v2.0": [
+      "Crawl complet du site (toutes les pages) pour audit exhaustif",
+      "Comparaison temporelle (audit T vs audit T-1 → progression)",
+      "Export dashboard multi-pages vers PDF/Notion"
+    ]
+  }
+}

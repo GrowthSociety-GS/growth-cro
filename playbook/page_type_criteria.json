@@ -1,0 +1,1417 @@
+{
+  "version": "1.0.0",
+  "createdAt": "2026-04-10",
+  "description": "Matrice complète : critères universels V3 + critères spécifiques par type de page. Chaque type de page a son propre cahier des charges CRO.",
+  "philosophy": "Le référentiel de critères change selon le type de page. Certains critères s'ajoutent, d'autres disparaissent. Le scoring s'adapte automatiquement.",
+  "scoringRules": {
+    "universalCriteria": "Les 39 critères V3 (6 piliers) s'appliquent SI le critère déclare ce pageType dans son champ pageTypes (ou '*'). Score 0/1.5/3 inchangé.",
+    "specificCriteria": "Critères supplémentaires propres au type de page. Rattachés au pilier indiqué dans 'pillar'. Score 0/1.5/3.",
+    "maxCalculation": "max_page = (max_universal_applicable + max_page_specific) × 3. Varie selon la page.",
+    "normalization": "Le score final est TOUJOURS ramené à /100 pour lisibilité et comparabilité inter-pages. Formule : score_100 = (score_brut / rawMax) × 100, arrondi à 1 décimale."
+  },
+  "pageTypeSpecs": {
+    "home": {
+      "label": "Home Page",
+      "role": "Acquisition large, réassurance globale, orientation vers les sous-pages clés",
+      "universalExclusions": [
+        "coh_03",
+        "ux_06",
+        "ux_08",
+        "psy_03",
+        "psy_04"
+      ],
+      "universalExclusionReasons": {
+        "coh_03": "Pas d'alignement ad→LP sur une homepage (trafic multi-source)",
+        "ux_06": "La navigation est nécessaire sur une HP — le menu est un feature, pas une distraction",
+        "ux_08": "Pas de friction form/checkout à minimiser sur une HP",
+        "psy_03": "Pas de scarcité/urgence sur une HP (sauf promos, mais pas structurel)",
+        "psy_04": "Pas d'ancrage prix sur une HP"
+      },
+      "specificCriteria": [
+        {
+          "id": "home_01",
+          "label": "Navigation claire vers les sous-catégories clés (max 2 clics vers produit/service)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Navigation intuitive, catégories visibles, accès direct aux tops produits/services en 1-2 clics",
+            "ok": "Navigation fonctionnelle mais arborescence confuse ou trop profonde",
+            "critical": "Pas de chemin clair vers les produits/services, menu confus ou surchargé"
+          }
+        },
+        {
+          "id": "home_02",
+          "label": "Proposition de valeur globale de la marque (pas juste un produit)",
+          "pillar": "coherence",
+          "max": 3,
+          "scoring": {
+            "top": "Le visiteur comprend en 5 sec ce que la marque fait, pour qui, et pourquoi c'est différent",
+            "ok": "La marque est identifiable mais le positionnement est flou ou générique",
+            "critical": "On ne comprend pas ce que fait l'entreprise ou à qui elle s'adresse"
+          }
+        },
+        {
+          "id": "home_03",
+          "label": "Zones d'orientation contextuelles (best-sellers, cas d'usage, persona routing)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Sections best-sellers / routage par persona ou usage / recommendations claires",
+            "ok": "Quelques sections d'orientation mais pas personnalisées ou mal hiérarchisées",
+            "critical": "Aucune aide à l'orientation — le visiteur doit deviner où aller"
+          }
+        }
+      ]
+    },
+    "pdp": {
+      "label": "Page Produit / PDP",
+      "role": "Convertir un visiteur qualifié sur un produit précis",
+      "universalExclusions": [],
+      "specificCriteria": [
+        {
+          "id": "pdp_01",
+          "label": "Galerie produit multi-angle (min 3 visuels : produit seul, en contexte, détail/texture)",
+          "pillar": "hero",
+          "max": 3,
+          "scoring": {
+            "top": "5+ visuels HD : produit seul, en situation, zoom texture, packaging, vidéo ou 360°",
+            "ok": "2-3 visuels mais manque de variété (pas de contexte d'usage ou de zoom)",
+            "critical": "1 seul visuel ou visuels basse qualité / génériques"
+          }
+        },
+        {
+          "id": "pdp_02",
+          "label": "Informations produit structurées et complètes (composition, dimensions, usage, origine)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Fiche complète avec onglets/accordéons : composition, dimensions, mode d'emploi, origine, certifications",
+            "ok": "Infos de base présentes mais pas structurées ou incomplètes",
+            "critical": "Informations produit quasi absentes — le visiteur doit deviner les specs"
+          }
+        },
+        {
+          "id": "pdp_03",
+          "label": "Sélecteur de variante clair et intuitif (taille, couleur, format, abonnement)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Sélecteur visuel (swatches couleur, tailles cliquables), stock par variante, prix mis à jour en live",
+            "ok": "Sélecteur fonctionnel mais peu visuel (dropdown simple, pas de stock visible)",
+            "critical": "Pas de sélection de variante ou sélecteur cassé/confus"
+          }
+        },
+        {
+          "id": "pdp_04",
+          "label": "Cross-sell / upsell pertinent (produits complémentaires, bundle, 'souvent achetés ensemble')",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Section dédiée cross-sell/bundle contextuelle au produit consulté, avec visuels et prix",
+            "ok": "Recommandations présentes mais génériques (pas contextuelles au produit)",
+            "critical": "Aucune recommandation produit complémentaire"
+          }
+        },
+        {
+          "id": "pdp_05",
+          "label": "Avis clients avec note, nombre, et filtres (pas juste des étoiles sans contenu)",
+          "pillar": "psycho",
+          "max": 3,
+          "scoring": {
+            "top": "Avis nommés avec note, texte, date, photo, filtres par note, réponse de la marque",
+            "ok": "Avis présents mais sans filtres, ou note globale sans détail",
+            "critical": "Pas d'avis clients ou avis visiblement faux/génériques"
+          }
+        },
+        {
+          "id": "pdp_06",
+          "label": "Réassurance transactionnelle visible (livraison, retours, garantie, paiement sécurisé)",
+          "pillar": "psycho",
+          "max": 3,
+          "scoring": {
+            "top": "Icônes/badges visibles près du CTA : livraison gratuite, retours X jours, paiement sécurisé, garantie",
+            "ok": "Infos présentes mais éloignées du CTA ou en footer uniquement",
+            "critical": "Aucune réassurance transactionnelle visible"
+          }
+        }
+      ]
+    },
+    "collection": {
+      "label": "Page Collection / Catégorie",
+      "role": "Orienter le visiteur vers le bon produit dans la catégorie",
+      "universalExclusions": [
+        "coh_03",
+        "per_02",
+        "ux_06",
+        "psy_03",
+        "psy_04",
+        "psy_05"
+      ],
+      "universalExclusionReasons": {
+        "coh_03": "Pas d'alignement ad→LP direct sur une collection",
+        "per_02": "Le storytelling narratif n'a pas sa place sur une page collection (c'est de la navigation)",
+        "ux_06": "La navigation full est nécessaire sur une collection",
+        "psy_03": "Pas de scarcité/urgence sur une catégorie",
+        "psy_04": "Pas d'ancrage prix sur une catégorie (c'est au niveau PDP)",
+        "psy_05": "Pas de loss aversion sur une page de navigation"
+      },
+      "specificCriteria": [
+        {
+          "id": "col_01",
+          "label": "Filtres et tri fonctionnels et pertinents (prix, taille, type, note, best-sellers)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Filtres multi-critères, tri par pertinence/prix/note/nouveauté, résultats mis à jour sans rechargement",
+            "ok": "Filtres basiques présents mais limités (juste tri par prix)",
+            "critical": "Pas de filtres ou tri, ou filtres cassés"
+          }
+        },
+        {
+          "id": "col_02",
+          "label": "Vignettes produit informatives (image, nom, prix, note, badge promo visible)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Vignettes avec image HD, nom clair, prix (barré si promo), note étoiles, badge bestseller/nouveau, hover avec 2e image",
+            "ok": "Vignettes avec image et prix mais manque d'infos (pas de note, pas de badge)",
+            "critical": "Vignettes pauvres : petite image, pas de prix visible, pas d'info utile"
+          }
+        },
+        {
+          "id": "col_03",
+          "label": "Description catégorie SEO-friendly en haut de page (contexte + mots-clés)",
+          "pillar": "tech",
+          "max": 3,
+          "scoring": {
+            "top": "Paragraphe contextuel en haut de page avec mots-clés naturels, H1 descriptif, breadcrumbs",
+            "ok": "H1 présent mais pas de texte de contexte, ou texte trop générique",
+            "critical": "Pas de H1 descriptif, pas de contexte, breadcrumbs absents"
+          }
+        },
+        {
+          "id": "col_04",
+          "label": "Nombre de résultats affiché + pagination ou infinite scroll fonctionnel",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Nombre de produits affiché, pagination claire ou lazy-load fluide, pas de perte de position au retour",
+            "ok": "Pagination présente mais basique, ou nombre non affiché",
+            "critical": "Pas de pagination visible, ou scroll infini cassé qui perd la position"
+          }
+        }
+      ]
+    },
+    "lp_leadgen": {
+      "label": "Landing Page Lead Gen",
+      "role": "Capturer un email/lead contre une promesse de valeur",
+      "universalExclusions": [
+        "psy_04"
+      ],
+      "universalExclusionReasons": {
+        "psy_04": "Pas d'ancrage prix sur une LP lead gen (l'offre est gratuite ou implicite)"
+      },
+      "specificCriteria": [
+        {
+          "id": "lg_01",
+          "label": "Lead magnet clairement identifié et valorisé (ebook, checklist, audit, démo, essai)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Lead magnet nommé, visuel mockup, contenu teasé avec bullet points de valeur, format précisé",
+            "ok": "Lead magnet mentionné mais pas assez valorisé (juste 'téléchargez notre guide')",
+            "critical": "Pas de lead magnet clair ou proposition de valeur vague ('restez informé')"
+          }
+        },
+        {
+          "id": "lg_02",
+          "label": "Formulaire minimal et focalisé (3-5 champs max, labels clairs, CTA actionnable)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "3-5 champs pertinents, labels descriptifs, CTA 'Recevoir mon guide' (pas 'Submit'), validation inline",
+            "ok": "Formulaire fonctionnel mais trop de champs (6+) ou labels vagues",
+            "critical": "Formulaire trop long (8+), labels confus, CTA 'Envoyer', ou pas de formulaire visible ATF"
+          }
+        },
+        {
+          "id": "lg_03",
+          "label": "Aucune fuite de trafic (pas de nav, pas de liens sortants, mono-objectif)",
+          "pillar": "coherence",
+          "max": 3,
+          "scoring": {
+            "top": "Zéro lien sortant hors CTA principal, pas de menu, pas de footer links dispersifs",
+            "ok": "Menu minimal ou footer light mais quelques liens de fuite",
+            "critical": "Navigation complète présente, liens multiples qui diluent l'attention"
+          }
+        }
+      ]
+    },
+    "lp_sales": {
+      "label": "Sales Page / Advertorial",
+      "role": "Convaincre à froid via un copy long et persuasif",
+      "universalExclusions": [],
+      "specificCriteria": [
+        {
+          "id": "sp_01",
+          "label": "Structure narrative claire (hook → problème → agitation → solution → preuves → CTA)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Flow narratif complet PAS→solution avec transitions fluides, le lecteur est embarqué du début à la fin",
+            "ok": "Structure reconnaissable mais transitions abruptes ou sections mal ordonnées",
+            "critical": "Pas de structure narrative — blocs de contenu juxtaposés sans logique"
+          }
+        },
+        {
+          "id": "sp_02",
+          "label": "Multiples points de conversion (CTA répété après chaque argument majeur, pas juste en bas)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "CTA après chaque section de preuve (min 3-4 CTAs sur la page), sticky CTA ou CTA flottant",
+            "ok": "2 CTAs (ATF + bas de page) mais rien au milieu",
+            "critical": "1 seul CTA en bas de page, le lecteur doit tout lire avant de pouvoir agir"
+          }
+        },
+        {
+          "id": "sp_03",
+          "label": "Garantie ou réversibilité explicite (satisfait ou remboursé, essai gratuit, annulation facile)",
+          "pillar": "psycho",
+          "max": 3,
+          "scoring": {
+            "top": "Garantie explicite avec durée et conditions claires, visuel badge/sceau, positionnée près du CTA final",
+            "ok": "Garantie mentionnée mais discrète ou vague",
+            "critical": "Aucune garantie ou mécanisme de réversibilité visible"
+          }
+        }
+      ]
+    },
+    "blog": {
+      "label": "Article de Blog",
+      "role": "Ranker en SEO, éduquer le lecteur, et router vers l'offre",
+      "universalExclusions": [
+        "coh_03",
+        "hero_03",
+        "hero_04",
+        "ux_06",
+        "ux_08",
+        "psy_03",
+        "psy_04"
+      ],
+      "universalExclusionReasons": {
+        "coh_03": "Pas d'alignement ad→LP sur un article (trafic organique)",
+        "hero_03": "Pas de visuel produit en hero sur un article — le hero est éditorial",
+        "hero_04": "Pas de CTA primaire ATF sur un article (c'est du contenu éducatif d'abord)",
+        "ux_06": "La navigation full est normale sur un blog",
+        "ux_08": "Pas de friction form/checkout sur un article",
+        "psy_03": "Pas de scarcité/urgence sur un article",
+        "psy_04": "Pas d'ancrage prix sur un article"
+      },
+      "specificCriteria": [
+        {
+          "id": "blog_01",
+          "label": "Table des matières cliquable (outline de l'article visible ATF)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Table des matières sticky ou ATF avec ancres cliquables, progression visible",
+            "ok": "Table des matières présente mais non-sticky et non-cliquable",
+            "critical": "Pas de table des matières, l'article est un mur de texte sans repères"
+          }
+        },
+        {
+          "id": "blog_02",
+          "label": "Maillage interne pertinent (liens vers articles liés + vers pages produit/service)",
+          "pillar": "tech",
+          "max": 3,
+          "scoring": {
+            "top": "3+ liens internes contextuels dans le corps, section 'articles liés' en fin, liens vers PDP/LP quand pertinent",
+            "ok": "Quelques liens internes mais peu ou mal positionnés",
+            "critical": "Aucun lien interne — l'article est une impasse"
+          }
+        },
+        {
+          "id": "blog_03",
+          "label": "CTA contextuel mid-article (encart, bannière, ou inline CTA lié au sujet traité)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "CTA mid-article contextuel au sujet (pas générique), visuellement distinct mais non intrusif",
+            "ok": "CTA présent mais générique ('découvrez nos produits') ou seulement en fin d'article",
+            "critical": "Aucun CTA dans l'article — zéro conversion path"
+          }
+        },
+        {
+          "id": "blog_04",
+          "label": "Temps de lecture affiché + date de publication/mise à jour",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Temps de lecture, date de dernière mise à jour, auteur nommé avec bio courte",
+            "ok": "Date de publication présente mais pas de temps de lecture ou d'auteur",
+            "critical": "Ni date, ni temps de lecture, ni auteur — aucun signal de fraîcheur"
+          }
+        },
+        {
+          "id": "blog_05",
+          "label": "Structure éditoriale riche (H2/H3 logiques, visuels, encadrés, listes, citations)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Alternance H2/H3 logique, visuels ou schémas, encadrés tips, listes, citations — lecture fluide et scannable",
+            "ok": "Hiérarchie H2/H3 correcte mais contenu monolithique (pas de visuels, pas d'encadrés)",
+            "critical": "Blocs de texte sans sous-titres, pas de hiérarchie, illisible"
+          }
+        }
+      ]
+    },
+    "quiz_vsl": {
+      "label": "Quiz / VSL / Challenge Funnel",
+      "role": "Qualifier, engager et convertir via un parcours interactif",
+      "universalExclusions": [
+        "coh_07",
+        "coh_08",
+        "hero_01",
+        "hero_02",
+        "hero_03",
+        "hero_05",
+        "hero_06",
+        "per_10",
+        "per_11",
+        "psy_04"
+      ],
+      "universalExclusionReasons": {
+        "hero_03": "Pas de visuel produit dans le hero d'un quiz — le hero est une question ou un hook",
+        "psy_04": "L'ancrage prix vient plus tard dans le funnel, pas sur la page quiz elle-même",
+        "hero_01": "Un quiz est guidé par la question courante, pas par un H1 promesse statique.",
+        "hero_02": "Pas de sous-titre explicatif : la 1ère question porte le contexte.",
+        "hero_05": "La preuve sociale sur quiz apparaît en page résultats, pas en intro.",
+        "hero_06": "Test 5s inapplicable : le quiz débute par une question, pas une proposition.",
+        "coh_07": "Positioning Statement Moore inapplicable à un quiz interactif.",
+        "coh_08": "Message Hierarchy statique remplacée par la progression du quiz.",
+        "per_10": "Frameworks PAS/AIDA inapplicables : la persuasion est progressive via les questions.",
+        "per_11": "Benefit Laddering apparaît sur la page résultats, pas sur le quiz lui-même."
+      },
+      "specificCriteria": [
+        {
+          "id": "quiz_01",
+          "label": "Barre de progression visible (le visiteur sait où il en est dans le parcours)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Barre de progression % ou étapes numérotées, indication du temps restant, design encourageant",
+            "ok": "Barre présente mais non numérotée ou peu visible",
+            "critical": "Aucune indication de progression — le visiteur ne sait pas combien d'étapes restent"
+          }
+        },
+        {
+          "id": "quiz_02",
+          "label": "Questions visuelles et engageantes + volume calibré 5-7 questions (sweet spot A-09)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "amendments": [
+            "A-09 Volume questions 5-7 (sweet spot complétion)"
+          ],
+          "question_count_thresholds": {
+            "source": "Consensus Typeform 2023 + Interact Quiz 2024 + LeadQuizzes benchmarks",
+            "optimum": "5-7 questions (sweet spot : ~70-75% completion rate)",
+            "acceptable": "4 ou 8-10 questions (complétion 55-70%)",
+            "degraded": "<4 questions (trop générique, résultat peu personnalisé) ou >10 questions (abandon massif, <45% complétion)",
+            "rationale": "La loi de Hick-Hyman + effort cognitif : au-delà de 7-8 questions, la fatigue décisionnelle monte exponentiellement. En dessous de 5, le résultat ne peut pas être assez personnalisé pour justifier l'effort."
+          },
+          "scoring": {
+            "top": "5-7 questions (sweet spot) ET questions illustrées (images, icônes) ET choix visuels ET micro-animations ET ton conversationnel ET 1 question = 1 écran (pas de scroll vertical pour une question)",
+            "ok": "4 ou 8-10 questions (acceptable mais pas optimal) OU 5-7 questions mais UX basique (formulaire textuel propre sans illustrations/ludisme)",
+            "critical": "<4 questions (résultat trop générique, faux quiz) OU >10 questions (abandon massif) OU formulaire froid style Google Forms OU questions confuses, trop longues, ou multiples par écran"
+          },
+          "examples": {
+            "top_ref": "Japhy quiz race chien (6 questions : race, âge, poids, activité, sensibilités, objectif santé) — 75% completion",
+            "critical_ref": "Quiz 15 questions 'découvrez votre profil complet' → <40% completion, brief rendu inutile"
+          },
+          "antiPatterns": [
+            "Quiz qui demande email dès la question 1 (coupe l'engagement)",
+            "Questions ouvertes texte libre (sauf si optionnel — tue le flow)",
+            "Barre de progression absente quand >5 questions",
+            "Mauvais chunking : 2-3 questions par écran empilées"
+          ]
+        },
+        {
+          "id": "quiz_03",
+          "label": "Résultat personnalisé et actionnable (pas un résultat générique identique pour tous)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Résultat unique basé sur les réponses, recommandation produit/service personnalisée, résumé du profil",
+            "ok": "Résultat semi-personnalisé (2-3 variantes) mais pas très granulaire",
+            "critical": "Résultat identique pour tous, ou résultat qui ne reflète pas les réponses données"
+          }
+        },
+        {
+          "id": "quiz_04",
+          "label": "Transition fluide quiz → offre (le CTA découle naturellement du résultat)",
+          "pillar": "coherence",
+          "max": 3,
+          "scoring": {
+            "top": "Le résultat mène naturellement vers l'offre recommandée, CTA 'Voir ma solution' en continuité",
+            "ok": "CTA présent après le résultat mais rupture de ton ou de contexte",
+            "critical": "Aucun lien entre le résultat du quiz et l'offre proposée"
+          }
+        }
+      ],
+      "pageTypeMultipliers": {
+        "specificWeight": 0.7,
+        "universalWeight": 0.3,
+        "rationale": "Quiz est une app interactive — critères spécifiques (quiz_01..04) pèsent davantage que les critères universels statiques."
+      }
+    },
+    "pricing": {
+      "label": "Page Pricing",
+      "role": "Fermer la décision d'achat (SaaS, Abonnement, Formation)",
+      "universalExclusions": [
+        "hero_03",
+        "per_02"
+      ],
+      "universalExclusionReasons": {
+        "hero_03": "Pas de visuel produit en usage sur une page pricing — le hero est la grille de prix",
+        "per_02": "Pas de storytelling narratif sur une page pricing (c'est de la comparaison rationnelle)"
+      },
+      "specificCriteria": [
+        {
+          "id": "price_01",
+          "label": "Comparaison de plans claire et scannable (tableau ou cards côte à côte, features alignées)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Tableau comparatif clair, features alignées, plan recommandé mis en avant visuellement, responsive mobile",
+            "ok": "Plans affichés mais comparaison difficile (features pas alignées, trop d'info)",
+            "critical": "Plans confus, pas de comparaison possible, ou un seul plan sans contexte"
+          }
+        },
+        {
+          "id": "price_02",
+          "label": "Plan recommandé mis en avant (badge 'populaire', couleur, taille différente)",
+          "pillar": "psycho",
+          "max": 3,
+          "scoring": {
+            "top": "Plan recommandé visuellement distinct (badge, bordure, couleur, 'le plus populaire'), positionné au centre",
+            "ok": "Légère distinction visuelle mais pas assez évidente",
+            "critical": "Tous les plans ont le même poids visuel — le choix n'est pas guidé"
+          }
+        },
+        {
+          "id": "price_03",
+          "label": "Toggle mensuel/annuel avec économie affichée (pas juste un switch sans contexte)",
+          "pillar": "persuasion",
+          "max": 3,
+          "scoring": {
+            "top": "Toggle avec économie % ou € affichée ('Économisez 20%'), prix annuel pré-sélectionné, barré vs mensuel",
+            "ok": "Toggle présent mais économie pas explicitement chiffrée",
+            "critical": "Pas de toggle (un seul billing cycle) ou toggle sans mention de l'économie"
+          }
+        },
+        {
+          "id": "price_04",
+          "label": "Transparence des limites par plan (ce qui est inclus ET ce qui ne l'est pas)",
+          "pillar": "coherence",
+          "max": 3,
+          "scoring": {
+            "top": "Check ✓ et croix ✗ clairs par feature par plan, tooltips sur les limites, pas de surprises",
+            "ok": "Features listées par plan mais limites pas claires (juste 'illimité' vs '10')",
+            "critical": "Aucune info sur les limites — le visiteur doit deviner ce qui est inclus"
+          }
+        }
+      ]
+    },
+    "checkout": {
+      "label": "Checkout / Cart",
+      "role": "Minimiser la friction de paiement et sécuriser la conversion finale",
+      "universalExclusions": [
+        "coh_03",
+        "coh_04",
+        "per_01",
+        "per_02",
+        "per_05",
+        "per_07",
+        "per_08",
+        "hero_01",
+        "hero_02",
+        "hero_03",
+        "hero_05",
+        "psy_05",
+        "psy_06"
+      ],
+      "universalExclusionReasons": {
+        "coh_03": "Le scent matching n'est plus pertinent au checkout (le visiteur est déjà engagé)",
+        "coh_04": "Le positionnement vs concurrents n'a pas sa place au checkout",
+        "per_01": "Les bénéfices vs features ne sont plus le sujet au checkout",
+        "per_02": "Pas de storytelling au checkout",
+        "per_05": "Pas de témoignages au checkout (peut être contreproductif — distraction)",
+        "per_07": "Le ton est secondaire au checkout",
+        "per_08": "Le jargon est secondaire au checkout",
+        "hero_01": "Pas de H1 promesse au checkout",
+        "hero_02": "Pas de sous-titre explicite au checkout",
+        "hero_03": "Pas de visuel hero au checkout",
+        "hero_05": "Pas de preuve sociale dans le hero du checkout",
+        "psy_05": "Loss aversion peut être perçue comme manipulation au stade final",
+        "psy_06": "Pas de transformation visible au checkout"
+      },
+      "specificCriteria": [
+        {
+          "id": "ck_01",
+          "label": "Résumé panier clair (produits, quantités, prix unitaire, total, frais de port)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Résumé complet avec image produit, nom, quantité modifiable, prix unitaire, sous-total, frais, total TTC",
+            "ok": "Résumé présent mais incomplet (pas d'image ou frais masqués jusqu'au bout)",
+            "critical": "Pas de résumé visible ou total surprise en fin de tunnel"
+          }
+        },
+        {
+          "id": "ck_02",
+          "label": "Checkout en 3 étapes max (ou one-page checkout clair)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "One-page checkout ou 2-3 étapes max avec indicateur de progression visible",
+            "ok": "3-4 étapes mais progression claire",
+            "critical": "5+ étapes, redirection externe confuse, ou progression invisible"
+          }
+        },
+        {
+          "id": "ck_03",
+          "label": "Réassurance paiement (badges sécurité, logos moyens de paiement, SSL visible)",
+          "pillar": "psycho",
+          "max": 3,
+          "scoring": {
+            "top": "Badges SSL, logos CB/PayPal/Apple Pay, icônes cadenas, 'Paiement 100% sécurisé' visible",
+            "ok": "Quelques logos de paiement mais pas de message de réassurance explicite",
+            "critical": "Aucun signe de sécurité visible au moment du paiement"
+          }
+        },
+        {
+          "id": "ck_04",
+          "label": "Guest checkout possible (pas d'obligation de créer un compte)",
+          "pillar": "ux",
+          "max": 3,
+          "scoring": {
+            "top": "Guest checkout par défaut, option de créer un compte après l'achat, login rapide si déjà client",
+            "ok": "Guest checkout possible mais login forcé d'abord (le guest est caché)",
+            "critical": "Obligation de créer un compte avant de payer"
+          }
+        },
+        {
+          "id": "ck_05",
+          "label": "Récupération d'abandon (email pré-rempli, sauvegarde panier, exit intent)",
+          "pillar": "tech",
+          "max": 3,
+          "scoring": {
+            "top": "Email capturé tôt dans le flow, panier sauvegardé, email de rappel automatique, exit intent soft",
+            "ok": "Email capturé mais pas de relance automatique visible",
+            "critical": "Aucun mécanisme de récupération d'abandon"
+          }
+        }
+      ]
+    },
+    "listicle": {
+      "label": "Listicle / Article type liste",
+      "role": "Capter trafic SEO/paid via format liste éditorial, pré-vendre une solution via contenu utile",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "hero_03",
+        "ux_08",
+        "psy_04"
+      ],
+      "universalExclusionReasons": {
+        "hero_03": "Pas de visuel produit hero — le hero est un titre éditorial et une intro",
+        "ux_08": "Pas de form checkout à minimiser sur un listicle",
+        "psy_04": "L'ancrage prix n'a pas sa place dans un format éditorial"
+      },
+      "specificCriteria": [
+        {
+          "id": "list_01",
+          "label": "Titre H1 avec chiffre précis + bénéfice ('7 stratégies pour X', 'Les 10 erreurs Y')",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "H1 avec chiffre 5-10 (sweet spot psycho list) + bénéfice cible + angle spécifique",
+            "ok": "H1 avec chiffre mais bénéfice vague, ou chiffre >15 (fatigue) ou <3 (manque de valeur perçue)",
+            "critical": "H1 sans chiffre ou liste cachée dans le titre, ou chiffre rond générique ('100+')"
+          }
+        },
+        {
+          "id": "list_02",
+          "label": "Table des matières (TOC) ancrée avec liens internes vers chaque item",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "TOC visible ATF (desktop) ou en sticky/accordion (mobile), liens ancres vers chaque item, retour top facile",
+            "ok": "TOC présent mais mal visible ou sans liens cliquables",
+            "critical": "Aucun TOC sur un listicle de >5 items — obligation de scroller sans guide"
+          }
+        },
+        {
+          "id": "list_03",
+          "label": "Chaque item suit la même structure (H2 + visuel/icône + paragraphe + CTA optionnel)",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Structure rigoureusement parallèle : H2 numéroté, même longueur de paragraphe (±30%), visuel/icône cohérent, bullet points si multi-points",
+            "ok": "Structure globalement parallèle mais 1-2 items plus longs/courts que les autres",
+            "critical": "Items de taille très variable, structure inconsistante, certains items sans visuel ou avec format différent"
+          }
+        },
+        {
+          "id": "list_04",
+          "label": "CTAs in-line contextuels (pas 1 CTA hero mais CTAs sémantiques dans le flow)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "CTAs placés après 2-3 items (pattern soft) + CTA final de conversion, chacun contextualisé à l'item qui précède",
+            "ok": "1-2 CTAs mais placés arbitrairement (milieu, fin) sans contextualisation",
+            "critical": "Aucun CTA ou 1 seul CTA final sans call-back in-line — reader tombe dans un trou"
+          }
+        },
+        {
+          "id": "list_05",
+          "label": "Crédibilité source (auteur nommé + date + temps de lecture + bibliographie/sources)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Auteur avec bio + photo + date publication + date mise à jour + temps de lecture + ≥2 sources externes linkées",
+            "ok": "Auteur nommé mais pas de bio/photo, date présente mais pas de mise à jour, 0-1 source externe",
+            "critical": "Article anonyme ou sans date, aucune source externe, allure de contenu low-quality AI-generated"
+          }
+        }
+      ]
+    },
+    "advertorial": {
+      "label": "Advertorial / Article éditorial sponsorisé",
+      "role": "Présenter l'offre sous forme d'article éditorial (format presse/magazine), contourner la résistance pub",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "ux_06"
+      ],
+      "universalExclusionReasons": {
+        "ux_06": "Pas de navigation complexe — advertorial doit avoir navigation minimale / absente pour garder focus lecture"
+      },
+      "specificCriteria": [
+        {
+          "id": "adv_01",
+          "label": "Ton éditorial/journalistique (pas de sales pitch direct, angle 'reportage/découverte')",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Ton neutre journalistique, angle 'découverte/enquête/témoignage', auteur positionné comme journaliste/expert indépendant, marque citée en 2ème partie",
+            "ok": "Ton éditorial au début mais slips sales en cours d'article (discount direct, 'achetez maintenant')",
+            "critical": "Sales pitch direct dès le hero, 'special offer' visible ATF, format clairement publicitaire"
+          }
+        },
+        {
+          "id": "adv_02",
+          "label": "Hook narratif fort en intro (histoire, transformation, révélation)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Intro narrative en 2-3 paragraphes : story personnelle / découverte / statistique choc → crée curiosité, pas de mention produit avant paragraphe 3-4",
+            "ok": "Hook présent mais court ou générique, produit mentionné trop tôt (paragraphe 2)",
+            "critical": "Pas de hook narratif — entrée directe sur 'voici notre produit' ou listicle standard"
+          }
+        },
+        {
+          "id": "adv_03",
+          "label": "Disclaimer 'contenu sponsorisé' visible mais non-intrusif (FTC/ARPP compliance)",
+          "pillar": "tech",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Mention 'Partenariat / Publi-rédactionnel / Sponsored' présente en haut de page, lisible mais non dominante (11-13px, gris clair, pas caché)",
+            "ok": "Disclaimer présent mais dans le footer ou en toute petite taille (<10px)",
+            "critical": "Aucun disclaimer — risque légal FTC/ARPP + destruction confiance quand découvert"
+          }
+        },
+        {
+          "id": "adv_04",
+          "label": "Preuve sociale journalistique (témoignages nommés détaillés, avant/après, quotes longues)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "≥2 témoignages longs (100+ mots) avec prénom+âge+ville+photo+résultat chiffré, format 'interview' avec questions-réponses",
+            "ok": "1-2 témoignages courts format quote (<50 mots) avec nom mais sans détail",
+            "critical": "Aucun témoignage ou témoignages 'Jean L., satisfait client' sans détail ni preuve"
+          }
+        },
+        {
+          "id": "adv_05",
+          "label": "CTA soft contextualisé en 2ème partie (pas ATF) + CTA final fort",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "CTA soft après 50-60% du contenu ('Découvrir la méthode X' ou 'Voir le site officiel') + CTA fort en fin d'article, aucun CTA ATF",
+            "ok": "CTAs présents mais dispersés ou trop tôt (avant 30% du contenu)",
+            "critical": "CTA hard-sell dès le hero, format clairement publicitaire, rupture de ton éditorial"
+          }
+        }
+      ]
+    },
+    "comparison": {
+      "label": "Page Comparaison / Versus",
+      "role": "Aider décideur à choisir entre plusieurs options (produits, plans, concurrents)",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "hero_04",
+        "psy_02"
+      ],
+      "universalExclusionReasons": {
+        "hero_04": "Hero comparison = tableau/grille de comparaison directement, pas de visuel produit unique",
+        "psy_02": "Pas de rareté/exclusivité spécifique — la page est une analyse rationnelle"
+      },
+      "specificCriteria": [
+        {
+          "id": "comp_01",
+          "label": "Tableau de comparaison scannable (critères alignés, same-level comparison, mobile-responsive)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "viewport_rationale": "Tableau 3+ colonnes souvent cassé sur mobile (scroll horizontal ou cards empilées). Crucial.",
+          "scoring": {
+            "top": "Tableau responsive : 2-3 colonnes côte à côte desktop, accordion/cards empilées mobile, critères alignés (mêmes rows), checks/crosses visibles, winner highlighted",
+            "ok": "Tableau desktop fonctionnel mais mobile dégradé (scroll horizontal ou texte tronqué)",
+            "critical": "Tableau cassé sur mobile (illisible, overflow) OU pas de tableau — comparaison en paragraphe prose uniquement"
+          }
+        },
+        {
+          "id": "comp_02",
+          "label": "Critères de comparaison pertinents et exhaustifs (prix, features, usage, limitations)",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "≥8 critères couvrant : prix, features principales, limitations honnêtes, cas d'usage typiques, support, intégrations, garantie — aucune dimension cachée",
+            "ok": "5-7 critères pertinents mais 1-2 dimensions clés manquent (ex: prix clair mais pas de limitations)",
+            "critical": "<5 critères OU critères uniquement favorables à un seul choix (comparison biaisée/dishonest)"
+          }
+        },
+        {
+          "id": "comp_03",
+          "label": "Recommandation contextuelle ('si vous êtes X, choisissez Y')",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Section 'Lequel choisir ?' avec ≥3 profils clairs ('Débutant → A / Équipe >10 → B / Budget serré → C'), chaque profil a son match",
+            "ok": "Recommandation unique ou vague ('le meilleur choix est...')",
+            "critical": "Aucune recommandation — reader doit conclure seul, risque d'abandon décisionnel"
+          }
+        },
+        {
+          "id": "comp_04",
+          "label": "Transparence sur le biais (disclosure d'affiliation ou préférence assumée)",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Disclosure explicite ('Nous sommes partenaires de X / Cette page contient des liens affiliés') + critique honnête du produit promu (mentions de limitations)",
+            "ok": "Disclosure présent mais enfoui en footer, critique de l'option promue peu étayée",
+            "critical": "Aucune transparence, comparaison clairement biaisée sans disclosure — détruit confiance"
+          }
+        }
+      ]
+    },
+    "vsl": {
+      "label": "VSL / Video Sales Letter",
+      "role": "Convertir via lettre de vente vidéo longue (5-60 min), funnel High-ticket info-produits",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "ux_06",
+        "ux_08"
+      ],
+      "universalExclusionReasons": {
+        "ux_06": "Pas de navigation — VSL funnel = page distraction-free obligatoire",
+        "ux_08": "Pas de checkout sur la page VSL elle-même"
+      },
+      "specificCriteria": [
+        {
+          "id": "vsl_01",
+          "label": "Vidéo ATF avec player adapté (pas d'autoplay avec son, preview image engageante)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Vidéo en position hero, player propriétaire ou Wistia/VidAlytics, preview image engageante, autoplay MUTED seulement, captions disponibles, speed control",
+            "ok": "Vidéo présente mais player YouTube standard (distraction via suggestions), ou preview générique",
+            "critical": "Autoplay WITH SOUND (killer UX), ou vidéo below fold, ou pas de captions (accessibility + sans-son mobile)"
+          }
+        },
+        {
+          "id": "vsl_02",
+          "label": "Hook vidéo dans les 10 premières secondes (pattern interrupt, promesse, enjeu)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Hook fort dans 0-10s : question choc / statistique / promesse spécifique / pattern interrupt visuel — rétention ≥70% au 30s (si analytics dispo)",
+            "ok": "Intro engageante mais longue (>20s avant le hook), ou hook générique ('Bienvenue dans cette vidéo où...')",
+            "critical": "Intro corporate/présentation longue, présenteur qui se présente pendant 2min avant le contenu"
+          }
+        },
+        {
+          "id": "vsl_03",
+          "label": "CTA conditional reveal (CTA apparaît après X minutes de vidéo, engagement-gated)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "CTA masqué au chargement, apparaît à 40-60% du runtime (moment pitch), sticky si scroll, plusieurs instances (après pitch, après témoignages, après offre)",
+            "ok": "CTA visible dès le start mais secondaire, CTA principal révélé en cours mais sans trigger précis",
+            "critical": "CTA hero ATF visible immédiatement (casse la mécanique VSL : reader n'est pas engagé) OU CTA caché trop longtemps (jamais visible jusqu'à la fin)"
+          }
+        },
+        {
+          "id": "vsl_04",
+          "label": "Témoignages vidéo/transcript long format (pas juste quotes — stories complètes)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "≥3 témoignages vidéo 1-3min chacun, ou transcripts long format (300+ mots) avec nom+photo+résultat chiffré, intégrés dans le flow vidéo ou sous",
+            "ok": "1-2 témoignages vidéo ou quotes longs textuels, mais format inconsistant",
+            "critical": "Témoignages quotes courts uniquement ou aucun témoignage — VSL sans preuve est fatal"
+          }
+        },
+        {
+          "id": "vsl_05",
+          "label": "Absence de navigation/distractions (focus mode obligatoire)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Aucun menu header, aucun footer links, pas de sidebar, pas de pop-up, pas de chat widget, 1 seul CTA primaire — page laser-focus",
+            "ok": "Navigation minimale (logo + 1-2 liens) mais pas de vrais parasites",
+            "critical": "Navigation complète, menus, footer avec 20 liens, pop-up newsletter, chat — visiteur échappe de la VSL"
+          }
+        }
+      ]
+    },
+    "challenge": {
+      "label": "Challenge Page / 7-30 jours",
+      "role": "Capter leads engagés via challenge gratuit (fitness, business, dev perso)",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "psy_04"
+      ],
+      "universalExclusionReasons": {
+        "psy_04": "Challenge est gratuit à l'entrée — pas d'ancrage prix dans le hero"
+      },
+      "specificCriteria": [
+        {
+          "id": "chal_01",
+          "label": "Promesse transformation chiffrée & timée ('X jours pour Y résultat')",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "H1 avec durée précise (7/14/21/30 jours) + résultat tangible/mesurable ('Perdre 2kg', 'Écrire 10 posts', 'Apprendre 100 mots')",
+            "ok": "Durée présente mais résultat flou ('devenir meilleur'), ou résultat précis mais durée vague",
+            "critical": "Challenge sans durée OU sans résultat promis — reader ne sait pas ce qu'il s'engage à faire"
+          }
+        },
+        {
+          "id": "chal_02",
+          "label": "Breakdown jour-par-jour visible (sneak preview du programme)",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Programme détaillé : liste des X jours avec titre+objectif+durée estimée par jour, visible before email capture",
+            "ok": "Programme résumé par semaine ou par thèmes mais pas jour-par-jour",
+            "critical": "Aucun détail du programme — reader doit s'inscrire à l'aveugle, black box"
+          }
+        },
+        {
+          "id": "chal_03",
+          "label": "Cohorte/communauté mise en avant (rejoindre X participants)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Chiffre participants précis ('Rejoignez 2 847 participants'), mention communauté (Discord/Slack/FB group), transformations précédentes chiffrées",
+            "ok": "Mention 'rejoignez la communauté' sans chiffre, ou chiffre vague ('des milliers')",
+            "critical": "Aucune dimension communauté — challenge solo perçu sans support"
+          }
+        },
+        {
+          "id": "chal_04",
+          "label": "Cohorte datée avec deadline d'inscription (urgence réelle)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Date de démarrage précise ('Cohorte du 5 mai') + deadline inscription visible (countdown réel, pas fake) + prochaine cohorte annoncée si raté",
+            "ok": "Date start mentionnée mais pas de deadline inscription claire, ou 'rolling' (pas de cohorte mais ouvert tout le temps = perd l'urgence)",
+            "critical": "Aucune date, 'join anytime' uniquement — perd le levier urgence + effet cohorte"
+          }
+        },
+        {
+          "id": "chal_05",
+          "label": "Formulaire inscription simple (email only ou email+prénom max)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Form 1-2 champs (email + prénom optionnel), 1 CTA clair 'Rejoindre le challenge', confirmation claire post-submit",
+            "ok": "Form 3-4 champs avec des requis non essentiels (téléphone, pays)",
+            "critical": "Form >5 champs (friction maximale pour un gratuit) ou formulaire buggy"
+          }
+        }
+      ]
+    },
+    "thank_you_page": {
+      "label": "Thank You Page / Page de confirmation",
+      "role": "Convertir l'action post-conversion (upsell, cross-sell, referral, review, share)",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "hero_01",
+        "hero_02",
+        "hero_05",
+        "per_01",
+        "per_02",
+        "per_05",
+        "coh_03",
+        "psy_01",
+        "psy_02",
+        "psy_03",
+        "psy_04",
+        "psy_05"
+      ],
+      "universalExclusionReasons": {
+        "hero_01": "Pas de H1 promesse — le hero est une confirmation d'action",
+        "hero_02": "Pas de subtitle de promesse — le subtitle confirme ce qui vient de se passer",
+        "hero_05": "Pas de preuve sociale hero — le visiteur vient d'agir, pas besoin de le reconvaincre",
+        "per_01": "Features/benefits ne sont plus le sujet post-conversion",
+        "per_02": "Pas de storytelling post-achat",
+        "per_05": "Témoignages sur TYP = distraction de l'action post-conv",
+        "coh_03": "Scent matching inutile post-conversion",
+        "psy_01": "Pas d'urgence/rareté sur TYP",
+        "psy_02": "Pas de rareté post-action",
+        "psy_03": "Pas d'ancrage prix post-achat",
+        "psy_04": "Pas de loss aversion sur TYP",
+        "psy_05": "Pas de transformation visible post-action (elle vient d'être faite)"
+      },
+      "specificCriteria": [
+        {
+          "id": "typ_01",
+          "label": "Confirmation claire de l'action effectuée (order number, email de confirmation, next steps)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Message de confirmation clair, numéro de commande visible, email de confirmation mentionné ('Vérifiez votre boîte'), next steps listés (délai livraison, accès produit, prochain email)",
+            "ok": "Confirmation présente mais vague, pas de next steps ou pas de numéro de commande",
+            "critical": "Juste 'Merci' sans confirmation claire, reader ne sait pas si l'action a réussi"
+          }
+        },
+        {
+          "id": "typ_02",
+          "label": "Upsell/Cross-sell contextuel (one-time offer si relevant)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "OTO pertinent basé sur ce qui vient d'être acheté/opt-in, offre limitée au TYP (one-time), clear value add, 1 CTA fort",
+            "ok": "Upsell présent mais générique (pas lié à l'achat), ou pas de limitation",
+            "critical": "Aucun upsell/cross-sell — opportunité perdue de doubler AOV"
+          }
+        },
+        {
+          "id": "typ_03",
+          "label": "Referral / Share ask (programme parrainage ou share social)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Programme de parrainage visible avec incentive ('Parrain = 20€, Filleul = 20€'), share social natif, copy link automatique, tracking",
+            "ok": "CTA share générique sans incentive ou sans programme structuré",
+            "critical": "Aucun referral/share — TYP est le moment de plus haut engagement, opportunité gaspillée"
+          }
+        },
+        {
+          "id": "typ_04",
+          "label": "Tracking pixels complets (conversion events fired, enhanced ecommerce, server-side)",
+          "pillar": "tech",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Pixels conversion Meta/Google/TikTok + GA4 purchase event + server-side backup (Conversion API) + value/currency passés correctement",
+            "ok": "Pixels de base présents mais pas de server-side backup ni enhanced ecommerce",
+            "critical": "Aucun pixel de conversion sur TYP — impossible d'optimiser campagnes ads, data vol"
+          }
+        }
+      ]
+    },
+    "bundle_standalone": {
+      "label": "Bundle Page Standalone",
+      "role": "Vendre un pack/bundle comme offre dédiée (pas une variante PDP)",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [],
+      "specificCriteria": [
+        {
+          "id": "bund_01",
+          "label": "Composition bundle visible (liste claire des produits inclus + photos individuelles)",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Flat lay ou grille visuelle de tous les produits inclus, chaque produit nommé + photo + bénéfice propre, quantités précisées",
+            "ok": "Liste textuelle des produits sans visuels individuels, ou photo de groupe sans noms",
+            "critical": "Composition floue ('pack complet' sans détail) ou produits non-listés explicitement"
+          }
+        },
+        {
+          "id": "bund_02",
+          "label": "Économie chiffrée vs achat séparé (ancrage prix)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Ancrage clair : 'Valeur totale 120€ → Bundle 79€ (-34%)', économie en € ET en %, calcul vérifiable via sommes prix individuels",
+            "ok": "Prix bundle affiché mais ancrage incomplet (seulement % ou seulement € économisés, sans valeur originale)",
+            "critical": "Aucun ancrage — prix bundle affiché sans contexte vs prix séparés"
+          }
+        },
+        {
+          "id": "bund_03",
+          "label": "Use case/occasion du bundle (pourquoi ces produits ensemble)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Storytelling clair du bundle : 'Le kit routine matinale', 'Pour un cadeau Noël', 'Le starter pack débutant' + bénéfice global synergique",
+            "ok": "Bundle nommé mais sans vraie histoire (juste 'Pack Premium')",
+            "critical": "Produits regroupés sans logique narrative — reader ne comprend pas pourquoi ce pack"
+          }
+        },
+        {
+          "id": "bund_04",
+          "label": "Customization possible (remplacer 1 produit, choisir saveur/couleur)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Possibilité de swap 1-2 produits (ex: choisir saveur parmi X), preview du bundle customisé, sans friction",
+            "ok": "Bundle fixe mais 1-2 variantes prédéfinies disponibles (pack S/M/L)",
+            "critical": "Bundle 100% fixe sans aucune adaptation possible — perd segments qui veulent ajuster"
+          }
+        }
+      ]
+    },
+    "squeeze": {
+      "label": "Squeeze Page / Lead Capture minimaliste",
+      "role": "Capturer email/lead avec page ultra-focalisée (single purpose, minimal distraction)",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "ux_06",
+        "psy_02",
+        "psy_04",
+        "psy_05",
+        "per_02",
+        "per_05"
+      ],
+      "universalExclusionReasons": {
+        "ux_06": "Pas de navigation — squeeze = distraction-free",
+        "psy_02": "Pas d'exclusivité complexe — squeeze est simple",
+        "psy_04": "Pas d'ancrage prix (gratuit)",
+        "psy_05": "Pas de transformation visible (lead magnet, pas produit)",
+        "per_02": "Pas de storytelling long — squeeze est minimal",
+        "per_05": "Pas de témoignages longs — squeeze est short copy"
+      },
+      "specificCriteria": [
+        {
+          "id": "sqz_01",
+          "label": "Promesse lead magnet ultra-spécifique (pas 'newsletter' générique)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "H1 qui promet un outcome tangible + format + délai : 'Le guide de 47 pages pour X en 7 jours (PDF gratuit)', teasing visuel du lead magnet (cover preview)",
+            "ok": "Promesse présente mais vague ou sans format/délai ('Notre ebook gratuit')",
+            "critical": "'Inscrivez-vous à la newsletter' ou 'Recevez nos actualités' — pas de promesse tangible"
+          }
+        },
+        {
+          "id": "sqz_02",
+          "label": "Preview du lead magnet (cover PDF, table of contents, screenshot)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Visual preview du lead magnet : cover 3D, TOC visible, screenshots de pages, chapter list — rend la valeur tangible",
+            "ok": "Icône générique 'PDF' ou photo mockup sans détail du contenu",
+            "critical": "Aucune preview — lead magnet est une black box"
+          }
+        },
+        {
+          "id": "sqz_03",
+          "label": "Form minimal (email only ou email+prénom MAX)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "1-2 champs (email requis, prénom optionnel), input grand et autofocus, CTA 'Recevoir mon guide' au lieu de 'Submit'",
+            "ok": "3 champs (email + prénom + 1 autre), CTA présent mais générique ('Envoyer')",
+            "critical": "≥4 champs sur un squeeze gratuit — friction qui tue le taux de conversion"
+          }
+        },
+        {
+          "id": "sqz_04",
+          "label": "Zero distractions (pas de menu, pas de footer, pas de sidebar)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Page 100% focalisée : logo + promesse + preview + form + mini-crédibilité (1 ligne). Aucun autre lien sortant. Footer minimal (copyright + privacy/CGV seulement).",
+            "ok": "1-2 éléments distraction (menu réduit OU footer réduit)",
+            "critical": "Menu complet + footer normal + sidebar — squeeze n'est plus un squeeze mais une home"
+          }
+        }
+      ]
+    },
+    "webinar": {
+      "label": "Webinar Registration Page",
+      "role": "Inscrire à un webinar live/replay (lead qualified + preheat sales)",
+      "addedIn": "v3.1.0 — 2026-04-13 doctrine V12",
+      "universalExclusions": [
+        "psy_04"
+      ],
+      "universalExclusionReasons": {
+        "psy_04": "Pas d'ancrage prix — webinar gratuit (ou la vente vient après)"
+      },
+      "specificCriteria": [
+        {
+          "id": "web_01",
+          "label": "Date/heure précise + fuseau horaire + durée du webinar visible ATF",
+          "pillar": "coherence",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Date complète (jour+mois+année), heure précise + fuseau utilisateur détecté auto, durée indiquée (ex: '45 min + Q&A'), countdown live",
+            "ok": "Date/heure présentes mais sans fuseau clair ou durée, ou countdown absent",
+            "critical": "Date vague ('prochainement'), ou pas d'heure, ou fuseau ambigu (UTC sans conversion)"
+          }
+        },
+        {
+          "id": "web_02",
+          "label": "Intervenant(s) crédibilisé(s) (bio + photo + crédentials + social proof)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "Photo pro speaker + titre/fonction + 2-3 achievements chiffrés ('Scale XYZ à 10M€', 'Auteur livre best-seller') + logos clients/media pertinents",
+            "ok": "Photo + nom + titre mais pas de preuves achievements",
+            "critical": "Nom speaker sans photo ni bio — aucune raison de faire confiance"
+          }
+        },
+        {
+          "id": "web_03",
+          "label": "Agenda/learning outcomes précis (3-5 bullet points de ce qui sera couvert)",
+          "pillar": "persuasion",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "3-5 bullet points 'What you'll learn' : chaque item = bénéfice spécifique avec verbe actif ('Apprendre à X', 'Maîtriser Y'), pas juste sujets",
+            "ok": "Agenda présent mais trop vague ('Les bases de X', 'Les secrets de Y')",
+            "critical": "Aucun agenda — inscrivez-vous à l'aveugle sur un titre"
+          }
+        },
+        {
+          "id": "web_04",
+          "label": "Form inscription simple (email + prénom max, pas de téléphone/entreprise sur free webinar)",
+          "pillar": "ux",
+          "max": 3,
+          "viewport_check": "desktop_and_mobile",
+          "scoring": {
+            "top": "2-3 champs (email + prénom + optionnellement nom), CTA 'Réserver ma place gratuite' ou 'M'inscrire', confirmation auto avec calendar invite",
+            "ok": "4-5 champs incluant téléphone/entreprise (friction moyenne pour un free webinar)",
+            "critical": "≥6 champs (segmentation B2B excessive) OU formulaire multi-étapes — tue la conversion"
+          }
+        },
+        {
+          "id": "web_05",
+          "label": "Replay access promised (rassurance pour ceux qui ne peuvent pas en live)",
+          "pillar": "psycho",
+          "max": 3,
+          "viewport_check": "both_viewports_single_score",
+          "scoring": {
+            "top": "Mention claire 'Replay envoyé par email si vous ne pouvez pas assister' visible near CTA, durée d'accès replay indiquée (48h / 7 jours / illimité)",
+            "ok": "Replay mentionné mais pas près du CTA, ou durée d'accès floue",
+            "critical": "Aucune mention replay — perd tous les opt-in qui ne peuvent pas le live"
+          }
+        }
+      ]
+    }
+  },
+  "scoringEngine": {
+    "description": "Comment le moteur calcule le score d'une page",
+    "algorithm": [
+      "1. Identifier le pageType de la page à scorer",
+      "2. Charger les 39 critères universels V3",
+      "3. FILTRER : retirer les critères listés dans universalExclusions pour ce pageType",
+      "4. FILTRER : retirer les critères dont le champ pageTypes ne contient pas ce pageType (ni '*')",
+      "5. AJOUTER : injecter les specificCriteria pour ce pageType",
+      "6. PONDÉRER : appliquer pageTypeWeighting du pilier (depuis cro_criteria_v2.json)",
+      "7. SCORER : chaque critère → 0 / 1.5 / 3",
+      "8. CALCULER : score_brut = Σ(score_critère × weight_pilier) — caps et killers",
+      "9. NORMALISER /100 : score_100 = (score_brut / rawMax) × 100, arrondi à 1 décimale",
+      "10. VERDICTS : ≥80 = TOP | 60-79 = SOLIDE | 40-59 = MOYEN | <40 = FAIBLE"
+    ],
+    "maxPerPageType": {
+      "_comment": "Recalculé post-v3.1.0 (doctrine V12, 2026-04-13). Universal baseline = 47 (Hero 6 + Persuasion 11 + UX 8 + Cohérence 9 + Psycho 8 + Tech 5). Pour chaque page type: universal_applicable = 47 - len(universalExclusions), total = universal_applicable + len(specificCriteria), rawMax = total * 3, scoreBase = 100.",
+      "_formula": "universal_applicable = 47 - len(exclusions); total = universal_applicable + len(specific); rawMax = total * 3; score = (rawScore / rawMax) * 100",
+      "home": {
+        "universal": 42,
+        "specific": 3,
+        "total": 45,
+        "rawMax": 135,
+        "scoreBase": 100
+      },
+      "pdp": {
+        "universal": 47,
+        "specific": 6,
+        "total": 53,
+        "rawMax": 159,
+        "scoreBase": 100
+      },
+      "collection": {
+        "universal": 41,
+        "specific": 4,
+        "total": 45,
+        "rawMax": 135,
+        "scoreBase": 100
+      },
+      "lp_leadgen": {
+        "universal": 46,
+        "specific": 3,
+        "total": 49,
+        "rawMax": 147,
+        "scoreBase": 100
+      },
+      "lp_sales": {
+        "universal": 47,
+        "specific": 3,
+        "total": 50,
+        "rawMax": 150,
+        "scoreBase": 100
+      },
+      "blog": {
+        "universal": 40,
+        "specific": 5,
+        "total": 45,
+        "rawMax": 135,
+        "scoreBase": 100
+      },
+      "quiz_vsl": {
+        "universal": 37,
+        "specific": 4,
+        "total": 41,
+        "rawMax": 123,
+        "scoreBase": 100,
+        "_updatedAt": "2026-04-14 (Phase 6 Étape 1 — quiz exclusions expanded)"
+      },
+      "pricing": {
+        "universal": 45,
+        "specific": 4,
+        "total": 49,
+        "rawMax": 147,
+        "scoreBase": 100
+      },
+      "checkout": {
+        "universal": 34,
+        "specific": 5,
+        "total": 39,
+        "rawMax": 117,
+        "scoreBase": 100
+      },
+      "listicle": {
+        "universal": 44,
+        "specific": 5,
+        "total": 49,
+        "rawMax": 147,
+        "scoreBase": 100
+      },
+      "advertorial": {
+        "universal": 46,
+        "specific": 5,
+        "total": 51,
+        "rawMax": 153,
+        "scoreBase": 100
+      },
+      "comparison": {
+        "universal": 45,
+        "specific": 4,
+        "total": 49,
+        "rawMax": 147,
+        "scoreBase": 100
+      },
+      "vsl": {
+        "universal": 45,
+        "specific": 5,
+        "total": 50,
+        "rawMax": 150,
+        "scoreBase": 100
+      },
+      "challenge": {
+        "universal": 46,
+        "specific": 5,
+        "total": 51,
+        "rawMax": 153,
+        "scoreBase": 100
+      },
+      "thank_you_page": {
+        "universal": 35,
+        "specific": 4,
+        "total": 39,
+        "rawMax": 117,
+        "scoreBase": 100
+      },
+      "bundle_standalone": {
+        "universal": 47,
+        "specific": 4,
+        "total": 51,
+        "rawMax": 153,
+        "scoreBase": 100
+      },
+      "squeeze": {
+        "universal": 41,
+        "specific": 4,
+        "total": 45,
+        "rawMax": 135,
+        "scoreBase": 100
+      },
+      "webinar": {
+        "universal": 46,
+        "specific": 5,
+        "total": 51,
+        "rawMax": 153,
+        "scoreBase": 100
+      }
+    },
+    "_doctrineVersion": "v3.1.0 — doctrine V12 — 2026-04-13"
+  },
+  "backlog": [
+    "v1.1 — Ajouter businessCategoryWeighting (ex: DTC Beauty → +0.2 sur visuels produit)",
+    "v1.1 — Ajouter des critères spécifiques pour 'advertorial' (sous-type de lp_sales)",
+    "v1.2 — Ajouter le type 'lp_saas' (sous-type avec critères SaaS spécifiques : intégrations, démo, free trial)",
+    "v2.0 — Critères spécifiques par industrie (pas juste par page type)"
+  ]
+}

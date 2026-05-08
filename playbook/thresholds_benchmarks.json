@@ -1,0 +1,252 @@
+{
+  "_meta": {
+    "name": "GrowthCRO V23 — Thresholds & Benchmarks (doctrine Notion hard-coded)",
+    "version": "1.0.0 — 2026-04-27",
+    "description": "Seuils chiffrés issus de la doctrine CRO Notion + benchmarks externes (NNG, CXL, Baymard, Google Page Experience). Hard-coded pour que les recos puissent les CITER explicitement dans le 'why' (ex: 'charge >3s = red flag doctrine').",
+    "sources": [
+      "Notion CRO Doctrine V3.1 (Mathis — Growth Society) — seuils opérationnels",
+      "Google Page Experience Update (2021) — Core Web Vitals",
+      "NNG (Nielsen Norman Group) — usability research 2015-2024",
+      "CXL Institute — testing patterns + statistical confidence",
+      "Baymard Institute — e-commerce UX (n=40k user tests)",
+      "Expedia 2014 (replicated) — form fields conversion impact"
+    ],
+    "applicationMode": "consulted-by-recos — reco_enricher injecte ces seuils dans system_prompt pour que Haiku cite les valeurs dans 'why' et 'expected_lift_pct'"
+  },
+
+  "performance": {
+    "loading_time_red_flag_seconds": {
+      "value": 3.0,
+      "rationale": "Google Page Experience + CXL : >3s = -32% bounce rate increment per second after 3s",
+      "doctrine_source": "Notion CRO §2 — 'temps chargement non négociable ≤3s'",
+      "use_in_reco": "Si LCP/TTI mesuré > 3s → cite cette valeur explicitement dans le why"
+    },
+    "loading_time_warning_seconds": {
+      "value": 2.0,
+      "rationale": "Optimum mobile : 2s = -7% conversion par seconde supplémentaire (Akamai 2017)",
+      "use_in_reco": "Si entre 2-3s → mentionner comme zone d'optimisation"
+    },
+    "fcp_target_ms": 1800,
+    "lcp_target_ms": 2500,
+    "cls_target": 0.1,
+    "inp_target_ms": 200
+  },
+
+  "test_methodology": {
+    "test_duration_min_days": {
+      "value": 14,
+      "rationale": "Sites trafic élevé : 14 jours minimum pour cycle utilisateur complet (CXL)",
+      "doctrine_source": "Notion CRO §4 — durée test ≥14 jours"
+    },
+    "test_duration_ideal_days": {
+      "value": 30,
+      "rationale": "1 mois = capture saisonnalité + édge cases utilisateurs",
+      "doctrine_source": "Notion CRO §4 — durée idéale 1 mois"
+    },
+    "stat_confidence_minimum": {
+      "value": 0.90,
+      "rationale": "90% confiance statistique minimum pour valider un winner CRO",
+      "doctrine_source": "Notion CRO §4 — confiance ≥90%"
+    },
+    "stat_confidence_pricing": {
+      "value": 0.95,
+      "rationale": "Tests pricing = risque marge → confiance 95% requise",
+      "doctrine_source": "Notion CRO §4 — pricing 95%"
+    },
+    "reco_min_impact_to_deploy_pct": {
+      "value": 5.0,
+      "rationale": "Lift relatif minimum (+5%) pour justifier déploiement vs effort",
+      "doctrine_source": "Notion CRO §4 — impact min +5%"
+    },
+    "guardrail_churn_max_pct": {
+      "value": 1.0,
+      "rationale": "Churn ne doit pas augmenter de >1% post-déploiement (sinon ROI négatif)",
+      "doctrine_source": "Notion CRO §4 — guardrail churn ≤+1%"
+    }
+  },
+
+  "hero": {
+    "five_second_test_required": {
+      "value": true,
+      "rationale": "Visiteur doit pouvoir répondre en <5s : Quoi/Pour qui/Quoi faire",
+      "doctrine_source": "Notion CRO §1 — test 5 secondes (killer hero_06)"
+    },
+    "h1_words_max_optimal": {
+      "value": 12,
+      "rationale": "H1 punchy <12 mots = lecture instantanée (NNG 2019)",
+      "use_in_reco": "Si H1 >12 mots → suggérer raccourcir"
+    },
+    "h1_words_min_specificity": {
+      "value": 4,
+      "rationale": "H1 <4 mots = probable perte de spécificité (sauf marque iconique)",
+      "use_in_reco": "Si H1 <4 mots ET pas de spécificité → flag generic"
+    },
+    "subtitle_chars_max": {
+      "value": 140,
+      "rationale": "Subtitle ≤140 chars = lisible at-a-glance",
+      "use_in_reco": "Si subtitle >140 chars → suggérer condenser"
+    },
+    "cta_distinct_atf_max": {
+      "value": 1,
+      "rationale": "Ratio 1:1 ATF — un seul CTA primaire (Hick-Hyman law, killer hero_03)",
+      "doctrine_source": "Notion CRO §1 — ratio 1:1 (killer)",
+      "exception": "Pages comparison/typ peuvent avoir 2 CTAs légitimes"
+    },
+    "cta_words_min": {
+      "value": 2,
+      "rationale": "CTA <2 mots = generic ('OK', 'Go', 'Click') = anti-pattern",
+      "doctrine_source": "anti_patterns.json#cta_wording_vague"
+    },
+    "social_proof_in_fold_min_signals": {
+      "value": 1,
+      "rationale": "≥1 preuve sociale ATF (chiffre, étoiles, logos, témoignage attribué)",
+      "doctrine_source": "Notion CRO §3 — proof social hierarchy"
+    }
+  },
+
+  "persuasion": {
+    "feature_to_benefit_translation_min_pct": {
+      "value": 0.50,
+      "rationale": "≥50% des features doivent ladder en bénéfice fonctionnel/émotionnel",
+      "doctrine_source": "Notion CRO §1 — per_01_critical (cap Bloc 2 à 8/24 si <50%)"
+    },
+    "proof_types_min_count": {
+      "value": 1,
+      "rationale": "≥1 type de proof concret (quantified outcome, customer case, research, before/after, statistic)",
+      "doctrine_source": "Notion CRO §1 — per_04_critical (cap Bloc 2 à 10/24 si 0)"
+    },
+    "proof_formats_min_diversity": {
+      "value": 3,
+      "rationale": "≥3 formats distincts de proof (texte + photo + vidéo / chiffre + cas + témoignage)",
+      "doctrine_source": "EXTRACTION_DOCTRINE §3 — 4+ types proof minimum",
+      "use_in_reco": "amendment A-07 (doctrine 2026-04-13)"
+    },
+    "benefit_laddering_levels_min": {
+      "value": 3,
+      "rationale": "Feature → Functional benefit → Emotional benefit → (idéalement) Identity benefit",
+      "doctrine_source": "Notion CRO §1 — per_11 (cap si <3 niveaux)"
+    },
+    "form_fields_max_lead_gen": {
+      "value": 5,
+      "rationale": "Lead-gen simple : >5 champs = -11% conversion par champ supplémentaire (Expedia 2014)",
+      "doctrine_source": "anti_patterns.json#form_fields_excess",
+      "exception": "Enterprise B2B ACV >20k€ = champs qualificateurs OK"
+    },
+    "testimonials_distribution_realistic_min_3stars_pct": {
+      "value": 0.10,
+      "rationale": "≥10% des témoignages 3-4⭐ pour crédibilité (Spiegel Northwestern 2017 — sweet spot 4.2-4.5)",
+      "doctrine_source": "anti_patterns.json#testimonials_all_positive_uniform"
+    }
+  },
+
+  "ux": {
+    "mobile_font_body_px_min": {
+      "value": 16,
+      "rationale": "iOS Safari déclenche auto-zoom <16px → friction tactile",
+      "doctrine_source": "anti_patterns.json#mobile_font_under_14px"
+    },
+    "mobile_touch_target_px_min": {
+      "value": 44,
+      "rationale": "Apple HIG / Material Design : 44-48px minimum touch target",
+      "use_in_reco": "Cite cette valeur quand visual_issues mentionne touch targets"
+    },
+    "max_chars_per_line_optimal": {
+      "value": 70,
+      "rationale": "Optimal lecture : 50-75 chars/ligne (Bringhurst typography)",
+      "use_in_reco": "Si >90 chars/ligne → flag readability"
+    },
+    "popup_min_seconds_before_show": {
+      "value": 10,
+      "rationale": "Popup <10s = Google Interstitial Penalty + -15/-30% conversion (CXL/Baymard)",
+      "doctrine_source": "anti_patterns.json#popup_newsletter_under_10s"
+    },
+    "scroll_threshold_for_popup_pct": {
+      "value": 0.50,
+      "rationale": "Popup scroll-triggered ≥50% scroll = engagement minimum requis",
+      "doctrine_source": "guardrails.json#popup_immediate_intrusive"
+    }
+  },
+
+  "coherence": {
+    "scent_trail_keyword_overlap_min_pct": {
+      "value": 0.50,
+      "rationale": "≥50% mots-clés ad → LP H1 (Eisenberg scent trail)",
+      "doctrine_source": "Notion CRO — coh_03 alignement ad/LP"
+    },
+    "tone_consistency_check_required": {
+      "value": true,
+      "rationale": "Ton hero/CTA/footer cohérent (pas de switch tutoiement/vouvoiement, registre)",
+      "doctrine_source": "coh_05 ton signature"
+    }
+  },
+
+  "psychology": {
+    "cialdini_triggers_max_intense_count": {
+      "value": 2,
+      "rationale": "Maximum 2 triggers Cialdini intenses ATF (sinon overselling, perte trust)",
+      "doctrine_source": "anti_patterns.json#urgency_everywhere_diluted"
+    },
+    "scarcity_must_be_real": {
+      "value": true,
+      "rationale": "Timer/scarcity DOIT être réel (server-anchored, stock back-office)",
+      "doctrine_source": "guardrails.json#urgency_fake_countdown — risque DGCCRF L121-1",
+      "regulatory_risk": "DGCCRF Art. L121-1"
+    }
+  },
+
+  "tech": {
+    "https_required": true,
+    "robots_txt_required": true,
+    "sitemap_xml_required": true,
+    "structured_data_required_for_seo": true,
+    "alt_text_min_pct_images": {
+      "value": 0.90,
+      "rationale": "≥90% des images avec alt-text accessible + SEO"
+    }
+  },
+
+  "ice_framework": {
+    "_doc": "ICE Framework V23 — Impact (1-10) × 2 + Confidence (1-10) + Ease (1-10) = priorité reco",
+    "formula": "ice_score = (impact * 2) + confidence + ease",
+    "max_score": 40,
+    "thresholds": {
+      "P0_must_do": 30,
+      "P1_should_do": 22,
+      "P2_could_do": 14,
+      "P3_polish": 8
+    },
+    "impact_lever_by_pillar": {
+      "hero": 2.0,
+      "persuasion": 1.8,
+      "ux": 1.5,
+      "coherence": 1.2,
+      "psycho": 1.5,
+      "tech": 1.0
+    },
+    "impact_modifier_by_criterion": {
+      "hero_01": 2.5,
+      "hero_03": 2.5,
+      "hero_06": 2.5,
+      "per_01": 2.2,
+      "per_04": 2.2,
+      "ux_06": 1.8,
+      "tech_01": 1.8,
+      "psy_01": 1.8
+    },
+    "confidence_default": 7,
+    "confidence_modifiers": {
+      "vision_lifted": 8,
+      "intelligence_lifted": 8,
+      "killer_violated": 9,
+      "no_signal": 5
+    },
+    "ease_default": 5,
+    "ease_modifiers": {
+      "copy_only": 8,
+      "design_only": 6,
+      "dev_minor": 5,
+      "dev_major": 3,
+      "vendor_dependent": 2
+    }
+  }
+}

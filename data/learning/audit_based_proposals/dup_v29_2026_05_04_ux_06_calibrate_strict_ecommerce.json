@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_ux_06_calibrate_strict_ecommerce",
+  "type": "calibrate_threshold",
+  "subtype": "strict_rule_too_punitive",
+  "affected_criteria": [
+    "ux_06"
+  ],
+  "scope": {
+    "business_category": "ecommerce"
+  },
+  "evidence": {
+    "n_pages_evaluated": 31,
+    "pct_critical": 90.3,
+    "pct_top": 3.2,
+    "avg_score_pct": 6.5,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère ux_06 marqué CRITICAL sur 90% des pages de ecommerce (28/31). La règle peut être trop stricte pour ce segment business — vérifier le scoring.critical définition. Score moyen : 6%.",
+  "risk": "Si le pattern est légitime (vraie faiblesse marché), assouplir masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon.",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

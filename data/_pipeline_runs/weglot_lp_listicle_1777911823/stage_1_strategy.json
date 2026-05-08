@@ -1,0 +1,66 @@
+{
+  "layout_plan": "Essai éditorial signé founder, structure journalistique long-form avec 7 raisons empiriques numérotées, CTA unique en fin après conviction complète",
+  "sections": [
+    {
+      "name": "byline",
+      "purpose": "Établir autorité éditoriale — Augustin Prot, founder Weglot, 65 000+ sites internationalisés",
+      "max_words": 30
+    },
+    {
+      "name": "hero_quote_or_h1",
+      "purpose": "Hook éditorial direct — promesse anti-friction basée sur observation empirique du marché",
+      "max_words": 40
+    },
+    {
+      "name": "intro_long_form",
+      "purpose": "Contexte industrie + 3 peurs audience nommées explicitement + annonce des 7 raisons à venir",
+      "max_words": 200
+    },
+    {
+      "name": "reason_1",
+      "purpose": "Speed — dev backlog évité, mise en prod <1h vs 3 mois engineering",
+      "max_words": 150
+    },
+    {
+      "name": "reason_2",
+      "purpose": "SEO préservé — architecture hreflang auto, pas de cannibalisation multi-langue",
+      "max_words": 150
+    },
+    {
+      "name": "reason_3",
+      "purpose": "Qualité traduction — layer humain post-auto disponible, brand voice maintenue",
+      "max_words": 150
+    },
+    {
+      "name": "reason_4",
+      "purpose": "ROI mesurable — analytics par langue, attribution revenue claire",
+      "max_words": 150
+    },
+    {
+      "name": "reason_5",
+      "purpose": "Zero maintenance — updates site source propagent auto, pas de sync manuel",
+      "max_words": 150
+    },
+    {
+      "name": "reason_6",
+      "purpose": "Scalabilité prouvée — 65 000+ sites live, de 2 langues à 110+",
+      "max_words": 150
+    },
+    {
+      "name": "reason_7",
+      "purpose": "Risk mitigation — trial 10j sans CB, rollback instantané si besoin",
+      "max_words": 150
+    },
+    {
+      "name": "single_cta_final",
+      "purpose": "CTA unique post-conviction — trial 10j, friction zero, promesse speed réitérée",
+      "max_words": 60
+    }
+  ],
+  "key_proofs_to_use": [
+    "65 000+ sites internationalisés (base empirique founder)",
+    "Trial 10 jours sans carte bancaire (risk reversal)",
+    "Mise en prod <1h vs 3 mois dev backlog (speed contrast)"
+  ],
+  "hook_concept": "7 raisons empiriques pour lesquelles les SaaS B2B 50-500p internationalisent en <1h au lieu de bloquer 3 mois de dev — analyse founder après 65 000 déploiements"
+}

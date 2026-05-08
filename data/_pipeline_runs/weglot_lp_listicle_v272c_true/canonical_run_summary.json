@@ -1,0 +1,265 @@
+{
+  "version": "GSG_V27_2_C_TRUE_COPY_RERUN_POSTPROCESSED",
+  "mode": "complete",
+  "client": "weglot",
+  "page_type": "lp_listicle",
+  "target_language": "FR",
+  "html_path": "deliverables/weglot-lp_listicle-GSG-V27-2C-TRUE.html",
+  "brief_archive": "data/_briefs_v2/20260506_101522_weglot_com_lp_listicle_GSG_CANONICAL_V27.json",
+  "telemetry": {
+    "wall_seconds_total": 86.6,
+    "wall_seconds_gen": 85.5,
+    "wall_seconds_judge": 0,
+    "tokens_in_gen": 2694,
+    "tokens_out_gen": 3956,
+    "tokens_in_total": 2694,
+    "tokens_out_total": 3956,
+    "cost_estimate_usd": 0.067,
+    "minimal_gate_pass": false
+  },
+  "prompt_meta": {
+    "generation_strategy": "controlled",
+    "copy_prompt_chars": 7867,
+    "plan_sections": 15,
+    "layout_name": "editorial_listicle_longform",
+    "doctrine_upstream": {
+      "business_category": "saas",
+      "criteria_ids": [
+        "per_01",
+        "per_04",
+        "per_08",
+        "psy_05",
+        "hero_06",
+        "coh_01",
+        "coh_03",
+        "coh_04",
+        "coh_06",
+        "ux_01"
+      ],
+      "pillar_weights": {
+        "coherence": 0.4,
+        "hero": 0.1,
+        "persuasion": 0.3,
+        "psycho": 0.1,
+        "ux": 0.1
+      },
+      "evidence_policy": "proof_rich",
+      "page_type_specific_ids": [
+        "list_01",
+        "list_02",
+        "list_03",
+        "list_04",
+        "list_05"
+      ],
+      "excluded_criteria": [
+        "hero_03",
+        "psy_01",
+        "psy_02",
+        "psy_04",
+        "ux_08"
+      ]
+    },
+    "context_pack": {
+      "version": "gsg-generation-context-v27.2",
+      "available_count": 8,
+      "missing_count": 13,
+      "risk_flags": [
+        "proof_light_no_invention_required"
+      ],
+      "audit_dependency_policy": "read_context_only"
+    },
+    "visual_intelligence": {
+      "version": "gsg-visual-intelligence-v27.2",
+      "visual_role": "premium_editorial_argument",
+      "density": "medium_high_editorial",
+      "energy": "clear_high_signal",
+      "proof_visibility": "light_explicit_no_fake_claims",
+      "product_visibility": "high"
+    },
+    "creative_route_contract": {
+      "route_name": "Premium Editorial Argument Route",
+      "risk_level": "premium",
+      "source": "deterministic_visual_intelligence"
+    },
+    "n_critical": 5,
+    "target_language": "FR",
+    "primary_cta_label": "Tester gratuitement 10 jours",
+    "allowed_number_tokens": [
+      "1",
+      "10",
+      "110",
+      "111368",
+      "2",
+      "2026",
+      "3",
+      "30",
+      "50",
+      "500"
+    ],
+    "visual_assets": [
+      "desktop_fold",
+      "lp_leadgen_fold",
+      "mobile_fold",
+      "pricing_fold"
+    ]
+  },
+  "minimal_gates": {
+    "repairs": [
+      "unsourced_percent_de: 80 -> une grande partie de"
+    ],
+    "audit": {
+      "html_integrity_issues": [],
+      "font_violations": [],
+      "english_cta_violations": [],
+      "unsourced_numeric_claims": [],
+      "pass": true
+    },
+    "constraints": {
+      "target_language": "FR",
+      "primary_cta_label": "Tester gratuitement 10 jours",
+      "primary_cta_href": "https://dashboard.weglot.com/register",
+      "target_display_font": "Ppneuemontreal, Arial, sans-serif",
+      "target_body_font": "Inter, sans-serif",
+      "allowed_number_tokens": [
+        "1",
+        "10",
+        "110",
+        "111368",
+        "2",
+        "2026",
+        "3",
+        "30",
+        "50",
+        "500"
+      ]
+    }
+  },
+  "gen": {
+    "model": "claude-sonnet-4-5-20250929",
+    "renderer": "controlled_v27",
+    "copy_prompt_chars": 7867,
+    "tokens_in": 2694,
+    "tokens_out": 3956,
+    "html_chars_fixed": 41808,
+    "fixes": {
+      "applied": true,
+      "before": {
+        "counters_with_zero_default": 0,
+        "counters_total": 0,
+        "scripts_count": 0,
+        "has_counter_js": false,
+        "opacity_zero_count": 0,
+        "has_keyframes": false,
+        "has_reveal_transition": false,
+        "opacity_zero_no_animation": 0,
+        "reveal_pattern_pairs": [],
+        "has_reveal_js": false,
+        "broken_score": 0.0,
+        "broken_severity": "ok"
+      },
+      "after": {
+        "counters_with_zero_default": 0,
+        "counters_total": 0,
+        "scripts_count": 0,
+        "has_counter_js": false,
+        "opacity_zero_count": 0,
+        "has_keyframes": false,
+        "has_reveal_transition": false,
+        "opacity_zero_no_animation": 0,
+        "reveal_pattern_pairs": [],
+        "has_reveal_js": false,
+        "broken_score": 0.0,
+        "broken_severity": "ok"
+      },
+      "fixed_counters": 0,
+      "fixed_reveal_pairs": [],
+      "injected_js": false
+    }
+  },
+  "postprocess_meta": {
+    "rerun_after_unsourced_numeric_repair": true
+  },
+  "qa": {
+    "path": "deliverables/gsg_demo/weglot-lp_listicle-v272c-true-qa.json",
+    "pass": true,
+    "desktop_screenshot": "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society/deliverables/gsg_demo/weglot-lp_listicle-v272c-true-desktop.png",
+    "mobile_screenshot": "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society/deliverables/gsg_demo/weglot-lp_listicle-v272c-true-mobile.png",
+    "desktop": {
+      "h1": 1,
+      "heroVisual": true,
+      "h1OverlapsHeroVisual": false,
+      "visualSystem": "gsg-visual-system-v27.2-c",
+      "reasons": 10,
+      "proofStripItems": 3,
+      "overflow": false,
+      "bodyChars": 11846
+    },
+    "mobile": {
+      "h1": 1,
+      "heroVisual": true,
+      "h1OverlapsHeroVisual": false,
+      "visualSystem": "gsg-visual-system-v27.2-c",
+      "reasons": 10,
+      "proofStripItems": 3,
+      "overflow": false,
+      "bodyChars": 11795
+    }
+  },
+  "multi_judge": {
+    "path": "data/_pipeline_runs/weglot_lp_listicle_v272c_true/multi_judge.json",
+    "final": {
+      "final_score_pct": 70.9,
+      "weighted_score_pct": 70.9,
+      "verdict": "🟡 Bon",
+      "impl_penalty_pct": 0.0,
+      "breakdown": {
+        "doctrine_pct": 67.5,
+        "doctrine_weight": 0.7,
+        "humanlike_pct": 78.8,
+        "humanlike_weight": 0.3
+      },
+      "killer_rules_violated": false,
+      "killer_violations": []
+    },
+    "totals_meta": {
+      "wall_seconds": 135.9,
+      "tokens_in": 60316,
+      "tokens_out": 13372,
+      "cost_estimate_usd": 0.382
+    },
+    "doctrine_totals": {
+      "doctrine_score": 81.0,
+      "doctrine_max": 120.0,
+      "doctrine_score_raw": 81.0,
+      "total": 81.0,
+      "total_max": 120.0,
+      "total_pct": 67.5,
+      "tier": "Bon",
+      "n_top": 21,
+      "n_ok": 12,
+      "n_critical": 7,
+      "n_na": 1
+    },
+    "humanlike_totals": {
+      "humanlike_score": 63,
+      "humanlike_max": 80,
+      "total": 63,
+      "total_max": 80,
+      "tier": "✅ Excellent 60-71"
+    },
+    "implementation": {
+      "counters_with_zero_default": 0,
+      "counters_total": 0,
+      "scripts_count": 0,
+      "has_counter_js": false,
+      "opacity_zero_count": 0,
+      "has_keyframes": false,
+      "has_reveal_transition": false,
+      "opacity_zero_no_animation": 0,
+      "reveal_pattern_pairs": [],
+      "has_reveal_js": false,
+      "broken_score": 0.0,
+      "broken_severity": "ok"
+    }
+  }
+}

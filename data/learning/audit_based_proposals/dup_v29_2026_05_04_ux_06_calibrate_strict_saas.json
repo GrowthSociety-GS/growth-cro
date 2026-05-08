@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_ux_06_calibrate_strict_saas",
+  "type": "calibrate_threshold",
+  "subtype": "strict_rule_too_punitive",
+  "affected_criteria": [
+    "ux_06"
+  ],
+  "scope": {
+    "business_category": "saas"
+  },
+  "evidence": {
+    "n_pages_evaluated": 37,
+    "pct_critical": 89.2,
+    "pct_top": 10.8,
+    "avg_score_pct": 10.8,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère ux_06 marqué CRITICAL sur 89% des pages de saas (33/37). La règle peut être trop stricte pour ce segment business — vérifier le scoring.critical définition. Score moyen : 11%.",
+  "risk": "Si le pattern est légitime (vraie faiblesse marché), assouplir masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon.",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

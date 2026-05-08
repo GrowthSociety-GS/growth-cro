@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:10:43.929575Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 26.8,
+  "log": [
+    {
+      "client": "linear",
+      "pageType": "blog",
+      "url": "https://linear.app/now",
+      "ok": true,
+      "elapsed_s": 12.5,
+      "sections": 51,
+      "elements": 1234
+    },
+    {
+      "client": "linear",
+      "pageType": "home",
+      "url": "https://linear.app",
+      "ok": true,
+      "elapsed_s": 14.3,
+      "sections": 98,
+      "elements": 2203
+    }
+  ]
+}

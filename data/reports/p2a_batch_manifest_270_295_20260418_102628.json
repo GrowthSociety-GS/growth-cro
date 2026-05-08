@@ -1,0 +1,38 @@
+{
+  "runAt": "2026-04-18T10:26:28.555652Z",
+  "doctrine": "v3.2.0-draft",
+  "phase": "P2.A",
+  "pages_total": 291,
+  "pages_ok": 21,
+  "pages_err": 0,
+  "elapsed_seconds": 12.5,
+  "applicability": {
+    "applied_count": 5,
+    "rules_fired": {
+      "rule_app_hero_required": 1,
+      "rule_blog_scan_required": 2,
+      "rule_ecom_proof_required": 1,
+      "rule_saas_coherence_required": 1
+    },
+    "business_types": {
+      "ecommerce": 9,
+      "app": 5,
+      "saas": 6,
+      "lead_gen": 1
+    },
+    "required_hits": 6,
+    "bonus_hits": 0,
+    "na_removed": 0,
+    "optional_flags": 0,
+    "with_bt_weighted": 21,
+    "bt_weighted_delta_count": 21
+  },
+  "contextual": {
+    "applied_count": 1,
+    "rules_fired": {
+      "R3_FIVE_SEC_RESCUE": 1
+    },
+    "total_delta": 1.5
+  },
+  "errors": []
+}

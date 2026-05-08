@@ -1,0 +1,30 @@
+{
+  "desktop": {
+    "title": "10 raisons d'internationaliser votre site SaaS en 2026",
+    "h1": 1,
+    "h1Text": "10 raisons d'internationaliser votre site en 2026",
+    "reasons": 10,
+    "cta": true,
+    "viewportWidth": 1440,
+    "scrollWidth": 1440,
+    "maxRight": 1440,
+    "overflow": false,
+    "scrollHeight": 9069,
+    "textLength": 8539,
+    "errors": []
+  },
+  "mobile": {
+    "title": "10 raisons d'internationaliser votre site SaaS en 2026",
+    "h1": 1,
+    "h1Text": "10 raisons d'internationaliser votre site en 2026",
+    "reasons": 10,
+    "cta": true,
+    "viewportWidth": 390,
+    "scrollWidth": 390,
+    "maxRight": 390,
+    "overflow": false,
+    "scrollHeight": 9501,
+    "textLength": 8539,
+    "errors": []
+  }
+}

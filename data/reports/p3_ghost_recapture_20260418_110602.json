@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:06:02.137706Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 36.2,
+  "log": [
+    {
+      "client": "monday",
+      "pageType": "home",
+      "url": "https://monday.com/",
+      "ok": true,
+      "elapsed_s": 20.9,
+      "sections": 60,
+      "elements": 4113
+    },
+    {
+      "client": "monday",
+      "pageType": "lp",
+      "url": "https://monday.com/crm",
+      "ok": true,
+      "elapsed_s": 15.2,
+      "sections": 41,
+      "elements": 3020
+    }
+  ]
+}

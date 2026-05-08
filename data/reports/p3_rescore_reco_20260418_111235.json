@@ -1,0 +1,325 @@
+{
+  "runAt": "2026-04-18T11:12:35.117592Z",
+  "phase": "P3",
+  "total": 39,
+  "ran": 39,
+  "score_ok": 39,
+  "score_fail": 0,
+  "reco_ok": 39,
+  "reco_fail": 0,
+  "elapsed_s": 25.6,
+  "log": [
+    {
+      "client": "airbnb",
+      "pageType": "blog",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "airbnb",
+      "pageType": "lp_leadgen",
+      "score_ok": true,
+      "score_elapsed": 0.5,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "aircall",
+      "pageType": "pdp",
+      "score_ok": true,
+      "score_elapsed": 0.5,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "aircall",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.7,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "big_moustache",
+      "pageType": "collection",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "big_moustache",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.3,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "blablacar",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.2,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "captain_contrat",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.3,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "contentsquare",
+      "pageType": "blog",
+      "score_ok": true,
+      "score_elapsed": 0.5,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "contentsquare",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.9,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "leboncoin_pro",
+      "pageType": "collection",
+      "score_ok": true,
+      "score_elapsed": 0.2,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "manomano",
+      "pageType": "lp_leadgen",
+      "score_ok": true,
+      "score_elapsed": 0.3,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "manomano",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.3,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "payfit",
+      "pageType": "collection",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "payfit",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.7,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "petit_bambou",
+      "pageType": "lp_leadgen",
+      "score_ok": true,
+      "score_elapsed": 0.3,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "pretto",
+      "pageType": "quiz_vsl",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "respire",
+      "pageType": "collection",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "respire",
+      "pageType": "pdp",
+      "score_ok": true,
+      "score_elapsed": 0.3,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "emma_matelas",
+      "pageType": "home",
+      "score_ok": true,
+      "score_elapsed": 0.6,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "emma_matelas",
+      "pageType": "lp",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "emma_matelas",
+      "pageType": "pdp",
+      "score_ok": true,
+      "score_elapsed": 0.5,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "gymshark",
+      "pageType": "collection",
+      "score_ok": true,
+      "score_elapsed": 1.1,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "gymshark",
+      "pageType": "home",
+      "score_ok": true,
+      "score_elapsed": 1.2,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "gymshark",
+      "pageType": "pdp",
+      "score_ok": true,
+      "score_elapsed": 0.6,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "monday",
+      "pageType": "home",
+      "score_ok": true,
+      "score_elapsed": 0.7,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "monday",
+      "pageType": "lp",
+      "score_ok": true,
+      "score_elapsed": 0.6,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "monday",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.6,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "revolut",
+      "pageType": "home",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "revolut",
+      "pageType": "lp",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "revolut",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 0.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "stripe",
+      "pageType": "home",
+      "score_ok": true,
+      "score_elapsed": 0.6,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "stripe",
+      "pageType": "lp",
+      "score_ok": true,
+      "score_elapsed": 1.0,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "stripe",
+      "pageType": "pricing",
+      "score_ok": true,
+      "score_elapsed": 1.0,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "le_slip_francais",
+      "pageType": "pdp",
+      "score_ok": true,
+      "score_elapsed": 1.4,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "linear",
+      "pageType": "blog",
+      "score_ok": true,
+      "score_elapsed": 0.8,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "linear",
+      "pageType": "home",
+      "score_ok": true,
+      "score_elapsed": 0.8,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "linear",
+      "pageType": "lp_sales",
+      "score_ok": true,
+      "score_elapsed": 0.6,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    },
+    {
+      "client": "linear",
+      "pageType": "quiz_vsl",
+      "score_ok": true,
+      "score_elapsed": 0.9,
+      "reco_ok": true,
+      "reco_elapsed": 0.1
+    }
+  ]
+}

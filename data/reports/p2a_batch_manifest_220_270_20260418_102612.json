@@ -1,0 +1,43 @@
+{
+  "runAt": "2026-04-18T10:26:12.484113Z",
+  "doctrine": "v3.2.0-draft",
+  "phase": "P2.A",
+  "pages_total": 291,
+  "pages_ok": 50,
+  "pages_err": 0,
+  "elapsed_seconds": 26.8,
+  "applicability": {
+    "applied_count": 15,
+    "rules_fired": {
+      "rule_blog_scan_required": 8,
+      "rule_ecom_proof_required": 3,
+      "rule_saas_coherence_required": 2,
+      "rule_checkout_trust_required": 1,
+      "rule_app_hero_required": 1
+    },
+    "business_types": {
+      "lead_gen": 6,
+      "ecommerce": 21,
+      "saas": 17,
+      "fintech": 3,
+      "app": 3
+    },
+    "required_hits": 20,
+    "bonus_hits": 0,
+    "na_removed": 0,
+    "optional_flags": 0,
+    "with_bt_weighted": 47,
+    "bt_weighted_delta_count": 47
+  },
+  "contextual": {
+    "applied_count": 5,
+    "rules_fired": {
+      "R3_FIVE_SEC_RESCUE": 2,
+      "R7_COHERENCE_QUORUM": 1,
+      "R4_BENEFIT_FLOW_RESCUE": 1,
+      "R2_PROOF_RESCUE": 2
+    },
+    "total_delta": 6.5
+  },
+  "errors": []
+}

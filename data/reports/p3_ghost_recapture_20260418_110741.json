@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:07:41.385508Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 39.5,
+  "log": [
+    {
+      "client": "stripe",
+      "pageType": "home",
+      "url": "https://stripe.com/",
+      "ok": true,
+      "elapsed_s": 22.0,
+      "sections": 76,
+      "elements": 2466
+    },
+    {
+      "client": "stripe",
+      "pageType": "lp",
+      "url": "https://stripe.com/payments",
+      "ok": true,
+      "elapsed_s": 17.5,
+      "sections": 254,
+      "elements": 6945
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_per_09_calibrate_strict_fintech",
+  "type": "calibrate_threshold",
+  "subtype": "strict_rule_too_punitive",
+  "affected_criteria": [
+    "per_09"
+  ],
+  "scope": {
+    "business_category": "fintech"
+  },
+  "evidence": {
+    "n_pages_evaluated": 8,
+    "pct_critical": 87.5,
+    "pct_top": 12.5,
+    "avg_score_pct": 12.5,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère per_09 marqué CRITICAL sur 88% des pages de fintech (7/8). La règle peut être trop stricte pour ce segment business — vérifier le scoring.critical définition. Score moyen : 12%.",
+  "risk": "Si le pattern est légitime (vraie faiblesse marché), assouplir masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon.",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

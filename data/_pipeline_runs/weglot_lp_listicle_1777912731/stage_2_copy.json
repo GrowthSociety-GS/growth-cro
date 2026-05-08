@@ -1,0 +1,52 @@
+{
+  "byline": "Par Augustin Prot, cofondateur Weglot · 15 janvier 2025",
+  "hero_quote_or_h1": "Pourquoi 7 projets d'internationalisation SaaS sur 10 échouent avant la fin de l'année 1",
+  "intro_long_form": "Entre 2019 et 2024, j'ai vu 65 000 sites SaaS passer par Weglot. Certains ont multiplié leur ARR par 3 en 18 mois grâce au multi-langue. D'autres ont abandonné après 6 mois, revenus au mono-langue anglais, backlog dev explosé, SEO cassé. La différence ne tient jamais à la qualité de la traduction elle-même. Elle tient à 5 décisions stratégiques prises — ou évitées — dans les 90 premiers jours du projet. Ces décisions déterminent si votre internationalisation sera un levier de croissance mesurable ou un gouffre de ressources engineering. Voici les 5 raisons concrètes pour lesquelles l'internationalisation SaaS échoue, analysées depuis 50+ déploiements que j'ai accompagnés personnellement.",
+  "numbered_reasons": [
+    {
+      "number": 1,
+      "title": "Vous traitez l'internationalisation comme un projet dev, pas comme un levier growth",
+      "body": "La première erreur : confier l'internationalisation à l'équipe engineering sans implication du Head of Growth. Résultat prévisible — 3 mois de backlog pour traduire le site, zéro stratégie de priorisation marché, aucun KPI de conversion multi-langue défini. J'ai vu un SaaS B2B dépenser 40K€ de dev pour traduire 18 langues simultanément, alors que 80% de leur pipeline international venait de 3 pays (Allemagne, France, Espagne). Ils ont mis 9 mois à réaliser que leurs pages pricing traduites convertissaient à 0,4% vs 2,1% en anglais — non pas à cause de la traduction, mais parce qu'ils affichaient des prix USD sur toutes les versions. L'internationalisation réussie commence par une hypothèse growth testable : quel marché, quel segment ICP, quelle metric de succès à 90 jours. Sans ça, vous construisez une infrastructure multi-langue sans business case."
+    },
+    {
+      "number": 2,
+      "title": "Vous sous-estimez la complexité SEO multi-langue d'un facteur 10",
+      "body": "Le SEO monolingue, vous maîtrisez. Mais le SEO multi-langue est un sport différent — hreflang, URL structure, canonical tags, sitemap par langue, duplicate content cross-langue. Une seule erreur de configuration et Google indexe vos 5 versions de langue comme du contenu dupliqué. J'ai audité un SaaS qui avait lancé FR/DE/ES en 2023 avec une agence offshore. Résultat après 6 mois : trafic organique divisé par 2 sur toutes les langues, y compris l'anglais. Leur erreur : hreflang mal configuré + canonical tags pointant tous vers EN, signalant à Google que les autres langues étaient du duplicate. Ils ont perdu 18 mois de SEO authority. La vraie question n'est pas 'peut-on traduire le site', mais 'qui dans l'équipe maîtrise l'implémentation technique SEO multi-langue et peut auditer les 47 points de configuration critique'. Si la réponse est 'personne', vous allez casser votre SEO existant."
+    },
+    {
+      "number": 3,
+      "title": "Vous choisissez entre vitesse et qualité au lieu de les combiner",
+      "body": "Faux dilemme classique : soit traduction automatique rapide mais qualité médiocre, soit traduction humaine lente mais brand-safe. Les équipes passent 6 semaines à débattre, puis choisissent l'une des deux et échouent. La traduction auto seule produit des pages produit qui sonnent faux ('Démarrez votre essai gratuit' devient 'Commencez votre test sans frais' — techniquement correct, tonalité morte). La traduction 100% humaine prend 8 semaines pour le site complet, puis vous devez re-traduire chaque update produit avec 15 jours de délai. J'ai vu un SaaS marketing dépenser 25K€ en traduction humaine premium, puis abandonner les updates pendant 4 mois parce que le workflow était ingérable. Leur site français affichait des features dépréciées pendant que la version anglaise évoluait. L'approche qui fonctionne : traduction automatique neurale + post-édition humaine ciblée sur les pages à fort impact (pricing, homepage, top 10 landing pages SEO). Vous obtenez 95% de la qualité en 10% du temps."
+    },
+    {
+      "number": 4,
+      "title": "Vous ne mesurez rien pendant les 90 premiers jours",
+      "body": "Lancement multi-langue en production. Trois mois plus tard, le CEO demande 'ça marche ?'. Silence. Personne n'a configuré de tracking par langue dans Amplitude. Personne ne peut dire si les signups français convertissent mieux ou moins bien que les anglais. Personne ne sait quel marché génère le meilleur LTV. L'internationalisation devient un acte de foi au lieu d'un levier growth piloté par la data. Un SaaS RH que j'ai accompagné a découvert après 6 mois que leur trafic allemand avait un bounce rate de 73% vs 34% en anglais. Cause : leur chatbot support ne fonctionnait qu'en anglais, créant une expérience cassée pour les visiteurs DE. Ils auraient pu corriger ça en semaine 2 avec le bon tracking. Les metrics critiques à configurer jour 1 : conversion rate par langue, bounce rate par langue, time-to-signup par langue, support ticket language distribution. Sans ça, vous pilotez à l'aveugle."
+    },
+    {
+      "number": 5,
+      "title": "Vous traitez toutes les langues comme un clone de l'anglais",
+      "body": "Erreur fatale : traduire mot à mot votre site anglais sans adapter le messaging aux spécificités culturelles et réglementaires de chaque marché. Un SaaS fintech US a lancé en France avec leur page pricing traduite littéralement — 'No credit card required' est devenu 'Aucune carte bancaire requise'. Techniquement correct. Sauf qu'en France, la friction n°1 n'est pas la carte bancaire, c'est la conformité RGPD et l'hébergement des données. Leur messaging passait à côté de l'objection principale. Résultat : conversion FR à 0,6% vs 2,8% US. Ils ont dû réécrire 40% de leur copy français en partant des interviews clients FR, pas de la traduction EN. Autre exemple : un SaaS qui affichait des testimonials de clients américains sur toutes les versions de langue. En Allemagne, ça ne résonne pas — le marché veut voir des logos d'entreprises locales, pas des startups Silicon Valley. L'internationalisation réussie exige une recherche utilisateur locale, pas juste une traduction."
+    }
+  ],
+  "pull_quotes": [
+    "L'internationalisation réussie commence par une hypothèse growth testable, pas par un projet dev de 3 mois",
+    "Une seule erreur hreflang et vous perdez 18 mois de SEO authority sur toutes vos langues",
+    "Sans tracking par langue configuré jour 1, vous pilotez votre expansion internationale à l'aveugle"
+  ],
+  "stat_callouts": [
+    {
+      "number": "65 000+",
+      "caption": "sites SaaS déployés multi-langue via Weglot depuis 2016"
+    },
+    {
+      "number": "73%",
+      "caption": "bounce rate observé sur un marché mal localisé vs 34% sur version source"
+    }
+  ],
+  "cta_final": {
+    "headline": "Testez une approche qui combine vitesse et qualité",
+    "button": "Démarrer l'essai gratuit 10 jours",
+    "reassurance": "Installation en 10 minutes · Aucune ligne de code · SEO multi-langue configuré automatiquement"
+  }
+}

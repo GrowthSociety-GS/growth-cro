@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:06:59.342393Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 23.5,
+  "log": [
+    {
+      "client": "revolut",
+      "pageType": "lp",
+      "url": "https://www.revolut.com/business/",
+      "ok": true,
+      "elapsed_s": 11.7,
+      "sections": 55,
+      "elements": 1270
+    },
+    {
+      "client": "revolut",
+      "pageType": "pricing",
+      "url": "https://www.revolut.com/pricing/",
+      "ok": true,
+      "elapsed_s": 11.8,
+      "sections": 51,
+      "elements": 1108
+    }
+  ]
+}

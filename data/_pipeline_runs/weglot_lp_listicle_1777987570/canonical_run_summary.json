@@ -1,0 +1,50 @@
+{
+  "version": "GSG_CANONICAL_MINIMAL_V27",
+  "generation_path": "minimal",
+  "mode": "complete",
+  "client": "weglot",
+  "page_type": "lp_listicle",
+  "target_language": "FR",
+  "html_path": "deliverables/weglot-lp_listicle-GSG-CONTROLLED-V27.html",
+  "brief_archive": "data/_briefs_v2/20260505_152610_weglot_com_lp_listicle_GSG_CANONICAL_V27.json",
+  "telemetry": {
+    "wall_seconds_total": 64.6,
+    "wall_seconds_gen": 64.1,
+    "wall_seconds_judge": 0,
+    "tokens_in_gen": 2690,
+    "tokens_out_gen": 3037,
+    "tokens_in_total": 2690,
+    "tokens_out_total": 3037,
+    "cost_estimate_usd": 0.054,
+    "minimal_gate_pass": true
+  },
+  "prompt_meta": {
+    "generation_strategy": "controlled",
+    "copy_prompt_chars": 7774,
+    "plan_sections": 15,
+    "layout_name": "editorial_listicle_longform",
+    "n_critical": 5,
+    "target_language": "FR",
+    "primary_cta_label": "Tester gratuitement 10 jours",
+    "allowed_number_tokens": [
+      "1",
+      "10",
+      "110",
+      "111368",
+      "2",
+      "2026",
+      "3",
+      "30",
+      "50",
+      "500"
+    ]
+  },
+  "minimal_gates": {
+    "html_integrity_issues": [],
+    "font_violations": [],
+    "english_cta_violations": [],
+    "unsourced_numeric_claims": [],
+    "pass": true,
+    "note": "Recomputed after structural listicle reason numbers 01-12 were excluded from numeric-claim checks."
+  }
+}

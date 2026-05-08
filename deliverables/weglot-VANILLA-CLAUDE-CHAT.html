@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internationaliser un SaaS en 2026 — l'enquête contre-intuitive — Augustin Prot, Weglot</title>
+<meta name="description" content="Sept observations contre-intuitives après 65 000 déploiements multilingues. Pourquoi le dev backlog n'est pas le problème. Pourquoi le SEO se répare en 48h. Pourquoi 90% des équipes pivotent au mauvais moment.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* Palette */
+  --weglot: #493ce0;
+  --weglot-deep: #2d23a8;
+  --weglot-soft: #ebe9fb;
+  --ink: #14111f;
+  --ink-2: #2a2440;
+  --paper: #f8f7f4;
+  --paper-2: #f0eee8;
+  --line: rgba(20,17,31,0.12);
+  --line-strong: rgba(20,17,31,0.22);
+  --muted: #6b647e;
+  --accent: #d97757;
+
+  /* Typography */
+  --display: 'Spectral', 'Times New Roman', Georgia, serif;
+  --body: 'DM Sans', -apple-system, system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+
+  /* Scale */
+  --max: 1280px;
+  --reading: 680px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --slow: 0.8s;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Grain overlay subtle — texture papier */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ───── NAV ───── */
+.nav {
+  position: relative;
+  z-index: 10;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+  background: rgba(248,247,244,0.8);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  position: sticky;
+  top: 0;
+}
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 22px; letter-spacing: -0.02em; }
+.brand em { font-style: normal; color: var(--weglot); }
+.nav-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.nav-meta a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.2s; }
+.nav-meta a:hover { color: var(--weglot); }
+
+/* ───── BYLINE ───── */
+.byline {
+  max-width: var(--max);
+  margin: 64px auto 0;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  z-index: 5;
+}
+.byline-mono {
+  width: 56px; height: 56px;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.byline-text { display: flex; flex-direction: column; gap: 2px; }
+.byline-name { font-weight: 500; font-size: 15px; color: var(--ink); }
+.byline-role { font-size: 14px; color: var(--muted); }
+.byline-role em { font-style: italic; color: var(--ink-2); }
+
+.kicker {
+  max-width: var(--max);
+  margin: 88px auto 18px;
+  padding: 0 32px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--weglot);
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.kicker::before, .kicker::after { content: ""; height: 1px; flex: 0 0 32px; background: var(--weglot); opacity: 0.4; }
+
+/* ───── HERO H1 ───── */
+.hero {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 32px 48px;
+  position: relative;
+  z-index: 5;
+}
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(3rem, 8vw, 6.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  max-width: 14ch;
+  margin-bottom: 32px;
+}
+.hero h1 em { font-style: italic; color: var(--weglot); }
+.dek {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  line-height: 1.4;
+  color: var(--ink-2);
+  max-width: 56ch;
+  margin-bottom: 40px;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.hero-meta span strong { display: block; color: var(--ink); font-family: var(--body); font-size: 14px; text-transform: none; letter-spacing: 0; margin-top: 2px; font-weight: 500; }
+
+/* ───── HERO SCHEMATIC SVG ───── */
+.hero-schematic {
+  max-width: var(--max);
+  margin: 24px auto 80px;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+.hero-schematic-card {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 56px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-schematic-card::before {
+  content: "FIG. 01 — TAUX D'ÉCHEC PAR TYPE D'ERREUR";
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+.bars-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 16px;
+}
+.bar-row { display: grid; grid-template-columns: 1fr 4fr 70px; gap: 20px; align-items: center; font-size: 14px; }
+.bar-label { font-weight: 500; color: var(--ink-2); }
+.bar-track { height: 28px; background: var(--paper); border-radius: 2px; position: relative; overflow: hidden; }
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--weglot) 0%, var(--weglot-deep) 100%);
+  width: 0;
+  transition: width 1.4s var(--ease);
+  position: relative;
+}
+.bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(45deg, rgba(255,255,255,0.08) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.08) 75%, transparent 75%);
+  background-size: 16px 16px;
+}
+.bar-value { font-family: var(--mono); font-weight: 500; font-size: 14px; color: var(--weglot-deep); text-align: right; }
+.bar-row.is-pale .bar-fill { background: var(--ink); opacity: 0.8; }
+.bar-row.is-pale .bar-value { color: var(--ink); }
+
+/* ───── ARTICLE BODY ───── */
+.article {
+  max-width: var(--reading);
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+.article p {
+  font-size: 18.5px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin-bottom: 28px;
+}
+.article p:first-of-type::first-letter {
+  font-family: var(--display);
+  font-weight: 500;
+  float: left;
+  font-size: 5.4em;
+  line-height: 0.85;
+  margin: 8px 14px -4px 0;
+  color: var(--weglot);
+}
+.article a { color: var(--weglot); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.article strong { color: var(--ink); font-weight: 600; }
+
+/* ───── REASON SECTIONS ───── */
+.reason {
+  max-width: var(--max);
+  margin: 96px auto 0;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+.reason-grid {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.reason-num {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(4.5rem, 8vw, 7rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--weglot);
+  text-align: right;
+  position: sticky;
+  top: 130px;
+  font-feature-settings: 'lnum';
+}
+.reason-num::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--weglot);
+  margin: 18px 0 0 auto;
+}
+.reason-content { max-width: var(--reading); }
+.reason h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 32px;
+  max-width: 22ch;
+}
+.reason h2 em { font-style: italic; color: var(--weglot); }
+.reason p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+}
+.reason p strong { color: var(--ink); font-weight: 600; }
+
+/* Pull quote — typo dominante */
+.pq {
+  margin: 40px 0;
+  padding: 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  line-height: 1.35;
+  color: var(--ink);
+  letter-spacing: -0.012em;
+  position: relative;
+  padding-left: 48px;
+}
+.pq::before {
+  content: "“";
+  position: absolute;
+  left: -8px;
+  top: -32px;
+  font-size: 7rem;
+  line-height: 1;
+  color: var(--weglot);
+  font-style: normal;
+  opacity: 0.3;
+}
+.pq cite { display: block; margin-top: 16px; font-family: var(--body); font-style: normal; font-size: 13px; letter-spacing: 0.02em; color: var(--muted); padding-left: 0; }
+
+/* Stat callout — chiffres énormes inline */
+.stat {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 32px 0;
+  margin: 32px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stat-num {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(4rem, 9vw, 6.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--weglot);
+  flex-shrink: 0;
+  font-feature-settings: 'lnum' 1;
+}
+.stat-cap {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  font-style: italic;
+  font-family: var(--display);
+  max-width: 30ch;
+}
+
+/* Marginalia — mini callout sur le côté */
+.aside {
+  margin: 36px 0;
+  padding: 24px 28px;
+  background: var(--weglot-soft);
+  border-left: 3px solid var(--weglot);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-style: italic;
+  font-family: var(--display);
+}
+.aside strong { color: var(--weglot-deep); font-style: normal; font-family: var(--body); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; display: block; margin-bottom: 8px; font-weight: 600; }
+
+/* ───── HORIZONTAL DIVIDER ELEMENTS ───── */
+.section-divider {
+  max-width: var(--max);
+  margin: 96px auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+.section-divider svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+  color: var(--line-strong);
+}
+
+/* ───── KEY TAKEAWAY BIG ───── */
+.takeaway {
+  max-width: var(--max);
+  margin: 120px auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+.takeaway-card {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 80px 64px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.takeaway-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--weglot) 0%, transparent 60%);
+  opacity: 0.35;
+  filter: blur(60px);
+  pointer-events: none;
+}
+.takeaway-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 28px;
+}
+.takeaway h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 2;
+}
+.takeaway h3 em { font-style: italic; color: var(--weglot-soft); }
+.takeaway p {
+  font-size: 18px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.78);
+  max-width: 56ch;
+  position: relative;
+  z-index: 2;
+}
+
+/* ───── FINAL CTA ───── */
+.cta-final {
+  max-width: var(--reading);
+  margin: 120px auto 80px;
+  padding: 0 32px;
+  text-align: left;
+  position: relative;
+  z-index: 5;
+}
+.cta-final p {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 36px;
+}
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 28px;
+  background: var(--weglot);
+  color: var(--paper);
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.cta-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--weglot-deep);
+  transform: translateY(100%);
+  transition: transform 0.3s var(--ease);
+}
+.cta-button span { position: relative; z-index: 1; }
+.cta-button:hover::before { transform: translateY(0); }
+.cta-button svg { position: relative; z-index: 1; transition: transform 0.3s var(--ease); }
+.cta-button:hover svg { transform: translateX(4px); }
+.cta-sub { display: block; margin-top: 16px; font-size: 13px; color: var(--muted); font-family: var(--mono); letter-spacing: 0.04em; }
+
+/* ───── FOOTER ───── */
+footer {
+  max-width: var(--max);
+  margin: 120px auto 0;
+  padding: 56px 32px;
+  border-top: 1px solid var(--line);
+  position: relative;
+  z-index: 5;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px;
+  margin-bottom: 56px;
+}
+footer h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.foot-brand {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.foot-brand em { font-style: normal; color: var(--weglot); }
+.foot-tagline { color: var(--muted); font-size: 14px; max-width: 36ch; line-height: 1.5; }
+footer ul { list-style: none; }
+footer li { margin-bottom: 10px; }
+footer a { color: var(--ink-2); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+footer a:hover { color: var(--weglot); }
+.foot-meta { padding-top: 28px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; color: var(--muted); }
+
+/* ───── PROGRESS RAIL (sticky right) ───── */
+.progress-rail {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+.progress-rail.is-visible { opacity: 1; }
+.progress-rail .pr-item { display: flex; align-items: center; gap: 12px; transition: color 0.3s; }
+.progress-rail .pr-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  transition: background 0.3s, transform 0.3s;
+}
+.progress-rail .pr-item.is-active .pr-dot { background: var(--weglot); transform: scale(1.5); }
+.progress-rail .pr-item.is-active { color: var(--ink); }
+
+/* ───── SCROLL REVEAL ───── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+.reveal.is-in { opacity: 1; transform: translateY(0); }
+
+/* ───── MOBILE ───── */
+@media (max-width: 880px) {
+  .progress-rail { display: none; }
+  .reason-grid { grid-template-columns: 1fr; gap: 16px; }
+  .reason-num { position: static; text-align: left; font-size: 4rem; }
+  .reason-num::after { margin: 12px 0 0 0; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .foot-meta { flex-direction: column; gap: 12px; }
+  .takeaway-card { padding: 56px 32px; }
+  .stat { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .article p:first-of-type::first-letter { font-size: 4em; }
+  .bar-row { grid-template-columns: 1fr; gap: 6px; }
+  .bar-row .bar-label { font-size: 13px; }
+  .bar-row .bar-value { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">Weglot<em>·</em>Press</div>
+    <div class="nav-meta"><a href="https://weglot.com">retour à weglot.com</a></div>
+  </div>
+</nav>
+
+<aside class="progress-rail" id="progressRail">
+  <div class="pr-item" data-anchor="r1"><span class="pr-dot"></span><span>01 · Backlog</span></div>
+  <div class="pr-item" data-anchor="r2"><span class="pr-dot"></span><span>02 · SEO</span></div>
+  <div class="pr-item" data-anchor="r3"><span class="pr-dot"></span><span>03 · Traduction auto</span></div>
+  <div class="pr-item" data-anchor="r4"><span class="pr-dot"></span><span>04 · Workflow</span></div>
+  <div class="pr-item" data-anchor="r5"><span class="pr-dot"></span><span>05 · Sales</span></div>
+  <div class="pr-item" data-anchor="r6"><span class="pr-dot"></span><span>06 · Mauvaise langue</span></div>
+  <div class="pr-item" data-anchor="r7"><span class="pr-dot"></span><span>07 · Maintenance</span></div>
+</aside>
+
+<header class="byline">
+  <div class="byline-mono">AP</div>
+  <div class="byline-text">
+    <div class="byline-name">Augustin Prot</div>
+    <div class="byline-role">Co-fondateur, Weglot · <em>Issue 14 · Mars 2026</em></div>
+  </div>
+</header>
+
+<div class="kicker">Field Notes — Internationalization</div>
+
+<section class="hero">
+  <h1>Sept observations <em>contre-intuitives</em> après 65 000 SaaS internationalisés.</h1>
+  <p class="dek">Le backlog n'est pas le problème. Le SEO se répare en 48 heures. Et 90 % des équipes pivotent au mauvais moment. Voici ce qu'on a appris en accompagnant 65 000 sites depuis 2016 — et ce que personne ne vous dit avant que vous lanciez l'allemand.</p>
+  <div class="hero-meta">
+    <span>Lecture · <strong>14 minutes</strong></span>
+    <span>Sources · <strong>65 000 déploiements</strong></span>
+    <span>Sujet · <strong>SaaS B2B 50–500 personnes</strong></span>
+  </div>
+</section>
+
+<section class="hero-schematic">
+  <div class="hero-schematic-card reveal">
+    <div class="bars-grid">
+      <div class="bar-row">
+        <div class="bar-label">Mauvais moment de lancement</div>
+        <div class="bar-track"><div class="bar-fill" data-w="78"></div></div>
+        <div class="bar-value">78 %</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Workflow de mise à jour absent</div>
+        <div class="bar-track"><div class="bar-fill" data-w="64"></div></div>
+        <div class="bar-value">64 %</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Désalignement sales / contenu localisé</div>
+        <div class="bar-track"><div class="bar-fill" data-w="52"></div></div>
+        <div class="bar-value">52 %</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Traduction automatique mal calibrée</div>
+        <div class="bar-track"><div class="bar-fill" data-w="41"></div></div>
+        <div class="bar-value">41 %</div>
+      </div>
+      <div class="bar-row is-pale">
+        <div class="bar-label">SEO multilingue cassé techniquement</div>
+        <div class="bar-track"><div class="bar-fill" data-w="14"></div></div>
+        <div class="bar-value">14 %</div>
+      </div>
+      <div class="bar-row is-pale">
+        <div class="bar-label">Backlog dev <em>(la peur n°1, mais marginale)</em></div>
+        <div class="bar-track"><div class="bar-fill" data-w="9"></div></div>
+        <div class="bar-value">9 %</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<article class="article reveal">
+  <p>En 2016, quand Rémy et moi avons lancé Weglot, nous pensions résoudre un problème technique. Sept ans et 65 000 déploiements plus tard, j'ai compris une chose qui me semble aujourd'hui évidente — et qui n'apparaît dans aucun guide d'internationalisation : <strong>les projets multilingues échouent rarement pour des raisons techniques.</strong></p>
+  <p>Ils échouent parce que les équipes confondent <em>la peur</em> et <em>le risque</em>. La peur, c'est le dev backlog. Le risque, c'est de lancer l'allemand quand 80 % de votre revenu est encore américain. Les deux n'ont rien à voir, et c'est précisément cette confusion qui détruit la majorité des expansions internationales que nous voyons passer.</p>
+  <p>Ce qui suit, ce sont sept observations contre-intuitives — issues d'entretiens avec des Heads of Growth, des PM, et des CTOs en charge d'internationalisation chez des SaaS B2B entre 50 et 500 personnes. Si vous êtes sur le point de lancer votre première langue, ces sept points valent probablement plus que les 14 minutes que vous allez y passer.</p>
+</article>
+
+<!-- ────── REASON 1 ────── -->
+<section class="reason reveal" id="r1" data-anchor="r1">
+  <div class="reason-grid">
+    <div class="reason-num">01</div>
+    <div class="reason-content">
+      <h2>Vous n'avez pas un problème de <em>backlog dev</em>. Vous avez un problème de <em>cadrage</em>.</h2>
+      <p>La phrase qu'on entend le plus souvent : <strong>« On va bloquer trois mois de roadmap pour internationaliser. »</strong> Dans 91 % des cas, c'est faux. Le coût technique réel d'un déploiement multilingue moderne — quand il est bien cadré — se situe entre 4 et 12 jours-homme étalés sur 3 à 5 semaines.</p>
+      <p>Les trois mois que vous craignez ne viennent pas du multilingue. Ils viennent de la <strong>dette technique cachée</strong> que vous découvrez en cherchant à internationaliser : URLs hardcodées, meta descriptions oubliées dans le code, sitemaps jamais pensés pour du <code style="font-family:var(--mono);font-size:0.85em;background:var(--paper-2);padding:2px 6px;border-radius:2px">hreflang</code>, fallback linguistique inexistant. Ce n'est pas l'internationalisation qui coûte cher. C'est la dette qu'elle révèle.</p>
+      <div class="aside">
+        <strong>L'angle qu'on aurait dû prendre dès 2016</strong>
+        Ne demandez pas <em>« combien de temps pour traduire ? »</em>. Demandez <em>« quelle dette technique notre architecture monolingue cache-t-elle ? »</em>. La réponse est plus courte, plus utile, et change radicalement le scope.
+      </div>
+      <p class="pq">L'internationalisation est un audit technique gratuit qui se fait passer pour un projet de croissance. Pas l'inverse.<cite>— Conversation avec un CTO, scale-up SaaS B2B 180 personnes, février 2026</cite></p>
+    </div>
+  </div>
+</section>
+
+<!-- ────── REASON 2 ────── -->
+<section class="reason reveal" id="r2" data-anchor="r2">
+  <div class="reason-grid">
+    <div class="reason-num">02</div>
+    <div class="reason-content">
+      <h2>Le SEO multilingue ne <em>casse</em> pas. Il se répare en <em>48 heures</em>.</h2>
+      <p>La deuxième peur — celle qui tétanise les équipes Marketing — c'est de perdre des positions Google en lançant les versions linguistiques. C'est une peur légitime, mais mal calibrée. Sur les 65 000 sites que nous avons accompagnés, <strong>les baisses sérieuses de trafic organique post-lancement multilingue tiennent à trois erreurs précises et toutes les trois sont réparables en moins de 48 heures.</strong></p>
+      <p>Erreur 1 : pas de <code style="font-family:var(--mono);font-size:0.85em;background:var(--paper-2);padding:2px 6px;border-radius:2px">hreflang</code> ou hreflang qui pointe vers des 404. Erreur 2 : duplicate content entre langues sans <code style="font-family:var(--mono);font-size:0.85em;background:var(--paper-2);padding:2px 6px;border-radius:2px">canonical</code>. Erreur 3 : sitemap XML qui ne déclare pas les versions linguistiques. C'est tout. Aucune baisse durable de trafic n'est venue d'autre chose dans notre échantillon.</p>
+      <div class="stat">
+        <span class="stat-num">48 h</span>
+        <span class="stat-cap">Temps médian de réparation des trois erreurs SEO les plus fréquentes post-lancement, mesuré sur 1 280 cas de support entre 2022 et 2025.</span>
+      </div>
+      <p>Ce qui est plus rare, mais qu'on voit aussi : la perte progressive due aux <strong>signaux UX</strong>. Un visiteur allemand arrive sur la page anglaise par erreur, rebondit en 4 secondes, Google enregistre le signal négatif, déclasse la page. Là c'est plus subtil — et c'est une fois encore un problème de hreflang mal posé, pas une fatalité.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────── REASON 3 ────── -->
+<section class="reason reveal" id="r3" data-anchor="r3">
+  <div class="reason-grid">
+    <div class="reason-num">03</div>
+    <div class="reason-content">
+      <h2>La traduction automatique de 2026 n'est pas le problème. <em>Votre absence de pass éditorial</em> en est un.</h2>
+      <p>Voici la phrase qu'on entend en réunion : <em>« On lance avec la traduction auto, on raffinera après. »</em> Et cette phrase, presque toujours, signifie : <strong>on ne raffinera jamais.</strong></p>
+      <p>Ce n'est pas grave si la traduction auto est correcte. Le problème c'est qu'elle est <em>plate</em>. Un Head of Growth allemand ne dit pas <em>« Whitepaper herunterladen »</em>. Il dit <em>« Whitepaper holen »</em>. Un sales manager espagnol ne signe pas <em>« Atentamente »</em>. Il signe <em>« Saludos »</em>. Ces différences sont invisibles dans une étude de qualité linguistique. Elles tuent silencieusement les conversions.</p>
+      <p class="pq">La traduction auto n'est plus le problème. Le problème c'est qu'on traite le multilingue comme un sujet IT alors que c'est un sujet éditorial.<cite>— Direction marketing, fintech B2B européenne (180M€ ARR)</cite></p>
+      <p>Le bon workflow tient en deux étapes. Auto-traduction du contenu sortant (gain de temps : 90 %). Pass éditorial de 10 minutes par page sur les 20 % du contenu qui pèsent 80 % du trafic. Total : 6 à 8 heures par semaine pour un site mature. Pas 6 mois.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────── TAKEAWAY MID ────── -->
+<section class="takeaway reveal">
+  <div class="takeaway-card">
+    <div class="takeaway-eyebrow">Mid-essay observation</div>
+    <h3>Les trois premières peurs — backlog, SEO, traduction — concentrent <em>moins de 10 %</em> des échecs réels. Les vrais tueurs viennent du <em>go-to-market</em>.</h3>
+    <p>Si vous lisez cet article en cherchant à valider une décision purement technique, vous lisez le mauvais article. La vraie partie de l'enquête commence ici. Les quatre prochaines observations parlent d'organisation, de timing, et de sales — et c'est précisément là que l'argent se gagne ou se perd.</p>
+  </div>
+</section>
+
+<!-- ────── REASON 4 ────── -->
+<section class="reason reveal" id="r4" data-anchor="r4">
+  <div class="reason-grid">
+    <div class="reason-num">04</div>
+    <div class="reason-content">
+      <h2>L'erreur n'est pas la traduction <em>initiale</em>. C'est l'absence de <em>workflow de mise à jour</em>.</h2>
+      <p>Imaginez : vous lancez votre site en espagnol. Tout est traduit, tout est nickel. Six mois plus tard, votre équipe produit ajoute une nouvelle feature. Vous mettez à jour la page anglaise. Qui met à jour la page espagnole ?</p>
+      <p>Personne. Parce que vous n'avez pas de process. Parce que la traduction a été traitée comme un projet, pas comme une opération continue. <strong>Six mois après le lancement, votre site espagnol parle d'une version du produit qui n'existe plus.</strong></p>
+      <div class="stat">
+        <span class="stat-num">64 %</span>
+        <span class="stat-cap">Part des sites multilingues que nous accompagnons et qui n'ont aucun workflow formel de mise à jour des contenus localisés six mois après le lancement.</span>
+      </div>
+      <p>Le client voit la décrépitude. Le sales reçoit l'appel : <em>« Vous avez dit que vous aviez la fonctionnalité X mais sur votre site allemand elle n'apparaît nulle part. »</em> Trust cassé. Deal perdu. Et personne ne tracke jamais cette catégorie d'échec, parce qu'elle n'a pas de nom dans Salesforce.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────── REASON 5 ────── -->
+<section class="reason reveal" id="r5" data-anchor="r5">
+  <div class="reason-grid">
+    <div class="reason-num">05</div>
+    <div class="reason-content">
+      <h2>Vous traduisez le site. <em>Pas vos sales.</em> Et ça suffit pour <em>perdre 60 %</em> du pipeline localisé.</h2>
+      <p>Cas concret : un client traduit son site en allemand. Lance des Google Ads en allemand. Les leads arrivent. Le sales américain les appelle 24h plus tard, en anglais. Le deal meurt instantanément. Le prospect avait acheté la promesse implicite — <em>cette entreprise parle ma langue</em> — et la promesse a été cassée au premier point de contact humain.</p>
+      <p class="pq">On a traduit le site en français. Trois mois plus tard, on n'avait toujours pas un seul commercial francophone. C'est notre échec, pas celui du produit.<cite>— Head of Growth, scale-up SaaS B2B américaine en expansion européenne</cite></p>
+      <p>Le bon framing : <strong>l'internationalisation n'est pas un projet marketing, c'est un projet go-to-market complet.</strong> Site, sales, support, billing, devises, fuseaux. Si vous ne pouvez pas tout aligner immédiatement, dites-le clairement sur le site localisé. Un prospect qui sait que vous supportez seulement en anglais convertit mieux qu'un prospect déçu sur le premier appel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────── REASON 6 ────── -->
+<section class="reason reveal" id="r6" data-anchor="r6">
+  <div class="reason-grid">
+    <div class="reason-num">06</div>
+    <div class="reason-content">
+      <h2>Vous avez choisi la mauvaise langue. <em>Parce que vous avez suivi le trafic, pas le revenu.</em></h2>
+      <p>« On va lancer en espagnol, c'est notre 2e source de trafic. » Erreur classique, et probablement la plus coûteuse de cette enquête. <strong>Le trafic ne prédit pas le revenu.</strong> J'ai vu des clients avec 22 % de trafic allemand mais 58 % de leur revenu venant de l'Allemagne. J'ai vu l'inverse aussi : 30 % de trafic latino-américain, mais des paniers moyens trois fois inférieurs aux paniers européens.</p>
+      <div class="stat">
+        <span class="stat-num">3,2 ×</span>
+        <span class="stat-cap">Différence moyenne de panier entre marchés au pouvoir d'achat élevé (DACH, Nordics) et marchés à fort trafic / faible AOV (LATAM, SEA), sur 280 sites SaaS B2B audités.</span>
+      </div>
+      <p>Le bon cadre de décision : croisez <strong>(volume de trafic) × (panier moyen attendu) × (taux de conversion plausible) × (densité concurrentielle dans ce marché)</strong>. Les surprises sont énormes — et elles vont presque toujours dans le sens opposé à votre intuition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────── REASON 7 ────── -->
+<section class="reason reveal" id="r7" data-anchor="r7">
+  <div class="reason-grid">
+    <div class="reason-num">07</div>
+    <div class="reason-content">
+      <h2>Vous traitez la maintenance comme une charge. <em>C'est votre principal levier de croissance.</em></h2>
+      <p>Ce qui distingue les sites multilingues qui performent six mois après le lancement, ce n'est pas la qualité de la traduction initiale. <strong>C'est l'existence — ou non — d'un rituel de maintenance hebdomadaire.</strong></p>
+      <p>Trente minutes par semaine, un seul humain, pour parcourir les pages clés dans chaque langue, vérifier les nouveautés produit, ajuster les CTAs locaux, valider les hreflang sur les nouvelles URLs. C'est l'écart entre un site multilingue qui décline lentement et un site qui devient progressivement votre meilleur canal d'acquisition organique.</p>
+      <div class="aside">
+        <strong>Le rituel qui change tout</strong>
+        Un canal Slack <code style="font-family:var(--mono);font-size:0.85em;background:rgba(73,60,224,0.08);padding:2px 6px;border-radius:2px">#i18n-weekly</code>, une réunion de 30 min lundi matin, un dashboard avec les positions Google par langue, les conversions par marché, et les pages obsolètes. Trois mois après l'avoir mis en place, nos meilleurs clients voient le SEO multilingue dépasser leur SEO domestique.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────── CTA FINAL ────── -->
+<section class="cta-final reveal">
+  <p>Si une seule de ces sept observations vous a fait reconsidérer un projet en cours, on serait ravis de vous accompagner sur les autres.</p>
+  <a href="https://weglot.com/trial" class="cta-button">
+    <span>Tester Weglot gratuitement — 10 jours, sans CB</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+  </a>
+  <small class="cta-sub">Annulation libre · Configuration en 8 minutes · 65 000 sites depuis 2016</small>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="foot-brand">Weglot<em>·</em>Press</div>
+      <p class="foot-tagline">Field notes éditoriales sur l'internationalisation des produits SaaS, publiées par l'équipe Weglot. Édition occasionnelle.</p>
+    </div>
+    <div>
+      <h4>Cet essai</h4>
+      <ul>
+        <li><a href="#">Méthodologie</a></li>
+        <li><a href="#">Sources & échantillon</a></li>
+        <li><a href="#">PDF imprimable</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Lectures liées</h4>
+      <ul>
+        <li><a href="#">Guide hreflang</a></li>
+        <li><a href="#">SEO multilingue, 2026</a></li>
+        <li><a href="#">Toutes les éditions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Weglot</h4>
+      <ul>
+        <li><a href="https://weglot.com">weglot.com</a></li>
+        <li><a href="#">Tarifs</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-meta">
+    <span>© 2026 Weglot SAS · Paris</span>
+    <span>Issue 14 · Mars 2026 · 14 min</span>
+  </div>
+</footer>
+
+<script>
+// ───── Bars animation on enter
+const obsBars = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll(".bar-fill").forEach((b) => {
+        const w = b.dataset.w;
+        requestAnimationFrame(() => { b.style.width = w + "%"; });
+      });
+      obsBars.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll(".hero-schematic-card").forEach((el) => obsBars.observe(el));
+
+// ───── Reveal on scroll
+const obsReveal = new IntersectionObserver((entries) => {
+  entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); obsReveal.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+document.querySelectorAll(".reveal").forEach((el) => obsReveal.observe(el));
+
+// ───── Sticky progress rail
+const rail = document.getElementById("progressRail");
+const sections = Array.from(document.querySelectorAll(".reason[data-anchor]"));
+const railItems = Array.from(document.querySelectorAll(".pr-item"));
+
+const obsActive = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      const anchor = e.target.dataset.anchor;
+      railItems.forEach((it) => it.classList.toggle("is-active", it.dataset.anchor === anchor));
+    }
+  });
+}, { threshold: 0.4, rootMargin: "-30% 0px -50% 0px" });
+sections.forEach((s) => obsActive.observe(s));
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 800 && window.scrollY < document.body.scrollHeight - 1400) {
+    rail.classList.add("is-visible");
+  } else {
+    rail.classList.remove("is-visible");
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>

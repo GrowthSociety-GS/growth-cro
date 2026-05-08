@@ -1,0 +1,526 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "created": "2026-04-13",
+    "purpose": "Matrice machine-readable mappant chaque enrichissement doctrine (Notion + PDF + recherche) vers son action d'intégration dans V3 (amendement, nouveau critère, nouveau page type, logique reco, gap code). Source pour Phase 2+ de V12.",
+    "source_audit": "playbook/audit_v3_vs_doctrine_enriched.md",
+    "doctrine_sources": [
+      "uploads/Doc_CRO_Final.pdf (88 pages)",
+      "Notion 'Doc Process suivi CRO - Mission Media buying' (456k chars)",
+      "EXTRACTION_DOCTRINE_GROWTHCRO_RAPPORT.md",
+      "expert CRO research"
+    ],
+    "coverage_v3": {
+      "enrichments_total": 30,
+      "covered_by_v3": 20,
+      "amendments_needed": 12,
+      "new_criteria_needed": 8,
+      "new_page_types_needed": 9,
+      "reco_engine_updates": 6,
+      "structural_code_gaps": 5
+    },
+    "decisions_mathis_2026-04-13": {
+      "dual_viewport": "OBLIGATOIRE — tout critère visuel/layout scoré séparément Desktop (1440×900) + Mobile (375×812). Score final = min(D, M) par défaut. DTC = weighted 0.7 mobile / 0.3 desktop. Diagnostic mentionne toujours les 2 verdicts.",
+      "ice_vs_axiom4": "Axiom 4 'Impact × (6-Effort)' = formule LOCKED pour trier les recos. ICE 'Impact×2 + Confidence + Ease' = vue interne uniquement pour briefer les tests A/B. Pas de mélange.",
+      "schwartz_detection": "Hybride: (1) règle par défaut selon page_type, (2) override UTM/referer si dispo, (3) override manuel brief audit. Défauts: home/collection = Problem-aware↔Solution-aware, PDP = Product-aware, lp_leadgen = Problem-aware, lp_sales = Solution→Product-aware, advertorial/listicle = Unaware→Problem-aware, checkout = Most-aware, pricing = Solution→Product-aware."
+    }
+  },
+  "viewport_check_map": {
+    "description": "Flag viewport_check à ajouter dans chaque critère V3 et nouveaux critères. Values: ['desktop','mobile'] = 2× scoring indépendant, ['both'] = 1× scoring (textuel/tech), ['mobile_only'] ou ['desktop_only'] = 1 seul viewport.",
+    "desktop_and_mobile": [
+      "hero_01", "hero_02", "hero_03", "hero_04", "hero_05", "hero_06",
+      "ux_01", "ux_02", "ux_03", "ux_04", "ux_06", "ux_07", "ux_08",
+      "coh_06",
+      "psy_02",
+      "home_01", "home_03",
+      "pdp_01", "pdp_03", "pdp_04", "pdp_05", "pdp_06",
+      "col_01", "col_02", "col_04",
+      "lg_01", "lg_02",
+      "sp_02",
+      "blog_01", "blog_04", "blog_05",
+      "quiz_01", "quiz_02",
+      "price_01", "price_02",
+      "ck_01", "ck_02", "ck_03", "ck_04",
+      "list_01", "list_03",
+      "adv_01", "adv_05",
+      "comp_01",
+      "vsl_01", "vsl_04",
+      "chal_04",
+      "typ_01", "typ_03",
+      "bund_01",
+      "sqz_01", "sqz_02", "sqz_03",
+      "web_01", "web_03",
+      "N-01 (per_09)", "N-03 (coh_07)", "N-04 (coh_08)", "N-05 (coh_09)", "N-07 (psy_07)"
+    ],
+    "mobile_only": [
+      "ux_05",
+      "A-02 (thumb zone amendment to ux_05)"
+    ],
+    "both_viewports_single_score": [
+      "per_01", "per_02", "per_03", "per_04", "per_05", "per_06", "per_07", "per_08",
+      "coh_01", "coh_02", "coh_03", "coh_04", "coh_05",
+      "psy_01", "psy_03", "psy_04", "psy_05", "psy_06",
+      "tech_01", "tech_02", "tech_03", "tech_04", "tech_05",
+      "home_02",
+      "pdp_02",
+      "col_03",
+      "lg_03",
+      "sp_01", "sp_03",
+      "blog_02", "blog_03",
+      "quiz_03", "quiz_04",
+      "price_03", "price_04",
+      "ck_05",
+      "list_02", "list_04",
+      "adv_02", "adv_03", "adv_04",
+      "comp_02", "comp_03", "comp_04",
+      "vsl_02", "vsl_03", "vsl_05",
+      "chal_01", "chal_02", "chal_03",
+      "typ_02", "typ_04",
+      "bund_02", "bund_03", "bund_04",
+      "web_02", "web_04",
+      "N-02 (per_10)", "N-06 (per_11)", "N-08 (psy_08)"
+    ],
+    "scoring_aggregation_rule": "Pour critères dual-viewport: score_final = min(desktop_score, mobile_score) par défaut. Exception DTC (beauty, food, fashion, subscription B2C): score_final = 0.3*desktop + 0.7*mobile. Exception SaaS B2B, Luxe: score_final = 0.6*desktop + 0.4*mobile. Killer trigger: si EITHER viewport hits killer threshold, le killer s'applique au score global."
+  },
+  "covered_by_v3": [
+    { "id": "E-01", "enrichment": "Scent trail ad → LP", "covered_by": "coh_03" },
+    { "id": "E-02", "enrichment": "Test 5 secondes", "covered_by": "hero_06" },
+    { "id": "E-03", "enrichment": "Ratio focus 1:1 hero", "covered_by": "hero_06" },
+    { "id": "E-04", "enrichment": "Touch target ≥44px", "covered_by": "ux_05" },
+    { "id": "E-05", "enrichment": "Checkout ≤3 étapes", "covered_by": "ck_02" },
+    { "id": "E-06", "enrichment": "Progressive commitment", "covered_by": "psy_06" },
+    { "id": "E-07", "enrichment": "Preuves chiffrées", "covered_by": "per_04" },
+    { "id": "E-08", "enrichment": "Urgence/rareté crédibles", "covered_by": "psy_01" },
+    { "id": "E-09", "enrichment": "Autorité vérifiable", "covered_by": "psy_05" },
+    { "id": "E-10", "enrichment": "Risk reversal", "covered_by": "psy_04,sp_03" },
+    { "id": "E-11", "enrichment": "F-pattern scan-ability", "covered_by": "ux_03" },
+    { "id": "E-12", "enrichment": "Bénéfices > features", "covered_by": "per_01" },
+    { "id": "E-13", "enrichment": "Mobile-first", "covered_by": "ux_05" },
+    { "id": "E-14", "enrichment": "Analytics installé", "covered_by": "tech_04" },
+    { "id": "E-15", "enrichment": "HTTPS/charset/viewport", "covered_by": "tech_05" },
+    { "id": "E-16", "enrichment": "SEO on-page", "covered_by": "tech_03" },
+    { "id": "E-17", "enrichment": "Cialdini 6", "covered_by": "Bloc 5 entier" },
+    { "id": "E-18", "enrichment": "Loss aversion", "covered_by": "psy_04" },
+    { "id": "E-19", "enrichment": "Ancrage prix", "covered_by": "psy_03" },
+    { "id": "E-20", "enrichment": "Objections levées", "covered_by": "per_03,per_06" }
+  ],
+  "amendments": [
+    {
+      "id": "A-01",
+      "enrichment": "Z-pattern pour landing simples (complément F-pattern)",
+      "target_criterion": "ux_03",
+      "action": "amend_description_and_scoring",
+      "change": "Ajouter: 'Landing pages simples (lp_leadgen, squeeze) attendues en Z-pattern. Articles/content pages attendus en F-pattern. Scoring Top exige correspondance pattern → page_type.'",
+      "impact": "medium"
+    },
+    {
+      "id": "A-02",
+      "enrichment": "Thumb zone mobile (CTAs zone pouce)",
+      "target_criterion": "ux_05",
+      "action": "amend_scoring_top",
+      "change": "Scoring Top: CTA primaire dans thumb zone (tiers inférieur de l'écran mobile, côté droit pour droitiers) + sticky bottom bar si scroll long.",
+      "impact": "medium"
+    },
+    {
+      "id": "A-03",
+      "enrichment": "IPP (Information Per Pixel) — densité équilibrée",
+      "target_criterion": "ux_02",
+      "action": "amend_description",
+      "change": "Ajouter: 'Ratio densité info/whitespace équilibré (ni mur de texte, ni zone morte). Règle empirique: aucune section >1200px de haut sans élément visuel/break.'",
+      "impact": "low"
+    },
+    {
+      "id": "A-04",
+      "enrichment": "So What Test (chaque bloc répond à 'so what?')",
+      "target_criterion": "per_01",
+      "action": "amend_scoring_top",
+      "change": "Scoring Top: chaque feature listée passe le So What Test (bénéfice utilisateur explicite en <10 mots). Critical si ≥3 features sans traduction outcome.",
+      "impact": "high"
+    },
+    {
+      "id": "A-05",
+      "enrichment": "5 types de friction (cognitive/émotionnelle/fonctionnelle/économique/temporelle)",
+      "target_criterion": "ux_08",
+      "action": "decompose_and_rescore",
+      "change": "Décomposer en 5 sous-checks: cognitive (complexité info), émotionnelle (doute/peur), fonctionnelle (bug/form cassé), économique (prix/frais cachés), temporelle (étapes trop longues). Scoring Top = 0/5 frictions. OK = 1-2. Critical = ≥3.",
+      "impact": "high"
+    },
+    {
+      "id": "A-06",
+      "enrichment": "Social proof — ne PAS cacher avis mitigés",
+      "target_criterion": "per_05",
+      "action": "amend_scoring_penalty",
+      "change": "Pénaliser 100% 5⭐ comme artificiel (cap OK max). Valoriser distribution réaliste (4.2-4.8/5) + présence avis <5⭐ répondus par marque.",
+      "impact": "medium"
+    },
+    {
+      "id": "A-07",
+      "enrichment": "Ratio testimonials ≥3 formats (text/photo/vidéo)",
+      "target_criterion": "per_05",
+      "action": "amend_scoring_top",
+      "change": "Scoring Top exige ≥3 formats mixés (text nommé + photo + vidéo). OK = 2 formats. Critical = 0-1 format.",
+      "impact": "medium"
+    },
+    {
+      "id": "A-08",
+      "enrichment": "USP ≤5 bullets (au-delà = dilution)",
+      "target_criterion": "per_01",
+      "action": "amend_scoring_penalty",
+      "change": "Pénaliser si >5 USP principales listées à suite (dilution). Scoring Top = 3-5 USP priorisées. Critical = >7 USP ou 1 seul USP vague.",
+      "impact": "low"
+    },
+    {
+      "id": "A-09",
+      "enrichment": "Quiz 5-7 questions max",
+      "target_criterion": "quiz_02",
+      "action": "amend_page_type_specific",
+      "change": "Scoring Top: 5-7 questions. OK: 4 ou 8. Critical: <3 ou >10 (abandon).",
+      "impact": "medium"
+    },
+    {
+      "id": "A-10",
+      "enrichment": "Web Vitals seuils précis (CLS<0.1 / LCP<2.5s / INP<200ms)",
+      "target_criterion": "tech_01",
+      "action": "amend_scoring_with_external_api",
+      "change": "Intégrer Lighthouse/CrUX API. Scoring Top: tous 3 seuils passent. OK: 2/3. Critical: ≤1/3 OU API indisponible ET hints DOM négatifs (≥5 scripts externes + DOM >3000 nodes).",
+      "impact": "high",
+      "dependency": "S-04"
+    },
+    {
+      "id": "A-11",
+      "enrichment": "Voice & Tone Matrix formalisé",
+      "target_criterion": "coh_05",
+      "action": "amend_description",
+      "change": "Ajouter: 'Cohérence tutoiement/vouvoiement stable sur toute la page. Lexique propriétaire identifiable (≥3 termes/expressions récurrents qui signent la marque).'",
+      "impact": "medium"
+    },
+    {
+      "id": "A-12",
+      "enrichment": "Value Proposition Canvas (pains/gains/jobs)",
+      "target_criterion": "coh_04",
+      "action": "amend_description",
+      "change": "UVP doit mapper explicitement ≥1 pain adressé + ≥1 gain créé + ≥1 job fait. Scoring Top = les 3 présents. Critical si aucun des 3 détectable.",
+      "impact": "medium"
+    }
+  ],
+  "new_criteria": [
+    {
+      "id": "N-01",
+      "new_criterion_id": "per_09",
+      "name": "Awareness match Schwartz",
+      "bloc": "persuasion",
+      "max_score": 3,
+      "killer": false,
+      "description": "Le ton/angle du hero matche le niveau Schwartz Awareness attendu du trafic entrant.",
+      "scoring_rules": {
+        "Top": "Ton hero matche le niveau Schwartz attendu du trafic (ex: cold paid → Unaware = education/pain first; retarget → Problem-aware = solution framing; email list → Product-aware = offer; PDP → Most-aware = close).",
+        "OK": "Ton générique mais pas contradictoire avec le niveau Schwartz attendu.",
+        "Critical": "Mismatch flagrant (ex: cold paid sent vers page Most-aware qui parle prix avant douleur)."
+      },
+      "applicable_page_types": ["*"],
+      "weight_by_page_type": {
+        "lp_leadgen": 1.3,
+        "lp_sales": 1.3,
+        "home": 1.0,
+        "pdp": 0.9,
+        "checkout": 0.7
+      },
+      "check_method": "heuristic + traffic_source_if_available"
+    },
+    {
+      "id": "N-02",
+      "new_criterion_id": "per_10",
+      "name": "Structure copy identifiable",
+      "bloc": "persuasion",
+      "max_score": 3,
+      "killer": false,
+      "description": "La page matche ≥1 framework copywriting reconnaissable.",
+      "frameworks_accepted": ["PAS", "PASTOR", "AIDA", "BAB", "FAB", "StoryBrand SB7", "4P", "Star-Story-Solution", "Slippery Slide", "CAP"],
+      "scoring_rules": {
+        "Top": "Structure claire identifiable sur toute la page (≥4 blocs narratifs alignés avec un framework).",
+        "OK": "Structure partielle (quelques blocs alignés mais ruptures).",
+        "Critical": "Aucune structure narrative — collage de blocs."
+      },
+      "applicable_page_types": ["lp_leadgen", "lp_sales", "advertorial", "listicle", "vsl", "pdp"],
+      "check_method": "heuristic + LLM"
+    },
+    {
+      "id": "N-03",
+      "new_criterion_id": "coh_07",
+      "name": "Positioning Statement détectable",
+      "bloc": "coherence",
+      "max_score": 3,
+      "killer": false,
+      "description": "Le Positioning Statement formel est décomposable depuis la page.",
+      "template": "For [persona] who [need], [product] is [category] that [benefit] unlike [competitor/alternative]",
+      "scoring_rules": {
+        "Top": "Tous les 5 slots (persona, need, category, benefit, differentiator) sont détectables ATF + H1/H2.",
+        "OK": "3-4 slots détectables.",
+        "Critical": "≤2 slots détectables = positioning flou."
+      },
+      "applicable_page_types": ["home", "lp_leadgen", "lp_sales", "pdp"],
+      "check_method": "textual + LLM"
+    },
+    {
+      "id": "N-04",
+      "new_criterion_id": "coh_08",
+      "name": "Message Hierarchy respectée",
+      "bloc": "coherence",
+      "max_score": 3,
+      "killer": false,
+      "description": "1 big idea → 3 piliers max → N supports. Pas 7 messages concurrents.",
+      "scoring_rules": {
+        "Top": "1 big idea identifiable ATF + 3 piliers explicites (H2 structurants) + supports cohérents.",
+        "OK": "Big idea claire mais >3 piliers OU piliers non explicites.",
+        "Critical": "≥5 messages concurrents sans hiérarchie = cacophonie."
+      },
+      "applicable_page_types": ["*"],
+      "check_method": "heuristic + LLM"
+    },
+    {
+      "id": "N-05",
+      "new_criterion_id": "coh_09",
+      "name": "Unique Mechanism explicite",
+      "bloc": "coherence",
+      "max_score": 3,
+      "killer": false,
+      "description": "Pourquoi ça marche uniquement avec ce produit : ingrédient propriétaire, méthode brevetée, techno unique, certification exclusive.",
+      "scoring_rules": {
+        "Top": "Unique Mechanism nommé + expliqué en 1-2 phrases + soutenu par preuve (brevet, étude, certif).",
+        "OK": "Unique Mechanism nommé mais sans preuve ni explication mécanique.",
+        "Critical": "Aucun mécanisme différenciant = commodity/interchangeable."
+      },
+      "applicable_page_types": ["home", "pdp", "lp_leadgen", "lp_sales"],
+      "check_method": "textual + LLM"
+    },
+    {
+      "id": "N-06",
+      "new_criterion_id": "per_11",
+      "name": "Benefit Laddering profond",
+      "bloc": "persuasion",
+      "max_score": 3,
+      "killer": false,
+      "description": "Feature → bénéfice fonctionnel → bénéfice émotionnel → bénéfice identitaire. Au moins 2 niveaux sur bénéfices principaux.",
+      "scoring_rules": {
+        "Top": "≥2 bénéfices principaux ont 3+ niveaux (functional + emotional + identity).",
+        "OK": "Bénéfices principaux ont 2 niveaux (functional + emotional).",
+        "Critical": "Bénéfices = features seulement (1 niveau) OU copy pure identité sans soutien fonctionnel."
+      },
+      "applicable_page_types": ["*"],
+      "check_method": "textual + LLM"
+    },
+    {
+      "id": "N-07",
+      "new_criterion_id": "psy_07",
+      "name": "4 déclencheurs émotionnels activés",
+      "bloc": "psycho",
+      "max_score": 3,
+      "killer": false,
+      "description": "≥2 des 4 déclencheurs émotionnels présents : peur (de manquer, d'échouer), désir (transformation, plaisir), fierté (statut, accomplissement), appartenance (communauté, tribu).",
+      "scoring_rules": {
+        "Top": "≥3 déclencheurs explicitement activés dans copy/visuel.",
+        "OK": "2 déclencheurs activés.",
+        "Critical": "≤1 déclencheur OU copy purement rationnel/technique."
+      },
+      "applicable_page_types": ["*"],
+      "check_method": "textual + LLM"
+    },
+    {
+      "id": "N-08",
+      "new_criterion_id": "psy_08",
+      "name": "Voice of Customer détectable",
+      "bloc": "psycho",
+      "max_score": 3,
+      "killer": false,
+      "description": "Vocabulaire client repris mot-pour-mot depuis reviews/interviews dans copy principal (pas juste dans témoignages).",
+      "scoring_rules": {
+        "Top": "≥3 expressions VoC repérables dans headlines/body copy (pas uniquement testimonials).",
+        "OK": "1-2 expressions VoC présentes.",
+        "Critical": "Copy 100% corporate/AI/DTC template — aucun ancrage langage client."
+      },
+      "applicable_page_types": ["*"],
+      "check_method": "textual + LLM + reviews data if available"
+    }
+  ],
+  "new_page_types": [
+    {
+      "id": "P-01",
+      "type": "listicle",
+      "role": "Advertorial éditorial par liste (Top 5/10, N raisons de…)",
+      "universal_exclusions": ["coh_03", "hero_04", "ux_06"],
+      "specific_criteria": [
+        { "id": "list_01", "name": "Numbering clair et progression", "pillar": "ux" },
+        { "id": "list_02", "name": "1 bénéfice principal par section", "pillar": "persuasion" },
+        { "id": "list_03", "name": "CTA intégré tous les 3 items", "pillar": "ux" },
+        { "id": "list_04", "name": "Ratio 60% contenu éditorial / 40% pitch", "pillar": "coherence" }
+      ]
+    },
+    {
+      "id": "P-02",
+      "type": "advertorial",
+      "role": "Native-ad éditoriale long-form (≥2000 mots)",
+      "universal_exclusions": ["hero_04", "ux_08"],
+      "specific_criteria": [
+        { "id": "adv_01", "name": "Intro éditoriale narrative (pas hard-sell)", "pillar": "persuasion" },
+        { "id": "adv_02", "name": "Ratio 60/40 éditorial/commercial", "pillar": "coherence" },
+        { "id": "adv_03", "name": "Pas de hard-sell avant 50% scroll", "pillar": "persuasion" },
+        { "id": "adv_04", "name": "Longueur ≥2000 mots substantiels", "pillar": "persuasion" },
+        { "id": "adv_05", "name": "Témoignage humain en ouverture", "pillar": "psycho" }
+      ]
+    },
+    {
+      "id": "P-03",
+      "type": "comparison",
+      "role": "Page de comparaison vs concurrent(s)",
+      "universal_exclusions": ["coh_03", "psy_03"],
+      "specific_criteria": [
+        { "id": "comp_01", "name": "Tableau feature-vs-feature ≥5 lignes", "pillar": "ux" },
+        { "id": "comp_02", "name": "Zone 'en quoi on est mieux' explicite", "pillar": "coherence" },
+        { "id": "comp_03", "name": "Pas de dénigrement direct concurrent (ton factuel)", "pillar": "psycho" },
+        { "id": "comp_04", "name": "Source des chiffres/claims citée", "pillar": "persuasion" }
+      ]
+    },
+    {
+      "id": "P-04",
+      "type": "vsl",
+      "role": "Video Sales Letter (3-15min)",
+      "universal_exclusions": ["hero_03", "ux_06", "ux_08"],
+      "specific_criteria": [
+        { "id": "vsl_01", "name": "Hook vidéo <15 secondes", "pillar": "hero" },
+        { "id": "vsl_02", "name": "Durée 3-15 minutes (ni trop court, ni trop long)", "pillar": "ux" },
+        { "id": "vsl_03", "name": "Transcript disponible sous vidéo", "pillar": "tech" },
+        { "id": "vsl_04", "name": "CTA sous vidéo uniquement (pas de distraction)", "pillar": "coherence" },
+        { "id": "vsl_05", "name": "Relation/autorité AVANT prix si >1000€", "pillar": "psycho" }
+      ]
+    },
+    {
+      "id": "P-05",
+      "type": "challenge",
+      "role": "Challenge 7-30 jours (high-ticket, transformation)",
+      "universal_exclusions": ["hero_03", "psy_03"],
+      "specific_criteria": [
+        { "id": "chal_01", "name": "Engagement progressif sur 7-30j documenté", "pillar": "coherence" },
+        { "id": "chal_02", "name": "Social proof via cohort (participants précédents)", "pillar": "psycho" },
+        { "id": "chal_03", "name": "Pricing dévoilé tard (après valeur)", "pillar": "persuasion" },
+        { "id": "chal_04", "name": "Planning/agenda visible par jour", "pillar": "ux" }
+      ]
+    },
+    {
+      "id": "P-06",
+      "type": "thank_you_page",
+      "role": "Page post-conversion (remerciement, upsell, next step)",
+      "universal_exclusions": ["coh_03", "coh_04", "hero_01", "hero_02", "hero_03", "hero_05", "per_01", "per_02", "per_03", "per_04", "per_05", "per_06", "per_07", "per_08", "ux_04", "ux_05", "ux_06", "psy_01", "psy_02", "psy_03", "psy_04", "psy_05", "psy_06"],
+      "specific_criteria": [
+        { "id": "typ_01", "name": "Confirmation claire (ordre reçu, email envoyé)", "pillar": "ux" },
+        { "id": "typ_02", "name": "Upsell/cross-sell soft (pas agressif)", "pillar": "persuasion" },
+        { "id": "typ_03", "name": "Next-step clair (download, email, rdv)", "pillar": "ux" },
+        { "id": "typ_04", "name": "Referral loop possible (code parrainage, partage)", "pillar": "persuasion" }
+      ]
+    },
+    {
+      "id": "P-07",
+      "type": "bundle_standalone",
+      "role": "Page d'offre bundle dédiée",
+      "universal_exclusions": ["coh_03"],
+      "specific_criteria": [
+        { "id": "bund_01", "name": "Ancrage prix barré composants individuels", "pillar": "psycho" },
+        { "id": "bund_02", "name": "Scarcity chiffrée (quantité limitée justifiée)", "pillar": "psycho" },
+        { "id": "bund_03", "name": "Comparaison 'si acheté séparément'", "pillar": "persuasion" },
+        { "id": "bund_04", "name": "Contenu bundle détaillé (liste composants + valeur)", "pillar": "persuasion" }
+      ]
+    },
+    {
+      "id": "P-08",
+      "type": "squeeze",
+      "role": "Lead magnet 1-champ (email capture)",
+      "universal_exclusions": ["hero_04", "ux_06", "psy_03", "psy_04", "per_02"],
+      "specific_criteria": [
+        { "id": "sqz_01", "name": "Ratio 1:1:1 (1 promesse / 1 champ / 1 CTA)", "pillar": "coherence" },
+        { "id": "sqz_02", "name": "Zéro distraction (pas de nav, pas de footer sauf RGPD)", "pillar": "coherence" },
+        { "id": "sqz_03", "name": "Lead magnet visuel mockupé (ebook cover, checklist preview)", "pillar": "persuasion" }
+      ]
+    },
+    {
+      "id": "P-09",
+      "type": "webinar",
+      "role": "Inscription webinar live/replay",
+      "universal_exclusions": ["coh_03"],
+      "specific_criteria": [
+        { "id": "web_01", "name": "Countdown live OU date+heure claire", "pillar": "psycho" },
+        { "id": "web_02", "name": "Agenda détaillé (ce que tu vas apprendre)", "pillar": "persuasion" },
+        { "id": "web_03", "name": "Présentateur + autorité visible (photo, titre, crédits)", "pillar": "psycho" },
+        { "id": "web_04", "name": "Replay policy claire (oui/non, durée, conditions)", "pillar": "coherence" }
+      ]
+    }
+  ],
+  "reco_engine_updates": [
+    {
+      "id": "R-01",
+      "enrichment": "Test methodology (14j min, ≥90% confiance, +5% impact)",
+      "action": "add_feasibility_weighting",
+      "detail": "Pondérer recommandations par faisabilité test (trafic disponible → durée min → confiance atteignable). Si LP <1000 visiteurs/semaine → test deco ou qualitatif prioritaire."
+    },
+    {
+      "id": "R-02",
+      "enrichment": "Guardrails pricing (churn ≤+1%, activation stable)",
+      "action": "flag_sensitive_recos",
+      "detail": "Tag [GUARDRAIL] si reco touche pricing. Exiger guardrail churn dans roadmap."
+    },
+    {
+      "id": "R-03",
+      "enrichment": "ICE pondéré (Impact×2 + Confidence + Ease) vs Axiom 4 (Impact × (6 - Effort))",
+      "action": "harmonize_priorization",
+      "detail": "Proposer Mathis : formule harmonisée ICE × Effort ou garder Axiom 4. Décision à trancher."
+    },
+    {
+      "id": "R-04",
+      "enrichment": "Causalité tests en cascade (test → insight → test suivant)",
+      "action": "roadmap_as_graph",
+      "detail": "Reco roadmap = graphe de dépendances, pas liste plate. Chaque test doit nommer les hypothèses pour les tests suivants."
+    },
+    {
+      "id": "R-05",
+      "enrichment": "Anti-patterns tests",
+      "action": "penalize_if_detected",
+      "detail": "Flags négatifs : YouTube (vs Wistia/Bunny/Mux), avis mitigés cachés, CTA 'Submit'/'Envoyer', caricature manipulation concurrent. Chaque détection = reco corrective."
+    },
+    {
+      "id": "R-06",
+      "enrichment": "Angles A/B validés Notion (Urgence vs Transfo, Éco vs Premium, Preuve sociale vs Autorité, Problème vs Performance)",
+      "action": "suggest_angles_by_business_category",
+      "detail": "Proposer angles test par catégorie business (ex: DTC beauty → Transfo vs Preuve sociale; SaaS B2B → Autorité vs Performance)."
+    }
+  ],
+  "structural_code_gaps": [
+    {
+      "id": "S-01",
+      "gap": "businessCategoryWeighting absent sur bloc 3 UX",
+      "action": "create_weighting_matrix",
+      "scope": "10 catégories business × 8 critères ux"
+    },
+    {
+      "id": "S-02",
+      "gap": "businessCategoryWeighting absent sur bloc 4 Cohérence",
+      "action": "create_weighting_matrix",
+      "scope": "10 catégories business × 6 critères coh (ou 9 avec coh_07-08-09)"
+    },
+    {
+      "id": "S-03",
+      "gap": "Scorers Python par nouveau page type (listicle, advertorial, vsl, comparison, challenge, typ, bundle_standalone, squeeze, webinar)",
+      "action": "create_9_scripts",
+      "scope": "9 fichiers .py dans skills/site-capture/scripts/"
+    },
+    {
+      "id": "S-04",
+      "gap": "Web Vitals réels (Lighthouse API ou CrUX)",
+      "action": "integrate_external_api",
+      "scope": "Lighthouse CLI en local OU CrUX API Google OU PageSpeed Insights API"
+    },
+    {
+      "id": "S-05",
+      "gap": "Schwartz Awareness Scale detection auto",
+      "action": "code_detection_heuristic",
+      "scope": "Règle par page_type + UTM detection si dispo + override manuel"
+    }
+  ]
+}

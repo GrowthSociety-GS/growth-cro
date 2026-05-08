@@ -1,0 +1,128 @@
+{
+  "_meta": {
+    "name": "GrowthCRO V12 — Graphe de prérequis causaux (cascade)",
+    "version": "1.0.0 — doctrine V12 — 2026-04-13",
+    "description": "Graphe de dépendances causales entre critères. Si un critère prérequis est 'critical', les recos sur les critères qu'il bloque doivent être marquées 'deferred — fix prerequisite first'. Objectif : ordonner les recos pour éviter l'optimisation prématurée (ex: ajuster wording CTA quand le H1 manque).",
+    "philosophy": "Kent Beck 'make the change easy, then make the easy change'. En CRO : fixer les fondations (lisibilité, promesse, navigation mobile) avant d'optimiser les feuilles (micro-copy, tests A/B psycho).",
+    "sources": [
+      "Karl Blanks / Ben Jesson — Making Websites Win (2017) : prioritisation par levier fondateur",
+      "Peep Laja CXL — CRO Process Maturity (5 levels, fondations first)",
+      "Chad Sanderson — Data Contracts philosophy (upstream changes cascade)",
+      "Patrick Campbell ProfitWell — Pricing strategy prerequisites for growth",
+      "Nielsen Norman Group — Usability heuristics hierarchy (ISO 9241)"
+    ],
+    "applicationMode": "orchestrator + enricher — si prereq == critical, les recos descendants reçoivent status='deferred' + message cascade",
+    "all_means": "Si prérequis == critical ET blocks_if_critical contient 'ALL', toutes les recos sauf celles du prérequis lui-même sont deferred"
+  },
+  "prerequisites": {
+    "tech_01": {
+      "id": "tech_01",
+      "name": "Core Web Vitals (LCP/CLS/INP)",
+      "blocks_if_critical": ["ALL_EXCEPT_SELF"],
+      "rationale": "Si LCP >4s ou CLS >0.25 ou INP >500ms, la page est techniquement inaccessible — optimiser le copy pendant que les utilisateurs bouncent avant le premier paint est du gaspillage. Prio absolue 0.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 7,
+      "message_to_downstream_recos": "Optimiser [criterion] nécessite d'abord que la page charge dans les seuils Google (LCP≤2.5s, CLS≤0.1, INP≤200ms). Voir reco tech_01."
+    },
+    "hero_01": {
+      "id": "hero_01",
+      "name": "H1 promesse claire",
+      "blocks_if_critical": ["per_01", "per_03", "per_04", "per_09", "per_10", "coh_01", "coh_02", "coh_07", "coh_08", "psy_07"],
+      "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 2,
+      "message_to_downstream_recos": "Ce critère dépend d'un H1 promesse clair. Fixer hero_01 en premier, puis revenir sur [criterion]."
+    },
+    "hero_02": {
+      "id": "hero_02",
+      "name": "Sous-titre / value prop hero",
+      "blocks_if_critical": ["per_01", "per_09", "coh_01", "coh_07"],
+      "rationale": "Le sous-titre est la clarification du H1 (Moore 'for [target] who [need]'). Sans lui, la segmentation audience et le positioning ne peuvent pas être validés.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 1,
+      "message_to_downstream_recos": "Clarifier la value prop (hero_02) avant d'optimiser [criterion]."
+    },
+    "hero_03": {
+      "id": "hero_03",
+      "name": "CTA principal ATF",
+      "blocks_if_critical": ["ux_04", "per_02", "psy_02", "psy_03"],
+      "rationale": "Pas de CTA principal visible = pas de chemin de conversion. Inutile d'ajuster wording, répétition, urgence si le CTA n'existe pas ou est noyé.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 1,
+      "message_to_downstream_recos": "Installer un CTA primaire ATF (hero_03) avant de travailler sur son wording / répétition / déclencheurs."
+    },
+    "ux_05": {
+      "id": "ux_05",
+      "name": "Mobile-first responsive",
+      "blocks_if_critical": ["hero_01", "hero_02", "hero_03", "per_05", "ux_04", "ux_07", "ux_08", "psy_02"],
+      "rationale": "60-85% du trafic mobile sur la plupart des business (DTC, ecom, local, B2C SaaS). Si la page est cassée mobile, toute optimisation desktop est impact ×0.15-0.4. Fixer mobile = amplifier toutes les autres recos.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 5,
+      "applies_when_business_category_mobile_share": ">= 0.5",
+      "message_to_downstream_recos": "Ce critère nécessite un rendu mobile fonctionnel (ux_05). Fixer mobile en priorité."
+    },
+    "coh_01": {
+      "id": "coh_01",
+      "name": "Promesse de valeur unifiée (hero ↔ corps ↔ CTA)",
+      "blocks_if_critical": ["per_01", "per_02", "per_09", "per_10", "psy_07", "psy_08"],
+      "rationale": "Sans value proposition unifiée, chaque bloc parle à un prospect différent → le copy persuasion n'a pas de centre de gravité.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 3,
+      "message_to_downstream_recos": "Unifier la promesse de valeur (coh_01) avant d'ajuster le stack persuasion/psycho en aval."
+    },
+    "coh_06": {
+      "id": "coh_06",
+      "name": "Un seul objectif principal par page",
+      "blocks_if_critical": ["ux_04", "hero_03", "per_02", "psy_02"],
+      "rationale": "Attention ratio Unbounce (Oli Gardner). Si la page a 3 objectifs concurrents (acheter + newsletter + démo), les optimisations sur le CTA principal sont diluées.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 2,
+      "message_to_downstream_recos": "Définir l'objectif unique de la page (coh_06) avant d'optimiser CTA/trajet."
+    },
+    "per_05": {
+      "id": "per_05",
+      "name": "Tarif transparent / pricing lisible",
+      "blocks_if_critical": ["per_02", "per_08", "psy_05"],
+      "rationale": "Les optimisations autour de CTA répétés, objections, garanties sont dépendantes d'un prix visible qui cadre la décision. Sans prix = simulation sans cible.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 1,
+      "business_category_exceptions": ["saas_b2b_enterprise"],
+      "message_to_downstream_recos": "Afficher le prix (per_05) avant d'optimiser les CTA répétés / garanties / objections."
+    },
+    "ux_01": {
+      "id": "ux_01",
+      "name": "Z-pattern / hiérarchie visuelle",
+      "blocks_if_critical": ["hero_04", "hero_05", "per_06", "psy_02"],
+      "rationale": "Si l'œil ne suit pas une diagonale claire, les éléments (preuves, image produit, déclencheurs) sont mal positionnés — optimiser leur contenu sans fixer le pattern = perdu.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 4,
+      "message_to_downstream_recos": "Réorganiser la hiérarchie visuelle (ux_01) avant de raffiner les contenus de chaque zone."
+    },
+    "psy_02": {
+      "id": "psy_02",
+      "name": "Simplicité / friction cognitive basse",
+      "blocks_if_critical": ["per_02", "per_03", "psy_03", "psy_07"],
+      "rationale": "Une page cognitivement saturée (trop d'options, trop de sections, mise en page chaotique) empêche les déclencheurs psycho de jouer — Kahneman System 2 overload.",
+      "severity_threshold": "critical",
+      "typical_fix_effort_days": 5,
+      "message_to_downstream_recos": "Réduire la surcharge cognitive (psy_02) avant d'ajouter des déclencheurs psycho additionnels."
+    }
+  },
+  "reverse_index_blocked_by": {
+    "_description": "Pour chaque critère downstream, liste des prérequis qui le bloquent. Construit automatiquement depuis prerequisites.blocks_if_critical — reflète l'état cible après génération.",
+    "_note": "Index à régénérer via reco_enricher._build_reverse_index() au chargement"
+  },
+  "cascade_rules": {
+    "deferred_recos_format": {
+      "status": "deferred",
+      "reason_code": "prerequisite_critical",
+      "blocking_prerequisite_ids": ["array of prereq criterion ids"],
+      "message_fr": "Reco reportée — fixer d'abord : {prereq_name} ({prereq_id})",
+      "message_en": "Recommendation deferred — fix first: {prereq_name} ({prereq_id})",
+      "revisit_when": "prereq status != critical"
+    },
+    "ALL_EXCEPT_SELF_handling": "Si blocks_if_critical contient 'ALL_EXCEPT_SELF', toutes les recos hors celle du critère lui-même sont deferred avec reason_code='foundation_critical'.",
+    "propagation": "La cascade ne se propage pas transitivement au-delà de 1 niveau (pour éviter paralysie). Si hero_01 bloque per_01 et per_01 bloque per_11, per_11 n'est deferred que si per_01 est critical, pas si hero_01 l'est.",
+    "override": "Mathis peut forcer 'execute_anyway' via UI/Notion sur un critère deferred — utile quand le prereq est en traitement parallèle."
+  }
+}

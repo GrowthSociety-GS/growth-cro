@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "name": "GrowthCRO V23 — USP Preservation patterns",
+    "version": "1.0.0 — 2026-04-27",
+    "description": "Patterns de détection d'USP (Unique Selling Proposition) à préserver. Le LLM reco doit recevoir ces signaux pour éviter d'attaquer le différenciateur. Logique : un USP détecté = AMPLIFY only, jamais REWRITE.",
+    "sources": [
+      "April Dunford — Obviously Awesome (2019) : différenciation = asset positioning",
+      "Geoffrey Moore — Crossing the Chasm (1991) : whole product / unique value",
+      "Robert Rosenthal — Optimal Marketing (2018) : UVP framework"
+    ],
+    "applicationMode": "pre-LLM detector — usp_detector.py scanne perception+Vision et produit usp_signals.json par client/page. Injecté dans build_user_prompt() comme USP_LOCK section."
+  },
+  "usp_detection_patterns": {
+    "specific_duration_promise": {
+      "id": "specific_duration_promise",
+      "category": "promise",
+      "pattern": "Promesse temporelle chiffrée et spécifique (ex: 'en 2 min', 'en 14 jours', 'en 1h')",
+      "regex_signal": "/(en|in)\\s+\\d+\\s*(min|minutes?|jour|jours?|day|days?|h(?:eures?)?|sec(?:ondes?)?)/i",
+      "score_weight": 0.85,
+      "amplify_strategy": "Garder la promesse temporelle + ajouter une preuve sociale chiffrée (ex: '12 400 utilisateurs ont créé leur menu en 2 min')",
+      "examples": [
+        "Japhy: 'Crée son menu en 2 min'",
+        "Notion: 'Get started in 60 seconds'",
+        "Linear: 'Set up your team in 5 minutes'"
+      ]
+    },
+    "named_target_audience": {
+      "id": "named_target_audience",
+      "category": "audience",
+      "pattern": "Audience nommée explicitement (rôle, segment, niche)",
+      "regex_signal": "/\\b(pour|for|built for|designed for)\\s+(les|the)?\\s*(développeurs?|developers?|designers?|founders?|équipes?|teams?|chiens?|chats?|propriétaires?|freelancers?|startups?|enterprises?)/i",
+      "score_weight": 0.75,
+      "amplify_strategy": "Garder l'audience nommée + ajouter un proof point spécifique à cette audience",
+      "examples": [
+        "Linear: 'Built for the people who build software'",
+        "Stripe: 'Payments infrastructure for the internet'",
+        "Japhy: 'Pour propriétaires de chiens'"
+      ]
+    },
+    "category_creation_term": {
+      "id": "category_creation_term",
+      "category": "positioning",
+      "pattern": "Création/réutilisation d'une catégorie unique au client (terme propriétaire)",
+      "regex_signal": "/\\b(notre|our)\\s+(\\w+)\\s+(unique|propriétaire|patented|exclusif)/i",
+      "score_weight": 0.9,
+      "amplify_strategy": "Renforcer la catégorie créée + ajouter un cas d'usage exclusif",
+      "examples": [
+        "HubSpot: 'Inbound marketing'",
+        "Drift: 'Conversational marketing'",
+        "Salesforce: 'No software'"
+      ]
+    },
+    "quantified_outcome_claim": {
+      "id": "quantified_outcome_claim",
+      "category": "proof",
+      "pattern": "Chiffre/résultat client spécifique avec source",
+      "regex_signal": "/\\d+(?:\\.,\\d+)?\\s*(%|x|fois|×|€|\\$|pts|points|clients|users)\\s+(?:de|of|en)\\s+(\\w+)/i",
+      "score_weight": 0.8,
+      "amplify_strategy": "Garder le chiffre + ajouter source/date/méthodologie pour crédibilité maximale",
+      "examples": [
+        "Wise: '40% less than the banks'",
+        "Notion: '+20M users'",
+        "Aircall: '15 minute install'"
+      ]
+    },
+    "method_or_process_proprietary": {
+      "id": "method_or_process_proprietary",
+      "category": "method",
+      "pattern": "Méthode/process propriétaire ou nommé",
+      "regex_signal": "/\\b(méthode|method|système|system|approche|approach|framework|protocole|protocol)\\s+(\\w+\\s*\\w*)/i",
+      "score_weight": 0.7,
+      "amplify_strategy": "Renforcer la méthode + ajouter une étape ou détail concret",
+      "examples": [
+        "Headspace: 'Mindfulness for everyone'",
+        "Asphalte: 'Manufacture en pré-commande'",
+        "Asana: 'Work Graph'"
+      ]
+    },
+    "vertical_specific_terminology": {
+      "id": "vertical_specific_terminology",
+      "category": "vocabulary",
+      "pattern": "Termes spécifiques au vertical du client (jargon insider qui prouve l'expertise)",
+      "regex_signal": "(business_category-specific terms)",
+      "score_weight": 0.65,
+      "amplify_strategy": "Garder le jargon (signal d'expertise) + ajouter une mini-définition pour newcomers",
+      "examples": [
+        "Linear: 'Cycles, Issues, Triage'",
+        "Vercel: 'Edge Functions, ISR'",
+        "Japhy: 'Ration, croquette, BARF'"
+      ]
+    },
+    "named_founder_voice": {
+      "id": "named_founder_voice",
+      "category": "trust",
+      "pattern": "Voix du fondateur signée (lettre, vidéo intro, photo)",
+      "regex_signal": "/(Ceo|founder|fondateur|fondatrice|cofondateur)\\s+\\w+/i",
+      "score_weight": 0.7,
+      "amplify_strategy": "Garder la voix fondateur + ajouter contexte personnel (story, conviction, mission)",
+      "examples": [
+        "Asphalte: lettre fondateur William",
+        "Headspace: voix Andy Puddicombe",
+        "Notion: lettre Ivan/Akshay"
+      ]
+    }
+  },
+  "usp_lock_output_format": {
+    "description": "Format JSON injecté dans build_user_prompt() après détection USP",
+    "example": {
+      "client": "japhy",
+      "page": "pdp",
+      "usp_signals": [
+        {
+          "type": "specific_duration_promise",
+          "text_canonical": "Crée son menu en 2 min",
+          "score": 0.85,
+          "location": "hero.cta_primary",
+          "amplify_strategy": "Garder texte + ajouter preuve sociale chiffrée"
+        },
+        {
+          "type": "named_target_audience",
+          "text_canonical": "Pour chien",
+          "score": 0.75,
+          "location": "hero.h1",
+          "amplify_strategy": "Garder + ajouter proof point spécifique"
+        }
+      ],
+      "vocab_canonical": {
+        "action_verb": "créer",
+        "action_object": "menu",
+        "duration_promise": "2 min",
+        "audience": "chien"
+      },
+      "preservation_directive": "Toute reco touchant à hero.cta_primary OU hero.h1 doit AMPLIFIER, pas REMPLACER. Toute reco doit utiliser le vocabulaire canonical (créer + menu + 2 min + chien)."
+    }
+  },
+  "amplify_strategies_by_score": {
+    "0.85_to_1.0": {
+      "directive": "PRESERVE STRICTLY — only add proof/specificity, never modify text",
+      "allowed_actions": ["add_sub_cta_proof", "add_audience_specifier", "add_outcome_metric"]
+    },
+    "0.65_to_0.84": {
+      "directive": "PRESERVE WITH POLISH — minor wording tweaks OK if they ENHANCE specificity",
+      "allowed_actions": ["polish_grammar", "add_specificity", "add_proof", "tighten_length"]
+    },
+    "0.40_to_0.64": {
+      "directive": "OPTIMIZE — keep core idea, may rewrite if score < 60% on linked criterion",
+      "allowed_actions": ["rewrite_with_same_intent", "preserve_key_terms"]
+    },
+    "below_0.40": {
+      "directive": "FREE TO REWRITE — text is generic, not USP",
+      "allowed_actions": ["full_rewrite_recommended"]
+    }
+  }
+}

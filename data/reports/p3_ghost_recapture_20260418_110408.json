@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:04:08.716433Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 31.6,
+  "log": [
+    {
+      "client": "emma_matelas",
+      "pageType": "home",
+      "url": "https://www.emma.fr/",
+      "ok": true,
+      "elapsed_s": 18.3,
+      "sections": 43,
+      "elements": 1834
+    },
+    {
+      "client": "emma_matelas",
+      "pageType": "lp",
+      "url": "https://www.emma.fr/quiz/",
+      "ok": true,
+      "elapsed_s": 13.3,
+      "sections": 7,
+      "elements": 749
+    }
+  ]
+}

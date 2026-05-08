@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_coh_01_calibrate_strict_unknown",
+  "type": "calibrate_threshold",
+  "subtype": "strict_rule_too_punitive",
+  "affected_criteria": [
+    "coh_01"
+  ],
+  "scope": {
+    "business_category": "unknown"
+  },
+  "evidence": {
+    "n_pages_evaluated": 14,
+    "pct_critical": 85.7,
+    "pct_top": 0.0,
+    "avg_score_pct": 8.4,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère coh_01 marqué CRITICAL sur 86% des pages de unknown (12/14). La règle peut être trop stricte pour ce segment business — vérifier le scoring.critical définition. Score moyen : 8%.",
+  "risk": "Si le pattern est légitime (vraie faiblesse marché), assouplir masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon.",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "page_type": "lp_sales",
+  "philosophy": "Lettre commerciale honnête type Basecamp / 37signals / Pieter Levels : tu expliques pourquoi le produit existe, qui il sert, qui il NE sert PAS. Aucun bullshit sales.",
+  "structure_required": [
+    {
+      "section": "hero_promise_concrete",
+      "what": "H1 + sub-titre qui déclarent une PROMESSE CONCRÈTE chiffrée si possible (ex: 'Save 4 hours/week on customer support'). 1 CTA primary clair.",
+      "why": "L'audience LP-sales arrive avec intention — donne-leur la promesse en 5 secondes."
+    },
+    {
+      "section": "problem_articulation",
+      "what": "Section 'Why this exists' / 'The problem' : 1-2 paragraphes qui articulent LE problème spécifique de l'audience. Tone empathique, pas FOMO.",
+      "why": "Le lecteur doit penser 'oui c'est exactement mon problème' avant la solution."
+    },
+    {
+      "section": "solution_walkthrough",
+      "what": "3-5 sections demo/feature avec : (a) 1 problème spécifique, (b) comment le produit le résout, (c) visuel UI réel. Alternance image-droite/gauche.",
+      "why": "Démontrer > déclarer. Chaque feature ancrée dans un problème concret."
+    },
+    {
+      "section": "honesty_section",
+      "what": "Section 'Who this is for / Who this is NOT for'. List explicite. 'If you're X, this isn't for you — try Y instead.'",
+      "why": "37signals signature. La franchise = trust 10x bullshit marketing."
+    },
+    {
+      "section": "social_proof_named",
+      "what": "Testimonials nommés (nom + position + company + photo réelle ou monogramme noir/blanc). 2-4 max. Texte LONG (100-200 mots), pas oneliners.",
+      "why": "Témoignage long = humain réel. Oneliners = inventés."
+    },
+    {
+      "section": "pricing_transparent",
+      "what": "Pricing visible inline (pas 'Contact us'). Si tarifs custom : fourchette claire. Si trial : durée + ce qui est inclus.",
+      "why": "Pricing caché = friction massive. Transparence = signal pro."
+    },
+    {
+      "section": "objections_addressed",
+      "what": "FAQ honnête sur 4-6 objections réelles ('Is it secure?', 'What if I cancel?', 'How does it compare to X?'). Réponses directes, pas markéto.",
+      "why": "Adresse les objections = lead bottom-funnel converted."
+    },
+    {
+      "section": "final_cta_with_guarantee",
+      "what": "CTA final + reassurance line ('14-day free trial', 'cancel anytime', 'money-back 30 days'). Pas de countdown.",
+      "why": "Convaincu par la lecture, on convertit. Pas de pression artificielle."
+    }
+  ],
+  "structure_forbidden": [
+    "FOMO countdown timer ('Offer ends in 02:34:12')",
+    "Fake social proof ('Sarah from Paris just bought!')",
+    "Stat énorme '+10000% ROI' bg color hero (= AI-slop hype)",
+    "Bullets infinies sans démo visuelle (= telling > showing)",
+    "Multiple CTAs hero ('Demo', 'Trial', 'Contact', 'Pricing' = paralysie)"
+  ],
+  "typography_required": [
+    "H1 : font-display, weight 700-800, scale fluid clamp(2.25rem, 5.5vw, 4rem)",
+    "Section H2 : weight 700, scale 1.5-1.75x body",
+    "Body : font-body, weight 400, lh 1.55-1.65, max-width 60-65ch sections prose",
+    "Pricing display : font-display, weight 700, scale 3-4x body (= dominant visuel)"
+  ],
+  "decorative_techniques_required": [
+    "UI réel screenshots (pas mockup illustré)",
+    "Hairline rules entre sections majeures",
+    "1 accent color cohérent CTAs + key data + drop caps",
+    "Stat callouts inline avec source (ex: '4 hours saved/week — based on 200 user surveys')"
+  ],
+  "decorative_techniques_forbidden": [
+    "Gradient mesh hero",
+    "Fake star ratings 4.9 ⭐⭐⭐⭐⭐ (= cheap)",
+    "Cards bordure colorée arrondie (= template SaaS 2018)",
+    "Glassmorphism testimonials cards",
+    "Trust badges 'as seen on TechCrunch' rangée logos média (sauf si réel + tier-1)"
+  ],
+  "examples_to_imitate": [
+    "Basecamp.com — honesty radicale + manifesto founder",
+    "Pieter Levels (levels.io/pricing) — transparence pricing + tone",
+    "Linear.app/pricing — comparison table claire",
+    "Stripe Atlas — guide-style pour produit complexe"
+  ]
+}

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>10 raisons d&#x27;internationaliser votre site SaaS maintenant avec Weglot</title>
+  <meta name="description" content="Guide éditorial pour les équipes Growth, PM et Engineering : pourquoi et comment déployer le multilingue sans alourdir votre roadmap technique ni sacrifier SEO ou qualité.">
+  <style>
+:root {
+  --gsg-bg: #fbfaf7;
+  --gsg-surface: #ffffff;
+  --gsg-surface-alt: #c1e0f8;
+  --gsg-ink: #1a184d;
+  --gsg-muted: #5d5871;
+  --gsg-primary: #d0318a;
+  --gsg-accent: #493ce0;
+  --gsg-soft: #e9dcf0;
+  --gsg-border: #ddd8e8;
+  --gsg-font-display: Ppneuemontreal, Arial, sans-serif;
+  --gsg-font-body: Inter, sans-serif;
+  --gsg-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --gsg-content: min(760px, calc(100vw - 40px));
+  --gsg-wide: min(1120px, calc(100vw - 40px));
+  --gsg-section-y: 112px;
+  --gsg-radius: 8px;
+  --gsg-radius-subtle: 6px;
+  --gsg-duration: 180ms;
+  --gsg-easing: cubic-bezier(.2,.8,.2,1);
+  --gsg-energy: 4.0;
+  --gsg-density: 2.6;
+  --gsg-depth: 3.7;
+  --gsg-motion: 3.3;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { max-width: 100%; overflow-x: hidden; }
+body {
+  margin: 0;
+  background: var(--gsg-bg);
+  color: var(--gsg-ink);
+  font-family: var(--gsg-font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  letter-spacing: 0;
+}
+p, a { overflow-wrap: anywhere; }
+h1, h2 {
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: balance;
+  hyphens: none;
+}
+a { color: inherit; }
+.page-shell { min-height: 100vh; }
+.top-rule,
+.section-rule {
+  width: var(--gsg-wide);
+  height: 1px;
+  margin: 0 auto;
+  background: var(--gsg-border);
+}
+.byline {
+  width: var(--gsg-wide);
+  margin: 0 auto;
+  padding: 34px 0 28px;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  align-items: center;
+  font-size: 14px;
+}
+.author-mark {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--gsg-primary);
+  background: var(--gsg-soft);
+  display: grid;
+  place-items: center;
+  font-family: var(--gsg-font-display);
+  font-weight: 800;
+  line-height: 1;
+}
+.byline strong { display: block; font-family: var(--gsg-font-display); font-size: 15px; }
+.byline span { color: var(--gsg-muted); }
+.hero {
+  width: var(--gsg-wide);
+  margin: 0 auto;
+  padding: 76px 0 88px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, .85fr);
+  gap: clamp(40px, 7vw, 96px);
+  align-items: center;
+}
+.hero-copy { min-width: 0; }
+.eyebrow {
+  margin: 0 0 24px;
+  font-family: var(--gsg-font-mono);
+  color: var(--gsg-primary);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+h1 {
+  margin: 0;
+  max-width: min(620px, 100%);
+  font-family: var(--gsg-font-display);
+  font-size: clamp(3rem, 5vw, 4.65rem);
+  line-height: .92;
+  letter-spacing: 0;
+}
+.dek {
+  max-width: 620px;
+  margin: 34px 0 0;
+  color: var(--gsg-muted);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  line-height: 1.45;
+}
+.hero-visual {
+  min-height: 420px;
+  position: relative;
+  padding: 22px;
+  border: 1px solid color-mix(in srgb, var(--gsg-primary) 28%, transparent);
+  border-radius: var(--gsg-radius);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--gsg-soft) 72%, white), color-mix(in srgb, var(--gsg-surface-alt) 48%, white));
+  box-shadow: 0 24px 80px color-mix(in srgb, var(--gsg-primary) 18%, transparent);
+  overflow: hidden;
+}
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -38% 28%;
+  height: 220px;
+  background: var(--gsg-accent);
+  opacity: .12;
+  transform: rotate(-10deg);
+}
+.hero-visual-real {
+  display: grid;
+  grid-template-rows: 46px minmax(0, 1fr);
+  gap: 18px;
+}
+.browser-bar {
+  position: relative;
+  z-index: 1;
+  height: 46px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--gsg-ink) 12%, transparent);
+  border-radius: var(--gsg-radius-subtle);
+  background: rgba(255,255,255,.72);
+}
+.browser-bar span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--gsg-primary);
+}
+.browser-bar strong {
+  margin-left: auto;
+  font-family: var(--gsg-font-mono);
+  font-size: 12px;
+  color: var(--gsg-muted);
+}
+.brand-shot {
+  position: relative;
+  z-index: 1;
+  height: 300px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--gsg-ink) 12%, transparent);
+  border-radius: var(--gsg-radius-subtle);
+  background: white;
+  box-shadow: 0 14px 42px color-mix(in srgb, var(--gsg-ink) 12%, transparent);
+}
+.brand-shot img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+.brand-shot-mobile {
+  position: absolute;
+  right: 18px;
+  bottom: 20px;
+  z-index: 3;
+  width: 116px;
+  height: 196px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--gsg-primary) 32%, transparent);
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 18px 54px color-mix(in srgb, var(--gsg-primary) 28%, transparent);
+}
+.brand-shot-mobile img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+.locale-stack {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+.locale-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--gsg-ink) 10%, transparent);
+  border-radius: var(--gsg-radius-subtle);
+  background: rgba(255,255,255,.68);
+}
+.locale-card.primary {
+  background: var(--gsg-ink);
+  color: var(--gsg-bg);
+}
+.locale-card b {
+  font-family: var(--gsg-font-display);
+  font-size: 1.5rem;
+}
+.locale-card span { color: inherit; opacity: .76; }
+.language-orbit {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+.language-orbit i {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gsg-primary);
+  color: white;
+  font-family: var(--gsg-font-mono);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+}
+.intro,
+.reason,
+.final-cta,
+.footer-inner {
+  width: var(--gsg-content);
+  margin: 0 auto;
+}
+.intro {
+  padding: var(--gsg-section-y) 0;
+  font-size: 20px;
+}
+.intro p:first-child::first-letter {
+  float: left;
+  margin: 9px 12px 0 0;
+  font-family: var(--gsg-font-display);
+  font-size: 5.2rem;
+  line-height: .72;
+  color: var(--gsg-primary);
+}
+.proof-strip {
+  width: var(--gsg-wide);
+  margin: -22px auto 72px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  list-style: none;
+  border: 1px solid var(--gsg-border);
+  background: var(--gsg-border);
+}
+.proof-strip li {
+  padding: 18px;
+  background: color-mix(in srgb, var(--gsg-bg) 88%, white);
+}
+.proof-strip span {
+  display: block;
+  font-family: var(--gsg-font-display);
+  line-height: 1.25;
+}
+.proof-strip small {
+  display: block;
+  margin-top: 10px;
+  color: var(--gsg-muted);
+  font-family: var(--gsg-font-mono);
+  font-size: 11px;
+}
+.reason {
+  padding: 88px 0 96px;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 170px;
+  gap: 34px;
+  border-top: 1px solid var(--gsg-border);
+}
+.reason-number {
+  font-family: var(--gsg-font-display);
+  font-size: clamp(4rem, 9vw, 7.2rem);
+  line-height: .82;
+  font-weight: 800;
+  color: var(--gsg-primary);
+}
+.reason h2 {
+  margin: 0 0 24px;
+  font-family: var(--gsg-font-display);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.03;
+  letter-spacing: 0;
+}
+.reason p { margin: 0 0 1.2em; }
+.side-note {
+  margin: 34px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--gsg-primary);
+  color: var(--gsg-ink);
+  font-family: var(--gsg-font-display);
+  font-size: 1.35rem;
+  line-height: 1.28;
+}
+.reason-visual {
+  min-height: 150px;
+  position: relative;
+  border-top: 1px solid color-mix(in srgb, var(--gsg-primary) 32%, transparent);
+}
+.visual-label {
+  position: absolute;
+  top: 18px;
+  right: 0;
+  font-family: var(--gsg-font-mono);
+  color: var(--gsg-primary);
+  font-weight: 700;
+}
+.rail {
+  position: absolute;
+  left: 0;
+  right: 22px;
+  height: 1px;
+  background: color-mix(in srgb, var(--gsg-ink) 22%, transparent);
+}
+.rail-a { top: 62px; }
+.rail-b { top: 104px; }
+.dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gsg-accent);
+}
+.dot-a { top: 53px; left: 18px; }
+.dot-b { top: 95px; left: 88px; background: var(--gsg-primary); }
+.final-cta {
+  width: var(--gsg-wide);
+  padding: 104px 0;
+  border-top: 1px solid var(--gsg-border);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 40px;
+  align-items: end;
+}
+.final-cta h2 {
+  margin: 0 0 18px;
+  max-width: 620px;
+  font-family: var(--gsg-font-display);
+  font-size: clamp(2rem, 5vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+.final-cta p { max-width: 620px; color: var(--gsg-muted); }
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  margin-top: 18px;
+  padding: 13px 22px;
+  border: 1px solid var(--gsg-ink);
+  border-radius: 999px;
+  background: var(--gsg-primary);
+  color: var(--gsg-bg);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform var(--gsg-duration) var(--gsg-easing);
+}
+.cta-button:hover { transform: translateY(-1px); }
+footer {
+  padding: 42px 0 56px;
+  border-top: 1px solid var(--gsg-border);
+  color: var(--gsg-muted);
+  font-size: 14px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .byline { width: var(--gsg-content); }
+  .hero {
+    width: var(--gsg-content);
+    grid-template-columns: 1fr;
+    padding: 54px 0 64px;
+  }
+  h1 {
+    max-width: 100%;
+    font-size: clamp(2.45rem, 10.5vw, 3.5rem);
+  }
+  .hero-visual { min-height: 330px; }
+  .brand-shot { height: 245px; }
+  .brand-shot-mobile {
+    width: 82px;
+    height: 142px;
+    right: 12px;
+    bottom: 14px;
+    border-radius: 14px;
+  }
+  .hero-visual-real .language-orbit { display: none; }
+  .proof-strip {
+    width: var(--gsg-content);
+    grid-template-columns: 1fr;
+    margin-bottom: 36px;
+  }
+  .reason {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 64px 0 68px;
+  }
+  .reason-visual { display: none; }
+  .reason-number { font-size: 4rem; }
+  .intro, .final-cta { padding: 72px 0; }
+  .final-cta {
+    width: var(--gsg-content);
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <div class="byline" aria-label="Auteur">
+        <div class="author-mark">ÉW</div>
+        <div>
+          <strong>Équipe Weglot</strong>
+          <span>Translation Infrastructure · 2026</span>
+        </div>
+      </div>
+      <div class="top-rule"></div>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Internationalisation SaaS</p>
+          <h1 id="page-title">10 raisons d&#x27;internationaliser votre site maintenant</h1>
+          <p class="dek">Un guide éditorial pour les équipes Growth, PM et Engineering qui veulent déployer le multilingue sans alourdir la roadmap, casser le SEO ou sacrifier la qualité brand.</p>
+        </div>
+        
+<div class="hero-visual hero-visual-real" aria-hidden="true">
+  <div class="browser-bar"><span></span><span></span><span></span><strong>weglot.com</strong></div>
+  <div class="brand-shot">
+    <img src="../data/captures/weglot/home/screenshots/desktop_clean_fold.png" alt="" loading="eager">
+  </div>
+  <div class="brand-shot-mobile"><img src="../data/captures/weglot/home/screenshots/mobile_clean_fold.png" alt="" loading="eager"></div>
+  <div class="language-orbit">
+    <i>EN</i><i>FR</i><i>DE</i><i>ES</i>
+  </div>
+</div>
+      </section>
+    </header>
+    <main>
+      <section class="intro" aria-label="Introduction">
+        <p>Vous gérez un site SaaS monolingue performant. Votre équipe envisage l&#x27;internationalisation, mais trois obstacles reviennent : un backlog dev déjà saturé, le risque de casser l&#x27;architecture SEO multilingue, et la peur que la traduction automatique dilue votre voix de marque. Ce guide pose 10 raisons concrètes, ancrées dans des workflows produit réels, pour franchir le pas maintenant.</p>
+<p>Règle éditoriale : nous ne citons aucun chiffre non sourcé, aucun cas client anonyme, aucun benchmark inventé. Quand une preuve quantitative manque, nous restons qualitatifs. Chaque raison passe le test « So What » : feature → avantage opérationnel → impact métier mesurable.</p>
+      </section>
+      <ul class="proof-strip" aria-label="Preuves disponibles"><li><span>111,368+ global brands rely on Weglot to translate their websites</span><small>home/capture.structure.headings</small></li><li><span>Make your website available in 110+ languages</span><small>home/capture.structure.headings</small></li><li><span>Tester gratuitement 10 jours</span><small>primary_cta_label</small></li></ul>
+      
+<article class="reason" id="reason-01">
+  <div class="reason-number">01</div>
+  <div class="reason-body">
+    <h2>Vous déployez 110+ langues sans toucher au code front-end</h2>
+    <p>Weglot injecte les traductions via une couche JavaScript côté client ou un proxy côté serveur, selon votre stack. Votre équipe Engineering n&#x27;a pas besoin de refactoriser les templates, d&#x27;ajouter des clés i18n dans React ou Vue, ni de maintenir des fichiers JSON par locale. Le site source reste monolingue ; Weglot sert les variantes traduites à la volée.</p>
+<p>Concrètement, vous collez un snippet dans le `&lt;head&gt;`, vous choisissez vos langues cibles dans le dashboard, et le contenu traduit apparaît sur des sous-répertoires (`/fr/`, `/de/`) ou sous-domaines. Aucun sprint dédié, aucun merge request complexe, aucun risque de régression sur la version anglaise pendant que vous construisez la version allemande.</p>
+    <div class="side-note">Weglot prend en charge 110+ langues, du français au japonais, coréen, arabe ou hébreu (RTL inclus).</div>
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">SEO</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-02">
+  <div class="reason-number">02</div>
+  <div class="reason-body">
+    <h2>Le SEO multilingue est configuré automatiquement</h2>
+    <p>Chaque page traduite reçoit ses propres balises `hreflang`, son URL canonique localisée, et son sitemap XML dédié. Weglot génère ces éléments techniques sans intervention manuelle. Votre équipe Growth n&#x27;a pas besoin de déboguer des conflits de canoniques ou de vérifier que Google indexe correctement plusieurs versions linguistiques.</p>
+<p>Les moteurs de recherche voient des pages distinctes, crawlables, avec du contenu unique par langue. Vous évitez le duplicate content, vous préservez le link equity entre versions, et vous ouvrez autant de canaux d&#x27;acquisition organique que de langues activées. Si votre site anglais génère déjà du trafic SEO qualifié, chaque nouvelle langue devient un canal parallèle avec le même potentiel.</p>
+    <div class="side-note">Les balises hreflang, sitemaps et métadonnées localisées sont injectées automatiquement dans le DOM ou le HTML servi.</div>
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">UX</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-03">
+  <div class="reason-number">03</div>
+  <div class="reason-body">
+    <h2>Vous gardez le contrôle éditorial sur la qualité brand</h2>
+    <p>La traduction automatique initiale—neuronale, contextuelle—sert de première passe. Ensuite, vous ouvrez l&#x27;éditeur visuel Weglot : vous voyez votre site en contexte, vous cliquez sur n&#x27;importe quel segment de texte, vous corrigez la formulation, vous ajoutez une nuance de ton, vous remplacez un terme technique par votre vocabulaire produit interne.</p>
+<p>Vous pouvez aussi exporter les segments vers un fichier, les envoyer à une agence de transcréation, puis réimporter les versions finales. Ou inviter un traducteur freelance directement dans le dashboard avec un rôle « Translator », limité à une langue. Résultat : vous déployez vite avec la machine, vous affinez là où ça compte—landing pages, emails transactionnels, messaging produit—et vous gardez la cohérence brand sur tous les marchés.</p>
+
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">ROI</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-04">
+  <div class="reason-number">04</div>
+  <div class="reason-body">
+    <h2>Vous internalisez un canal d&#x27;acquisition avant vos concurrents</h2>
+    <p>Si votre marché cible inclut la France, l&#x27;Allemagne, l&#x27;Espagne ou le Japon, vos prospects cherchent des solutions dans leur langue. Un site anglais seul vous exclut des requêtes locales : « logiciel gestion projet », « Projektmanagement-Tool », « ツール プロジェクト管理 ». Pendant que vous hésitez, un concurrent localise, rankonne sur ces mots-clés, et capte les early adopters de ce marché.</p>
+<p>Lancer le multilingue maintenant, c&#x27;est planter un drapeau SEO sur des territoires encore peu disputés dans votre catégorie. Vous construisez l&#x27;autorité de domaine localisée, vous accumulez les backlinks `.de` ou `.fr`, vous créez un avantage de première heure difficile à rattraper. Le coût d&#x27;acquisition client (CAC) sur ces canaux organiques reste structurellement plus bas que sur la publicité payante multilingue.</p>
+    <div class="side-note">111 368 marques mondiales utilisent Weglot pour traduire leurs sites—preuve que l&#x27;internationalisation n&#x27;est plus un luxe de grande entreprise.</div>
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">OPS</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-05">
+  <div class="reason-number">05</div>
+  <div class="reason-body">
+    <h2>Vous réduisez la friction pour les utilisateurs non anglophones</h2>
+    <p>Un visiteur allemand qui arrive sur votre landing page anglaise doit traduire mentalement chaque bénéfice, chaque CTA, chaque bloc de preuve sociale. Cette charge cognitive ralentit la décision, augmente le taux de rebond, et filtre les prospects moins à l&#x27;aise en anglais—souvent des décideurs senior ou des PME locales.</p>
+<p>Avec Weglot, ce même visiteur voit immédiatement le site en allemand : titres, boutons, formulaires, mentions légales. Il comprend instantanément la proposition de valeur, il fait confiance (« cette boîte parle ma langue, donc elle connaît mon marché »), et il convertit plus vite. Vous transformez une barrière linguistique en signal de proximité et de sérieux.</p>
+
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">CTA</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-06">
+  <div class="reason-number">06</div>
+  <div class="reason-body">
+    <h2>Vous testez de nouveaux marchés sans engagement lourd</h2>
+    <p>Avant de recruter un Sales local, d&#x27;ouvrir une entité juridique ou de lancer une campagne paid multilingue, vous pouvez valider l&#x27;appétit du marché en activant quelques langues sur Weglot. Vous observez le trafic organique, le taux de conversion par langue, le volume de signups, les questions support.</p>
+<p>Si l&#x27;Espagne génère peu de trafic qualifié après une période d'observation, vous désactivez la langue sans coût résiduel. Si le Japon surperforme, vous doublez la mise : vous affinez les traductions, vous localisez les case studies, vous adaptez les visuels produit. Weglot devient votre outil de market research en temps réel, avec un investissement initial minimal et un time-to-insight court.</p>
+    <div class="side-note">Vous pouvez activer ou désactiver une langue en un clic depuis le dashboard, sans redéploiement.</div>
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">GEO</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-07">
+  <div class="reason-number">07</div>
+  <div class="reason-body">
+    <h2>Vous synchronisez contenu et traductions automatiquement</h2>
+    <p>Votre équipe Marketing publie un nouveau article de blog, met à jour une landing page produit, ou modifie un pricing tier. Weglot détecte le changement sur la version source, isole les nouveaux segments, les traduit automatiquement, et met à jour toutes les versions linguistiques en quelques minutes.</p>
+<p>Vous n&#x27;avez pas besoin de notifier manuellement un traducteur, d&#x27;attendre un délai d'attente, puis de republier 10 versions. Le workflow reste fluide : vous éditez une fois en anglais, Weglot propage. Si vous voulez peaufiner la version française d&#x27;un nouveau feature launch, vous ouvrez l&#x27;éditeur visuel, vous ajustez, vous publiez. Zéro friction entre la vélocité produit et la cohérence multilingue.</p>
+
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">VOC</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-08">
+  <div class="reason-number">08</div>
+  <div class="reason-body">
+    <h2>Vous préservez l&#x27;expérience utilisateur sur mobile et desktop</h2>
+    <p>Le language switcher Weglot s&#x27;intègre dans votre navigation existante—header, footer, ou bouton flottant—sans casser la mise en page responsive. Sur mobile, un menu déroulant compact ; sur desktop, une liste inline ou un dropdown avec drapeaux. Vous choisissez le style, la position, les icônes.</p>
+<p>Les URLs localisées restent propres : `/fr/pricing`, `/de/features`. Pas de paramètre `?lang=fr` qui pollue les analytics ou complique le partage. Chaque langue a son URL canonique, son Open Graph localisé, ses métadonnées sociales. Quand un utilisateur partage votre page française sur LinkedIn, ses contacts français voient le titre et la description en français, pas en anglais.</p>
+    <div class="side-note">Le switcher est personnalisable en CSS ; vous gardez la cohérence avec votre design system.</div>
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">CAC</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-09">
+  <div class="reason-number">09</div>
+  <div class="reason-body">
+    <h2>Vous centralisez la gouvernance linguistique dans un seul outil</h2>
+    <p>Au lieu de jongler entre Google Sheets partagés, emails avec des traducteurs freelance, et fichiers JSON versionnés dans Git, vous gérez tout depuis le dashboard Weglot. Vous voyez l&#x27;état de traduction par langue (combien de segments traduits, combien en attente, combien modifiés manuellement), vous assignez des rôles (Admin, Translator, Reviewer), vous suivez l&#x27;historique des modifications.</p>
+<p>Vous pouvez aussi créer un glossaire : vous définissez que « workflow » se traduit toujours par « flux de travail » en français, jamais « processus » ou « pipeline ». Weglot applique ce glossaire à toutes les traductions automatiques futures. Résultat : cohérence terminologique garantie, moins de va-et-vient éditorial, et une source de vérité unique pour toute l&#x27;équipe.</p>
+
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">QA</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+<article class="reason" id="reason-10">
+  <div class="reason-number">10</div>
+  <div class="reason-body">
+    <h2>Vous démarrez en 10 jours sans risque</h2>
+    <p>Weglot propose un essai gratuit de 10 jours, sans carte bancaire. Vous installez, vous choisissez quelques langues, vous traduisez votre site, vous testez le SEO en staging ou en production, vous montrez le résultat à votre CMO ou CTO. Si ça ne colle pas—techniquement, qualitativement, stratégiquement—vous désinstallez. Zéro engagement, zéro coût caché.</p>
+<p>Cette approche low-friction enlève le principal frein à l&#x27;internationalisation : la peur de l&#x27;irréversible. Vous ne signez pas un contrat annuel avec une agence de traduction, vous ne construisez pas une infrastructure i18n custom que vous devrez maintenir durablement. Vous testez, vous mesurez, vous décidez. Et si vous validez, vous scalez langue par langue, marché par marché, au rythme de votre roadmap Growth.</p>
+    <div class="side-note">Le trial de 10 jours vous donne accès à toutes les fonctionnalités : traduction automatique, éditeur visuel, SEO, glossaire, et support.</div>
+  </div>
+  
+<div class="reason-visual" aria-hidden="true">
+  <span class="visual-label">GO</span>
+  <span class="rail rail-a"></span>
+  <span class="rail rail-b"></span>
+  <span class="dot dot-a"></span>
+  <span class="dot dot-b"></span>
+</div>
+</article>
+      <section class="final-cta" aria-labelledby="final-cta-title">
+        <div>
+          <h2 id="final-cta-title">Prêt à tester l&#x27;internationalisation sans alourdir votre roadmap ?</h2>
+          <p>Activez Weglot sur votre site en quelques minutes. Essai gratuit 10 jours, aucune carte bancaire requise. Vous verrez votre site traduit, le SEO configuré, et l&#x27;éditeur visuel en action. Si ça ne colle pas, vous désinstallez. Si ça marche, vous scalez.</p>
+        </div>
+        <a class="cta-button" href="https://dashboard.weglot.com/register">Tester gratuitement 10 jours</a>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-inner">
+        <span>Weglot — Simple, fast, and accessible translation for 111 368+ global brands.</span>
+        <span>weglot</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

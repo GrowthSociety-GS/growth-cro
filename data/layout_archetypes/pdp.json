@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "page_type": "pdp",
+  "philosophy": "Présentation produit honnête type Aesop / Whoop / Drunk Elephant : produit traité comme objet précieux, détails techniques transparents, pas de bullshit sales.",
+  "structure_required": [
+    {
+      "section": "gallery",
+      "what": "Gallery produit dominant (≥50% écran sur desktop). Multi-angles, détails matière, contexte d'usage RÉEL. PAS de mockup générique. Lazy-load propre.",
+      "why": "Produit = héros visuel. Le doute lecteur diminue avec la quantité de visuels."
+    },
+    {
+      "section": "title_price_cta",
+      "what": "Titre produit + prix + 1 CTA primary 'Add to cart' / 'Buy now'. PAS de pre-decimal '$' énorme. PAS de 'Save 20%' barré faux.",
+      "why": "Conversion zone simple. Pas de bullshit pricing tactics."
+    },
+    {
+      "section": "spec_or_short_description",
+      "what": "1 paragraphe descriptif honnête (50-150 mots) qui dit CE QUE C'EST. Tone confidant, pas marketing. Inclus 'fait en X', 'matériau Y', 'capacité Z'.",
+      "why": "Aesop pattern : prose éditoriale courte + précise."
+    },
+    {
+      "section": "details_techniques",
+      "what": "Specs accordéon ou liste structurée : dimensions, matériaux, certifications, ingrédients (cosm), garantie. Données vérifiables.",
+      "why": "Plus c'est détaillé honnêtement, plus c'est crédible."
+    },
+    {
+      "section": "social_proof_authentique",
+      "what": "Reviews : nombre + note moyenne + 3-5 reviews textuelles complètes (nom, date, avec/sans verified badge). Optionnel : photos clients.",
+      "why": "Reviews = facteur #1 conversion PDP. Pas slider, vrais reviews scrollables."
+    },
+    {
+      "section": "use_cases_or_pairings",
+      "what": "Optionnel : 'goes with' (cross-sell pertinent), guide d'usage, FAQ produit-spécifique. Pas catalogue full.",
+      "why": "Aide la décision, pas push autres produits."
+    },
+    {
+      "section": "shipping_returns",
+      "what": "Section claire : délai, prix, politique retour. Pas en footer enfoui.",
+      "why": "Élément #2 abandon panier après prix."
+    }
+  ],
+  "structure_forbidden": [
+    "Pre-checkout testimonials slider (= cheap)",
+    "Carrousel 'autres produits' avant detail full (= friction)",
+    "Pop-up newsletter sur entrée (= taux d'abandon)",
+    "Trust badges 'Visa Mastercard' rangée centrée (= belongs to checkout, pas PDP)"
+  ],
+  "typography_required": [
+    "Title produit : font-display, weight 600-700, scale 2-2.5x body",
+    "Prix : font-display, weight 600, NE PAS plus gros que title produit",
+    "Body description : font-body, weight 400, lh 1.55, max-width 55ch"
+  ],
+  "decorative_techniques_required": [
+    "Photos produit fond neutre (blanc, gris très clair, ou contexte propre)",
+    "Hover sur thumbs gallery → switch image principal",
+    "Sticky add-to-cart sur scroll long (mobile surtout)"
+  ],
+  "decorative_techniques_forbidden": [
+    "Photos produit avec fond gradient mesh AI-generated",
+    "'Buy 2 get 1 free' bandeau bg color plein (= cheap promo)",
+    "Animation 'add to cart' 3D physics overshoot",
+    "Live counter '12 people viewing this' (= fake urgency)"
+  ],
+  "color_strategy": "Produit central en couleur réelle, UI minimaliste neutrals 90% + 1 accent CTA",
+  "examples_to_imitate": [
+    "Aesop.com — gallery + prose éditoriale courte",
+    "Whoop.com — specs détaillés + data viz",
+    "Drunk Elephant — ingrédients transparents + reviews"
+  ]
+}

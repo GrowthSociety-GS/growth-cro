@@ -1,0 +1,310 @@
+{
+  "version": "v27.0.0-audit-to-gsg-brief",
+  "generated_at": "2026-05-05T07:45:13.039Z",
+  "source": {
+    "data_file": "deliverables/growth_audit_data.js",
+    "client": "weglot",
+    "page_type": "home",
+    "page_url": "https://www.weglot.com",
+    "score_pct": 65.9,
+    "priority_distribution": {
+      "P0": 9,
+      "P1": 4,
+      "P2": 0,
+      "P3": 2
+    },
+    "screenshot_desktop": "../data/captures/weglot/home/screenshots/desktop_clean_full.png",
+    "screenshot_mobile": "../data/captures/weglot/home/screenshots/mobile_clean_full.png"
+  },
+  "product_boundary": {
+    "audit_engine": "read_only",
+    "recommendations_engine": "read_only",
+    "gsg": "brief_consumer",
+    "reality_layer": "not_required_for_static_mvp",
+    "llm_scope": "copy variants only; no layout, no scoring, no full HTML rewrite",
+    "deterministic_scope": "page structure, section order, evidence selection, brand tokens, CTA contract"
+  },
+  "brand_tokens": {
+    "primary_color": "#e9dcf0",
+    "secondary_colors": [
+      "#c1e0f8",
+      "#493ce0",
+      "#c5bbd3",
+      "#9492cd"
+    ],
+    "tone": [
+      "confident",
+      "warm",
+      "direct"
+    ],
+    "preferred_cta_verbs": [
+      "Get started",
+      "Start",
+      "Join",
+      "Choose",
+      "Translate"
+    ],
+    "voice_signature_phrase": "Simple, fast, and accessible—no friction, just results",
+    "forbidden_words": [
+      "complex",
+      "technical",
+      "enterprise",
+      "complicated",
+      "difficult",
+      "corporate",
+      "bureaucratic"
+    ],
+    "approved_visual_techniques": [
+      "Pastel color blocking : utiliser #e9dcf0 (lavande) et #c1e0f8 (bleu ciel) comme fonds de sections pour créer du contraste doux",
+      "Accent violet-bleu (#493ce0) sur CTA buttons avec radius 8-12px et padding généreux (16-20px)",
+      "Asymmetric layout : texte bold à gauche (headline 48-56px), screenshot/mockup à droite avec subtle shadow",
+      "Micro-interactions : hover state sur buttons avec transition 200ms, changement de teinte vers #9492cd",
+      "Testimonial cards avec border-left 4px en #493ce0, fond blanc/gris très clair, radius 4-6px",
+      "Dark navy (#1a184d) pour footer et sections enterprise, texte blanc pour contraste maximal"
+    ],
+    "brand_fidelity_anchors": [
+      "Palette pastel signature : #e9dcf0 + #c1e0f8 DOIVENT apparaître dans hero ou sections clés (reconnaissance immédiate)",
+      "CTA button violet-bleu (#493ce0) avec texte blanc, radius 8-12px, sans outline—style solide et confiant",
+      "Headline en sans-serif bold/semibold (700-800 weight), court et direct ('The easiest way to...', 'Do you need help...'), jamais italique",
+      "Asymmetric hero layout : texte dominant à gauche, visuel/mockup à droite avec légère élévation",
+      "Accent color #d0318a (rose) utilisé sparingly pour highlights ou secondary CTAs (max 1-2 fois par page)"
+    ]
+  },
+  "audit_summary": {
+    "client_name": "Weglot",
+    "business_type": "saas",
+    "panel_role": "benchmark",
+    "score_pct": 66,
+    "p0_count": 9,
+    "dominant_problem": "Le hero de Weglot affiche 6 H1/H2 sans aucun verbatim client direct. Les sous-titres utilisent un langage corporate ('AI website translation, true to your brand', 'AI website trans",
+    "top_recos": [
+      {
+        "priority": "P0",
+        "ice_score": 154,
+        "criterion_id": "psy_08",
+        "problem": "Le hero de Weglot affiche 6 H1/H2 sans aucun verbatim client direct. Les sous-titres utilisent un langage corporate ('AI website translation, true to your brand', 'AI website trans",
+        "action": "Collecter de vrais verbatims clients avant rendu. Le GSG peut réserver l'emplacement, mais ne doit pas inventer de citations.",
+        "rationale": "En SaaS B2B pour les responsables tech/ops (CTOs, product managers, e-commerce leads) en phase signup_commit, l'absence totale de verbatim client zone visible sans scroller échoue le test des 5 secondes (killer rule [hero_5second_test_failure] cap 6/18) ET vi…",
+        "risk_flags": [
+          "requires_real_voc"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "priority": "P0",
+        "ice_score": 150,
+        "criterion_id": "psy_01",
+        "problem": "La page d'accueil de Weglot n'affiche aucun signal d'urgence ou de rareté visible. Le hero contient 6 H1/H2 (anti-pattern SEO), un sous-titre de 35 mots (vs 17 en golden), et des C",
+        "action": "Restructurer le hero en 3 étapes : (1) Conserver un SEUL H1 : 'The easiest way to translate a website'. (2) Remplacer le sous-titre verbeux par : 'AI translation, true to your brand. Join 111,368+ brands — Get started free, no credit card.' (12 mots vs 35 actuels). (3) Ajouter un signal d'urgence CRÉDIBLE et doux sous…",
+        "rationale": "Pour Weglot, un SaaS B2B/B2C de traduction website targeting des entreprises croissance-agiles (e-commerce, SaaS, marketplace), l'absence totale d'urgence ou rareté calibrée échoue le test 5-second (Schwartz 'product_aware' stage). La règle bloquante psy_01 c…",
+        "risk_flags": [
+          "requires_external_proof_source",
+          "urgency_must_be_truthful"
+        ],
+        "evidence_ids": [
+          "ev_weglot_home_psy_01_001"
+        ]
+      },
+      {
+        "priority": "P0",
+        "ice_score": 133,
+        "criterion_id": "tech_01",
+        "problem": "Weglot affiche actuellement 6 H1 sur la page d'accueil (anti-pattern SEO critique). Le sous-titre hero contient 35 mots (p50 golden = 17 mots, soit +106% de verbosité). La copy her",
+        "action": "1) Consolider l'H1 unique en « The easiest way to translate a website » (garder canonical). Supprimer les 5 H1 doublons/variantes (« Website translation so on brand, no one will suspect AI », etc.) → convertir en description prose ou sous-section H2 si pertinent pour le SEO. 2) Réduire le subtitle hero à 17 mots max. …",
+        "rationale": "Pour Weglot, SaaS B2B de traduction website pour PME/scale-ups en phase signup_commit, la performance technique est un signal d'autorité et de fiabilité. 6 H1 violent SEO best-practice (Google traite comme spam semantique) et dégradent le crawl budget. Subtit…",
+        "risk_flags": [
+          "requires_external_proof_source"
+        ],
+        "evidence_ids": [
+          "ev_weglot_home_tech_01_001"
+        ]
+      },
+      {
+        "priority": "P0",
+        "ice_score": 105,
+        "criterion_id": "hero_05",
+        "problem": "Le hero de Weglot affiche « 111,368+ global brands rely on Weglot » en h2 sous le H1, mais sans source vérifiable, sans date, et sans lien cliquable vers la preuve (Trustpilot, G2,",
+        "action": "Collecter de vrais verbatims clients avant rendu. Le GSG peut réserver l'emplacement, mais ne doit pas inventer de citations.",
+        "rationale": "Pour Weglot, qui adresse des décideurs IT/ops d'entreprises en phase signup_commit (essai gratuit + commitment compte SaaS), l'absence de source vérifiable sur le chiffre « 111,368+ » viole la règle bloquante per_04 (zero_concrete_proof). La doctrine exige au…",
+        "risk_flags": [
+          "requires_real_voc",
+          "requires_external_proof_source"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "priority": "P0",
+        "ice_score": 94,
+        "criterion_id": "HERO_ENSEMBLE",
+        "problem": "Hero zone diluted : H1 générique + CTAs concurrents + visuel abstrait = zero differentiation & weak intent capture",
+        "action": "Ajouter une preuve vérifiable ou masquer le claim. Le GSG ne doit pas inventer de rating, source ou chiffre.",
+        "rationale": "Weglot vend un produit **complexe (intégration + traduction AI + review humain)**. Le hero doit d'abord *justifier pourquoi agir maintenant* (bénéfice + cible), puis *montrer que c'est faisable* (visuel de l'interface), puis *réduire friction* (bouton d'actio…",
+        "risk_flags": [
+          "requires_external_proof_source"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "priority": "P0",
+        "ice_score": 93,
+        "criterion_id": "COHERENCE_FULL",
+        "problem": "Hero sans ancrage persona ni différenciation : promesse générique 'easiest way' sans cible, pain spécifique, ou mécanisme unique",
+        "action": "Restructurer le hero pour incarner un positionnement clair : remplacer la H1 générique par une Positioning Statement qui nomme (1) la cible opérationnelle explicite (ex: 'SaaS & e-commerce founders'), (2) le pain primary résolu (ex: 'without sacrificing SEO or spending weeks on setup'), (3) le mécanisme unique (ex: 'h…",
+        "rationale": "La doctrine de cohérence impose 5 axes alignés : (1) Clarity in 5 sec = H1 doit énoncer Quoi + Pain + Pour qui, pas seulement Quoi. (2) Target identifiability = 'For SaaS & e-commerce' crée un miroir psychologique immédiat ('that's me'), vs 'anyone with a web…",
+        "risk_flags": [],
+        "evidence_ids": []
+      },
+      {
+        "priority": "P0",
+        "ice_score": 73,
+        "criterion_id": "BENEFIT_FLOW",
+        "problem": "Hero + social proof chain manque de narratif unifiée et laddering émotionnel",
+        "action": "Ajouter une preuve vérifiable ou masquer le claim. Le GSG ne doit pas inventer de rating, source ou chiffre.",
+        "rationale": "Ce cluster traite le CORE VALUE ARTICULATION—la capacité à transformer une feature abstraite en narrative persuasive pour un buyer B2B. Le problème systémique est l'absence de **progression émotionnelle** (feature → outcome → identity) et de **social/narrativ…",
+        "risk_flags": [
+          "requires_external_proof_source"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "priority": "P0",
+        "ice_score": 67,
+        "criterion_id": "SOCIAL_PROOF_STACK",
+        "problem": "Social proof cluster relies on single unvalidated stat; zero authentic testimonials or authority signals.",
+        "action": "Collecter de vrais verbatims clients avant rendu. Le GSG peut réserver l'emplacement, mais ne doit pas inventer de citations.",
+        "rationale": "Cette restructuration adresse la règle de compensation du cluster : 3+ testimonial formats (text + photo + stat) + verified authority logos compensent ensemble l'absence de chiffres isolés. Psychologiquement, la combinaison stat sourcée + client nommé + voice…",
+        "risk_flags": [
+          "requires_real_voc",
+          "requires_external_proof_source"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "priority": "P0",
+        "ice_score": 33,
+        "criterion_id": "tech_04",
+        "problem": "La page d'accueil de Weglot n'expose aucun signal visible de tracking ou analytics en place. Pas de Google Tag Manager détectable, pas de Facebook/Meta pixel intégré, pas d'indicat",
+        "action": "Implémenter la stack de tracking minimum pour un SaaS B2B en phase signup_commit : (1) Google Tag Manager (GTM) conteneur + GA4 en propriété de mesure (événement 'view_home' + 'cta_click_get_started_free') ; (2) Facebook Conversion API ou Meta Pixel pour le remarketing d'audiences warm ; (3) Ajouter un événement de co…",
+        "rationale": "Pour Weglot, SaaS B2B de traduction de sites adressant des product managers et ops teams en phase signup_commit (intent détecté 0.928), l'absence totale de tracking tue l'optimisation CRO en boucle fermée. Le funnel 'awareness → evaluation → trust → commit' n…",
+        "risk_flags": [],
+        "evidence_ids": []
+      },
+      {
+        "priority": "P1",
+        "ice_score": 120,
+        "criterion_id": "psy_03",
+        "problem": "La page hero de Weglot contient 6 H1 distincts ('The easiest way to translate a website', 'Start your website's multilingual growth with AI', 'Make your website available in 110+ l",
+        "action": "Réduire à 1 H1 unique : 'The easiest way to translate a website' (conserver, USP détecté score=0.8). Remplacer le sous-titre par une phrase de 17 mots max avec ancrage prix : 'Multilingual growth without the cost — from €49/month'. Ajouter sous le bouton d'action primaire 'Get started for free' une micro-copy d'ancrag…",
+        "rationale": "Pour Weglot, en SaaS B2B traduction (audience : e-commerce managers, product leads, growth ops) en phase signup_commit, le critère psy_03 (ancrage prix/valeur) est actuellement zéro — aucune technique d'ancrage active parmi : (a) prix barré, (b) framing 'vale…",
+        "risk_flags": [
+          "requires_external_proof_source",
+          "urgency_must_be_truthful"
+        ],
+        "evidence_ids": [
+          "ev_weglot_home_psy_03_001"
+        ]
+      }
+    ]
+  },
+  "deterministic_layout_plan": [
+    {
+      "id": "hero",
+      "intent": "clarify promise, one primary CTA, visible proof, product-in-action visual",
+      "must_use": [
+        "single H1",
+        "one primary CTA",
+        "one proof strip",
+        "desktop and mobile screenshot awareness"
+      ],
+      "source_recos": [
+        "psy_08",
+        "psy_01"
+      ]
+    },
+    {
+      "id": "proof_stack",
+      "intent": "move trust signals above doubt, not decorative logo soup",
+      "must_use": [
+        "specific numbers only if sourced",
+        "named proof types",
+        "no fake five-star badges"
+      ],
+      "source_recos": [
+        "psy_08",
+        "hero_05",
+        "HERO_ENSEMBLE"
+      ]
+    },
+    {
+      "id": "mechanism",
+      "intent": "explain why the offer works before feature grid",
+      "must_use": [
+        "unique mechanism",
+        "short scannable steps",
+        "no generic feature cards"
+      ],
+      "source_recos": [
+        "COHERENCE_FULL"
+      ]
+    },
+    {
+      "id": "objection_resolver",
+      "intent": "answer friction surfaced by audit before final CTA",
+      "must_use": [
+        "pricing/integration/time/risk objections",
+        "concrete reassurance",
+        "supporting evidence"
+      ],
+      "source_recos": [
+        "psy_01",
+        "HERO_ENSEMBLE",
+        "COHERENCE_FULL"
+      ]
+    },
+    {
+      "id": "final_cta",
+      "intent": "repeat one action, no competing CTA cluster",
+      "must_use": [
+        "same CTA contract as hero",
+        "short reassurance",
+        "no artificial urgency"
+      ],
+      "source_recos": [
+        "psy_08",
+        "psy_01",
+        "tech_01",
+        "hero_05"
+      ]
+    }
+  ],
+  "copy_contract": {
+    "target_language": "FR",
+    "h1_direction": "Weglot: clarifier la promesse, prouver plus vite, garder un seul CTA.",
+    "primary_cta_label": "Commencer maintenant",
+    "claims_policy": "Only use numbers already present in audit/reco/brand data. Otherwise phrase as qualitative.",
+    "forbidden": [
+      "generic SaaS hero",
+      "fake reviews",
+      "countdown urgency",
+      "full HTML polish by LLM"
+    ]
+  },
+  "renderer_contract": {
+    "output": "controlled HTML sections",
+    "allowed_inputs": [
+      "this brief",
+      "brand_tokens",
+      "selected screenshot paths",
+      "manual offer overrides"
+    ],
+    "blocked_inputs": [
+      "raw mega-prompt",
+      "unbounded design grammar dump",
+      "Reality metrics until configured"
+    ],
+    "post_run_judges": [
+      "deterministic CTA/language/proof gates",
+      "multi-judge optional post-run only"
+    ]
+  }
+}

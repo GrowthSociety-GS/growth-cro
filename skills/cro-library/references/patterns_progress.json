@@ -1,0 +1,242 @@
+{
+  "version": "14.2.0",
+  "buckets_done": {
+    "hero_04|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_hero_04__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "hero_03|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_hero_03__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "hero_01|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_hero_01__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "hero_06|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_hero_06__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "hero_04|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_hero_04__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "hero_03|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_hero_03__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "hero_01|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_hero_01__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "hero_06|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_hero_06__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "coh_07|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_coh_07__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "coh_01|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_coh_01__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "coh_02|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_coh_02__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "coh_06|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_coh_06__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "coh_01|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_coh_01__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "coh_02|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_coh_02__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "coh_06|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_coh_06__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_01|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_per_01__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_02|purchase|home|ecommerce|weak": {
+      "pattern_id": "pat_per_02__home__purchase__ecommerce__weak__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_03|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_per_03__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_04|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_per_04__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_05|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_per_05__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_06|purchase|home|ecommerce|weak": {
+      "pattern_id": "pat_per_06__home__purchase__ecommerce__weak__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_09|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_per_09__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_02|signup_commit|home|saas|weak": {
+      "pattern_id": "pat_per_02__home__signup_commit__saas__weak__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_01|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_per_01__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "per_09|signup_commit|home|saas|critical": {
+      "pattern_id": "pat_per_09__home__signup_commit__saas__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "ux_05|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_ux_05__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "ux_04|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_ux_04__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "psy_01|purchase|home|ecommerce|weak": {
+      "pattern_id": "pat_psy_01__home__purchase__ecommerce__weak__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "psy_07|purchase|home|ecommerce|critical": {
+      "pattern_id": "pat_psy_07__home__purchase__ecommerce__critical__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "psy_01|signup_commit|home|saas|weak": {
+      "pattern_id": "pat_psy_01__home__signup_commit__saas__weak__001",
+      "distilled_at": "2026-04-16T10:13:49Z"
+    },
+    "psy_02|universal|universal|all|universal": {
+      "pattern_id": "pat_psy_02__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "psy_03|universal|universal|all|universal": {
+      "pattern_id": "pat_psy_03__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "psy_04|universal|universal|all|universal": {
+      "pattern_id": "pat_psy_04__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "psy_05|universal|universal|all|universal": {
+      "pattern_id": "pat_psy_05__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "psy_06|universal|universal|all|universal": {
+      "pattern_id": "pat_psy_06__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "psy_08|universal|universal|all|universal": {
+      "pattern_id": "pat_psy_08__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "hero_02|universal|universal|all|universal": {
+      "pattern_id": "pat_hero_02__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "hero_05|universal|universal|all|universal": {
+      "pattern_id": "pat_hero_05__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "coh_03|universal|universal|all|universal": {
+      "pattern_id": "pat_coh_03__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "coh_04|universal|universal|all|universal": {
+      "pattern_id": "pat_coh_04__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "coh_05|universal|universal|all|universal": {
+      "pattern_id": "pat_coh_05__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "coh_08|universal|universal|all|universal": {
+      "pattern_id": "pat_coh_08__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "coh_09|universal|universal|all|universal": {
+      "pattern_id": "pat_coh_09__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "per_07|universal|universal|all|universal": {
+      "pattern_id": "pat_per_07__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "per_08|universal|universal|all|universal": {
+      "pattern_id": "pat_per_08__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "per_10|universal|universal|all|universal": {
+      "pattern_id": "pat_per_10__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "per_11|universal|universal|all|universal": {
+      "pattern_id": "pat_per_11__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "ux_01|universal|universal|all|universal": {
+      "pattern_id": "pat_ux_01__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "ux_02|universal|universal|all|universal": {
+      "pattern_id": "pat_ux_02__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "ux_03|universal|universal|all|universal": {
+      "pattern_id": "pat_ux_03__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "ux_06|universal|universal|all|universal": {
+      "pattern_id": "pat_ux_06__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "ux_07|universal|universal|all|universal": {
+      "pattern_id": "pat_ux_07__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "ux_08|universal|universal|all|universal": {
+      "pattern_id": "pat_ux_08__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "tech_01|universal|universal|all|universal": {
+      "pattern_id": "pat_tech_01__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "tech_02|universal|universal|all|universal": {
+      "pattern_id": "pat_tech_02__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "tech_03|universal|universal|all|universal": {
+      "pattern_id": "pat_tech_03__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "tech_04|universal|universal|all|universal": {
+      "pattern_id": "pat_tech_04__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    },
+    "tech_05|universal|universal|all|universal": {
+      "pattern_id": "pat_tech_05__doctrinal__001",
+      "distilled_at": "2026-04-16T11:06:57Z"
+    }
+  },
+  "batches_done": [
+    "batch_001.json",
+    "batch_002_doctrinal.json"
+  ],
+  "last_update": "2026-04-16T11:06:57Z"
+}

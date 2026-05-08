@@ -1,0 +1,359 @@
+{
+  "_meta": {
+    "name": "GrowthCRO V12 — Angles A/B testables par critère",
+    "version": "1.0.0 — doctrine V12 — 2026-04-13",
+    "description": "Bibliothèque d'angles A/B standardisés. Chaque reco majeure (Top→OK ou Critical→OK) sur un critère listé doit proposer 2-3 variantes testables avec angle psychologique explicite, copy template, et guidance test (métrique + durée minimale).",
+    "sources": [
+      "Eugene Schwartz — Breakthrough Advertising (1966) : 5 niveaux awareness",
+      "Dan Kennedy — The Ultimate Sales Letter (4th ed.) : variantes headlines par archetype",
+      "Joanna Wiebe (Copyhackers) — 10x framework : messaging hierarchy + voice of customer",
+      "Ryan Levesque — Ask method (2015) : segmentation par intention",
+      "CXL Institute — Copy Testing & Conversion Copywriting 2020-2024"
+    ],
+    "applicationMode": "enricher attache 2-3 variants à chaque reco selon critère. Le consultant choisit les 2-3 à tester chez le client.",
+    "test_duration_guidance": {
+      "ecom_product_home": "14 jours min + 5k visitors per variant",
+      "saas_b2b_demo": "28 jours min + 2k sessions per variant",
+      "lead_gen_simple": "10-14 jours + 3k sessions",
+      "quiz_vsl": "21 jours + cohorte complète quiz finish",
+      "luxe": "30+ jours, attention aux cycles saisonniers"
+    }
+  },
+  "angles_by_criterion": {
+    "hero_01": {
+      "criterion_name": "H1 promesse",
+      "variants": [
+        {
+          "angle_id": "promesse_transformation",
+          "angle_label": "Transformation (avant → après)",
+          "psychological_trigger": "identity_shift + narrative_arc",
+          "schwartz_fit": ["problem_aware", "solution_aware"],
+          "template": "[Verbe action] [état désiré / résultat] [modifier: sans X / en Y jours / pour Z]",
+          "copy_examples": [
+            "Passez de 100 leads/mois à 500 sans doubler votre budget",
+            "Dormez 8h complètes dès la première nuit"
+          ],
+          "works_well_for": ["saas_b2c", "dtc_subscription", "edu", "service_local"],
+          "risks": "Si promesse trop forte, déclenche skepticism — toujours appuyer avec preuve chiffrée dans sous-titre"
+        },
+        {
+          "angle_id": "specificite_mecanisme",
+          "angle_label": "Mécanisme unique (Kennedy USP)",
+          "psychological_trigger": "curiosity + authority",
+          "schwartz_fit": ["solution_aware", "product_aware"],
+          "template": "[Produit] : la [méthode/technologie unique] qui [bénéfice spécifique]",
+          "copy_examples": [
+            "Norby : la méthode 3 minutes/jour pour apprendre une langue sans ennui",
+            "Stripe Terminal : l'API unifiée qui remplace votre stack POS"
+          ],
+          "works_well_for": ["saas_b2b", "saas_b2c", "dtc_subscription", "edu"],
+          "risks": "Fonctionne uniquement si le 'mécanisme' est réellement unique — sinon perçu comme buzzword"
+        },
+        {
+          "angle_id": "preuve_chiffree",
+          "angle_label": "Preuve chiffrée hero",
+          "psychological_trigger": "social_proof + authority",
+          "schwartz_fit": ["most_aware", "product_aware"],
+          "template": "[Chiffre clients / résultat] [verbe d'usage] [produit] pour [bénéfice]",
+          "copy_examples": [
+            "47 000 indépendants utilisent Pennylane pour gérer leur compta en 15 min/mois",
+            "Le n°1 français du pet food premium — 250k chiens nourris"
+          ],
+          "works_well_for": ["dtc_subscription", "saas_b2c", "ecom_product", "marketplace"],
+          "risks": "Exige la source en footnote — sinon flag anti-pattern social_proof_numbers_vague"
+        }
+      ]
+    },
+    "hero_03": {
+      "criterion_name": "CTA principal",
+      "variants": [
+        {
+          "angle_id": "benefice_direct",
+          "angle_label": "Bénéfice direct",
+          "psychological_trigger": "outcome_projection",
+          "template": "[Verbe projection] [bénéfice concret / résultat]",
+          "copy_examples": [
+            "Obtenir mon plan personnalisé",
+            "Voir mon ROI en 2 minutes",
+            "Trouver le bon plan pour mon équipe"
+          ],
+          "works_well_for": ["lead_gen_simple", "lead_gen_saas", "quiz_vsl"]
+        },
+        {
+          "angle_id": "facilite_effort",
+          "angle_label": "Facilité / effort minimal",
+          "psychological_trigger": "ease_commitment_low",
+          "template": "[Verbe démarrage] en [durée courte / sans X]",
+          "copy_examples": [
+            "Commencer l'essai gratuit (30 secondes)",
+            "Essayer — aucune carte bancaire",
+            "Réserver ma démo en 1 clic"
+          ],
+          "works_well_for": ["saas_b2b", "saas_b2c", "dtc_subscription"]
+        },
+        {
+          "angle_id": "curiosite_projection",
+          "angle_label": "Curiosité + projection résultat",
+          "psychological_trigger": "curiosity_gap + visual_imagery",
+          "template": "[Verbe découverte] [résultat / contenu] en [délai]",
+          "copy_examples": [
+            "Voir la démo produit (90 secondes)",
+            "Découvrir votre score CRO personnalisé",
+            "Générer mon brief de campagne"
+          ],
+          "works_well_for": ["saas_b2b", "edu", "quiz_vsl", "advertorial"]
+        }
+      ]
+    },
+    "per_01": {
+      "criterion_name": "Angle persuasif / Hook principal",
+      "variants": [
+        {
+          "angle_id": "pas_framework",
+          "angle_label": "Problem-Agitate-Solution",
+          "psychological_trigger": "pain_amplification + relief",
+          "template": "[Identifier problème client] → [amplifier coût/conséquence] → [présenter solution]",
+          "copy_examples": [
+            "Votre équipe perd 8h/semaine sur la saisie Excel. Ça coûte 40k€/an à votre boîte. Acme automatise tout en 20 min.",
+            "Tu dors mal ? Tu penses que c'est le stress. C'est ton matelas — voici pourquoi."
+          ],
+          "works_well_for": ["problem_aware_audience", "advertorial", "vsl", "dtc_subscription"]
+        },
+        {
+          "angle_id": "bab_framework",
+          "angle_label": "Before-After-Bridge",
+          "psychological_trigger": "transformation_narrative",
+          "template": "[État actuel douloureux] → [état désiré idéal] → [le pont = votre produit]",
+          "copy_examples": [
+            "Avant : 12 outils, 3h/jour à consolider les data. Après : un dashboard unique. Le pont : Acme connecte tout en 10 min.",
+            "De no-code sans résultats à +200% leads en 6 semaines : la méthode Growth Society"
+          ],
+          "works_well_for": ["saas_b2b", "edu", "service_local", "dtc_subscription"]
+        },
+        {
+          "angle_id": "proof_first",
+          "angle_label": "Preuve d'abord (Joanna Wiebe)",
+          "psychological_trigger": "social_proof + authority_first",
+          "template": "[Résultat client chiffré + attribution] → [mécanisme] → [promesse]",
+          "copy_examples": [
+            "\"On a signé 14 deals enterprise en 90 jours.\" — CRO @ Doctolib. Voici comment Apollo.io y arrive.",
+            "47 000 clients Pennylane gagnent 5h/semaine — la méthode qu'on utilise en interne"
+          ],
+          "works_well_for": ["saas_b2b", "most_aware_audience", "case_study"]
+        }
+      ]
+    },
+    "per_06": {
+      "criterion_name": "Social proof / preuve sociale",
+      "variants": [
+        {
+          "angle_id": "voc_literal_customer",
+          "angle_label": "Voice of customer littérale",
+          "psychological_trigger": "identification + social_proof",
+          "template": "Citation client verbatim + photo + nom + fonction + entreprise + résultat chiffré",
+          "copy_examples": [
+            "\"J'ai arrêté de bosser le weekend.\" — Julie Marchand, fondatrice @ Polène (Paris)",
+            "\"On a réduit notre churn de 12% à 4% en 4 mois.\" — Thomas D., Head of CS @ Spendesk"
+          ],
+          "works_well_for": ["all_categories"]
+        },
+        {
+          "angle_id": "before_after_metric",
+          "angle_label": "Avant/Après métrique",
+          "psychological_trigger": "proof_concrete + loss_aversion_reversal",
+          "template": "Avant [X] → Après [Y] — [attribution client + période]",
+          "copy_examples": [
+            "Avant : 2h30 de saisie/jour. Après : 15 min. — Cabinet Lefevre, 3 mois",
+            "CAC passé de 840€ à 312€ en 6 mois — Manatime, scale-up B2B"
+          ],
+          "works_well_for": ["saas_b2b", "saas_b2c", "service_local"]
+        },
+        {
+          "angle_id": "brand_logos_concentration",
+          "angle_label": "Wall of logos (SaaS B2B enterprise)",
+          "psychological_trigger": "authority_transfer + herd",
+          "template": "Liste logos clients connus + headline 'utilisé par'",
+          "copy_examples": [
+            "Utilisé par les équipes produit de [Doctolib, BlaBlaCar, Back Market, Deezer, Alan]",
+            "Trusted by 200+ French scale-ups"
+          ],
+          "works_well_for": ["saas_b2b"],
+          "risks": "Uniquement si logos sont pertinents ICP — logos random = signal faible"
+        }
+      ]
+    },
+    "coh_01": {
+      "criterion_name": "Promesse unifiée (hero ↔ CTA ↔ corps)",
+      "variants": [
+        {
+          "angle_id": "one_promise_one_verb",
+          "angle_label": "Une promesse, un verbe",
+          "psychological_trigger": "clarity + commitment_consistency",
+          "template": "Le même verbe/bénéfice central répété en hero, CTA, section proof, FAQ",
+          "copy_examples": [
+            "'Automatiser' : H1 'Automatisez votre compta', CTA 'Commencer à automatiser', Section 'Ce qu'ils automatisent', FAQ 'Que puis-je automatiser ?'"
+          ],
+          "works_well_for": ["saas_b2b", "saas_b2c", "dtc_subscription"]
+        },
+        {
+          "angle_id": "moore_positioning_explicit",
+          "angle_label": "Moore positioning template explicite",
+          "psychological_trigger": "clarity + segmentation",
+          "template": "For [target] who [need], [product] is a [category] that [key benefit] unlike [alternative] which [limitation]",
+          "copy_examples": [
+            "Pour les indépendants français qui détestent la compta, Pennylane est un logiciel de comptabilité qui automatise 90% des tâches, contrairement à Excel qui nécessite 5h/mois de saisie"
+          ],
+          "works_well_for": ["saas_b2b", "saas_b2c"]
+        }
+      ]
+    },
+    "psy_07": {
+      "criterion_name": "Déclencheur émotionnel dominant",
+      "variants": [
+        {
+          "angle_id": "fear_loss_aversion",
+          "angle_label": "Peur / aversion perte",
+          "psychological_trigger": "fear + loss_aversion",
+          "template": "[Chiffre coût inaction] → [scénario coût] → [solution inverse]",
+          "copy_examples": [
+            "Chaque mois sans [produit], vous perdez [X€] — voici pourquoi",
+            "80% des startups disparaissent par manque de [X]. Vous en êtes où ?"
+          ],
+          "works_well_for": ["saas_b2b", "service_local", "edu", "problem_aware_audience"]
+        },
+        {
+          "angle_id": "aspiration_identity",
+          "angle_label": "Aspiration / identité",
+          "psychological_trigger": "aspiration + identity_shift",
+          "template": "[Archetype désiré] utilise [produit] — rejoignez-les",
+          "copy_examples": [
+            "Les indépendants qui scalent utilisent Pennylane. Arrêtez de faire de la compta, commencez à grandir.",
+            "Rejoignez les athlètes qui s'entraînent sans blessure."
+          ],
+          "works_well_for": ["dtc_subscription", "luxe", "edu", "aspirational_audience"]
+        },
+        {
+          "angle_id": "relief_ease",
+          "angle_label": "Soulagement / facilité",
+          "psychological_trigger": "relief + ease",
+          "template": "[Douleur actuelle] → [produit] s'occupe de tout → [relief]",
+          "copy_examples": [
+            "La compta qui se fait toute seule. Vraiment.",
+            "Dormez l'esprit léger — on s'occupe de la compta."
+          ],
+          "works_well_for": ["saas_b2c", "service_local", "dtc_subscription"]
+        }
+      ]
+    },
+    "per_05": {
+      "criterion_name": "Tarif transparent / pricing lisible",
+      "variants": [
+        {
+          "angle_id": "price_anchor_value",
+          "angle_label": "Ancrage valeur (prix + value-stack)",
+          "psychological_trigger": "anchoring + value_justification",
+          "template": "[Prix] pour [liste 3-5 éléments value inclus] — valeur comparée [€]",
+          "copy_examples": [
+            "49€/mois — inclut audit mensuel (≈300€), 5h consulting (≈500€), support prioritaire. Valeur totale >800€.",
+            "À partir de 29€/mois — tout inclus : onboarding 1-on-1, accès premium, résiliation 1 clic."
+          ],
+          "works_well_for": ["saas_b2b", "saas_b2c", "dtc_subscription", "edu"]
+        },
+        {
+          "angle_id": "price_per_usage",
+          "angle_label": "Prix ramené à l'unité / usage",
+          "psychological_trigger": "framing + loss_aversion_reversal",
+          "template": "[Prix] = [équivalent unité consommable quotidien]",
+          "copy_examples": [
+            "99€/an = le prix d'un café par semaine",
+            "0,97€/jour pour une compta complète qui se fait seule"
+          ],
+          "works_well_for": ["dtc_subscription", "saas_b2c", "edu"]
+        },
+        {
+          "angle_id": "price_tier_comparison",
+          "angle_label": "3 tiers + 'most popular'",
+          "psychological_trigger": "decoy + center_stage",
+          "template": "Tier 1 (starter) / Tier 2 (most popular — mis en avant) / Tier 3 (enterprise)",
+          "copy_examples": [
+            "Starter 19€ / Pro 49€ ★ Most Popular / Scale 149€"
+          ],
+          "works_well_for": ["saas_b2b", "saas_b2c", "dtc_subscription"],
+          "risks": "Éviter la tarification en 5+ tiers (Iyengar paralysis) — max 3 tiers visibles"
+        }
+      ]
+    },
+    "psy_01": {
+      "criterion_name": "Scarcity / urgence",
+      "variants": [
+        {
+          "angle_id": "real_scarcity_inventory",
+          "angle_label": "Scarcity réelle basée inventaire",
+          "psychological_trigger": "scarcity_real + loss_aversion",
+          "template": "[N] places/produits restants cette [cohorte/saison/drop]",
+          "copy_examples": [
+            "Il reste 7 places sur la cohorte avril (limitée à 30)",
+            "Plus que 12 unités en stock — production limitée 2026"
+          ],
+          "works_well_for": ["edu", "dtc_subscription", "luxe", "ecom_product"],
+          "risks": "Le chiffre doit être VRAI et vérifiable côté back-office"
+        },
+        {
+          "angle_id": "cohort_deadline",
+          "angle_label": "Deadline de cohorte / inscription",
+          "psychological_trigger": "urgency_real + commitment",
+          "template": "Inscriptions fermées le [date fixe] — prochaine cohorte en [délai]",
+          "copy_examples": [
+            "Inscriptions fermées le 30 avril. Prochaine cohorte : septembre.",
+            "Campagne Mars — dernières 48h avant cut-off planning"
+          ],
+          "works_well_for": ["edu", "saas_b2b", "service_local"]
+        },
+        {
+          "angle_id": "narrative_moment",
+          "angle_label": "Urgence narrative (sans timer)",
+          "psychological_trigger": "urgency_contextual",
+          "template": "[Saison/événement contexte] = le bon moment pour [action]",
+          "copy_examples": [
+            "Avant la rentrée de septembre, posez les fondations de votre stack",
+            "Q1 se termine : ne rate pas ton bilan"
+          ],
+          "works_well_for": ["saas_b2b", "service_local", "edu"],
+          "risks": "Ne JAMAIS accompagner d'un countdown qui reset — voir anti-pattern scarcity_countdown_fake"
+        }
+      ]
+    },
+    "ux_04": {
+      "criterion_name": "CTAs répétés au long de la page",
+      "variants": [
+        {
+          "angle_id": "same_cta_anchors",
+          "angle_label": "Même CTA répété 3-4×",
+          "psychological_trigger": "consistency + reminder",
+          "template": "Même label CTA hero répété après hero, mid-page, avant FAQ, footer",
+          "copy_examples": ["'Obtenir mon diagnostic' répété ×4 dans la page"],
+          "works_well_for": ["lead_gen_simple", "quiz_vsl", "advertorial"]
+        },
+        {
+          "angle_id": "evolving_cta_by_context",
+          "angle_label": "CTA évolutif selon section",
+          "psychological_trigger": "contextual_relevance",
+          "template": "Hero 'Commencer' → après proof 'Voir un cas client' → après pricing 'Demander une démo'",
+          "copy_examples": ["CTA hero 'Essayer gratuitement' puis 'Voir mon ROI' après section calcul"],
+          "works_well_for": ["saas_b2b", "saas_b2c"]
+        }
+      ]
+    }
+  },
+  "variant_selection_rules": {
+    "min_variants_per_major_reco": 2,
+    "recommended_variants": 3,
+    "max_variants": 3,
+    "prioritization_logic": [
+      "1. Filtrer angles compatibles avec business_category (champ 'works_well_for')",
+      "2. Filtrer angles compatibles avec Schwartz awareness (champ 'schwartz_fit')",
+      "3. Privilégier angles qui n'ont pas été testés récemment (si historique client dispo)",
+      "4. Exclure angles dont les 'risks' correspondent à un anti-pattern présent sur la page"
+    ]
+  }
+}

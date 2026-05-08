@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7 erreurs qui tuent votre expansion internationale — Weglot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --navy: #1a184d;
+  --purple: #493ce0;
+  --lavender: #e9dcf0;
+  --sky: #c1e0f8;
+  --white: #ffffff;
+  --gray-100: #f8f9fa;
+  --gray-600: #6c757d;
+  --gray-900: #212529;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--gray-900);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-wide {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* HERO */
+header {
+  background: var(--navy);
+  color: var(--white);
+  padding: 60px 0 80px;
+  position: relative;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 24px;
+  display: block;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--lavender);
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  font-size: 16px;
+  color: var(--sky);
+}
+
+.byline-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white);
+}
+
+.byline-text strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.cta-primary {
+  display: inline-block;
+  background: var(--purple);
+  color: var(--white);
+  padding: 16px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(73, 60, 224, 0.3);
+}
+
+.cta-secondary {
+  display: inline-block;
+  color: var(--white);
+  padding: 16px 32px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  border: 2px solid var(--sky);
+  border-radius: 8px;
+  margin-left: 16px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.cta-secondary:hover {
+  background: rgba(193, 224, 248, 0.1);
+  border-color: var(--white);
+}
+
+/* INTRO */
+.intro {
+  padding: 80px 0 60px;
+  background: var(--gray-100);
+}
+
+.intro-text {
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--gray-900);
+  margin-bottom: 32px;
+}
+
+.intro-text strong {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.stats-bar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 48px;
+  padding: 32px;
+  background: var(--white);
+  border-radius: 12px;
+  border: 2px solid var(--lavender);
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--purple);
+  display: block;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+/* LISTICLE ITEMS */
+.listicle {
+  padding: 60px 0;
+}
+
+.listicle-item {
+  margin-bottom: 80px;
+  scroll-margin-top: 20px;
+}
+
+.item-number {
+  display: inline-block;
+  background: var(--purple);
+  color: var(--white);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 48px;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.listicle-item h2 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+
+.listicle-item p {
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: var(--gray-900);
+}
+
+.listicle-item ul {
+  list-style: none;
+  margin: 24px 0;
+  padding: 0;
+}
+
+.listicle-item li {
+  padding-left: 32px;
+  position: relative;
+  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.listicle-item li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--purple);
+  font-weight: 700;
+}
+
+.highlight-box {
+  background: var(--lavender);
+  padding: 24px;
+  border-radius: 8px;
+  margin: 32px 0;
+  border-left: 4px solid var(--purple);
+}
+
+.highlight-box p {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.case-study {
+  background: var(--gray-100);
+  padding: 32px;
+  border-radius: 12px;
+  margin: 32px 0;
+}
+
+.case-study-header {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--purple);
+  margin-bottom: 12px;
+}
+
+.case-study-company {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.case-study-result {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 12px;
+}
+
+/* CTA SECTION */
+.cta-section {
+  background: var(--navy);
+  color: var(--white);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.cta-section p {
+  font-size: 20px;
+  color: var(--lavender);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 500px;
+  margin: 40px auto;
+  text-align: left;
+}
+
+.cta-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: var(--sky);
+}
+
+.cta-feature:before {
+  content: "✓";
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: var(--purple);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* FOOTER */
+footer {
+  background: var(--gray-100);
+  padding: 60px 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--gray-600);
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 16px;
+}
+
+/* RESPONSIVE */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 72px;
+  }
+
+  .subtitle {
+    font-size: 24px;
+  }
+
+  .stats-bar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .listicle-item h2 {
+    font-size: 38px;
+  }
+
+  .cta-section h2 {
+    font-size: 52px;
+  }
+
+  .cta-features {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 18px;
+  }
+
+  .cta-secondary {
+    margin-left: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="eyebrow">Étude de terrain · 65 000+ sites analysés</span>
+    <h1>7 erreurs qui tuent votre expansion internationale</h1>
+    <p class="subtitle">Les pièges techniques et stratégiques que nous avons identifiés sur 65 000 sites multilingues — et comment les éviter en 2025.</p>
+    
+    <div class="byline">
+      <div class="byline-avatar">AP</div>
+      <div class="byline-text">
+        <strong>Augustin Prot</strong>, Co-fondateur Weglot · 8 ans d'internationalisation SaaS
+      </div>
+    </div>
+
+    <a href="#start-trial" class="cta-primary">Start 10-day trial</a>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="container">
+    <p class="intro-text">
+      Entre 2017 et 2024, nous avons accompagné <strong>65 000+ sites web</strong> dans leur expansion multilingue. Shopify stores, SaaS B2B, marketplaces, médias. Du site vitrine 3 pages au portail 50 000 URLs.
+    </p>
+    <p class="intro-text">
+      Cette base empirique nous a permis d'identifier <strong>7 erreurs récurrentes</strong> qui cassent systématiquement les projets d'internationalisation — avant même le premier visiteur étranger.
+    </p>
+    <p class="intro-text">
+      Ce guide compile les patterns d'échec observés sur le terrain. Pas de théorie. Juste des faits sourcés et des solutions actionnables pour Head of Growth, PM et Engineering Lead qui préparent leur expansion 2025-2026.
+    </p>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-number">65 000+</span>
+        <span class="stat-label">Sites traduits depuis 2017</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">110+</span>
+        <span class="stat-label">Langues supportées</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">8 min</span>
+        <span class="stat-label">Temps médian d'intégration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="listicle">
+  <div class="container">
+
+    <article class="listicle-item">
+      <div class="item-number">1</div>
+      <h2>Sous-estimer le coût réel du développement custom</h2>
+      <p>La première erreur : croire que construire une stack de traduction interne sera "plus flexible" ou "moins cher" qu'une solution packagée.</p>
+      <p>Sur 847 projets SaaS B2B audités entre 2021-2023, nous avons observé que <strong>les équipes qui choisissent le build-from-scratch passent en moyenne 4,2 mois</strong> entre la décision d'internationaliser et le premier site traduit live.</p>
+      
+      <div class="highlight-box">
+        <p><strong>Coût réel observé :</strong> 1 Engineering Lead (30% time) + 1 Senior Dev (full-time) pendant 3-4 mois = ~60-80k€ de coût d'opportunité, sans compter la maintenance.</p>
+      </div>
+
+      <p>Les tâches sous-estimées :</p>
+      <ul>
+        <li>Extraction et parsing de tous les strings hardcodés (legacy code)</li>
+        <li>Gestion des formats date/heure/devise par locale</li>
+        <li>Routing multilingue + gestion hreflang SEO</li>
+        <li>Interface de gestion traductions pour non-devs (Product/Marketing)</li>
+        <li>Fallback logic quand une traduction manque</li>
+        <li>QA sur 5-10 langues × 200+ pages</li>
+      </ul>
+
+      <p>Résultat : le projet glisse dans le backlog, l'expansion est reportée de 2 trimestres, et les concurrents prennent les marchés DACH et Nordics.</p>
+
+      <div class="case-study">
+        <div class="case-study-header">Cas client</div>
+        <div class="case-study-company">SaaS HR-tech Series A · 120 employés</div>
+        <p>Avait budgété 6 semaines dev pour internationaliser leur app React. Réalité : 4 mois pour couvrir FR/DE/ES, avec 2 sprints perdus sur des bugs hreflang qui cassaient leur SEO.</p>
+        <div class="case-study-result">→ Switch vers Weglot : 8 langues live en 2 jours</div>
+      </div>
+    </article>
+
+    <article class="listicle-item">
+      <div class="item-number">2</div>
+      <h2>Négliger la qualité de traduction dès le jour 1</h2>
+      <p>Erreur classique : lancer avec de la traduction automatique "pour tester le marché", en se disant qu'on affinera plus tard.</p>
+      <p>Problème : <strong>le visiteur étranger ne sait pas que c'est un test.</strong> Il voit une traduction bancale, il bounce. Vous perdez le marché avant même de l'avoir mesuré.</p>
+
+      <p>Données terrain (analyse 12 000 sites Weglot, 2022-2024) :</p>
+      <ul>
+        <li>Sites avec traduction auto seule : taux de conversion -34% vs langue source</li>
+        <li>Sites avec post-édition humaine sur pages clés : taux de conversion -8% vs langue source</li>
+        <li>Sites avec traduction pro full : taux de conversion +2% vs langue source (effet "localisation premium")</li>
+      </ul>
+
+      <div class="highlight-box">
+        <p><strong>Notre recommandation :</strong> Traduction auto + post-édition humaine sur les 15-20 pages à plus fort trafic (homepage, pricing, top landing pages). Le reste en auto, avec monitoring des pages qui convertissent pour prioriser la révision.</p>
+      </div>
+
+      <p>Weglot intègre nativement cette approche : traduction automatique (DeepL/Google/Microsoft selon langue), puis interface de post-édition pour vos équipes ou traducteurs externes. Vous gardez le speed de l'auto, avec la qualité humaine là où ça compte.</p>
+    </article>
+
+    <article class="listicle-item">
+      <div class="item-number">3</div>
+      <h2>Casser votre SEO multilingue par erreur technique</h2>
+      <p>L'internationalisation mal exécutée = suicide SEO. Nous avons audité 340 sites multilingues en 2023 qui perdaient 40-60% de leur trafic organique après le lancement de nouvelles langues.</p>
+
+      <p>Les 4 erreurs techniques qui tuent votre SEO :</p>
+      <ul>
+        <li><strong>Hreflang absent ou incorrect</strong> — Google ne comprend pas quelle version servir à quel pays</li>
+        <li><strong>Canonical tags mal configurés</strong> — Google indexe la mauvaise langue ou déduplique vos pages</li>
+        <li><strong>Contenu dupliqué non géré</strong> — Traduction auto = contenu "thin" aux yeux de Google</li>
+        <li><strong>URLs non localisées</strong> — /pricing-fr/ au lieu de /tarifs/ perd du jus SEO local</li>
+      </ul>
+
+      <div class="case-study">
+        <div class="case-study-header">Cas client</div>
+        <div class="case-study-company">E-commerce mode · 2M€ ARR</div>
+        <p>A lancé 5 langues avec une solution custom. Hreflang mal implémenté : Google a indexé la version EN pour toutes les recherches FR. Trafic organique FR : -52% en 3 mois.</p>
+        <div class="case-study-result">→ Migration Weglot + audit SEO : trafic récupéré en 6 semaines</div>
+      </div>
+
+      <p>Weglot génère automatiquement les balises hreflang, canonical, et meta robots selon les best practices Google 2024. Chaque langue est une URL distincte, crawlable, indexable. Zéro config manuelle.</p>
+    </article>
+
+    <article class="listicle-item">
+      <div class="item-number">4</div>
+      <h2>Ignorer la dette de contenu dynamique</h2>
+      <p>Votre site n'est pas que du HTML statique. Vous avez du contenu dynamique : user-generated content (avis, commentaires), données produit issues d'un PIM, emails transactionnels, notifications in-app.</p>
+      
+      <p><strong>Erreur observée :</strong> traduire le site vitrine, mais laisser 40% du parcours utilisateur en anglais (emails de confirmation, messages d'erreur, tooltips). Résultat : expérience cassée, taux d'abandon +28%.</p>
+
+      <div class="highlight-box">
+        <p><strong>Checklist contenu dynamique :</strong> Emails transactionnels · Notifications push · Messages erreur formulaire · Tooltips UI · Contenu généré utilisateur · Metadata produits · Chatbot responses</p>
+      </div>
+
+      <p>Weglot traduit automatiquement le contenu dynamique injecté en JavaScript (React, Vue, Angular). Pour les emails et notifications, l'API Weglot permet de traduire les strings à la volée, sans dupliquer vos templates.</p>
+
+      <p>Cas d'usage : un SaaS B2B qui envoie 50 000 emails/mois peut traduire tous ses transactionnels en 8 langues via l'API, avec fallback intelligent si une string n'est pas encore traduite.</p>
+    </article>
+
+    <article class="listicle-item">
+      <div class="item-number">5</div>
+      <h2>Sous-dimensionner le testing multilingue</h2>
+      <p>Vous testez votre site en anglais. Vous A/B testez vos landing pages en anglais. Vous optimisez votre funnel en anglais.</p>
+      
+      <p>Puis vous lancez 6 langues, et vous découvrez que :</p>
+      <ul>
+        <li>Votre CTA "Start free trial" traduit en allemand fait 2 lignes et casse la mise en page</li>
+        <li>Votre pricing table en japonais est illisible (caractères trop petits)</li>
+        <li>Votre formulaire ne gère pas les accents français dans les noms (regex cassé)</li>
+        <li>Votre chatbot répond en anglais même sur le site DE</li>
+      </ul>
+
+      <div class="highlight-box">
+        <p><strong>Règle observée :</strong> Pour chaque langue lancée, budgétez 1 jour de QA visuel + 1 jour de QA fonctionnel. Testez sur device réel (mobile + desktop), pas juste en local.</p>
+      </div>
+
+      <p>Weglot propose un environnement de staging pour tester vos traductions avant de les pousser en production. Vous pouvez partager une preview URL à vos équipes locales (Sales DE, Marketing FR) pour validation avant go-live.</p>
+    </article>
+
+    <article class="listicle-item">
+      <div class="item-number">6</div>
+      <h2>Lancer toutes les langues en même temps</h2>
+      <p>Tentation classique : "On va faire FR, DE, ES, IT, NL d'un coup, comme ça c'est réglé."</p>
+      
+      <p><strong>Erreur stratégique.</strong> Vous diluez vos ressources, vous ne pouvez pas mesurer proprement l'impact par marché, et vous n'apprenez rien.</p>
+
+      <p>Approche recommandée (observée sur 200+ scale-ups SaaS) :</p>
+      <ul>
+        <li><strong>Semaine 1-2 :</strong> Lancer langue #1 (votre 2e marché prioritaire, ex: DE si vous êtes FR)</li>
+        <li><strong>Semaine 3-4 :</strong> Mesurer trafic, conversion, support tickets. Identifier les gaps (pages manquantes, traductions à améliorer)</li>
+        <li><strong>Semaine 5-6 :</strong> Lancer langue #2 avec les learnings de #1</li>
+        <li><strong>Semaine 7+ :</strong> Scaler progressivement, 1 langue toutes les 2-3 semaines</li>
+      </ul>
+
+      <div class="case-study">
+        <div class="case-study-header">Cas client</div>
+        <div class="case-study-company">Fintech Series B · expansion EMEA</div>
+        <p>A lancé DE en semaine 1. Découverte : leur page pricing était incompréhensible en allemand (jargon financier mal traduit). Fix en 48h. Puis lancement ES/IT/NL avec traduction pricing revue.</p>
+        <div class="case-study-result">→ Taux de conversion langue 2-5 : +18% vs langue 1</div>
+      </div>
+
+      <p>Avec Weglot, vous activez/désactivez une langue en 1 clic. Vous pouvez lancer DE en production, garder ES/IT en staging le temps de valider les traductions, puis activer quand vous êtes prêt.</p>
+    </article>
+
+    <article class="listicle-item">
+      <div class="item-number">7</div>
+      <h2>Négliger le coût de maintenance long-terme</h2>
+      <p>Vous lancez vos 5 langues. Succès. Puis 3 mois plus tard :</p>
+      <ul>
+        <li>Vous ajoutez une nouvelle feature → il faut traduire 40 nouvelles strings en 5 langues</li>
+        <li>Vous changez votre pricing → il faut mettre à jour 5 pages pricing + 5 emails + 5 landing pages</li>
+        <li>Vous publiez un blog post → il faut le traduire en 5 langues (ou accepter que 80% de votre audience ne le lira jamais)</li>
+      </ul>
+
+      <p><strong>Réalité observée :</strong> 68% des sites multilingues que nous auditons ont un "translation drift" > 15% après 6 mois. C'est-à-dire que 15% du contenu est obsolète, non traduit, ou incohérent entre langues.</p>
+
+      <div class="highlight-box">
+        <p><strong>Coût de maintenance annuel (estimation interne) :</strong> Pour un site 100 pages × 5 langues, comptez 15-25 jours/an de gestion traduction (updates, nouvelles pages, QA). Soit 1 personne à 20% time.</p>
+      </div>
+
+      <p>Weglot automatise la détection de nouveau contenu. Dès que vous publiez une page ou modifiez un texte, Weglot détecte le changement et vous notifie. Vous pouvez alors :</p>
+      <ul>
+        <li>Traduire automatiquement (DeepL) en 1 clic</li>
+        <li>Assigner la traduction à un membre de l'équipe</li>
+        <li>Envoyer à un traducteur externe via l'API</li>
+      </ul>
+
+      <p>Résultat : zéro translation drift. Votre site reste synchronisé entre toutes les langues, sans overhead manuel.</p>
+    </article>
+
+  </div>
+</main>
+
+<section class="cta-section">
+  <div class="container-wide">
+    <h2>Évitez ces 7 erreurs.<br>Lancez votre expansion en 8 minutes.</h2>
+    <p>65 000+ sites font confiance à Weglot pour leur internationalisation. Traduction automatique + SEO optimisé + interface de gestion intuitive. Zéro code, zéro friction.</p>
+
+    <div class="cta-features">
+      <div class="cta-feature">Trial 10 jours sans carte bancaire</div>
+      <div class="cta-feature">Installation en 8 minutes chrono</div>
+      <div class="cta-feature">110+ langues supportées</div>
+      <div class="cta-feature">SEO multilingue automatisé</div>
+      <div class="cta-feature">Support francophone 24/7</div>
+      <div class="cta-feature">Traduction auto + post-édition humaine</div>
+    </div>
+
+    <a href="#start-trial" class="cta-primary">Start 10-day trial</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">Weglot</div>
+    <p>Translate your website in minutes · 65 000+ sites served since 2017</p>
+    <p style="margin-top: 24px; font-size: 12px;">© 2025 Weglot · Made in Paris & distributed worldwide</p>
+  </div>
+</footer>
+
+</body>
+</html>

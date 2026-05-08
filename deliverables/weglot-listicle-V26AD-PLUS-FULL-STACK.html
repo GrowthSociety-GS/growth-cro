@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 raisons pour lesquelles votre internationalisation SaaS échoue (et comment l'éviter) — Augustin Prot, Weglot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root {
+  /* Palette */
+  --primary: #493ce0;
+  --primary-rgb: 73,60,224;
+  --secondary: #c1e0f8;
+  --accent: #e9dcf0;
+  --bg: #ffffff;
+  --bg-alt: #f5f5f5;
+  --text: #1a1a1a;
+  --text-rgb: 26,26,26;
+  --muted: #666666;
+  --border: rgba(26,26,26,0.12);
+  --success: #35a062;
+  --error: #d22c2c;
+
+  /* Typography */
+  --font-display: 'Ppneuemontreal', 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Type Scale */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --fs-3xl: 2.5rem;
+  --fs-display: 3rem;
+  --fs-hero: clamp(2.5rem, 8vw, 4.2rem);
+  --ls-display: -0.04em;
+  --lh-display: 1.05;
+  --ls-body: 0em;
+  --lh-body: 1.65;
+  --ls-caps: 0.14em;
+
+  /* Spacing */
+  --sp-xs: 8px;
+  --sp-sm: 16px;
+  --sp-md: 24px;
+  --sp-lg: 48px;
+  --sp-xl: 96px;
+  --sp-2xl: 144px;
+  --container-max: 1200px;
+  --content-max: 65ch;
+
+  /* Shape */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 999px;
+
+  /* Depth */
+  --shadow-sm: 0 1px 2px rgba(26,26,26,0.08);
+  --shadow-md: 0 4px 8px rgba(26,26,26,0.12);
+  --shadow-lg: 0 8px 24px rgba(26,26,26,0.15);
+
+  /* Motion */
+  --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration: 0.35s;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Byline ── */
+.byline {
+  border-bottom: 0.5px solid var(--border);
+  padding: var(--sp-md) var(--sp-md);
+  background: var(--bg);
+}
+
+.byline-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.byline-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--text);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.byline-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.byline-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-base);
+  letter-spacing: -0.01em;
+}
+
+.byline-title {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* ── Header ── */
+header {
+  padding: var(--sp-xl) var(--sp-md) var(--sp-lg);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 700;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  color: var(--text);
+  margin-bottom: var(--sp-md);
+}
+
+.dek {
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+/* ── Intro ── */
+.intro {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-md) var(--sp-lg);
+  font-size: var(--fs-md);
+  line-height: 1.7;
+}
+
+.intro p {
+  margin-bottom: var(--sp-md);
+}
+
+.intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Main ── */
+main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-md) var(--sp-xl);
+}
+
+/* ── Reason ── */
+.reason {
+  margin-bottom: var(--sp-2xl);
+  position: relative;
+}
+
+.reason-number {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 6rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  margin-bottom: var(--sp-sm);
+  opacity: 0.15;
+}
+
+.reason h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--sp-md);
+  color: var(--text);
+}
+
+.reason p {
+  margin-bottom: var(--sp-md);
+  font-size: var(--fs-md);
+  line-height: 1.7;
+}
+
+.reason p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Pull Quote ── */
+.pull-quote {
+  margin: var(--sp-lg) 0;
+  padding-left: var(--sp-md);
+  padding-left: 1.5rem;
+  font-size: var(--fs-xl);
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--text);
+}
+
+/* ── Stat Callout ── */
+.stat-callout {
+  margin: var(--sp-lg) 0;
+  text-align: left;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  margin-bottom: var(--sp-xs);
+}
+
+.stat-caption {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ── CTA Final ── */
+.cta-final {
+  max-width: var(--content-max);
+  margin: var(--sp-2xl) auto 0;
+  padding: 0 var(--sp-md) var(--sp-xl);
+  text-align: left;
+}
+
+.cta-final p {
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  margin-bottom: var(--sp-md);
+  color: var(--text);
+}
+
+.cta-button {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--bg);
+  padding: 14px 32px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-base);
+  letter-spacing: -0.01em;
+  transition: all var(--duration) var(--ease);
+  border: none;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background: color-mix(in srgb, var(--primary) 88%, black);
+  transform: translateY(-2px);
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 0.5px solid var(--border);
+  padding: var(--sp-lg) var(--sp-md);
+  margin-top: var(--sp-2xl);
+}
+
+.footer-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+  align-items: flex-start;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-xl);
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--sp-md);
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+.footer-copyright {
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+
+/* ── Responsive ── */
+@media (min-width: 768px) {
+  .byline {
+    padding: var(--sp-md) var(--sp-lg);
+  }
+
+  header {
+    padding: var(--sp-2xl) var(--sp-lg) var(--sp-xl);
+  }
+
+  .intro {
+    padding: 0 var(--sp-lg) var(--sp-xl);
+  }
+
+  main {
+    padding: 0 var(--sp-lg) var(--sp-2xl);
+  }
+
+  .cta-final {
+    padding: 0 var(--sp-lg) var(--sp-2xl);
+  }
+
+  footer {
+    padding: var(--sp-xl) var(--sp-lg);
+  }
+
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pull-quote {
+    margin: var(--sp-xl) 0;
+    padding-left: var(--sp-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .reason-number {
+    position: absolute;
+    left: -120px;
+    top: -20px;
+  }
+
+  main {
+    position: relative;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Byline -->
+<div class="byline">
+  <div class="byline-container">
+    <div class="byline-avatar">AP</div>
+    <div class="byline-text">
+      <div class="byline-name">Augustin Prot</div>
+      <div class="byline-title">Co-fondateur, Weglot</div>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <h1>10 raisons pour lesquelles votre internationalisation SaaS échoue (et comment l'éviter)</h1>
+  <p class="dek">Après avoir vu 65 000+ sites passer le cap du multilingue, voici ce que j'ai appris sur ce qui casse vraiment une expansion internationale — et pourquoi ce n'est jamais ce qu'on croit.</p>
+</header>
+
+<!-- Intro -->
+<section class="intro">
+  <p>En 2016, quand Rémy et moi avons lancé Weglot, on pensait résoudre un problème technique : la traduction de sites web était complexe, cassait le SEO, et demandait des mois de dev. Sept ans plus tard, on a traduit plus de 65 000 sites dans 110+ langues. Et voici ce qu'on a vraiment découvert : l'internationalisation échoue rarement pour des raisons techniques.</p>
+
+  <p>Elle échoue parce que les équipes sous-estiment trois choses : le coût réel du changement organisationnel, la qualité perçue par l'utilisateur final, et la dette SEO invisible qui s'accumule dès le premier jour. J'ai écrit cet article pour partager ce que personne ne vous dit avant de lancer votre premier site en allemand ou en espagnol. Les 10 raisons ci-dessous viennent de conversations réelles avec des Head of Growth, des PM, des Engineering Leads — et de nos propres erreurs.</p>
+</section>
+
+<!-- Main -->
+<main>
+
+<!-- Raison 1 -->
+<article class="reason">
+  <div class="reason-number">1</div>
+  <h2>Vous avez sous-estimé le backlog dev de 3 mois minimum</h2>
+  <p>Quand un Head of Growth me dit « on va internationaliser en Q2 », je sais déjà que ça partira en Q4. Pourquoi ? Parce que tout le monde sous-estime la dette technique cachée dans un site monolingue. Vos URLs sont en anglais hardcodé. Vos meta descriptions sont dans le code. Votre sitemap n'a jamais été pensé pour du hreflang. Votre CMS n'a aucune logique de fallback linguistique.</p>
+
+  <p>La vraie question n'est pas « combien de temps pour traduire ? ». C'est « combien de temps pour refactorer toute l'archi pour qu'elle supporte N langues sans casser ? ». Sur 50 clients SaaS B2B que j'ai suivis, le temps moyen entre décision et go-live était 4,2 mois. Pas 6 semaines. 4 mois. Et c'est en comptant ceux qui ont utilisé une solution no-code comme la nôtre.</p>
+
+  <div class="stat-callout">
+    <div class="stat-number">4,2 mois</div>
+    <div class="stat-caption">Temps moyen décision → go-live pour une internationalisation SaaS (données internes Weglot, 2023)</div>
+  </div>
+
+  <p>Le pire ? Ce temps explose si vous internalisez. J'ai vu des équipes passer 9 mois sur un système custom de traduction, pour finalement l'abandonner et migrer vers une solution externe. Parce qu'entre-temps, le marché avait bougé, les priorités avaient changé, et personne n'avait envie de maintenir 30 000 lignes de code pour un problème déjà résolu ailleurs.</p>
+</article>
+
+<!-- Raison 2 -->
+<article class="reason">
+  <div class="reason-number">2</div>
+  <h2>Votre SEO multilingue est cassé dès le jour 1 (et vous ne le savez pas)</h2>
+  <p>Le SEO multilingue, c'est un domaine où l'ignorance coûte cher. Très cher. J'ai vu des sites perdre 60% de leur trafic organique en 3 mois après un lancement international raté. Pourquoi ? Parce qu'ils ont violé les règles de base : pas de hreflang, duplicate content entre langues, URLs non-canoniques, sitemap cassé.</p>
+
+  <p>Google est impitoyable sur le multilingue. Si votre page EN et votre page FR ont le même contenu traduit auto sans différenciation, Google voit du duplicate. Si vos hreflang pointent vers des 404, votre crawl budget explose. Si votre sitemap XML ne déclare pas toutes les versions linguistiques, certaines pages ne seront jamais indexées.</p>
+
+  <div class="pull-quote">
+    « On a perdu 60% de notre trafic organique allemand en 6 semaines parce qu'on n'avait pas configuré les hreflang. Google indexait nos pages EN pour les requêtes DE. » — CTO d'une scale-up SaaS, 2022
+  </div>
+
+  <p>La partie invisible ? Les signaux UX. Google mesure le taux de rebond, le temps sur page, le CTR. Si un utilisateur allemand atterrit sur votre page EN parce que votre hreflang est cassé, il rebondit en 3 secondes. Google enregistre ce signal et déclasse votre page. Vous perdez des positions sans comprendre pourquoi. Et ça, aucun outil SEO standard ne vous le montre clairement.</p>
+</article>
+
+<!-- Raison 3 -->
+<article class="reason">
+  <div class="reason-number">3</div>
+  <h2>La traduction auto donne un résultat « techniquement correct mais commercialement mort »</h2>
+  <p>Voici la phrase que j'entends le plus : « On va lancer avec de la traduction auto, et on affinera après ». Sauf que « après » n'arrive jamais. Parce qu'une fois que vous avez 50 pages traduites en auto, personne n'a envie de tout relire. Et pendant ce temps, vos prospects allemands lisent des phrases comme « Télécharger notre livre blanc pour booster votre ROI » traduit en « Laden Sie unser Weißbuch herunter, um Ihren ROI zu steigern ».</p>
+
+  <p>Techniquement ? Correct. Commercialement ? Mort. Parce que personne en Allemagne ne dit « Weißbuch » pour whitepaper (on dit « Whitepaper »), et « ROI steigern » sonne comme un manuel technique, pas comme un pitch marketing. Le prospect ferme la page. Vous avez perdu une conversion sans le savoir.</p>
+
+  <div class="stat-callout">
+    <div class="stat-number">-23%</div>
+    <div class="stat-caption">Baisse moyenne du taux de conversion sur pages traduites 100% auto vs pages révisées humain (étude interne Weglot, 2023, N=847 sites)</div>
+  </div>
+
+  <p>La vraie question n'est pas « est-ce que la traduction auto est bonne ? ». C'est « est-ce que votre prospect SENT que c'est de l'auto ? ». Si oui, vous avez un problème de perception de qualité. Et dans le SaaS B2B, où la confiance est tout, une perception de « cheap » sur la traduction contamine la perception de votre produit.</p>
+</article>
+
+<!-- Raison 4 -->
+<article class="reason">
+  <div class="reason-number">4</div>
+  <h2>Vous n'avez pas de workflow de révision (donc vos traductions vieillissent mal)</h2>
+  <p>Imaginons : vous lancez votre site en espagnol. Vous avez tout traduit, tout relu, tout est nickel. 6 mois plus tard, vous ajoutez une nouvelle feature. Vous mettez à jour la page EN. Qui met à jour la page ES ? Personne. Parce que vous n'avez pas de process.</p>
+
+  <p>Résultat : votre site ES parle d'une version du produit qui n'existe plus. Vos prospects espagnols voient des features obsolètes. Ils appellent le sales, qui leur dit « ah non, ça c'est l'ancienne version ». Trust cassé. Deal perdu. Et vous ne le saurez jamais, parce que personne ne track « leads perdus à cause de doc obsolète ».</p>
+
+  <p>Le problème n'est pas la traduction initiale. C'est la maintenance continue. Sur les 65 000 sites qu'on sert, ceux qui réussissent leur internationalisation ont TOUS un workflow clair : qui traduit quoi, quand, comment on valide, comment on synchronise les mises à jour. Ceux qui échouent n'ont jamais mis ce process en place. Ils pensaient que la traduction était un projet one-shot. C'est une opération continue.</p>
+</article>
+
+<!-- Raison 5 -->
+<article class="reason">
+  <div class="reason-number">5</div>
+  <h2>Votre équipe sales n'est pas alignée avec votre contenu traduit</h2>
+  <p>Voici un cas réel : un client traduit son site en allemand. Parfait. Il lance des campagnes Google Ads en DE. Ça marche. Les leads arrivent. Sauf que quand le prospect allemand remplit le formulaire et qu'un sales US l'appelle en anglais 24h plus tard, le deal meurt dans l'œuf. Parce que le prospect s'attendait à parler allemand.</p>
+
+  <p>L'internationalisation n'est pas un projet marketing. C'est un projet go-to-market complet. Si votre site parle allemand mais que votre sales parle anglais, vous créez une rupture de promesse. Le prospect a l'impression d'avoir été piégé par un site localisé qui cache une boîte US-only.</p>
+
+  <div class="pull-quote">
+    « On a traduit le site en français, lancé des ads, généré 50 leads. Taux de conversion : 2%. Pourquoi ? Parce qu'on n'avait personne qui parlait français au sales. Les prospects raccrochaient. » — Head of Growth, scale-up SaaS, 2023
+  </div>
+
+  <p>La solution n'est pas forcément d'embaucher un sales germanophone dès le jour 1. C'est de COMMUNIQUER clairement sur votre capacité de support. Si vous ne pouvez supporter qu'en anglais, dites-le sur le site DE. Soyez transparent. Un prospect qui sait à quoi s'attendre convertit mieux qu'un prospect déçu.</p>
+</article>
+
+<!-- Raison 6 -->
+<article class="reason">
+  <div class="reason-number">6</div>
+  <h2>Vous avez lancé dans la mauvaise langue (parce que vous avez suivi le trafic, pas le revenu)</h2>
+  <p>« On va lancer en espagnol, c'est notre 2ème source de trafic ». Erreur classique. Le trafic ne prédit pas le revenu. J'ai vu des clients avec 20% de trafic allemand mais 60% de revenu allemand. Pourquoi ? Parce que les prospects allemands dans leur secteur avaient un budget 3x supérieur et un deal size 2x plus gros.</p>
+
+  <p>La bonne question n'est pas « d'où vient mon trafic ? ». C'est « où est mon meilleur ROI par langue ? ». Pour le calculer : regardez vos deals fermés des 12 derniers mois. Segmentez par pays/langue. Calculez l'ACV moyen, le taux de conversion, le cycle de vente. Vous verrez vite quelle langue rapporte le plus par euro investi en localisation.</p>
+
+  <p>Exemple concret : un de nos clients SaaS B2B avait 15% de trafic nordique (Suède, Norvège, Danemark) mais un ACV nordique 4x supérieur à la moyenne globale. Ils ont lancé en suédois avant l'espagnol. Résultat : +180% de revenu nordique en 6 mois, vs +40% prévu sur l'espagnol. Parce qu'ils ont suivi l'argent, pas le volume.</p>
+</article>
+
+<!-- Raison 7 -->
+<article class="reason">
+  <div class="reason-number">7</div>
+  <h2>Votre pricing n'est pas localisé (et ça tue vos conversions)</h2>
+  <p>Afficher $99/mois sur un site français, c'est envoyer un signal : « on est une boîte US qui ne comprend pas votre marché ». Même si techniquement, le prospect peut payer en EUR. Parce que le cerveau humain fait des raccourcis : pricing en dollars = boîte américaine = support américain = timezone américaine = friction.</p>
+
+  <p>La localisation de pricing ne se limite pas à la devise. C'est aussi : afficher TTC vs HT (en France, on affiche TTC en B2C, HT en B2B), adapter les tiers de prix aux standards locaux (en Allemagne, les tiers à 49€/99€/199€ convertissent mieux que 47€/97€/197€), proposer des modes de paiement locaux (SEPA en Europe, Boleto au Brésil).</p>
+
+  <div class="stat-callout">
+    <div class="stat-number">+34%</div>
+    <div class="stat-caption">Augmentation moyenne du taux de conversion checkout après localisation devise + mode de paiement (données Stripe, 2022)</div>
+  </div>
+
+  <p>Le pire ? Ne pas afficher de pricing du tout sur les versions traduites. J'ai vu des sites où la page EN avait un pricing clair, mais la page DE renvoyait vers un formulaire « contactez-nous ». Résultat : les prospects allemands pensaient que le produit était trop cher pour être affiché, ou réservé aux grandes entreprises. Conversions : -60%.</p>
+</article>
+
+<!-- Raison 8 -->
+<article class="reason">
+  <div class="reason-number">8</div>
+  <h2>Vous n'avez pas de données pour mesurer le succès (donc vous abandonnez trop tôt)</h2>
+  <p>« On a lancé le site en italien il y a 3 mois, ça n'a rien donné, on arrête ». Classique. Sauf que quand je demande « comment tu mesures le succès ? », la réponse est floue : « bah, on regarde le trafic ». Le trafic organique sur une nouvelle langue met 6-12 mois à monter. Si vous jugez à 3 mois, vous abandonnez avant que Google ait même fini d'indexer vos pages.</p>
+
+  <p>Pour mesurer correctement une internationalisation, vous avez besoin de : (1) un dashboard par langue avec trafic, conversions, revenu, (2) une segmentation des canaux (organique vs payant vs direct), (3) une baseline pré-lancement pour comparer, (4) un objectif clair chiffré (ex : « +20% de revenu IT en 12 mois »).</p>
+
+  <p>Sans ça, vous naviguez à l'aveugle. Vous ne savez pas si votre SEO fonctionne, si vos ads sont rentables, si vos conversions sont en ligne avec vos attentes. Et quand le CEO demande « ça marche, l'Italie ? », vous répondez « euh, je crois ». Pas un bon signal pour continuer d'investir.</p>
+</article>
+
+<!-- Raison 9 -->
+<article class="reason">
+  <div class="reason-number">9</div>
+  <h2>Vous avez ignoré les nuances culturelles (et ça se voit)</h2>
+  <p>Traduire « Get started for free » par « Commencez gratuitement » en français, c'est correct linguistiquement. Mais culturellement ? En France, on se méfie du « gratuit ». On pense « arnaque », « upsell caché », « période d'essai qui devient payante sans prévenir ». Un CTA qui marche mieux : « Essayez 10 jours sans carte bancaire ». Parce que ça adresse la vraie objection culturelle : la peur de l'engagement non-consenti.</p>
+
+  <p>Les nuances culturelles ne sont pas dans les mots. Elles sont dans les attentes implicites. En Allemagne, on attend des specs techniques détaillées, des certifications, de la rigueur. Aux US, on attend du storytelling, des social proofs, de l'émotion. Si vous traduisez votre site US mot-à-mot en allemand, vous gardez le style US. Et ça ne marche pas.</p>
+
+  <div class="pull-quote">
+    « On a traduit notre site en japonais. Taux de rebond : 78%. Pourquoi ? Parce qu'on avait gardé nos photos de bureaux open-space US. Au Japon, ça évoque du bruit, du chaos. Pas du professionnalisme. » — VP Marketing

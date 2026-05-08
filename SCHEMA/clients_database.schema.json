@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/clients_database.json",
+  "title": "Clients database — data/clients_database.json",
+  "description": "Shape actuelle v143 : clients est un ARRAY d'objets avec id + identity/brand/etc.",
+  "type": "object",
+  "required": ["clients"],
+  "properties": {
+    "clients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "identity": { "type": "object" },
+          "category": { "type": "string" },
+          "business_type": { "type": "string" },
+          "strategy": { "type": "object" },
+          "audience": { "type": "object" },
+          "brand": { "type": "object" },
+          "v143": { "type": "object" }
+        }
+      }
+    },
+    "metadata": { "type": "object" }
+  }
+}

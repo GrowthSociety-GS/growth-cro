@@ -1,0 +1,224 @@
+{
+  "_meta": {
+    "name": "GrowthCRO V12 — Anti-patterns CRO explicites",
+    "version": "1.0.0 — doctrine V12 — 2026-04-13",
+    "description": "Anti-patterns à flagger dans chaque reco. Si l'audit détecte l'anti-pattern sur la page OU si la reco risque de l'induire, attacher 'avoid' + 'instead_do' dans la sortie reco.",
+    "sources": [
+      "Oli Gardner / Unbounce — Conversion Centered Design principles (2013+)",
+      "Nielsen Norman Group — Usability research studies (carousels, popups, form friction)",
+      "Peep Laja / CXL Institute — Testing patterns 2015-2024",
+      "Baymard Institute — E-commerce UX research (n=40k user tests)",
+      "April Dunford / Patrick Campbell (ProfitWell) — Positioning & pricing anti-patterns"
+    ],
+    "applicationMode": "detector + annotator — reco_enricher.py detects present anti-patterns via DOM/HTML scan and annotates them in reco output"
+  },
+  "anti_patterns": {
+    "h1_generic_brand_centric": {
+      "id": "h1_generic_brand_centric",
+      "category": "hero",
+      "linked_criteria": ["hero_01", "coh_01"],
+      "pattern": "H1 = 'Bienvenue chez [brand]', 'Notre entreprise', 'Nous sommes [brand]'",
+      "dom_signal": "h1_text_match:/(bienvenue|welcome|notre (entreprise|societe|agence))/i",
+      "why_bad": "Zéro promesse client, langage corporate, pas de projection mentale. Visiteur = 'OK, et alors ?'",
+      "instead_do": "H1 = bénéfice client spécifique + (si possible) chiffre ou délai. Formule : [Verbe action] + [transformation/bénéfice] + [spécificité/preuve]",
+      "examples_bad": ["Bienvenue chez Acme", "Notre savoir-faire depuis 1985"],
+      "examples_good": ["Passez au digital sans toucher au code en 14 jours", "Réduisez vos coûts serveur de 40% sans migration"]
+    },
+    "cta_wording_vague": {
+      "id": "cta_wording_vague",
+      "category": "cta",
+      "linked_criteria": ["hero_03", "ux_04", "per_02"],
+      "pattern": "CTA label = 'Cliquer ici', 'En savoir plus', 'Découvrir', 'Voir', 'Suivant'",
+      "dom_signal": "button_or_a_text_match:/^(cliquer ici|en savoir plus|decouvrir|voir|suivant|click here|learn more|more)$/i",
+      "why_bad": "Aucune projection mentale, aucune action claire. L'utilisateur ne sait pas ce qui va se passer (Fitts' Law + Miller 1956).",
+      "instead_do": "Verbe d'action 1ère personne + bénéfice/délai. Formule : [Verbe projection] + [objet concret] + [preuve effort]",
+      "examples_bad": ["Cliquer ici", "En savoir plus", "Découvrir"],
+      "examples_good": ["Obtenir mon diagnostic en 2 min", "Réserver ma démo (15 min)", "Commencer l'essai gratuit"]
+    },
+    "cta_multiple_atf_competing": {
+      "id": "cta_multiple_atf_competing",
+      "category": "cta",
+      "linked_criteria": ["hero_03", "ux_04", "coh_06", "psy_02"],
+      "pattern": "≥2 CTAs d'actions différentes au-dessus de la ligne (desktop OR mobile viewport)",
+      "dom_signal": "atf_viewport_distinct_href_count > 1",
+      "why_bad": "Dilution attention (Hick-Hyman Law : log2(N+1) temps décision). Paralysie, taux de clic primary baisse de 25-40% par CTA concurrent ajouté (CXL 2019).",
+      "instead_do": "1 CTA primaire ATF (action conversion) + 1 secondaire faible contraste (ex: 'Voir démo vidéo') non-concurrent. Les secondaires descendent below-the-fold.",
+      "exceptions": "Pages de comparaison (cmp_*) où 2 CTAs sont attendus (produit A vs B). Pages TYP (thank you) où plusieurs next-best-actions sont légitimes."
+    },
+    "testimonials_without_voc_attribution": {
+      "id": "testimonials_without_voc_attribution",
+      "category": "proof",
+      "linked_criteria": ["per_06", "per_07", "psy_04", "psy_08"],
+      "pattern": "Témoignages sans photo, nom complet, fonction, entreprise, ou langage marketer-speak",
+      "dom_signal": "testimonial_blocks && missing_attribution_fields >= 2",
+      "why_bad": "Témoignage anonyme = zéro preuve sociale (Cialdini 2021). Langage marketer ('Solution incroyable qui a transformé notre business') = synthétique perçu.",
+      "instead_do": "Témoignage court + photo + nom + fonction + société (B2B) / ville + profession (B2C) + chiffre spécifique + reformulation en langage VoC client (mots du client, pas du marketing).",
+      "voc_rule": "Si le témoignage pourrait être dit par n'importe quel client d'une solution similaire, il est trop générique — refaire en interview"
+    },
+    "hero_stock_photo_generic": {
+      "id": "hero_stock_photo_generic",
+      "category": "visual",
+      "linked_criteria": ["hero_04", "psy_07", "coh_05"],
+      "pattern": "Image hero = stock photo générique (équipe souriante, handshake business, ordinateurs vides)",
+      "dom_signal": "hero_image_hash_match_stock_photo_database OR alt_text_contains:/team|business|corporate|handshake/",
+      "why_bad": "Banner blindness + zéro différentiation + zéro preuve produit. Signal pour l'utilisateur : rien d'unique ici.",
+      "instead_do": "Screenshot produit réel, photo client réelle avec UGC, vidéo démo 15-30s, illustration custom alignée DA, dashboard annoté.",
+      "examples_bad": ["stock photo équipe souriante", "handshake business suit"],
+      "examples_good": ["screenshot dashboard avec vraie data", "photo client avant/après", "vidéo utilisation produit 15s"]
+    },
+    "form_fields_excess": {
+      "id": "form_fields_excess",
+      "category": "friction",
+      "linked_criteria": ["ux_08", "hero_03", "per_02"],
+      "pattern": "Formulaire lead-gen avec >5 champs pour une simple démo/contact",
+      "dom_signal": "form_ATF_input_count > 5 && page_type IN ['lead_gen_simple', 'lead_gen_saas']",
+      "why_bad": "Chaque champ ajouté au-delà de 3 = -11% conversion (Expedia 2014 replicated). Perception d'engagement excessive avant valeur démontrée.",
+      "instead_do": "Formulaire 2-3 champs (email pro + nom + 1 qualifier) + progressive profiling (enrichissement post-submit via Clearbit/Apollo/ZoomInfo).",
+      "exceptions": "Lead qualification enterprise avec ACV >20k€ où champs qualificateurs sont acceptables (company size, budget, timeline)."
+    },
+    "popup_newsletter_under_10s": {
+      "id": "popup_newsletter_under_10s",
+      "category": "friction",
+      "linked_criteria": ["ux_05", "ux_08", "psy_02"],
+      "pattern": "Popup email/newsletter qui apparaît avant 10 secondes de lecture",
+      "dom_signal": "script_detects_popup_trigger_ms < 10000 OR mobile_interstitial_exists",
+      "why_bad": "Google Interstitial Penalty mars 2017 (mobile) + -15/-30% conversion mesurée (CXL, Baymard).",
+      "instead_do": "Scroll-triggered (≥50% scroll) OU exit-intent desktop-only OU inline embed après 1er bloc de valeur.",
+      "mobile_specific": true
+    },
+    "scarcity_countdown_fake": {
+      "id": "scarcity_countdown_fake",
+      "category": "trust",
+      "linked_criteria": ["psy_01", "psy_03", "hero_03"],
+      "pattern": "Timer/countdown qui se reset au refresh ou à l'arrivée sur la page",
+      "dom_signal": "js_countdown_without_server_anchor OR localStorage_reset_behavior",
+      "why_bad": "Destruction du trust irréversible une fois détecté (et il est TOUJOURS détecté). Risque DGCCRF.",
+      "instead_do": "Scarcity honnête : 'X places restantes' réelles, cohortes datées, rentrée de saison. OU pas de scarcity du tout.",
+      "regulatory_risk": "DGCCRF Art. L121-1"
+    },
+    "pricing_hidden_forced_form": {
+      "id": "pricing_hidden_forced_form",
+      "category": "trust",
+      "linked_criteria": ["per_05", "hero_03", "coh_02"],
+      "pattern": "Prix non-visible, CTA 'Nous contacter pour prix' en B2C ou SaaS self-serve",
+      "dom_signal": "pricing_page_exists && no_numeric_price_visible && cta_label_match:/contact|devis|prix/",
+      "why_bad": "-40 à -60% conversion B2C (NNG 2019). Les visiteurs partent comparer sans revenir.",
+      "instead_do": "Prix visible (même 'à partir de X€') + configurateur. Si vraiment custom B2B : fourchette 'entre X et Y par mois' + contact qualification.",
+      "b2b_enterprise_override": true
+    },
+    "benefit_features_confusion": {
+      "id": "benefit_features_confusion",
+      "category": "copy",
+      "linked_criteria": ["per_01", "per_11", "coh_01"],
+      "pattern": "Liste features techniques mise en avant comme bénéfices",
+      "dom_signal": "bullet_lists_contain_specs_vs_outcomes_ratio > 0.5",
+      "why_bad": "Client ne traduit pas spec en bénéfice (Harvard 'jobs-to-be-done' Christensen). Perte de conversion.",
+      "instead_do": "Benefit Laddering : feature → functional benefit → emotional benefit → identity. Exposer bénéfice fonctionnel + émotionnel, lister features en tab/accordion détail.",
+      "examples_bad": ["API REST, 99.9% uptime, Docker support"],
+      "examples_good": ["Déployez en 2 minutes sans toucher à votre stack (API REST compatible n'importe quel langage)"]
+    },
+    "testimonials_all_positive_uniform": {
+      "id": "testimonials_all_positive_uniform",
+      "category": "trust",
+      "linked_criteria": ["per_06", "per_07", "psy_04"],
+      "pattern": "10+ témoignages tous 5 étoiles avec wording uniforme",
+      "dom_signal": "testimonial_count >= 10 && stddev_sentiment_very_low",
+      "why_bad": "Pattern suspect — perception d'invention. Cialdini : un avis mitigé honnête renforce les positifs.",
+      "instead_do": "Inclure 1-2 avis 3-4 étoiles avec réponse entreprise + diversité de wording + mix vidéo/texte/screenshot UGC.",
+      "references": "Spiegel Research Center (Northwestern) 2017 — sweet spot reviews 4.2-4.5 étoiles"
+    },
+    "mobile_font_under_14px": {
+      "id": "mobile_font_under_14px",
+      "category": "mobile",
+      "linked_criteria": ["ux_05", "ux_07"],
+      "pattern": "Texte corps <14px sur mobile (iOS/Android default readable = 16px)",
+      "dom_signal": "mobile_viewport_body_font_size_px < 14",
+      "why_bad": "Zoom forcé = friction + abandon. iOS safari déclenche auto-zoom sur input <16px.",
+      "instead_do": "Body ≥16px mobile, H1 ≥28px, H2 ≥22px. Line-height 1.5. Max 70 chars par ligne.",
+      "mobile_specific": true
+    },
+    "chatbot_blocks_cta": {
+      "id": "chatbot_blocks_cta",
+      "category": "friction",
+      "linked_criteria": ["ux_05", "ux_08", "hero_03"],
+      "pattern": "Widget chatbot bottom-right qui recouvre CTA principal ou formulaire sur mobile",
+      "dom_signal": "chatbot_widget_z_index > cta_z_index && mobile_viewport_overlap_px > 40",
+      "why_bad": "-12 à -25% conversion mobile si CTA partiellement couvert (CXL mobile heuristic 2021).",
+      "instead_do": "Chatbot bottom-left OU mini-bubble <50x50px OU trigger uniquement après scroll 60%+ OU désactivé mobile.",
+      "mobile_specific": true
+    },
+    "social_proof_numbers_vague": {
+      "id": "social_proof_numbers_vague",
+      "category": "proof",
+      "linked_criteria": ["per_04", "per_06", "psy_04"],
+      "pattern": "Chiffres de preuve sociale sans source : '+10000 clients satisfaits', 'ROI 300%' sans attribution",
+      "dom_signal": "numeric_proof_claims && missing_source_citation",
+      "why_bad": "Perçu comme invention, même si vrai. Aucune crédibilité scientifique.",
+      "instead_do": "Chiffre + source + date + méthodologie. Ex: '12 847 clients actifs (mise à jour mars 2026)' ou 'ROI moyen 3.2× mesuré sur 47 clients (étude Cabinet X 2025)'.",
+      "tooltip_pattern": "Chiffre* avec astérisque + footnote source en bas de section"
+    },
+    "urgency_everywhere_diluted": {
+      "id": "urgency_everywhere_diluted",
+      "category": "psychology",
+      "linked_criteria": ["psy_01", "psy_03", "hero_03"],
+      "pattern": "Urgence ET scarcity ET social proof ET authority ET reciprocity tous au max sur une seule page",
+      "dom_signal": "psychology_triggers_intense_count >= 4",
+      "why_bad": "Over-selling tue la conversion (Cialdini 2021 Ch. 'influence undone'). Sentiment de manipulation.",
+      "instead_do": "Choisir 2 déclencheurs primaires alignés avec Schwartz awareness level + business_category. Les autres en soft-touch.",
+      "rule_of_thumb": "Plus le prospect est 'most aware', moins on a besoin de déclencheurs — inversement proportionnel."
+    },
+    "usp_attack": {
+      "id": "usp_attack",
+      "category": "intelligence",
+      "linked_criteria": ["hero_01", "hero_02", "hero_03", "coh_01", "per_01"],
+      "pattern": "Reformuler ou remplacer un texte (H1, CTA, claim, subtitle) qui constitue un différenciateur unique du client. Exemple : Japhy CTA 'Crée son menu en 2 min' (le différenciateur EST 'menu personnalisé en 2 min') reformulé en 'Créer mon profil personnalisé' — perte du USP, vocabulaire générique.",
+      "dom_signal": "reco_after_text != client_existing_usp_text AND criterion_score >= 65",
+      "why_bad": "Le différenciateur est ce qui fait que le client n'est pas remplaçable. Le réécrire avec un vocabulaire générique = destruction de l'asset le plus précieux. Le LLM, ignorant du business model, croit 'améliorer' mais détruit la spécificité.",
+      "instead_do": "AMPLIFY don't REWRITE : si l'USP est détecté, reco = ajouter preuve/spécificité/chiffre AUTOUR du texte existant, pas le remplacer. Ex: garder 'Crée son menu en 2 min', ajouter dessous '12 400 chiens nourris depuis 2019 — Algorithme vétérinaire validé'.",
+      "examples_bad": [
+        "Japhy: remplacer 'Créer son menu' par 'Créer le profil de mon animal'",
+        "Linear: remplacer 'Built for the people who build software' par 'Outil de gestion projet pour développeurs'",
+        "Aesop: remplacer 'Skin care, hair care, body care' par 'Trouvez votre routine'"
+      ],
+      "examples_good": [
+        "Japhy: garder 'Créer son menu en 2 min' + ajouter '12 400 chiens depuis 2019' sous-CTA",
+        "Linear: garder 'Built for the people who build software' + ajouter logos clients (Vercel, Remote, Cash App) en preuve"
+      ],
+      "detection_signals": [
+        "USP score (usp_detector.py) >= 0.7",
+        "Critère lié déjà scoré >= 65%",
+        "Texte cité explicitement dans la perception/Vision comme cluster headline"
+      ],
+      "doctrine_link": "April Dunford 'Obviously Awesome' (2019) : différenciateur unique = asset positioning, jamais sacrifier"
+    },
+    "redundant_when_excellent": {
+      "id": "redundant_when_excellent",
+      "category": "intelligence",
+      "linked_criteria": ["*"],
+      "pattern": "Reco active sur un critère déjà scoré >= 75%. Le LLM 'trouve' un défaut artificiel pour justifier une reco là où il n'y a pas de levier.",
+      "dom_signal": "criterion_score_pct >= 75 AND reco_status == 'active' AND reco_priority IN ('P1', 'P2')",
+      "why_bad": "Diluer la priorité des vrais problèmes. Le client perd confiance quand on lui propose de 'fixer' ce qui marche déjà. Effet 'avis de mécanicien malhonnête'.",
+      "instead_do": "Si critère >= 75% : reco = 'AMPLIFY' (P3 polish) OU 'SKIP' (pas de reco). Réserver P1/P2 aux critères <60%.",
+      "rule": "Score thresholds: >=75% → AMPLIFY/SKIP only, 60-74% → P2 OPTIMIZE, <60% → P1 FIX"
+    },
+    "vocab_drift_within_page": {
+      "id": "vocab_drift_within_page",
+      "category": "intelligence",
+      "linked_criteria": ["coh_05", "coh_07", "coh_09"],
+      "pattern": "Recos d'une même page utilisent des vocabulaires différents pour le même concept. Ex: une reco dit 'menu', une autre 'profil', une troisième 'diagnostic' pour la même action.",
+      "dom_signal": "page_recos_unique_action_terms_count > 2 (sur le même client/page)",
+      "why_bad": "Incohérence dans la livraison client. Mathis ne peut pas exécuter des recos qui se contredisent sur le wording. Signal de LLM 'hors-sol' (chaque reco générée indépendamment, sans état partagé).",
+      "instead_do": "Fixer le vocabulaire client EN AMONT (USP detector → vocab_lock). Toutes les recos d'une même page doivent réutiliser le même verbe/objet d'action.",
+      "implementation": "Pre-LLM: scanner perception/Vision pour détecter le verbe/objet d'action canonique. Injecter dans prompt: 'Vocabulaire client à conserver: \"créer son menu\". Toute reco doit utiliser ce vocabulaire.'"
+    },
+    "generic_replacement_specific_copy": {
+      "id": "generic_replacement_specific_copy",
+      "category": "intelligence",
+      "linked_criteria": ["hero_01", "hero_03", "per_01", "per_02"],
+      "pattern": "Remplacer un texte spécifique (chiffre, nom propre, vocabulaire industrie) par un texte générique 'meilleur en théorie'. Ex: 'Recette adaptée à votre Border Collie de 7kg' → 'Solution personnalisée pour votre chien'.",
+      "dom_signal": "reco_after_specificity_score < reco_before_specificity_score",
+      "why_bad": "La spécificité = preuve implicite. Plus c'est spécifique, plus c'est crédible. Generic = synthétique, marketing-speak.",
+      "instead_do": "Reco doit AUGMENTER la spécificité, jamais la réduire. Si pas d'idée pour spécifier davantage → SKIP (pas de reco)."
+    }
+  }
+}

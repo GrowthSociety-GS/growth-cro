@@ -1,0 +1,45 @@
+{
+  "url": "https://japhy.fr/profile-builder",
+  "label": "japhy_test",
+  "steps": [
+    {
+      "name": "intro",
+      "radios": 0,
+      "checks": 0,
+      "options": 0,
+      "inputs": 0,
+      "images": 17,
+      "h1": "",
+      "h2": "",
+      "progressText": "Retour\nProfil\nDiagnostic\nMenu Croquettes\nOffre Découverte\nExtras\nPaiement",
+      "isResult": false,
+      "url": "https://japhy.fr/profile-builder/count?petIndex=0"
+    },
+    {
+      "name": "step_01",
+      "radios": 0,
+      "checks": 0,
+      "options": 0,
+      "inputs": 0,
+      "images": 17,
+      "h1": "",
+      "h2": "",
+      "progressText": "Retour\nProfil\nDiagnostic\nMenu Croquettes\nOffre Découverte\nExtras\nPaiement",
+      "isResult": false,
+      "url": "https://japhy.fr/profile-builder/count?petIndex=0"
+    }
+  ],
+  "startedAt": "2026-04-14T00:40:44.180Z",
+  "haltedAt": 1,
+  "haltReason": "no_next_button",
+  "resultReached": false,
+  "completedAt": "2026-04-14T00:40:52.863Z",
+  "stepsCaptured": 1,
+  "aggregate": {
+    "questionsCount": 1,
+    "avgOptions": 0,
+    "hasProgressBar": true,
+    "imageRichSteps": 1,
+    "textInputSteps": 0
+  }
+}

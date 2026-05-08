@@ -1,0 +1,22 @@
+{
+  "proposal_id": "dup_v29_2026_05_04_hero_06_calibrate_strict_app",
+  "type": "calibrate_threshold",
+  "subtype": "strict_rule_too_punitive",
+  "affected_criteria": [
+    "hero_06"
+  ],
+  "scope": {
+    "business_category": "app"
+  },
+  "evidence": {
+    "n_pages_evaluated": 22,
+    "pct_critical": 81.8,
+    "pct_top": 18.2,
+    "avg_score_pct": 18.2,
+    "source": "audit-based learning v29 (56 curated clients V26)"
+  },
+  "proposed_change": "Critère hero_06 marqué CRITICAL sur 82% des pages de app (18/22). La règle peut être trop stricte pour ce segment business — vérifier le scoring.critical définition. Score moyen : 18%.",
+  "risk": "Si le pattern est légitime (vraie faiblesse marché), assouplir masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon.",
+  "requires_human_approval": true,
+  "generated_at": "2026-05-04T01:32:09"
+}

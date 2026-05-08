@@ -1,0 +1,17 @@
+{
+  "url": "https://japhy.fr/profile-builder/count?petIndex=0",
+  "stepName": "intro",
+  "capturedAt": "2026-04-14T00:40:52.220Z",
+  "formStats": {
+    "radios": 0,
+    "checks": 0,
+    "options": 0,
+    "inputs": 0,
+    "images": 17,
+    "h1": "",
+    "h2": "",
+    "progressText": "Retour\nProfil\nDiagnostic\nMenu Croquettes\nOffre Découverte\nExtras\nPaiement"
+  },
+  "bodyText": "\n          -50% sur la première commande\n        \n            Retour\n          \n        Profil\n      \n        Diagnostic\n      \n        Menu Croquettes\n      \n        Offre Découverte\n      \n        Extras\n      \n        Paiement\n      \n    Vous êtes l'heureux parent de\n  \n        Un animal\n      \n        \n      \n        Deux animaux\n      \n        -10%\n      \n        Plus !\n      \n        -15%\n      \n    Bénéficiez d'une réduction de -10% à partir de 2 menus ajoutés.\n    \n        Thomas de l'équipe Japhy\n       \n",
+  "isResult": false
+}

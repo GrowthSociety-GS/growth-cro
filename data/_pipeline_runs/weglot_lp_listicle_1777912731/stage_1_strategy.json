@@ -1,0 +1,34 @@
+{
+  "layout_plan": "Essai éditorial signé founder analysant 5 raisons concrètes pour lesquelles l'internationalisation SaaS échoue sans approche technique moderne — format First Round Review avec preuves terrain, pas LP marketing",
+  "sections": [
+    {
+      "name": "byline",
+      "purpose": "Établir autorité éditoriale — founder credentials + date publication pour crédibilité journalistique",
+      "max_words": 30
+    },
+    {
+      "name": "hero_quote_or_h1",
+      "purpose": "Hook éditorial fort — citation provocante ou H1 qui pose le problème industrie (ex: 'Why 73% of SaaS internationalization projects fail in year one')",
+      "max_words": 25
+    },
+    {
+      "name": "intro_long_form",
+      "purpose": "Contexte éditorial — analyse du problème industrie avec 1-2 stats sourcées, établir POV unique founder, transition naturelle vers les 5 raisons",
+      "max_words": 200
+    },
+    {
+      "name": "numbered_reasons",
+      "purpose": "5 raisons concrètes format essai — chaque raison = mini-section avec (1) titre outcome-focused, (2) analyse terrain 100-150 mots, (3) exemple concret ou stat sourcée. Pas de bullets features. Ton journalistique.",
+      "max_words": 750
+    },
+    {
+      "name": "single_cta_final",
+      "purpose": "CTA unique post-lecture — invitation naturelle à essayer solution après avoir lu l'analyse complète. Pas de hard sell. Ton éditorial préservé.",
+      "max_words": 60
+    }
+  ],
+  "key_proofs_to_use": [
+    "Aucune preuve fournie dans brief — stratégie = sourcer 2-3 stats industrie externes (ex: Gartner, CSA Research sur échecs i18n) + 1 insight propriétaire si disponible"
+  ],
+  "hook_concept": "L'internationalisation SaaS échoue rarement pour des raisons techniques — voici les 5 erreurs stratégiques que personne ne vous dit, analysées depuis 50+ déploiements multi-langues"
+}

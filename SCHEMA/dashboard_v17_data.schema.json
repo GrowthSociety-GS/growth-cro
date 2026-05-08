@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/dashboard_v17_data.json",
+  "title": "Dashboard V17 data contract",
+  "description": "Contrat consommé par dashboard_v17_app.js. Clés critiques seulement — le reste est permissif pour faciliter les enrichissements futurs.",
+  "type": "object",
+  "required": ["meta", "clients", "pages_flat", "recos_flat", "screenshots", "criterion_labels", "rule_labels", "pillar_descriptions"],
+  "properties": {
+    "meta": { "type": "object" },
+    "clients": { "type": "array" },
+    "pages_flat": { "type": "array" },
+    "recos_flat": { "type": "array" },
+    "p0_index": { "type": "array" },
+    "rules_firing": { "type": "object" },
+    "rules_applied_count": { "type": ["integer", "object"] },
+    "schwartz_dist": { "type": "object" },
+    "business_type_dist": { "type": "object" },
+    "screenshots": { "type": "object" },
+    "criterion_labels": { "type": "object" },
+    "rule_labels": {
+      "type": "object",
+      "patternProperties": {
+        "^rule_[a-z_]+$": {
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": { "type": "string" },
+            "why": { "type": "string" }
+          }
+        }
+      }
+    },
+    "pillar_descriptions": { "type": "object" }
+  }
+}

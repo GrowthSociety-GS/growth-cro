@@ -1,0 +1,20 @@
+{
+  "name": "growthcro",
+  "version": "17.2.0",
+  "private": true,
+  "description": "GrowthCRO — CRO audit pipeline (capture → perception → scoring → reco). Dashboard Observatoire v17.2.0.",
+  "scripts": {
+    "capture": "node skills/site-capture/scripts/ghost_capture.js",
+    "verify-dashboard": "node deliverables/verify_dashboard_v17_2.js",
+    "state": "python3 state.py"
+  },
+  "dependencies": {
+    "playwright": "^1.59.1"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

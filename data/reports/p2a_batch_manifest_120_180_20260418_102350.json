@@ -1,0 +1,31 @@
+{
+  "runAt": "2026-04-18T10:23:50.581492Z",
+  "doctrine": "v3.2.0-draft",
+  "phase": "P2.A",
+  "pages_total": 291,
+  "pages_ok": 60,
+  "pages_err": 0,
+  "elapsed_seconds": 0.0,
+  "applicability": {
+    "applied_count": 0,
+    "rules_fired": {},
+    "business_types": {},
+    "required_hits": 0,
+    "bonus_hits": 0,
+    "na_removed": 0,
+    "optional_flags": 0,
+    "with_bt_weighted": 0,
+    "bt_weighted_delta_count": 0
+  },
+  "contextual": {
+    "applied_count": 4,
+    "rules_fired": {
+      "R1_HERO_RESCUE": 1,
+      "R7_COHERENCE_QUORUM": 1,
+      "R2_PROOF_RESCUE": 1,
+      "R3_FIVE_SEC_RESCUE": 1
+    },
+    "total_delta": 4.5
+  },
+  "errors": []
+}

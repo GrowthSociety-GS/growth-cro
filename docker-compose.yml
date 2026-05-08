@@ -1,0 +1,57 @@
+# ══════════════════════════════════════════════════════════════
+# GrowthCRO — Docker Compose
+#
+# Option A : Mode cloud (Browserless.io) — recommandé
+#   Léger, pas de navigateur local, ~$0.01/page
+#   docker compose --profile cloud up
+#
+# Option B : Mode self-hosted (Browserless dans Docker)
+#   Plus de contrôle, pas de coût externe, mais plus lourd
+#   docker compose --profile self-hosted up
+#
+# ══════════════════════════════════════════════════════════════
+
+services:
+
+  # ─── GrowthCRO API Server ───
+  growthcro:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Mode cloud : connecter à Browserless.io
+      - BROWSER_WS_ENDPOINT=${BROWSER_WS_ENDPOINT:-}
+    profiles:
+      - cloud
+      - self-hosted
+    depends_on: []
+
+  # ─── Browserless.io self-hosted (optionnel) ───
+  # Navigateur Chrome managé dans Docker
+  # API identique à Browserless.io SaaS
+  browserless:
+    image: ghcr.io/browserless/chromium:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - TOKEN=${BROWSERLESS_TOKEN:-growthcro-local}
+      - CONCURRENT=5
+      - QUEUED=10
+      - TIMEOUT=120000
+    profiles:
+      - self-hosted
+    restart: unless-stopped
+
+  # Override growthcro pour pointer vers browserless self-hosted
+  growthcro-selfhosted:
+    extends:
+      service: growthcro
+    environment:
+      - BROWSER_WS_ENDPOINT=ws://browserless:3000?token=${BROWSERLESS_TOKEN:-growthcro-local}
+    depends_on:
+      - browserless
+    profiles:
+      - self-hosted

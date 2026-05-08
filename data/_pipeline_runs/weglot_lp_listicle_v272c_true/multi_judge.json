@@ -1,0 +1,536 @@
+{
+  "client": "weglot",
+  "page_type": "lp_listicle",
+  "audit_version": "V26.AA.multi_judge",
+  "doctrine": {
+    "client": "weglot",
+    "page_type": "lp_listicle",
+    "audit_version": "V26.AA.doctrine",
+    "persona": "doctrine",
+    "totals": {
+      "doctrine_score": 81.0,
+      "doctrine_max": 120.0,
+      "doctrine_score_raw": 81.0,
+      "total": 81.0,
+      "total_max": 120.0,
+      "total_pct": 67.5,
+      "tier": "Bon",
+      "n_top": 21,
+      "n_ok": 12,
+      "n_critical": 7,
+      "n_na": 1
+    },
+    "killer_rules_violated": false,
+    "killer_violations": [],
+    "cap_note": null,
+    "pillars": {
+      "hero": {
+        "total": 6.0,
+        "max": 12.0,
+        "pct": 50.0,
+        "n_criteria": 4
+      },
+      "persuasion": {
+        "total": 22.5,
+        "max": 30.0,
+        "pct": 75.0,
+        "n_criteria": 10
+      },
+      "ux": {
+        "total": 15.0,
+        "max": 21.0,
+        "pct": 71.4,
+        "n_criteria": 7
+      },
+      "coherence": {
+        "total": 24.0,
+        "max": 24.0,
+        "pct": 100.0,
+        "n_criteria": 9
+      },
+      "psycho": {
+        "total": 7.5,
+        "max": 18.0,
+        "pct": 41.7,
+        "n_criteria": 6
+      },
+      "tech": {
+        "total": 6.0,
+        "max": 15.0,
+        "pct": 40.0,
+        "n_criteria": 5
+      }
+    },
+    "details": [
+      {
+        "pillar": "hero",
+        "criteria": [
+          {
+            "id": "hero_01",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "H1: '10 raisons d'internationaliser votre site maintenant avec Weglot' (11 mots)",
+            "rationale": "Le H1 contient un bénéfice implicite (internationaliser) et un différenciateur (avec Weglot), mais reste générique. Il répond à 'Quoi' (internationaliser) et partiellement 'Comment' (avec Weglot), mais pas 'Pour qui' de manière explicite. Pas de bénéfice chiffré ou tangible ('10 raisons' est un format, pas un résultat). Pour atteindre TOP : ajouter cible explicite ('pour équipes SaaS B2B') et bénéfice mesurable ('sans 3 mois de dev' ou 'en 10 minutes')."
+          },
+          {
+            "id": "hero_02",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "Sous-titre: 'Votre site monolingue performe. Vos concurrents testent l'Allemagne et l'Espagne. Voici pourquoi attendre 3 mois de dev backlog n'est plus une option—et comment Weglot élimine cette friction.' (28 mots mais structuré en 3 phrases courtes)",
+            "rationale": "Le sous-titre AJOUTE des informations cruciales au H1 sans le répéter : contexte concurrentiel, problème précis (3 mois de dev backlog), solution (Weglot élimine cette friction). Précise le 'pourquoi maintenant' et le 'comment'. Légèrement au-dessus de 25 mots mais la structure en 3 phrases courtes maintient la lisibilité et l'impact. Enrichit clairement le H1 avec méthode et différenciateur."
+          },
+          {
+            "id": "hero_04",
+            "verdict": "CRITICAL",
+            "score": 0,
+            "evidence": "HTML montre grid 2 colonnes avec texte + zone visuelle, mais aucun <img> visible dans les 3K chars fournis. Pas de screenshot produit, pas de visuel 'en usage'.",
+            "rationale": "Impossible de confirmer la présence d'un visuel hero de qualité dans le HTML fourni. Pour un SaaS de traduction, on attendrait un screenshot d'interface montrant l'éditeur visuel en action, ou un before/after de site traduit. L'absence de balise <img> ou <picture> dans le hero suggère soit un visuel manquant, soit un lazy-load non capturé. Pour atteindre OK : ajouter screenshot produit. Pour TOP : montrer l'éditeur Weglot en usage réel avec traductions contextuelles."
+          },
+          {
+            "id": "hero_06",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "Hero contient H1 + sous-titre + 1 CTA primaire 'Tester gratuitement 10 jours'. Byline auteur présente au-dessus (distraction mineure).",
+            "rationale": "En 5 secondes, un visiteur peut répondre à 'Quoi' (internationaliser site SaaS) et 'Quoi faire' (tester gratuitement), mais 'Pour qui' nécessite lecture du sous-titre complet (28 mots). Un seul CTA primaire visible, ratio 1:1 respecté. La byline auteur ('Équipe Weglot Product & Growth') au-dessus du hero est une distraction mineure acceptable pour un listicle éditorial. Pour atteindre TOP : rendre la cible ('équipes SaaS B2B') visible dans le H1 pour répondre aux 3 questions sans lire 28 mots."
+          }
+        ],
+        "_tokens_in": 8170,
+        "_tokens_out": 1056
+      },
+      {
+        "pillar": "persuasion",
+        "criteria": [
+          {
+            "id": "per_01",
+            "score": 3,
+            "verdict": "TOP",
+            "evidence": "Chaque feature traduite en outcome : '1 ligne de code' → 'backlog dev reste disponible pour features prioritaires' ; 'hreflang auto' → 'sans casser SEO organique' ; 'éditeur visuel' → 'équipe marketing corrige sans ticket dev'",
+            "rationale": "≥80% des features passent le So What Test. Exemples : 'snippet JS' → 'site multilingue sans 3 mois de sprint' ; 'glossaire' → 'cohérence de marque préservée à l'échelle' ; 'détection DOM dynamique' → 'modals traduits sans hooks custom'. 10 raisons structurées = 10 USP hiérarchisées, chacune avec titre bénéfice + explication outcome + preuve mécanique. Format Notion respecté. Aucune feature catalogue seule."
+          },
+          {
+            "id": "per_02",
+            "score": 0,
+            "verdict": "CRITICAL",
+            "evidence": "Aucune mention fondateur, origine marque, déclencheur émotionnel, ou arc narratif problème→solution→mission détectable dans le copy.",
+            "rationale": "Page 100% catalogue produit/bénéfices sans storytelling fondateur. Pas de 'créé par', pas d'histoire de frustration initiale (ex: 'un dev SaaS a perdu 6 mois sur i18n'), pas de mission narrative. Le copy reste purement fonctionnel/rationnel. Pour atteindre OK, il faudrait au minimum une section 'Pourquoi Weglot existe' avec contexte fondateur. Pour TOP, un arc complet avec déclencheur émotionnel aligné au niveau de conscience."
+          },
+          {
+            "id": "per_03",
+            "score": 3,
+            "verdict": "TOP",
+            "evidence": "5 objections SaaS B2B traitées explicitement : (1) complexité/dev backlog (raison 01), (2) peur casser SEO (raison 02), (3) qualité traduction vs tone of voice (raisons 03+05), (4) cohérence cross-canal app+emails (raison 04), (5) coût/risque engagement (raison 10 trial gratuit).",
+            "rationale": "Objections sectorielles SaaS B2B identifiées et levées avec preuves concrètes. Intro hero adresse explicitement 'trois obstacles : backlog dev saturé, peur casser SEO, incertitude qualité traductions'. Chaque raison désamorce une objection avec mécanisme produit vérifiable. Objection prix/engagement traitée par trial 10j sans CB. Pattern 'reason-why' appliqué sur toute la page. Aucune objection majeure laissée sans réponse."
+          },
+          {
+            "id": "per_04",
+            "score": 1.5,
+            "verdict": "OK",
+            "evidence": "Chiffres spécifiques présents : '111,368+ global brands rely on Weglot', '110+ langues', '10 jours trial'. Mécanismes produit détaillés (hreflang, MutationObserver, API REST) = preuves techniques vérifiables.",
+            "rationale": "2-3 types de preuves : (a) chiffre clients '111,368+ brands', (b) mécanismes techniques sourcés (hreflang bidirectionnel, sous-répertoires /fr/ /de/, MutationObserver DOM). Manque : aucun cas client nommé avec résultat quantifié, aucun before/after concret ('temps dev réduit de X à Y'), aucune étude tierce. Disclaimer intro 'aucun chiffre non sourcé, aucun cas client anonyme' = engagement qualité mais pas de cas client réel fourni. Pour TOP, il faudrait ≥1 cas nommé + before/after chiffré."
+          },
+          {
+            "id": "per_05",
+            "score": 0,
+            "verdict": "CRITICAL",
+            "evidence": "Aucun témoignage client détecté dans le copy fourni. Pas de widget avis vérifiés, pas de vidéo, pas de texte avec prénom+photo+ville.",
+            "rationale": "0 format témoignage présent. Le copy mentionne '111,368+ global brands' mais aucun témoignage individuel, aucun avis vérifiable, aucune preuve sociale narrative. Page listicle éditorial pure sans section social proof. Pour atteindre OK, il faudrait au minimum 2 formats (ex: texte + widget Trustpilot). Pour TOP, 3 formats mixés avec distribution réaliste 4.2-4.8/5."
+          },
+          {
+            "id": "per_07",
+            "score": 3,
+            "verdict": "TOP",
+            "evidence": "Ton signature B2B SaaS maintenu hero→footer : 'Votre backlog dev reste disponible', 'Vous ne configurez aucun sitemap XML custom', 'Cette autonomie élimine le goulot d'étranglement technique'. Vouvoiement cohérent, registre expert-to-expert, zéro infantilisation.",
+            "rationale": "Ton identifiable dès hero ('Vous dirigez la croissance d'un SaaS B2B') et maintenu sur 10 raisons. Aligné cible (PM/Growth SaaS) et catégorie (B2B technique). Formulations signature : 'backlog dev saturé', 'goulot d'étranglement technique', 'workflow intégré'. Pas de rupture formel/informel. Cohérence vouvoiement total. Punchline mémorable : 'Lancez votre site multilingue cette semaine, pas dans 3 mois'. Ton expert sans jargon creux."
+          },
+          {
+            "id": "per_08",
+            "score": 3,
+            "verdict": "TOP",
+            "evidence": "Aucune phrase blacklist détectée. Chaque claim vague remplacée par spécificité : 'plusieurs langues' → '110+ langues', 'rapidement' → '10 minutes', 'facilement' → '1 ligne de code'. Pas de superlatif gratuit ('révolutionnaire', 'incroyable').",
+            "rationale": "≤1 occurrence jargon creux dans toute la page. Copy 100% concret : 'snippet JavaScript', 'balises hreflang bidirectionnelles', 'MutationObserver', 'API REST JSON'. Aucun 'créé avec soin', 'haut niveau d'exigence', 'plusieurs dizaines'. Disclaimer intro engage explicitement 'aucun chiffre non sourcé, aucun cas client anonyme, aucune durée inventée'. Chaque affirmation technique est vérifiable (hreflang, sous-répertoires /fr/, glossaire). Ton factuel B2B technique sans enflure marketing."
+          },
+          {
+            "id": "per_09",
+            "score": 3,
+            "verdict": "TOP",
+            "evidence": "Hero matche niveau Schwartz Product-Aware (LP listicle, trafic warm connaît problème i18n SaaS) : 'Votre site monolingue performe. Vos concurrents testent l'Allemagne. Voici pourquoi attendre 3 mois de dev backlog n'est plus une option—et comment Weglot élimine cette friction.'",
+            "rationale": "Ton hero aligné page_type lp_listicle = trafic warm/Product-Aware cherchant comparaison solutions i18n. Hero adresse douleur connue ('backlog dev saturé, peur casser SEO') + nomme solution ('Weglot élimine cette friction'). Pas de sur-éducation (Unaware), pas de promo agressive (Most-Aware). Structure listicle '10 raisons' = format comparatif typique Product-Aware. Intro pose contexte ('Vous dirigez croissance SaaS B2B') = segmentation claire. Match parfait niveau conscience attendu."
+          },
+          {
+            "id": "per_10",
+            "score": 3,
+            "verdict": "TOP",
+            "evidence": "Structure listicle éditorial reconnaissable : Intro contexte + 10 blocs séquentiels numérotés (01→10) chacun avec pattern Problème→Mécanisme Weglot→Outcome + CTA final. Framework 'reason-why' appliqué sur toute page.",
+            "rationale": "Framework identifiable : LP listicle = séquence 10 raisons structurées, chacune suivant Objection/Pain → Solution produit → Bénéfice outcome. Intro pose contexte Schwartz (Product-Aware), hero annonce structure ('10 raisons concrètes'), chaque raison numérotée avec titre bénéfice + explication mécanisme + outcome utilisateur. Transitions logiques (raison 01 dev → 02 SEO → 03 qualité → 04 cohérence cross-canal). CTA final rappelle promesse hero ('cette semaine, pas dans 3 mois'). Structure éditoriale complète et exécutée proprement."
+          },
+          {
+            "id": "per_11",
+            "score": 3,
+            "verdict": "TOP",
+            "evidence": "Laddering 3 niveaux sur bénéfices principaux : (1) '1 ligne code' (feature) → 'backlog dev disponible' (functional) → 'vous gardez contrôle roadmap priorités' (emotional) → 'vous restez agile face concurrents' (identity). (2) 'Éditeur visuel' → 'équipe marketing corrige sans ticket dev' → 'autonomie élimine goulot' → 'vous devenez équipe growth autonome'.",
+            "rationale": "≥2 bénéfices montent 3+ niveaux. Exemple raison 01 : feature (snippet JS) → functional (site multilingue sans sprint) → emotional (plus de frustration backlog) → identity (équipe agile qui lance vite vs concurrents lents). Raison 03 : feature (éditeur visuel) → functional (modification sans redéploiement) → emotional (fin dépendance dev) → identity (marketing autonome). Raison 09 : feature (dashboard analytics) → functional (métriques par langue) → emotional (confiance décisions) → identity (growth data-driven). Copy transforme perception visiteur sur lui-même ('vous restez agile', 'vous pilotez intelligemment')."
+          }
+        ],
+        "_tokens_in": 9882,
+        "_tokens_out": 2809
+      },
+      {
+        "pillar": "ux",
+        "criteria": [
+          {
+            "id": "ux_01",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "<h1>10 raisons d'internationaliser votre site maintenant avec Weglot</h1> unique, cascade H1>H2 (01, 02, 03...) respectée, tailles décroissantes cohérentes",
+            "rationale": "Un seul H1 présent et unique. Hiérarchie stricte respectée avec H2 numérotés (01-10) pour chaque raison. Font-sizes décroissantes cohérentes (H1 display, H2 sections). Pas de skip de niveau détecté. Structure propre desktop et mobile."
+          },
+          {
+            "id": "ux_02",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "Sections délimitées par .section-rule, padding: 76px 0 88px hero, --gsg-section-y: 112px, alternance dense (copy) / aéré (whitespace généreux)",
+            "rationale": "Alternance visible entre sections denses (raisons numérotées avec copy) et zones aérées (hero, byline, CTA blocks). Espacement généreux via CSS variables (112px sections, 76-88px hero). IPP équilibré : aucune section >1200px sans break, pas de zone morte >500px. Rythme éditorial listicle parfaitement cadencé."
+          },
+          {
+            "id": "ux_03",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "10 H2 descriptifs (01-10), <strong> usage, listes implicites (raisons numérotées), whitespace abondant. F-pattern adapté au lp_listicle (H2 alignés, first-lines denses)",
+            "rationale": "≥5 H2 descriptifs présents (10 raisons numérotées). Usage de strong pour emphasis. Pattern F adapté au page_type lp_listicle : H2 alignés à gauche, contenu dense en first-lines, scan vertical naturel. Whitespace généreux entre sections. Parfaitement scannable en lecture rapide."
+          },
+          {
+            "id": "ux_04",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "CTA hero 'Tester gratuitement 10 jours', CTA final 'Tester gratuitement 10 jours', mais absence de CTA intermédiaires après arguments majeurs (raisons 3, 5, 7)",
+            "rationale": "2 CTA identiques détectés (ATF hero + bas de page). Pas de CTA répétés entre les 10 raisons, alors que la page est longue (listicle 10 points). Pas de sticky/floating CTA détecté. Pour atteindre TOP, il faudrait ≥3 CTA répartis (ex: après raison 3, 6, 10) ou un sticky CTA sur cette page longue."
+          },
+          {
+            "id": "ux_05",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "viewport width=device-width, overflow-x: hidden sur html/body, max-width: 100% sur html/body, --gsg-content: min(760px, calc(100vw - 40px)) responsive, pas de scroll horizontal",
+            "rationale": "Mobile-first réel : viewport correct, overflow-x hidden explicite, sizing responsive via CSS variables adaptatives (calc(100vw - 40px)). Pas de scroll horizontal détecté. Touch targets implicitement ≥44px (CTA buttons standard). Texte 18px lisible sans zoom. Thumb zone non vérifiable sans CTA sticky, mais page fonctionnelle mobile."
+          },
+          {
+            "id": "ux_06",
+            "verdict": "CRITICAL",
+            "score": 0,
+            "evidence": "Aucun menu de navigation détecté dans le HTML fourni (head + 3K chars), mais structure .page-shell et .top-rule suggèrent header global potentiel non visible dans l'extrait",
+            "rationale": "Impossible de confirmer l'absence totale de menu navigation avec seulement 3K chars HTML. Cependant, aucun <nav>, <header>, ou menu burger détecté dans l'extrait. Pour un lp_listicle, l'idéal serait zéro menu ou logo+CTA uniquement. Sans visibilité complète du header, je score CRITICAL par prudence : si menu global présent, c'est parasite pour une LP mono-objectif."
+          },
+          {
+            "id": "ux_07",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "--gsg-duration: 180ms, --gsg-easing: cubic-bezier(.2,.8,.2,1), scroll-behavior: smooth détectés, mais aucune micro-interaction explicite (sticky CTA, hover states, progress bar) visible dans HTML",
+            "rationale": "CSS variables pour transitions (duration, easing) et scroll-behavior smooth présents, mais aucune micro-interaction concrète détectée dans le code fourni (pas de sticky CTA, pas de hover states visibles, pas de progress bar, pas de back-to-top). Pour atteindre TOP, il faudrait ≥2 micro-interactions explicites (ex: sticky CTA + hover cards)."
+          }
+        ],
+        "_tokens_in": 8589,
+        "_tokens_out": 1442
+      },
+      {
+        "pillar": "coherence",
+        "criteria": [
+          {
+            "id": "coh_01",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "H1: '10 raisons d'internationaliser votre site maintenant avec Weglot' + subtitle: 'Votre site monolingue performe. Vos concurrents testent l'Allemagne et l'Espagne. Voici pourquoi attendre 3 mois de dev backlog n'est plus une option—et comment Weglot élimine cette friction.'",
+            "rationale": "Les 3 questions sont répondues en <15 mots combinés : Quoi = internationaliser site SaaS avec Weglot (listicle 10 raisons), Pour qui = SaaS avec site monolingue qui performe, Pourquoi = concurrents avancent + éliminer 3 mois dev backlog. Bénéfice tangible (gain de temps dev), pas de slogan vague. Promesse claire en 5 sec."
+          },
+          {
+            "id": "coh_02",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "Body fold: 'Vous dirigez la croissance d'un SaaS B2B avec un site anglais qui convertit. Votre roadmap 2026 mentionne l'internationalisation, mais trois obstacles vous freinent : un backlog dev saturé, la peur de casser votre SEO multilingue, et l'incertitude sur la qualité des traductions automatiques face à votre ton de marque.'",
+            "rationale": "Persona explicite dans le fold : rôle (growth leader SaaS B2B), contexte (site anglais performant, roadmap 2026), et 3 défis/besoins nommés précisément (backlog dev, SEO, qualité traduction vs brand). Le lecteur se reconnaît immédiatement ('c'est pour moi'). Rien à ajouter pour atteindre TOP."
+          },
+          {
+            "id": "coh_03",
+            "verdict": "N/A",
+            "score": null,
+            "evidence": "Page type = lp_listicle, aucune source ad/campagne fournie dans le contexte.",
+            "rationale": "Impossible d'évaluer le scent matching ad → LP sans connaître la source de trafic (ad copy, keywords, landing source). Critère non applicable dans ce contexte d'audit isolé. Si la page était auditée dans un contexte de campagne payante, il faudrait vérifier cohérence message/offre/ton avec l'annonce source."
+          },
+          {
+            "id": "coh_04",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "UVP: 'couche de traduction' (snippet JS détecte DOM, traduit, gère routing sans toucher stack) + 'éditeur visuel contextuel' + 'hreflang automatique' + 'glossaire verrouillé' + 'détection contenu dynamique JS MutationObserver'. Pains: backlog dev saturé, SEO cassé, qualité traduction, incohérence cross-canal, contenu dynamique non traduit. Gains: lancement 1 ligne code, SEO préservé, autonomie marketing, cohérence app+emails, 0 refactoring.",
+            "rationale": "≥2 éléments propriétaires nommés (couche de traduction par snippet, MutationObserver pour JS dynamique, éditeur visuel contextuel) + ton signature ('Votre backlog dev reste disponible', 'Aucun fichier .json à maintenir') + VPC alignment fort (≥5 pains adressés explicitement : dev backlog, SEO, qualité, cross-canal, JS dynamique + ≥5 gains promis : vitesse, SEO auto, autonomie, cohérence, 0 refactoring) + preuves chiffrées (10 jours trial, 110 langues, 111,368 brands). Positionnement clairement différencié vs solutions i18n classiques (extraction strings, fichiers .json, routing manuel)."
+          },
+          {
+            "id": "coh_05",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "Formality: vouvoiement stable ('Vous dirigez', 'Votre roadmap', 'Vous ne voulez pas'). Expertise: technique précis ('hreflang bidirectionnelles', 'MutationObserver', 'canonical tags', 'sous-répertoires /fr/ /de/'). Emotion: empathie + urgence ('Votre peur numéro 2', 'attendre 3 mois n'est plus une option'). Signature: 'Aucun fichier .json à maintenir', 'sans passer par un ticket dev', 'Pas de démo commerciale obligatoire, pas de questionnaire de qualification, pas de pression sales'.",
+            "rationale": "Ton signature cohérent sur les 4 dimensions V&T : formality (vouvoiement stable, registre professionnel), expertise (vocabulaire technique précis sans jargon inutile), emotion (empathie obstacles + urgence concurrentielle), signature (formulations anti-friction reconnaissables, vocabulaire propriétaire 'couche de traduction'). 0 pattern AI slop détecté (pas de 'unlock', 'game-changer', 'seamless', listes génériques). Cohérence totale hero → body → CTA."
+          },
+          {
+            "id": "coh_06",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "CTA primaire unique: 'Tester gratuitement 10 jours' (hero + section 10 + footer). Aucun CTA secondaire concurrent (pas de 'Demander une démo', 'Parler à un expert', 'Télécharger guide'). Tous les 10 points convergent vers l'essai gratuit.",
+            "rationale": "1 objectif prioritaire clair (trial gratuit 10 jours), tous les éléments convergent (chaque raison 01-10 élimine une objection au trial), ratio attention ≤1:1 (aucun lien externe, aucune navigation distractrice visible dans le copy), 0 compétition entre objectifs. Hiérarchie CTA parfaite : primaire répété 3× (hero, raison 10, footer), aucun secondaire. Rien à améliorer pour atteindre TOP."
+          },
+          {
+            "id": "coh_07",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "For: 'Vous dirigez la croissance d'un SaaS B2B'. Who: 'site anglais qui convertit, roadmap 2026 internationalisation, backlog dev saturé'. Our: 'Weglot'. Is the: 'solution de traduction par couche (snippet JS)'. That: 'lance votre site multilingue sans dev backlog, avec SEO préservé et qualité brand intacte'.",
+            "rationale": "Les 5 composants du Positioning Statement sont reconstituables explicitement : cible (growth leader SaaS B2B), besoin (internationaliser sans mobiliser dev + préserver SEO + garder qualité brand), catégorie (solution traduction site), bénéfice (lancement rapide, SEO auto, qualité contrôlable), différenciation (couche de traduction vs refactoring i18n classique, éditeur visuel contextuel, hreflang auto). Tous cohérents et explicites dans le fold + body."
+          },
+          {
+            "id": "coh_08",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "Primary (hero): 'internationaliser site SaaS sans dev backlog'. Secondary (10 sections body): 01 vitesse install, 02 SEO auto, 03 éditeur visuel, 04 cross-canal, 05 glossaire, 06 JS dynamique, 07 traducteurs humains, 08 intégrations stack, 09 analytics, 10 trial gratuit. Supporting: FAQ implicite (chaque section répond à une objection), preuves techniques (hreflang, MutationObserver, API).",
+            "rationale": "Primary identifiable (1 msg hero : éliminer friction dev pour internationaliser) + 10 secondary cohérents (chaque raison adresse 1 dimension du problème : vitesse, SEO, qualité, scope, contrôle, tech, workflow, mesure, risque) + supporting aligné (preuves techniques, mécanismes produit). Hiérarchie visuelle matche message (H1 hero > H2 sections numérotées 01-10 > body paragraphes). 0 section off-thesis, colonne vertébrale claire."
+          },
+          {
+            "id": "coh_09",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "Raison 01: 'Weglot inverse ce modèle : vous ajoutez un snippet JavaScript ou un plugin, vous sélectionnez vos langues cibles, et votre site devient multilingue. [...] Cette approche par couche de traduction signifie que vous gardez un seul site source en anglais.' + Raison 06: 'Le snippet Weglot observe les mutations DOM en temps réel. [...] Le MutationObserver de Weglot traduit les nodes ajoutés après le chargement initial de la page.'",
+            "rationale": "Unique Mechanism nommé explicitement : 'couche de traduction' (section 01, répété section 06) avec nom propriétaire reconnaissable, expliqué en 3 points (snippet détecte DOM, extrait texte, applique traductions + gère routing sans toucher stack), mécanisme technique précis (MutationObserver pour contenu dynamique JS), différenciation claire vs i18n classique (extraction strings, fichiers .json, refactoring). Mémorisable et propriétaire. TOP atteint."
+          }
+        ],
+        "_tokens_in": 8733,
+        "_tokens_out": 2618
+      },
+      {
+        "pillar": "psycho",
+        "criteria": [
+          {
+            "id": "psy_03",
+            "verdict": "CRITICAL",
+            "score": 0,
+            "evidence": "Aucun prix affiché sur la page. Pas de prix barré, pas de framing valeur, pas de comparaison coût quotidien, pas de mention coût inaction.",
+            "rationale": "La page est un listicle éditorial qui ne mentionne aucun prix, aucun plan tarifaire, aucune comparaison de valeur. Impossible d'ancrer la décision d'achat puisque le visiteur n'a aucun cadre de référence économique. Pour atteindre OK, il faudrait au minimum mentionner un coût de référence ou comparer au coût d'une solution dev interne. Pour TOP, intégrer 2+ techniques d'ancrage (ex: 'économisez 3 mois de dev à 80k€' + 'essai 10j gratuit')."
+          },
+          {
+            "id": "psy_04",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "'Vous testez Weglot gratuitement pendant 10 jours, sans carte bancaire' (section 10) + 'Aucune carte bancaire requise, aucun engagement' (footer CTA)",
+            "rationale": "Un seul levier de risk reversal actif : l'essai gratuit 10 jours sans CB, mentionné 2 fois (section dédiée + footer). Pas de garantie satisfait-ou-remboursé, pas de framing perte ('vous perdez X leads en restant monolingue'), pas de réversibilité explicite (annulation en 1 clic). Pour TOP, il faudrait ajouter un framing perte tangible dans le hero ('chaque mois sans internationalisation = X% de marché perdu') et une garantie ou clause de sortie visible."
+          },
+          {
+            "id": "psy_05",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "'111,368+ global brands rely on Weglot' (hero) + mentions techniques vérifiables (hreflang, MutationObserver, API REST)",
+            "rationale": "2 signaux d'autorité : chiffre clients (111k+ brands) et expertise technique démontrée par vocabulaire précis (hreflang, DOM, MutationObserver). Mais aucun expert nommé, aucune certification visible, aucune mention presse/média, aucun award. Le byline 'Équipe Weglot Product & Growth' est générique. Pour TOP, il faudrait nommer un expert ('Marie Dupont, Head of i18n chez Weglot'), ajouter des logos presse ('Vu dans TechCrunch, Les Échos'), ou afficher des certifications (ISO, SOC2, GDPR-compliant)."
+          },
+          {
+            "id": "psy_06",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "Essai gratuit 10j sans CB = valeur gratuite avant demande. Pas de quiz, configurateur, ou micro-engagement progressif visible dans le HTML fourni.",
+            "rationale": "Un seul levier de réciprocité : l'essai gratuit 10 jours (valeur gratuite avant engagement). Pas de micro-engagements progressifs (pas de quiz 'Quelle langue pour votre marché ?', pas de calculateur ROI, pas de configurateur de langues). Le CTA est direct 'Tester gratuitement 10 jours' sans étape intermédiaire. Pour TOP, ajouter un calculateur ('Estimez votre ROI multilingue en 2 min') ou un quiz ('Trouvez vos 3 langues prioritaires') avant le CTA principal."
+          },
+          {
+            "id": "psy_07",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "Peur: 'casser votre SEO', 'backlog dev saturé'. Aspiration: 'Lancez votre site multilingue cette semaine'. Pas de désir tangible ni appartenance forte.",
+            "rationale": "2 émotions activées avec signaux textuels : (1) Peur/anxiété ('peur de casser votre SEO', 'backlog saturé', 'erreurs hreflang peuvent détruire des mois de travail'), (2) Aspiration ('Lancez cette semaine, pas dans 3 mois', 'Vous gardez le contrôle'). Mais pas de désir tangible (bénéfice émotionnel concret type 'imaginez votre dashboard avec +40% de leads DACH'), pas d'appartenance communautaire ('rejoignez 111k brands' est factuel, pas émotionnel). Pas de visuel émotionnel dans l'extrait HTML. Pour TOP, activer 3+ émotions avec signaux visuels + textuels."
+          },
+          {
+            "id": "psy_08",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "'backlog dev saturé', 'peur de casser votre SEO', 'Workspace' (exemple vernaculaire produit). Pas de verbatims clients entre guillemets.",
+            "rationale": "2 signaux VoC : (a) formulations vernaculaires dans le copy principal ('backlog dev saturé', 'peur de casser votre SEO', 'sans passer par un ticket dev' = langage PM/Growth réel), (b) exemple produit 'Workspace' qui reflète le vocabulaire SaaS. Mais aucun témoignage client avec verbatim exact entre guillemets, aucune FAQ formulée comme le client la pose. Le copy reste en partie marketeur-speak ('Cette approche par couche de traduction', 'cohérence cross-canal'). Pour TOP, intégrer 3+ verbatims clients exacts et reformuler la FAQ en questions vernaculaires ('Est-ce que ça va péter mon SEO ?' vs 'Comment Weglot gère-t-il le SEO multilingue ?')."
+          }
+        ],
+        "_tokens_in": 8740,
+        "_tokens_out": 1627
+      },
+      {
+        "pillar": "tech",
+        "criteria": [
+          {
+            "id": "tech_01",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "viewport meta présent, charset UTF-8, CSS custom properties, pas de CWV réels fournis. HTML hints: 2/5 conditions (viewport + charset OK, pas de preload/fetchpriority visible).",
+            "rationale": "Pas de Core Web Vitals réels disponibles. Sur les hints HTML : viewport configuré correctement, charset UTF-8 déclaré, mais absence de resource hints avancés (preload, fetchpriority, preconnect). CSS custom properties et structure moderne suggèrent une base correcte mais pas optimisée pour LCP/CLS. Manque preload fonts, fetchpriority sur hero image, et autres optimisations top-tier pour atteindre TOP."
+          },
+          {
+            "id": "tech_02",
+            "verdict": "CRITICAL",
+            "score": 0,
+            "evidence": "Aucun alt text visible dans HTML fourni, pas d'aria-label détecté, pas de skip link, headings non vérifiables dans extrait head. 0/6 checks confirmés.",
+            "rationale": "L'extrait HTML head ne contient aucune image avec attribut alt, aucun aria-label, aucun role attribute, aucun skip link. Les headings H1/H2 existent dans le COPY mais leur ordre sémantique n'est pas vérifiable dans le head fourni. Moins de 2 checks d'accessibilité passent, page probablement hostile aux lecteurs d'écran. Pour atteindre OK, il faudrait au minimum alt text sur images et labels sur forms."
+          },
+          {
+            "id": "tech_03",
+            "verdict": "TOP",
+            "score": 3,
+            "evidence": "<title>10 raisons d'internationaliser...</title> (60 chars), <meta name=\"description\" content=\"Découvrez pourquoi...\" (145 chars), lang=\"fr\", H1 unique présent dans copy.",
+            "rationale": "6/7 checks SEO passent : (a) title tag présent et 60 caractères (OK), (b) meta description 145 caractères (OK), (c) H1 unique présent dans copy, (d) pas de canonical visible mais non bloquant, (e) pas d'Open Graph détecté dans head fourni, (f) pas de schema.org visible, (g) lang=\"fr\" défini. Fondations SEO solides : title, meta desc, H1, lang. Page indexable et optimisée pour Google. Manque OG et schema pour perfection absolue mais 5+ checks suffisent pour TOP."
+          },
+          {
+            "id": "tech_04",
+            "verdict": "CRITICAL",
+            "score": 0,
+            "evidence": "Aucun script GA4, gtag, GTM, Facebook Pixel, Hotjar, Segment détecté dans les 3K premiers chars du head fourni. 0/4 checks tracking.",
+            "rationale": "Aucun outil d'analytics ou de tracking détecté dans l'extrait HTML fourni. Pas de Google Analytics, pas de GTM, pas de Meta Pixel, pas d'autres outils (Hotjar, Segment, Mixpanel). Impossible de mesurer conversions, attribution, ou comportement utilisateur. Vol à l'aveugle complet. Pour atteindre OK, il faudrait au minimum GA4 ou GTM installé. Pour TOP, 3+ outils de tracking."
+          },
+          {
+            "id": "tech_05",
+            "verdict": "OK",
+            "score": 1.5,
+            "evidence": "<!DOCTYPE html>, <meta charset=\"utf-8\">, <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">. Pas de favicon visible, HTTPS non vérifiable dans HTML.",
+            "rationale": "3/5 checks passent : charset UTF-8 déclaré, viewport meta configuré (mobile-ready), DOCTYPE HTML5 correct. HTTPS non vérifiable dans l'extrait HTML fourni (nécessiterait URL complète), favicon non détecté dans head, robots.txt non vérifiable. Basics techniques en place (charset, viewport) mais trous sur favicon et confirmation HTTPS. Pour TOP, il faudrait 4/5 checks confirmés incluant HTTPS actif et favicon présent."
+          }
+        ],
+        "_tokens_in": 8169,
+        "_tokens_out": 1153
+      }
+    ],
+    "model_used": "claude-sonnet-4-5-20250929",
+    "tokens_in": 52283,
+    "tokens_out": 10705,
+    "wall_seconds": 69.1
+  },
+  "humanlike": {
+    "client": "weglot",
+    "audit_version": "V26.Z.humanlike",
+    "persona": "humanlike",
+    "scores": {
+      "humanlike": {
+        "category_concretude_h2": [
+          {
+            "id": 1,
+            "name": "Concrétude des H2",
+            "score": 8,
+            "rationale": "H2 portent des images mentales précises et évitent la paraphrase abstraite. '1 ligne de code, pas 3 mois de sprint' crée une tension visuelle immédiate. 'Éditeur visuel contextuel' ancre dans le concret. 'Emails transactionnels ET app SaaS' élargit le scope de manière tangible. Perte de 2 points : certains H2 restent fonctionnels ('génère automatiquement vos balises hreflang') sans punch émotionnel — on visualise la feature, pas le bénéfice viscéral."
+          }
+        ],
+        "category_densite_narrative": [
+          {
+            "id": 2,
+            "name": "Densité narrative",
+            "score": 9,
+            "rationale": "Architecture narrative exceptionnelle : intro pose 3 obstacles précis (backlog saturé, peur SEO, qualité traduction), puis chaque section résout UN obstacle avec progression logique. Le lecteur suit un arc problème→solution→preuve. Pas de feature dump. Chaque raison s'enchaîne (code→SEO→édition→cohérence cross-canal). Perte de 1 point : sections 8-9 ralentissent légèrement le rythme (intégrations, analytics) — nécessaires mais moins dramatiques que 1-7."
+          }
+        ],
+        "category_cialdini_activation": [
+          {
+            "id": 3,
+            "name": "Cialdini × 6 activés",
+            "score": 6,
+            "rationale": "Autorité : '111,368+ global brands' (preuve sociale chiffrée, mais pas de logos tier-1 visibles dans le HTML fourni). Preuve sociale : chiffre précis, mais anonyme. Réciprocité : essai 10 jours sans CB (don avant ask, activé 2×). Engagement : micro-commitment via 'Tester gratuitement' répété. Rareté : ABSENT (aucune limite temporelle, aucun FOMO). Sympathie : ABSENT (aucun visage humain, aucun founder story). 4 principes activés sur 6, mais autorité/preuve sociale manquent de noms concrets (pas de 'Stripe, Shopify, Airtable utilisent Weglot')."
+          }
+        ],
+        "category_biais_cognitifs": [
+          {
+            "id": 4,
+            "name": "Biais cognitifs activés",
+            "score": 7,
+            "rationale": "Loss aversion : '3 mois de dev backlog' vs '1 ligne de code' (peur de perdre du temps). Ancrage : '3 mois' ancre la douleur, '10 minutes' ancre la solution. IKEA effect : 'Vous éditez chaque traduction' (ownership). Dotation : ABSENT (pas de 'vous avez déjà un site qui convertit, ne le cassez pas'). FOMO : FAIBLE (pas de deadline, pas de 'vos concurrents testent l'Allemagne MAINTENANT'). 3 biais activés explicitement, mais manque de pression temporelle réelle."
+          }
+        ],
+        "category_frameworks_copy": [
+          {
+            "id": 5,
+            "name": "Frameworks copy orchestrés",
+            "score": 9,
+            "rationale": "PAS orchestré magistralement : Problème (backlog saturé, peur SEO, qualité traduction) → Agitation (concurrents testent Allemagne/Espagne, attendre = perdre) → Solution (10 raisons Weglot). Chaque section suit BAB micro : Before (internationalisation classique = semaines), After (Weglot = 1 ligne), Bridge (snippet JS). PASTOR implicite : Problem/Amplify/Story/Transformation visible. Perte de 1 point : pas de testimonial/story client nommé pour ancrer la transformation (reste théorique)."
+          }
+        ],
+        "category_polish_anti_ai_slop": [
+          {
+            "id": 6,
+            "name": "Polish anti-AI-slop réel",
+            "score": 7,
+            "rationale": "Signature visuelle nommable : 'Editorial SaaS Pastel' (lavande #e9dcf0, bleu ciel #c1e0f8, violet #493ce0, rose #d0318a). Typographie Ppneuemontreal distinctive. MAIS : techniques accumulées sans thèse forte — gradient subtil, border-radius uniforme, pas de grain/texture/brutalisme. Détails artisanaux présents (byline avec author-mark, mono eyebrow, numérotation 01-10) mais restent dans le registre 'SaaS poli 2024'. Reconnaissable comme généré par LLM averti (pas de signature photographique, pas d'illustration custom, pas de typographie expérimentale)."
+          }
+        ],
+        "category_brand_dna_respect": [
+          {
+            "id": 7,
+            "name": "Brand DNA respect réel",
+            "score": 9,
+            "rationale": "Palette respectée à 95% : lavande #e9dcf0 (primary), bleu #c1e0f8 (secondary), violet #493ce0, rose #d0318a (accent) tous présents. Ppneuemontreal en display, poids 700, line-height serré (.92 pour H1). Ton éditorial long-form cohérent avec positionnement Weglot (technique mais accessible). Perte de 1 point : le ton reste 'éducatif neutre' — Weglot pourrait être plus conversationnel/humain (cf. leur site actuel qui joue sur la simplicité). La page POURRAIT être Weglot sans logo, mais manque de chaleur humaine distinctive."
+          }
+        ],
+        "category_conversion_architect": [
+          {
+            "id": 8,
+            "name": "Conversion architecture",
+            "score": 8,
+            "rationale": "Architecture émotionnelle claire : Hook (concurrents testent, vous attendez) → Tension (3 obstacles nommés) → Résolution progressive (10 raisons = 10 mini-résolutions) → CTA final ('cette semaine, pas dans 3 mois'). Chaque section sert la suivante. CTA répété 3× (hero, mid-page implicite, footer) au bon moment psychologique. Perte de 2 points : pas de CTA intermédiaire après raison 5 (moment de conviction max), et pas de social proof visuel avant CTA final (logos clients auraient renforcé la décision)."
+          }
+        ]
+      }
+    },
+    "totals": {
+      "humanlike_score": 63,
+      "humanlike_max": 80,
+      "total": 63,
+      "total_max": 80,
+      "tier": "✅ Excellent 60-71"
+    },
+    "signature_nommable": "Editorial SaaS Pastel",
+    "ai_default_patterns_detected": [
+      "Numérotation 01-10 avec labels catégorie (SEO/UX/ROI/OPS) — pattern LLM structuré",
+      "Formulation 'Vous + verbe d'action' répétée mécaniquement en ouverture de chaque H2",
+      "Absence de grain/texture/imperfection — surface trop lisse",
+      "Pas de photographie humaine, pas d'illustration custom — reste dans l'abstraction typographique",
+      "Longueur uniforme des sections (≈150 mots chacune) — régularité algorithmique"
+    ],
+    "humanlike_strengths": [
+      "Architecture PAS/BAB orchestrée avec maîtrise — chaque section résout un obstacle précis, progression narrative claire, pas de feature dump",
+      "Concrétude des H2 excellente — '1 ligne de code vs 3 mois de sprint' crée une image mentale immédiate, ancrage temporel fort",
+      "Respect Brand DNA quasi-parfait — palette Weglot (lavande/bleu/violet/rose), Ppneuemontreal, ton éditorial long-form cohérent"
+    ],
+    "humanlike_weaknesses": [
+      "Preuve sociale faible — '111,368+ brands' anonyme, aucun logo tier-1 visible (Stripe/Shopify/Airtable absents), aucun testimonial nommé",
+      "Absence totale de rareté/FOMO — pas de deadline, pas de 'vos concurrents lancent MAINTENANT', pas de pression temporelle réelle",
+      "Polish visuel 'SaaS poli 2024' reconnaissable — pas de grain, pas de photographie humaine, pas d'illustration custom, signature distinctive mais sans audace"
+    ],
+    "verdict_paragraph": "Cette page rivalise avec le top 5% du marché SaaS B2B éditorial — architecture narrative PAS/BAB maîtrisée, concrétude des H2 excellente, Brand DNA Weglot respecté. MAIS elle ne franchit pas le seuil top 0.001% pour 3 raisons : (1) preuve sociale anonyme (chiffre sans noms), (2) absence totale de rareté/FOMO (aucune pression temporelle), (3) polish visuel 'Editorial SaaS Pastel' reconnaissable comme LLM averti — pas de grain, pas d'humain visible, pas d'audace typographique. Si Weglot ajoutait 5 logos clients tier-1 visibles, 1 testimonial vidéo nommé, et 1 deadline ('Offre early 2026 : setup gratuit jusqu'au 15 février'), cette page passerait à 72-75/80. En l'état : excellente exécution technique, mais manque de preuve sociale concrète et d'urgence psychologique pour déclencher l'action immédiate.",
+    "model_used": "claude-sonnet-4-5-20250929",
+    "tokens_in": 8033,
+    "tokens_out": 2667
+  },
+  "implementation": {
+    "counters_with_zero_default": 0,
+    "counters_total": 0,
+    "scripts_count": 0,
+    "has_counter_js": false,
+    "opacity_zero_count": 0,
+    "has_keyframes": false,
+    "has_reveal_transition": false,
+    "opacity_zero_no_animation": 0,
+    "reveal_pattern_pairs": [],
+    "has_reveal_js": false,
+    "broken_score": 0.0,
+    "broken_severity": "ok"
+  },
+  "final": {
+    "final_score_pct": 70.9,
+    "weighted_score_pct": 70.9,
+    "verdict": "🟡 Bon",
+    "impl_penalty_pct": 0.0,
+    "breakdown": {
+      "doctrine_pct": 67.5,
+      "doctrine_weight": 0.7,
+      "humanlike_pct": 78.8,
+      "humanlike_weight": 0.3
+    },
+    "killer_rules_violated": false,
+    "killer_violations": []
+  },
+  "totals_meta": {
+    "wall_seconds": 135.9,
+    "tokens_in": 60316,
+    "tokens_out": 13372,
+    "cost_estimate_usd": 0.382
+  }
+}

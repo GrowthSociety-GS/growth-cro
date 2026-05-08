@@ -1,0 +1,47 @@
+{
+  "runAt": "2026-04-18T10:26:32.255661Z",
+  "doctrine": "v3.2.0-draft",
+  "phase": "P2.A",
+  "pages_total": 291,
+  "pages_ok": 291,
+  "pages_err": 0,
+  "elapsed_seconds": 0.2,
+  "applicability": {
+    "applied_count": 75,
+    "rules_fired": {
+      "rule_blog_scan_required": 32,
+      "rule_saas_coherence_required": 18,
+      "rule_ecom_proof_required": 14,
+      "rule_app_hero_required": 9,
+      "rule_leadgen_risk_reversal_required": 1,
+      "rule_checkout_trust_required": 1
+    },
+    "business_types": {
+      "saas": 90,
+      "ecommerce": 128,
+      "app": 26,
+      "fintech": 14,
+      "insurtech": 2,
+      "lead_gen": 26
+    },
+    "required_hits": 99,
+    "bonus_hits": 0,
+    "na_removed": 0,
+    "optional_flags": 0,
+    "with_bt_weighted": 270,
+    "bt_weighted_delta_count": 270
+  },
+  "contextual": {
+    "applied_count": 26,
+    "rules_fired": {
+      "R5_MANIPULATION_FLAG": 1,
+      "R3_FIVE_SEC_RESCUE": 12,
+      "R7_COHERENCE_QUORUM": 5,
+      "R2_PROOF_RESCUE": 6,
+      "R4_BENEFIT_FLOW_RESCUE": 2,
+      "R1_HERO_RESCUE": 1
+    },
+    "total_delta": 30.0
+  },
+  "errors": []
+}

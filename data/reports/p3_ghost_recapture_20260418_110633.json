@@ -1,0 +1,29 @@
+{
+  "runAt": "2026-04-18T11:06:33.340443Z",
+  "phase": "P3",
+  "total_targets": 20,
+  "ran": 2,
+  "ok": 2,
+  "fail": 0,
+  "elapsed_s": 28.4,
+  "log": [
+    {
+      "client": "monday",
+      "pageType": "pricing",
+      "url": "https://monday.com/pricing",
+      "ok": true,
+      "elapsed_s": 12.8,
+      "sections": 22,
+      "elements": 2511
+    },
+    {
+      "client": "revolut",
+      "pageType": "home",
+      "url": "https://www.revolut.com/",
+      "ok": true,
+      "elapsed_s": 15.6,
+      "sections": 51,
+      "elements": 1194
+    }
+  ]
+}

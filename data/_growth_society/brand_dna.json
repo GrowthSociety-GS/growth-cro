@@ -1,0 +1,85 @@
+{
+  "version": "1.0",
+  "extracted_at": "2026-04-30",
+  "_dogfood_note": "Brand DNA Growth Society — appliquée DIRECTEMENT à la webapp GrowthCRO V26 (CSS vars hardcoded). Schéma identique à V29 brand_dna_extractor.",
+  "identity": {
+    "brand_name": "Growth Society",
+    "category": "agency_tools",
+    "market_position": "Boutique CRO consultancy with proprietary observatory tooling",
+    "audience": "Founders + media buying agencies + perf marketers",
+    "confidence": 1.0
+  },
+  "visual_tokens": {
+    "colors": {
+      "primary": {
+        "gold": "#d4a945",
+        "gold_soft": "#e8b87a",
+        "gold_dim": "rgba(212, 169, 69, 0.2)"
+      },
+      "secondary": {
+        "aurora_blue": "#4d8fff",
+        "aurora_violet": "#8c7ef1",
+        "aurora_cyan": "#6ee0df",
+        "indigo": "#7a6fff"
+      },
+      "neutrals": {
+        "night_abyss": "#0a0c14",
+        "night_deep": "#0f1320",
+        "night_elev": "#181d2e",
+        "star": "#fbfaf5",
+        "star_warm": "#e8e3d6",
+        "star_dim": "#9aa0a6"
+      },
+      "semantic": {
+        "ok": "#7fd78a",
+        "warn": "#f5c56a",
+        "bad": "#f77c7c"
+      }
+    },
+    "typography": {
+      "heading": "Cormorant Garamond, Playfair Display, Georgia, serif",
+      "body": "Inter, -apple-system, system-ui, sans-serif",
+      "mono": "JetBrains Mono, SF Mono, Menlo, monospace",
+      "scale": "1.272 (perfect fourth × 0.95)",
+      "line_height": "1.5 body, 1.0 display"
+    },
+    "spacing": {
+      "container_max": "1640px",
+      "grid_gap": "1rem",
+      "card_padding": "1.2rem",
+      "section_y": "var(--sp-4)"
+    },
+    "shape": {
+      "radius_scale": "[6px, 8px, 10px, 14px]",
+      "dominant_radius": "8px",
+      "edge_language": "rounded-soft (no sharp corners)"
+    },
+    "depth": {
+      "shadow_style": "deep + soft, low diffusion",
+      "blur": "8px-22px backdrop-filter",
+      "elevation_levels": 3
+    },
+    "texture": {
+      "noise": "static micro-grain (V22 dust particles)",
+      "gradient_language": "aurora multi-stop linear",
+      "material": "glass + frost (rgba 0.04-0.08 + blur)"
+    },
+    "motion": {
+      "easing": "cubic-bezier(0.4, 0.0, 0.2, 1) — ease-aura",
+      "duration_ms": "180-360",
+      "amplitude": "subtle (no flashy)"
+    }
+  },
+  "voice_tokens": {
+    "tone": ["consultant senior", "FR direct", "no bullshit", "data-driven", "boutique-quality"],
+    "forbidden_words": ["leverage", "synergie", "innovant", "disruptif", "cutting-edge", "best-in-class"],
+    "preferred_cta_verbs": ["Auditer", "Lancer", "Optimiser", "Mesurer", "Valider"],
+    "sentence_rhythm": "courte + punchy, evidence-first"
+  },
+  "asset_rules": {
+    "photo_style": ["editorial", "minimal", "deep tones"],
+    "lighting": "low-key warm (golden hour)",
+    "composition": "centered + breathing room",
+    "do_not_use": ["stock business handshake", "diverse smiling faces", "AI-generated synthetic faces", "generic bokeh tech bg"]
+  }
+}

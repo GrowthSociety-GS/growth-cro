@@ -1,0 +1,87 @@
+{
+  "version": "1.0.0",
+  "page_type": "home",
+  "philosophy": "Manifeste produit — pas une LP marketing checklist. Type Stripe.com / Linear.app / Vercel.com : déclaration d'intention founder + démos visuelles fortes + détails techniques honnêtes.",
+  "structure_required": [
+    {
+      "section": "minimal_nav",
+      "what": "Logo gauche + 4-5 nav links + 1 CTA login/signup. PAS de mega-menu hover, PAS de banner annoucement au-dessus.",
+      "why": "Le nav annonce le ton : minimal = produit confiant"
+    },
+    {
+      "section": "hero_declaratif",
+      "what": "H1 court + déclaratif (1-7 mots), sub-titre dense (1-2 phrases qui expliquent la transformation), 1 seul CTA primary (PAS 'Voir la démo' + 'Démarrer essai' + 'Nous contacter'), optionnel : visuel produit RÉEL (screenshot UI net, pas illustration générique).",
+      "why": "Stripe / Linear hero pattern : 1 promesse claire, 1 action."
+    },
+    {
+      "section": "social_proof_hairline",
+      "what": "Logos clients (4-8 max) en hairline grayscale OU rangée de bandes texte 'used by X teams at Y companies' avec 1-2 stats. PAS de cards testimonials sur cette zone.",
+      "why": "Logos discrets = confiance. Logos pleins = anti-éditorial."
+    },
+    {
+      "section": "value_props_demos",
+      "what": "3-5 sections feature/value avec : (a) H2 court déclaratif, (b) 1-2 paragraphes prose (pas bullets), (c) visuel UI réel ou diagramme schématique propre. Alterner image-droite / image-gauche pour rythme.",
+      "why": "Linear / Vercel pattern : prose narrative + UI réel = 'on a vraiment construit ça'."
+    },
+    {
+      "section": "differenciation",
+      "what": "Section unique au produit : philosophie founder ('we built this because...'), comparatif honnête ou tableau condensé, ou démo interactive embarquée. Casse le rythme alternance.",
+      "why": "Là où le produit montre son ÂME — pas un autre 'feature card'."
+    },
+    {
+      "section": "secondary_proof",
+      "what": "Optionnel : 1-2 testimonials nommés (vrai photo + nom + position + company), OU pricing teaser (1 prix + 'see all plans'), OU stat globale ('X used by Y people').",
+      "why": "Discret. Pas de slider. Pas de 'star ratings 4.8 ⭐'."
+    },
+    {
+      "section": "final_cta",
+      "what": "Section bas page avec CTA primary répété. Texte court + bouton. Optionnel : 1 reassurance line ('14-day free trial — no credit card').",
+      "why": "Le visiteur a parcouru — il sait ce qu'il fait."
+    }
+  ],
+  "structure_forbidden": [
+    "3-cards features rangée avec icônes (= template SaaS 2018)",
+    "Hero avec 3 CTAs (= confusion)",
+    "Newsletter signup en milieu de page (= friction)",
+    "Carousel testimonials slider (= cheap)",
+    "FAQ accordéon dans home (= belongs to /pricing ou /faq)",
+    "Stats grand écran '+1000% growth' bg color plein (= AI-slop hype)",
+    "'Comme vu sur' rangée logos média (utile QUE si logos tier-1 réels)"
+  ],
+  "typography_required": [
+    "H1 : font-display, weight 600-800, ls -0.025em (tight), lh 1.0-1.1, scale fluid clamp(2.5rem, 7vw, 5rem)",
+    "Body : font-body, weight 400, lh 1.5-1.6, max-width 60-65ch en sections prose",
+    "CTA buttons : weight 500-600, padding 12-16px x 24-32px, radius subtil 4-8px (PAS pill 999px sauf si signature brand)"
+  ],
+  "spacing_required": {
+    "section_vertical_padding": "96-160px desktop / 48-80px mobile",
+    "container_max": "1200-1280px (PAS 1440px = trop large pour confort)",
+    "phi_adherence": "spacing scale 8/13/21/34/55/89/144 (Fibonacci)"
+  },
+  "decorative_techniques_required": [
+    "Hairline rules 0.5-1px entre sections majeures",
+    "Visuels UI RÉELS (screenshots produit, pas mockup illustré générique)",
+    "Animation subtile au scroll (fade-in 0.6s ease-out, PAS bounce overshoot exagéré)",
+    "1 couleur accent dominante + neutrals (PAS 4 accents)"
+  ],
+  "decorative_techniques_forbidden": [
+    "Gradient mesh background plein écran (= AI-slop)",
+    "3D illustrations isometric (= AI generated obvious)",
+    "Glassmorphism cards (= 2021 trend dépassée)",
+    "Neumorphism (= 2020 trend dépassée)",
+    "Confetti animations / parallax exagéré",
+    "Hero video background autoplay (= bandwidth + accessibility fail)"
+  ],
+  "color_strategy": "1 accent primary brand + 0-1 secondary + neutrals (90% du visuel). Saturation moyenne, contraste fort.",
+  "examples_to_imitate": [
+    "Stripe.com — hero declaratif + visuels UI réels alternés",
+    "Linear.app — minimal monochrome + démo produit centrale",
+    "Vercel.com — neon accents + prose narrative",
+    "Notion.so — sub-products grid + manifeste produit"
+  ],
+  "anti_examples": [
+    "Salesforce.com (= mega-menu + 8 sections cards + 3 CTAs hero)",
+    "HubSpot.com (= AI-slop palette + lifestyle stock photos)",
+    "Wordpress.com (= cluttered hero + features grid 6 cards)"
+  ]
+}

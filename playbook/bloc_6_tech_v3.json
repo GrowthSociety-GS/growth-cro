@@ -1,0 +1,470 @@
+{
+  "block": "6",
+  "pillar": "tech",
+  "label": "Qualité Technique",
+  "max": 15,
+  "description": "Fondations techniques impactant la conversion : SEO on-page, performance hints, accessibilité, tracking analytics, sécurité/confiance. 5 critères × 3 pts = 15 pts. Le Tech est le socle invisible — si le SEO est cassé, le trafic organique ne vient pas ; si le tracking manque, impossible d'optimiser ; si l'accessibilité est nulle, on perd 15-20% d'audience. Pondérations pageType activées + 1 killer.",
+  "version": "3.2.0-draft",
+  "status": "locked",
+  "updatedAt": "2026-04-13",
+  "lockedAt": "2026-04-10",
+  "amendedAt": "2026-04-18",
+  "lockedBy": "GrowthCRO pipeline — baseline Japhy validée (Home 90, PDP 90, Collection 90, Quiz 70)",
+  "changelog": [
+    {
+      "version": "3.2.0-draft",
+      "date": "2026-04-18",
+      "notes": [
+        "P0.1 fix: semantic_overlay (Haiku 4.5) now consumed by score_page_type.py for 18 creative criteria — was silently orphaned before.",
+        "P0.2 full rerun: 366 pages rescored with semantic overlay applied.",
+        "P0.3 cleanup: 71 stale golden/ score_page_type.json archived + stray fichet/ dir archived.",
+        "P1.A doctrine: new data/doctrine/criteria_scope_matrix_v1.json classifying 47 criteria as ASSET (22) vs ENSEMBLE (25) with 7 synergy groups.",
+        "P1.B runtime: new score_contextual_overlay.py applying synergy compensation rules (HERO_RESCUE, PROOF_RESCUE, FIVE_SEC_RESCUE, BENEFIT_FLOW_RESCUE, MANIPULATION_FLAG, UX_RHYTHM_RESCUE, COHERENCE_QUORUM). 25/287 pages rescued, +29.5 pts net.",
+        "P1.C applicability: new data/doctrine/applicability_matrix_v1.json with business_type axis (ecommerce/lead_gen/saas/content/app) and legacy `lp` pageType alias. 8 failures → 0. Full pipeline 366/366.",
+        "ASSET criteria (tech_*, psy_02, counts) are INVARIANT from contextual layer. Only ENSEMBLE criteria eligible for rescue."
+      ]
+    },
+    {
+      "version": "3.0.0",
+      "date": "2026-04-10",
+      "note": "Baseline Japhy — 5 critères × 3 pts (Perf hints, A11y, SEO, Tracking, Sécurité)"
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-04-13",
+      "note": "Doctrine V12 : A-10 tech_01 Web Vitals seuils précis (CLS<0.1 good / 0.1-0.25 needs improvement / >0.25 poor ; LCP<2.5s good / 2.5-4s NI / >4s poor ; INP<200ms good / 200-500ms NI / >500ms poor). Scoring dual-mode (HINTS si pas de Lighthouse, CWV_REAL si PageSpeed Insights API dispo). viewport_check ajouté. pageTypeWeights étendus aux 9 nouveaux page types."
+    }
+  ],
+  "sourcesConsolidated": [
+    "skills/cro-auditor/references/audit_criteria.md Catégorie 5 (5.1 Performance, 5.2 Accessibilité, 5.3 SEO, 5.4 Tracking, 5.5 Sécurité)",
+    "skills/cro-auditor/references/cro_principles.md — bugs techniques 1.6, mobile-first 1.7, performance 4.6",
+    "skills/site-capture/scripts/native_capture.py section 12 techSignals — données déjà extractées",
+    "playbook/AXIOMES.md — axiomes falsifiabilité, ternaire, contextualité",
+    "skills/cro-auditor/references/audit_criteria.md Catégorie 4 (4.6 Vitesse, 4.7 Liens de sortie) — complément performance"
+  ],
+  "designDecisions": {
+    "D1_criteriaCount": "5 critères × 3 pts = /15. Couvre les 5 piliers techniques de la V1 audit_criteria.md (Performance, Accessibilité, SEO, Tracking, Sécurité). Chaque critère agrège plusieurs sous-checks en un score ternaire unique.",
+    "D2_noCoreWebVitals": "IMPORTANT: les Core Web Vitals (LCP, CLS, FID) nécessitent Lighthouse ou CrUX API — non disponibles en natif HTML. Le critère performance se base sur des HINTS détectables dans le HTML (lazy loading, script count, HTML size, images). Pour les CWV réels, l'orchestrateur hybride devra appeler PageSpeed Insights API dans une future version.",
+    "D3_pageTypeWeighting": "Pondérations : SEO sur-pondéré sur home/blog/collection (trafic organique critique), tracking sur-pondéré sur lp_sales/lp_leadgen (attribution), accessibilité uniforme.",
+    "D4_killers": "1 killer : tech_03 (zéro SEO basique = pas de title ET pas de meta desc ET pas de H1 → cap 5/15). Une page invisible à Google = trafic mort.",
+    "D5_checkMethods": "100% technical+heuristic — tous les signaux sont détectables via native_capture.py techSignals. Aucun critère ne nécessite Apify."
+  },
+  "pageTypeWeights": {
+    "tech_01": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "collection": 1.0,
+      "lp_sales": 1.2,
+      "lp_leadgen": 1.1,
+      "lp_saas": 1.0,
+      "advertorial": 1.0,
+      "quiz_vsl": 0.9,
+      "pricing": 1.0,
+      "blog": 0.9,
+      "listicle": 0.9,
+      "comparison": 1.0,
+      "vsl": 1.2,
+      "challenge": 1.0,
+      "thank_you_page": 0.6,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.2,
+      "webinar": 1.1
+    },
+    "tech_02": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "collection": 1.0,
+      "lp_sales": 1.0,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.0,
+      "advertorial": 1.0,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 1.0,
+      "listicle": 1.0,
+      "comparison": 1.0,
+      "vsl": 1.0,
+      "challenge": 1.0,
+      "thank_you_page": 0.8,
+      "bundle_standalone": 1.0,
+      "squeeze": 1.0,
+      "webinar": 1.0
+    },
+    "tech_03": {
+      "home": 1.3,
+      "pdp": 1.0,
+      "collection": 1.2,
+      "lp_sales": 0.7,
+      "lp_leadgen": 0.7,
+      "lp_saas": 1.0,
+      "advertorial": 0.7,
+      "quiz_vsl": 0.7,
+      "pricing": 1.0,
+      "blog": 1.3,
+      "listicle": 1.2,
+      "comparison": 1.1,
+      "vsl": 0.6,
+      "challenge": 0.6,
+      "thank_you_page": 0.3,
+      "bundle_standalone": 0.7,
+      "squeeze": 0.5,
+      "webinar": 0.6
+    },
+    "tech_04": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "collection": 0.7,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.3,
+      "lp_saas": 1.2,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.2,
+      "pricing": 1.0,
+      "blog": 0.7,
+      "listicle": 1.1,
+      "comparison": 1.0,
+      "vsl": 1.3,
+      "challenge": 1.3,
+      "thank_you_page": 1.3,
+      "bundle_standalone": 1.2,
+      "squeeze": 1.3,
+      "webinar": 1.2
+    },
+    "tech_05": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "collection": 0.7,
+      "lp_sales": 1.0,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.0,
+      "advertorial": 1.0,
+      "quiz_vsl": 0.7,
+      "pricing": 1.0,
+      "blog": 0.7,
+      "listicle": 0.9,
+      "comparison": 0.9,
+      "vsl": 1.0,
+      "challenge": 1.0,
+      "thank_you_page": 0.8,
+      "bundle_standalone": 1.0,
+      "squeeze": 1.0,
+      "webinar": 1.0
+    }
+  },
+  "normalization": "Identique Blocs 2-5 : Total pondéré = Σ(score_i × weight_i). Renormalisation : final = (total_pondéré / Σ(3 × weight_i)) × 15.",
+  "killers": [
+    {
+      "id": "tech_03_seo_dead",
+      "rule": "Si tech_03 == 0 (zéro SEO basique : pas de title ET pas de meta desc ET pas de H1), cap du total Bloc 6 à 5/15. Page invisible à Google = trafic organique mort.",
+      "detection": "has_title=false AND has_meta_desc=false AND has_h1=false"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "tech_01",
+      "label": "Performance — Core Web Vitals (CLS, LCP, INP) + hints HTML",
+      "pillar": "tech",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "technical+heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Google mesure CWV séparément sur mobile et desktop (CrUX / PageSpeed). Mobile est généralement plus mauvais (CPU / réseau) et pèse davantage dans le SEO (mobile-first indexing).",
+      "amendments": [
+        "A-10 Web Vitals seuils précis (CLS, LCP, INP)"
+      ],
+      "principle": "audit_criteria.md 4.6 + 5.1 — chaque 100ms de delay = 1% perte conversion. A-10 Google Core Web Vitals officiels = facteur de ranking SEO depuis mai 2021, INP a remplacé FID en mars 2024.",
+      "core_web_vitals_thresholds": {
+        "source": "Google web.dev/vitals (2024, INP stable)",
+        "LCP": {
+          "name": "Largest Contentful Paint",
+          "measures": "Temps d'affichage du plus gros élément above-the-fold",
+          "good": "≤ 2.5s",
+          "needs_improvement": "2.5s – 4.0s",
+          "poor": "> 4.0s",
+          "percentile": "p75 des utilisateurs réels (field data)"
+        },
+        "CLS": {
+          "name": "Cumulative Layout Shift",
+          "measures": "Stabilité visuelle pendant le chargement (shifts inattendus)",
+          "good": "≤ 0.1",
+          "needs_improvement": "0.1 – 0.25",
+          "poor": "> 0.25",
+          "percentile": "p75"
+        },
+        "INP": {
+          "name": "Interaction to Next Paint",
+          "measures": "Réactivité de la page aux interactions utilisateur (remplace FID depuis mars 2024)",
+          "good": "≤ 200ms",
+          "needs_improvement": "200ms – 500ms",
+          "poor": "> 500ms",
+          "percentile": "p75"
+        }
+      },
+      "scoring_mode_cwv_real": {
+        "trigger": "Utilisé quand PageSpeed Insights API / CrUX / Lighthouse ont fourni des métriques réelles",
+        "top": "3/3 CWV dans le seuil 'good' (LCP ≤ 2.5s ET CLS ≤ 0.1 ET INP ≤ 200ms) sur le viewport évalué. Page Google-friendly et expérience fluide.",
+        "ok": "2/3 CWV 'good' ET 0 CWV 'poor' (au moins 2 en vert + aucun en rouge, le 3ème peut être needs improvement)",
+        "critical": "≥1 CWV 'poor' (LCP > 4s OU CLS > 0.25 OU INP > 500ms) OU seulement 0-1 CWV 'good'"
+      },
+      "scoring_mode_hints_fallback": {
+        "trigger": "Utilisé par défaut quand pas de PageSpeed/Lighthouse (natif HTML only)",
+        "top": "Page bien optimisée : (a) lazy loading activé sur les images (loading='lazy'), (b) nombre raisonnable de scripts externes (≤ 5), (c) nombre raisonnable de CSS externes (≤ 3), (d) taille HTML < 500KB, (e) DOM nodes < 3000. Au moins 3/5 conditions remplies. Signes de conscience performance.",
+        "ok": "Optimisation partielle : 1-2 conditions top remplies, mais des signaux d'alerte (trop de scripts, HTML lourd, pas de lazy loading). Page fonctionnelle mais pas optimisée.",
+        "critical": "Aucune optimisation : 0 conditions top. Pas de lazy loading, 8+ scripts externes, HTML > 1MB, DOM > 5000 nodes. Page probablement lente."
+      },
+      "scoring": {
+        "top": "SI cwv_real disponibles : 3/3 CWV 'good' (LCP≤2.5s + CLS≤0.1 + INP≤200ms) sur viewport évalué. SINON hints : ≥3/5 conditions top HTML remplies.",
+        "ok": "SI cwv_real : 2/3 CWV 'good' ET 0 'poor'. SINON hints : 1-2 conditions top.",
+        "critical": "SI cwv_real : ≥1 CWV 'poor' OU seulement 0-1 'good'. SINON hints : 0 condition top, page probablement lente."
+      },
+      "dataFields": [
+        "techSignals.images_lazy_loaded",
+        "techSignals.images_total",
+        "techSignals.external_scripts_count",
+        "techSignals.external_css_count",
+        "techSignals.html_size_bytes",
+        "techSignals.dom_nodes",
+        "cwvData.lcp_mobile",
+        "cwvData.cls_mobile",
+        "cwvData.inp_mobile",
+        "cwvData.lcp_desktop",
+        "cwvData.cls_desktop",
+        "cwvData.inp_desktop"
+      ],
+      "dataSourceRecommended": "PageSpeed Insights API (free tier : 25 000 requêtes/jour) ou CrUX API pour field data réelle. Lighthouse CLI pour lab data.",
+      "killer": false,
+      "notionRefId": "cro-perf-hints"
+    },
+    {
+      "id": "tech_02",
+      "label": "Accessibilité basique — sémantique HTML et inclusivité",
+      "pillar": "tech",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "technical+heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Touch targets (≥44×44px), focus visibility, et reflow mobile font partie de WCAG 2.1 AA — certains checks sont viewport-dépendants.",
+      "principle": "audit_criteria.md 5.2 — accessible ≠ juste handicaps, ça rend la page meilleure pour tous",
+      "scoring": {
+        "top": "Au moins 4/6 checks d'accessibilité passent : (a) images avec alt text (< 20% sans alt), (b) aria-labels présents, (c) form labels associés aux inputs (labels ≥ inputs), (d) headings en ordre logique (H1 unique, H2 après H1), (e) skip link présent, (f) role attributes utilisés. Page structurée sémantiquement.",
+        "ok": "2-3 checks passent. Alt text partiel, headings à peu près corrects, mais pas d'aria ni de skip link. Page utilisable mais pas optimale pour assistive tech.",
+        "critical": "0-1 check passe. Images sans alt, pas d'aria, pas de labels, headings désordonnés. Page hostile aux lecteurs d'écran et à la navigation clavier."
+      },
+      "dataFields": [
+        "techSignals.images_without_alt_count",
+        "techSignals.images_total",
+        "techSignals.has_aria_labels",
+        "techSignals.has_role_attributes",
+        "techSignals.form_labels_count",
+        "techSignals.form_inputs_count",
+        "techSignals.has_skip_link"
+      ],
+      "killer": false,
+      "notionRefId": "cro-a11y"
+    },
+    {
+      "id": "tech_03",
+      "label": "SEO on-page — fondations pour le trafic organique",
+      "pillar": "tech",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "technical",
+      "viewport_check": "both_viewports_single_score",
+      "viewport_rationale": "SEO on-page = HTML identique desktop/mobile (mobile-first indexing depuis 2019 : Google utilise la version mobile pour indexation). Score unique sur la version mobile servie.",
+      "principle": "audit_criteria.md 5.3 — SEO = trafic organique = conversions",
+      "scoring": {
+        "top": "Au moins 5/7 checks SEO passent : (a) title tag présent et 30-65 caractères, (b) meta description présente et 100-165 caractères, (c) H1 unique présent, (d) canonical URL définie, (e) Open Graph tags présents (og:title ou og:image), (f) schema.org structured data présent, (g) lang attribut défini. Page optimisée pour les moteurs.",
+        "ok": "3-4 checks passent. Title et H1 OK mais meta desc absente ou trop courte/longue. Pas de schema. Page indexable mais pas optimisée.",
+        "critical": "0-2 checks. Pas de title, pas de meta desc, pas de H1. Page quasi invisible pour Google. Déclenche le killer tech_03_seo_dead si les 3 fondamentaux manquent."
+      },
+      "dataFields": [
+        "techSignals.has_title",
+        "techSignals.title_length",
+        "techSignals.has_meta_desc",
+        "techSignals.meta_desc_length",
+        "techSignals.has_h1",
+        "techSignals.h1_count",
+        "techSignals.has_canonical",
+        "techSignals.has_og_tags",
+        "techSignals.has_schema_org",
+        "techSignals.has_lang"
+      ],
+      "killer": true,
+      "killerRule": "Si has_title=false AND has_meta_desc=false AND has_h1=false → cap Bloc 6 à 5/15",
+      "notionRefId": "cro-seo-onpage"
+    },
+    {
+      "id": "tech_04",
+      "label": "Tracking & Analytics — capacité de mesure et optimisation",
+      "pillar": "tech",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "technical",
+      "viewport_check": "both_viewports_single_score",
+      "viewport_rationale": "Scripts tracking (GA4, GTM, pixel Meta) sont chargés identiquement sur desktop et mobile. Score unique.",
+      "principle": "audit_criteria.md 5.4 — pas de tracking = pas d'amélioration possible",
+      "scoring": {
+        "top": "Au moins 3/4 checks tracking passent : (a) Google Analytics (GA4/gtag/gtm) détecté, (b) Facebook/Meta pixel détecté, (c) Google Tag Manager détecté, (d) au moins 1 autre outil (Hotjar, Segment, Mixpanel, Amplitude, etc.). Pipeline de données en place.",
+        "ok": "1-2 checks passent. GA4 seul, ou GTM seul sans pixel. Mesure de base en place mais attribution incomplète.",
+        "critical": "0 checks. Aucun analytics, aucun pixel, aucun GTM. Impossible de mesurer les conversions. Vol à l'aveugle."
+      },
+      "dataFields": [
+        "techSignals.third_party_domains",
+        "techSignals.external_scripts_count"
+      ],
+      "killer": false,
+      "notionRefId": "cro-tracking"
+    },
+    {
+      "id": "tech_05",
+      "label": "Sécurité & Confiance technique — HTTPS, charset, viewport",
+      "pillar": "tech",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "technical",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Le check viewport meta (viewport=width=device-width,initial-scale=1) détermine si la page est mobile-ready. Sans viewport meta, mobile est cassé → score critique même si desktop est OK.",
+      "principle": "audit_criteria.md 5.5 — certificat SSL = base de confiance navigateur",
+      "scoring": {
+        "top": "Au moins 4/5 checks passent : (a) HTTPS actif, (b) viewport meta configuré (= mobile-ready), (c) charset déclaré (UTF-8), (d) favicon présent, (e) robots.txt non-blocking (pas noindex sur page de conversion). Site techniquement professionnel.",
+        "ok": "2-3 checks passent. HTTPS OK mais viewport ou charset manquant. Basics en place mais des trous.",
+        "critical": "0-1 check. HTTP sans SSL, pas de viewport (= pas mobile-ready), pas de charset. Site amateur ou dangereux perçu par le navigateur."
+      },
+      "dataFields": [
+        "techSignals.is_https",
+        "techSignals.has_viewport",
+        "techSignals.has_charset",
+        "techSignals.has_favicon",
+        "techSignals.has_robots",
+        "techSignals.robots_content"
+      ],
+      "killer": false,
+      "notionRefId": "cro-security"
+    }
+  ],
+  "businessCategoryWeighting": {
+    "_description": "Matrice pondération granulaire par critère × business category pour Bloc 6 Tech. V12 doctrine 2026-04-13.",
+    "_usage": "weight_final(crit, biz) = pageTypeWeight[crit,pageType] × businessCategoryWeighting.matrix[crit][biz]",
+    "_categories": [
+      "dtc_subscription",
+      "ecom_product",
+      "saas_b2b",
+      "saas_b2c",
+      "lead_gen",
+      "marketplace",
+      "media_content",
+      "luxe",
+      "service_local",
+      "edu"
+    ],
+    "_baseline": "1.0 = neutre. >1.0 = critique pour cette catégorie. <1.0 = moins déterminant pour cette catégorie.",
+    "_philosophy": "Tech = toujours important mais les priorités changent : Ecom/Marketplace = CWV + SEO ; SaaS B2B = sécurité (SSO, RGPD) + tracking ; Edu = accessibilité + SEO.",
+    "_addedIn": "V12 — 2026-04-14",
+    "matrix": {
+      "tech_01": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.2,
+        "marketplace": 1.3,
+        "media_content": 1.3,
+        "luxe": 1.2,
+        "service_local": 1.1,
+        "edu": 1.1
+      },
+      "tech_02": {
+        "dtc_subscription": 1.0,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.0,
+        "marketplace": 1.1,
+        "media_content": 1.2,
+        "luxe": 0.9,
+        "service_local": 1.2,
+        "edu": 1.4
+      },
+      "tech_03": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.2,
+        "saas_b2b": 0.9,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.0,
+        "marketplace": 1.3,
+        "media_content": 1.4,
+        "luxe": 0.9,
+        "service_local": 1.3,
+        "edu": 1.3
+      },
+      "tech_04": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.2,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.3,
+        "marketplace": 1.2,
+        "media_content": 1.1,
+        "luxe": 1.1,
+        "service_local": 1.1,
+        "edu": 1.0
+      },
+      "tech_05": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.2,
+        "saas_b2b": 1.4,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 1.2,
+        "media_content": 1.0,
+        "luxe": 1.1,
+        "service_local": 1.2,
+        "edu": 1.2
+      }
+    },
+    "_notes": [
+      "tech_01 max en Ecom/Marketplace/Media (1.3) : chaque 100ms = -1% conversion.",
+      "tech_02 max en Edu (1.4) : compliance WCAG obligatoire (public sector contracts).",
+      "tech_03 max en Media Content (1.4) : l'organique = 80% du trafic.",
+      "tech_04 max en DTC/Ecom/Lead Gen (1.3) : sans tracking fin = CAC aveugle.",
+      "tech_05 max en SaaS B2B (1.4) : RGPD + SOC2 + SSO = conditions d'achat enterprise."
+    ]
+  },
+  "_amendments": [
+    {
+      "marker": "V12 — BCW matrix for Tech",
+      "at": "2026-04-14",
+      "applied_by": "project_snapshot + manual CRO expert weighting"
+    }
+  ],
+  "doctrineReferences": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v1.json",
+    "note": "v3.2 adds ENSEMBLE-aware scoring via score_contextual_overlay.py. ASSET criteria unaffected."
+  }
+}

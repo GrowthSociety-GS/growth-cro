@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://growth-society.com/schemas/growthcro/reco.v1.json",
+  "title": "GrowthCRO Reco — JSON Schema V1",
+  "description": "Schéma formel d'une recommandation CRO produite par reco_engine.py + reco_enricher.py. V12 doctrine v3.1.0 — 2026-04-14.",
+  "type": "object",
+  "required": [
+    "criterion_id",
+    "reco_text",
+    "status",
+    "priority",
+    "impact",
+    "effort",
+    "feasibility"
+  ],
+  "properties": {
+    "criterion_id": {
+      "type": "string",
+      "pattern": "^(hero|per|ux|coh|psy|tech|home|pdp|col|blog|quiz|price|lp_sales|lp_leadgen|checkout)_[0-9]{2,3}$",
+      "description": "Identifiant du critère visé (ex: hero_01, per_05, coh_01, quiz_02)."
+    },
+    "reco_text": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Recommandation formulée en langage naturel."
+    },
+    "diagnostic": {
+      "type": "string",
+      "description": "Phrase de diagnostic : ce qui a été observé qui motive la reco (optionnel mais recommandé)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "deferred", "blocked_by_prereq"],
+      "description": "active = à traiter. deferred = cascade prereq non levé. blocked_by_prereq = dépend d'un critical non résolu."
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["P1", "P2", "P3"],
+      "description": "P1 = urgent (CRITICAL). P2 = important. P3 = nice-to-have."
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["critical", "ok", "top"],
+      "description": "Verdict du scoring (correspond à l'état actuel du critère)."
+    },
+    "impact": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "ICE Impact (1-5)."
+    },
+    "effort": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "ICE Effort (1-5). 1-2 = easy <3j. 3 = medium 4-7j. 4 = hard 8-14j. 5 = deferred >14j."
+    },
+    "feasibility": {
+      "type": "object",
+      "properties": {
+        "effort_days": {"type": "integer", "description": "Estimation en jours de travail."},
+        "feasibility_flag": {
+          "type": "string",
+          "enum": ["easy", "medium", "hard", "deferred_over_14d"]
+        }
+      },
+      "required": ["effort_days", "feasibility_flag"]
+    },
+    "ice_score": {
+      "type": "number",
+      "description": "Score ICE calculé (impact × (6 − effort))."
+    },
+    "guardrails_triggered": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/guardrail"},
+      "description": "Liste des guardrails activés (pricing_race_to_bottom, urgency_fake_countdown, etc.)."
+    },
+    "anti_patterns": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/antiPattern"},
+      "description": "Anti-patterns détectés liés à cette reco."
+    },
+    "prerequisite_cascade": {
+      "type": "object",
+      "properties": {
+        "blocked_by": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "IDs des critères prérequis non résolus bloquant cette reco."
+        },
+        "blocks": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "IDs des critères qui dépendent de la résolution de celui-ci."
+        }
+      }
+    },
+    "ab_variants": {
+      "oneOf": [
+        {"type": "array", "items": {"$ref": "#/definitions/abVariant"}},
+        {"type": "object", "description": "Wrapper retourné par ab_angles.json (criterion_id + variants[])"}
+      ],
+      "description": "Variantes A/B (liste directe OU wrapper ab_angles). 2-3 variantes par reco majeure."
+    },
+    "perception": {
+      "type": "object",
+      "description": "Evidence issue de Layer 2 Perception (components + critic).",
+      "properties": {
+        "component_type": {"type": "string", "description": "Type du component pertinent (hero_band, cta_band, etc.)."},
+        "present": {"type": "boolean"},
+        "count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "perception_alert": {
+      "type": "string",
+      "description": "Alerte critic Layer 2 (ex: W2 >10 cta_band, C1 no hero_band)."
+    },
+    "sources": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Sources doctrine (≥5 par critère V3, URLs ou pointeurs internes)."
+    },
+    "schwartz_awareness": {
+      "type": "string",
+      "enum": ["unaware", "problem_aware", "solution_aware", "product_aware", "most_aware"],
+      "description": "Niveau de conscience Schwartz supposé du trafic (sélection angle A/B)."
+    },
+    "business_category": {
+      "type": "string",
+      "enum": [
+        "dtc_subscription", "ecom_product", "saas_b2b", "saas_b2c",
+        "lead_gen", "marketplace", "media_content", "luxe",
+        "service_local", "edu"
+      ]
+    },
+    "pageType": {
+      "type": "string",
+      "enum": [
+        "home", "pdp", "collection", "lp_leadgen", "lp_sales", "blog",
+        "quiz_vsl", "pricing", "checkout", "listicle", "advertorial",
+        "comparison", "vsl", "challenge", "thank_you_page",
+        "bundle_standalone", "squeeze", "webinar"
+      ]
+    }
+  },
+  "definitions": {
+    "guardrail": {
+      "type": "object",
+      "required": ["id", "severity"],
+      "properties": {
+        "id": {"type": "string", "description": "ID du guardrail (ex: pricing_race_to_bottom)."},
+        "severity": {"type": "string", "enum": ["info", "warning", "critical"]},
+        "message": {"type": "string"}
+      }
+    },
+    "antiPattern": {
+      "type": "object",
+      "required": ["id", "detection_status"],
+      "properties": {
+        "id": {"type": "string"},
+        "detection_status": {"type": "string", "enum": ["detected", "absent", "suspected", "advisory"]},
+        "signal": {"type": "string", "description": "DOM signal DSL qui a déclenché la détection."}
+      }
+    },
+    "abVariant": {
+      "type": "object",
+      "required": ["angle_name", "hypothesis"],
+      "properties": {
+        "angle_name": {"type": "string", "description": "Nom de l'angle (Benefit-led, Pain-led, Identity-led, etc.)."},
+        "hypothesis": {"type": "string", "description": "Hypothèse testée (ex: 'Si on remplace X par Y, la conversion augmente de Z%.')."},
+        "primary_metric": {"type": "string", "description": "Métrique primaire (CVR, CTR, form_submit, etc.)."},
+        "expected_lift": {"type": "string", "description": "Lift attendu en % ou plage (ex: '+8-15%')."},
+        "minimum_sample_size": {"type": "integer", "description": "Taille d'échantillon minimale pour significance stat."}
+      }
+    }
+  },
+  "examples": [
+    {
+      "criterion_id": "hero_01",
+      "reco_text": "Remplace l'H1 'Bienvenue' par une promesse claire du type 'Nourriture pour chien adaptée à votre race, livrée chaque mois'.",
+      "diagnostic": "H1 actuel 'Bienvenue' échoue le test des 5s (QUOI+POUR QUI+POURQUOI absents).",
+      "status": "active",
+      "priority": "P1",
+      "tier": "critical",
+      "impact": 5,
+      "effort": 2,
+      "feasibility": {"effort_days": 2, "feasibility_flag": "easy"},
+      "ice_score": 20,
+      "guardrails_triggered": [],
+      "anti_patterns": [
+        {"id": "h1_generic_brand_centric", "detection_status": "detected", "signal": "h1_text_matches:/bienvenue|welcome/i"}
+      ],
+      "prerequisite_cascade": {"blocked_by": [], "blocks": ["hero_02", "hero_03", "per_01"]},
+      "ab_variants": [
+        {"angle_name": "Benefit-led", "hypothesis": "Si on remplace 'Bienvenue' par 'Nourriture sur-mesure pour votre chien', la CVR augmente de +10-20%.", "primary_metric": "CVR", "expected_lift": "+10-20%", "minimum_sample_size": 1200},
+        {"angle_name": "Identity-led", "hypothesis": "Si on cadre sur l'identité du propriétaire ('Pour les parents de chien exigeants'), la CVR augmente de +5-15%.", "primary_metric": "CVR", "expected_lift": "+5-15%", "minimum_sample_size": 1500}
+      ],
+      "perception": {"component_type": "hero_band", "present": true, "count": 1},
+      "sources": [
+        "playbook/bloc_1_hero_v3.json#hero_01",
+        "playbook/ab_angles.json#hero_01",
+        "playbook/anti_patterns.json#h1_generic_brand_centric"
+      ],
+      "schwartz_awareness": "problem_aware",
+      "business_category": "dtc_subscription",
+      "pageType": "home"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "url": "https://japhy.fr/profile-builder",
+  "label": "japhy",
+  "steps": [],
+  "startedAt": "2026-04-14T00:39:15.658Z",
+  "error": "TimeoutError: page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://japhy.fr/profile-builder\", waiting until \"networkidle\"\n"
+}
