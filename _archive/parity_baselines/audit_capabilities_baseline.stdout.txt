@@ -1,0 +1,15 @@
+
+══ AUDIT CAPABILITIES — auto-discovery V26.AC ══
+
+  Files scanned       : 144
+  Active wired direct : 4
+  Active indirect via output : 14 ⭐ V26.AC
+  Active misc         : 79
+  🔴 Orphans HIGH     : 0
+  ⚠️ Partial wired     : 0
+  Potentially orph    : 47
+
+  ✓ Saved : CAPABILITIES_REGISTRY.json
+  ✓ Saved : .claude/docs/state/CAPABILITIES_SUMMARY.md
+
+  → Read .claude/docs/state/CAPABILITIES_SUMMARY.md to see what's orphaned + what should be wired.

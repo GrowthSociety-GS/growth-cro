@@ -125,9 +125,12 @@ test_stealth/
 
 # ─── Archives locales (_archive_deprecated_*, archive/) ─
 _archive_deprecated_*/
-_archive/
+_archive/*
 archive/
 !memory/archive/
+# Parity baselines for the codebase-cleanup epic are the regression
+# contract; future task agents must diff against them.
+!_archive/parity_baselines/
 
 # ─── Logs ─────────────────────────────────────────────
 *.log

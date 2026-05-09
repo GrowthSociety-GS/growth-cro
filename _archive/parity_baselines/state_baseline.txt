@@ -1,0 +1,97 @@
+GrowthCRO state — 2026-05-09 13:14  — root: epic-codebase-cleanup
+
+────────────────────────────────────────────────────────────────────────
+  PIPELINE STATE (count files on disk)
+────────────────────────────────────────────────────────────────────────
+stage            count   producer
+capture              0   ghost_capture.js → batch_spatial_capture.py
+spatial_v9           0   spatial_v9.js (via batch_spatial_capture)
+perception           0   perception_v13.py --all
+intent               0   intent_detector_v13.py --all (per client)
+score_pillars        0   batch_rescore.py (6 piliers)
+score_page           0   score_page_type.py <label> <pageType>
+recos_prep           0   reco_enricher_v13.py --all --prepare
+recos_api            0   reco_enricher_v13_api.py --all (Sonnet)
+
+────────────────────────────────────────────────────────────────────────
+  CLIENTS
+────────────────────────────────────────────────────────────────────────
+Total clients in clients_database.json : 107
+Clients avec au moins 1 capture        : 0
+Clients manquants (pas capturés)       : 107
+Sample missing: ['oma_me', 'matera', 'kaiju', 'seoni', 'japhy', 'reverso', 'edone_paris', 'nobo', 'ocni_factory', 'voggt', 'weglot', 'andthegreen', 'skarlett', 'detective_box', 'poppins_mila_learn', 'sunday', 'maison_martin', 'glitch_beauty', 'myvariations', 'wespriing']
+
+────────────────────────────────────────────────────────────────────────
+  PLAYBOOKS
+────────────────────────────────────────────────────────────────────────
+file                                       version                status       mtime
+ab_angles.json                             –                      –            2026-05-09
+anti_patterns.json                         –                      –            2026-05-09
+bloc_1_hero_v3.json                        3.2.1-draft            locked       2026-05-09
+bloc_2_persuasion_v3.json                  3.2.0-draft            locked       2026-05-09
+bloc_3_ux_v3.json                          3.2.0-draft            locked       2026-05-09
+bloc_4_coherence_v3.json                   3.2.0-draft            locked       2026-05-09
+bloc_5_psycho_v3.json                      3.2.1-draft            locked       2026-05-09
+bloc_6_tech_v3.json                        3.2.0-draft            locked       2026-05-09
+bloc_utility_elements_v3.json              3.2.0-draft            draft        2026-05-09
+doctrine_integration_matrix.json           –                      –            2026-05-09
+guardrails.json                            –                      –            2026-05-09
+killer_rules.json                          –                      –            2026-05-09
+multi_page_audit.json                      1.0.0                  draft        2026-05-09
+page_type_criteria.json                    1.0.0                  –            2026-05-09
+prerequisites.json                         –                      –            2026-05-09
+reco_mapping.json                          –                      –            2026-05-09
+reco_schema.json                           –                      –            2026-05-09
+thresholds_benchmarks.json                 –                      –            2026-05-09
+usp_preservation.json                      –                      –            2026-05-09
+
+────────────────────────────────────────────────────────────────────────
+  FICHIERS MODIFIÉS (dernières 48h)
+────────────────────────────────────────────────────────────────────────
+  2026-05-09 13:14   CAPABILITIES_REGISTRY.json
+  2026-05-09 13:14   _archive/parity_baselines/audit_capabilities_baseline.stdout.txt
+  2026-05-09 13:14   _archive/parity_baselines/state_baseline.txt
+  2026-05-09 13:14   _archive/parity_baselines/audit_capabilities_baseline.json
+  2026-05-09 13:14   .claude/docs/state/CAPABILITIES_SUMMARY.md
+  2026-05-09 13:13   scripts/parity_check.sh
+  2026-05-09 13:13   _archive/parity_baselines/weglot/2026-05-09T11-13-30Z/MANIFEST.txt
+  2026-05-09 13:13   _archive/parity_baselines/weglot/2026-05-09T11-13-30Z/README.md
+  2026-05-09 13:06   skills/site-capture/scripts/score_psycho.py
+  2026-05-09 13:06   skills/site-capture/scripts/perception_v13.py
+  2026-05-09 13:06   skills/site-capture/scripts/score_coherence.py
+  2026-05-09 13:06   skills/site-capture/scripts/perception_bridge.py
+  2026-05-09 13:06   skills/site-capture/scripts/brand_dna_extractor.py
+  2026-05-09 13:06   skills/site-capture/scripts/brand_dna_diff_extractor.py
+  2026-05-09 13:06   skills/site-capture/scripts/batch_site.py
+  2026-05-09 13:06   skills/site-capture/scripts/batch_enrich.py
+  2026-05-09 13:06   skills/site-capture/scripts/audit_fleet_health.py
+  2026-05-09 13:06   skills/site-capture/scripts/compress_flow_steps.py
+  2026-05-09 13:06   skills/site-capture/scripts/overlay_renderer.py
+  2026-05-09 13:06   skills/site-capture/scripts/criterion_crops_v2.py
+  2026-05-09 13:06   skills/site-capture/scripts/score_hero.py
+  2026-05-09 13:06   skills/site-capture/scripts/golden_differential.py
+  2026-05-09 13:06   skills/site-capture/scripts/recos_dedup.py
+  2026-05-09 13:06   skills/site-capture/scripts/run_full_pipeline.sh
+  2026-05-09 13:06   skills/site-capture/scripts/detect_canonical_tunnel.py
+  2026-05-09 13:06   skills/site-capture/scripts/score_site.py
+  2026-05-09 13:06   skills/site-capture/scripts/enrich_scores_with_evidence.py
+  2026-05-09 13:06   skills/site-capture/scripts/golden_percentiles.py
+  2026-05-09 13:06   skills/site-capture/scripts/multi_judge.py
+  2026-05-09 13:06   skills/site-capture/scripts/build_growth_audit_data.py
+  2026-05-09 13:06   skills/site-capture/scripts/score_specific_criteria.py
+  2026-05-09 13:06   skills/site-capture/scripts/score_utility_banner.py
+  2026-05-09 13:06   skills/site-capture/scripts/run_discover.py
+  2026-05-09 13:06   skills/site-capture/scripts/capture_quiz_flow.js
+  2026-05-09 13:06   skills/site-capture/scripts/reco_lifecycle.py
+  2026-05-09 13:06   skills/site-capture/scripts/dom_vision_reconciler.py
+  2026-05-09 13:06   skills/site-capture/scripts/capture_site.py
+  2026-05-09 13:06   skills/site-capture/scripts/golden_calibration_check.py
+  2026-05-09 13:06   skills/site-capture/scripts/vision_spatial.py
+  2026-05-09 13:06   skills/site-capture/scripts/evidence_ledger.py
+
+────────────────────────────────────────────────────────────────────────
+  NEXT STEPS — lit toujours .claude/docs/reference/GROWTHCRO_MANIFEST.md avant d'agir
+────────────────────────────────────────────────────────────────────────
+  1. cat .claude/docs/reference/GROWTHCRO_MANIFEST.md   # architecture cascade
+  2. cat .claude/memory/MEMORY.md                       # index mémoires
+  3. python3 state.py --recent             # ce qui a bougé récemment
