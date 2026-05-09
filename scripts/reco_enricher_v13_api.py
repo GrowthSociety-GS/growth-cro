@@ -9,14 +9,22 @@ import sys
 from datetime import datetime
 from pathlib import Path
 import anthropic
-
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 # Setup paths
 base_dir = Path("/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society")
 prompts_file = base_dir / "data/captures/evaneos/home/recos_v13_prompts.json"
 output_file = base_dir / "data/captures/evaneos/home/recos_v13_final.json"
 
 # Init Claude client
-client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+client = anthropic.Anthropic(api_key=config.anthropic_api_key())
 
 def calculate_ice_score(expected_lift_pct, effort_hours, priority):
     """Calculate ICE score per spec formula"""

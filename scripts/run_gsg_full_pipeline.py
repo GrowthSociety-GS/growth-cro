@@ -44,12 +44,6 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 # Load .env
-env_path = ROOT / ".env"
-if env_path.exists():
-    for line in env_path.read_text().splitlines():
-        if line.startswith("ANTHROPIC_API_KEY=") and "ANTHROPIC_API_KEY" not in os.environ:
-            os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"').strip("'")
-
 from moteur_gsg.core.brief_v2 import BriefV2
 from moteur_gsg.core.brief_v2_validator import (
     parse_brief_v2_from_dict, validate_or_raise, archive_brief_v2,

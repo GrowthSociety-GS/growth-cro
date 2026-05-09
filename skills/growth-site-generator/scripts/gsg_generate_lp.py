@@ -797,13 +797,6 @@ Tu DOIS intégrer **au moins 20** de ces techniques avancées (pas 5-8 safe AI-d
 def call_sonnet(prompt: str, max_tokens: int = 16000) -> str:
     """Appelle Sonnet pour générer le HTML. Streaming si max_tokens > 16K."""
     import anthropic
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        env_fp = ROOT / ".env"
-        if env_fp.exists():
-            for line in env_fp.read_text().splitlines():
-                if line.startswith("ANTHROPIC_API_KEY="):
-                    os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                    break
     client = anthropic.Anthropic()
     print(f"  → Sonnet call (max_tokens={max_tokens}, prompt={len(prompt)} chars, streaming={max_tokens > 16000}) ...", flush=True)
     if max_tokens > 16000:

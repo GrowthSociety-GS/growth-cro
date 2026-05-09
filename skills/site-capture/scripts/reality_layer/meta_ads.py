@@ -15,15 +15,22 @@ import os
 from typing import Any
 
 from .base import Connector, NotConfiguredError, ConnectorError
-
-
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 class MetaAdsConnector(Connector):
     name = "meta_ads"
     required_env_vars = ["META_ACCESS_TOKEN", "META_AD_ACCOUNT_ID"]
 
     def _client_env(self, var: str) -> str | None:
         specific = f"{var}_{self.client_slug.upper().replace('-', '_')}"
-        return os.environ.get(specific) or os.environ.get(var)
+        return config.system_env(specific) or config.system_env(var)
 
     def fetch(self, page_url: str, period_start: str, period_end: str) -> dict[str, Any]:
         if not self.is_configured():

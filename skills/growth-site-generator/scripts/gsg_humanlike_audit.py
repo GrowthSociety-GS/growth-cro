@@ -143,17 +143,6 @@ Médiocre : sections empilées sans flow, CTA n'importe où, pas d'arc narratif.
 JSON only, pas de markdown, sois sévère et précis. Si tu donnes des notes hautes (9-10), elles doivent être JUSTIFIÉES par des éléments AUDITABLES dans le HTML."""
 
 
-def _ensure_api_key() -> None:
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return
-    env_fp = ROOT / ".env"
-    if env_fp.exists():
-        for line in env_fp.read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
-                os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                return
-
-
 def _strip_fences(raw: str) -> str:
     text = raw.strip()
     if text.startswith("```"):
@@ -193,7 +182,6 @@ def audit_lp_humanlike(html: str, client: str, model: str = SONNET_MODEL,
 
     system_prompt = HUMANLIKE_PROMPT.format(client=client)
 
-    _ensure_api_key()
     import anthropic
     client_api = anthropic.Anthropic()
     if verbose:

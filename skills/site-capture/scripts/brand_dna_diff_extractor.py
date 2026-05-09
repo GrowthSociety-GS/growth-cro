@@ -55,17 +55,6 @@ CAPTURES = ROOT / "data" / "captures"
 SONNET_MODEL = "claude-sonnet-4-5-20250929"
 
 
-def _ensure_api_key() -> None:
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return
-    env_fp = ROOT / ".env"
-    if env_fp.exists():
-        for line in env_fp.read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
-                os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                return
-
-
 def _strip_fences(raw: str) -> str:
     text = raw.strip()
     if text.startswith("```"):
@@ -265,7 +254,6 @@ Voici {len(image_blocks)} screenshot(s) du site actuel. Produis le Brand DNA Dif
 
     content_blocks = image_blocks + [{"type": "text", "text": text_msg}]
 
-    _ensure_api_key()
     import anthropic
     client_api = anthropic.Anthropic()
     if verbose:

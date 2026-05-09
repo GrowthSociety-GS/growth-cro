@@ -46,6 +46,15 @@ import time
 from typing import Any, Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 CAPTURES = ROOT / "data" / "captures"
 
 
@@ -114,7 +123,7 @@ class OpenAIEngine:
     required_env_vars = ["OPENAI_API_KEY"]
 
     def is_configured(self) -> bool:
-        return bool(os.environ.get("OPENAI_API_KEY"))
+        return bool(config.openai_api_key())
 
     async def query(self, q: str) -> dict:
         if not self.is_configured():
@@ -124,7 +133,7 @@ class OpenAIEngine:
         except ImportError:
             return {"error": "httpx not installed"}
         headers = {
-            "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}",
+            "Authorization": f"Bearer {config.openai_api_key()}",
             "Content-Type": "application/json",
         }
         payload = {
@@ -153,7 +162,7 @@ class PerplexityEngine:
     required_env_vars = ["PERPLEXITY_API_KEY"]
 
     def is_configured(self) -> bool:
-        return bool(os.environ.get("PERPLEXITY_API_KEY"))
+        return bool(config.perplexity_api_key())
 
     async def query(self, q: str) -> dict:
         if not self.is_configured():
@@ -163,7 +172,7 @@ class PerplexityEngine:
         except ImportError:
             return {"error": "httpx not installed"}
         headers = {
-            "Authorization": f"Bearer {os.environ['PERPLEXITY_API_KEY']}",
+            "Authorization": f"Bearer {config.perplexity_api_key()}",
             "Content-Type": "application/json",
         }
         payload = {
@@ -194,7 +203,7 @@ class AnthropicEngine:
     required_env_vars = ["ANTHROPIC_API_KEY"]
 
     def is_configured(self) -> bool:
-        return bool(os.environ.get("ANTHROPIC_API_KEY"))
+        return bool(config.anthropic_api_key())
 
     async def query(self, q: str) -> dict:
         if not self.is_configured():
@@ -204,7 +213,7 @@ class AnthropicEngine:
         except ImportError:
             return {"error": "anthropic SDK not installed"}
         try:
-            client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"], timeout=60.0)
+            client = anthropic.Anthropic(api_key=config.require_anthropic_api_key(), timeout=60.0)
             loop = asyncio.get_event_loop()
             resp = await loop.run_in_executor(
                 None,
@@ -408,17 +417,6 @@ def main():
     args = ap.parse_args()
 
     # Auto-load .env
-    env = ROOT / ".env"
-    if env.exists():
-        for line in env.read_text().splitlines():
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            k, v = line.split("=", 1)
-            k = k.strip(); v = v.strip().strip('"').strip("'")
-            if k and not os.environ.get(k):
-                os.environ[k] = v
-
     brand_name = args.brand_name or args.client.replace("-", " ").replace("_", " ").title()
     cache_days = 0 if args.no_cache else 30
 

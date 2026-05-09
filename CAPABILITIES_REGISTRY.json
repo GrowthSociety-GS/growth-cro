@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-09T13:14:07",
+  "generated_at": "2026-05-09T14:11:53",
   "stats": {
     "total_files": 144,
     "active_wired": 4,
@@ -74,7 +74,7 @@
         "moteur_gsg",
         "orchestrator"
       ],
-      "size_bytes": 7395,
+      "size_bytes": 7106,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -162,7 +162,7 @@
         "asyncio",
         "base64"
       ],
-      "size_bytes": 9983,
+      "size_bytes": 9608,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -197,9 +197,11 @@
       "what": "AURA Extract — Design DNA Extraction from HTML pages.",
       "imports": [
         "asyncio",
+        "config",
+        "growthcro",
         "math"
       ],
-      "size_bytes": 28121,
+      "size_bytes": 28547,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -217,9 +219,11 @@
       "imports": [
         "__future__",
         "abc",
-        "dataclasses"
+        "config",
+        "dataclasses",
+        "growthcro"
       ],
-      "size_bytes": 2210,
+      "size_bytes": 2650,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/__init__.py",
@@ -278,9 +282,11 @@
       "what": "batch_site.py — Batch scoring 6 blocs pour tous les clients.",
       "imports": [
         "capture_site",
-        "datetime"
+        "config",
+        "datetime",
+        "growthcro"
       ],
-      "size_bytes": 8758,
+      "size_bytes": 9198,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -300,7 +306,7 @@
         "brand_dna_diff_extractor",
         "io"
       ],
-      "size_bytes": 15059,
+      "size_bytes": 14673,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/brand_dna_diff_extractor.py"
@@ -328,7 +334,7 @@
         "playwright",
         "sklearn"
       ],
-      "size_bytes": 27565,
+      "size_bytes": 27528,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -498,8 +504,10 @@
       "what": "capture_site.py — Orchestrateur hybride GrowthCRO.",
       "imports": [
         "apify_enrich",
+        "config",
         "datetime",
         "discover_pages",
+        "growthcro",
         "native_capture",
         "run_spatial_capture",
         "score_coherence",
@@ -510,7 +518,7 @@
         "score_tech",
         "score_ux"
       ],
-      "size_bytes": 22814,
+      "size_bytes": 23259,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/batch_site.py",
@@ -528,9 +536,11 @@
         "",
         "__future__",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 4525,
+      "size_bytes": 4965,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
@@ -645,9 +655,11 @@
         "",
         "__future__",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 3952,
+      "size_bytes": 4392,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
@@ -767,7 +779,7 @@
         "planner",
         "visual_intelligence"
       ],
-      "size_bytes": 16035,
+      "size_bytes": 16013,
       "mtime": "2026-05-09",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
@@ -784,7 +796,7 @@
         "__future__",
         "creative_director"
       ],
-      "size_bytes": 27179,
+      "size_bytes": 26771,
       "mtime": "2026-05-09",
       "consumed_by": [
         "moteur_gsg/core/legacy_lab_adapters.py",
@@ -912,6 +924,8 @@
         "async_api",
         "asyncio",
         "base64",
+        "config",
+        "growthcro",
         "hashlib",
         "httpx",
         "parse",
@@ -919,7 +933,7 @@
         "urllib",
         "xml"
       ],
-      "size_bytes": 45974,
+      "size_bytes": 46384,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -962,7 +976,7 @@
         "doctrine_judge",
         "moteur_multi_judge"
       ],
-      "size_bytes": 18152,
+      "size_bytes": 17766,
       "mtime": "2026-05-09",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_persona_narrator.py",
@@ -1013,12 +1027,14 @@
       "what": "eclaireur_llm.py — P11.11 (V19) : Éclaireur LLM Discovery & Routing.",
       "imports": [
         "__future__",
+        "config",
         "error",
+        "growthcro",
         "parse",
         "request",
         "urllib"
       ],
-      "size_bytes": 12681,
+      "size_bytes": 12069,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -1046,16 +1062,18 @@
       "what": "enrich_v143_public.py — V14.3.1",
       "imports": [
         "__future__",
+        "config",
         "dataclasses",
         "datetime",
         "error",
+        "growthcro",
         "parse",
         "request",
         "shutil",
         "subprocess",
         "urllib"
       ],
-      "size_bytes": 54508,
+      "size_bytes": 54935,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -1141,9 +1159,11 @@
         "__future__",
         "async_api",
         "asyncio",
+        "config",
+        "growthcro",
         "playwright"
       ],
-      "size_bytes": 24517,
+      "size_bytes": 24915,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -1157,10 +1177,12 @@
       "imports": [
         "__future__",
         "asyncio",
+        "config",
+        "growthcro",
         "hashlib",
         "httpx"
       ],
-      "size_bytes": 17996,
+      "size_bytes": 17998,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -1264,9 +1286,11 @@
         "__future__",
         "base",
         "client",
-        "google"
+        "config",
+        "google",
+        "growthcro"
       ],
-      "size_bytes": 4532,
+      "size_bytes": 4972,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
@@ -1313,7 +1337,7 @@
         "gsg_pipeline_sequential",
         "subprocess"
       ],
-      "size_bytes": 60253,
+      "size_bytes": 59910,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -1328,7 +1352,7 @@
         "__future__",
         "gsg_humanlike_audit"
       ],
-      "size_bytes": 13445,
+      "size_bytes": 13059,
       "mtime": "2026-05-09",
       "consumed_by": [
         "moteur_multi_judge/judges/humanlike_judge.py",
@@ -1351,7 +1375,7 @@
         "gsg_multi_judge",
         "gsg_self_audit"
       ],
-      "size_bytes": 27881,
+      "size_bytes": 27859,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
@@ -1370,7 +1394,7 @@
         "__future__",
         "gsg_pipeline_sequential"
       ],
-      "size_bytes": 27984,
+      "size_bytes": 27598,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
@@ -1502,9 +1526,11 @@
         "",
         "__future__",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 3920,
+      "size_bytes": 4360,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
@@ -1728,7 +1754,7 @@
         "meta_ads",
         "shopify"
       ],
-      "size_bytes": 9196,
+      "size_bytes": 8736,
       "mtime": "2026-05-09",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py",
@@ -2015,7 +2041,7 @@
         "__future__",
         "legacy_lab_adapters"
       ],
-      "size_bytes": 9091,
+      "size_bytes": 8683,
       "mtime": "2026-05-09",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -2058,9 +2084,11 @@
         "__future__",
         "async_api",
         "asyncio",
+        "config",
+        "growthcro",
         "playwright"
       ],
-      "size_bytes": 36521,
+      "size_bytes": 36931,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -2181,9 +2209,11 @@
       "filename": "reco_enricher_v13_api.py",
       "what": "reco_enricher_v13_api.py — Couche 3 Oracle Perception V13 : mode API",
       "imports": [
-        "asyncio"
+        "asyncio",
+        "config",
+        "growthcro"
       ],
-      "size_bytes": 35085,
+      "size_bytes": 34712,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -2198,10 +2228,12 @@
       "filename": "reco_enricher_v13_api.py",
       "what": "Reco Enricher V13 — reads prompts_v13, calls Claude API, writes final JSON",
       "imports": [
+        "config",
         "datetime",
+        "growthcro",
         "math"
       ],
-      "size_bytes": 6338,
+      "size_bytes": 6764,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -2261,7 +2293,7 @@
         "__future__",
         "asyncio"
       ],
-      "size_bytes": 26725,
+      "size_bytes": 26692,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -2272,8 +2304,11 @@
       "path": "skills/site-capture/scripts/run_capture.py",
       "filename": "run_capture.py",
       "what": "run_capture.py — orchestrateur Apify pour site-capture.",
-      "imports": [],
-      "size_bytes": 7029,
+      "imports": [
+        "config",
+        "growthcro"
+      ],
+      "size_bytes": 7455,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -2287,15 +2322,17 @@
       "filename": "run_discover.py",
       "what": "run_discover.py — Orchestrateur Apify pour la découverte de pages d'un site.",
       "imports": [
+        "config",
         "datetime",
         "discover_pages",
         "error",
+        "growthcro",
         "parse",
         "request",
         "subprocess",
         "urllib"
       ],
-      "size_bytes": 13218,
+      "size_bytes": 13644,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -2325,7 +2362,7 @@
         "traceback",
         "urllib"
       ],
-      "size_bytes": 22289,
+      "size_bytes": 22000,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -2337,11 +2374,13 @@
       "filename": "run_spatial_capture.py",
       "what": "run_spatial_capture.py — Lance spatial_capture_v9.js pour une page.",
       "imports": [
+        "config",
+        "growthcro",
         "request",
         "tempfile",
         "urllib"
       ],
-      "size_bytes": 11172,
+      "size_bytes": 11598,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/capture_site.py",
@@ -2675,7 +2714,7 @@
         "request",
         "urllib"
       ],
-      "size_bytes": 5450,
+      "size_bytes": 5107,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
@@ -2690,9 +2729,11 @@
         "",
         "__future__",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 5456,
+      "size_bytes": 5896,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
@@ -2795,10 +2836,12 @@
         "PIL",
         "__future__",
         "base64",
+        "config",
+        "growthcro",
         "hashlib",
         "io"
       ],
-      "size_bytes": 21821,
+      "size_bytes": 21833,
       "mtime": "2026-05-09",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -2851,13 +2894,15 @@
       "what": "web_vitals_adapter.py — GrowthCRO V12 S-04 adapter Web Vitals.",
       "imports": [
         "__future__",
+        "config",
         "datetime",
+        "growthcro",
         "parse",
         "request",
         "subprocess",
         "urllib"
       ],
-      "size_bytes": 7515,
+      "size_bytes": 7899,
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/score_tech.py"

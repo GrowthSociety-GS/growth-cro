@@ -25,21 +25,6 @@ ROOT = pathlib.Path(__file__).resolve().parents[4]
 CAPTURES = ROOT / "data" / "captures"
 
 # Auto-load .env (same pattern as reco_enricher)
-def _load_dotenv():
-    import os
-    env = ROOT / ".env"
-    if env.exists():
-        for line in env.read_text().splitlines():
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            k, v = line.split("=", 1)
-            k = k.strip()
-            v = v.strip().strip('"').strip("'")
-            if k and not os.environ.get(k):
-                os.environ[k] = v
-
-_load_dotenv()
 
 from .base import NotConfiguredError, ConnectorError
 from .catchr import CatchrConnector

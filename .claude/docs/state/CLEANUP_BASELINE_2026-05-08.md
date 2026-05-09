@@ -61,6 +61,16 @@ Acceptance contract for any subsequent task:
 - `audit_capabilities.py` stats: `potentially_orphaned` ≤ 47 and `orphaned_from_gsg_HIGH` = 0.
 - `state.py` pipeline-stage counts unchanged (all stages currently 0 because no captures exist; if a task triggers any capture, document it).
 
+## Parity contract — functional, not nominal
+
+The cleanup epic adopts AD-9 (unified capability-based naming, git as the only versioning). Filenames, class names, and `version=` strings carrying legacy `V##` stamps WILL be renamed across Wave 2/3. The parity contract therefore enforces **byte-equality of pipeline JSON outputs** (scores, reco IDs, payload structure), and is indifferent to:
+
+- file/module renames in the producing code
+- removal of `version="…-vNN"` literals
+- relocation of a script from `scripts/` → `growthcro/<package>/`
+
+A rename that demonstrably preserves the same scrubbed JSON output for `weglot` is parity-OK; the baseline is re-locked once and the contract follows the *outputs*.
+
 ## Mask spec (parity_check.sh)
 
 Volatile keys scrubbed at every JSON depth before hashing:

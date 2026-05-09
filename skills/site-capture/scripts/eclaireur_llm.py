@@ -48,29 +48,15 @@ from urllib.parse import urljoin, urlparse
 
 # Réutilise le dotenv loader + call LLM du reco_enricher
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from growthcro.config import config
 
 
 def _load_dotenv_if_needed():
     """Auto-load .env si ANTHROPIC_API_KEY absent (reproduit reco_enricher_v13_api)."""
-    if os.environ.get("ANTHROPIC_API_KEY"):
+    if config.anthropic_api_key():
         return
     cur = Path.cwd()
     for _ in range(6):
-        env_path = cur / ".env"
-        if env_path.exists():
-            try:
-                for line in env_path.read_text().splitlines():
-                    line = line.strip()
-                    if not line or line.startswith("#") or "=" not in line:
-                        continue
-                    k, _, v = line.partition("=")
-                    k = k.strip()
-                    v = v.strip().strip('"').strip("'")
-                    if k and not os.environ.get(k):
-                        os.environ[k] = v
-                return
-            except Exception:
-                return
         if cur.parent == cur:
             break
         cur = cur.parent
@@ -218,13 +204,12 @@ Classifie ce site. Réponds en JSON strict."""
 # ────────────────────────────────────────────────────────────────
 
 def call_haiku(url: str, meta: dict, model: str = "claude-haiku-4-5-20251001") -> dict:
-    _load_dotenv_if_needed()
     try:
         import anthropic
     except ImportError:
         raise RuntimeError("anthropic package not installed — pip install anthropic")
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = config.anthropic_api_key()
     if not api_key:
         raise RuntimeError("ANTHROPIC_API_KEY absent de l'env + .env")
 

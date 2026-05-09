@@ -642,7 +642,6 @@ def main():
         sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
         try:
             from reco_enricher_v13_api import _load_dotenv_if_needed, _get_api_client
-            _load_dotenv_if_needed()
             anthropic_client = _get_api_client()
         except Exception as e:
             print(f"⚠️ LLM disabled: {e}")

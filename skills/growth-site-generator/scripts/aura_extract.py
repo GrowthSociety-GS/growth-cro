@@ -29,7 +29,15 @@ import sys
 import math
 from pathlib import Path
 from collections import Counter
-
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 # ─── Constants ────────────────────────────────────────────────────────────────
 
 DEFAULT_MODEL = "claude-haiku-4-5-20251001"
@@ -395,7 +403,7 @@ async def analyze_with_haiku(technical_data: dict, site_label: str, page_type: s
                               category: str, model: str = DEFAULT_MODEL) -> dict:
     """Use Haiku to produce qualitative design analysis from technical extraction."""
     
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = config.anthropic_api_key()
     if not api_key:
         print("WARNING: No ANTHROPIC_API_KEY — skipping Haiku analysis")
         return {}

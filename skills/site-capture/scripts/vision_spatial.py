@@ -38,23 +38,19 @@ import time
 from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 CAPTURES = ROOT / "data" / "captures"
 VISION_CACHE = ROOT / "data" / ".vision_cache"  # MD5-keyed Vision response cache (V24 axe 2)
 
 # Load .env — override if env var is empty (Claude Code exports ANTHROPIC_API_KEY="")
-ENV_FILE = ROOT / ".env"
-if ENV_FILE.exists():
-    for line in ENV_FILE.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        k, v = line.split("=", 1)
-        k = k.strip()
-        v = v.strip().strip('"').strip("'")
-        # Override if not set OR empty
-        if not os.environ.get(k):
-            os.environ[k] = v
-
 MODEL = "claude-haiku-4-5-20251001"  # Haiku 4.5 multimodal
 MAX_TOKENS = 4096
 
@@ -514,7 +510,7 @@ def main() -> None:
         print("❌ pip install anthropic pillow", file=sys.stderr)
         sys.exit(1)
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = config.anthropic_api_key()
     if not api_key or api_key.startswith("sk-ant-ROTATE"):
         print("❌ ANTHROPIC_API_KEY manquant dans .env", file=sys.stderr)
         sys.exit(1)

@@ -46,13 +46,6 @@ def fetch_via_haiku(url: str, aspect: str = "visual") -> dict:
       - business : positionnement, audience, USP
     """
     import anthropic
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        env_fp = ROOT / ".env"
-        if env_fp.exists():
-            for line in env_fp.read_text().splitlines():
-                if line.startswith("ANTHROPIC_API_KEY="):
-                    os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                    break
     client = anthropic.Anthropic()
 
     aspect_prompts = {

@@ -29,17 +29,6 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 SONNET_MODEL = "claude-sonnet-4-5-20250929"
 
 
-def _ensure_api_key() -> None:
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return
-    env_fp = ROOT / ".env"
-    if env_fp.exists():
-        for line in env_fp.read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
-                os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                return
-
-
 def _strip_html_fences(raw: str) -> str:
     """Sonnet renvoie parfois ```html ... ``` malgré l'instruction. Strip."""
     text = raw.strip()
@@ -73,7 +62,6 @@ def call_sonnet_multimodal(
 
     Returns: dict {html, tokens_in, tokens_out, wall_seconds, model, n_images}
     """
-    _ensure_api_key()
     import anthropic, base64
     api = anthropic.Anthropic()
 
@@ -145,7 +133,6 @@ def call_sonnet(
 
     Returns: dict {html, tokens_in, tokens_out, wall_seconds, model}
     """
-    _ensure_api_key()
     import anthropic
     api = anthropic.Anthropic()
 

@@ -5,8 +5,15 @@ import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Optional
-
-
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 @dataclass
 class RealityLayerData:
     """Container for connector output. Each connector writes its slice here."""
@@ -44,7 +51,7 @@ class Connector(ABC):
         # Fall back to global vars (CATCHR_API_KEY) if no per-client.
         for var in self.required_env_vars:
             specific = f"{var}_{self.client_slug.upper().replace('-', '_')}"
-            if not (os.environ.get(specific) or os.environ.get(var)):
+            if not (config.system_env(specific) or config.system_env(var)):
                 return False
         return True
 

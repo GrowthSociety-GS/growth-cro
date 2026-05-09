@@ -258,7 +258,6 @@ def call_copy_llm(
     verbose: bool = True,
 ) -> dict[str, Any]:
     """Generate bounded copy JSON from the deterministic page plan."""
-    _ensure_api_key()
     import anthropic
 
     prompt = build_copy_prompt(plan=plan, brand_dna=brand_dna)

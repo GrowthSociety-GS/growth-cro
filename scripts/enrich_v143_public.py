@@ -52,6 +52,15 @@ from typing import Any, Optional
 from urllib.parse import urlparse, urljoin
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 DB_PATH = ROOT / "data" / "clients_database.json"
 CAPTURES_DIR = ROOT / "data" / "captures"
 
@@ -63,7 +72,7 @@ USER_AGENT = (
 FETCH_TIMEOUT_S = 8
 
 # Sonnet API (same env var used by reco_enricher_v13_api.py)
-ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY")
+ANTHROPIC_KEY = config.anthropic_api_key()
 SONNET_MODEL = "claude-sonnet-4-5-20250929"
 
 # Playwright ghost capture (replaces Apify per project doctrine)

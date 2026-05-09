@@ -67,17 +67,6 @@ SONNET_MODEL = "claude-sonnet-4-5-20250929"
 RouteMode = Literal["auto", "safe", "premium", "bold", "custom"]
 
 
-def _ensure_api_key() -> None:
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return
-    env_fp = ROOT / ".env"
-    if env_fp.exists():
-        for line in env_fp.read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
-                os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                return
-
-
 def _strip_fences(raw: str) -> str:
     text = raw.strip()
     if text.startswith("```"):
@@ -233,7 +222,6 @@ Produis maintenant les 3 routes créatives Safe/Premium/Bold pour cette LP. Tran
 
     system_prompt = GENERATE_ROUTES_SYSTEM.format(client=client, page_type=page_type)
 
-    _ensure_api_key()
     import anthropic
     client_api = anthropic.Anthropic()
     if verbose:
@@ -396,7 +384,6 @@ def select_route(routes_data: dict, brand_dna: dict, business_context: str,
 
 Tranche : laquelle des 3 routes est la bonne pour cette LP ? Justifie brièvement."""
 
-    _ensure_api_key()
     import anthropic
     client_api = anthropic.Anthropic()
     if verbose:

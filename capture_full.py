@@ -75,6 +75,15 @@ import sys
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parent
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 SCRIPTS = ROOT / "skills" / "site-capture" / "scripts"
 CAPTURES = ROOT / "data" / "captures"
 
@@ -159,7 +168,7 @@ def resolve_binary(name, common_paths):
 
     # 2) PATH enrichi
     extended_path = os.pathsep.join([
-        os.environ.get("PATH", ""),
+        config.system_env("PATH", ""),
         "/opt/homebrew/bin",            # Homebrew Apple silicon
         "/usr/local/bin",               # Homebrew Intel + system
         "/usr/local/opt/node/bin",      # Homebrew formula node
@@ -202,7 +211,7 @@ def resolve_binary(name, common_paths):
 
     # 4) Dernier recours : shell interactif (charge .zshrc → nvm/fnm init)
     try:
-        shell = os.environ.get("SHELL", "/bin/zsh")
+        shell = config.system_env("SHELL", "/bin/zsh")
         r = subprocess.run(
             [shell, "-i", "-c", f"command -v {name}"],
             capture_output=True, text=True, timeout=5,
@@ -234,7 +243,7 @@ def run(cmd, label, cwd=None):
     t0 = time.time()
     try:
         # Enrichit PATH pour les subprocesses (node/python peuvent appeler d'autres binaires)
-        env = os.environ.copy()
+        env = config.system_env_copy()
         env["PATH"] = os.pathsep.join([
             env.get("PATH", ""),
             "/opt/homebrew/bin", "/usr/local/bin", "/usr/bin", "/bin",
@@ -245,7 +254,7 @@ def run(cmd, label, cwd=None):
         print(f"[{label}] ❌ binaire introuvable : {e}")
         print(f"    NODE_BIN   = {NODE_BIN}")
         print(f"    PYTHON_BIN = {PYTHON_BIN}")
-        print(f"    PATH       = {os.environ.get('PATH', '')[:200]}…")
+        print(f"    PATH       = {config.system_env("PATH", "")[:200]}…")
         return False
     except Exception as e:
         print(f"[{label}] ❌ exception: {e}")

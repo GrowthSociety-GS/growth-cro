@@ -38,7 +38,15 @@ import sys
 import time
 from pathlib import Path
 from typing import Any
-
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 # ────────────────────────────────────────────────────────────────
 # CONSTANTES
 # ────────────────────────────────────────────────────────────────
@@ -58,29 +66,12 @@ REQUIRED_JSON_KEYS = {"before", "after", "why", "expected_lift_pct", "effort_hou
 def _load_dotenv_if_needed():
     """P11.7 — auto-load .env si ANTHROPIC_API_KEY absent, évite d'avoir à
     `source .env` manuellement avant chaque run. Sans dépendance externe."""
-    if os.environ.get("ANTHROPIC_API_KEY"):
+    if config.anthropic_api_key():
         return
     # Cherche .env dans cwd + parents jusqu'à 5 niveaux
     from pathlib import Path as _P
     cur = _P.cwd()
     for _ in range(6):
-        env_path = cur / ".env"
-        if env_path.exists():
-            try:
-                for line in env_path.read_text().splitlines():
-                    line = line.strip()
-                    if not line or line.startswith("#") or "=" not in line:
-                        continue
-                    k, _, v = line.partition("=")
-                    k = k.strip()
-                    v = v.strip().strip('"').strip("'")
-                    # Override si la clé est absente OU vide (Claude Desktop set
-                    # ANTHROPIC_API_KEY="" qui bloquerait le fallback sinon).
-                    if k and not os.environ.get(k):
-                        os.environ[k] = v
-                return
-            except Exception:
-                return
         if cur.parent == cur:
             break
         cur = cur.parent
@@ -88,13 +79,12 @@ def _load_dotenv_if_needed():
 
 def _get_api_client():
     """Lazy : import anthropic seulement quand on l'appelle effectivement."""
-    _load_dotenv_if_needed()
     try:
         import anthropic  # type: ignore
     except ImportError:
         print("❌ Le package `anthropic` n'est pas installé. `pip install anthropic`", file=sys.stderr)
         sys.exit(1)
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = config.anthropic_api_key()
     if not api_key:
         print("❌ ANTHROPIC_API_KEY non défini dans l'environnement NI dans .env", file=sys.stderr)
         print("   Ajouter dans .env : ANTHROPIC_API_KEY=sk-ant-xxx", file=sys.stderr)

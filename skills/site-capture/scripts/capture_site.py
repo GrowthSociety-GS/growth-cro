@@ -31,7 +31,15 @@ v1.0 — 2026-04-10
 
 import json, sys, os, re, time, pathlib, subprocess
 from datetime import datetime, timezone
-
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 # ── Args ──────────────────────────────────────────────────────
 args = sys.argv[1:]
 USE_APIFY = False
@@ -321,7 +329,7 @@ if USE_APIFY:
     print("PHASE 4 : ENRICHISSEMENT APIFY (screenshots + données visuelles)")
     print(f"{'═' * 60}")
 
-    token = os.environ.get("APIFY_TOKEN")
+    token = config.apify_token()
     if not token:
         print("  ⚠️  APIFY_TOKEN non défini — skip Apify")
     else:
@@ -346,7 +354,7 @@ if USE_APIFY:
             result = subprocess.run(
                 [sys.executable, str(SCRIPTS / "apify_enrich.py"), LABEL, pt, url, "--level", str(level)],
                 capture_output=True, text=True, timeout=360,
-                env={**os.environ, "APIFY_TOKEN": token},
+                env={**config.system_env_copy(), "APIFY_TOKEN": token},
             )
             t_apify = round(time.time() - t_apify, 2)
 
@@ -409,7 +417,7 @@ if USE_SPATIAL:
     print("PHASE 4b : SPATIAL V9 CAPTURE (Perception Tree)")
     print(f"{'═' * 60}")
 
-    token = os.environ.get("APIFY_TOKEN")
+    token = config.apify_token()
     if not token:
         print("  ⚠️  APIFY_TOKEN non défini — skip spatial capture")
     else:
@@ -432,7 +440,7 @@ if USE_SPATIAL:
             result = subprocess.run(
                 [sys.executable, str(SCRIPTS / "run_spatial_capture.py"), url, LABEL, pt, "--level", str(level)],
                 capture_output=True, text=True, timeout=480,
-                env={**os.environ, "APIFY_TOKEN": token},
+                env={**config.system_env_copy(), "APIFY_TOKEN": token},
             )
             t_sp = round(time.time() - t_sp, 2)
 

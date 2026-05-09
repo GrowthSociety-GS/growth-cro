@@ -39,6 +39,15 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, HttpUrl
 
 ROOT = pathlib.Path(__file__).resolve().parent
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 CAPTURES = ROOT / "data" / "captures"
 GOLDEN = ROOT / "data" / "golden"
 PYTHON_BIN = sys.executable
@@ -155,8 +164,8 @@ async def run_capture_pipeline(req: CaptureRequest, job_id: str):
 @app.get("/health")
 async def health():
     """Health check."""
-    has_ws = bool(os.environ.get("BROWSER_WS_ENDPOINT"))
-    has_api_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    has_ws = bool(config.browser_ws_endpoint())
+    has_api_key = bool(config.anthropic_api_key())
     return {
         "status": "ok",
         "cloud_browser": "connected" if has_ws else "not configured",
@@ -300,12 +309,12 @@ async def start_batch(req: BatchRequest, background_tasks: BackgroundTasks):
 if __name__ == "__main__":
     import uvicorn
 
-    port = int(os.environ.get("PORT", 8000))
+    port = config.port(default=8000)
     print(f"\n{'='*60}")
     print(f"GrowthCRO API Server v1.0")
     print(f"  Port: {port}")
-    print(f"  Cloud browser: {'✅' if os.environ.get('BROWSER_WS_ENDPOINT') else '❌ non configuré'}")
-    print(f"  Anthropic API: {'✅' if os.environ.get('ANTHROPIC_API_KEY') else '❌ non configuré'}")
+    print(f"  Cloud browser: {'✅' if config.browser_ws_endpoint() else '❌ non configuré'}")
+    print(f"  Anthropic API: {'✅' if config.anthropic_api_key() else '❌ non configuré'}")
     print(f"  Docs: http://localhost:{port}/docs")
     print(f"{'='*60}\n")
 

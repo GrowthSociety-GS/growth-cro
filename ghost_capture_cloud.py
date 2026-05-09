@@ -57,6 +57,15 @@ from typing import Optional
 # PATHS
 # ══════════════════════════════════════════════════════════════
 ROOT = pathlib.Path(__file__).resolve().parent
+# growthcro path bootstrap — keep before \`from growthcro.config import config\`
+import pathlib as _gc_pl, sys as _gc_sys
+_gc_root = _gc_pl.Path(__file__).resolve()
+while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
+    _gc_root = _gc_root.parent
+if str(_gc_root) not in _gc_sys.path:
+    _gc_sys.path.insert(0, str(_gc_root))
+del _gc_pl, _gc_sys, _gc_root
+from growthcro.config import config
 SPATIAL_V9_JS = ROOT / "skills" / "site-capture" / "references" / "spatial_capture_v9.js"
 
 
@@ -487,12 +496,12 @@ def get_brightdata_endpoint() -> Optional[str]:
          (juste le auth, on construit le wss://)
     """
     # Format 1 : endpoint complet
-    full = os.environ.get("BRIGHTDATA_WSS", "")
+    full = config.brightdata_wss()
     if full:
         return full
 
     # Format 2 : auth seulement
-    auth = os.environ.get("BRIGHTDATA_AUTH", "")
+    auth = config.brightdata_auth()
     if auth:
         return f"wss://{auth}@brd.superproxy.io:9222"
 
@@ -532,7 +541,7 @@ async def get_browser(pw, cloud: bool, ws_endpoint: Optional[str] = None,
 
     # ── Cloud standard (Browserless, Steel, etc.) ──
     if cloud:
-        endpoint = ws_endpoint or os.environ.get("BROWSER_WS_ENDPOINT", "")
+        endpoint = ws_endpoint or config.browser_ws_endpoint()
         if not endpoint:
             print("❌ Mode cloud activé mais BROWSER_WS_ENDPOINT non défini.")
             print("   Exemple : export BROWSER_WS_ENDPOINT='wss://chrome.browserless.io?token=YOUR_TOKEN'")
@@ -549,7 +558,7 @@ async def get_browser(pw, cloud: bool, ws_endpoint: Optional[str] = None,
         return browser
 
     # ── Local (headed ou headless) ──
-    use_headed = os.environ.get("GHOST_HEADED", "0") == "1"
+    use_headed = config.is_ghost_headed()
     mode_label = "HEADED (visible)" if use_headed else "headless stealth v2"
     print(f"  💻 Lancement de Chromium local ({mode_label})...")
     browser = await pw.chromium.launch(
