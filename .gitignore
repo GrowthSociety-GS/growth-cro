@@ -137,6 +137,10 @@ archive/
 !_archive/migration_tools/
 # The archive's own purpose + provenance log (Task #4 of cleanup epic).
 !_archive/README.md
+# Issue #6 (codebase-cleanup) — `enrich_v143_public.py` archived 2026-05-10
+# with deprecation README. Kept tracked so the move is auditable.
+!_archive/scripts/
+!_archive/scripts/**
 
 # ─── Logs ─────────────────────────────────────────────
 *.log
