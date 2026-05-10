@@ -135,6 +135,8 @@ archive/
 # so the strict `os.environ` grep gate doesn't see them, but tracked in
 # git so the audit trail of how each refactor was performed survives.
 !_archive/migration_tools/
+# The archive's own purpose + provenance log (Task #4 of cleanup epic).
+!_archive/README.md
 
 # ─── Logs ─────────────────────────────────────────────
 *.log
