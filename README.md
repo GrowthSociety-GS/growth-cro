@@ -38,6 +38,18 @@ GrowthCRO est un **consultant CRO senior automatisé** pour les ~100 clients de 
 
 ---
 
+## 1.bis Setup environnement (une seule fois par clone)
+
+Le package `growthcro/` (config + futures sous-modules de l'epic codebase-cleanup) est enregistré via `pyproject.toml`. Pour qu'un script lancé depuis n'importe quel sous-dossier puisse faire `from growthcro.config import config`, installer en mode editable :
+
+```bash
+pip install --no-deps -e .
+```
+
+`--no-deps` car les runtime deps restent gérées par `requirements.txt` (sera consolidé dans `[project.dependencies]` lors de la Task #11 de l'epic). Variables d'env : copier `.env.example` → `.env` et remplir `ANTHROPIC_API_KEY` (auto-loadé par `growthcro.config` au premier import).
+
+---
+
 ## 2. Architecture — 8 modules
 
 | # | Module | État V26.AI |

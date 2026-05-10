@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-09T14:11:53",
+  "generated_at": "2026-05-10T12:04:33",
   "stats": {
     "total_files": 144,
     "active_wired": 4,
@@ -201,8 +201,8 @@
         "growthcro",
         "math"
       ],
-      "size_bytes": 28547,
-      "mtime": "2026-05-09",
+      "size_bytes": 28147,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -223,8 +223,8 @@
         "dataclasses",
         "growthcro"
       ],
-      "size_bytes": 2650,
-      "mtime": "2026-05-09",
+      "size_bytes": 2250,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/__init__.py",
         "skills/site-capture/scripts/reality_layer/catchr.py",
@@ -286,8 +286,8 @@
         "datetime",
         "growthcro"
       ],
-      "size_bytes": 9198,
-      "mtime": "2026-05-09",
+      "size_bytes": 8798,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -518,8 +518,8 @@
         "score_tech",
         "score_ux"
       ],
-      "size_bytes": 23259,
-      "mtime": "2026-05-09",
+      "size_bytes": 22859,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_site.py",
         "skills/site-capture/scripts/project_snapshot.py"
@@ -540,8 +540,8 @@
         "growthcro",
         "httpx"
       ],
-      "size_bytes": 4965,
-      "mtime": "2026-05-09",
+      "size_bytes": 4565,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -659,8 +659,8 @@
         "growthcro",
         "httpx"
       ],
-      "size_bytes": 4392,
-      "mtime": "2026-05-09",
+      "size_bytes": 3992,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -933,8 +933,8 @@
         "urllib",
         "xml"
       ],
-      "size_bytes": 46384,
-      "mtime": "2026-05-09",
+      "size_bytes": 45984,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1073,8 +1073,8 @@
         "subprocess",
         "urllib"
       ],
-      "size_bytes": 54935,
-      "mtime": "2026-05-09",
+      "size_bytes": 54535,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -1163,8 +1163,8 @@
         "growthcro",
         "playwright"
       ],
-      "size_bytes": 24915,
-      "mtime": "2026-05-09",
+      "size_bytes": 24515,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1182,8 +1182,8 @@
         "hashlib",
         "httpx"
       ],
-      "size_bytes": 17998,
-      "mtime": "2026-05-09",
+      "size_bytes": 17598,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1290,8 +1290,8 @@
         "google",
         "growthcro"
       ],
-      "size_bytes": 4972,
-      "mtime": "2026-05-09",
+      "size_bytes": 4572,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -1530,8 +1530,8 @@
         "growthcro",
         "httpx"
       ],
-      "size_bytes": 4360,
-      "mtime": "2026-05-09",
+      "size_bytes": 3960,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -2088,8 +2088,8 @@
         "growthcro",
         "playwright"
       ],
-      "size_bytes": 36931,
-      "mtime": "2026-05-09",
+      "size_bytes": 36531,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "low"
@@ -2213,8 +2213,8 @@
         "config",
         "growthcro"
       ],
-      "size_bytes": 34712,
-      "mtime": "2026-05-09",
+      "size_bytes": 34312,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -2233,8 +2233,8 @@
         "growthcro",
         "math"
       ],
-      "size_bytes": 6764,
-      "mtime": "2026-05-09",
+      "size_bytes": 6364,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -2308,8 +2308,8 @@
         "config",
         "growthcro"
       ],
-      "size_bytes": 7455,
-      "mtime": "2026-05-09",
+      "size_bytes": 7055,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -2332,8 +2332,8 @@
         "subprocess",
         "urllib"
       ],
-      "size_bytes": 13644,
-      "mtime": "2026-05-09",
+      "size_bytes": 13244,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -2380,8 +2380,8 @@
         "tempfile",
         "urllib"
       ],
-      "size_bytes": 11598,
-      "mtime": "2026-05-09",
+      "size_bytes": 11198,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py"
@@ -2733,8 +2733,8 @@
         "growthcro",
         "httpx"
       ],
-      "size_bytes": 5896,
-      "mtime": "2026-05-09",
+      "size_bytes": 5496,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -2841,8 +2841,8 @@
         "hashlib",
         "io"
       ],
-      "size_bytes": 21833,
-      "mtime": "2026-05-09",
+      "size_bytes": 21433,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -2902,8 +2902,8 @@
         "subprocess",
         "urllib"
       ],
-      "size_bytes": 7899,
-      "mtime": "2026-05-09",
+      "size_bytes": 7499,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/score_tech.py"
       ],

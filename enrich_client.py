@@ -52,14 +52,6 @@ from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
-# growthcro path bootstrap — keep before \`from growthcro.config import config\`
-import pathlib as _gc_pl, sys as _gc_sys
-_gc_root = _gc_pl.Path(__file__).resolve()
-while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
-    _gc_root = _gc_root.parent
-if str(_gc_root) not in _gc_sys.path:
-    _gc_sys.path.insert(0, str(_gc_root))
-del _gc_pl, _gc_sys, _gc_root
 from growthcro.config import config
 # anthropic SDK requis seulement pour `discover_url` + `classify_pages`.
 # Import lazy pour que `add_client.py` + `capture_full.py` puissent importer

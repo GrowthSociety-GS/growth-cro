@@ -38,14 +38,6 @@ import sys
 import time
 from pathlib import Path
 from typing import Any
-# growthcro path bootstrap — keep before \`from growthcro.config import config\`
-import pathlib as _gc_pl, sys as _gc_sys
-_gc_root = _gc_pl.Path(__file__).resolve()
-while _gc_root.parent != _gc_root and not (_gc_root / "growthcro" / "config.py").is_file():
-    _gc_root = _gc_root.parent
-if str(_gc_root) not in _gc_sys.path:
-    _gc_sys.path.insert(0, str(_gc_root))
-del _gc_pl, _gc_sys, _gc_root
 from growthcro.config import config
 # ────────────────────────────────────────────────────────────────
 # CONSTANTES
