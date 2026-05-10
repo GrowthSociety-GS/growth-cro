@@ -1,16 +1,16 @@
-# Capabilities Summary — 2026-05-10T13:24:50
+# Capabilities Summary — 2026-05-10T13:24:58
 
 **Source de vérité** : `CAPABILITIES_REGISTRY.json` (auto-généré par `scripts/audit_capabilities.py`).
 
 ## Stats globales
 
-- **total_files** : 143
+- **total_files** : 164
 - **active_wired** : 4
 - **active_indirect** : 13
-- **active_misc** : 78
+- **active_misc** : 96
 - **orphaned_from_gsg_HIGH** : 0
 - **partial_wired** : 0
-- **potentially_orphaned** : 48
+- **potentially_orphaned** : 51
 
 ## 🔴 ORPHELINS critiques (HIGH priority — à brancher au GSG)
 
