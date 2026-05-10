@@ -39,6 +39,7 @@ preserved as a shim so external sub-agents keep importing
 from __future__ import annotations
 
 from .orchestrator import run_mode_1_persona_narrator
+from .output_parsing import extract_html
 from .prompt_assembly import (
     KNOWN_FOUNDERS,
     SYSTEM_PROMPT_TEMPLATE,
@@ -54,4 +55,5 @@ __all__ = [
     "build_founder_persona",
     "KNOWN_FOUNDERS",
     "SYSTEM_PROMPT_TEMPLATE",
+    "extract_html",
 ]

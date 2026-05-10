@@ -13,9 +13,12 @@ Les 6 score_*.json + score_page_type.json + score_applicability_overlay.json DOI
 
 ### Steps ordonnés
 
-1. **Prepare prompts** : `python3 skills/site-capture/scripts/reco_enricher_v13.py --client {slug} --prepare` (ou `--all --prepare` pour la flotte).  
-   Produit `recos_v13_prompts.json` par page.
-2. **Call Sonnet** : `python3 skills/site-capture/scripts/reco_enricher_v13_api.py --client {slug} --model claude-sonnet-4-6 --max-concurrent 5`.  
+1. **Prepare prompts** (offline, pas d'appel API) :
+   `python3 -m growthcro.recos.cli prepare --client {slug} --page {pageType} --top 0`
+   ou `--all` pour la flotte. Produit `recos_v13_prompts.json` par page.
+2. **Call Sonnet** :
+   `python3 -m growthcro.recos.cli enrich --client {slug} --page {pageType} --model claude-sonnet-4-6 --max-concurrent 5`
+   (ajouter `--all` pour la flotte ; `--dry-run` pour estimer le coût sans appel).
    Coût : ~$0.08 par page, ~$25 pour la flotte complète.
 3. **Vérifier sortie** : `recos_enriched.json` + `recos_v13_final.json` doivent exister. Chaque reco doit contenir :
    - `criterion_id` (ex: `hero_01`)
@@ -23,11 +26,21 @@ Les 6 score_*.json + score_page_type.json + score_applicability_overlay.json DOI
    - `impact_score` (float, = priority_weight / effort_days)
    - Sections parsed : Problème / AVANT / APRÈS / Pourquoi / Comment / Contexte
 
+### Canonical paths (Issue #10)
+
+| Concern | Module canonique | Ancien chemin (shim, supprimé en #11) |
+|---|---|---|
+| Préparer prompts (offline) | `python3 -m growthcro.recos.cli prepare ...` | `python3 skills/site-capture/scripts/reco_enricher_v13.py --prepare` |
+| Appeler Claude (online) | `python3 -m growthcro.recos.cli enrich ...` | `python3 skills/site-capture/scripts/reco_enricher_v13_api.py` |
+| Compute brut (interne, importé par orchestrator) | `growthcro.recos.schema.compute_recos_brutes_from_scores` | — |
+| Prompt assembly (interne) | `growthcro.recos.prompts.build_prompt_for_page` | — |
+| Persistence (interne) | `growthcro.recos.client.persist_*` | — |
+
 ### Règles dures
 
 - **Context Hash 5D** : le cache de templates est indexé par `{pageType, businessModel, schwartzLevel, funnelStage, priceRange}`. Ne jamais invalider ce cache sans log explicite dans le manifest.
 - **Overlay v3.2 → priority** : si une règle applicability a tiré sur cette page (ex: `rule_saas_coherence_required`), les recos du pilier correspondant sont boostées P0/P1. Vérifier que c'est bien appliqué.
-- **Coûts** : surveille `$ANTHROPIC_API_KEY` spending. Pour la flotte complète (291 pages × ~30 prompts) → ~$25 Sonnet + quelques $ Haiku pour le prep.
+- **Coûts** : surveille `$ANTHROPIC_API_KEY` spending. Pour la flotte complète (291 pages × ~30 prompts) → ~$25 Sonnet + quelques $ Haiku pour le prep. Toujours `--dry-run` d'abord pour valider l'estimation.
 
 ### Rapport de sortie
 
