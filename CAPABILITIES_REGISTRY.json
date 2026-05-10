@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-10T13:24:38",
+  "generated_at": "2026-05-10T13:24:50",
   "stats": {
     "total_files": 143,
     "active_wired": 4,
@@ -1881,8 +1881,7 @@
       "mtime": "2026-05-09",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py",
-        "skills/site-capture/scripts/score_page_type.py",
-        "skills/site-capture/scripts/score_specific_criteria.py"
+        "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1921,8 +1920,7 @@
         "skills/site-capture/scripts/score_hero.py",
         "skills/site-capture/scripts/score_persuasion.py",
         "skills/site-capture/scripts/score_psycho.py",
-        "skills/site-capture/scripts/score_tech.py",
-        "skills/site-capture/scripts/score_ux.py"
+        "skills/site-capture/scripts/score_tech.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1948,12 +1946,13 @@
       "id": "perception_v13",
       "path": "skills/site-capture/scripts/perception_v13.py",
       "filename": "perception_v13.py",
-      "what": "perception_v13.py — Couche 1 Oracle Perception V13",
+      "what": "Shim — delegates to growthcro.perception.cli (issue #7 split).",
       "imports": [
-        "math"
+        "cli",
+        "growthcro"
       ],
-      "size_bytes": 49857,
-      "mtime": "2026-05-09",
+      "size_bytes": 175,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -2574,13 +2573,15 @@
       "id": "score_specific_criteria",
       "path": "skills/site-capture/scripts/score_specific_criteria.py",
       "filename": "score_specific_criteria.py",
-      "what": "score_specific_criteria.py — Scorer des critères spécifiques par pageType (GrowthCRO V12 doctrine v3.1.0).",
+      "what": "Shim — delegates to growthcro.scoring.cli.score_specific (issue #7 split).",
       "imports": [
-        "__future__",
-        "page_type_filter"
+        "cli",
+        "growthcro",
+        "persist",
+        "specific"
       ],
-      "size_bytes": 54357,
-      "mtime": "2026-05-09",
+      "size_bytes": 488,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/project_snapshot.py",
@@ -2648,16 +2649,13 @@
       "id": "score_ux",
       "path": "skills/site-capture/scripts/score_ux.py",
       "filename": "score_ux.py",
-      "what": "score_ux.py — Scorer Bloc 3 UX V3 pour GrowthCRO Playbook.",
+      "what": "Shim — delegates to growthcro.scoring.cli.score_ux_main (issue #7 split).",
       "imports": [
-        "datetime",
-        "parse",
-        "perception_bridge",
-        "spatial_bridge",
-        "urllib"
+        "cli",
+        "growthcro"
       ],
-      "size_bytes": 31338,
-      "mtime": "2026-05-09",
+      "size_bytes": 201,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2709,16 +2707,13 @@
       "id": "site_intelligence",
       "path": "scripts/site_intelligence.py",
       "filename": "site_intelligence.py",
-      "what": "site_intelligence.py — V15 Full Site Crawler & Content Extractor",
+      "what": "Shim — delegates to growthcro.research.cli (issue #7 split).",
       "imports": [
-        "html",
-        "parse",
-        "parser",
-        "subprocess",
-        "urllib"
+        "cli",
+        "growthcro"
       ],
-      "size_bytes": 38050,
-      "mtime": "2026-05-09",
+      "size_bytes": 203,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2741,7 +2736,6 @@
         "skills/site-capture/scripts/score_persuasion.py",
         "skills/site-capture/scripts/score_psycho.py",
         "skills/site-capture/scripts/score_tech.py",
-        "skills/site-capture/scripts/score_ux.py",
         "skills/site-capture/scripts/spatial_bridge.py"
       ],
       "status": "ACTIVE",
