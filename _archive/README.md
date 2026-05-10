@@ -26,6 +26,8 @@ Append a date-stamped line whenever an archive lands here.
 | 2026-05-09 | `parity_baselines/weglot/2026-05-09T11-13-30Z/` + 3 instrument baselines | Regression contract for the cleanup epic | Issue [#2](https://github.com/GrowthSociety-GS/growth-cro/issues/2) |
 | 2026-05-09 | `migration_tools/2026-05-09_env_to_config/{migrate_env_to_config.py,fix_syspath.py}` | One-shot tools that produced the env-centralization commit | Issue [#3](https://github.com/GrowthSociety-GS/growth-cro/issues/3) |
 | 2026-05-10 | `README.md` (this file) + audit log of pre-existing legacy folders | Inventory pass after V26.AG fresh-history migration | Issue [#4](https://github.com/GrowthSociety-GS/growth-cro/issues/4) |
+| 2026-05-10 | `scripts/2026-05-10/batch_enrich.py` | V12 stress-test runner — superseded by `python3 -m growthcro.recos.cli enrich --all` since #6 (no `__main__` guard, only stale `run_full_pipeline.sh` referenced it) | Issue [#10](https://github.com/GrowthSociety-GS/growth-cro/issues/10) |
+| 2026-05-10 | `scripts/2026-05-10/run_full_pipeline.sh` | Stale runbook hardcoding pre-migration iCloud path `/sessions/relaxed-busy-goldberg/...` and invoking removed scripts (`generate_audit_data_v12.py`, `criterion_crops.py`, `perception_pipeline.py`, `semantic_mapper.py`) — replaced by `scripts/parity_check.sh` + per-client orchestration via `growthcro.cli.*` | Issue [#10](https://github.com/GrowthSociety-GS/growth-cro/issues/10) |
 
 ## State on 2026-05-10 (Task #4 audit)
 
