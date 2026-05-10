@@ -1,3 +1,6 @@
 #!/bin/bash
-cd "/Users/mathisfronty/Documents/Claude/Projects/Mathis - Stratégie CRO Interne - Growth Society"
-python3 scripts/reco_enricher_v13_batch.py
+# Wrapper to invoke the reco-enricher v13 API batch from this repo.
+# Pre-#9, this script cd'd into a stale iCloud path; updated for the cleanup epic.
+set -euo pipefail
+cd "$(dirname "$0")"
+python3 scripts/reco_enricher_v13_api.py "$@"

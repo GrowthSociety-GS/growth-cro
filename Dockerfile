@@ -5,17 +5,17 @@
 #   docker build -t growthcro .
 #
 # Run (mode local — navigateur Chromium embarqué dans le container) :
-#   docker run --rm growthcro python3 capture_full.py https://japhy.fr japhy ecommerce
+#   docker run --rm growthcro python3 -m growthcro.cli.capture_full https://japhy.fr japhy ecommerce
 #
 # Run (mode cloud — navigateur distant via Browserless.io) :
 #   docker run --rm -e BROWSER_WS_ENDPOINT="wss://chrome.browserless.io?token=XXX" \
-#     growthcro python3 capture_full.py https://japhy.fr japhy ecommerce --cloud
+#     growthcro python3 -m growthcro.cli.capture_full https://japhy.fr japhy ecommerce --cloud
 #
 # Run (API server) :
 #   docker run --rm -p 8000:8000 \
 #     -e BROWSER_WS_ENDPOINT="wss://chrome.browserless.io?token=XXX" \
 #     -e ANTHROPIC_API_KEY="sk-ant-..." \
-#     growthcro python3 api_server.py
+#     growthcro python3 -m growthcro.api.server
 #
 # ══════════════════════════════════════════════════════════════
 
@@ -66,4 +66,4 @@ HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
 
 # Default: API server on port 8000
 EXPOSE 8000
-CMD ["python3", "api_server.py"]
+CMD ["python3", "-m", "growthcro.api.server"]
