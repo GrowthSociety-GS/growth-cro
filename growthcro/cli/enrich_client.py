@@ -53,27 +53,13 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
 from growthcro.config import config
-# anthropic SDK requis seulement pour `discover_url` + `classify_pages`.
-# Import lazy pour que `add_client.py` + `capture_full.py` puissent importer
-# check_liveness / extract_internal_links / ghost_capture_home sans dépendance SDK.
-try:
-    import anthropic
-    _ANTHROPIC_AVAILABLE = True
-except ImportError:
-    anthropic = None
-    _ANTHROPIC_AVAILABLE = False
-
-
-def _require_anthropic():
-    if not _ANTHROPIC_AVAILABLE:
-        print("❌ Installe le SDK Anthropic : pip install anthropic --break-system-packages",
-              file=sys.stderr)
-        sys.exit(1)
+from growthcro.lib.anthropic_client import get_anthropic_client
 
 # ----------------------------------------------------------------------
 # CONFIG
 # ----------------------------------------------------------------------
-PROJECT_ROOT = Path(__file__).resolve().parent
+# After relocation under growthcro/cli/, climb 2 levels to repo root.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DB_PATH = PROJECT_ROOT / "data" / "clients_database.json"
 CAPTURES_DIR = PROJECT_ROOT / "data" / "captures"
 GHOST_SCRIPT = PROJECT_ROOT / "skills" / "site-capture" / "scripts" / "ghost_capture.js"
@@ -144,7 +130,6 @@ def discover_url(anthropic_client, brand: str, doc_hint: str = None,
     Ask Haiku + web_search tool to find official URL.
     Returns {url, confidence, rationale, alternatives}.
     """
-    _require_anthropic()
     prompt = f"""Tu cherches le site officiel de la marque/entreprise suivante :
 
 **Nom** : {brand}
@@ -350,7 +335,6 @@ def extract_internal_links(page_html_path: Path, base_url: str) -> list:
 # ----------------------------------------------------------------------
 def classify_pages(anthropic_client, brand: str, business_type: str,
                    links: list, max_pages: int = 10) -> dict:
-    _require_anthropic()
     # Cap links to keep prompt small
     capped = links[:250]
     links_str = "\n".join(
@@ -498,11 +482,7 @@ def main():
     print("═" * 72)
     print()
 
-    if not config.anthropic_api_key():
-        log("init", "ANTHROPIC_API_KEY absent de l'env. Export-le avant de relancer.", "err")
-        sys.exit(1)
-    _require_anthropic()
-    client = anthropic.Anthropic()
+    client = get_anthropic_client()
 
     # --- Stage 1+2 : URL discovery ---
     log("stage 1", f"Web search + Haiku ranker pour '{brand}'…", "stage")

@@ -46,7 +46,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 # Reuse everything factored in enrich_client.py
-from enrich_client import (
+from growthcro.cli.enrich_client import (
     slugify,
     log,
     check_liveness,

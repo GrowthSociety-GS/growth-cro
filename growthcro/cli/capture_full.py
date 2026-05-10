@@ -74,16 +74,17 @@ import subprocess
 import sys
 import time
 
-ROOT = pathlib.Path(__file__).resolve().parent
 from growthcro.config import config
+
+# After relocation under growthcro/cli/, climb 2 levels to repo root.
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 SCRIPTS = ROOT / "skills" / "site-capture" / "scripts"
 CAPTURES = ROOT / "data" / "captures"
 
 # Import check_liveness depuis enrich_client (lazy anthropic, zéro dep inutile)
 # pour le pre-flight fail-fast avant de lancer Playwright.
 try:
-    sys.path.insert(0, str(ROOT))
-    from enrich_client import check_liveness as _check_liveness
+    from growthcro.cli.enrich_client import check_liveness as _check_liveness
     _LIVENESS_AVAILABLE = True
 except Exception as _e:
     _LIVENESS_AVAILABLE = False
