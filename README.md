@@ -110,12 +110,12 @@ pip install --no-deps -e .
 │   ├── check_gsg_intake_wizard.py    ← Validation demande brute → BriefV2 → rendu fallback sans API
 │   ├── check_gsg_creative_route_selector.py ← Validation Golden/Creative route selector sans API
 │   ├── enrich_v143_public.py         ← Founder/VoC/Scarcity enrichment
-│   └── reco_enricher_v13.py + .api.py
+│   └── (recos canoniques sous growthcro/recos/, voir growthcro/recos/cli.py)
 │
 ├── moteur_gsg/                       ← GSG canonique V27.2-F (intake_wizard + 5 modes + structured route selector + context/doctrine/visual/component/visual-system contracts)
 │   ├── orchestrator.py               ← API publique generate_lp(mode, ...)
 │   ├── core/                         ← context_pack, doctrine_planner, visual_intelligence, creative_route_selector, component_library, visual_system, planner, pattern_library, design_tokens, copy_writer, controlled_renderer, guards
-│   └── modes/                        ← mode_1_persona_narrator, mode_2_replace, mode_3_extend, mode_4_elevate, mode_5_genesis
+│   └── modes/                        ← mode_1/ (sub-pkg), mode_2_replace, mode_3_extend, mode_4_elevate, mode_5_genesis
 │
 ├── moteur_multi_judge/               ← Multi-judge unifié V26.AA
 │   ├── orchestrator.py               ← run_multi_judge 70/30 doctrine/humanlike
@@ -177,14 +177,14 @@ URL client → DISCOVERY → CAPTURE → INTERPRETATION → SCORING → EVIDENCE
 **Lancement ad-hoc** :
 ```bash
 # Audit single client
-python3 capture_full.py <url> <client_label> <business_type>
+python3 -m growthcro.cli.capture_full <url> <client_label> <business_type>
 
-# Ou via skills
-python3 skills/site-capture/scripts/playwright_capture_v2.py
-python3 skills/site-capture/scripts/perception_v13.py --client <label>
+# Ou via modules canoniques
+python3 -m growthcro.capture.cli --url <url> --label <label> --page-type <pt>
+python3 -m growthcro.perception.cli --client <label>
 python3 skills/site-capture/scripts/batch_rescore.py --only <label>
-python3 skills/site-capture/scripts/reco_enricher_v13.py --client <label> --prepare
-python3 skills/site-capture/scripts/reco_enricher_v13_api.py --client <label>
+python3 -m growthcro.recos.cli prepare --client <label>
+python3 -m growthcro.recos.cli enrich --client <label>
 
 # Génération LP
 python3 -m moteur_gsg.orchestrator --mode complete --client weglot \

@@ -385,7 +385,7 @@ def main():
         if args.skip_capture and cap_json.exists():
             print(f"\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
         else:
-            run([PYTHON_BIN, str(SCRIPTS / "native_capture.py"),
+            run([PYTHON_BIN, "-m", "growthcro.capture.scorer",
                  args.url, args.label, page, "--html", str(page_html)],
                 "2/4 native_capture (--html)", cwd=str(ROOT))
 
@@ -404,7 +404,7 @@ def main():
             print(f"\n[1/4 ghost_capture_cloud.py] SKIPPED (spatial_v9 + page.html présents)")
         else:
             ghost_cmd = [
-                PYTHON_BIN, str(ROOT / "ghost_capture_cloud.py"),
+                PYTHON_BIN, "-m", "growthcro.capture.cli",
                 "--url", args.url, "--label", args.label,
                 "--page-type", page, "--out-dir", str(page_dir),
             ]
@@ -435,7 +435,7 @@ def main():
         if args.skip_capture and cap_json.exists():
             print(f"\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
         else:
-            run([PYTHON_BIN, str(SCRIPTS / "native_capture.py"),
+            run([PYTHON_BIN, "-m", "growthcro.capture.scorer",
                  args.url, args.label, page, "--html", str(page_html)],
                 "2/4 native_capture (--html)", cwd=str(ROOT))
 
@@ -450,7 +450,7 @@ def main():
 
     # ── Stage 3 : perception_v13 (DBSCAN clusters) ────────────────
     if spatial_json.exists():
-        run([PYTHON_BIN, str(SCRIPTS / "perception_v13.py"),
+        run([PYTHON_BIN, "-m", "growthcro.perception.cli",
              "--client", args.label, "--page", page],
             "3/4 perception_v13", cwd=str(ROOT))
     else:
