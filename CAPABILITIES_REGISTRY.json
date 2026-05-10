@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-10T12:04:33",
+  "generated_at": "2026-05-10T12:59:01",
   "stats": {
     "total_files": 144,
     "active_wired": 4,
@@ -21,7 +21,7 @@
         "base"
       ],
       "size_bytes": 1767,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -33,7 +33,7 @@
       "what": "moteur_gsg.core — building blocs réutilisés par les 5 modes.",
       "imports": [],
       "size_bytes": 309,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -45,7 +45,7 @@
       "what": "moteur_gsg.modes — les 5 situations type GSG (V26.AH minimal).",
       "imports": [],
       "size_bytes": 921,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -57,7 +57,7 @@
       "what": "Judges individuels orchestrés par moteur_multi_judge.orchestrator.",
       "imports": [],
       "size_bytes": 74,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -75,7 +75,7 @@
         "orchestrator"
       ],
       "size_bytes": 7106,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -87,7 +87,7 @@
       "what": "Helpers pour lire un SiteCapture et servir de base au scoring V3.",
       "imports": [],
       "size_bytes": 1068,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -131,7 +131,7 @@
         "vision_spatial"
       ],
       "size_bytes": 20288,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -147,7 +147,7 @@
         "httpx"
       ],
       "size_bytes": 11890,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -163,7 +163,7 @@
         "base64"
       ],
       "size_bytes": 9608,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -178,7 +178,7 @@
         "random"
       ],
       "size_bytes": 31025,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
         "skills/growth-site-generator/scripts/gsg_generate_lp.py"
@@ -246,7 +246,7 @@
         "reco_enricher"
       ],
       "size_bytes": 4733,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -268,7 +268,7 @@
         "score_ux"
       ],
       "size_bytes": 4586,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -307,7 +307,7 @@
         "io"
       ],
       "size_bytes": 14673,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/brand_dna_diff_extractor.py"
       ],
@@ -335,7 +335,7 @@
         "sklearn"
       ],
       "size_bytes": 27528,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -352,7 +352,7 @@
         "__future__"
       ],
       "size_bytes": 9668,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/prompt_assembly.py",
@@ -372,7 +372,7 @@
         "__future__"
       ],
       "size_bytes": 7232,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_2_replace.py"
       ],
@@ -389,7 +389,7 @@
         "dataclasses"
       ],
       "size_bytes": 19356,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
         "moteur_gsg/core/brief_v2_validator.py",
@@ -421,7 +421,7 @@
         "urllib"
       ],
       "size_bytes": 15005,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
         "moteur_gsg/core/intake_wizard.py",
@@ -441,7 +441,7 @@
         "brief_v2"
       ],
       "size_bytes": 6734,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "scripts/_test_weglot_listicle_V26AE.py",
         "scripts/run_gsg_full_pipeline.py"
@@ -459,7 +459,7 @@
         "datetime"
       ],
       "size_bytes": 37792,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -490,7 +490,7 @@
         "visual_system"
       ],
       "size_bytes": 17981,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "scripts/check_gsg_canonical.py"
       ],
@@ -559,7 +559,7 @@
         "moteur_gsg"
       ],
       "size_bytes": 760,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -575,7 +575,7 @@
         "orchestrator"
       ],
       "size_bytes": 3998,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -591,7 +591,7 @@
         "orchestrator"
       ],
       "size_bytes": 3801,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -607,7 +607,7 @@
         "orchestrator"
       ],
       "size_bytes": 3131,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -624,7 +624,7 @@
         "orchestrator"
       ],
       "size_bytes": 4729,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -641,7 +641,7 @@
         "subprocess"
       ],
       "size_bytes": 5064,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -679,7 +679,7 @@
         "scripts"
       ],
       "size_bytes": 17604,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
         "moteur_gsg/core/context_pack.py",
@@ -701,7 +701,7 @@
         "copy"
       ],
       "size_bytes": 15639,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/planner.py"
       ],
@@ -717,7 +717,7 @@
         "__future__"
       ],
       "size_bytes": 5102,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -733,7 +733,7 @@
         "dataclasses"
       ],
       "size_bytes": 13314,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/modes/mode_1_complete.py"
@@ -755,7 +755,7 @@
         "visual_system"
       ],
       "size_bytes": 50721,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
@@ -780,7 +780,7 @@
         "visual_intelligence"
       ],
       "size_bytes": 16013,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
@@ -797,7 +797,7 @@
         "creative_director"
       ],
       "size_bytes": 26771,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/legacy_lab_adapters.py",
         "skills/growth-site-generator/scripts/creative_director.py",
@@ -823,7 +823,7 @@
         "visual_intelligence"
       ],
       "size_bytes": 11712,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
@@ -839,7 +839,7 @@
         "__future__"
       ],
       "size_bytes": 19370,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -853,7 +853,7 @@
         "__future__"
       ],
       "size_bytes": 20530,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -870,7 +870,7 @@
         "__future__"
       ],
       "size_bytes": 6118,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/prompt_assembly.py",
         "moteur_gsg/modes/mode_1_complete.py"
@@ -889,7 +889,7 @@
         "minimal_guards"
       ],
       "size_bytes": 8888,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/controlled_renderer.py",
         "moteur_gsg/modes/mode_1_complete.py"
@@ -908,7 +908,7 @@
         "urllib"
       ],
       "size_bytes": 5630,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -950,7 +950,7 @@
         "functools"
       ],
       "size_bytes": 16929,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/doctrine_planner.py",
         "moteur_gsg/core/pipeline_sequential.py",
@@ -977,7 +977,7 @@
         "moteur_multi_judge"
       ],
       "size_bytes": 17766,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_persona_narrator.py",
         "moteur_multi_judge/judges/doctrine_judge.py",
@@ -997,7 +997,7 @@
         "doctrine"
       ],
       "size_bytes": 15728,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/modes/mode_1_complete.py"
@@ -1015,7 +1015,7 @@
         "unicodedata"
       ],
       "size_bytes": 22949,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1035,7 +1035,7 @@
         "urllib"
       ],
       "size_bytes": 12069,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1050,7 +1050,7 @@
         "evidence_ledger"
       ],
       "size_bytes": 10258,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1093,7 +1093,7 @@
         "hashlib"
       ],
       "size_bytes": 12059,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/enrich_scores_with_evidence.py",
         "skills/site-capture/scripts/evidence_ledger.py"
@@ -1115,7 +1115,7 @@
         "math"
       ],
       "size_bytes": 14233,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/experiment_engine.py"
       ],
@@ -1133,7 +1133,7 @@
         "shutil"
       ],
       "size_bytes": 17817,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/legacy_lab_adapters.py",
         "moteur_multi_judge/judges/implementation_check.py",
@@ -1195,7 +1195,7 @@
       "what": "golden_bridge.py — Golden Dataset Bridge for reco_enricher V16",
       "imports": [],
       "size_bytes": 8111,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/reco_enricher_v13.py"
       ],
@@ -1213,7 +1213,7 @@
         "statistics"
       ],
       "size_bytes": 12538,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1227,7 +1227,7 @@
         "math"
       ],
       "size_bytes": 17095,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/legacy_lab_adapters.py",
         "moteur_gsg/modes/mode_1_persona_narrator.py",
@@ -1250,7 +1250,7 @@
         "golden_percentiles"
       ],
       "size_bytes": 16696,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/golden_differential.py",
         "skills/site-capture/scripts/reco_enricher_v13.py"
@@ -1269,7 +1269,7 @@
         "math"
       ],
       "size_bytes": 12248,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/golden_differential.py"
       ],
@@ -1314,7 +1314,7 @@
         "subprocess"
       ],
       "size_bytes": 15371,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py"
       ],
@@ -1338,7 +1338,7 @@
         "subprocess"
       ],
       "size_bytes": 59910,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1353,7 +1353,7 @@
         "gsg_humanlike_audit"
       ],
       "size_bytes": 13059,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_multi_judge/judges/humanlike_judge.py",
         "moteur_multi_judge/orchestrator.py",
@@ -1376,7 +1376,7 @@
         "gsg_self_audit"
       ],
       "size_bytes": 27859,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
         "skills/growth-site-generator/scripts/gsg_generate_lp.py",
@@ -1395,7 +1395,7 @@
         "gsg_pipeline_sequential"
       ],
       "size_bytes": 27598,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
         "skills/growth-site-generator/scripts/gsg_generate_lp.py",
@@ -1415,7 +1415,7 @@
         "gsg_humanlike_audit"
       ],
       "size_bytes": 2445,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1431,7 +1431,7 @@
         "fix_html_runtime"
       ],
       "size_bytes": 3132,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1451,7 +1451,7 @@
         "urllib"
       ],
       "size_bytes": 20156,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "scripts/check_gsg_intake_wizard.py",
         "scripts/run_gsg_full_pipeline.py"
@@ -1466,7 +1466,7 @@
       "what": "intent_detector_v13.py — Couche 2 Oracle Perception V13",
       "imports": [],
       "size_bytes": 26180,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -1483,7 +1483,7 @@
         "__future__"
       ],
       "size_bytes": 17933,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1508,7 +1508,7 @@
         "io"
       ],
       "size_bytes": 7283,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/creative_route_selector.py",
         "moteur_gsg/core/pipeline_single_pass.py",
@@ -1548,7 +1548,7 @@
         "html"
       ],
       "size_bytes": 28643,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/design_tokens.py",
@@ -1584,7 +1584,7 @@
         "visual_intelligence"
       ],
       "size_bytes": 24443,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_3_extend.py",
         "moteur_gsg/modes/mode_4_elevate.py",
@@ -1611,7 +1611,7 @@
         "pipeline_single_pass"
       ],
       "size_bytes": 68141,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_2_replace.py",
         "moteur_gsg/modes/mode_3_extend.py",
@@ -1637,7 +1637,7 @@
         "mode_1_persona_narrator"
       ],
       "size_bytes": 9888,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1657,7 +1657,7 @@
         "mode_1_persona_narrator"
       ],
       "size_bytes": 4778,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1677,7 +1677,7 @@
         "mode_1_persona_narrator"
       ],
       "size_bytes": 5449,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1696,7 +1696,7 @@
         "mode_1_persona_narrator"
       ],
       "size_bytes": 7008,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1712,7 +1712,7 @@
         "__future__"
       ],
       "size_bytes": 8509,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1730,7 +1730,7 @@
         "urllib"
       ],
       "size_bytes": 48682,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py"
@@ -1755,7 +1755,7 @@
         "shopify"
       ],
       "size_bytes": 8736,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py",
         "moteur_gsg/orchestrator.py",
@@ -1787,7 +1787,7 @@
         "orchestrator"
       ],
       "size_bytes": 6155,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py",
         "moteur_gsg/orchestrator.py",
@@ -1817,7 +1817,7 @@
         "moteur_multi_judge"
       ],
       "size_bytes": 10201,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py",
         "moteur_gsg/orchestrator.py",
@@ -1842,7 +1842,7 @@
         "__future__"
       ],
       "size_bytes": 7601,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -1859,7 +1859,7 @@
         "datetime"
       ],
       "size_bytes": 16223,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -1877,7 +1877,7 @@
         "hashlib"
       ],
       "size_bytes": 14110,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -1896,7 +1896,7 @@
         "pydantic"
       ],
       "size_bytes": 14177,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -1911,11 +1911,10 @@
         "functools"
       ],
       "size_bytes": 7791,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py",
-        "skills/site-capture/scripts/score_page_type.py",
-        "skills/site-capture/scripts/score_specific_criteria.py"
+        "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1929,7 +1928,7 @@
         "__future__"
       ],
       "size_bytes": 11914,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/planner.py"
@@ -1947,15 +1946,14 @@
         "perception_bridge"
       ],
       "size_bytes": 9232,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/perception_bridge.py",
         "skills/site-capture/scripts/score_coherence.py",
         "skills/site-capture/scripts/score_hero.py",
         "skills/site-capture/scripts/score_persuasion.py",
         "skills/site-capture/scripts/score_psycho.py",
-        "skills/site-capture/scripts/score_tech.py",
-        "skills/site-capture/scripts/score_ux.py"
+        "skills/site-capture/scripts/score_tech.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1970,7 +1968,7 @@
         "urllib"
       ],
       "size_bytes": 10308,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -1981,12 +1979,13 @@
       "id": "perception_v13",
       "path": "skills/site-capture/scripts/perception_v13.py",
       "filename": "perception_v13.py",
-      "what": "perception_v13.py — Couche 1 Oracle Perception V13",
+      "what": "Shim — delegates to growthcro.perception.cli (issue #7 split).",
       "imports": [
-        "math"
+        "cli",
+        "growthcro"
       ],
-      "size_bytes": 49857,
-      "mtime": "2026-05-09",
+      "size_bytes": 175,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -2005,7 +2004,7 @@
         "random"
       ],
       "size_bytes": 6998,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2024,7 +2023,7 @@
         "pipeline_single_pass"
       ],
       "size_bytes": 25751,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "scripts/run_gsg_full_pipeline.py"
       ],
@@ -2042,7 +2041,7 @@
         "legacy_lab_adapters"
       ],
       "size_bytes": 8683,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/pipeline_sequential.py",
@@ -2065,7 +2064,7 @@
         "pattern_library"
       ],
       "size_bytes": 9209,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/controlled_renderer.py",
         "moteur_gsg/core/copy_writer.py",
@@ -2147,7 +2146,7 @@
         "subprocess"
       ],
       "size_bytes": 39591,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2166,7 +2165,7 @@
         "minimal_guards"
       ],
       "size_bytes": 14472,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
@@ -2183,7 +2182,7 @@
         "golden_differential"
       ],
       "size_bytes": 89991,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2198,7 +2197,7 @@
         "math"
       ],
       "size_bytes": 4953,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2251,7 +2250,7 @@
         "__future__"
       ],
       "size_bytes": 10134,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2265,7 +2264,7 @@
         "__future__"
       ],
       "size_bytes": 10321,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2279,7 +2278,7 @@
         "__future__"
       ],
       "size_bytes": 14293,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2294,7 +2293,7 @@
         "asyncio"
       ],
       "size_bytes": 26692,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2363,7 +2362,7 @@
         "urllib"
       ],
       "size_bytes": 22000,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2398,7 +2397,7 @@
         "__future__"
       ],
       "size_bytes": 13096,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2413,7 +2412,7 @@
         "schwartz_detector"
       ],
       "size_bytes": 10582,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/schwartz_detector.py"
       ],
@@ -2431,7 +2430,7 @@
         "functools"
       ],
       "size_bytes": 12645,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
       ],
@@ -2451,7 +2450,7 @@
         "urllib"
       ],
       "size_bytes": 26566,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2472,7 +2471,7 @@
         "math"
       ],
       "size_bytes": 22653,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
       ],
@@ -2488,7 +2487,7 @@
         "__future__"
       ],
       "size_bytes": 10923,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2503,7 +2502,7 @@
         "spatial_bridge"
       ],
       "size_bytes": 36012,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2539,7 +2538,7 @@
         "subprocess"
       ],
       "size_bytes": 29875,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/project_snapshot.py"
@@ -2558,7 +2557,7 @@
         "spatial_bridge"
       ],
       "size_bytes": 28597,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2578,7 +2577,7 @@
         "spatial_bridge"
       ],
       "size_bytes": 28343,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2597,7 +2596,7 @@
         "datetime"
       ],
       "size_bytes": 13896,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2610,13 +2609,15 @@
       "id": "score_specific_criteria",
       "path": "skills/site-capture/scripts/score_specific_criteria.py",
       "filename": "score_specific_criteria.py",
-      "what": "score_specific_criteria.py — Scorer des critères spécifiques par pageType (GrowthCRO V12 doctrine v3.1.0).",
+      "what": "Shim — delegates to growthcro.scoring.cli.score_specific (issue #7 split).",
       "imports": [
-        "__future__",
-        "page_type_filter"
+        "cli",
+        "growthcro",
+        "persist",
+        "specific"
       ],
-      "size_bytes": 54357,
-      "mtime": "2026-05-09",
+      "size_bytes": 488,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/project_snapshot.py",
@@ -2638,7 +2639,7 @@
         "web_vitals_adapter"
       ],
       "size_bytes": 25186,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2657,7 +2658,7 @@
         "__future__"
       ],
       "size_bytes": 20378,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py",
         "skills/site-capture/scripts/score_page_type.py"
@@ -2672,7 +2673,7 @@
       "what": "score_utility_banner.py — Scorer Bloc 7 Utility Elements (UTILITY_BANNER) V3.",
       "imports": [],
       "size_bytes": 21409,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py",
         "skills/site-capture/scripts/validate_utility_banner.py"
@@ -2684,16 +2685,13 @@
       "id": "score_ux",
       "path": "skills/site-capture/scripts/score_ux.py",
       "filename": "score_ux.py",
-      "what": "score_ux.py — Scorer Bloc 3 UX V3 pour GrowthCRO Playbook.",
+      "what": "Shim — delegates to growthcro.scoring.cli.score_ux_main (issue #7 split).",
       "imports": [
-        "datetime",
-        "parse",
-        "perception_bridge",
-        "spatial_bridge",
-        "urllib"
+        "cli",
+        "growthcro"
       ],
-      "size_bytes": 31338,
-      "mtime": "2026-05-09",
+      "size_bytes": 201,
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2715,7 +2713,7 @@
         "urllib"
       ],
       "size_bytes": 5107,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2745,16 +2743,13 @@
       "id": "site_intelligence",
       "path": "scripts/site_intelligence.py",
       "filename": "site_intelligence.py",
-      "what": "site_intelligence.py — V15 Full Site Crawler & Content Extractor",
+      "what": "Shim — delegates to growthcro.research.cli (issue #7 split).",
       "imports": [
-        "html",
-        "parse",
-        "parser",
-        "subprocess",
-        "urllib"
+        "cli",
+        "growthcro"
       ],
-      "size_bytes": 38050,
-      "mtime": "2026-05-09",
+      "size_bytes": 203,
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2769,7 +2764,7 @@
         "spatial_scoring"
       ],
       "size_bytes": 4082,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py",
         "skills/site-capture/scripts/score_coherence.py",
@@ -2777,7 +2772,6 @@
         "skills/site-capture/scripts/score_persuasion.py",
         "skills/site-capture/scripts/score_psycho.py",
         "skills/site-capture/scripts/score_tech.py",
-        "skills/site-capture/scripts/score_ux.py",
         "skills/site-capture/scripts/spatial_bridge.py"
       ],
       "status": "ACTIVE",
@@ -2790,7 +2784,7 @@
       "what": "spatial_enrich.py — Corrige capture.json avec les données spatiales Ghost (spatial_v9.json).",
       "imports": [],
       "size_bytes": 12646,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -2806,7 +2800,7 @@
         "__future__"
       ],
       "size_bytes": 20960,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2822,7 +2816,7 @@
         "subprocess"
       ],
       "size_bytes": 7215,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [],
       "status": "POTENTIALLY_ORPHANED",
       "criticality": "review_needed"
@@ -2860,7 +2854,7 @@
         "dataclasses"
       ],
       "size_bytes": 13404,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/creative_route_selector.py",
@@ -2880,7 +2874,7 @@
         "planner"
       ],
       "size_bytes": 10375,
-      "mtime": "2026-05-09",
+      "mtime": "2026-05-10",
       "consumed_by": [
         "moteur_gsg/core/controlled_renderer.py"
       ],
