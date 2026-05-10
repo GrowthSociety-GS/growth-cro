@@ -403,6 +403,28 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-10 — Codebase-cleanup epic landed ($0 API)
+
+**Trigger** : refactor V21→V26.AG brownfield → layered `growthcro/` package, drive orphans to zero, break god files along concern axes (PRD `codebase-cleanup`, epic `epic/codebase-cleanup`, issues #2-#12).
+
+**Structure** :
+- One package, layered submodules : `growthcro/{config,lib,capture,perception,scoring,recos,research,api,cli,gsg_lp}`.
+- Single env boundary : `growthcro/config.py` (FR-3).
+- Shared Anthropic client : `growthcro/lib/anthropic_client.py` (FR-6).
+- Splits : 12 god files (>800 LOC) → 6 sub-packages, max active LOC = 718.
+
+**Doctrine** :
+- V26.AF persona-narrator hard limit (8 192 chars) enforced by `assert` inside `mode_1.prompt_assembly.build_persona_narrator_prompt` (quarantine, not deletion).
+- AD-9 — capability-based naming, no `_vNN` in new active paths; git is the only versioning.
+
+**Hygiene** :
+- Archives : `enrich_v143_public.py`, `batch_enrich.py`, `run_full_pipeline.sh` → `_archive/`.
+- Sub-agents (`.claude/agents/*.md`) canonicalized to `python -m growthcro.…` paths (5/5).
+- Orphans : 51 → **0**. Files >800 LOC : **0**. Root `.py` : **1** (`state.py`).
+- 11 sub-package READMEs (≤30 lines each) added.
+
+**Follow-up** : #13 (prompt-architecture spec — caching + structured user-turns).
+
 ### V27 GSG Canonical Boundary — one engine, legacy lab frozen (2026-05-05, $0 API)
 
 **Trigger** : Mathis a demandé de trancher définitivement `gsg` vs `growth-site-generator` avant toute nouvelle génération Weglot. Décision : le produit s'appelle GSG, le seul skill public est `skills/gsg`, le seul moteur public est `moteur_gsg`, et `skills/growth-site-generator/scripts` devient legacy lab migrable.
