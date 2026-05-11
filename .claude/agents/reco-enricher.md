@@ -49,3 +49,14 @@ Les 6 score_*.json + score_page_type.json + score_applicability_overlay.json DOI
 Top Impact Score: hero_01 (8.0) — "H1 pas orienté bénéfice"
 Total tokens: 18,240 in / 6,120 out · ~$0.08
 ```
+
+## Refus / Refuse to emit
+
+This agent MUST NOT emit code that violates the 4 hard rules in [`docs/doctrine/CODE_DOCTRINE.md`](../docs/doctrine/CODE_DOCTRINE.md):
+
+1. No file >800 LOC in active paths.
+2. No `os.environ` / `os.getenv` outside `growthcro/config.py`.
+3. No `_archive*` / `_obsolete*` / `*deprecated*` / `*backup*` folder inside an active path.
+4. No basename duplicates in active paths (excluding `__init__.py`, `cli.py`, and AD-1 canonical names `base/orchestrator/persist/prompt_assembly`).
+
+Before any code-emission action, this agent runs `python3 scripts/lint_code_hygiene.py --staged` against the proposed change. If `fail > 0`, the change is refused and the user is told which rule(s) blocked it.
