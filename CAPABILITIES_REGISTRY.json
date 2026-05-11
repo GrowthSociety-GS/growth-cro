@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T09:05:48",
+  "generated_at": "2026-05-11T09:16:04",
   "stats": {
-    "total_files": 203,
+    "total_files": 204,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 44,
+    "active_cli": 40,
     "active_package_marker": 17,
-    "active_misc": 128,
+    "active_misc": 133,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
@@ -28,7 +28,9 @@
       "size_bytes": 1767,
       "mtime": "2026-05-09",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -41,7 +43,9 @@
       "size_bytes": 309,
       "mtime": "2026-05-09",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -67,7 +71,9 @@
       "size_bytes": 1641,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -80,7 +86,9 @@
       "size_bytes": 921,
       "mtime": "2026-05-09",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -102,7 +110,9 @@
       "size_bytes": 2822,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -123,7 +133,9 @@
       "size_bytes": 523,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -136,7 +148,9 @@
       "size_bytes": 510,
       "mtime": "2026-05-09",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -149,7 +163,9 @@
       "size_bytes": 44,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -162,7 +178,9 @@
       "size_bytes": 333,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -175,7 +193,9 @@
       "size_bytes": 84,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -194,7 +214,9 @@
       "size_bytes": 1588,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -207,7 +229,9 @@
       "size_bytes": 61,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -228,7 +252,9 @@
       "size_bytes": 918,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -241,7 +267,9 @@
       "size_bytes": 578,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -261,7 +289,9 @@
       "size_bytes": 732,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -281,7 +311,9 @@
       "size_bytes": 480,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -304,7 +336,9 @@
       "size_bytes": 2868,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": false,
-      "consumed_by": [],
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
       "status": "ACTIVE_PACKAGE_MARKER",
       "criticality": "low"
     },
@@ -589,6 +623,7 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/css/__init__.py",
+        "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/reality_layer/__init__.py",
         "skills/site-capture/scripts/reality_layer/catchr.py",
         "skills/site-capture/scripts/reality_layer/clarity.py",
@@ -614,6 +649,7 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/css/__init__.py",
+        "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/reality_layer/__init__.py",
         "skills/site-capture/scripts/reality_layer/catchr.py",
         "skills/site-capture/scripts/reality_layer/clarity.py",
@@ -1250,8 +1286,10 @@
       "size_bytes": 3643,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": true,
-      "consumed_by": [],
-      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -1270,8 +1308,10 @@
       "size_bytes": 2363,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": true,
-      "consumed_by": [],
-      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -1292,8 +1332,10 @@
       "size_bytes": 11183,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": true,
-      "consumed_by": [],
-      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -1320,8 +1362,10 @@
       "size_bytes": 8243,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": true,
-      "consumed_by": [],
-      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -1342,8 +1386,10 @@
       "size_bytes": 3207,
       "mtime": "2026-05-10",
       "is_cli_entrypoint": true,
-      "consumed_by": [],
-      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -2779,6 +2825,33 @@
       "criticality": "low"
     },
     {
+      "id": "lint_code_hygiene",
+      "path": "scripts/lint_code_hygiene.py",
+      "filename": "lint_code_hygiene.py",
+      "what": "lint_code_hygiene.py — mechanical hygiene gate for GrowthCRO source tree.",
+      "imports": [
+        "Path",
+        "__future__",
+        "__init__",
+        "annotations",
+        "ast",
+        "base",
+        "cli",
+        "date",
+        "datetime",
+        "orchestrator",
+        "persist",
+        "prompt_assembly",
+        "subprocess"
+      ],
+      "size_bytes": 15626,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
       "id": "listicle",
       "path": "growthcro/scoring/specific/listicle.py",
       "filename": "listicle.py",
@@ -3134,6 +3207,7 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -3173,6 +3247,7 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -3226,6 +3301,7 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -3263,6 +3339,7 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -3313,6 +3390,7 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -3353,6 +3431,7 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -3612,6 +3691,7 @@
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
+        "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
@@ -3641,6 +3721,7 @@
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
+        "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
@@ -3670,6 +3751,7 @@
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
+        "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
@@ -3968,6 +4050,7 @@
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1/orchestrator.py",
         "moteur_gsg/modes/mode_1_complete.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -3996,6 +4079,7 @@
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1/orchestrator.py",
         "moteur_gsg/modes/mode_1_complete.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
