@@ -37,6 +37,7 @@ If a file mixes two axes, split it. If you can't name the axis, the file is the 
   - imports drawn from ≥3 concern-bundles: `{requests, httpx, urllib}`, `{sqlite3, sqlalchemy, json+pathlib}`, `{jinja2, markdown}`, `{argparse, click}`, `{anthropic, openai}`, `{playwright, selenium}`,
   - ≥2 top-level classes that don't reference each other (per AST).
 - **INFO — single-concern affirmation**: file >300 LOC — reviewer must affirm "still single concern" at PR time.
+- **INFO — `print()` in pipeline modules** (added 2026-05-11 via auto-update loop): files under `growthcro/`, `moteur_gsg/`, `moteur_multi_judge/` that are ≥100 LOC and not a CLI entrypoint should use a proper logger, not `print()`. Long-running pipelines need structured logs (levels, timestamps, redirectability). 31 files currently hit; top offenders: `growthcro/capture/orchestrator.py` (34 prints), `growthcro/gsg_lp/lp_orchestrator.py` (33), `growthcro/capture/scorer.py` (26). Tier: `info` initially — promote to `warn` once a logger pattern is canonized.
 
 False positives in the WARN tier are acceptable. Hard FAILs aren't.
 
