@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T14:12:24Z'
-  source_commit: f092a9067724717055de8828296733f15d3b7fb7
+  generated_at: '2026-05-11T14:13:35Z'
+  source_commit: df0a1ccd9e7de45be993527334298b3a6cbdfd85
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
