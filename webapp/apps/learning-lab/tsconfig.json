@@ -1,17 +1,41 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@growthcro/ui": ["../../packages/ui/src"],
-      "@growthcro/ui/*": ["../../packages/ui/src/*"],
-      "@growthcro/data": ["../../packages/data/src"],
-      "@growthcro/data/*": ["../../packages/data/src/*"],
-      "@growthcro/config": ["../../packages/config/src"]
-    }
+      "@/*": [
+        "./*"
+      ],
+      "@growthcro/ui": [
+        "../../packages/ui/src"
+      ],
+      "@growthcro/ui/*": [
+        "../../packages/ui/src/*"
+      ],
+      "@growthcro/data": [
+        "../../packages/data/src"
+      ],
+      "@growthcro/data/*": [
+        "../../packages/data/src/*"
+      ],
+      "@growthcro/config": [
+        "../../packages/config/src"
+      ]
+    },
+    "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

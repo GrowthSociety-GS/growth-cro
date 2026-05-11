@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@growthcro/ui";
 import { useSupabase } from "@/lib/use-supabase";
@@ -8,6 +8,14 @@ import { useSupabase } from "@/lib/use-supabase";
 type Method = "password" | "magic";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="gc-auth"><div className="gc-auth__card">Loading…</div></div>}>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const supabase = useSupabase();
   const router = useRouter();
   const search = useSearchParams();

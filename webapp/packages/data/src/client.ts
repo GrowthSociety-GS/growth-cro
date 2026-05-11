@@ -7,14 +7,19 @@ import { getAppConfig } from "@growthcro/config";
 
 let browserClientSingleton: SupabaseClient | null = null;
 
+/**
+ * Browser-side Supabase client. Lazy: returns a placeholder when env is
+ * unset (e.g. during `next build` prerender). Real env presence is asserted
+ * the first time the consumer actually calls a method that needs the network.
+ */
 export function getBrowserSupabase(): SupabaseClient {
   if (browserClientSingleton) return browserClientSingleton;
   const config = getAppConfig();
-  if (!config.supabaseUrl || !config.supabaseAnonKey) {
-    // Return a stub that throws on actual calls — keeps build green when env not set yet.
-    throw new Error("Supabase env vars not set. See webapp/.env.example.");
-  }
-  browserClientSingleton = createBrowserClient(config.supabaseUrl, config.supabaseAnonKey);
+  // Use placeholder values during build/prerender so the client can be
+  // constructed without crashing. Runtime requests will 401 fast.
+  const url = config.supabaseUrl || "http://localhost:54321";
+  const key = config.supabaseAnonKey || "anon-placeholder";
+  browserClientSingleton = createBrowserClient(url, key);
   return browserClientSingleton;
 }
 
@@ -28,11 +33,11 @@ export function getServerSupabase(
   const config = getAppConfig();
   return createServerClient(config.supabaseUrl, config.supabaseAnonKey, {
     cookies: {
-      get: (name) => cookies.get(name)?.value,
-      set: (name, value, options) => {
+      get: (name: string) => cookies.get(name)?.value,
+      set: (name: string, value: string, options: CookieOptions) => {
         cookies.set?.(name, value, options);
       },
-      remove: (name, options) => {
+      remove: (name: string, options: CookieOptions) => {
         cookies.remove?.(name, options);
       },
     },

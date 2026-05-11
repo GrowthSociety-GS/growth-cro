@@ -3,7 +3,7 @@
 import { createServerSupabase } from "@/lib/supabase-server";
 import { Sidebar } from "@/components/Sidebar";
 import { RunsLiveFeed } from "@/components/RunsLiveFeed";
-import { Card, KpiCard, Button } from "@growthcro/ui";
+import { Card, KpiCard } from "@growthcro/ui";
 import { listClientsWithStats, listRecentRuns } from "@growthcro/data";
 
 export const dynamic = "force-dynamic";
