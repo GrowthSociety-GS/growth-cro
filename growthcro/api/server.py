@@ -38,6 +38,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, HttpUrl
 
+from growthcro.api.audits import router as audits_router
 from growthcro.config import config
 
 # After relocation under growthcro/api/, climb 2 levels to repo root.
@@ -48,9 +49,12 @@ PYTHON_BIN = sys.executable
 
 app = FastAPI(
     title="GrowthCRO API",
-    description="Pipeline CRO automatisé : capture → scoring → recommandations",
-    version="1.0.0",
+    description="Pipeline CRO automatisé : capture → scoring → recommandations + agency audits (Google Ads + Meta Ads)",
+    version="1.1.0",
 )
+
+# Agency audits (Issue #22) — gads-auditor + meta-ads-auditor thin wrappers.
+app.include_router(audits_router)
 
 # CORS (pour frontend futur)
 app.add_middleware(

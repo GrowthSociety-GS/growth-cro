@@ -8,6 +8,8 @@ const ITEMS: { label: string; href: string; hint: string }[] = [
   { label: "Audit", href: "/audit", hint: "185 pages" },
   { label: "Recos", href: "/reco", hint: "3045 items" },
   { label: "GSG Studio", href: "/gsg", hint: "Brief + LP" },
+  { label: "Audit Google Ads", href: "/audit-gads", hint: "Agency" },
+  { label: "Audit Meta Ads", href: "/audit-meta", hint: "Agency" },
   { label: "Reality", href: "/reality", hint: "Soon" },
   { label: "Learning", href: "/learning", hint: "V29/V30" },
 ];
