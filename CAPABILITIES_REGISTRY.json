@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T13:15:13",
+  "generated_at": "2026-05-11T13:33:03",
   "stats": {
-    "total_files": 206,
+    "total_files": 218,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 42,
+    "active_cli": 46,
     "active_package_marker": 17,
-    "active_misc": 133,
+    "active_misc": 141,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
@@ -26,7 +26,7 @@
         "collect_for_page"
       ],
       "size_bytes": 1767,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-29",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/lint_code_hygiene.py"
@@ -41,7 +41,7 @@
       "what": "moteur_gsg.core — building blocs réutilisés par les 5 modes.",
       "imports": [],
       "size_bytes": 309,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-03",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/lint_code_hygiene.py"
@@ -84,7 +84,7 @@
       "what": "moteur_gsg.modes — les 5 situations type GSG (V26.AH minimal).",
       "imports": [],
       "size_bytes": 921,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/lint_code_hygiene.py"
@@ -394,7 +394,7 @@
       "what": "Helpers pour lire un SiteCapture et servir de base au scoring V3.",
       "imports": [],
       "size_bytes": 1068,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-08",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -440,6 +440,25 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "apify_enrich",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py",
+      "filename": "apify_enrich.py",
+      "what": "apify_enrich.py — Enrichit un capture.json natif avec les données visuelles Apify.",
+      "imports": [
+        "run_capture",
+        "shutil"
+      ],
+      "size_bytes": 15978,
+      "mtime": "2026-04-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "skills/site-capture/scripts/capture_site.py",
+        "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -528,7 +547,7 @@
         "httpx"
       ],
       "size_bytes": 11890,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-28",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -563,7 +582,7 @@
         "random"
       ],
       "size_bytes": 31025,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-30",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/gsg_lp/data_loaders.py",
@@ -680,7 +699,7 @@
         "score_ux"
       ],
       "size_bytes": 4586,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -829,7 +848,7 @@
         "annotations"
       ],
       "size_bytes": 9668,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-03",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -852,7 +871,7 @@
         "annotations"
       ],
       "size_bytes": 7232,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/modes/mode_2_replace.py"
@@ -877,7 +896,7 @@
         "field"
       ],
       "size_bytes": 19356,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-08",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
@@ -918,7 +937,7 @@
         "urlparse"
       ],
       "size_bytes": 15005,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
@@ -942,7 +961,7 @@
         "brief_v2"
       ],
       "size_bytes": 6734,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "scripts/_test_weglot_listicle_V26AE.py",
@@ -982,6 +1001,39 @@
       "criticality": "low"
     },
     {
+      "id": "build_bloc_v3_3",
+      "path": "scripts/build_bloc_v3_3.py",
+      "filename": "build_bloc_v3_3.py",
+      "what": "Build playbook/bloc_*_v3-3.json from existing bloc_*_v3.json files.",
+      "imports": [
+        "Path",
+        "__future__",
+        "annotations",
+        "copy"
+      ],
+      "size_bytes": 16618,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "build_dashboard_v12",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12.py",
+      "filename": "build_dashboard_v12.py",
+      "what": "build_dashboard_v12.py — Consolidate every client/page audit into a single JSON\nand inject it into growthcro_v12_dashboard.html.",
+      "imports": [
+        "OrderedDict"
+      ],
+      "size_bytes": 10954,
+      "mtime": "2026-04-14",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
       "id": "build_growth_audit_data",
       "path": "skills/site-capture/scripts/build_growth_audit_data.py",
       "filename": "build_growth_audit_data.py",
@@ -994,7 +1046,7 @@
         "timezone"
       ],
       "size_bytes": 37792,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-05",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1136,7 +1188,7 @@
         "validate_canonical_contract"
       ],
       "size_bytes": 760,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-05",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1155,7 +1207,7 @@
         "orchestrator"
       ],
       "size_bytes": 3998,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-06",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1174,7 +1226,7 @@
         "orchestrator"
       ],
       "size_bytes": 3801,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1214,7 +1266,7 @@
         "orchestrator"
       ],
       "size_bytes": 4729,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1437,7 +1489,7 @@
         "scripts"
       ],
       "size_bytes": 17604,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
@@ -1473,6 +1525,50 @@
       "criticality": "low"
     },
     {
+      "id": "compare_doctrine_v3_v3_3",
+      "path": "scripts/compare_doctrine_v3_v3_3.py",
+      "filename": "compare_doctrine_v3_v3_3.py",
+      "what": "Deterministic comparison V3.2.1 vs V3.3 doctrine on a per-criterion basis.",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations",
+        "compute_ice_estimate",
+        "growthcro",
+        "load_doctrine",
+        "schema"
+      ],
+      "size_bytes": 8543,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "component_detector",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector.py",
+      "filename": "component_detector.py",
+      "what": "component_detector.py — GrowthCRO V12 Phase 5.2 : Component Detector multi-signal.",
+      "imports": [
+        "Any",
+        "Counter",
+        "__future__",
+        "annotations",
+        "datetime"
+      ],
+      "size_bytes": 35037,
+      "mtime": "2026-04-14",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
+        "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "component_library",
       "path": "moteur_gsg/core/component_library.py",
       "filename": "component_library.py",
@@ -1485,10 +1581,29 @@
         "deepcopy"
       ],
       "size_bytes": 15639,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-06",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/planner.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "component_perception",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception.py",
+      "filename": "component_perception.py",
+      "what": "component_perception.py — Oracle V11 : Perception Sémantique & Spatiale",
+      "imports": [
+        "parse",
+        "urllib",
+        "urlparse"
+      ],
+      "size_bytes": 28334,
+      "mtime": "2026-04-13",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1523,6 +1638,27 @@
       "criticality": "low"
     },
     {
+      "id": "component_validator",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator.py",
+      "filename": "component_validator.py",
+      "what": "component_validator.py — GrowthCRO V12 Phase 5.4 : Critic/Validator.",
+      "imports": [
+        "Counter",
+        "__future__",
+        "annotations",
+        "datetime"
+      ],
+      "size_bytes": 11264,
+      "mtime": "2026-04-14",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
+        "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "components",
       "path": "moteur_gsg/core/css/components.py",
       "filename": "components.py",
@@ -1550,7 +1686,7 @@
         "annotations"
       ],
       "size_bytes": 5102,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-30",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1646,7 +1782,7 @@
         "load_client_context"
       ],
       "size_bytes": 13314,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-06",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -1743,7 +1879,7 @@
         "visual_intelligence"
       ],
       "size_bytes": 11712,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
@@ -1762,7 +1898,7 @@
         "annotations"
       ],
       "size_bytes": 19370,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-20",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1804,7 +1940,7 @@
         "annotations"
       ],
       "size_bytes": 20530,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-29",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -1825,7 +1961,7 @@
         "annotations"
       ],
       "size_bytes": 6118,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/prompt_assembly.py",
@@ -1848,7 +1984,7 @@
         "minimal_guards"
       ],
       "size_bytes": 8888,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-06",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/css/__init__.py",
@@ -1870,7 +2006,7 @@
         "urlparse"
       ],
       "size_bytes": 5630,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-30",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1954,7 +2090,7 @@
         "top_critical_for_page_type"
       ],
       "size_bytes": 16929,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-03",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/doctrine_planner.py",
@@ -2011,7 +2147,7 @@
         "field"
       ],
       "size_bytes": 15728,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-06",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -2055,7 +2191,7 @@
         "unicodedata"
       ],
       "size_bytes": 22949,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-20",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2145,7 +2281,7 @@
         "evidence_ledger"
       ],
       "size_bytes": 10258,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-29",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2166,7 +2302,7 @@
         "hashlib"
       ],
       "size_bytes": 12059,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-29",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/enrich_scores_with_evidence.py",
@@ -2194,7 +2330,7 @@
         "math"
       ],
       "size_bytes": 14233,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-29",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/experiment_engine.py"
@@ -2241,7 +2377,7 @@
         "shutil"
       ],
       "size_bytes": 17817,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-01",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/gsg_lp/data_loaders.py",
@@ -2316,7 +2452,7 @@
         "Path"
       ],
       "size_bytes": 8111,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-17",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/recos/orchestrator.py"
@@ -2341,7 +2477,7 @@
         "stdev"
       ],
       "size_bytes": 12538,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-27",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2357,7 +2493,7 @@
         "math"
       ],
       "size_bytes": 17095,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-18",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/gsg_lp/data_loaders.py",
@@ -2386,7 +2522,7 @@
         "segment_key"
       ],
       "size_bytes": 16696,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-20",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/recos/orchestrator.py",
@@ -2409,7 +2545,7 @@
         "math"
       ],
       "size_bytes": 12248,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-19",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/golden_differential.py"
@@ -2470,7 +2606,7 @@
         "subprocess"
       ],
       "size_bytes": 15371,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-02",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py"
@@ -2672,7 +2808,7 @@
         "gsg_humanlike_audit"
       ],
       "size_bytes": 2445,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_multi_judge/judges/__init__.py"
@@ -2692,7 +2828,7 @@
         "fix_html_runtime"
       ],
       "size_bytes": 3132,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_multi_judge/judges/__init__.py"
@@ -2723,7 +2859,7 @@
         "urlparse"
       ],
       "size_bytes": 20156,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/check_gsg_intake_wizard.py",
@@ -2766,7 +2902,7 @@
         "Path"
       ],
       "size_bytes": 26180,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/cli/capture_full.py"
@@ -2789,7 +2925,7 @@
         "defaultdict"
       ],
       "size_bytes": 17933,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2817,7 +2953,7 @@
         "io"
       ],
       "size_bytes": 7283,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/creative_route_selector.py",
@@ -2968,7 +3104,7 @@
         "unescape"
       ],
       "size_bytes": 28643,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -3060,7 +3196,7 @@
         "save_brief_v15"
       ],
       "size_bytes": 9888,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3088,7 +3224,7 @@
         "run_mode_1_persona_narrator"
       ],
       "size_bytes": 4778,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-05",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3116,7 +3252,7 @@
         "run_mode_1_persona_narrator"
       ],
       "size_bytes": 5449,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-05",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3142,7 +3278,7 @@
         "run_mode_1_persona_narrator"
       ],
       "size_bytes": 7008,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3162,7 +3298,7 @@
         "annotations"
       ],
       "size_bytes": 8509,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-29",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -3236,7 +3372,7 @@
         "orchestrator"
       ],
       "size_bytes": 6155,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-05",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/capture/cli.py",
@@ -3327,7 +3463,7 @@
         "moteur_multi_judge"
       ],
       "size_bytes": 10201,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-03",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/capture/cli.py",
@@ -3471,7 +3607,7 @@
         "annotations"
       ],
       "size_bytes": 7601,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -3490,9 +3626,10 @@
         "datetime"
       ],
       "size_bytes": 16223,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -3511,9 +3648,10 @@
         "hashlib"
       ],
       "size_bytes": 14110,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -3539,7 +3677,7 @@
         "pydantic"
       ],
       "size_bytes": 14177,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-20",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -3595,7 +3733,7 @@
         "lru_cache"
       ],
       "size_bytes": 7791,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-18",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/scoring/persist.py",
@@ -3616,7 +3754,7 @@
         "annotations"
       ],
       "size_bytes": 11914,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -3640,10 +3778,11 @@
         "perception_bridge"
       ],
       "size_bytes": 9232,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/scoring/ux.py",
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
         "skills/site-capture/scripts/perception_bridge.py",
         "skills/site-capture/scripts/score_coherence.py",
         "skills/site-capture/scripts/score_hero.py",
@@ -3665,7 +3804,31 @@
         "urlparse"
       ],
       "size_bytes": 10308,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-13",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "perception_pipeline",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
+      "filename": "perception_pipeline.py",
+      "what": "perception_pipeline.py — GrowthCRO V12 Phase 5 : Orchestrateur Layer 2 Perception.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "component_detector",
+        "component_validator",
+        "datetime",
+        "overlay_renderer",
+        "page_cleaner",
+        "subprocess"
+      ],
+      "size_bytes": 5883,
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -3798,7 +3961,7 @@
         "random"
       ],
       "size_bytes": 6998,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-19",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -3812,13 +3975,15 @@
       "imports": [
         "Callable",
         "Optional",
+        "Path",
         "__future__",
         "annotations"
       ],
-      "size_bytes": 3327,
+      "size_bytes": 6887,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/recos/schema.py",
         "growthcro/scoring/__init__.py",
         "growthcro/scoring/ux.py"
       ],
@@ -3846,7 +4011,7 @@
         "pipeline_single_pass"
       ],
       "size_bytes": 25751,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/run_gsg_full_pipeline.py"
@@ -3901,7 +4066,7 @@
         "pattern_library"
       ],
       "size_bytes": 9209,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/asset_resolver.py",
@@ -3938,6 +4103,23 @@
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
+      "criticality": "low"
+    },
+    {
+      "id": "precategorize_proposals",
+      "path": "scripts/precategorize_proposals.py",
+      "filename": "precategorize_proposals.py",
+      "what": "Pre-categorize 69 audit-based doctrine proposals for Mathis review (Task #18 DoD).",
+      "imports": [
+        "Path",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 9496,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {
@@ -4020,7 +4202,7 @@
         "subprocess"
       ],
       "size_bytes": 39591,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-08",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4047,7 +4229,7 @@
         "minimal_guards"
       ],
       "size_bytes": 14472,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4136,6 +4318,34 @@
       "criticality": "low"
     },
     {
+      "id": "reco_enricher",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
+      "filename": "reco_enricher.py",
+      "what": "reco_enricher.py — GrowthCRO V12 Phase 4.5 : enrichit les recommandations.",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations",
+        "datetime",
+        "detect_awareness",
+        "enrich_audit",
+        "enrich_reco",
+        "functools",
+        "lru_cache",
+        "perception_bridge",
+        "schwartz_detector",
+        "unicodedata"
+      ],
+      "size_bytes": 51419,
+      "mtime": "2026-04-18",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "reco_lifecycle",
       "path": "skills/site-capture/scripts/reco_lifecycle.py",
       "filename": "reco_lifecycle.py",
@@ -4149,7 +4359,7 @@
         "transition"
       ],
       "size_bytes": 10134,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-29",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4168,7 +4378,7 @@
         "defaultdict"
       ],
       "size_bytes": 10321,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4185,7 +4395,7 @@
         "annotations"
       ],
       "size_bytes": 14293,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-27",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4268,6 +4478,7 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -4421,7 +4632,7 @@
         "annotations"
       ],
       "size_bytes": 13096,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-20",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4436,15 +4647,19 @@
         "Any",
         "Path",
         "__future__",
-        "annotations"
+        "annotations",
+        "growthcro",
+        "pillars",
+        "resolve_doctrine_paths"
       ],
-      "size_bytes": 24271,
+      "size_bytes": 28115,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/recos/client.py",
         "growthcro/recos/orchestrator.py",
-        "growthcro/recos/prompts.py"
+        "growthcro/recos/prompts.py",
+        "scripts/compare_doctrine_v3_v3_3.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -4462,9 +4677,10 @@
         "schwartz_detector"
       ],
       "size_bytes": 10582,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
         "skills/site-capture/scripts/schwartz_detector.py"
       ],
       "status": "ACTIVE",
@@ -4484,7 +4700,7 @@
         "lru_cache"
       ],
       "size_bytes": 12645,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-18",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
@@ -4510,7 +4726,7 @@
         "urlparse"
       ],
       "size_bytes": 26566,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -4534,7 +4750,7 @@
         "math"
       ],
       "size_bytes": 22653,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-19",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
@@ -4553,7 +4769,7 @@
         "annotations"
       ],
       "size_bytes": 10923,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-30",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4571,7 +4787,7 @@
         "spatial_bridge"
       ],
       "size_bytes": 36012,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -4633,7 +4849,7 @@
         "timezone"
       ],
       "size_bytes": 28597,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -4656,13 +4872,32 @@
         "spatial_bridge"
       ],
       "size_bytes": 28343,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py",
         "skills/site-capture/scripts/score_page_type.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "score_site",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site.py",
+      "filename": "score_site.py",
+      "what": "score_site.py — Agrégateur multi-pages GrowthCRO.",
+      "imports": [
+        "datetime"
+      ],
+      "size_bytes": 9231,
+      "mtime": "2026-04-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "skills/site-capture/scripts/batch_rescore.py",
+        "skills/site-capture/scripts/capture_site.py",
+        "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -4677,7 +4912,7 @@
         "timezone"
       ],
       "size_bytes": 13896,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-04",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -4704,7 +4939,7 @@
         "web_vitals_adapter"
       ],
       "size_bytes": 25186,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-14",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -4726,7 +4961,7 @@
         "annotations"
       ],
       "size_bytes": 20378,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-13",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py",
@@ -4744,7 +4979,7 @@
         "Any"
       ],
       "size_bytes": 21409,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-15",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py",
@@ -4934,7 +5169,7 @@
         "spatial_scoring"
       ],
       "size_bytes": 4082,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-12",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/scoring/ux.py",
@@ -4956,10 +5191,37 @@
       "what": "spatial_enrich.py — Corrige capture.json avec les données spatiales Ghost (spatial_v9.json).",
       "imports": [],
       "size_bytes": 12646,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-13",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "spatial_scoring",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py",
+      "filename": "spatial_scoring.py",
+      "what": "spatial_scoring.py — Spatial enrichment layer for GrowthCRO V9",
+      "imports": [
+        "Any",
+        "Dict",
+        "List",
+        "Optional",
+        "Tuple",
+        "enrich_hero_spatial",
+        "enrich_ux_spatial",
+        "spatial_scoring",
+        "statistics"
+      ],
+      "size_bytes": 31426,
+      "mtime": "2026-04-12",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py",
+        "skills/site-capture/scripts/project_snapshot.py",
+        "skills/site-capture/scripts/spatial_bridge.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -5019,7 +5281,7 @@
         "annotations"
       ],
       "size_bytes": 20960,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-27",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -5070,7 +5332,7 @@
         "subprocess"
       ],
       "size_bytes": 7215,
-      "mtime": "2026-05-11",
+      "mtime": "2026-04-15",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -5191,7 +5453,7 @@
         "field"
       ],
       "size_bytes": 13404,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -5216,7 +5478,7 @@
         "planner"
       ],
       "size_bytes": 10375,
-      "mtime": "2026-05-11",
+      "mtime": "2026-05-07",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/hero_renderer.py",

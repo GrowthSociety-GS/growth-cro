@@ -1,0 +1,640 @@
+{
+  "version": "1.0.0",
+  "doctrine": "v3.3.0-cre-fusion",
+  "created": "2026-05-11",
+  "description": "Objections / Counter-Objections (O/CO) mapping per page_type — fusion CRE methodology (skill cro-methodology) + GrowthCRO doctrine V3.3. Used downstream by recos enricher to attach 'oco_anchors' to each generated reco.",
+  "references": {
+    "doctrine_blocs": "playbook/bloc_*_v3-3.json (criteria.oco_refs)",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v2.json",
+    "page_type_criteria": "playbook/page_type_criteria.json"
+  },
+  "cre_principle": "Don't guess, discover — every objection comes from real visitor research (surveys, support tickets, chat logs, NPS responses). Inventing objections produces ICE Confidence = base only; documented objections boost Confidence by +2-3 points.",
+  "schema": {
+    "objection": {
+      "id": "obj_<slug>",
+      "objection": "Plain-language objection a visitor would raise (1-2 sentences, in user voice).",
+      "stage": "awareness | consideration | decision | post-purchase",
+      "frequency_hint": "high | medium | low — observed in CRE consultancy work + GrowthCRO 56-client corpus.",
+      "counter_objections": [
+        {
+          "strategy": "Short name of the CO strategy (≤6 words).",
+          "criteria_refs": ["List of criterion IDs from playbook/bloc_*_v3-3.json that implement this CO."],
+          "rationale": "Why this CO works (1 sentence)."
+        }
+      ]
+    }
+  },
+  "universal_objections": {
+    "description": "Objections common across page_types — referenced by '*:<obj_id>' in bloc V3.3 criteria.oco_refs.",
+    "objections": [
+      {
+        "id": "obj_value_unclear",
+        "objection": "Je ne comprends pas ce que ce produit/service fait pour moi.",
+        "stage": "awareness",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "H1 promesse spécifique (bénéfice + cible + différenciateur)", "criteria_refs": ["hero_01"], "rationale": "Le H1 est le filtre 5-sec — il doit répondre Quoi/Pour-qui/Pourquoi sans scroll."},
+          {"strategy": "Subtitle qui ajoute info au H1", "criteria_refs": ["hero_02"], "rationale": "Le subtitle complète la promesse avec méthode, cible précise ou résultat mesurable."},
+          {"strategy": "Visuel hero = produit en usage", "criteria_refs": ["hero_04"], "rationale": "Démo visuelle réduit l'ambiguïté plus vite que tout texte."},
+          {"strategy": "Benefits > features (So What Test)", "criteria_refs": ["per_01"], "rationale": "Chaque feature traduite en bénéfice tangible : le visiteur comprend la valeur."},
+          {"strategy": "Test 5 secondes + ratio 1:1", "criteria_refs": ["hero_06"], "rationale": "Un seul message dominant force la lisibilité de la promesse."}
+        ]
+      },
+      {
+        "id": "obj_not_for_me",
+        "objection": "Ce n'est pas fait pour moi / mon profil.",
+        "stage": "awareness",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Cible identifiable explicite ('c'est pour moi')", "criteria_refs": ["coh_02", "hero_01"], "rationale": "La cible doit se reconnaître en 5 sec — persona reconnaissable, vocabulaire spécifique."},
+          {"strategy": "Positioning statement clair", "criteria_refs": ["coh_07"], "rationale": "Pour X qui Y, notre Z est le W qui... cadre l'offre dans le segment."},
+          {"strategy": "VOC verbatims réinjectés", "criteria_refs": ["psy_08"], "rationale": "Les mots exacts du client cible créent l'effet 'c'est exactement ça'."},
+          {"strategy": "Awareness match Schwartz", "criteria_refs": ["per_09"], "rationale": "Le ton hero matche le niveau de conscience du trafic — pas de hard-sell sur trafic cold."},
+          {"strategy": "Benefit Laddering profond", "criteria_refs": ["per_11"], "rationale": "Functional → emotional → identity : connecte avec différents niveaux de motivation."}
+        ]
+      },
+      {
+        "id": "obj_credibility_low",
+        "objection": "Pourquoi je devrais te croire ?",
+        "stage": "consideration",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Preuve sociale ATF (note + nb avis)", "criteria_refs": ["hero_05"], "rationale": "Chiffre vérifiable visible avant scroll — note 4.x/5 + dénominateur ≥100."},
+          {"strategy": "Preuves concrètes chiffrées", "criteria_refs": ["per_04"], "rationale": "Stats sourcées, études, cas client before/after — pas d'affirmations vagues."},
+          {"strategy": "Témoignages ≥3 formats", "criteria_refs": ["per_05"], "rationale": "Text + photo + vidéo crée densité crédible; distribution avis réaliste (pas 100% 5★)."},
+          {"strategy": "Autorité & expertise visibles", "criteria_refs": ["psy_05"], "rationale": "Signaux d'expertise (presse, certifs, fondateurs nommés) ancrent la crédibilité."},
+          {"strategy": "Mécanisme promo crédible", "criteria_refs": ["ut_02"], "rationale": "Si promo, donner la raison + cadre temporel — sinon perçu comme manipulation."}
+        ]
+      },
+      {
+        "id": "obj_risk_high",
+        "objection": "Et si ça ne marche pas / si je suis déçu ?",
+        "stage": "decision",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Risk Reversal explicite", "criteria_refs": ["psy_04"], "rationale": "Garantie satisfait/remboursé, essai gratuit, no-spam — réduit la perte perçue."},
+          {"strategy": "Sécurité technique visible", "criteria_refs": ["tech_05"], "rationale": "HTTPS, badges sécurité paiement — réduit risque transactionnel."},
+          {"strategy": "Objections principales levées", "criteria_refs": ["per_03"], "rationale": "Adresser frontalement les risques perçus dans le copy."},
+          {"strategy": "FAQ ciblée sur risques", "criteria_refs": ["per_06"], "rationale": "Une FAQ contre-objection (pas une base d'aide) traite les doutes restants."}
+        ]
+      },
+      {
+        "id": "obj_too_expensive",
+        "objection": "C'est trop cher / je ne peux pas me le permettre.",
+        "stage": "decision",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Ancrage prix/valeur", "criteria_refs": ["psy_03"], "rationale": "Framing du coût (vs alternative, vs ROI, vs coût d'inaction) repositionne la décision."},
+          {"strategy": "Benefits > features (ROI tangible)", "criteria_refs": ["per_01"], "rationale": "Si la valeur perçue dépasse le prix, l'objection prix disparaît."},
+          {"strategy": "Objections prix levées explicitement", "criteria_refs": ["per_03"], "rationale": "Adresser 'pourquoi ce prix' permet à l'acheteur de se justifier en interne."}
+        ]
+      },
+      {
+        "id": "obj_alternatives_exist",
+        "objection": "Pourquoi toi plutôt qu'un concurrent / la solution actuelle ?",
+        "stage": "consideration",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Positionnement différenciant + VPC", "criteria_refs": ["coh_04"], "rationale": "Jobs/Pains/Gains alignés sur la cible et différenciés vs concurrents."},
+          {"strategy": "Unique Mechanism nommé", "criteria_refs": ["coh_09"], "rationale": "Le 'comment' différenciant explicite (pas un nom marketing creux)."},
+          {"strategy": "Positioning Statement clair", "criteria_refs": ["coh_07"], "rationale": "Pour X qui Y, notre Z est le W qui... fixe la place dans le marché."},
+          {"strategy": "FAQ comparative", "criteria_refs": ["per_06"], "rationale": "FAQ 'En quoi vous différez de X ?' adresse la comparaison directement."}
+        ]
+      },
+      {
+        "id": "obj_complexity_high",
+        "objection": "C'est trop compliqué / je vais devoir tout apprendre.",
+        "stage": "consideration",
+        "frequency_hint": "medium",
+        "counter_objections": [
+          {"strategy": "Friction minimisée (5 types)", "criteria_refs": ["ux_08"], "rationale": "Audit cognitive/émotionnelle/fonctionnelle/visuelle/processuelle révèle les bloqueurs."},
+          {"strategy": "Hiérarchie visuelle claire", "criteria_refs": ["ux_01"], "rationale": "H1 unique > H2 > H3 + tailles cohérentes facilitent la compréhension."},
+          {"strategy": "Structure copy identifiable", "criteria_refs": ["per_10"], "rationale": "Un framework reconnaissable (AIDA, PAS) rend la page prévisible."},
+          {"strategy": "FAQ d'onboarding", "criteria_refs": ["per_06"], "rationale": "'Comment ça marche en 3 étapes' dissipe la peur de la complexité."}
+        ]
+      },
+      {
+        "id": "obj_what_next",
+        "objection": "OK, et maintenant qu'est-ce que je fais ?",
+        "stage": "decision",
+        "frequency_hint": "medium",
+        "counter_objections": [
+          {"strategy": "CTA primaire ATF + sticky", "criteria_refs": ["hero_03", "ux_04"], "rationale": "Le CTA répété aux bons endroits guide l'action — pas plus d'1 CTA primaire par fold."},
+          {"strategy": "Focus mono-action par page", "criteria_refs": ["coh_06"], "rationale": "Un seul objectif prioritaire élimine la paralysie décisionnelle."},
+          {"strategy": "Navigation non-parasite", "criteria_refs": ["ux_06"], "rationale": "Sur LP, le menu disperse — focus mono-objectif."}
+        ]
+      },
+      {
+        "id": "obj_friction_high",
+        "objection": "C'est trop d'efforts pour ce que j'en tire.",
+        "stage": "decision",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Touch targets ≥44px + thumb zone", "criteria_refs": ["ux_05"], "rationale": "Mobile-first réel — boutons cliquables au pouce, pas de scroll horizontal."},
+          {"strategy": "Form fields minimisés", "criteria_refs": ["ux_08"], "rationale": "Chaque field supprimé = +5% completion rate (Baymard)."},
+          {"strategy": "Performance Core Web Vitals", "criteria_refs": ["tech_01"], "rationale": "LCP/INP <2.5s — chaque 100ms = -1% CVR."},
+          {"strategy": "Accessibilité basique", "criteria_refs": ["tech_02"], "rationale": "Sémantique HTML correcte évite friction lecteur écran + clavier."}
+        ]
+      },
+      {
+        "id": "obj_attention_lost",
+        "objection": "Trop de choses partout, je ne sais plus où regarder.",
+        "stage": "awareness",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Test 5s + ratio 1:1", "criteria_refs": ["hero_06"], "rationale": "Un seul message dominant filtre les visiteurs en 5 sec."},
+          {"strategy": "Hiérarchie visuelle stricte", "criteria_refs": ["ux_01"], "rationale": "H1 unique + tailles décroissantes + 1 couleur accent."},
+          {"strategy": "Rythme de page (alternance)", "criteria_refs": ["ux_02"], "rationale": "Blocs denses / aérés + IPP équilibré évitent fatigue scan."},
+          {"strategy": "Message Hierarchy explicite", "criteria_refs": ["coh_08"], "rationale": "Primary / secondary / supporting — chaque info à sa place."},
+          {"strategy": "Proportion fold occupée raisonnable", "criteria_refs": ["ut_01"], "rationale": "Banner promo qui mange plus de 20% du fold = parasite."}
+        ]
+      },
+      {
+        "id": "obj_too_corporate",
+        "objection": "Ça sonne marketing / corporate / sans âme.",
+        "stage": "awareness",
+        "frequency_hint": "medium",
+        "counter_objections": [
+          {"strategy": "Voice & Tone formalisé", "criteria_refs": ["coh_05"], "rationale": "Grille V&T 4 dimensions assure cohérence et identité."},
+          {"strategy": "Angle narratif fondateur", "criteria_refs": ["per_02"], "rationale": "Storytelling humain (vs corporate) crée connexion."},
+          {"strategy": "Absence de jargon creux / AI slop", "criteria_refs": ["per_08"], "rationale": "Pas de 'révolutionnaire', 'disruptif', 'innovant'."},
+          {"strategy": "VOC verbatims clients", "criteria_refs": ["psy_08"], "rationale": "Les mots exacts des clients neutralisent la sensation marketing."},
+          {"strategy": "Ton cohérent avec la cible", "criteria_refs": ["per_07"], "rationale": "Tutoiement DTC food vs vouvoiement fintech B2B — alignement obligatoire."}
+        ]
+      },
+      {
+        "id": "obj_ai_slop",
+        "objection": "Ce contenu sent l'IA générée à plein nez.",
+        "stage": "awareness",
+        "frequency_hint": "medium",
+        "counter_objections": [
+          {"strategy": "Absence de jargon AI slop", "criteria_refs": ["per_08"], "rationale": "Patterns 'élevez votre business', 'libérez votre potentiel' — supprimer."},
+          {"strategy": "VOC verbatims réels", "criteria_refs": ["psy_08"], "rationale": "Verbatims clients littéraux signent l'authenticité."},
+          {"strategy": "Angle narratif fondateur", "criteria_refs": ["per_02"], "rationale": "Histoire spécifique vs récit générique."}
+        ]
+      },
+      {
+        "id": "obj_no_real_users",
+        "objection": "Personne ne l'utilise vraiment ?",
+        "stage": "consideration",
+        "frequency_hint": "medium",
+        "counter_objections": [
+          {"strategy": "Témoignages ≥3 formats", "criteria_refs": ["per_05"], "rationale": "Text + photo + vidéo nommés = preuve d'utilisateurs réels."},
+          {"strategy": "Preuves chiffrées (nb users)", "criteria_refs": ["per_04"], "rationale": "'100k+ entrepreneurs' sourcé > '+1000 satisfied users'."},
+          {"strategy": "Preuve sociale ATF", "criteria_refs": ["hero_05"], "rationale": "Logos clients reconnus + note chiffrée dans le fold 1."}
+        ]
+      },
+      {
+        "id": "obj_not_ready_yet",
+        "objection": "Pas maintenant, je verrai plus tard.",
+        "stage": "decision",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Urgence & rareté crédibles", "criteria_refs": ["psy_01"], "rationale": "Raison + cadre temporel — pas de fake scarcity."},
+          {"strategy": "Rareté & exclusivité", "criteria_refs": ["psy_02"], "rationale": "Cohorte limitée, fenêtre d'inscription — perception valeur."},
+          {"strategy": "Awareness match (post-aware)", "criteria_refs": ["per_09"], "rationale": "Sur trafic post-aware, urgence légitime active la décision."},
+          {"strategy": "Micro-engagements progressifs", "criteria_refs": ["psy_06"], "rationale": "Réciprocité + petites actions (lead magnet, calculateur) avancent vers conversion."}
+        ]
+      },
+      {
+        "id": "obj_too_long_to_read",
+        "objection": "Trop long, je n'ai pas le temps.",
+        "stage": "awareness",
+        "frequency_hint": "medium",
+        "counter_objections": [
+          {"strategy": "Scan-ability + reading pattern", "criteria_refs": ["ux_03"], "rationale": "F-pattern content / Z-pattern hero — adapté au page_type."},
+          {"strategy": "Hiérarchie + TL;DR", "criteria_refs": ["ux_01", "coh_08"], "rationale": "Headings clairs + résumé top permettent skim 30 sec."},
+          {"strategy": "FAQ ciblée", "criteria_refs": ["per_06"], "rationale": "Accordéons pliables pour lecteurs pressés."}
+        ]
+      },
+      {
+        "id": "obj_form_too_long",
+        "objection": "Trop de champs à remplir, je laisse tomber.",
+        "stage": "decision",
+        "frequency_hint": "high",
+        "counter_objections": [
+          {"strategy": "Friction form minimisée", "criteria_refs": ["ux_08"], "rationale": "5 types friction (cognitive, émotionnelle, fonctionnelle, visuelle, processuelle) — supprimer fields non critiques."},
+          {"strategy": "Risk Reversal sur form", "criteria_refs": ["psy_04"], "rationale": "'No spam', 'unsubscribe en 1 clic', 'GDPR-compliant' visible sous form."},
+          {"strategy": "Micro-engagements progressifs", "criteria_refs": ["psy_06"], "rationale": "Splitter form long en 2-3 étapes augmente completion."}
+        ]
+      },
+      {
+        "id": "obj_bait_and_switch",
+        "objection": "L'ad promettait X, la page parle de Y — où est l'offre ?",
+        "stage": "awareness",
+        "frequency_hint": "medium",
+        "counter_objections": [
+          {"strategy": "Scent matching ad → LP", "criteria_refs": ["coh_03"], "rationale": "Message + visuel + offre cohérents entre ad creative et hero LP."},
+          {"strategy": "Cohérence offre × produit-hero", "criteria_refs": ["ut_03"], "rationale": "Banner promo en cohérence avec produit montré dans hero."},
+          {"strategy": "Scent trail paid match", "criteria_refs": ["ut_04"], "rationale": "Visuel utility element matche le visuel de l'ad creative."}
+        ]
+      }
+    ]
+  },
+  "page_types": {
+    "lp_listicle": {
+      "description": "Listicle éditorial format article — pas de CTA hero primaire, CTAs in-line dans les sections.",
+      "common_objections": [
+        {
+          "id": "lp_listicle_obj_001",
+          "objection": "Pas le temps de lire un long article.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "ToC + anchors", "criteria_refs": ["ux_03"], "rationale": "Navigation interne par sections facilite skim."},
+            {"strategy": "TL;DR section top", "criteria_refs": ["hero_02", "coh_08"], "rationale": "Résumé executif visible avant l'article complet."},
+            {"strategy": "Reading time indicator", "criteria_refs": ["psy_03"], "rationale": "'8 min de lecture' cadre l'engagement attendu."}
+          ]
+        },
+        {
+          "id": "lp_listicle_obj_002",
+          "objection": "C'est un article sponsorisé / pas crédible.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Crédibilité auteur/source", "criteria_refs": ["psy_05"], "rationale": "Auteur nommé, expertise visible, source citée."},
+            {"strategy": "Preuves chiffrées sourcées", "criteria_refs": ["per_04"], "rationale": "Études citées avec liens — pas d'affirmations creuses."},
+            {"strategy": "Verbatims clients dans contenu", "criteria_refs": ["psy_08"], "rationale": "Témoignages réels intégrés au récit éditorial."}
+          ]
+        },
+        {
+          "id": "lp_listicle_obj_003",
+          "objection": "Pourquoi cette liste plutôt qu'une autre ?",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Méthodologie de sélection explicite", "criteria_refs": ["coh_04", "per_03"], "rationale": "Critères de sélection + biais déclarés ajoutent crédibilité."},
+            {"strategy": "Date de publication + mise à jour", "criteria_refs": ["per_04"], "rationale": "Article daté et frais inspire confiance."}
+          ]
+        },
+        {
+          "id": "lp_listicle_obj_004",
+          "objection": "C'est juste pour me vendre quelque chose.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Style éditorial vs sales pitch", "criteria_refs": ["per_07", "coh_05"], "rationale": "Ton journalistique évite la perception commerciale."},
+            {"strategy": "Multiple options dans listicle", "criteria_refs": ["per_03"], "rationale": "Présenter alternatives (même les concurrents) renforce confiance."}
+          ]
+        },
+        {
+          "id": "lp_listicle_obj_005",
+          "objection": "Et après ? Je fais quoi ?",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "CTAs in-line dans sections", "criteria_refs": ["ux_04"], "rationale": "Après chaque item, CTA naturel ('Essayer X', 'Voir Y')."},
+            {"strategy": "Conclusion + next step", "criteria_refs": ["coh_06"], "rationale": "Section finale guide vers une action principale unique."}
+          ]
+        },
+        {
+          "id": "lp_listicle_obj_006",
+          "objection": "Trop d'options me paralysent.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Hiérarchie 'best for X' par item", "criteria_refs": ["coh_08", "per_10"], "rationale": "'Best for solo founders', 'Best for enterprise' segmente la décision."}
+          ]
+        }
+      ]
+    },
+    "lp_leadgen": {
+      "description": "LP de capture de leads — focus form, value prop + risk reversal critiques.",
+      "common_objections": [
+        {
+          "id": "lp_leadgen_obj_001",
+          "objection": "Pourquoi te donner mon email ?",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Lead magnet ultra-spécifique", "criteria_refs": ["hero_01", "hero_02"], "rationale": "Promesse claire de ce que reçoit le lead (audit, ebook, calculateur)."},
+            {"strategy": "Risk Reversal (no spam, GDPR)", "criteria_refs": ["psy_04"], "rationale": "'Pas de spam, unsubscribe en 1 clic' réduit risque perçu."},
+            {"strategy": "Preuve lead magnet (preview)", "criteria_refs": ["per_05", "per_04"], "rationale": "Teasing cover/TOC du lead magnet rassure."}
+          ]
+        },
+        {
+          "id": "lp_leadgen_obj_002",
+          "objection": "Trop de champs à remplir.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Form 1-3 champs maximum", "criteria_refs": ["ux_08"], "rationale": "Email seul + name = 80% du retour. Plus de fields = -20% completion."},
+            {"strategy": "Form en 2 étapes", "criteria_refs": ["psy_06"], "rationale": "Splitter long form en micro-engagements (étape 1: email, étape 2: profil)."}
+          ]
+        },
+        {
+          "id": "lp_leadgen_obj_003",
+          "objection": "On va me harceler par email.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Engagement de cadence", "criteria_refs": ["psy_04", "coh_03"], "rationale": "'1 email par semaine maximum' cadre l'attente."},
+            {"strategy": "Témoignages d'abonnés", "criteria_refs": ["per_05"], "rationale": "'J'ai aimé la qualité, jamais spammé' valide."}
+          ]
+        },
+        {
+          "id": "lp_leadgen_obj_004",
+          "objection": "Pas convaincu que cette ressource vaille mon attention.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Preview du lead magnet", "criteria_refs": ["per_04", "hero_04"], "rationale": "Sneak peek visuel (cover, TOC, screenshot) crée désir."},
+            {"strategy": "Crédibilité auteur/expertise", "criteria_refs": ["psy_05"], "rationale": "L'auteur du contenu est crédible (bio courte, réalisations)."}
+          ]
+        },
+        {
+          "id": "lp_leadgen_obj_005",
+          "objection": "Page distrayante, je ne sais pas où regarder.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Pas de menu, focus unique", "criteria_refs": ["ux_06", "coh_06"], "rationale": "Sur LP leadgen, supprimer menu — focus mono-action."},
+            {"strategy": "Test 5s + ratio 1:1", "criteria_refs": ["hero_06"], "rationale": "Un seul message dominant + un seul CTA."}
+          ]
+        },
+        {
+          "id": "lp_leadgen_obj_006",
+          "objection": "Je ne connais pas cette marque.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Témoignages nommés + photo", "criteria_refs": ["per_05"], "rationale": "Vrais noms + photos + entreprises = crédibilité immédiate."},
+            {"strategy": "Logos clients/presse", "criteria_refs": ["hero_05"], "rationale": "Logos reconnus dans hero rassurent."}
+          ]
+        },
+        {
+          "id": "lp_leadgen_obj_007",
+          "objection": "Pas le moment, je vois plus tard.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Urgence légitime (deadline cohorte)", "criteria_refs": ["psy_01", "psy_02"], "rationale": "Si fenêtre d'inscription réelle, l'afficher avec date."},
+            {"strategy": "Bénéfice immédiat (audit en 24h)", "criteria_refs": ["per_01"], "rationale": "Délai court réduit la procrastination."}
+          ]
+        }
+      ]
+    },
+    "pdp": {
+      "description": "Product Detail Page — conversion = purchase. Galerie, info structurée, social proof, CTA add-to-cart.",
+      "common_objections": [
+        {
+          "id": "pdp_obj_001",
+          "objection": "Je ne vois pas bien le produit.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Galerie multi-angle (≥3 visuels)", "criteria_refs": ["hero_04"], "rationale": "Produit seul + contexte + détail/texture = vision complète."},
+            {"strategy": "Visuel hero produit en usage", "criteria_refs": ["hero_04"], "rationale": "Voir le produit utilisé > photo packshot blanc."}
+          ]
+        },
+        {
+          "id": "pdp_obj_002",
+          "objection": "Est-ce de qualité ?",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Note + nb avis ATF", "criteria_refs": ["hero_05"], "rationale": "4.8/5 — 2,347 avis sous CTA."},
+            {"strategy": "Témoignages ≥3 formats", "criteria_refs": ["per_05"], "rationale": "Avis text + photo + vidéo = densité de preuve."},
+            {"strategy": "Info produit structurée", "criteria_refs": ["per_04"], "rationale": "Composition, dimensions, origine — pas de zone d'ombre."}
+          ]
+        },
+        {
+          "id": "pdp_obj_003",
+          "objection": "Trop cher pour ce que c'est.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Ancrage prix vs alternative", "criteria_refs": ["psy_03"], "rationale": "Comparaison vs concurrent OU coût d'inaction."},
+            {"strategy": "Décomposition coût par unité/jour", "criteria_refs": ["psy_03", "per_01"], "rationale": "'0.50€/jour' < '180€/an' psychologiquement."},
+            {"strategy": "Risk Reversal (satisfait/remboursé)", "criteria_refs": ["psy_04"], "rationale": "Garantie 30j réduit la friction prix."}
+          ]
+        },
+        {
+          "id": "pdp_obj_004",
+          "objection": "Et si ça ne me va pas / ne fonctionne pas ?",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Risk Reversal explicite", "criteria_refs": ["psy_04"], "rationale": "Retours gratuits, satisfait/remboursé, essai."},
+            {"strategy": "FAQ objection-driven", "criteria_refs": ["per_06"], "rationale": "'Et si je ne suis pas satisfait ?' adressé."}
+          ]
+        },
+        {
+          "id": "pdp_obj_005",
+          "objection": "Trop de variantes, je ne sais pas laquelle choisir.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Sélecteur visuel + best seller", "criteria_refs": ["ux_03", "psy_06"], "rationale": "Swatches couleurs + 'most popular' badge guide la décision."},
+            {"strategy": "Quiz/configurateur pour personnaliser", "criteria_refs": ["coh_06", "ux_04"], "rationale": "Si gamme large, configurer rend choix simple."}
+          ]
+        },
+        {
+          "id": "pdp_obj_006",
+          "objection": "Combien de temps avant livraison ?",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Délai livraison ATF", "criteria_refs": ["psy_04"], "rationale": "'Reçu en 48h' visible avant ajout panier."},
+            {"strategy": "Trust badges paiement", "criteria_refs": ["tech_05"], "rationale": "Visa, Mastercard, sécurité — réassurance technique."}
+          ]
+        },
+        {
+          "id": "pdp_obj_007",
+          "objection": "Personne n'a vraiment essayé ce produit récemment.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Avis datés récents", "criteria_refs": ["per_05"], "rationale": "Avis ≤3 mois > avis 2023."},
+            {"strategy": "UGC vidéo (TikTok, Reels)", "criteria_refs": ["per_05", "psy_05"], "rationale": "Vidéos utilisatrices réelles = preuve sociale max."}
+          ]
+        }
+      ]
+    },
+    "lp_sales": {
+      "description": "Sales page longue forme — éditoriale, narrative arc complète, multiple CTAs in-line.",
+      "common_objections": [
+        {
+          "id": "lp_sales_obj_001",
+          "objection": "Trop long, je ne lirai jamais ça.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Structure copy AIDA/PAS reconnaissable", "criteria_refs": ["per_10"], "rationale": "Framework permet skim — chaque section a sa fonction."},
+            {"strategy": "Scan-ability + headings tous niveaux", "criteria_refs": ["ux_03", "ux_01"], "rationale": "F-pattern + H1/H2/H3 + bullets permettent skim."},
+            {"strategy": "Multiple CTAs in-line", "criteria_refs": ["ux_04"], "rationale": "Visiteurs convaincus peuvent agir sans lire tout."}
+          ]
+        },
+        {
+          "id": "lp_sales_obj_002",
+          "objection": "Sounds too good to be true.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Preuves chiffrées sourcées", "criteria_refs": ["per_04"], "rationale": "Études, cas client before/after, stats vérifiables."},
+            {"strategy": "Témoignages ≥3 formats avec photos/noms", "criteria_refs": ["per_05"], "rationale": "Vrais clients identifiables."},
+            {"strategy": "Mention des limites/exclusions", "criteria_refs": ["per_03", "coh_05"], "rationale": "'Cela ne fonctionne pas pour X' renforce crédibilité."}
+          ]
+        },
+        {
+          "id": "lp_sales_obj_003",
+          "objection": "Hard sell, je sens la pression.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Awareness match (post-aware)", "criteria_refs": ["per_09"], "rationale": "Si trafic cold, supprimer urgence — éducation avant vente."},
+            {"strategy": "Urgence crédible (raison + date)", "criteria_refs": ["psy_01", "ut_02"], "rationale": "Cohorte limitée OU fin promo réelle — pas de fake scarcity."},
+            {"strategy": "Ton storytelling vs sales pitch", "criteria_refs": ["per_02", "per_07"], "rationale": "Narratif fondateur évite perception manipulation."}
+          ]
+        },
+        {
+          "id": "lp_sales_obj_004",
+          "objection": "Pourquoi acheter maintenant et pas plus tard ?",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Coût d'inaction explicite", "criteria_refs": ["psy_04", "per_03"], "rationale": "Combien perdu chaque mois sans la solution."},
+            {"strategy": "Bonus limité dans le temps", "criteria_refs": ["psy_01"], "rationale": "Bonus visible jusqu'à date X — légitime si réel."}
+          ]
+        },
+        {
+          "id": "lp_sales_obj_005",
+          "objection": "C'est combien exactement, je dois scroller pour trouver.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Prix ancré tôt + comparé", "criteria_refs": ["psy_03"], "rationale": "Prix dévoilé après value prop, comparé alternatives."},
+            {"strategy": "Décomposition coût (par jour, par feature)", "criteria_refs": ["psy_03"], "rationale": "0.50€/jour < 180€/an psychologiquement."}
+          ]
+        }
+      ]
+    },
+    "pricing": {
+      "description": "Pricing page — comparaison plans, anchor pricing, FAQ pricing.",
+      "common_objections": [
+        {
+          "id": "pricing_obj_001",
+          "objection": "Trop de plans, je ne sais pas lequel choisir.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Badge 'Most popular' sur 1 plan", "criteria_refs": ["psy_06"], "rationale": "Réduit la paralysie en suggérant le défaut social."},
+            {"strategy": "Comparison table claire", "criteria_refs": ["ux_03", "coh_08"], "rationale": "Features par plan en colonnes, ✓/✗ visuels."},
+            {"strategy": "Recommandation par persona", "criteria_refs": ["coh_02", "per_09"], "rationale": "'Best for solo', 'Best for teams' guide selon profil."}
+          ]
+        },
+        {
+          "id": "pricing_obj_002",
+          "objection": "C'est plus cher que ce que j'attendais.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Annual discount visible", "criteria_refs": ["psy_03"], "rationale": "'-20% facturation annuelle' ancre la valeur."},
+            {"strategy": "ROI calculé par tier", "criteria_refs": ["per_01", "psy_03"], "rationale": "'Économise X heures/mois = $Y' transforme coût en investissement."}
+          ]
+        },
+        {
+          "id": "pricing_obj_003",
+          "objection": "Je veux tester avant de payer.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Free trial / freemium visible", "criteria_refs": ["psy_04"], "rationale": "'14j gratuit, no credit card' réduit risque max."},
+            {"strategy": "Money-back guarantee", "criteria_refs": ["psy_04"], "rationale": "Garantie 30j post-achat = filet sécurité."}
+          ]
+        },
+        {
+          "id": "pricing_obj_004",
+          "objection": "Et si j'ai besoin de plus / moins de fonctionnalités ?",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Upgrade/downgrade flexible", "criteria_refs": ["coh_03", "per_03"], "rationale": "'Change anytime' rassure les hésitants."},
+            {"strategy": "Custom/enterprise tier", "criteria_refs": ["coh_07", "psy_06"], "rationale": "Pour usages spéciaux, link 'Contact us'."}
+          ]
+        },
+        {
+          "id": "pricing_obj_005",
+          "objection": "FAQ ne répond pas à mes questions spécifiques.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "FAQ pricing objection-driven", "criteria_refs": ["per_06"], "rationale": "'Puis-je annuler ?', 'Y a-t-il des frais cachés ?' adressés."},
+            {"strategy": "Chat / sales contact visible", "criteria_refs": ["ux_04"], "rationale": "Chat ou link 'Talk to sales' pour cas non couverts."}
+          ]
+        }
+      ]
+    },
+    "home": {
+      "description": "Homepage — acquisition large, value prop globale marque, routing vers sous-pages.",
+      "common_objections": [
+        {
+          "id": "home_obj_001",
+          "objection": "Je ne comprends pas ce que cette marque fait.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Value prop globale (5-sec test)", "criteria_refs": ["coh_01", "hero_01"], "rationale": "Quoi/Pour-qui/Pourquoi en 5 sec."},
+            {"strategy": "Cible identifiable", "criteria_refs": ["coh_02"], "rationale": "Persona reconnaissable dans copy."}
+          ]
+        },
+        {
+          "id": "home_obj_002",
+          "objection": "Où dois-je cliquer pour ce qui m'intéresse ?",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Navigation claire vers sous-cat", "criteria_refs": ["ux_06"], "rationale": "Menu intuitif, max 2 clics vers produit clé."},
+            {"strategy": "Zones d'orientation (persona routing)", "criteria_refs": ["coh_02", "per_09"], "rationale": "'For solo founders', 'For enterprise' segmente le trafic."}
+          ]
+        },
+        {
+          "id": "home_obj_003",
+          "objection": "Qui sont leurs clients ?",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Logos clients reconnus ATF", "criteria_refs": ["hero_05"], "rationale": "6-12 logos clients connus = preuve sociale max."},
+            {"strategy": "Témoignages multi-formats", "criteria_refs": ["per_05"], "rationale": "Cas clients nommés + résultats chiffrés."}
+          ]
+        },
+        {
+          "id": "home_obj_004",
+          "objection": "C'est trop générique / corporate.",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Voice & Tone formalisé", "criteria_refs": ["coh_05"], "rationale": "Identité marque visible dans copy."},
+            {"strategy": "Storytelling fondateur visible", "criteria_refs": ["per_02"], "rationale": "Humanise la marque."}
+          ]
+        },
+        {
+          "id": "home_obj_005",
+          "objection": "Et après, je fais quoi ?",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "CTA primaire = action funnel entry", "criteria_refs": ["hero_03"], "rationale": "'Start free trial', 'Book a demo', 'See pricing'."},
+            {"strategy": "Secondary CTAs orientation", "criteria_refs": ["ux_04"], "rationale": "Explore, Learn more pour visiteurs en awareness."}
+          ]
+        }
+      ]
+    },
+    "advertorial": {
+      "description": "Style éditorial/presse — hook éditorial, soft sell, CTA après intro.",
+      "common_objections": [
+        {
+          "id": "advertorial_obj_001",
+          "objection": "Pub déguisée, pas authentique.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Disclosure 'sponsorisé' visible", "criteria_refs": ["coh_05", "psy_05"], "rationale": "Transparence légale + éthique."},
+            {"strategy": "Style éditorial vrai (journaliste)", "criteria_refs": ["per_07", "per_02"], "rationale": "Pas de hard sell, ton presse."}
+          ]
+        },
+        {
+          "id": "advertorial_obj_002",
+          "objection": "Pas crédible cette source.",
+          "frequency_hint": "high",
+          "counter_objections": [
+            {"strategy": "Logo média 'comme vu dans'", "criteria_refs": ["hero_05", "psy_05"], "rationale": "Logos presse reconnus."},
+            {"strategy": "Auteur nommé + bio courte", "criteria_refs": ["psy_05"], "rationale": "Journaliste/expert identifiable."}
+          ]
+        },
+        {
+          "id": "advertorial_obj_003",
+          "objection": "Trop long, où veulent-ils en venir ?",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Hook éditorial fort ATF", "criteria_refs": ["hero_01", "per_02"], "rationale": "Question/promesse qui crée curiosité."},
+            {"strategy": "CTA soft after intro", "criteria_refs": ["ux_04"], "rationale": "CTA introduit naturellement après 30-50% lecture."}
+          ]
+        },
+        {
+          "id": "advertorial_obj_004",
+          "objection": "C'est lequel le produit dont ils parlent ?",
+          "frequency_hint": "medium",
+          "counter_objections": [
+            {"strategy": "Produit nommé clairement (pas en hero)", "criteria_refs": ["coh_03", "per_03"], "rationale": "Nom produit révélé après value building."}
+          ]
+        }
+      ]
+    }
+  },
+  "stats": {
+    "universal_objections": 17,
+    "page_type_objections": 38,
+    "total_objections": 55,
+    "page_types_covered": 7
+  },
+  "usage": {
+    "downstream_consumer": "growthcro/recos/orchestrator.py — pour chaque reco, attache 'oco_anchors' depuis criteria.oco_refs",
+    "upstream_research": "data/captures/<client>/client_intent.json.research_inputs — visitor_surveys / chat_logs / support_tickets fournissent les vrais verbatims",
+    "scoring_impact": "research_first=True criteria avec research_inputs absent → ICE Confidence pénalisé -2 points (cf. ice_template.confidence_factors)"
+  }
+}

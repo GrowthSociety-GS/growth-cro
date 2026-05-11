@@ -1,0 +1,915 @@
+{
+  "block": "5",
+  "pillar": "psycho",
+  "label": "Leviers Psychologiques",
+  "max": 24,
+  "maxLegacyV3_0": 18,
+  "description": "Détection et qualité des leviers comportementaux (Cialdini, biais cognitifs, émotions). V3.1.0 : 8 critères × 3 pts = 24 pts (6 baseline + N-07 déclencheurs émotionnels + N-08 Voice of Customer). Le Psycho évalue les MÉCANISMES de persuasion inconsciente — urgence, rareté, ancrage, aversion à la perte, autorité, réciprocité, émotions primaires, voix client literal — distincts du Bloc 2 qui évalue la qualité du COPY. Pondérations pageType activées + 2 killers.",
+  "version": "3.3.0-cre-fusion",
+  "status": "locked",
+  "updatedAt": "2026-04-13",
+  "lockedAt": "2026-04-10",
+  "amendedAt": "2026-05-11",
+  "lockedBy": "GrowthCRO pipeline — baseline Japhy validée (Home 83, PDP 83, Collection 67, Quiz 25)",
+  "changelog": [
+    {
+      "version": "3.3.0-cre-fusion",
+      "date": "2026-05-11",
+      "trigger": "Task #18 webapp-stratosphere — fusion CRE methodology (skill cro-methodology) avec V3.2.1.",
+      "notes": [
+        "Backward compatible : V3.2.1 reste défaut pour 56 clients existants ; V3.3 sur opt-in via doctrine_version='3.3'.",
+        "Per-criterion enrichments : research_first flag, oco_refs (to cre_oco_tables.json), ice_template (per-pillar starting point).",
+        "Bloc-level cre_alignment section : 9step_phase / principle / research_inputs_required.",
+        "Criteria sémantique INCHANGÉE : label, scoring (top/ok/critical), examples, antiPatterns, killer flags, weight, pageTypes — tous préservés.",
+        "Anti-pattern #3 respecté : on enrichit, on ne réinvente pas la grille."
+      ]
+    },
+    {
+      "version": "3.2.1-draft",
+      "date": "2026-05-03",
+      "trigger": "Sprint 2 V26.AA gate failure — psy_01 et psy_02 marquaient CRITICAL sur listicles éditoriaux Weglot/ChatGPT (qui ne jouent JAMAIS la carte urgence/rareté — anti-brand SaaS premium type Linear/Cursor). Capping killer rule injuste sur format où l'urgence est un anti-pattern.",
+      "notes": [
+        "psy_01.pageTypes : '*' → liste explicite excluant home/listicle/advertorial/blog/comparison. Décision Mathis Q-C : home aussi exclu (Weglot/Linear/Stripe ne font jamais urgence en home — anti-brand SaaS premium par défaut, peut être réactivé client par client via override).",
+        "psy_02.pageTypes : idem. Rareté/exclusivité = même logique anti-brand SaaS premium.",
+        "Page types GARDÉS : pdp, collection, lp_sales, lp_leadgen, lp_saas, quiz_vsl, pricing, vsl, challenge, bundle_standalone, squeeze, webinar, thank_you_page. Ce sont les formats où urgence/rareté FONCTIONNELLE (pas fake) reste un levier valable.",
+        "Sémantique critères INCHANGÉE : label, scoring (top/ok/critical), examples, antiPatterns, killer flags, weight. Seul le filtre d'applicabilité change.",
+        "Rétrocompat : score_psycho.py n'a PAS de CRITERIA_PAGE_TYPES interne (filtrage se fera via applicability_matrix_v1.json + score_contextual_overlay.py rule_content_urgency_na, qui doit être étendue à psy_02 + advertorial/comparison dans le même commit).",
+        "Validation : python3 scripts/doctrine.py smoke test → top_critical_for_page_type('listicle', 7) NE contient PLUS psy_01/psy_02."
+      ]
+    },
+    {
+      "version": "3.2.0-draft",
+      "date": "2026-04-18",
+      "notes": [
+        "P0.1 fix: semantic_overlay (Haiku 4.5) now consumed by score_page_type.py for 18 creative criteria — was silently orphaned before.",
+        "P0.2 full rerun: 366 pages rescored with semantic overlay applied.",
+        "P0.3 cleanup: 71 stale golden/ score_page_type.json archived + stray fichet/ dir archived.",
+        "P1.A doctrine: new data/doctrine/criteria_scope_matrix_v1.json classifying 47 criteria as ASSET (22) vs ENSEMBLE (25) with 7 synergy groups.",
+        "P1.B runtime: new score_contextual_overlay.py applying synergy compensation rules (HERO_RESCUE, PROOF_RESCUE, FIVE_SEC_RESCUE, BENEFIT_FLOW_RESCUE, MANIPULATION_FLAG, UX_RHYTHM_RESCUE, COHERENCE_QUORUM). 25/287 pages rescued, +29.5 pts net.",
+        "P1.C applicability: new data/doctrine/applicability_matrix_v1.json with business_type axis (ecommerce/lead_gen/saas/content/app) and legacy `lp` pageType alias. 8 failures → 0. Full pipeline 366/366.",
+        "ASSET criteria (tech_*, psy_02, counts) are INVARIANT from contextual layer. Only ENSEMBLE criteria eligible for rescue."
+      ]
+    },
+    {
+      "version": "3.0.0",
+      "date": "2026-04-10",
+      "note": "Baseline Japhy — 6 critères × 3 pts (Urgence/Rareté/Ancrage/Aversion perte/Autorité/Réciprocité)"
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-04-13",
+      "note": "Doctrine V12 : +N-07 psy_07 (4 déclencheurs émotionnels peur/désir/aspiration/appartenance), +N-08 psy_08 (Voice of Customer literal — verbatims clients réinjectés). viewport_check ajouté. pageTypeWeights étendus aux 9 nouveaux page types. max 18 → 24."
+    }
+  ],
+  "sourcesConsolidated": [
+    "skills/growth-site-generator/references/conversion_psychology.md — Cialdini 6 principes + 10 biais cognitifs détaillés avec code patterns et niveaux d'intensité",
+    "skills/cro-auditor/references/cro_principles.md — hiérarchie social proof, frictions, urgence/rareté crédible (critère V1 3.6)",
+    "skills/cro-auditor/references/audit_criteria.md — V1 critère 3.6 urgence/rareté + 3.5 claims vérifiables",
+    "playbook/bloc_2_sources.md — Notion sections preuves sociales, FAQ anti-doute, reason why",
+    "skills/site-capture/scripts/native_capture.py section 11 psychoSignals — données extractées : urgency_words, scarcity_words, anchoring, loss_framing, authority, social_proof_depth",
+    "playbook/AXIOMES.md — axiome 1 falsifiabilité, axiome 2 ternaire, axiome 3 contextualité"
+  ],
+  "designDecisions": {
+    "D1_criteriaCount": "6 critères × 3 pts = /18. Distinction nette avec Bloc 2 Persuasion : Persuasion = qualité du message/copy, Psycho = mécanismes comportementaux sous-jacents (Cialdini, biais cognitifs). Zéro overlap : per_04 évalue la PRÉSENCE de preuves, psy_05 évalue la CRÉDIBILITÉ et la PROFONDEUR de l'autorité. per_01 évalue benefits>features, psy_03 évalue l'ancrage prix/valeur.",
+    "D2_pageTypeWeighting": "Pondérations 0.5/0.7/1/1.2/1.3 par critère × pageType. L'urgence/rareté est critique sur lp_sales, pricing mais faible sur blog. L'ancrage est critique sur pdp, pricing. Renormalisation identique Bloc 2.",
+    "D3_killers": "2 killers : psy_01 (urgence fake = cap 6/18, détruit la confiance) ; psy_05 (zéro signal d'autorité sur page critique = cap 10/18). Moins de killers que Bloc 2 car l'absence de leviers psycho = opportunité manquée, pas forcément un défaut critique.",
+    "D4_ethicalGuardrail": "NOUVEAU par rapport aux autres blocs : chaque critère a un champ 'ethical_line' qui définit la limite entre persuasion légitime et manipulation. Un levier fake/trompeur ne score jamais Top, il déclenche un killer ou un Critical.",
+    "D5_checkMethods": "100% textual+heuristic — tous les signaux sont détectables via native_capture.py psychoSignals. Aucun critère ne nécessite Apify."
+  },
+  "pageTypeWeights": {
+    "psy_01": {
+      "home": 0.7,
+      "pdp": 1.0,
+      "collection": 0.7,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.2,
+      "lp_saas": 1.0,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.3,
+      "pricing": 1.2,
+      "blog": 0.5,
+      "listicle": 0.9,
+      "comparison": 1.0,
+      "vsl": 1.3,
+      "challenge": 1.3,
+      "thank_you_page": 0.3,
+      "bundle_standalone": 1.2,
+      "squeeze": 1.2,
+      "webinar": 1.2
+    },
+    "psy_02": {
+      "home": 0.7,
+      "pdp": 1.3,
+      "collection": 1.0,
+      "lp_sales": 1.3,
+      "lp_leadgen": 0.7,
+      "lp_saas": 0.7,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "blog": 0.5,
+      "listicle": 0.8,
+      "comparison": 1.1,
+      "vsl": 1.2,
+      "challenge": 1.2,
+      "thank_you_page": 0.4,
+      "bundle_standalone": 1.3,
+      "squeeze": 1.2,
+      "webinar": 1.1
+    },
+    "psy_03": {
+      "home": 0.7,
+      "pdp": 1.3,
+      "collection": 1.0,
+      "lp_sales": 1.2,
+      "lp_leadgen": 0.7,
+      "lp_saas": 1.0,
+      "advertorial": 1.0,
+      "quiz_vsl": 0.7,
+      "pricing": 1.3,
+      "blog": 0.5,
+      "listicle": 0.8,
+      "comparison": 1.3,
+      "vsl": 1.2,
+      "challenge": 1.1,
+      "thank_you_page": 0.5,
+      "bundle_standalone": 1.3,
+      "squeeze": 0.7,
+      "webinar": 1.1
+    },
+    "psy_04": {
+      "home": 1.0,
+      "pdp": 0.7,
+      "collection": 0.7,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.0,
+      "lp_saas": 1.0,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.2,
+      "pricing": 1.0,
+      "blog": 0.7,
+      "listicle": 0.9,
+      "comparison": 1.1,
+      "vsl": 1.3,
+      "challenge": 1.2,
+      "thank_you_page": 0.7,
+      "bundle_standalone": 1.2,
+      "squeeze": 1.1,
+      "webinar": 1.1
+    },
+    "psy_05": {
+      "home": 1.0,
+      "pdp": 1.0,
+      "collection": 0.7,
+      "lp_sales": 1.2,
+      "lp_leadgen": 1.2,
+      "lp_saas": 1.3,
+      "advertorial": 1.0,
+      "quiz_vsl": 0.7,
+      "pricing": 1.0,
+      "blog": 1.0,
+      "listicle": 1.0,
+      "comparison": 1.1,
+      "vsl": 1.2,
+      "challenge": 1.1,
+      "thank_you_page": 0.6,
+      "bundle_standalone": 1.0,
+      "squeeze": 1.0,
+      "webinar": 1.3
+    },
+    "psy_06": {
+      "home": 1.0,
+      "pdp": 0.7,
+      "collection": 0.7,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.3,
+      "lp_saas": 1.3,
+      "advertorial": 0.7,
+      "quiz_vsl": 1.3,
+      "pricing": 1.0,
+      "blog": 0.7,
+      "listicle": 0.8,
+      "comparison": 0.9,
+      "vsl": 1.1,
+      "challenge": 1.3,
+      "thank_you_page": 1.0,
+      "bundle_standalone": 1.0,
+      "squeeze": 1.4,
+      "webinar": 1.2
+    },
+    "psy_07": {
+      "home": 1.0,
+      "pdp": 1.1,
+      "collection": 0.8,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.2,
+      "lp_saas": 1.0,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.2,
+      "pricing": 0.9,
+      "blog": 0.8,
+      "listicle": 1.1,
+      "comparison": 0.9,
+      "vsl": 1.3,
+      "challenge": 1.3,
+      "thank_you_page": 0.6,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.2,
+      "webinar": 1.1
+    },
+    "psy_08": {
+      "home": 1.1,
+      "pdp": 1.2,
+      "collection": 0.9,
+      "lp_sales": 1.3,
+      "lp_leadgen": 1.2,
+      "lp_saas": 1.2,
+      "advertorial": 1.3,
+      "quiz_vsl": 1.1,
+      "pricing": 1.0,
+      "blog": 0.9,
+      "listicle": 1.2,
+      "comparison": 1.1,
+      "vsl": 1.3,
+      "challenge": 1.2,
+      "thank_you_page": 0.6,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.0,
+      "webinar": 1.1
+    }
+  },
+  "normalization": "V3.1.0 : Total pondéré = Σ(score_i × weight_i) sur les 8 critères. Renormalisation : final = (total_pondéré / Σ(3 × weight_i)) × 24. Le score final est /24 (legacy /18 si filtre sur psy_01-06 uniquement).",
+  "killers": [
+    {
+      "id": "psy_01_fake_urgency",
+      "rule": "Si urgence/rareté détectée ET jugée fake (countdown qui reset, stock fictif toujours identique, deadline permanente), cap du total Bloc 5 à 6/18. Urgence fake détruit la confiance globale du site.",
+      "detection": "has_countdown=true ET aucune date réelle dans deadline_text, OU scarcity_words > 3 sans stock_indicator réel"
+    },
+    {
+      "id": "psy_05_zero_authority",
+      "rule": "Si psy_05 == 0 (zéro signal d'autorité : ni expert, ni certification, ni presse, ni award) sur une page primary/mandatory, cap du total Bloc 5 à 10/18",
+      "detection": "expert_mentions == 0 AND certification_mentions == 0 AND media_mentions == 0 AND award_mentions == 0 AND has_press_logos == false"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "psy_01",
+      "label": "Urgence & Rareté — crédibilité et calibration",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "pdp",
+        "collection",
+        "lp_sales",
+        "lp_leadgen",
+        "lp_saas",
+        "quiz_vsl",
+        "pricing",
+        "vsl",
+        "challenge",
+        "bundle_standalone",
+        "squeeze",
+        "webinar",
+        "thank_you_page"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Placement du countdown/badge urgency peut différer D vs M (hero D vs sticky footer M). Scoring séparé, min(D,M) pour aggregation.",
+      "principle": "Cialdini 1.5 Rareté + conversion_psychology.md 2.3 Loss Aversion combinés",
+      "scoring": {
+        "top": "Urgence/rareté PRÉSENTE et CRÉDIBLE. Conditions : (a) au moins 1 signal d'urgence ou rareté vérifiable (countdown lié à une date réelle, stock réel, places limitées justifiées, offre early bird avec deadline), (b) calibration dosée (1-2 mentions, pas de sur-sollicitation), (c) placement stratégique (near CTA, pricing, ou checkout — pas en hero sauf launch). Exemples : 'Offre de lancement -30% jusqu'au 15 mai' avec countdown réel ; 'Plus que 3 places pour la cohorte de juin' (coaching) ; 'Stock limité — fabriqué par lot de 200' (artisan DTC).",
+        "ok": "Urgence/rareté ABSENTE ou très subtile. La page ne mentionne ni deadline, ni stock limité, ni countdown — c'est une opportunité manquée mais pas un défaut. OU urgence présente mais trop discrète (un mot 'limité' perdu dans le footer). OU rareté crédible mais mal placée (loin du CTA). Exemples : e-commerce evergreen sans mention de stock ; SaaS sans trial deadline ; landing page sans countdown.",
+        "critical": "Urgence/rareté FAKE ou ABUSIVE. Conditions killer : (a) countdown qui reset au reload (vérifiable via refresh), (b) 'Plus que X en stock' qui ne change jamais, (c) urgence permanente ('offre limitée' affichée en continu depuis des mois), (d) sur-sollicitation (3+ urgency words dans le même viewport), (e) deadline passée encore affichée. Déclenche le killer psy_01_fake_urgency."
+      },
+      "ethical_line": "Urgence réelle vérifiable = légitime. Urgence fake/régénérante = manipulation. Test : 'Si on revient demain, l'urgence aura-t-elle changé ?' Si non → fake.",
+      "dataFields": [
+        "psychoSignals.urgency_words",
+        "psychoSignals.has_countdown",
+        "psychoSignals.has_deadline",
+        "psychoSignals.scarcity_words",
+        "psychoSignals.has_stock_indicator"
+      ],
+      "killer": true,
+      "killerRule": "Si urgence fake détectée → cap Bloc 5 à 6/18",
+      "notionRefId": "cro-urgence-rarete",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_not_ready_yet",
+        "*:obj_credibility_low"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    },
+    {
+      "id": "psy_02",
+      "label": "Rareté & Exclusivité — perception de valeur",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "pdp",
+        "collection",
+        "lp_sales",
+        "lp_leadgen",
+        "lp_saas",
+        "quiz_vsl",
+        "pricing",
+        "vsl",
+        "challenge",
+        "bundle_standalone",
+        "squeeze",
+        "webinar",
+        "thank_you_page"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "both_viewports_single_score",
+      "principle": "Cialdini 1.5 Rareté (stock) + conversion_psychology.md Effet IKEA + Scarcity patterns",
+      "scoring": {
+        "top": "La page active au moins 2 leviers de valeur perçue parmi : (a) rareté produit (édition limitée, fabrication artisanale, stock visible, 'fait main'), (b) exclusivité d'accès (réservé aux membres, early access, liste d'attente, invitation only), (c) personnalisation/sur-mesure ('votre formule unique', configurateur, quiz personnalisé = effet IKEA), (d) ancrage comparatif implicite (vs alternative plus chère, vs coût de l'inaction). Les signaux sont crédibles et contextualisés. Exemples : Japhy 'recette sur-mesure adaptée à son profil' ; SaaS 'Beta privée — 200 places' ; DTC beauty 'formule personnalisée selon votre type de peau'.",
+        "ok": "1 seul levier activé, ou leviers présents mais génériques/peu crédibles. Exemples : 'Produit exclusif' sans explication ; personnalisation mentionnée mais pas opérationnelle (pas de configurateur/quiz) ; 'Édition limitée' sur un produit clairement mass market.",
+        "critical": "Zéro levier de valeur perçue. La page présente le produit/service comme interchangeable, sans aucune rareté, exclusivité, personnalisation ou ancrage. Le visiteur n'a aucune raison psychologique de préférer CE produit/service. Exemples : page produit générique sans aucun élément différenciant ; pricing sans ancrage (juste un prix, pas de 'valeur de X€')."
+      },
+      "ethical_line": "Rareté réelle (production limitée, beta fermée) = légitime. Fausse exclusivité (tout le monde a accès, 'invitation only' mais le lien est public) = manipulation.",
+      "dataFields": [
+        "psychoSignals.scarcity_words",
+        "psychoSignals.has_stock_indicator",
+        "psychoSignals.has_free_offer",
+        "structure.ctas",
+        "pageSpecific"
+      ],
+      "killer": false,
+      "notionRefId": "cro-rarete-exclusivite",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_not_ready_yet"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    },
+    {
+      "id": "psy_03",
+      "label": "Ancrage prix/valeur — framing de la décision",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Visibilité du prix barré / 3 tiers pricing peut chuter sur mobile (tiers empilés, prix barré moins lisible). Scoring séparé.",
+      "principle": "conversion_psychology.md 2.1 Ancrage + 2.2 Effet Leurre + 2.3 Aversion à la Perte (framing)",
+      "scoring": {
+        "top": "Au moins 2 techniques d'ancrage actives parmi : (a) prix barré / ancien prix visible (ancrage classique — <s>, <del>, line-through), (b) framing 'valeur de X€, votre prix Y€' (ancrage valeur perçue), (c) comparaison au coût quotidien ('moins de 2€/jour'), (d) coût de l'inaction ('vous perdez X€/mois sans cette solution'), (e) 3 tiers de pricing avec leurre (middle tier overpriced vs premium), (f) badge promo/réduction visible (-X%, 'économisez X€'), (g) garantie satisfait-ou-remboursé (risk reversal = ancrage zéro risque). Exemples : Japhy prix barré + 'à partir de 1,90€/jour' + satisfait ou remboursé ; SaaS 3 plans avec 'most popular' ; coaching 'Investissement : 2999€ — Valeur réelle : 8500€'.",
+        "ok": "1 seule technique d'ancrage, ou ancrage présent mais discret/mal placé. Exemples : prix barré sans mention de la valeur originale ; garantie dans le footer uniquement ; comparaison au quotidien mais sans visibilité.",
+        "critical": "Zéro ancrage. Le prix est affiché seul, sans contexte, sans comparaison, sans garantie. Le visiteur n'a aucun cadre de référence pour juger si c'est 'cher' ou 'pas cher'. Exemples : page pricing avec juste 'Plan Pro : 49€/mois' sans rien d'autre ; e-commerce sans prix barré ni badge promo."
+      },
+      "ethical_line": "Ancrage honnête (vrai ancien prix, vraie valeur des composants) = légitime. Prix gonflé artificiellement pour simuler une réduction = manipulation.",
+      "dataFields": [
+        "psychoSignals.has_crossed_price",
+        "psychoSignals.has_discount_badge",
+        "psychoSignals.has_free_offer",
+        "psychoSignals.has_guarantee",
+        "psychoSignals.loss_framing"
+      ],
+      "killer": false,
+      "notionRefId": "cro-ancrage-prix",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_too_expensive"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    },
+    {
+      "id": "psy_04",
+      "label": "Aversion à la perte & Risk Reversal — réduction du risque perçu",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Micro-réassurances near CTA (SSL, garantie, badges) peuvent disparaître/être cachées sur mobile. Scoring séparé.",
+      "principle": "conversion_psychology.md 2.3 Aversion à la Perte + Cialdini engagement + Friction de confiance (cro_principles.md 1.3)",
+      "scoring": {
+        "top": "La page utilise au moins 2 leviers de réduction du risque perçu parmi : (a) garantie explicite (satisfait ou remboursé, essai gratuit, sans engagement, 'risk-free'), (b) framing perte vs gain (le copy mentionne ce qu'on PERD en n'agissant pas, pas seulement ce qu'on gagne), (c) reversibilité (annulation facile, pas de piège abonnement, 'sans CB'), (d) réassurance livraison/retour (retour gratuit, échange, SAV réactif), (e) micro-réassurances near CTA ('paiement sécurisé', 'données protégées', cadenas). Les signaux sont visibles et proches des points de décision (CTA, pricing, checkout). Exemples : 'Essai 30 jours gratuit — sans CB, sans engagement. Si ça ne te convient pas, tu ne paies rien.' + badge SSL near CTA ; 'Tu perds actuellement X€/mois en conversions ratées — arrête l'hémorragie'.",
+        "ok": "1 seul levier de risk reversal, ou signaux présents mais enfouis. Exemples : garantie mentionnée dans les CGV mais pas sur la page ; 'satisfait ou remboursé' dans le footer sans visibilité ; framing gain uniquement ('gagnez X') sans jamais mentionner le coût de l'inaction.",
+        "critical": "Zéro risk reversal. Pas de garantie visible, pas de framing perte, pas d'essai gratuit, pas de réassurance near CTA. Le visiteur supporte 100% du risque perçu. Exemples : SaaS payant sans essai gratuit et sans garantie ; e-commerce sans mention de retour ni échange ; page avec CTA 'Acheter maintenant' sans aucune réassurance."
+      },
+      "ethical_line": "Garantie honorée = légitime. Garantie affichée mais conditions impossibles dans les CGV = manipulation.",
+      "dataFields": [
+        "psychoSignals.has_guarantee",
+        "psychoSignals.loss_framing",
+        "psychoSignals.has_free_offer",
+        "hero.microReassurance",
+        "structure.ctas"
+      ],
+      "killer": false,
+      "notionRefId": "cro-risk-reversal",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_risk_high"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    },
+    {
+      "id": "psy_05",
+      "label": "Autorité & Crédibilité — signaux d'expertise",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Logos presse/certifications peuvent être rétrécis/cachés sur mobile, voire rompre le scroll rhythm. Scoring séparé.",
+      "principle": "Cialdini 1.4 Autorité + conversion_psychology.md — credentials, certifications, media mentions, expert endorsement",
+      "scoring": {
+        "top": "Au moins 3 signaux d'autorité différents parmi : (a) expert/spécialiste mentionné par nom + titre ('Dr. Martin, vétérinaire nutritionniste'), (b) certifications/labels visibles (bio, ISO, vegan, made in France, B-Corp), (c) mentions presse/média ('Vu dans Forbes, Le Monde, BFM'), (d) awards/récompenses ('Élu produit de l'année', 'Best SaaS 2025'), (e) chiffres d'expérience ('15 ans d'expertise', '500+ audits réalisés', '50K clients'), (f) partenariats institutionnels (universités, labos, organismes reconnus). Les signaux sont spécifiques (noms, dates, chiffres) et vérifiables. Exemples : Japhy 'vétérinaire nutritionniste' + 'fabriqué en France' + certifications + nombre de chiens nourris.",
+        "ok": "1-2 signaux d'autorité, ou signaux présents mais vagues/non vérifiables. Exemples : 'experts reconnus' sans nommer personne ; logo certification mais pas nommée ; 'des milliers de clients' sans chiffre précis ; 'approuvé par des professionnels' sans spécifier lesquels.",
+        "critical": "Zéro signal d'autorité. La page ne mentionne aucun expert, aucune certification, aucun média, aucun award, aucune expérience chiffrée. Le visiteur ne sait pas pourquoi il devrait faire confiance à cette marque plutôt qu'à une autre. Déclenche le killer psy_05_zero_authority sur pages primary/mandatory."
+      },
+      "ethical_line": "Credentials vérifiables = légitime. Faux titres, faux logos media, faux awards = manipulation. Test : 'Peut-on vérifier en 2 minutes ?' (conversion_psychology.md).",
+      "dataFields": [
+        "psychoSignals.expert_mentions",
+        "psychoSignals.certification_mentions",
+        "psychoSignals.media_mentions",
+        "psychoSignals.award_mentions",
+        "psychoSignals.has_press_logos",
+        "psychoSignals.user_count_mentions"
+      ],
+      "killer": true,
+      "killerRule": "Si score == 0 sur page primary/mandatory → cap Bloc 5 à 10/18",
+      "notionRefId": "cro-autorite-credibilite",
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_credibility_low"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    },
+    {
+      "id": "psy_06",
+      "label": "Réciprocité & Micro-engagements — progression vers la conversion",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Forms multi-étapes, quiz, calculateurs doivent fonctionner sur mobile (thumb zone, chunking). Scoring séparé si expérience dégrade.",
+      "principle": "Cialdini 1.1 Réciprocité + 1.2 Engagement & Cohérence + conversion_psychology.md Effet IKEA",
+      "scoring": {
+        "top": "La page utilise au moins 2 leviers de réciprocité/engagement parmi : (a) valeur gratuite AVANT la demande (guide, calculateur, outil gratuit, mini-audit, échantillon, démo sans CB), (b) micro-engagements progressifs (quiz multi-étapes, configurateur, 'choisir mon plan' avant le formulaire), (c) progressive disclosure (formulaire chunked, informations révélées par étape, pas tout d'un coup), (d) lead magnet de vraie valeur (pas un PDF de 2 pages), (e) free trial / freemium généreux. Les micro-engagements sont UTILES pour l'utilisateur (pas juste pour le business). Exemples : quiz Japhy 'Quel est le profil de mon chien ?' → résultat personnalisé → recommandation ; SaaS calculateur ROI gratuit → résultat → CTA ; DTC échantillon offert.",
+        "ok": "1 seul levier, ou leviers peu développés. Exemples : newsletter en échange de l'email (faible réciprocité) ; formulaire en une seule étape sans progression ; 'télécharger notre brochure' (faible valeur perçue).",
+        "critical": "Zéro réciprocité et zéro micro-engagement. La page demande l'action (achat, inscription, contact) sans rien donner en échange, sans progression, sans faciliter la décision. L'unique CTA est 'Acheter' ou 'Contactez-nous' sans aucune étape intermédiaire."
+      },
+      "ethical_line": "Réciprocité vraie (valeur réelle offerte) = légitime. Fausse réciprocité (lead magnet mince, 'gratuit' mais paywall caché, faux free trial) = manipulation. Test : 'Est-ce que quelqu'un paierait pour ce gratuit ?' (conversion_psychology.md).",
+      "dataFields": [
+        "structure.forms",
+        "structure.ctas",
+        "psychoSignals.has_free_offer",
+        "pageSpecific"
+      ],
+      "killer": false,
+      "notionRefId": "cro-reciprocite-engagement",
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_not_ready_yet",
+        "*:obj_friction_high"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    },
+    {
+      "id": "psy_07",
+      "label": "Déclencheurs émotionnels — 4 émotions primaires activées",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "both_viewports_single_score",
+      "origin": "N-07 Nouveau critère doctrine V12",
+      "principle": "Joseph LeDoux (amygdale) + Antonio Damasio (somatic markers) + Nir Eyal (Hooked) + doctrine V12 : 4 émotions primaires — peur/désir/aspiration/appartenance",
+      "emotional_triggers_framework": {
+        "peur": {
+          "description": "Peur de perdre quelque chose de valeur, peur du manque, peur du regret, peur du risque (santé, finance, réputation, relation)",
+          "signals_textual": [
+            "Perdez-vous...",
+            "Arrêtez de...",
+            "Ne laissez plus...",
+            "Sans X, vous risquez...",
+            "Avant qu'il soit trop tard"
+          ],
+          "signals_visual": [
+            "statistiques anxiogènes visualisées",
+            "avant-sans solution / après-avec solution dramatisé"
+          ],
+          "ethical_line": "Peur basée sur un risque RÉEL documenté = légitime. Peur inventée / fear mongering sur risque mineur ou fictif = manipulation."
+        },
+        "desir": {
+          "description": "Désir immédiat de gratification — plaisir, gain rapide, récompense tangible, transformation visible",
+          "signals_textual": [
+            "Obtenez...",
+            "Transformez...",
+            "Révélez...",
+            "Dès ce soir...",
+            "Résultats en X jours"
+          ],
+          "signals_visual": [
+            "avant/après visuels",
+            "promesse chiffrée tangible",
+            "product shots aspirationnels"
+          ]
+        },
+        "aspiration": {
+          "description": "Envie de devenir / d'accéder à une identité valorisante — statut, version meilleure de soi, accomplissement, expertise",
+          "signals_textual": [
+            "Devenez...",
+            "Rejoignez les...",
+            "La méthode des...",
+            "Libérez votre...",
+            "Maîtrisez..."
+          ],
+          "signals_visual": [
+            "avatar de succès / role model en photo/vidéo",
+            "badge de club/statut",
+            "before-after identité"
+          ]
+        },
+        "appartenance": {
+          "description": "Envie de faire partie d'une communauté, d'un mouvement, de ne plus être seul avec un problème",
+          "signals_textual": [
+            "Rejoignez X clients...",
+            "Vous n'êtes pas seul...",
+            "La communauté de...",
+            "Comme vous...",
+            "Ensemble..."
+          ],
+          "signals_visual": [
+            "photos de communauté",
+            "chiffres d'utilisateurs",
+            "UGC/témoignages",
+            "badges 'joined X'"
+          ]
+        }
+      },
+      "scoring": {
+        "top": "La page active ≥3 des 4 déclencheurs émotionnels avec au moins 2 signaux par émotion activée (textuel + visuel), émotions cohérentes avec le persona, mixte équilibré (pas 100% peur anxiogène). Exemples : Japhy active aspiration (devenez un bon maître) + désir (chien en meilleure santé) + appartenance (rejoignez 50K maîtres) + peur dosée (risque nutritionnel).",
+        "ok": "2 émotions activées avec 1-2 signaux chacune, OU 3-4 émotions mais signaux faibles/génériques. Exemples : hero aspirationnel + un témoignage appartenance, mais pas de désir tangible ni de peur.",
+        "critical": "0-1 émotion activée — page froide, factuelle, liste de features sans aucune résonance émotionnelle. OU activation uniquement sur 'peur' avec fear mongering déséquilibré."
+      },
+      "ethical_line": "Émotions basées sur un insight client réel = légitime. Exploitation cynique d'anxiétés profondes ou création artificielle de souffrance pour vendre = manipulation. Test : 'L'émotion mobilisée correspond-elle à un vrai enjeu du persona ?'",
+      "antiPatterns": [
+        "Fear mongering unidimensionnel (100% peur, aucune aspiration/désir)",
+        "Aspiration générique creuse ('devenez meilleur') sans contenu",
+        "Appartenance sans preuve (just 'rejoignez-nous' sans communauté réelle)",
+        "Désir abstrait (pas de promesse tangible, pas de chiffre, pas de timing)"
+      ],
+      "dataFields": [
+        "psychoSignals.loss_framing",
+        "hero.copy",
+        "structure.testimonials",
+        "psychoSignals.user_count_mentions"
+      ],
+      "killer": false,
+      "notionRefId": "cro-declencheurs-emotionnels",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_value_unclear"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    },
+    {
+      "id": "psy_08",
+      "label": "Voice of Customer — verbatims clients littéraux réinjectés",
+      "pillar": "psycho",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": "both_viewports_single_score",
+      "origin": "N-08 Nouveau critère doctrine V12",
+      "principle": "VoC research (Jen Havice, Joanna Wiebe Copyhackers) + Message-Market Fit : le meilleur copy est celui écrit par vos clients, pas par vous.",
+      "voc_framework": {
+        "definition": "Voice of Customer = intégration littérale dans le copy de verbatims clients (mots exacts, expressions, métaphores) captés depuis reviews, interviews, support tickets, social listening.",
+        "sources_acceptables": [
+          "Reviews produit avec quote littérale",
+          "Témoignages clients avec verbatim exact (pas reformulé par le marketeur)",
+          "Verbatims issus de tickets support ou enquêtes",
+          "Social listening (tweets, commentaires, forums)",
+          "Interviews Jobs-To-Be-Done enregistrées et transcrites"
+        ],
+        "detection_signals": [
+          "Témoignages avec guillemets exacts (pas résumés)",
+          "Expressions familières/non-marketing dans le H1 ou sections ('j'en peux plus de...', 'ça me gonflait de...')",
+          "Métaphores client reprises (expressions vernaculaires)",
+          "FAQ formulée exactement comme les clients la posent (pas corporate)",
+          "Body copy qui utilise les mots EXACTS que la cible utilise (pas le vocabulaire marketing)"
+        ],
+        "anti_signal_marketer_speak": [
+          "'Solutions innovantes', 'expérience optimale', 'expertise à votre service' = marketeur-speak",
+          "Reformulation corporate de témoignages ('Jean a adoré notre approche holistique')",
+          "H1 qui utilise jargon marque au lieu du vocabulaire client"
+        ]
+      },
+      "scoring": {
+        "top": "La page intègre ≥3 signaux VoC clairs : (a) témoignages avec verbatims exacts entre guillemets (pas résumés), (b) au moins 1 formulation vernaculaire dans le copy principal (H1, sub, ou body), (c) FAQ formulée comme le client la pose. Le vocabulaire matche celui du persona. Exemples : Reason 'Zéro placebo, zéro bullshit, zéro effet de mode' (langage client), témoignages 'j'avais tout essayé' cité littéralement.",
+        "ok": "1-2 signaux VoC (ex: témoignages exacts mais copy principal en marketeur-speak, OU formulation vernaculaire isolée dans le hero mais témoignages résumés)",
+        "critical": "Zéro VoC — copy 100% marketeur-speak, témoignages absents ou reformulés, vocabulaire déconnecté du persona. La page parle de l'entreprise dans le langage de l'entreprise, pas du client."
+      },
+      "ethical_line": "Verbatims réels = légitime. Faux témoignages ou témoignages inventés = manipulation. Signal de faux témoignage : tous les témoignages ont la même structure/longueur, aucun négatif nuancé, noms de stock photos.",
+      "antiPatterns": [
+        "Témoignages tous 5 étoiles avec structure identique",
+        "Reformulation marketing de vraies citations ('Super produit !' → 'Excellent rapport qualité-prix')",
+        "Jargon marque qui écrase le vocabulaire client",
+        "Absence totale de témoignages verbatims (just notes/étoiles sans citation)"
+      ],
+      "dataFields": [
+        "structure.testimonials",
+        "hero.copy",
+        "pageSpecific.faq",
+        "structure.reviews"
+      ],
+      "killer": false,
+      "notionRefId": "cro-voice-of-customer",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_not_for_me",
+        "*:obj_too_corporate"
+      ],
+      "ice_template": {
+        "impact_estimator": "medium-high — triggers must match VOC, otherwise zero or negative",
+        "confidence_factors": {
+          "base": 6,
+          "boost_if_voc_available": 9,
+          "penalty_if_manipulation_risk": -3
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "garantie_redesign": 5
+        }
+      }
+    }
+  ],
+  "businessCategoryWeighting": {
+    "_description": "Matrice pondération granulaire par critère × business category pour Bloc 5 Psycho. V12 doctrine 2026-04-13.",
+    "_usage": "weight_final(crit, biz) = pageTypeWeight[crit,pageType] × businessCategoryWeighting.matrix[crit][biz]",
+    "_categories": [
+      "dtc_subscription",
+      "ecom_product",
+      "saas_b2b",
+      "saas_b2c",
+      "lead_gen",
+      "marketplace",
+      "media_content",
+      "luxe",
+      "service_local",
+      "edu"
+    ],
+    "_baseline": "1.0 = neutre. >1.0 = critique pour cette catégorie. <1.0 = moins déterminant pour cette catégorie.",
+    "_philosophy": "Les biais psycho ne s'activent pas pareil selon l'acte d'achat : urgence crédible en Ecom mais fatale en Luxe ; Autorité = saas_b2b/edu ; Emotion = DTC/Luxe/Media. Le risk reversal est universellement critique sauf en Media.",
+    "_addedIn": "V12 — 2026-04-14",
+    "matrix": {
+      "psy_01": {
+        "dtc_subscription": 1.0,
+        "ecom_product": 1.3,
+        "saas_b2b": 0.7,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.1,
+        "marketplace": 1.2,
+        "media_content": 0.9,
+        "luxe": 0.6,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "psy_02": {
+        "dtc_subscription": 1.0,
+        "ecom_product": 1.1,
+        "saas_b2b": 0.9,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.0,
+        "marketplace": 1.2,
+        "media_content": 0.9,
+        "luxe": 1.4,
+        "service_local": 0.9,
+        "edu": 1.1
+      },
+      "psy_03": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.2,
+        "saas_b2c": 1.2,
+        "lead_gen": 0.9,
+        "marketplace": 1.3,
+        "media_content": 0.9,
+        "luxe": 1.1,
+        "service_local": 1.1,
+        "edu": 1.2
+      },
+      "psy_04": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.2,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.0,
+        "marketplace": 1.2,
+        "media_content": 0.8,
+        "luxe": 0.9,
+        "service_local": 1.2,
+        "edu": 1.2
+      },
+      "psy_05": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.4,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 1.0,
+        "media_content": 1.0,
+        "luxe": 1.2,
+        "service_local": 1.3,
+        "edu": 1.4
+      },
+      "psy_06": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.2,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.4,
+        "marketplace": 0.9,
+        "media_content": 1.2,
+        "luxe": 0.9,
+        "service_local": 1.0,
+        "edu": 1.3
+      },
+      "psy_07": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.1,
+        "saas_b2b": 0.9,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.0,
+        "marketplace": 0.9,
+        "media_content": 1.3,
+        "luxe": 1.4,
+        "service_local": 1.1,
+        "edu": 1.2
+      },
+      "psy_08": {
+        "dtc_subscription": 1.3,
+        "ecom_product": 1.3,
+        "saas_b2b": 1.2,
+        "saas_b2c": 1.2,
+        "lead_gen": 1.1,
+        "marketplace": 1.1,
+        "media_content": 1.0,
+        "luxe": 1.0,
+        "service_local": 1.2,
+        "edu": 1.1
+      }
+    },
+    "_notes": [
+      "psy_01 min en Luxe (0.6) : l'urgence dévalue. Min en SaaS B2B (0.7) : l'urgence sonne spam.",
+      "psy_01 max en Ecom (1.3) : stock/promo sont des leviers historiques.",
+      "psy_02 max en Luxe (1.4) : l'exclusivité EST le produit (édition limitée, série numérotée).",
+      "psy_04 max en DTC/Ecom (1.3) : money-back garantie = pivot conversion décisif.",
+      "psy_05 max en Edu (1.4) : autorité académique = condition d'entrée. SaaS B2B (1.4) : trust + logos clients.",
+      "psy_06 max en Lead Gen (1.4) : micro-engagements (checklist, benchmark) = core du funnel.",
+      "psy_07 max en Luxe (1.4) + DTC (1.3) : désir > besoin rationnel.",
+      "psy_08 max en DTC/Ecom (1.3) : verbatims = langage cible = CTR ads."
+    ]
+  },
+  "_amendments": [
+    {
+      "marker": "V12 — BCW matrix for Psycho",
+      "at": "2026-04-14",
+      "applied_by": "project_snapshot + manual CRO expert weighting"
+    }
+  ],
+  "doctrineReferences": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v1.json",
+    "note": "v3.2 adds ENSEMBLE-aware scoring via score_contextual_overlay.py. ASSET criteria unaffected."
+  },
+  "cre_alignment": {
+    "9step_phase": "hypothesis",
+    "principle": "Trigger only what the VOC reveals — manipulation = mismatch with real motivations.",
+    "research_inputs_required": [
+      "visitor_surveys",
+      "voc_verbatims",
+      "interview_transcripts"
+    ],
+    "notes": [
+      "Psy_08 (VOC) is THE upstream input — verbatims pulled from interviews & surveys.",
+      "Psy_01/02 (urgency/scarcity) require legitimate reasons backed by data, never inflated."
+    ]
+  }
+}

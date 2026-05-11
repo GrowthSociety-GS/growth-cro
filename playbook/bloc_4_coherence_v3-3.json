@@ -1,0 +1,962 @@
+{
+  "bloc": "Cohérence Stratégique",
+  "id": "coherence",
+  "version": "3.3.0-cre-fusion",
+  "lockedAt": "2026-04-10",
+  "amendedAt": "2026-05-11",
+  "max": 27,
+  "maxLegacyV3_0": 18,
+  "criteriaCount": 9,
+  "sources": [
+    "data/notion_cro_doc.md",
+    "skills/cro-auditor/references/audit_criteria.md (§1 Cohérence)",
+    "data/cro_criteria_v2.json (pillar coherence)",
+    "data/cro_principles.md",
+    "data/bloc_2_baseline_japhy_v3.json",
+    "playbook/doctrine_integration_matrix.json (2026-04-13)",
+    "playbook/audit_v3_vs_doctrine_enriched.md (2026-04-13)"
+  ],
+  "changelog": [
+    {
+      "version": "3.3.0-cre-fusion",
+      "date": "2026-05-11",
+      "trigger": "Task #18 webapp-stratosphere — fusion CRE methodology (skill cro-methodology) avec V3.2.1.",
+      "notes": [
+        "Backward compatible : V3.2.1 reste défaut pour 56 clients existants ; V3.3 sur opt-in via doctrine_version='3.3'.",
+        "Per-criterion enrichments : research_first flag, oco_refs (to cre_oco_tables.json), ice_template (per-pillar starting point).",
+        "Bloc-level cre_alignment section : 9step_phase / principle / research_inputs_required.",
+        "Criteria sémantique INCHANGÉE : label, scoring (top/ok/critical), examples, antiPatterns, killer flags, weight, pageTypes — tous préservés.",
+        "Anti-pattern #3 respecté : on enrichit, on ne réinvente pas la grille."
+      ]
+    },
+    {
+      "version": "3.2.0-draft",
+      "date": "2026-04-18",
+      "notes": [
+        "P0.1 fix: semantic_overlay (Haiku 4.5) now consumed by score_page_type.py for 18 creative criteria — was silently orphaned before.",
+        "P0.2 full rerun: 366 pages rescored with semantic overlay applied.",
+        "P0.3 cleanup: 71 stale golden/ score_page_type.json archived + stray fichet/ dir archived.",
+        "P1.A doctrine: new data/doctrine/criteria_scope_matrix_v1.json classifying 47 criteria as ASSET (22) vs ENSEMBLE (25) with 7 synergy groups.",
+        "P1.B runtime: new score_contextual_overlay.py applying synergy compensation rules (HERO_RESCUE, PROOF_RESCUE, FIVE_SEC_RESCUE, BENEFIT_FLOW_RESCUE, MANIPULATION_FLAG, UX_RHYTHM_RESCUE, COHERENCE_QUORUM). 25/287 pages rescued, +29.5 pts net.",
+        "P1.C applicability: new data/doctrine/applicability_matrix_v1.json with business_type axis (ecommerce/lead_gen/saas/content/app) and legacy `lp` pageType alias. 8 failures → 0. Full pipeline 366/366.",
+        "ASSET criteria (tech_*, psy_02, counts) are INVARIANT from contextual layer. Only ENSEMBLE criteria eligible for rescue."
+      ]
+    },
+    {
+      "version": "3.0.0",
+      "date": "2026-04-10",
+      "note": "Baseline Japhy — 6 critères × 3 pts (Promesse, Cible, Scent, Différenciation, Ton, Mono-objectif)"
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-04-13",
+      "note": "Amendements doctrine V12 : A-11 (coh_05 V&T grille), A-12 (coh_04 VPC Osterwalder). +3 critères N-03 (coh_07 Positioning Statement), N-04 (coh_08 Message Hierarchy), N-05 (coh_09 Unique Mechanism). viewport_check ajouté. pageTypeWeights étendus aux 9 nouveaux page types. max 18 → 27."
+    },
+    {
+      "version": "3.1.0-phase4",
+      "date": "2026-04-13",
+      "change": "Phase 4 V12 — businessCategoryWeighting granulaire par critère × 10 catégories ajouté"
+    }
+  ],
+  "normalization": "score_bloc_percent = (sum_weighted / 27) × 100",
+  "criteria": [
+    {
+      "id": "coh_01",
+      "label": "Promesse principale claire en 5 sec (Quoi + Pour qui + Pourquoi)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "killer": true,
+      "viewport_check": "desktop_and_mobile",
+      "scoring": {
+        "top": "H1 + subtitle répondent aux 3 questions (Quoi? Pour qui? Pourquoi?) en <15 mots, bénéfice tangible, pas un slogan vague",
+        "ok": "2/3 questions répondues, ou promesse identifiable mais vague/générique",
+        "critical": "0-1 question répondue, H1 incompréhensible ou absent, ou slogan creux type 'Bienvenue'"
+      },
+      "isKiller": true,
+      "killerNote": "Promesse en 5s = foundation. Si H1/sub/CTA ne répond pas à QUOI+POUR QUI+POURQUOI en 5s → toute la page échoue (test des 5 secondes en doctrine GrowthCRO).",
+      "killerCap": "1/3 max actif",
+      "killerReason": "Axiom 1 : un visiteur qui ne comprend pas la promesse en 5s quitte. Tous les autres critères deviennent sans objet.",
+      "killerId": "coh_01_critical",
+      "killerRule": "Si score == 0 → cap Bloc 4 à 1/3 du max actif",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_value_unclear"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_02",
+      "label": "Cible identifiable ('c'est pour moi' — persona reconnaissable)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "killer": false,
+      "viewport_check": "desktop_and_mobile",
+      "scoring": {
+        "top": "Persona explicite dans le fold (rôle, segment, ou 'vous qui...') + contexte de défi/besoin énoncé",
+        "ok": "Persona implicite (identifiable via produit/visuels mais pas dans le copy) ou pas dans le fold",
+        "critical": "Aucune indication de la cible — page anonyme qui s'adresse à tout le monde"
+      },
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_not_for_me"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_03",
+      "label": "Alignement ad → LP (scent matching — message, visuel, offre cohérents)",
+      "max": 3,
+      "pageTypes": [
+        "pdp",
+        "lp_leadgen",
+        "lp_sales",
+        "quiz_vsl",
+        "advertorial",
+        "listicle",
+        "vsl",
+        "challenge",
+        "squeeze",
+        "webinar"
+      ],
+      "checkMethod": "heuristic",
+      "killer": true,
+      "viewport_check": "desktop_and_mobile",
+      "scoring": {
+        "top": "H1 reprend les mots-clés de la promesse ad/source, offre identique, ton cohérent, pas de dissonance cognitive",
+        "ok": "Message globalement aligné mais quelques éléments divergent (prix différent, ton shift, keywords manquants)",
+        "critical": "Impression de mauvaise page — message, offre, ou ton radicalement différent de la source"
+      },
+      "note": "Sans accès à l'ad source, on évalue la cohérence interne de la page (H1 vs meta title vs CTA vs offer). L'alignement ad réel nécessite des données externes.",
+      "isKiller": true,
+      "killerNote": "Scent matching ad→LP. Si trafic paid et mismatch message/visuel/offre, l'argent est brûlé avant toute lecture.",
+      "killerCap": "1/3 max actif (uniquement si pageType in paid LP : lp_leadgen, lp_sales, advertorial, vsl)",
+      "killerReason": "Une LP paid qui ne matche pas l'ad = CPA multiplié par 3-5x. Critique uniquement sur pages paid-destined.",
+      "killerId": "coh_03_critical",
+      "killerRule": "Si score == 0 ET paid pageType → cap Bloc 4 à 1/2",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_bait_and_switch",
+        "*:obj_value_unclear"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_04",
+      "label": "Positionnement différenciant vs concurrents + VPC alignment (Jobs/Pains/Gains)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "killer": true,
+      "viewport_check": "both_viewports_single_score",
+      "amendments": [
+        "A-12 VPC Osterwalder alignment"
+      ],
+      "vpc_framework": {
+        "customer_profile": {
+          "jobs": "Ce que le client essaie d'accomplir (fonctionnel, social, émotionnel)",
+          "pains": "Obstacles, risques, frustrations vécus avant/pendant/après le job",
+          "gains": "Bénéfices attendus, résultats mesurables, aspirations"
+        },
+        "value_map": {
+          "products_services": "Ce que l'offre délivre",
+          "pain_relievers": "Comment l'offre réduit/supprime les pains identifiés",
+          "gain_creators": "Comment l'offre crée/augmente les gains identifiés"
+        },
+        "alignment_rule": "Chaque pain doit être adressé par au moins un pain_reliever visible dans le copy ; chaque gain prioritaire doit être promis par au moins un gain_creator."
+      },
+      "scoring": {
+        "top": "UVP avec ≥2 éléments propriétaires (ingrédient/méthode/certif/techno) + ton signature + alignement VPC visible (≥3 pains adressés explicitement + ≥3 gains promis) + preuves chiffrées",
+        "ok": "Différenciation identifiable mais faible (générique sectoriel 'qualité premium' sans preuve) OU VPC partiel (pains OU gains adressés, pas les deux)",
+        "critical": "Copy interchangeable avec 5 concurrents, aucun élément distinctif, aucun pain/gain client nommé, ton neutre et lisse"
+      },
+      "examples": {
+        "top_ref": "Japhy — pain 'mon chien grossit' + gain 'croquettes adaptées au métabolisme individuel' + gain_creator 'quiz vétérinaire' + preuve '98% vétérinaires recommandent' → UVP + VPC alignés",
+        "critical_ref": "Marque X — 'Nos produits sont de qualité premium pour des consommateurs exigeants' : aucun job, aucun pain, aucun gain spécifique → interchangeable"
+      },
+      "v1Mapping": [
+        "1.3 Positionnement (partiel)"
+      ],
+      "v2Mapping": [
+        "coh_04 Positionnement différenciant"
+      ],
+      "killerId": "coh_04_critical_penalty",
+      "killerRule": "Si score == 0 → cap Bloc 4 à 5/6 (pénalité non éliminatoire)",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_alternatives_exist",
+        "*:obj_value_unclear"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_05",
+      "label": "Voice & Tone formalisé et cohérent (grille V&T 4 dimensions)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "killer": false,
+      "viewport_check": "both_viewports_single_score",
+      "amendments": [
+        "A-11 Voice & Tone formalisé"
+      ],
+      "voice_and_tone_grid": {
+        "dimensions": [
+          {
+            "name": "formality",
+            "spectrum": [
+              "casual/tutoiement",
+              "neutre",
+              "formel/vouvoiement"
+            ],
+            "check": "cohérent sur toute la page, cohérent avec business_category et persona"
+          },
+          {
+            "name": "expertise",
+            "spectrum": [
+              "grand public",
+              "initié",
+              "expert technique"
+            ],
+            "check": "niveau de jargon adapté à persona awareness (Schwartz) ; pas de sur-expertise si Most-aware"
+          },
+          {
+            "name": "emotion",
+            "spectrum": [
+              "factuel/data",
+              "équilibré",
+              "émotionnel/aspirationnel"
+            ],
+            "check": "aligné avec pilier persuasion (ratio claim/preuve) et type de page"
+          },
+          {
+            "name": "signature",
+            "spectrum": [
+              "neutre/AI slop",
+              "identifiable",
+              "signature distinctive"
+            ],
+            "check": "présence de tournures, punchlines, vocabulaire propriétaire reconnaissable"
+          }
+        ],
+        "anti_patterns_ai_slop": [
+          "Enchaînements 'Et ce n'est pas tout...'",
+          "Superlatifs creux 'incroyable', 'révolutionnaire' sans preuve",
+          "Transitions 'Plus qu'un X, c'est un Y' sans substance",
+          "Formules 'Imaginez un monde où...' génériques",
+          "Listes tricolons abstraits type 'simple, rapide, efficace'"
+        ]
+      },
+      "scoring": {
+        "top": "Ton signature cohérent sur toutes les 4 dimensions V&T (formality + expertise + emotion + signature), tutoiement/vouvoiement stable, punchlines identifiables, vocabulaire propriétaire, 0 pattern AI slop détecté",
+        "ok": "Ton identifiable sur 2-3 dimensions mais inconsistant (ex : formel hero → casual body, ou signature dans le fold mais body générique) OU 1-2 patterns AI slop détectés",
+        "critical": "Ton totalement neutre sur ≥3 dimensions, incohérence tutoiement/vouvoiement flagrante, ou page entière en AI slop (≥5 anti-patterns détectés)"
+      },
+      "examples": {
+        "top_ref": "Reason — V&T cohérent : casual + initié + équilibré + signature ('Zéro placebo, zéro bullshit, zéro effet de mode')",
+        "critical_ref": "Marque X — 'Découvrez notre incroyable gamme révolutionnaire qui va transformer votre quotidien' : 4 anti-patterns en 1 phrase"
+      },
+      "v1Mapping": [
+        "1.2 Ton de marque"
+      ],
+      "v2Mapping": [
+        "coh_05 Ton reconnaissable"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_too_corporate"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_06",
+      "label": "Un seul objectif prioritaire par page (focus mono-action)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "technical",
+      "killer": true,
+      "viewport_check": "desktop_and_mobile",
+      "scoring": {
+        "top": "1 CTA primaire clair, tous les éléments convergent, ratio attention ≤1:2, aucune compétition entre objectifs",
+        "ok": "Objectif principal clair mais 2-3 CTAs secondaires créent légère confusion, ou ratio 1:3",
+        "critical": "Plusieurs objectifs en compétition, pas de hiérarchie CTA, ou ratio >1:5 (fuite d'attention massive)"
+      },
+      "isKiller": true,
+      "killerNote": "Un seul objectif prioritaire par page. Si 3+ CTAs/offres compétitifs ATF sans hiérarchie claire → focus dilué.",
+      "killerCap": "1/3 max actif",
+      "killerReason": "Axiom : une page = une action. Plusieurs CTAs primaires = aucun ne performe.",
+      "killerId": "coh_06_critical",
+      "killerRule": "Si score == 0 → cap Bloc 4 à 1/2 du max actif",
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_attention_lost",
+        "*:obj_what_next"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_07",
+      "label": "Positioning Statement clair (For X who Y, our Z is the W that...)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "killer": false,
+      "viewport_check": "desktop_and_mobile",
+      "origin": "N-03 Nouveau critère doctrine V12",
+      "framework": {
+        "name": "Geoffrey Moore Positioning Statement",
+        "template": "For [TARGET CUSTOMER] who [STATEMENT OF NEED], our [PRODUCT NAME] is a [PRODUCT CATEGORY] that [KEY BENEFIT]. Unlike [PRIMARY COMPETITIVE ALTERNATIVE], our product [PRIMARY DIFFERENTIATION].",
+        "components_required": [
+          "target_customer (persona précis, pas 'tout le monde')",
+          "statement_of_need (job/pain/gain nommé)",
+          "product_category (catégorie marché reconnaissable)",
+          "key_benefit (bénéfice principal chiffré ou tangible)",
+          "primary_differentiation (ce qui rend unique vs alternatives)"
+        ]
+      },
+      "scoring": {
+        "top": "Les 5 composants du Positioning Statement sont reconstituables depuis la page (même si pas verbatim) : cible + besoin + catégorie + bénéfice + différenciation explicites et cohérents",
+        "ok": "3-4 composants sur 5 identifiables (ex: cible + bénéfice + catégorie clairs, mais différenciation floue ou besoin implicite)",
+        "critical": "≤2 composants identifiables — positionnement absent ou composé uniquement d'une tagline générique sans contexte"
+      },
+      "examples": {
+        "top_ref": "Notion — For teams who struggle with fragmented tools, Notion is an all-in-one workspace that unifies docs, tasks, and wikis. Unlike Confluence or Google Docs, Notion lets you build custom databases without code.",
+        "critical_ref": "Page X — 'La solution SaaS pour les entreprises modernes' : aucune cible précise, aucun besoin nommé, aucune différenciation"
+      },
+      "antiPatterns": [
+        "'Pour tout le monde' ou 'toutes les entreprises' (cible trop large)",
+        "Catégorie inventée ex 'Nous sommes une plateforme d'enchantement client'",
+        "Différenciation par features (liste) au lieu de positionnement (angle unique)",
+        "Tagline poétique sans contenu structurant"
+      ],
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_not_for_me",
+        "*:obj_alternatives_exist"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_08",
+      "label": "Message Hierarchy explicite (primary / secondary / supporting)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "killer": false,
+      "viewport_check": "desktop_and_mobile",
+      "origin": "N-04 Nouveau critère doctrine V12",
+      "framework": {
+        "name": "Message Hierarchy (3-level)",
+        "levels": {
+          "primary": "Le message N°1 qu'un visiteur doit retenir s'il ne voit que le hero (1 phrase max, porté par H1+subtitle)",
+          "secondary": "Les 2-3 messages qui étayent le primary et répondent aux objections clés (portés par sections 2-4)",
+          "supporting": "Les preuves, détails, features et FAQ qui soutiennent le primary et le secondary (sections 5+)"
+        },
+        "consistency_check": "Les 3 niveaux doivent pointer dans la même direction — aucun secondary ne doit contredire le primary ; le supporting doit prouver, pas introduire de nouveaux angles."
+      },
+      "scoring": {
+        "top": "Primary (1 msg hero) + ≥2 secondary (sections body) + supporting (preuves/FAQ) tous cohérents, pas de contradiction, hiérarchie visuelle matche la hiérarchie de message (taille police, poids, position)",
+        "ok": "Primary identifiable + secondary partiellement cohérents, mais 1-2 sections diluent ou introduisent des angles off-thesis (ex: section 'Nos valeurs' sans lien avec primary)",
+        "critical": "Pas de hiérarchie claire — chaque section porte un angle différent, aucune colonne vertébrale message, ou hiérarchie visuelle contredit la hiérarchie de message (secondary en H1 body > primary hero)"
+      },
+      "examples": {
+        "top_ref": "Stripe — Primary 'Payments infrastructure for the internet' / Secondary : 'One platform for businesses of every size' + 'Trusted by Shopify, Amazon, Google' + 'Built for scale' / Supporting : docs, metrics, case studies",
+        "critical_ref": "Page X — Hero 'gain de temps', section 2 'équipe passionnée', section 3 'offre limitée' : 3 angles déconnectés"
+      },
+      "antiPatterns": [
+        "Kitchen-sink : chaque section = nouveau bénéfice sans fil rouge",
+        "Section 'valeurs/histoire' qui dilue le primary",
+        "Hiérarchie visuelle qui écrase le primary (banner CTA > H1)"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_attention_lost"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    },
+    {
+      "id": "coh_09",
+      "label": "Unique Mechanism nommé (le 'comment' différenciant explicite)",
+      "max": 3,
+      "pageTypes": "*",
+      "checkMethod": "heuristic",
+      "killer": false,
+      "viewport_check": "desktop_and_mobile",
+      "origin": "N-05 Nouveau critère doctrine V12",
+      "framework": {
+        "name": "Unique Mechanism (Eugene Schwartz / Stefan Georgi)",
+        "definition": "Le 'comment' propriétaire qui explique pourquoi votre solution marche différemment des autres — un nom, un process, une techno, une méthode, un ingrédient que vous seul avez.",
+        "types_accepted": [
+          "Ingrédient propriétaire (ex : 'Oat Milk Fiber Blend')",
+          "Méthode nommée (ex : 'La méthode MARCHÉ en 3 étapes')",
+          "Process breveté (ex : 'Technologie Neuramax™')",
+          "Algorithme/techno (ex : 'IA de matching v4')",
+          "Protocole exclusif (ex : 'Protocole nutritionnel vétérinaire Japhy')"
+        ],
+        "naming_requirement": "Le mécanisme doit avoir un nom explicite — pas juste 'notre approche unique' mais 'La Méthode X' ou 'Technologie Y'"
+      },
+      "scoring": {
+        "top": "Unique Mechanism nommé explicitement dans le hero ou section 2, avec un nom propriétaire (majuscule/trademark/encadré), expliqué en 1-3 points, visuel dédié (schéma/icônes), reconnaissable et mémorisable",
+        "ok": "Mécanisme évoqué ('notre méthode', 'notre approche') mais pas nommé précisément, OU nommé mais pas expliqué (juste logo/tagline)",
+        "critical": "Aucun mécanisme différenciant nommé — page qui liste features/bénéfices sans expliquer le 'comment' propriétaire, ou qui utilise uniquement des termes génériques sectoriels"
+      },
+      "examples": {
+        "top_ref": "Dollar Shave Club — 'Our Executive Club' + 'The Humble Twin Blade' / Huel — 'Our Complete Nutrition Blend' avec composition chiffrée / Japhy — 'Protocole nutritionnel vétérinaire Japhy' avec quiz dédié",
+        "critical_ref": "Marque X — 'Nos produits sont formulés avec les meilleurs ingrédients selon une méthode rigoureuse' : aucun nom, aucun unique mechanism"
+      },
+      "antiPatterns": [
+        "Mécanisme générique 'méthode rigoureuse / approche sur-mesure / expertise unique'",
+        "Trademark sans substance (nom déposé mais rien derrière)",
+        "Features list présentée comme mécanisme (confusion bénéfices vs process)"
+      ],
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_alternatives_exist",
+        "*:obj_value_unclear"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — fixes upstream eliminate downstream confusion",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_voc_available": 9,
+          "boost_if_ad_audit_done": 9
+        },
+        "ease_factors": {
+          "base": 5,
+          "messaging_only": 7,
+          "structural_reposition": 3
+        }
+      }
+    }
+  ],
+  "pageTypeWeights": {
+    "coh_01": {
+      "home": 1.2,
+      "pdp": 1.0,
+      "collection": 0.9,
+      "lp_leadgen": 1.2,
+      "lp_sales": 1.1,
+      "blog": 0.8,
+      "quiz_vsl": 1.0,
+      "pricing": 1.0,
+      "checkout": 0.7,
+      "listicle": 0.9,
+      "advertorial": 1.1,
+      "comparison": 1.0,
+      "vsl": 1.2,
+      "challenge": 1.2,
+      "thank_you_page": 0.6,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.3,
+      "webinar": 1.1
+    },
+    "coh_02": {
+      "home": 1.1,
+      "pdp": 1.0,
+      "collection": 0.8,
+      "lp_leadgen": 1.2,
+      "lp_sales": 1.2,
+      "blog": 0.9,
+      "quiz_vsl": 1.1,
+      "pricing": 0.9,
+      "checkout": 0.7,
+      "listicle": 1.0,
+      "advertorial": 1.2,
+      "comparison": 1.0,
+      "vsl": 1.2,
+      "challenge": 1.3,
+      "thank_you_page": 0.5,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.3,
+      "webinar": 1.2
+    },
+    "coh_03": {
+      "home": 0.0,
+      "pdp": 1.0,
+      "collection": 0.0,
+      "lp_leadgen": 1.3,
+      "lp_sales": 1.3,
+      "blog": 0.0,
+      "quiz_vsl": 1.1,
+      "pricing": 0.0,
+      "checkout": 0.0,
+      "listicle": 0.9,
+      "advertorial": 1.3,
+      "comparison": 0.9,
+      "vsl": 1.3,
+      "challenge": 1.2,
+      "thank_you_page": 0.0,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.3,
+      "webinar": 1.2
+    },
+    "coh_04": {
+      "home": 1.2,
+      "pdp": 0.9,
+      "collection": 0.8,
+      "lp_leadgen": 1.0,
+      "lp_sales": 1.1,
+      "blog": 0.9,
+      "quiz_vsl": 0.9,
+      "pricing": 0.9,
+      "checkout": 0.7,
+      "listicle": 0.8,
+      "advertorial": 1.0,
+      "comparison": 1.3,
+      "vsl": 1.1,
+      "challenge": 1.0,
+      "thank_you_page": 0.5,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.0,
+      "webinar": 1.0
+    },
+    "coh_05": {
+      "home": 1.1,
+      "pdp": 1.0,
+      "collection": 0.9,
+      "lp_leadgen": 1.0,
+      "lp_sales": 1.1,
+      "blog": 1.0,
+      "quiz_vsl": 1.0,
+      "pricing": 0.9,
+      "checkout": 0.7,
+      "listicle": 1.0,
+      "advertorial": 1.2,
+      "comparison": 0.9,
+      "vsl": 1.1,
+      "challenge": 1.1,
+      "thank_you_page": 0.7,
+      "bundle_standalone": 1.0,
+      "squeeze": 1.0,
+      "webinar": 1.0
+    },
+    "coh_06": {
+      "home": 1.0,
+      "pdp": 1.1,
+      "collection": 0.9,
+      "lp_leadgen": 1.3,
+      "lp_sales": 1.2,
+      "blog": 0.8,
+      "quiz_vsl": 1.2,
+      "pricing": 1.0,
+      "checkout": 1.0,
+      "listicle": 0.9,
+      "advertorial": 1.2,
+      "comparison": 1.1,
+      "vsl": 1.3,
+      "challenge": 1.2,
+      "thank_you_page": 1.1,
+      "bundle_standalone": 1.2,
+      "squeeze": 1.4,
+      "webinar": 1.2
+    },
+    "coh_07": {
+      "home": 1.3,
+      "pdp": 1.0,
+      "collection": 0.9,
+      "lp_leadgen": 1.2,
+      "lp_sales": 1.2,
+      "blog": 0.8,
+      "quiz_vsl": 1.0,
+      "pricing": 1.1,
+      "checkout": 0.7,
+      "listicle": 0.9,
+      "advertorial": 1.1,
+      "comparison": 1.3,
+      "vsl": 1.2,
+      "challenge": 1.2,
+      "thank_you_page": 0.6,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.1,
+      "webinar": 1.1
+    },
+    "coh_08": {
+      "home": 1.2,
+      "pdp": 1.0,
+      "collection": 0.9,
+      "lp_leadgen": 1.2,
+      "lp_sales": 1.3,
+      "blog": 0.9,
+      "quiz_vsl": 1.1,
+      "pricing": 1.0,
+      "checkout": 0.8,
+      "listicle": 1.1,
+      "advertorial": 1.2,
+      "comparison": 1.1,
+      "vsl": 1.3,
+      "challenge": 1.2,
+      "thank_you_page": 0.7,
+      "bundle_standalone": 1.1,
+      "squeeze": 1.1,
+      "webinar": 1.2
+    },
+    "coh_09": {
+      "home": 1.2,
+      "pdp": 1.1,
+      "collection": 0.8,
+      "lp_leadgen": 1.1,
+      "lp_sales": 1.3,
+      "blog": 0.8,
+      "quiz_vsl": 1.1,
+      "pricing": 0.9,
+      "checkout": 0.6,
+      "listicle": 0.9,
+      "advertorial": 1.2,
+      "comparison": 1.2,
+      "vsl": 1.3,
+      "challenge": 1.1,
+      "thank_you_page": 0.5,
+      "bundle_standalone": 1.1,
+      "squeeze": 0.9,
+      "webinar": 1.1
+    }
+  },
+  "status": "locked",
+  "lockedBy": "GrowthCRO pipeline — baseline Japhy validée",
+  "businessCategoryWeighting": {
+    "_description": "Matrice pondération granulaire par critère × business category pour Bloc 4 Cohérence. V12 doctrine 2026-04-13.",
+    "_usage": "multiplier = bcw[criterion_id][category] — applied to criterion raw score during site-level aggregation",
+    "_categories": [
+      "dtc_subscription",
+      "ecom_product",
+      "saas_b2b",
+      "saas_b2c",
+      "lead_gen",
+      "marketplace",
+      "media_content",
+      "luxe",
+      "service_local",
+      "edu"
+    ],
+    "_baseline": "1.0 = neutre. >1.0 = critique pour cette catégorie. <1.0 = moins déterminant pour cette catégorie.",
+    "_philosophy": "Chaque pondération ≠1.0 est justifiée dans _notes — pas d'arbitraire. Version évolutive selon feedbacks agence.",
+    "_addedIn": "v3.1.0 — doctrine V12 — 2026-04-13",
+    "matrix": {
+      "coh_01": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.2,
+        "marketplace": 1.0,
+        "media_content": 0.9,
+        "luxe": 0.8,
+        "service_local": 1.1,
+        "edu": 1.2
+      },
+      "coh_02": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.3,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 1.0,
+        "media_content": 0.9,
+        "luxe": 1.1,
+        "service_local": 1.2,
+        "edu": 1.2
+      },
+      "coh_03": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.2,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 1.0,
+        "media_content": 0.9,
+        "luxe": 1.0,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "coh_04": {
+        "dtc_subscription": 1.1,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.3,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.2,
+        "marketplace": 1.1,
+        "media_content": 0.9,
+        "luxe": 1.2,
+        "service_local": 1.0,
+        "edu": 1.1
+      },
+      "coh_05": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.1,
+        "saas_b2b": 1.0,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.0,
+        "marketplace": 1.0,
+        "media_content": 1.1,
+        "luxe": 1.3,
+        "service_local": 1.0,
+        "edu": 1.2
+      },
+      "coh_06": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 0.9,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.3,
+        "marketplace": 0.7,
+        "media_content": 0.8,
+        "luxe": 1.1,
+        "service_local": 1.2,
+        "edu": 1.2
+      },
+      "coh_07": {
+        "dtc_subscription": 1.0,
+        "ecom_product": 0.9,
+        "saas_b2b": 1.3,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.2,
+        "marketplace": 1.1,
+        "media_content": 0.9,
+        "luxe": 0.9,
+        "service_local": 1.0,
+        "edu": 1.2
+      },
+      "coh_08": {
+        "dtc_subscription": 1.0,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.1,
+        "saas_b2c": 1.0,
+        "lead_gen": 1.1,
+        "marketplace": 1.0,
+        "media_content": 1.1,
+        "luxe": 1.0,
+        "service_local": 1.0,
+        "edu": 1.2
+      },
+      "coh_09": {
+        "dtc_subscription": 1.2,
+        "ecom_product": 1.0,
+        "saas_b2b": 1.3,
+        "saas_b2c": 1.1,
+        "lead_gen": 1.1,
+        "marketplace": 0.9,
+        "media_content": 1.0,
+        "luxe": 1.2,
+        "service_local": 1.0,
+        "edu": 1.2
+      }
+    },
+    "_notes": {
+      "coh_01": {
+        "luxe": "0.8 — la promesse luxe est IMPLICITE (image, silence, héritage). Tout expliciter = cheapness.",
+        "dtc_subscription": "1.2 — 5s décide tout : 'c'est pour moi et mon chien / ma peau / mes cheveux'.",
+        "lead_gen": "1.2 — paid traffic = décision ultra-rapide, 5s test = vie ou mort.",
+        "media_content": "0.9 — le contenu EST la promesse, pas un H1 claim."
+      },
+      "coh_02": {
+        "saas_b2b": "1.3 — ICP explicite = disqualifier 80% non-qualifiés, ne parler qu'à 20% vrais ICP.",
+        "lead_gen": "1.3 — 'pour les directeurs marketing e-commerce >5M€' > 'pour les entreprises'.",
+        "service_local": "1.2 — 'dentiste Paris 9 spécialisé pédo' > 'dentiste'.",
+        "edu": "1.2 — 'formation pour devs backend → full-stack' > 'formation tech'."
+      },
+      "coh_03": {
+        "lead_gen": "1.3 — paid traffic pur, si ad dit X et LP dit Y = 80%+ bounce immédiat.",
+        "dtc_subscription": "1.2 — scent matching ad→quiz→LP = funnel viable.",
+        "media_content": "0.9 — trafic SEO majoritaire, alignement ad secondaire."
+      },
+      "coh_04": {
+        "saas_b2b": "1.3 — 'pourquoi vous vs Salesforce/HubSpot' doit être CLAIR en 10s. Sans VPC = mort.",
+        "luxe": "1.2 — différenciation = tout (héritage, savoir-faire, rareté). VPC gains luxe = statut/exclusivité.",
+        "lead_gen": "1.2 — pourquoi choisir votre agence/consulting > concurrents = pitch d'or."
+      },
+      "coh_05": {
+        "luxe": "1.3 — voice & tone = la marque elle-même. Une faute de ton = destruction de la perception premium.",
+        "dtc_subscription": "1.2 — identité vocale = défensibilité (Oatly, Feed, Typology = voice fortes).",
+        "edu": "1.2 — ton bienveillant mais challengeant = différenciateur critical dans market saturé.",
+        "media_content": "1.1 — voice = signature éditoriale, différentiation vs autres médias."
+      },
+      "coh_06": {
+        "lead_gen": "1.3 — UNE LP = UN CTA. Plusieurs objectifs = zéro conversion.",
+        "marketplace": "0.7 — objectif 2-sided (buyer + seller), multi-focus inhérent.",
+        "media_content": "0.8 — monétisation multiple (pub, affiliation, newsletter, abonnement payant).",
+        "ecom_product": "0.9 — nav catégories + PDP + CTA = multi-objectif nécessaire."
+      },
+      "coh_07": {
+        "saas_b2b": "1.3 — 'For [ICP], our [product] is the [category] that [differentiator]' = nord magnétique.",
+        "lead_gen": "1.2 — sans positioning statement, no pitch convaincant pour décideur B2B.",
+        "edu": "1.2 — 'pour devs qui veulent passer senior, notre bootcamp est le seul qui X'.",
+        "luxe": "0.9 — Moore template trop explicite pour l'implicite du luxe.",
+        "ecom_product": "0.9 — positioning produit >= positioning marque dans ecom."
+      },
+      "coh_08": {
+        "edu": "1.2 — primary (transformation) / secondary (méthode) / supporting (preuves) = vente de formation claire.",
+        "saas_b2b": "1.1 — hierarchy aide execs à scan rapidement le 'what → how → proof'.",
+        "media_content": "1.1 — structure éditoriale = hierarchy message claire sur article long."
+      },
+      "coh_09": {
+        "saas_b2b": "1.3 — 'notre algorithme breveté X' / 'notre méthode Y' = moat défensif, sinon commoditisation.",
+        "dtc_subscription": "1.2 — 'notre formule avec ingrédient Z breveté' = secret sauce différenciante (Japhy, Feed).",
+        "luxe": "1.2 — 'notre savoir-faire depuis 1850 (calibre X)' = unique mechanism temporel/artisanal.",
+        "edu": "1.2 — 'notre méthodologie en 3 phases' = pédagogie brevetée, différenciation bootcamp.",
+        "marketplace": "0.9 — unique mechanism = network effects > méthode propriétaire explicite."
+      }
+    }
+  },
+  "_amendments": [
+    {
+      "marker": "V12 — Ajout killers Cohérence (coh_01, coh_03, coh_06)",
+      "at": "2026-04-14",
+      "applied_by": "P0.3 doctrine gap fix"
+    }
+  ],
+  "killers": [
+    {
+      "id": "coh_01_critical",
+      "rule": "Si coh_01 == 0 (promesse 5s indéchiffrable : Quoi/Pour qui/Pourquoi absent ATF), cap du total Bloc 4 à 1/3 du max actif",
+      "severity": "eliminatory",
+      "rationale": "Sans promesse lisible en 5s, aucune décision de conversion n'est possible — tout le reste s'effondre. C'est LE killer de base de la cohérence, aligné sur la doctrine Hero (hero_01) et A-01 markers.",
+      "addedAt": "2026-04-14 (P0.3 V12 synchro playbook↔code)",
+      "criterionId": "coh_01"
+    },
+    {
+      "id": "coh_06_critical",
+      "rule": "Si coh_06 == 0 (multi-objectifs concurrents, pas de focus mono-action), cap du total Bloc 4 à 1/2 du max actif",
+      "severity": "eliminatory",
+      "rationale": "Law of Pickett : une page = une décision. ≥3 CTAs de nature différente ATF sans hiérarchie disperse l'attention et détruit la conversion. Éliminatoire mais moins destructeur qu'une promesse illisible.",
+      "addedAt": "2026-04-14 (P0.3 V12 synchro playbook↔code)",
+      "criterionId": "coh_06"
+    },
+    {
+      "id": "coh_03_critical",
+      "rule": "Si coh_03 == 0 (scent mismatch ad→LP — wording/visuel/offre cassés) ET pageType ∈ {lp_leadgen, lp_sales, advertorial, vsl}, cap du total Bloc 4 à 1/2 du max actif",
+      "severity": "eliminatory_paid_only",
+      "rationale": "Sur paid traffic, la LP doit reprendre le message de l'annonce (scent matching Eisenberg). Rupture = coût d'acquisition brûlé. Killer applicable uniquement aux pageTypes paid.",
+      "addedAt": "2026-04-14 (P0.3 V12 synchro playbook↔code)",
+      "criterionId": "coh_03"
+    },
+    {
+      "id": "coh_04_critical_penalty",
+      "rule": "Si coh_04 == 0 (0 différenciation détectable : template DTC 2018, USP copié-collable chez tous les concurrents), cap du total Bloc 4 à 5/6 du max actif — pénalité non éliminatoire",
+      "severity": "penalty",
+      "rationale": "Aligné sur per_08 (jargon creux). Une page sans différenciation ne se noie pas nécessairement mais plafonne structurellement sa performance. Pattern 'DTC template' généralisé → pénalité.",
+      "addedAt": "2026-04-14 (P0.3 V12 synchro playbook↔code)",
+      "criterionId": "coh_04"
+    }
+  ],
+  "description": "Qualité de la cohérence stratégique et narrative : promesse claire, cible identifiable, scent matching, positionnement différenciant, voice & tone, focus mono-action, Positioning Statement, Message Hierarchy, Unique Mechanism. 9 critères × 3 pts = 27 pts V3.1.0. **4 killers V12 (P0.3 2026-04-14)** : coh_01_critical cap 1/3 (promesse illisible), coh_06_critical cap 1/2 (multi-objectifs), coh_03_critical cap 1/2 (scent mismatch paid-only), coh_04_critical_penalty cap 5/6 (DTC template).",
+  "killerCapped": {
+    "rationale": "Strictest cap wins. Score final = min(raw_weighted, active_max × min(cap_ratio for fired killers)).",
+    "appliedIn": "skills/site-capture/scripts/score_coherence.py (lines 463-497)"
+  },
+  "doctrineReferences": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v1.json",
+    "note": "v3.2 adds ENSEMBLE-aware scoring via score_contextual_overlay.py. ASSET criteria unaffected."
+  },
+  "pillar": "coherence",
+  "cre_alignment": {
+    "9step_phase": "discovery",
+    "principle": "Scent matching = ad → LP → conversion path coherence (not designer-flavor coherence).",
+    "research_inputs_required": [
+      "ad_creative_audit",
+      "visitor_surveys",
+      "search_query_data"
+    ],
+    "notes": [
+      "Coh_03 (scent matching) requires ad copy + LP copy side-by-side audit.",
+      "Coh_04 (VPC alignment) needs Jobs/Pains/Gains from interviews, not personas-as-templates."
+    ]
+  }
+}
