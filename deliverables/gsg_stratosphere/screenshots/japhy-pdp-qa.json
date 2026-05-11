@@ -1,0 +1,130 @@
+{
+  "checked_at": "2026-05-11T13:26:27.360Z",
+  "html": "/Users/mathisfronty/Developer/task-19-gsg-stratosphere/deliverables/gsg_stratosphere/japhy-pdp-v27_2_g.html",
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200
+    },
+    "title": "japhy — pdp",
+    "htmlLang": "fr",
+    "h1": 1,
+    "h1Text": "japhy: une page pdp plus claire",
+    "h1Box": {
+      "left": 160,
+      "right": 726,
+      "top": 233,
+      "bottom": 366,
+      "width": 566,
+      "height": 132
+    },
+    "heroVisual": true,
+    "heroVisualBox": {
+      "left": 822,
+      "right": 1280,
+      "top": 195,
+      "bottom": 771,
+      "width": 458,
+      "height": 575
+    },
+    "h1OverlapsHeroVisual": false,
+    "visualSystem": "gsg-visual-system-v27.2-g",
+    "pageType": "pdp",
+    "visualKinds": [
+      "product_surface",
+      "benefit_ladder",
+      "product_detail",
+      "purchase_trust",
+      "usage_sequence"
+    ],
+    "visualKindCount": 9,
+    "componentSections": 4,
+    "reasons": 0,
+    "proofStripItems": 3,
+    "cta": true,
+    "images": [
+      {
+        "src": "../../data/captures/japhy/pdp/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/japhy/pdp/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      }
+    ],
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 2950,
+    "errors": [],
+    "screenshot": "/Users/mathisfronty/Developer/task-19-gsg-stratosphere/deliverables/gsg_stratosphere/screenshots/japhy-pdp-desktop.png"
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 1200
+    },
+    "title": "japhy — pdp",
+    "htmlLang": "fr",
+    "h1": 1,
+    "h1Text": "japhy: une page pdp plus claire",
+    "h1Box": {
+      "left": 20,
+      "right": 370,
+      "top": 212,
+      "bottom": 287,
+      "width": 350,
+      "height": 75
+    },
+    "heroVisual": true,
+    "heroVisualBox": {
+      "left": 20,
+      "right": 370,
+      "top": 727,
+      "bottom": 1177,
+      "width": 350,
+      "height": 450
+    },
+    "h1OverlapsHeroVisual": false,
+    "visualSystem": "gsg-visual-system-v27.2-g",
+    "pageType": "pdp",
+    "visualKinds": [
+      "product_surface",
+      "benefit_ladder",
+      "product_detail",
+      "purchase_trust",
+      "usage_sequence"
+    ],
+    "visualKindCount": 9,
+    "componentSections": 4,
+    "reasons": 0,
+    "proofStripItems": 3,
+    "cta": true,
+    "images": [
+      {
+        "src": "../../data/captures/japhy/pdp/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      },
+      {
+        "src": "../../data/captures/japhy/pdp/screenshots/desktop_clean_fold.png",
+        "complete": true,
+        "width": 2880,
+        "height": 1800
+      }
+    ],
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 2950,
+    "errors": [],
+    "screenshot": "/Users/mathisfronty/Developer/task-19-gsg-stratosphere/deliverables/gsg_stratosphere/screenshots/japhy-pdp-mobile.png"
+  }
+}
