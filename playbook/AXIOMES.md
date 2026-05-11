@@ -77,3 +77,70 @@ Version 1.0 — 2026-04-08
 - Un audit validé ou corrigé doit écrire dans memory avant de passer au suivant.
 
 Ces conséquences sont **automatiquement vérifiables** par le moteur. Elles deviennent les tests unitaires du playbook.
+
+---
+
+## Axiomes V3.3 (CRE Fusion) — 2026-05-11
+
+Fusion de la méthodologie Conversion Rate Experts (skill `cro-methodology`) avec V3.2.1.
+Ces axiomes **augmentent** les 6 axiomes V1, ils ne les remplacent pas. Backward compatible.
+
+### Axiome 7 — Don't guess, discover (research-first principle)
+
+**Règle :** un critère marqué `research_first: true` (cf. `playbook/bloc_*_v3-3.json`) ne peut pas être scoré ou enrichi sans `client_intent.research_inputs` documenté.
+
+**Pourquoi :** la méthodologie CRE part du principe que 95% des fixes ratés viennent d'objections inventées. Si tu écris une H1 sans avoir lu un seul email support ou un seul verbatim de visitor survey, tu produis du marketing-speak, pas du CRO. La performance de Mathis vient de la **qualité des inputs**, pas de la créativité copy.
+
+**Comment l'appliquer :** avant tout audit/reco enrichi V3.3, exécuter la checklist :
+1. `data/captures/<client>/client_intent.json.research_inputs.visitor_surveys` présent ?
+2. `chat_logs_summary` ou `support_tickets_themes` présent ?
+3. `nps_responses_summary` ou `voc_verbatims` présent ?
+
+Si une ou plusieurs entrées sont vides ET le critère est `research_dependent: true` (cf. `data/doctrine/applicability_matrix_v2.json`), la reco générée porte `ice.confidence_estimate -= 2` (pénalité documentée). Ceci force soit la collecte de la research, soit la transparence sur la confiance basse.
+
+### Axiome 8 — O/CO mapping prioritaire (objections > solutions)
+
+**Règle :** toute reco V3.3 doit attacher `oco_anchors` (au moins 1 entrée depuis `criteria.oco_refs` du bloc V3.3) sauf si `oco_refs` est explicitement vide.
+
+**Pourquoi :** le solution-jumping (proposer une fix sans comprendre quelle objection elle résout) est l'anti-pattern CRO numéro 1. Le cadre O/CO de `cre_oco_tables.json` force le consultant à nommer l'objection avant de proposer le contre-argument. Une reco "ajouter un témoignage" sans objection ancrée est creuse ; une reco "ajouter un témoignage pour adresser obj_credibility_low (objection: 'Pourquoi je devrais te croire ?')" est actionnable.
+
+**Comment l'appliquer :** le scorer V3.3 (option `doctrine_version='3.3'`) annexe les `oco_refs` du critère scoré à chaque reco. Le prompt Haiku doit citer l'objection levée dans le champ `why`. La validation post-LLM rejette les recos sans `oco_anchors` non-vide (sauf exception explicite).
+
+### Axiome 9 — ICE scoring obligatoire (Impact × Confidence × Ease)
+
+**Règle :** chaque reco V3.3 expose un triplet ICE explicite : Impact (1-10), Confidence (1-10), Ease (1-10). Le `ice_template` de chaque critère (cf. `bloc_*_v3-3.json`) fournit le starting point ; Haiku peut l'ajuster mais doit le motiver dans `implementation_notes`.
+
+**Pourquoi :** V3.2.1 utilisait Impact × (6 - Effort) (matrice 5×5). C'est un proxy correct, mais il oublie la dimension Confidence — un fix high-impact / low-confidence (pas de research) doit reculer dans la queue P0/P1/P2. ICE est plus honnête : une reco audacieuse avec des inputs faibles n'est pas P0, même si l'impact pourrait être énorme.
+
+**Comment l'appliquer :** `growthcro/recos/schema.py:compute_ice_estimate` charge V3.3 `ice_template` quand `doctrine_version='3.3'`. Le calcul intègre `confidence_factors.boost_if_voc_available`, `penalty_if_no_research_inputs`, et `penalty_if_manipulation_risk` (axiom 11). Priorité finale : `P0` si ICE ≥ 30, `P1` si ≥ 22, `P2` si ≥ 14, `P3` sinon.
+
+### Axiome 10 — 95% statistical confidence requirement (test phase)
+
+**Règle :** toute reco V3.3 dont le critère est `cre_phase: "test"` (UX, tech principalement) doit générer un `ab_test_design` block dans la reco (variant A vs variant B + métrique primaire + sample size estimé + 95% confidence threshold).
+
+**Pourquoi :** la méthodologie CRE exige 95% de confiance statistique pour valider une expérimentation. Un fix UX déployé sans A/B test = pari, pas optimisation. Aligné avec Reality Layer V26.C et Experiment Engine V27 — la doctrine prépare les fondations pour ces modules sans les bloquer.
+
+**Comment l'appliquer :** `growthcro/recos/orchestrator.py` injecte `ab_test_design_required: true` dans le prompt quand `cre_phase == "test"`. Le validator post-LLM vérifie la présence du block. Pour clients hors-test (audit one-shot), le block est documenté mais non-bloquant — Mathis tranche au cas par cas.
+
+### Axiome 11 — Manipulation flag (urgency/scarcity ↔ VOC alignment)
+
+**Règle :** les critères `psy_01` (urgence) et `psy_02` (rareté) ne peuvent être notés Top que si :
+1. La preuve d'urgence/rareté est **vérifiable** (date, cohorte, stock réel), ET
+2. La VOC client (`research_inputs.voc_verbatims`) confirme que la cible répond à ce levier.
+
+**Pourquoi :** urgence inventée = manipulation. Mathis l'a documenté dans `rule_content_urgency_na` (V1) pour les blogs/listicles éditoriaux SaaS premium. V3.3 généralise : urgence non-prouvée déclenche `manipulation_flag` qui plafonne Confidence à 4. Le moat de GrowthCRO = ne pas pousser de patterns DTC 2018 sur des marques avant-garde.
+
+**Comment l'appliquer :** `ice_template.confidence_factors.penalty_if_manipulation_risk = -3` se déclenche quand psy_01 ou psy_02 est noté Top SANS preuve dans la capture (date scrapée, badge "stock réel", verbatim VOC). Plus le bloc `cre_alignment.notes` du bloc 5 (psycho) liste les conditions explicitement.
+
+---
+
+## Ce qui DÉCOULE des axiomes V3.3 (pour information)
+
+- Un audit V3.3 ne peut pas être publié si des critères `research_first: true` n'ont pas de `research_inputs` documenté → soft warning + `confidence_estimate -= 2`.
+- Une reco V3.3 sans `oco_anchors` est rejetée (sauf `oco_refs` explicitement vide pour le critère).
+- Une reco `cre_phase: "test"` sans `ab_test_design` est rejetée pour Reality Layer / Experiment Engine intégration future.
+- Psy_01/02 Top sans preuve déclenche `manipulation_flag` → plafond confidence 4 → reco déprio en P2 max.
+- Le scorer V3.2.1 reste défaut pour 56 clients existants ; V3.3 est **opt-in** via `doctrine_version='3.3'`.
+
+Ces conséquences sont **automatiquement vérifiables** par le moteur (post #18).
+
