@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T11:44:44",
+  "generated_at": "2026-05-11T12:38:39",
   "stats": {
     "total_files": 205,
     "active_wired": 4,
@@ -4981,7 +4981,7 @@
         "subprocess",
         "yaml"
       ],
-      "size_bytes": 29202,
+      "size_bytes": 29725,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
