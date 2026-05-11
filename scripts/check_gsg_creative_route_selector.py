@@ -13,7 +13,7 @@ from moteur_gsg.orchestrator import generate_lp
 
 
 def main() -> int:
-    print("gsg_creative_route_selector_v27_2_f=START")
+    print("gsg_creative_route_selector_v27_2_g=START")
     result = generate_lp(
         mode="complete",
         client="weglot",
@@ -47,7 +47,7 @@ def main() -> int:
         "technique_ref_count": route.get("technique_ref_count"),
         "renderer_overrides": route.get("renderer_overrides"),
         "html_has_route_data": "data-route=" in html,
-        "visual_system_version": "gsg-visual-system-v27.2-f" in html,
+        "visual_system_version": "gsg-visual-system-v27.2-g" in html,
     }
     print("route_contract", json.dumps(payload, ensure_ascii=False))
     failures: list[str] = []
@@ -61,14 +61,14 @@ def main() -> int:
         failures.append("route should expose renderer_overrides")
     if not plan_route.get("golden_references"):
         failures.append("plan should carry golden_references")
-    if "data-route=" not in html or "gsg-visual-system-v27.2-f" not in html:
-        failures.append("HTML should expose V27.2-F route/visual-system markers")
+    if "data-route=" not in html or "gsg-visual-system-v27.2-g" not in html:
+        failures.append("HTML should expose V27.2-G route/visual-system markers")
     if failures:
-        print("gsg_creative_route_selector_v27_2_f=FAIL")
+        print("gsg_creative_route_selector_v27_2_g=FAIL")
         for failure in failures:
             print("ERROR:", failure)
         return 1
-    print("gsg_creative_route_selector_v27_2_f=PASS")
+    print("gsg_creative_route_selector_v27_2_g=PASS")
     return 0
 
 

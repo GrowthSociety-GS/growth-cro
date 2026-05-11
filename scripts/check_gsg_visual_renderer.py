@@ -54,7 +54,7 @@ def main() -> int:
     if args.with_screenshots and not screenshot_cases:
         screenshot_cases = {"weglot/lp_listicle", "weglot/advertorial"}
 
-    print("gsg_visual_renderer_v27_2_f=START")
+    print("gsg_visual_renderer_v27_2_g=START")
     for client, page_type, audience in CASES:
         out_html = _output_path(client, page_type)
         result = generate_lp(
@@ -111,11 +111,11 @@ def main() -> int:
             )
 
     if failures:
-        print("gsg_visual_renderer_v27_2_f=FAIL")
+        print("gsg_visual_renderer_v27_2_g=FAIL")
         for failure in failures:
             print("ERROR:", failure)
         return 1
-    print("gsg_visual_renderer_v27_2_f=PASS")
+    print("gsg_visual_renderer_v27_2_g=PASS")
     return 0
 
 
