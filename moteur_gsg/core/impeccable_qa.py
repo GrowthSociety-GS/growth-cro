@@ -115,13 +115,7 @@ ANTI_PATTERNS: tuple[dict[str, Any], ...] = (
         ),
         "allowed": 0,
     },
-    {
-        "id": "opacity_zero_no_anim",
-        "severity": "critical",
-        "description": "opacity:0 declared but no animation keyframe references it (invisible content)",
-        "pattern": re.compile(r"opacity\s*:\s*0\s*;(?![^{}]*animation)", re.MULTILINE),
-        "allowed": 0,
-    },
+    # opacity:0 detection is structural — see _structural_hits.
     {
         "id": "tailwind_class_blast",
         "severity": "info",
@@ -287,6 +281,23 @@ def _structural_hits(html: str) -> list[dict[str, Any]]:
             "count": 1,
             "excerpt": "",
         })
+    # opacity:0 in a STATIC rule (post @keyframes strip) with no
+    # animation declaration → invisible content (false positive on
+    # animation phases avoided).
+    css_text = "\n".join(p.style_buffer)
+    css_no_kf = re.sub(r"@keyframes[^{]*\{(?:[^{}]*\{[^{}]*\}[^{}]*)*\}", "", css_text, flags=re.IGNORECASE)
+    bad_opacity = [
+        m for m in re.finditer(r"\{[^{}]*opacity\s*:\s*0\s*;[^{}]*\}", css_no_kf)
+        if "animation" not in m.group(0)
+    ]
+    if bad_opacity:
+        hits.append({
+            "id": "opacity_zero_no_anim",
+            "severity": "critical",
+            "description": "opacity:0 in a static rule with no animation declaration (invisible content)",
+            "count": len(bad_opacity),
+            "excerpt": bad_opacity[0].group(0)[:120].replace("\n", " "),
+        })
     return hits
 
 
@@ -318,22 +329,9 @@ def _excerpt(match: re.Match[str], window: int = 60) -> str:
 def run_impeccable_qa(html: str) -> dict[str, Any]:
     """Run the Impeccable QA layer on a rendered HTML page.
 
-    Parameters
-    ----------
-    html
-        Full HTML string of the rendered LP (post ``render_controlled_page``
-        and post ``apply_minimal_postprocess``).
-
-    Returns
-    -------
-    dict
-        Keys:
-          * ``version`` (str) — module version
-          * ``score`` (int, 0-100) — overall Impeccable score
-          * ``passed`` (bool) — True iff ``score >= MIN_PASSING_SCORE``
-          * ``severity_breakdown`` (dict) — count per severity
-          * ``anti_patterns_detected`` (list) — per-hit detail
-          * ``checked_count`` (int) — total patterns checked
+    Returns dict with: version, score (0-100), passed (bool),
+    severity_breakdown, anti_patterns_detected, checked_count.
+    Score < MIN_PASSING_SCORE ⇒ passed=False (hard fail).
     """
     if not isinstance(html, str) or not html.strip():
         return {

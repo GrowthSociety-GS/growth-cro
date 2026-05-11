@@ -78,10 +78,19 @@ def _asset_ref_for_html(asset_path: pathlib.Path, save_html_path: str | None) ->
         out_parent = pathlib.Path(save_html_path)
         if not out_parent.is_absolute():
             out_parent = ROOT / out_parent
-        rel = pathlib.Path(asset_path).resolve().relative_to(ROOT)
-        return pathlib.Path("..", rel).as_posix() if out_parent.parent == ROOT / "deliverables" else pathlib.Path(
-            os.path.relpath(asset_path, out_parent.parent)
-        ).as_posix()
+        # Issue #19 robustness: in a git worktree where data/captures is a
+        # symlink to the main repo, ``asset_path.resolve().relative_to(ROOT)``
+        # raises ValueError because the resolved path lives outside ROOT.
+        # Fall back to ``os.path.relpath`` which handles both cases.
+        try:
+            rel = pathlib.Path(asset_path).resolve().relative_to(ROOT)
+            return pathlib.Path("..", rel).as_posix() if out_parent.parent == ROOT / "deliverables" else pathlib.Path(
+                os.path.relpath(asset_path, out_parent.parent)
+            ).as_posix()
+        except ValueError:
+            return pathlib.Path(
+                os.path.relpath(asset_path, out_parent.parent)
+            ).as_posix()
     try:
         return asset_path.resolve().relative_to(ROOT).as_posix()
     except ValueError:
