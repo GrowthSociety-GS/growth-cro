@@ -403,6 +403,23 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-11 — Webapp Architecture Map v1 (#16)
+
+**Trigger** : foundation deliverable of the `webapp-stratosphere` programme (Task #16, PRD FR-1, US-1). Every future Claude/Codex session must start from the same machine-readable architectural snapshot — no more re-discovering the tree each conversation.
+
+**Livrable** : `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` (machine-readable) + `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.md` (six Mermaid views) + `scripts/update_architecture_map.py` (auto-regen, idempotent, preserves human-curated fields).
+
+- YAML modules section : **209 entries** indexed across `growthcro/*` (52), `moteur_gsg/*` (53), `moteur_multi_judge/*` (6), `skills/*` (83), `scripts/*` (13), `SCHEMA/*` (2). Each module carries path / purpose / inputs / outputs / depends_on / imported_by / doctrine_refs / status / lifecycle_phase. 128/209 fully hand-curated; the rest ship docstring-only purposes.
+- YAML data_artefacts section : **16 patterns** covering capture.json, spatial_v9, perception_v13, score_*, recos_enriched, evidence_ledger, brand_dna, design_grammar, client_intent, discovered_pages, growth_audit_data.js, V29 learning proposals, multi_judge runs, briefs_v2, clients_database.
+- YAML pipelines section : **5 pipelines** — audit, gsg (V27.2-G), multi_judge (70/30 weighting), reality_loop (partial), webapp (V27 HTML active / V28 Next.js target).
+- Mermaid diagrams : 6 vues (global + audit + GSG V27.2-G + multi-judge + webapp V27/V28 + reality loop).
+- Auto-regen : `python3 scripts/update_architecture_map.py` runs in 0.43s, idempotent (second run only updates `meta.generated_at`), preserves all human-curated fields (`purpose`, `inputs`, `outputs`, `doctrine_refs`, `status`, `lifecycle_phase`) while refreshing AST-derived ones (`path`, `depends_on`, `imported_by`).
+- CLAUDE.md init step #11 ajouté : la map devient lecture obligatoire en début de session, complémentaire à #10 CODE_DOCTRINE.md.
+
+**Gates** : lint exit 0 (INFO 1 — script 648 LOC affirmed single-concern), audit_capabilities 0 orphans HIGH, SCHEMA/validate_all exit 0, agent_smoke_test 5/5 PASS, YAML loads + has required top-level keys. Parity `weglot` exit 1 — pre-existing worktree drift, unrelated to this docs-only task (verified by stashing changes and re-running).
+
+**Out of scope** : 81 modules with docstring-only purpose (mostly `__init__.py` markers + a handful of legacy skill scripts) — left for follow-up enrichment. CI integration of the regen script — future epic.
+
 ### 2026-05-11 — V27.2-G alignment Codex→Claude ($0 API)
 
 **Trigger** : after the codebase-cleanup epic + issue #13 (prompt arch refactor) landed, the canonical GSG entered a runtime/validation drift state. Codex handoff `.claude/docs/state/CODEX_TO_CLAUDE_GSG_ALIGNMENT_HANDOFF_2026-05-11.md` flagged 3 alignment breakages. Claude ran ALIGNMENT + VERIFY mode (no new feature, no architecture rewrite).
