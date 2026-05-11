@@ -1,0 +1,25 @@
+  growthcro/recos/orchestrator.py: 610 LOC
+  growthcro/recos/schema.py: 685 LOC
+  growthcro/scoring/specific/sales.py: 352 LOC
+  skills/site-capture/scripts/score_psycho.py: 631 LOC
+  ... and 70 more
+DEBT 5 files (tracked, see CODE_DOCTRINE.md §debt):
+  skills/site-capture/scripts/build_growth_audit_data.py: 803 LOC (tracked debt)
+  skills/site-capture/scripts/discover_pages_v25.py: 970 LOC (tracked debt)
+  skills/site-capture/scripts/playwright_capture_v2.py: 818 LOC (tracked debt)
+  skills/site-capture/scripts/project_snapshot.py: 895 LOC (tracked debt)
+  skills/growth-site-generator/scripts/aura_compute.py: 816 LOC (tracked debt)
+INFO[print-in-pipeline] 34 files (auto-update demo rule):
+  growthcro/config.py: 1 print() calls (should use logger)
+  growthcro/research/brand_identity.py: 2 print() calls (should use logger)
+  growthcro/capture/browser.py: 15 print() calls (should use logger)
+  growthcro/capture/orchestrator.py: 34 print() calls (should use logger)
+  growthcro/capture/dom.py: 4 print() calls (should use logger)
+  growthcro/capture/scorer.py: 26 print() calls (should use logger)
+  growthcro/learning/v30_data_driven.py: 1 print() calls (should use logger)
+  growthcro/gsg_lp/data_loaders.py: 5 print() calls (should use logger)
+  growthcro/gsg_lp/repair_loop.py: 6 print() calls (should use logger)
+  growthcro/gsg_lp/lp_orchestrator.py: 33 print() calls (should use logger)
+  ... and 24 more
+
+Scanned 242 active .py files
