@@ -93,6 +93,26 @@ _KNOWN_VARS: tuple[tuple[str, bool, str, str], ...] = (
     ("GHOST_HEADED",                 False, "0",       "'1' to run ghost_capture in headed mode for debugging."),
     ("AGGRESSIVE_CMP",               False, "0",       "'1' to enable aggressive CMP (cookie banner) handling."),
     ("PORT",                         False, "8000",    "FastAPI server port."),
+    # ── Reality Layer V26.C — per-client credentials (Issue #23) ──────────────
+    # Per-client convention: append `_<CLIENT_SLUG_UPPERCASE>` (e.g. `META_ACCESS_TOKEN_WEGLOT`).
+    # The bare var name (no suffix) is a global fallback used by tooling tests only.
+    # Reality Layer connectors look up `<VAR>_<SLUG_UPPER>` then fall back to `<VAR>`.
+    # See `growthcro/reality/credentials.py` for inspector/validator.
+    ("CATCHR_API_KEY",               False, "",        "Reality Layer — Catchr API key (GA4 wrapper used internally). Per-client: CATCHR_API_KEY_<SLUG>."),
+    ("CATCHR_PROPERTY_ID",           False, "",        "Reality Layer — Catchr property ID. Per-client: CATCHR_PROPERTY_ID_<SLUG>."),
+    ("GA4_SERVICE_ACCOUNT_JSON",     False, "",        "Reality Layer — Path to GA4 service account JSON. Per-client: GA4_SERVICE_ACCOUNT_JSON_<SLUG>."),
+    ("GA4_PROPERTY_ID",              False, "",        "Reality Layer — GA4 numeric property ID. Per-client: GA4_PROPERTY_ID_<SLUG>."),
+    ("META_ACCESS_TOKEN",            False, "",        "Reality Layer — Meta Marketing API access token. Per-client: META_ACCESS_TOKEN_<SLUG>."),
+    ("META_AD_ACCOUNT_ID",           False, "",        "Reality Layer — Meta ad account ID (act_…). Per-client: META_AD_ACCOUNT_ID_<SLUG>."),
+    ("GOOGLE_ADS_DEVELOPER_TOKEN",   False, "",        "Reality Layer — Google Ads developer token. Per-client: GOOGLE_ADS_DEVELOPER_TOKEN_<SLUG> (rare; usually global)."),
+    ("GOOGLE_ADS_CLIENT_ID",         False, "",        "Reality Layer — Google Ads OAuth client ID. Per-client: GOOGLE_ADS_CLIENT_ID_<SLUG>."),
+    ("GOOGLE_ADS_CLIENT_SECRET",     False, "",        "Reality Layer — Google Ads OAuth client secret. Per-client: GOOGLE_ADS_CLIENT_SECRET_<SLUG>."),
+    ("GOOGLE_ADS_REFRESH_TOKEN",     False, "",        "Reality Layer — Google Ads OAuth refresh token. Per-client: GOOGLE_ADS_REFRESH_TOKEN_<SLUG>."),
+    ("GOOGLE_ADS_CUSTOMER_ID",       False, "",        "Reality Layer — Google Ads customer ID (10-digit, no dashes). Per-client: GOOGLE_ADS_CUSTOMER_ID_<SLUG>."),
+    ("SHOPIFY_STORE_DOMAIN",         False, "",        "Reality Layer — Shopify store domain (e.g. shop.myshopify.com). Per-client: SHOPIFY_STORE_DOMAIN_<SLUG>."),
+    ("SHOPIFY_ADMIN_API_TOKEN",      False, "",        "Reality Layer — Shopify Admin API access token. Per-client: SHOPIFY_ADMIN_API_TOKEN_<SLUG>."),
+    ("CLARITY_API_TOKEN",            False, "",        "Reality Layer — Microsoft Clarity Data Export token. Per-client: CLARITY_API_TOKEN_<SLUG>."),
+    ("CLARITY_PROJECT_ID",           False, "",        "Reality Layer — Microsoft Clarity project ID. Per-client: CLARITY_PROJECT_ID_<SLUG>."),
 )
 
 
@@ -180,6 +200,26 @@ class _Config:
     # ── Behavioral toggles ───────────────────────────────────────────
     def is_aggressive_cmp(self) -> bool:
         return _truthy(os.environ.get("AGGRESSIVE_CMP"))
+
+    # ── Reality Layer per-client lookup ──────────────────────────────
+    def reality_client_env(self, var: str, client_slug: str) -> Optional[str]:
+        """Resolve a Reality Layer credential for a given client slug.
+
+        Lookup order:
+          1. `<VAR>_<CLIENT_SLUG_UPPERCASE>` (per-client, takes precedence)
+          2. `<VAR>` (global fallback)
+
+        Returns None if neither is set. Never logs / never raises on missing.
+
+        Used by `growthcro.reality.*` connectors (Issue #23). Centralises the
+        lookup so connectors don't reimplement the convention.
+        """
+        # Normalise the slug: uppercase, hyphens → underscores, no leading digits.
+        safe_slug = client_slug.upper().replace("-", "_")
+        per_client = os.environ.get(f"{var}_{safe_slug}")
+        if per_client:
+            return per_client
+        return os.environ.get(var) or None
 
     # ── System passthroughs (NOT part of the .env contract) ──────────
     def system_env(self, name: str, default: str = "") -> str:
