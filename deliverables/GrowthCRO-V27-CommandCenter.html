@@ -188,6 +188,15 @@ button{cursor:pointer}
   let query = "";
   let sort = "p0";
   let view = "command";
+  let auditFilters = {priority:"", effort:"", lift:""};
+  let gsgMode = "complete";
+  const GSG_MODES = {
+    complete:  {label:"Mode 1 · Complete", desc:"Reprend la page existante et applique les fixes recos doctrine. Conserve la structure source."},
+    replace:   {label:"Mode 2 · Replace",  desc:"Remplace la LP par une refonte doctrine sur la même promesse. Pipeline sequential 4-stages."},
+    extend:    {label:"Mode 3 · Extend",   desc:"Ajoute des sections doctrine (proof stack, mechanism, FAQ) à l'existant."},
+    elevate:   {label:"Mode 4 · Elevate",  desc:"Direction artistique premium (Emil Kowalski) sans changer la copy. Visuel only."},
+    genesis:   {label:"Mode 5 · Genesis",  desc:"From scratch. Crée la LP en partant de la doctrine + brand DNA, sans page source."}
+  };
 
   function role(c){ return c.panel?.role || "runtime_panel"; }
   function scoreColor(v){ const n = Math.max(0, Math.min(100, Number(v)||0)); return `hsl(${Math.round(n*1.2)}, 62%, 58%)`; }
@@ -238,6 +247,7 @@ button{cursor:pointer}
     const recos = topRecos(page, 10);
     const tokens = brandTokens(selected);
     const primary = recos[0] || {};
+    const modeMeta = GSG_MODES[gsgMode] || GSG_MODES.complete;
     return {
       version:"v27.0.0-browser-brief",
       client:selected.id,
@@ -246,6 +256,7 @@ button{cursor:pointer}
       page_url:page?.url,
       score_pct:page?.score_pct,
       p0:page?.priority_distribution?.P0 || 0,
+      gsg_mode:{id:gsgMode, label:modeMeta.label, intent:modeMeta.desc},
       boundary:{llm:"copy variants only",deterministic:"layout, evidence, CTA, brand tokens",reality:"not required"},
       brand_tokens:tokens,
       dominant_problem:compact(primary.problem_headline || primary.before,260),
@@ -321,30 +332,84 @@ button{cursor:pointer}
     return `<article class="reco ${p}"><div class="reco-head"><span class="pill ${p==="p0"?"red":p==="p1"?"amber":"green"}">${esc(r.priority||"P3")} · ICE ${Math.round(r.ice_score||0)}</span><span class="pill">${esc(r.criterion_id||r.cluster_id||"")}</span></div><h3>${esc(compact(r.problem_headline || r.before,150))}</h3><p>${esc(compact(r.after || r.why,260))}</p></article>`;
   }
 
+  function filterRecos(recos){
+    const {priority, effort, lift} = auditFilters;
+    return recos.filter(r => {
+      if(priority && r.priority !== priority) return false;
+      if(effort){
+        const e = Number(r.effort || 0);
+        if(effort === "lo" && !(e > 0 && e <= 4)) return false;
+        if(effort === "md" && !(e > 4 && e <= 16)) return false;
+        if(effort === "hi" && !(e > 16)) return false;
+      }
+      if(lift){
+        const l = Number(r.lift || 0);
+        if(lift === "lo" && !(l > 0 && l < 5)) return false;
+        if(lift === "md" && !(l >= 5 && l < 15)) return false;
+        if(lift === "hi" && !(l >= 15)) return false;
+      }
+      return true;
+    });
+  }
+
   function renderAudit(){
     const page = currentPage();
-    const recos = topRecos(page, 12);
+    const allRecos = [...(page?.recos || [])].sort((a,b)=>rank(a)-rank(b)||(b.ice_score||0)-(a.ice_score||0));
+    const recos = filterRecos(allRecos);
     $("auditFocus").textContent = `${selected.name} / ${page?.page_type}`;
+    const stepCount = (page?.step_recos?.step_recos) ? Object.values(page.step_recos.step_recos).reduce((acc,s)=>acc+((s?.recos||[]).length),0) : 0;
     $("auditView").innerHTML = `
       <div class="grid-kpi" style="grid-template-columns:repeat(4,minmax(0,1fr))">
         <div class="kpi"><span>Page score</span><b style="color:${scoreColor(page?.score_pct)}">${Math.round(page?.score_pct||0)}</b><span>${esc(page?.url||"")}</span></div>
         <div class="kpi"><span>P0</span><b style="color:var(--red)">${page?.priority_distribution?.P0||0}</b><span>blockers</span></div>
         <div class="kpi"><span>P1</span><b style="color:var(--amber)">${page?.priority_distribution?.P1||0}</b><span>high priority</span></div>
-        <div class="kpi"><span>Evidence</span><b>${selected.v26?._summary?.evidence_count || selected.v26?.evidence_count || 0}</b><span>client trail</span></div>
+        <div class="kpi"><span>Evidence</span><b>${selected.v26?._summary?.evidence_count || selected.v26?.evidence_count || 0}</b><span>${stepCount?stepCount+" step recos":"client trail"}</span></div>
       </div>
-      <div class="reco-list">${recos.map(renderReco).join("")}</div>`;
+      <div class="filters" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:12px">
+        <select id="audit-priority" class="select">
+          <option value="">All priorities</option>
+          <option value="P0" ${auditFilters.priority==="P0"?"selected":""}>P0 blockers</option>
+          <option value="P1" ${auditFilters.priority==="P1"?"selected":""}>P1 high</option>
+          <option value="P2" ${auditFilters.priority==="P2"?"selected":""}>P2 medium</option>
+          <option value="P3" ${auditFilters.priority==="P3"?"selected":""}>P3 low</option>
+        </select>
+        <select id="audit-effort" class="select">
+          <option value="">All effort</option>
+          <option value="lo" ${auditFilters.effort==="lo"?"selected":""}>Effort 1-4h</option>
+          <option value="md" ${auditFilters.effort==="md"?"selected":""}>Effort 4-16h</option>
+          <option value="hi" ${auditFilters.effort==="hi"?"selected":""}>Effort 16h+</option>
+        </select>
+        <select id="audit-lift" class="select">
+          <option value="">All lift</option>
+          <option value="lo" ${auditFilters.lift==="lo"?"selected":""}>Lift 1-5%</option>
+          <option value="md" ${auditFilters.lift==="md"?"selected":""}>Lift 5-15%</option>
+          <option value="hi" ${auditFilters.lift==="hi"?"selected":""}>Lift 15%+</option>
+        </select>
+        <button class="btn" id="audit-reset">Reset filters · ${recos.length}/${allRecos.length}</button>
+      </div>
+      <div class="reco-list">${recos.length?recos.map(renderReco).join(""):"<div class='empty'>Aucune reco ne matche les filtres.</div>"}</div>`;
+    $("audit-priority").addEventListener("change", e => { auditFilters.priority = e.target.value; renderAudit(); });
+    $("audit-effort").addEventListener("change", e => { auditFilters.effort = e.target.value; renderAudit(); });
+    $("audit-lift").addEventListener("change", e => { auditFilters.lift = e.target.value; renderAudit(); });
+    $("audit-reset").addEventListener("click", () => { auditFilters = {priority:"",effort:"",lift:""}; renderAudit(); });
   }
 
   function renderGsg(){
     const brief = buildBrief();
-    $("briefMeta").textContent = `${brief.client} / ${brief.page_type}`;
-    $("briefJson").textContent = JSON.stringify(brief, null, 2);
+    $("briefMeta").textContent = `${brief.client} / ${brief.page_type} · ${GSG_MODES[gsgMode].label}`;
+    const modeSelector = `
+      <div class="filters" style="grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:12px">
+        ${Object.entries(GSG_MODES).map(([k,m]) => `<button class="btn ${k===gsgMode?"primary":""}" data-gsg-mode="${esc(k)}" title="${esc(m.desc)}">${esc(m.label.replace(/^Mode \\d · /,""))}</button>`).join("")}
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">${esc(GSG_MODES[gsgMode].desc)}</div>`;
+    $("briefJson").innerHTML = modeSelector + `<pre style="white-space:pre-wrap;margin:0;font-family:inherit;font-size:12px;color:#dbe3ef">${esc(JSON.stringify(brief, null, 2))}</pre>`;
+    document.querySelectorAll("[data-gsg-mode]").forEach(b => b.addEventListener("click", () => { gsgMode = b.dataset.gsgMode; renderGsg(); }));
     const page = currentPage();
     const token = brief.brand_tokens;
     $("gsgPreview").innerHTML = `
       <div class="flow">${brief.layout.map(x=>`<div><b>${esc(x)}</b><span>${x==="hero"?"clarity + one CTA":x==="proof_stack"?"trust above doubt":x==="mechanism"?"why it works":x==="objection_resolver"?"friction removal":"single action"}</span></div>`).join("")}</div>
       <div class="preview"><div class="preview-inner">
-        <div><div style="font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:${esc(token.primary_color)};font-weight:900">GSG V27 Preview</div><h2>${esc(`${selected.name}: clarifier la promesse, prouver plus vite, garder un seul CTA.`)}</h2><p>${esc(brief.dominant_problem)}</p><a class="cta">${esc(brief.cta_label)}</a></div>
+        <div><div style="font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:${esc(token.primary_color)};font-weight:900">GSG V27 Preview · ${esc(GSG_MODES[gsgMode].label)}</div><h2>${esc(`${selected.name}: clarifier la promesse, prouver plus vite, garder un seul CTA.`)}</h2><p>${esc(brief.dominant_problem)}</p><a class="cta">${esc(brief.cta_label)}</a></div>
         <div>${page?.screenshots?.desktop_full ? `<img src="${esc(page.screenshots.desktop_full)}" alt="Preview source"/>` : ""}</div>
       </div></div>`;
   }
