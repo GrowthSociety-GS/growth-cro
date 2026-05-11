@@ -86,17 +86,28 @@ def is_active_path(p: Path) -> bool:
     return parts[0] in ACTIVE_ROOTS
 
 
+def _is_excluded_seg(seg: str) -> bool:
+    # Standard exclude list + archive-pattern dirs (Rule 3 flags the dir itself
+    # once via iter_active_dirs; we don't double-flag its contents here).
+    if seg in EXCLUDE_PARTS:
+        return True
+    if ARCHIVE_PATTERN.match(seg):
+        return True
+    return False
+
+
 def iter_active_py(staged_paths: list[Path] | None = None) -> list[Path]:
     if staged_paths is not None:
         return [p for p in staged_paths if p.suffix == ".py" and p.exists()
-                and is_active_path(p)]
+                and is_active_path(p)
+                and not any(_is_excluded_seg(s) for s in p.relative_to(ROOT).parts)]
     out: list[Path] = []
     for top in ACTIVE_ROOTS:
         base = ROOT / top
         if not base.is_dir():
             continue
         for p in base.rglob("*.py"):
-            if any(seg in EXCLUDE_PARTS for seg in p.relative_to(ROOT).parts):
+            if any(_is_excluded_seg(seg) for seg in p.relative_to(ROOT).parts):
                 continue
             out.append(p)
     return out
