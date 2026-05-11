@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T11:23:46Z'
-  source_commit: 46d59ce857ea23f6cf379509fbe01f9e8cee5234
+  generated_at: '2026-05-11T11:25:06Z'
+  source_commit: 5bc41f28098be126eaba8840222281b1f236f6ff
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -3188,6 +3188,48 @@ pipelines:
     - '5 microfrontends: audit-app, reco-app, gsg-studio, reality-monitor, learning-lab'
     - Supabase EU region (auth + tables clients/audits/recos/runs + realtime)
     status: 'V27 HTML active (12MB growth_audit_data.js, 56 clients, 185 pages); V28 Next.js 0% — Epic #6'
+  webapp_v27:
+    description: Static HTML/JS MVP — frozen data snapshot regenerated from data/captures/*. No server, opened via file://.
+    flow:
+    - data/captures/* (3.7GB gitignored artifacts produced by audit_pipeline)
+    - skills/site-capture/scripts/build_growth_audit_data.py (803 LOC, KNOWN_DEBT — pure IO, no growthcro/* imports)
+    - deliverables/growth_audit_data.js (11.73MB, window.GROWTH_AUDIT_DATA)
+    - deliverables/GrowthCRO-V27-CommandCenter.html (4 views: command / audit / gsg / demo)
+    smoke_test: python3 scripts/test_webapp_v27.py
+    target_load_s: 3.0
+    measured_load_s: 0.61
+    panes:
+      command:
+        purpose: Fleet KPIs + per-client detail (screenshots, pillars, top recos)
+        filters:
+        - search query
+        - panel role
+        - sort by P0/score/name
+      audit:
+        purpose: Page-level audit detail + filtered recos backlog
+        filters:
+        - priority (P0/P1/P2/P3)
+        - effort (1-4h / 4-16h / 16h+)
+        - lift (1-5% / 5-15% / 15%+)
+        kpis:
+        - page score
+        - P0 count
+        - P1 count
+        - evidence count (+ step recos count when present)
+      gsg:
+        purpose: Deterministic GSG brief preview — copy-only LLM boundary, no full-HTML generation in browser
+        modes:
+        - complete (Mode 1)
+        - replace (Mode 2)
+        - extend (Mode 3)
+        - elevate (Mode 4)
+        - genesis (Mode 5)
+        outputs:
+        - JSON brief (gsg_mode + brand_tokens + top_recos + layout + cta_label)
+        - HTML preview tile (screenshot + headline + CTA)
+      demo:
+        purpose: End-to-end Weglot showcase — Audit → Reco → Brief → Renderer → Judges
+    status: V27 MVP honest — Issue
 skills_integration:
   meta:
     blueprint_doc: .claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md
