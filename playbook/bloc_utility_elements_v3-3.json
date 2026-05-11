@@ -1,0 +1,408 @@
+{
+  "block": "7",
+  "pillar": "utility_elements",
+  "label": "Utility Elements (Banners & Peripherals)",
+  "max": 21,
+  "description": "Mini-doctrine pour éléments utilitaires périphériques (bandeaux promo, bandeaux réassurance). 7 critères × 3 pts = /21. Contribution au score page : 5-10% calibré au runtime selon présence et variant (PROMO vs REASSURANCE). Ce bloc ne s'applique QUE si perception_v13 détecte un cluster role=UTILITY_BANNER au-dessus du HERO et non reclassé en MODAL.",
+  "version": "3.3.0-cre-fusion",
+  "status": "draft",
+  "createdAt": "2026-04-15",
+  "createdBy": "Étape 1a — audit différencié par label (seoni false positive → UTILITY_BANNER audit)",
+  "appliesWhen": {
+    "requires": "perception_v13.clusters contains role=UTILITY_BANNER (not reclassified to MODAL)",
+    "variantDetection": {
+      "PROMO": "texte contient {%, -XX, code promo, offre, soldes, black friday, cyber, flash, exclu, fin de stock, 24h, countdown}",
+      "REASSURANCE": "texte contient {livraison offerte, livraison gratuite, retour gratuit, garantie, paiement sécurisé, made in, avis vérifiés, satisfait ou remboursé}",
+      "default": "UNKNOWN → audit partiel (ut_01, ut_05, ut_06 uniquement)"
+    }
+  },
+  "globalContribution": {
+    "weightInPageScore": 0.075,
+    "rule": "Si UTILITY_BANNER détecté, contribution = 7.5% du score page (calibrable 5-10% selon variant). Si absent, skip propre, pas de pénalité.",
+    "rationale": "Bandeau promo mal exécuté peut tuer crédibilité globale du site (effet halo négatif) — Notion 'hiérarchie réassurance' + Baymard UX Study 2024 bandeaux."
+  },
+  "sourcesConsolidated": [
+    "Notion 'Doc Process & suivi CRO' section Bandeaux promo / Hiérarchie réassurance",
+    "Baymard Institute — UX Considerations for Top Banners (2024)",
+    "CXL Institute — When promo bars help vs hurt (2023)",
+    "WCAG 2.1 AA — contrast ratios for utility bars",
+    "Observation terrain 30 clients batch 2026-04-09 — cas Seoni, Tediber, Sezane, Asphalte"
+  ],
+  "designDecisions": {
+    "D1_dedicatedScorer": "Nouveau scorer score_utility_banner.py (vs extension score_persuasion). Raison : grille trop spécifique, pollution persuasion si intégré. VALIDÉ 2026-04-15.",
+    "D2_variantSplit": "Séparer PROMO vs REASSURANCE : ut_02 et ut_04 ne s'appliquent qu'à PROMO. REASSURANCE audité sur ut_01, ut_03, ut_05, ut_06, ut_07.",
+    "D3_perceptionPatch": "perception_v13 doit patcher cluster height>400px avec role=UTILITY_BANNER → reclassifier en MODAL. Sinon faux positifs type Seoni.",
+    "D4_weightCalibration": "7.5% du score page par défaut, ajustable dans page_type_criteria.json par pageType (home/pdp=10%, blog/pricing=5%)."
+  },
+  "killers": [
+    {
+      "id": "ut_01_critical",
+      "rule": "Si ut_01 == 0 (bandeau >12% fold OU recouvre H1 en sticky), cap du total Bloc 7 à 7/21"
+    },
+    {
+      "id": "ut_02_critical_promo",
+      "rule": "Si variant=PROMO et ut_02 == 0 (aucun cadre temporel + aucune raison), cap du total Bloc 7 à 10/21. Ne s'applique pas à REASSURANCE."
+    }
+  ],
+  "criteria": [
+    {
+      "id": "ut_01",
+      "label": "Proportion du fold occupée",
+      "pillar": "utility_elements",
+      "weight": 3,
+      "appliesTo": [
+        "PROMO",
+        "REASSURANCE"
+      ],
+      "checkMethod": "visual+spatial",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "scoring": {
+        "top": "Bandeau < 5% du fold (hauteur ≤ 45px sur 900px desktop, ≤ 40px sur 700px mobile). N'étouffe pas la value prop hero.",
+        "ok": "Bandeau entre 5-12% du fold (45-110px desktop, 40-85px mobile). Acceptable si sticky non-obstructif.",
+        "critical": "Bandeau > 12% du fold OU recouvre ≥20% du H1 en scroll sticky OU >150px sur desktop. Déclenche killer ut_01_critical."
+      },
+      "dataFields": [
+        "perception_v13.clusters[role=UTILITY_BANNER].bbox.height",
+        "perception_v13.viewport.height"
+      ],
+      "examples": {
+        "top": [
+          "Tediber '14 NUITS D'ESSAI' 34px sticky"
+        ],
+        "ok": [
+          "Asphalte promo ~80px"
+        ],
+        "critical": [
+          "Modal-like 835px (ex Seoni → doit être reclassé MODAL par perception)"
+        ]
+      },
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_attention_lost"
+      ],
+      "ice_template": {
+        "impact_estimator": "low-medium — peripheral fixes have small but cumulative effect",
+        "confidence_factors": {
+          "base": 6
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "component_swap": 5
+        }
+      }
+    },
+    {
+      "id": "ut_02",
+      "label": "Crédibilité du mécanisme promo (cadre temporel + raison)",
+      "pillar": "utility_elements",
+      "weight": 3,
+      "appliesTo": [
+        "PROMO"
+      ],
+      "checkMethod": "textual+heuristic",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Cadre temporel EXPLICITE (date fin, countdown, 'jusqu'au X', 'plus que Xh') ET raison identifiée (Black Friday, Soldes, fin de stock, premier achat, anniversaire marque). Ex : 'Black Friday jusqu'au 28/11 — 30% sur tout le site'.",
+        "ok": "L'un des deux présents. Ex : '-30% ce weekend' (temps mais pas de raison) OU 'Offre spéciale Noël' (raison mais pas de date).",
+        "critical": "Ni cadre temporel ni raison identifiée. Ex : '-50% sur tout' permanent → perçu comme prix barré artificiel, tue la crédibilité de la marque. Déclenche killer ut_02_critical_promo."
+      },
+      "dataFields": [
+        "perception_v13.clusters[UTILITY_BANNER].elements[type=text].text"
+      ],
+      "regex_patterns": {
+        "timeframe": "\\b(jusqu'au|until|aujourd'hui|ce soir|fin|expir|plus que|\\d+\\s*h\\b|\\d+\\s*j\\b|countdown|timer)\\b",
+        "reason": "\\b(black friday|cyber|soldes|noël|noel|saint-valentin|anniv|premier achat|new|nouveau client|bienvenue|exclu|stock)\\b"
+      },
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_credibility_low"
+      ],
+      "ice_template": {
+        "impact_estimator": "low-medium — peripheral fixes have small but cumulative effect",
+        "confidence_factors": {
+          "base": 6
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "component_swap": 5
+        }
+      }
+    },
+    {
+      "id": "ut_03",
+      "label": "Cohérence offre × produit-hero",
+      "pillar": "utility_elements",
+      "weight": 3,
+      "appliesTo": [
+        "PROMO",
+        "REASSURANCE"
+      ],
+      "checkMethod": "semantic",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Promo/réassurance cible le produit-hero ou tous les produits. Alignement sémantique avec le H1. Ex : hero 'Matelas Original' + bandeau 'Livraison offerte sur tous matelas'.",
+        "ok": "Promo sur catégorie cohérente avec la navigation visible (ex : bandeau 'soldes chaussures' sur site mode généraliste).",
+        "critical": "Promo isolée non applicable au produit mis en avant. Friction cognitive (visiteur cherche X, bandeau parle de Y). Ex : hero 'Matelas' + bandeau '-20% sur les oreillers'."
+      },
+      "dataFields": [
+        "perception_v13.clusters[HERO].h1",
+        "perception_v13.clusters[UTILITY_BANNER].elements",
+        "perception_v13.clusters[NAV].links"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_bait_and_switch"
+      ],
+      "ice_template": {
+        "impact_estimator": "low-medium — peripheral fixes have small but cumulative effect",
+        "confidence_factors": {
+          "base": 6
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "component_swap": 5
+        }
+      }
+    },
+    {
+      "id": "ut_04",
+      "label": "Scent trail (paid match)",
+      "pillar": "utility_elements",
+      "weight": 3,
+      "appliesTo": [
+        "PROMO"
+      ],
+      "checkMethod": "utm+heuristic",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Promesse bandeau = promesse ad source (via UTM utm_campaign ou inféré par contexte intent_v13). Ex : ad 'BF30' + bandeau 'Black Friday -30%'.",
+        "ok": "Bandeau neutre/réassurance universelle (livraison offerte, paiement sécurisé) qui ne contredit jamais une ad. Par défaut si UTM non disponible, bandeau cohérent avec positionnement.",
+        "critical": "Bandeau contredit l'offre probable (ad -20% mais bandeau -10%) OU bandeau -70% criard sur marque premium dans ad. Chute de conversion documentée (Baymard)."
+      },
+      "dataFields": [
+        "intent_v13.signals",
+        "capture.url.utm_*",
+        "perception_v13.clusters[UTILITY_BANNER].text"
+      ],
+      "note": "En l'absence d'UTM capturés, fallback sur cohérence contextuelle : bandeau ne doit jamais contredire la promesse évidente du hero.",
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_bait_and_switch"
+      ],
+      "ice_template": {
+        "impact_estimator": "low-medium — peripheral fixes have small but cumulative effect",
+        "confidence_factors": {
+          "base": 6
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "component_swap": 5
+        }
+      }
+    },
+    {
+      "id": "ut_05",
+      "label": "Contraste & lisibilité",
+      "pillar": "utility_elements",
+      "weight": 3,
+      "appliesTo": [
+        "PROMO",
+        "REASSURANCE"
+      ],
+      "checkMethod": "visual",
+      "viewport_check": [
+        "desktop",
+        "mobile"
+      ],
+      "scoring": {
+        "top": "Contrast ratio ≥ 7:1 (WCAG AAA). Font-size ≥ 14px. Texte principal lisible en <0.5s.",
+        "ok": "Contrast ratio ≥ 4.5:1 (WCAG AA). Font-size ≥ 12px.",
+        "critical": "Contrast < 4.5:1 OU font-size < 12px OU texte blanc sur fond ultra-clair / noir sur noir. Bandeau illisible = bandeau inutile = coût sans bénéfice."
+      },
+      "dataFields": [
+        "spatial_v9.elements[in_utility_banner].computed_color",
+        "spatial_v9.elements[in_utility_banner].background",
+        "spatial_v9.elements[in_utility_banner].font_size"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_attention_lost"
+      ],
+      "ice_template": {
+        "impact_estimator": "low-medium — peripheral fixes have small but cumulative effect",
+        "confidence_factors": {
+          "base": 6
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "component_swap": 5
+        }
+      }
+    },
+    {
+      "id": "ut_06",
+      "label": "Dismissibility & persistance",
+      "pillar": "utility_elements",
+      "weight": 3,
+      "appliesTo": [
+        "PROMO",
+        "REASSURANCE"
+      ],
+      "checkMethod": "visual+dom",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Dismissible avec bouton × visible ET memory (une fois fermé, ne réapparaît pas pendant session) OU non-sticky (disparaît au scroll après 200px).",
+        "ok": "Sticky sans dismiss mais hauteur ≤ 50px (empreinte acceptable).",
+        "critical": "Sticky + non-dismissible + > 50px → mange de la surface en permanence, agresse l'UX mobile. Impact direct sur conversion mobile (Baymard)."
+      },
+      "dataFields": [
+        "spatial_v9.elements[role=button, in_utility_banner].text",
+        "capture.css.position_sticky_utility",
+        "perception_v13.clusters[UTILITY_BANNER].bbox.height"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_friction_high"
+      ],
+      "ice_template": {
+        "impact_estimator": "low-medium — peripheral fixes have small but cumulative effect",
+        "confidence_factors": {
+          "base": 6
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "component_swap": 5
+        }
+      }
+    },
+    {
+      "id": "ut_07",
+      "label": "Cohérence tonale avec la marque",
+      "pillar": "utility_elements",
+      "weight": 3,
+      "appliesTo": [
+        "PROMO",
+        "REASSURANCE"
+      ],
+      "checkMethod": "semantic",
+      "viewport_check": [
+        "both"
+      ],
+      "scoring": {
+        "top": "Ton bandeau aligné avec ton de marque détecté dans hero/nav. Marque hard-sell → bandeau hard-sell OK. Marque soft/premium → bandeau soft/feutré.",
+        "ok": "Léger décalage tonal mais acceptable. Ex : marque premium avec bandeau '-20% exceptionnel' (pas criard).",
+        "critical": "Bandeau agressif '-70% FLASH !!!' avec emojis clignotants sur marque premium/luxe → dégrade perception qualité. Bandeau corporate froid sur marque fun/lifestyle → dissonance."
+      },
+      "dataFields": [
+        "perception_v13.clusters[HERO].tone_signals",
+        "perception_v13.clusters[UTILITY_BANNER].text",
+        "business_category"
+      ],
+      "heuristics": {
+        "aggressive_markers": [
+          "!!!",
+          "FLASH",
+          "ALERTE",
+          "DERNIÈRE CHANCE",
+          "🔥",
+          "⚡"
+        ],
+        "premium_markers_in_hero": [
+          "artisan",
+          "savoir-faire",
+          "luxe",
+          "exclusif",
+          "maison",
+          "héritage",
+          "couture"
+        ]
+      },
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_too_corporate"
+      ],
+      "ice_template": {
+        "impact_estimator": "low-medium — peripheral fixes have small but cumulative effect",
+        "confidence_factors": {
+          "base": 6
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "component_swap": 5
+        }
+      }
+    }
+  ],
+  "recoTemplateKeys": {
+    "ut_01": "utility_banner_height_reduce",
+    "ut_02": "utility_banner_add_deadline_reason",
+    "ut_03": "utility_banner_align_hero_product",
+    "ut_04": "utility_banner_match_paid_scent",
+    "ut_05": "utility_banner_improve_contrast",
+    "ut_06": "utility_banner_add_dismiss_memory",
+    "ut_07": "utility_banner_tone_alignment"
+  },
+  "amendedAt": "2026-05-11",
+  "changelog": [
+    {
+      "version": "3.3.0-cre-fusion",
+      "date": "2026-05-11",
+      "trigger": "Task #18 webapp-stratosphere — fusion CRE methodology (skill cro-methodology) avec V3.2.1.",
+      "notes": [
+        "Backward compatible : V3.2.1 reste défaut pour 56 clients existants ; V3.3 sur opt-in via doctrine_version='3.3'.",
+        "Per-criterion enrichments : research_first flag, oco_refs (to cre_oco_tables.json), ice_template (per-pillar starting point).",
+        "Bloc-level cre_alignment section : 9step_phase / principle / research_inputs_required.",
+        "Criteria sémantique INCHANGÉE : label, scoring (top/ok/critical), examples, antiPatterns, killer flags, weight, pageTypes — tous préservés.",
+        "Anti-pattern #3 respecté : on enrichit, on ne réinvente pas la grille."
+      ]
+    },
+    {
+      "version": "3.2.0-draft",
+      "date": "2026-04-18",
+      "notes": [
+        "P0.1 fix: semantic_overlay (Haiku 4.5) now consumed by score_page_type.py for 18 creative criteria — was silently orphaned before.",
+        "P0.2 full rerun: 366 pages rescored with semantic overlay applied.",
+        "P0.3 cleanup: 71 stale golden/ score_page_type.json archived + stray fichet/ dir archived.",
+        "P1.A doctrine: new data/doctrine/criteria_scope_matrix_v1.json classifying 47 criteria as ASSET (22) vs ENSEMBLE (25) with 7 synergy groups.",
+        "P1.B runtime: new score_contextual_overlay.py applying synergy compensation rules (HERO_RESCUE, PROOF_RESCUE, FIVE_SEC_RESCUE, BENEFIT_FLOW_RESCUE, MANIPULATION_FLAG, UX_RHYTHM_RESCUE, COHERENCE_QUORUM). 25/287 pages rescued, +29.5 pts net.",
+        "P1.C applicability: new data/doctrine/applicability_matrix_v1.json with business_type axis (ecommerce/lead_gen/saas/content/app) and legacy `lp` pageType alias. 8 failures → 0. Full pipeline 366/366.",
+        "ASSET criteria (tech_*, psy_02, counts) are INVARIANT from contextual layer. Only ENSEMBLE criteria eligible for rescue."
+      ]
+    }
+  ],
+  "doctrineReferences": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v1.json",
+    "note": "v3.2 adds ENSEMBLE-aware scoring via score_contextual_overlay.py. ASSET criteria unaffected."
+  },
+  "cre_alignment": {
+    "9step_phase": "iterate",
+    "principle": "Peripherals (banners, modals, cookies) are tested last — they fix what funnel did not solve.",
+    "research_inputs_required": [
+      "session_recordings",
+      "support_tickets"
+    ],
+    "notes": [
+      "Utility elements are iterate-phase: post-funnel optimization, not primary lever.",
+      "O/CO mapping minimal — these are friction reducers, not value sellers."
+    ]
+  }
+}
