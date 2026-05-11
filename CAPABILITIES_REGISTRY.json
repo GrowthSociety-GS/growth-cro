@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T16:19:24",
+  "generated_at": "2026-05-11T19:29:23",
   "stats": {
-    "total_files": 247,
+    "total_files": 238,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 48,
+    "active_cli": 47,
     "active_package_marker": 22,
-    "active_misc": 163,
+    "active_misc": 155,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
@@ -26,7 +26,7 @@
         "collect_for_page"
       ],
       "size_bytes": 1767,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/lint_code_hygiene.py"
@@ -41,7 +41,7 @@
       "what": "moteur_gsg.core — building blocs réutilisés par les 5 modes.",
       "imports": [],
       "size_bytes": 309,
-      "mtime": "2026-05-03",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/lint_code_hygiene.py"
@@ -84,7 +84,7 @@
       "what": "moteur_gsg.modes — les 5 situations type GSG (V26.AH minimal).",
       "imports": [],
       "size_bytes": 921,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/lint_code_hygiene.py"
@@ -510,7 +510,7 @@
       "what": "Helpers pour lire un SiteCapture et servir de base au scoring V3.",
       "imports": [],
       "size_bytes": 1068,
-      "mtime": "2026-04-08",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -576,25 +576,6 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1/orchestrator.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "apify_enrich",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py",
-      "filename": "apify_enrich.py",
-      "what": "apify_enrich.py — Enrichit un capture.json natif avec les données visuelles Apify.",
-      "imports": [
-        "run_capture",
-        "shutil"
-      ],
-      "size_bytes": 15978,
-      "mtime": "2026-04-10",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "skills/site-capture/scripts/capture_site.py",
-        "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -683,7 +664,7 @@
         "httpx"
       ],
       "size_bytes": 11890,
-      "mtime": "2026-04-28",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -750,7 +731,7 @@
         "random"
       ],
       "size_bytes": 31025,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/gsg_lp/data_loaders.py",
@@ -923,7 +904,7 @@
         "score_ux"
       ],
       "size_bytes": 4586,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -1072,7 +1053,7 @@
         "annotations"
       ],
       "size_bytes": 9668,
-      "mtime": "2026-05-03",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -1095,7 +1076,7 @@
         "annotations"
       ],
       "size_bytes": 7232,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/modes/mode_2_replace.py"
@@ -1120,7 +1101,7 @@
         "field"
       ],
       "size_bytes": 19356,
-      "mtime": "2026-05-08",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
@@ -1161,7 +1142,7 @@
         "urlparse"
       ],
       "size_bytes": 15005,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
@@ -1185,7 +1166,7 @@
         "brief_v2"
       ],
       "size_bytes": 6734,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "scripts/_test_weglot_listicle_V26AE.py",
@@ -1243,21 +1224,6 @@
       "criticality": "low"
     },
     {
-      "id": "build_dashboard_v12",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12.py",
-      "filename": "build_dashboard_v12.py",
-      "what": "build_dashboard_v12.py — Consolidate every client/page audit into a single JSON\nand inject it into growthcro_v12_dashboard.html.",
-      "imports": [
-        "OrderedDict"
-      ],
-      "size_bytes": 10954,
-      "mtime": "2026-04-14",
-      "is_cli_entrypoint": true,
-      "consumed_by": [],
-      "status": "ACTIVE_CLI_ENTRYPOINT",
-      "criticality": "low"
-    },
-    {
       "id": "build_growth_audit_data",
       "path": "skills/site-capture/scripts/build_growth_audit_data.py",
       "filename": "build_growth_audit_data.py",
@@ -1270,7 +1236,7 @@
         "timezone"
       ],
       "size_bytes": 37792,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1442,7 +1408,7 @@
         "validate_canonical_contract"
       ],
       "size_bytes": 760,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1461,7 +1427,7 @@
         "orchestrator"
       ],
       "size_bytes": 3998,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1480,7 +1446,7 @@
         "orchestrator"
       ],
       "size_bytes": 3801,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1520,7 +1486,7 @@
         "orchestrator"
       ],
       "size_bytes": 4729,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1820,7 +1786,7 @@
         "scripts"
       ],
       "size_bytes": 17604,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
@@ -1878,28 +1844,6 @@
       "criticality": "low"
     },
     {
-      "id": "component_detector",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector.py",
-      "filename": "component_detector.py",
-      "what": "component_detector.py — GrowthCRO V12 Phase 5.2 : Component Detector multi-signal.",
-      "imports": [
-        "Any",
-        "Counter",
-        "__future__",
-        "annotations",
-        "datetime"
-      ],
-      "size_bytes": 35037,
-      "mtime": "2026-04-14",
-      "is_cli_entrypoint": true,
-      "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
-        "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
       "id": "component_library",
       "path": "moteur_gsg/core/component_library.py",
       "filename": "component_library.py",
@@ -1912,29 +1856,10 @@
         "deepcopy"
       ],
       "size_bytes": 15639,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/planner.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "component_perception",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception.py",
-      "filename": "component_perception.py",
-      "what": "component_perception.py — Oracle V11 : Perception Sémantique & Spatiale",
-      "imports": [
-        "parse",
-        "urllib",
-        "urlparse"
-      ],
-      "size_bytes": 28334,
-      "mtime": "2026-04-13",
-      "is_cli_entrypoint": true,
-      "consumed_by": [
-        "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1969,27 +1894,6 @@
       "criticality": "low"
     },
     {
-      "id": "component_validator",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator.py",
-      "filename": "component_validator.py",
-      "what": "component_validator.py — GrowthCRO V12 Phase 5.4 : Critic/Validator.",
-      "imports": [
-        "Counter",
-        "__future__",
-        "annotations",
-        "datetime"
-      ],
-      "size_bytes": 11264,
-      "mtime": "2026-04-14",
-      "is_cli_entrypoint": true,
-      "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
-        "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
       "id": "components",
       "path": "moteur_gsg/core/css/components.py",
       "filename": "components.py",
@@ -2017,7 +1921,7 @@
         "annotations"
       ],
       "size_bytes": 5102,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2122,7 +2026,7 @@
         "load_client_context"
       ],
       "size_bytes": 13314,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -2219,7 +2123,7 @@
         "visual_intelligence"
       ],
       "size_bytes": 11712,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
@@ -2263,7 +2167,7 @@
         "annotations"
       ],
       "size_bytes": 19370,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2305,7 +2209,7 @@
         "annotations"
       ],
       "size_bytes": 20530,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
@@ -2326,7 +2230,7 @@
         "annotations"
       ],
       "size_bytes": 6118,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/prompt_assembly.py",
@@ -2349,7 +2253,7 @@
         "minimal_guards"
       ],
       "size_bytes": 8888,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/css/__init__.py",
@@ -2371,7 +2275,7 @@
         "urlparse"
       ],
       "size_bytes": 5630,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2455,7 +2359,7 @@
         "top_critical_for_page_type"
       ],
       "size_bytes": 16929,
-      "mtime": "2026-05-03",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/doctrine_planner.py",
@@ -2512,7 +2416,7 @@
         "field"
       ],
       "size_bytes": 15728,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -2556,7 +2460,7 @@
         "unicodedata"
       ],
       "size_bytes": 22949,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2668,7 +2572,7 @@
         "evidence_ledger"
       ],
       "size_bytes": 10258,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2689,7 +2593,7 @@
         "hashlib"
       ],
       "size_bytes": 12059,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/enrich_scores_with_evidence.py",
@@ -2717,7 +2621,7 @@
         "math"
       ],
       "size_bytes": 14233,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/experiment_engine.py"
@@ -2764,7 +2668,7 @@
         "shutil"
       ],
       "size_bytes": 17817,
-      "mtime": "2026-05-01",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/gsg_lp/data_loaders.py",
@@ -2869,7 +2773,7 @@
         "Path"
       ],
       "size_bytes": 8111,
-      "mtime": "2026-04-17",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/recos/orchestrator.py"
@@ -2894,7 +2798,7 @@
         "stdev"
       ],
       "size_bytes": 12538,
-      "mtime": "2026-04-27",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -2910,7 +2814,7 @@
         "math"
       ],
       "size_bytes": 17095,
-      "mtime": "2026-04-18",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/gsg_lp/data_loaders.py",
@@ -2939,7 +2843,7 @@
         "segment_key"
       ],
       "size_bytes": 16696,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/recos/orchestrator.py",
@@ -2962,7 +2866,7 @@
         "math"
       ],
       "size_bytes": 12248,
-      "mtime": "2026-04-19",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/golden_differential.py"
@@ -3055,7 +2959,7 @@
         "subprocess"
       ],
       "size_bytes": 15371,
-      "mtime": "2026-05-02",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py"
@@ -3257,7 +3161,7 @@
         "gsg_humanlike_audit"
       ],
       "size_bytes": 2445,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_multi_judge/judges/__init__.py"
@@ -3299,7 +3203,7 @@
         "fix_html_runtime"
       ],
       "size_bytes": 3132,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_multi_judge/judges/__init__.py"
@@ -3330,7 +3234,7 @@
         "urlparse"
       ],
       "size_bytes": 20156,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/check_gsg_intake_wizard.py",
@@ -3373,7 +3277,7 @@
         "Path"
       ],
       "size_bytes": 26180,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/cli/capture_full.py"
@@ -3396,7 +3300,7 @@
         "defaultdict"
       ],
       "size_bytes": 17933,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -3424,7 +3328,7 @@
         "io"
       ],
       "size_bytes": 7283,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/creative_route_selector.py",
@@ -3628,7 +3532,7 @@
         "unescape"
       ],
       "size_bytes": 28643,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -3722,7 +3626,7 @@
         "save_brief_v15"
       ],
       "size_bytes": 9888,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3750,7 +3654,7 @@
         "run_mode_1_persona_narrator"
       ],
       "size_bytes": 4778,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3778,7 +3682,7 @@
         "run_mode_1_persona_narrator"
       ],
       "size_bytes": 5449,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3804,7 +3708,7 @@
         "run_mode_1_persona_narrator"
       ],
       "size_bytes": 7008,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
@@ -3824,7 +3728,7 @@
         "annotations"
       ],
       "size_bytes": 8509,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -3946,7 +3850,7 @@
         "orchestrator"
       ],
       "size_bytes": 6155,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/api/audits.py",
@@ -4049,7 +3953,7 @@
         "moteur_multi_judge"
       ],
       "size_bytes": 10201,
-      "mtime": "2026-05-03",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/api/audits.py",
@@ -4357,7 +4261,7 @@
         "annotations"
       ],
       "size_bytes": 7601,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -4376,10 +4280,9 @@
         "datetime"
       ],
       "size_bytes": 16223,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -4398,10 +4301,9 @@
         "hashlib"
       ],
       "size_bytes": 14110,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -4427,7 +4329,7 @@
         "pydantic"
       ],
       "size_bytes": 14177,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4485,7 +4387,7 @@
         "lru_cache"
       ],
       "size_bytes": 7791,
-      "mtime": "2026-04-18",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/scoring/persist.py",
@@ -4506,7 +4408,7 @@
         "annotations"
       ],
       "size_bytes": 11914,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -4530,11 +4432,10 @@
         "perception_bridge"
       ],
       "size_bytes": 9232,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/scoring/ux.py",
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
         "skills/site-capture/scripts/perception_bridge.py",
         "skills/site-capture/scripts/score_coherence.py",
         "skills/site-capture/scripts/score_hero.py",
@@ -4556,31 +4457,7 @@
         "urlparse"
       ],
       "size_bytes": 10308,
-      "mtime": "2026-04-13",
-      "is_cli_entrypoint": true,
-      "consumed_by": [
-        "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "perception_pipeline",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
-      "filename": "perception_pipeline.py",
-      "what": "perception_pipeline.py — GrowthCRO V12 Phase 5 : Orchestrateur Layer 2 Perception.",
-      "imports": [
-        "__future__",
-        "annotations",
-        "component_detector",
-        "component_validator",
-        "datetime",
-        "overlay_renderer",
-        "page_cleaner",
-        "subprocess"
-      ],
-      "size_bytes": 5883,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
@@ -4713,7 +4590,7 @@
         "random"
       ],
       "size_bytes": 6998,
-      "mtime": "2026-04-19",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4763,7 +4640,7 @@
         "pipeline_single_pass"
       ],
       "size_bytes": 25751,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/run_gsg_full_pipeline.py"
@@ -4818,7 +4695,7 @@
         "pattern_library"
       ],
       "size_bytes": 9209,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/asset_resolver.py",
@@ -4954,7 +4831,7 @@
         "subprocess"
       ],
       "size_bytes": 39591,
-      "mtime": "2026-05-08",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -4981,7 +4858,7 @@
         "minimal_guards"
       ],
       "size_bytes": 14472,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -5070,34 +4947,6 @@
       "criticality": "low"
     },
     {
-      "id": "reco_enricher",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
-      "filename": "reco_enricher.py",
-      "what": "reco_enricher.py — GrowthCRO V12 Phase 4.5 : enrichit les recommandations.",
-      "imports": [
-        "Any",
-        "__future__",
-        "annotations",
-        "datetime",
-        "detect_awareness",
-        "enrich_audit",
-        "enrich_reco",
-        "functools",
-        "lru_cache",
-        "perception_bridge",
-        "schwartz_detector",
-        "unicodedata"
-      ],
-      "size_bytes": 51419,
-      "mtime": "2026-04-18",
-      "is_cli_entrypoint": true,
-      "consumed_by": [
-        "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
       "id": "reco_lifecycle",
       "path": "skills/site-capture/scripts/reco_lifecycle.py",
       "filename": "reco_lifecycle.py",
@@ -5111,7 +4960,7 @@
         "transition"
       ],
       "size_bytes": 10134,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -5130,7 +4979,7 @@
         "defaultdict"
       ],
       "size_bytes": 10321,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -5167,7 +5016,7 @@
         "annotations"
       ],
       "size_bytes": 14293,
-      "mtime": "2026-04-27",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -5250,7 +5099,6 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -5427,7 +5275,7 @@
         "annotations"
       ],
       "size_bytes": 13096,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -5472,10 +5320,9 @@
         "schwartz_detector"
       ],
       "size_bytes": 10582,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
         "skills/site-capture/scripts/schwartz_detector.py"
       ],
       "status": "ACTIVE",
@@ -5495,7 +5342,7 @@
         "lru_cache"
       ],
       "size_bytes": 12645,
-      "mtime": "2026-04-18",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
@@ -5521,7 +5368,7 @@
         "urlparse"
       ],
       "size_bytes": 26566,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -5545,7 +5392,7 @@
         "math"
       ],
       "size_bytes": 22653,
-      "mtime": "2026-04-19",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
@@ -5564,7 +5411,7 @@
         "annotations"
       ],
       "size_bytes": 10923,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -5582,7 +5429,7 @@
         "spatial_bridge"
       ],
       "size_bytes": 36012,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -5644,7 +5491,7 @@
         "timezone"
       ],
       "size_bytes": 28597,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -5667,32 +5514,13 @@
         "spatial_bridge"
       ],
       "size_bytes": 28343,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py",
         "skills/site-capture/scripts/score_page_type.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "score_site",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site.py",
-      "filename": "score_site.py",
-      "what": "score_site.py — Agrégateur multi-pages GrowthCRO.",
-      "imports": [
-        "datetime"
-      ],
-      "size_bytes": 9231,
-      "mtime": "2026-04-10",
-      "is_cli_entrypoint": true,
-      "consumed_by": [
-        "skills/site-capture/scripts/batch_rescore.py",
-        "skills/site-capture/scripts/capture_site.py",
-        "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -5707,7 +5535,7 @@
         "timezone"
       ],
       "size_bytes": 13896,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -5734,7 +5562,7 @@
         "web_vitals_adapter"
       ],
       "size_bytes": 25186,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
@@ -5756,7 +5584,7 @@
         "annotations"
       ],
       "size_bytes": 20378,
-      "mtime": "2026-04-13",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py",
@@ -5774,7 +5602,7 @@
         "Any"
       ],
       "size_bytes": 21409,
-      "mtime": "2026-04-15",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py",
@@ -5998,7 +5826,7 @@
         "spatial_scoring"
       ],
       "size_bytes": 4082,
-      "mtime": "2026-04-12",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/scoring/ux.py",
@@ -6020,37 +5848,10 @@
       "what": "spatial_enrich.py — Corrige capture.json avec les données spatiales Ghost (spatial_v9.json).",
       "imports": [],
       "size_bytes": 12646,
-      "mtime": "2026-04-13",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "spatial_scoring",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py",
-      "filename": "spatial_scoring.py",
-      "what": "spatial_scoring.py — Spatial enrichment layer for GrowthCRO V9",
-      "imports": [
-        "Any",
-        "Dict",
-        "List",
-        "Optional",
-        "Tuple",
-        "enrich_hero_spatial",
-        "enrich_ux_spatial",
-        "spatial_scoring",
-        "statistics"
-      ],
-      "size_bytes": 31426,
-      "mtime": "2026-04-12",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py",
-        "skills/site-capture/scripts/project_snapshot.py",
-        "skills/site-capture/scripts/spatial_bridge.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -6128,7 +5929,7 @@
         "annotations"
       ],
       "size_bytes": 20960,
-      "mtime": "2026-04-27",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -6203,7 +6004,7 @@
         "subprocess"
       ],
       "size_bytes": 7215,
-      "mtime": "2026-04-15",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -6324,7 +6125,7 @@
         "field"
       ],
       "size_bytes": 13404,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
@@ -6349,7 +6150,7 @@
         "planner"
       ],
       "size_bytes": 10375,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/hero_renderer.py",
@@ -6386,427 +6187,7 @@
       "criticality": "low"
     }
   ],
-  "data_artefacts_per_client_sample_weglot": {
-    ".json": [
-      "_obsolete_pages_2026-04-29/blog/capture.json",
-      "_obsolete_pages_2026-04-29/blog/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/blog/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/blog/capture_v2_meta.json",
-      "_obsolete_pages_2026-04-29/blog/components.json",
-      "_obsolete_pages_2026-04-29/blog/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/blog/critic_report.json",
-      "_obsolete_pages_2026-04-29/blog/perception_v13.json",
-      "_obsolete_pages_2026-04-29/blog/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/blog/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/blog/score_coherence.json",
-      "_obsolete_pages_2026-04-29/blog/score_hero.json",
-      "_obsolete_pages_2026-04-29/blog/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/blog/score_page_type.json",
-      "_obsolete_pages_2026-04-29/blog/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/blog/score_psycho.json",
-      "_obsolete_pages_2026-04-29/blog/score_semantic.json",
-      "_obsolete_pages_2026-04-29/blog/score_specific.json",
-      "_obsolete_pages_2026-04-29/blog/score_tech.json",
-      "_obsolete_pages_2026-04-29/blog/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/blog/score_ux.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v10_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v10_mobile.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/blog/usp_signals.json",
-      "_obsolete_pages_2026-04-29/blog/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/blog/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/vision_reconciled_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/capture.json",
-      "_obsolete_pages_2026-04-29/collection/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/collection/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/collection/capture_v2_meta.json",
-      "_obsolete_pages_2026-04-29/collection/components.json",
-      "_obsolete_pages_2026-04-29/collection/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/critic_report.json",
-      "_obsolete_pages_2026-04-29/collection/perception_v13.json",
-      "_obsolete_pages_2026-04-29/collection/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/collection/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/collection/score_coherence.json",
-      "_obsolete_pages_2026-04-29/collection/score_hero.json",
-      "_obsolete_pages_2026-04-29/collection/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/collection/score_page_type.json",
-      "_obsolete_pages_2026-04-29/collection/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/collection/score_psycho.json",
-      "_obsolete_pages_2026-04-29/collection/score_semantic.json",
-      "_obsolete_pages_2026-04-29/collection/score_specific.json",
-      "_obsolete_pages_2026-04-29/collection/score_tech.json",
-      "_obsolete_pages_2026-04-29/collection/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/collection/score_ux.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v10_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v10_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/collection/usp_signals.json",
-      "_obsolete_pages_2026-04-29/collection/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/vision_reconciled_mobile.json",
-      "_obsolete_pages_2026-04-29/home/capture.json",
-      "_obsolete_pages_2026-04-29/home/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/home/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/home/components.json",
-      "_obsolete_pages_2026-04-29/home/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/home/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/home/critic_report.json",
-      "_obsolete_pages_2026-04-29/home/perception_v13.json",
-      "_obsolete_pages_2026-04-29/home/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/home/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/home/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/home/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/home/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/home/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/home/score_coherence.json",
-      "_obsolete_pages_2026-04-29/home/score_hero.json",
-      "_obsolete_pages_2026-04-29/home/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/home/score_page_type.json",
-      "_obsolete_pages_2026-04-29/home/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/home/score_psycho.json",
-      "_obsolete_pages_2026-04-29/home/score_semantic.json",
-      "_obsolete_pages_2026-04-29/home/score_specific.json",
-      "_obsolete_pages_2026-04-29/home/score_tech.json",
-      "_obsolete_pages_2026-04-29/home/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/home/score_ux.json",
-      "_obsolete_pages_2026-04-29/home/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/home/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/home/usp_signals.json",
-      "_obsolete_pages_2026-04-29/home/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/home/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/home/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/home/vision_reconciled_mobile.json",
-      "_obsolete_pages_2026-04-29/pricing/capture.json",
-      "_obsolete_pages_2026-04-29/pricing/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/pricing/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/pricing/components.json",
-      "_obsolete_pages_2026-04-29/pricing/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/pricing/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/pricing/critic_report.json",
-      "_obsolete_pages_2026-04-29/pricing/perception_v13.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/pricing/score_coherence.json",
-      "_obsolete_pages_2026-04-29/pricing/score_hero.json",
-      "_obsolete_pages_2026-04-29/pricing/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/pricing/score_page_type.json",
-      "_obsolete_pages_2026-04-29/pricing/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/pricing/score_psycho.json",
-      "_obsolete_pages_2026-04-29/pricing/score_semantic.json",
-      "_obsolete_pages_2026-04-29/pricing/score_specific.json",
-      "_obsolete_pages_2026-04-29/pricing/score_tech.json",
-      "_obsolete_pages_2026-04-29/pricing/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/pricing/score_ux.json",
-      "_obsolete_pages_2026-04-29/pricing/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/pricing/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/pricing/usp_signals.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_reconciled_mobile.json",
-      "blog/capture.json",
-      "blog/capture_pre_reparse_backup.json",
-      "blog/capture_urllib_backup.json",
-      "blog/components.json",
-      "blog/criterion_crops_v2_desktop.json",
-      "blog/criterion_crops_v2_mobile.json",
-      "blog/critic_report.json",
-      "blog/perception_v13.json",
-      "blog/recos_dedup_report.json",
-      "blog/recos_enriched.json",
-      "blog/recos_v13_final.json",
-      "blog/recos_v13_prompts.json",
-      "blog/recos_v21_cluster_final.json",
-      "blog/recos_v21_cluster_prompts.json",
-      "blog/score_coherence.json",
-      "blog/score_hero.json",
-      "blog/score_page_type.json",
-      "blog/score_persuasion.json",
-      "blog/score_psycho.json",
-      "blog/score_semantic.json",
-      "blog/score_specific.json",
-      "blog/score_tech.json",
-      "blog/score_utility_banner.json",
-      "blog/score_ux.json",
-      "blog/spatial_v9.json",
-      "blog/spatial_v9_clean.json",
-      "blog/vision_desktop.json",
-      "blog/vision_mobile.json",
-      "blog/vision_reconciled_desktop.json",
-      "blog/vision_reconciled_mobile.json",
-      "brand_dna.json",
-      "canonical_tunnel.json",
-      "capture_meta.json",
-      "client_intent.json",
-      "collection/capture.json",
-      "collection/capture_pre_reparse_backup.json",
-      "collection/capture_urllib_backup.json",
-      "collection/components.json",
-      "collection/criterion_crops_v2_desktop.json",
-      "collection/criterion_crops_v2_mobile.json",
-      "collection/critic_report.json",
-      "collection/perception_v13.json",
-      "collection/recos_dedup_report.json",
-      "collection/recos_enriched.json",
-      "collection/recos_v13_final.json",
-      "collection/recos_v13_prompts.json",
-      "collection/recos_v21_cluster_final.json",
-      "collection/recos_v21_cluster_prompts.json",
-      "collection/score_coherence.json",
-      "collection/score_hero.json",
-      "collection/score_page_type.json",
-      "collection/score_persuasion.json",
-      "collection/score_psycho.json",
-      "collection/score_semantic.json",
-      "collection/score_specific.json",
-      "collection/score_tech.json",
-      "collection/score_utility_banner.json",
-      "collection/score_ux.json",
-      "collection/spatial_v9.json",
-      "collection/spatial_v9_clean.json",
-      "collection/vision_desktop.json",
-      "collection/vision_mobile.json",
-      "collection/vision_reconciled_desktop.json",
-      "collection/vision_reconciled_mobile.json",
-      "design_grammar/brand_forbidden_patterns.json",
-      "design_grammar/component_grammar.json",
-      "design_grammar/composition_rules.json",
-      "design_grammar/quality_gates.json",
-      "design_grammar/section_grammar.json",
-      "design_grammar/tokens.json",
-      "discovered_pages_v25.json",
-      "home/capture.json",
-      "home/capture_pre_reparse_backup.json",
-      "home/capture_urllib_backup.json",
-      "home/capture_v2_meta.json",
-      "home/components.json",
-      "home/criterion_crops_v2_desktop.json",
-      "home/criterion_crops_v2_mobile.json",
-      "home/critic_report.json",
-      "home/evidence_ledger.json",
-      "home/perception_v13.json",
-      "home/recos_dedup_report.json",
-      "home/recos_enriched.json",
-      "home/recos_v13_final.json",
-      "home/recos_v13_prompts.json",
-      "home/recos_v21_cluster_final.json",
-      "home/recos_v21_cluster_prompts.json",
-      "home/score_coherence.json",
-      "home/score_hero.json",
-      "home/score_page_type.json",
-      "home/score_persuasion.json",
-      "home/score_psycho.json",
-      "home/score_semantic.json",
-      "home/score_specific.json",
-      "home/score_tech.json",
-      "home/score_utility_banner.json",
-      "home/score_ux.json",
-      "home/spatial_v10_desktop.json",
-      "home/spatial_v10_mobile.json",
-      "home/spatial_v9.json",
-      "home/spatial_v9_clean.json",
-      "home/usp_signals.json",
-      "home/vision_desktop.json",
-      "home/vision_mobile.json",
-      "home/vision_reconciled_desktop.json",
-      "home/vision_reconciled_mobile.json",
-      "lp_leadgen/capture.json",
-      "lp_leadgen/capture_v2_meta.json",
-      "lp_leadgen/evidence_ledger.json",
-      "lp_leadgen/flow/flow_summary.json",
-      "lp_leadgen/flow/intro.json",
-      "lp_leadgen/flow/step_01.json",
-      "lp_leadgen/flow/step_02.json",
-      "lp_leadgen/flow/step_03.json",
-      "lp_leadgen/flow/step_recos.json",
-      "lp_leadgen/perception_v13.json",
-      "lp_leadgen/recos_dedup_report.json",
-      "lp_leadgen/recos_v13_final.json",
-      "lp_leadgen/recos_v13_prompts.json",
-      "lp_leadgen/score_coherence.json",
-      "lp_leadgen/score_funnel.json",
-      "lp_leadgen/score_hero.json",
-      "lp_leadgen/score_page_type.json",
-      "lp_leadgen/score_persuasion.json",
-      "lp_leadgen/score_psycho.json",
-      "lp_leadgen/score_specific.json",
-      "lp_leadgen/score_tech.json",
-      "lp_leadgen/score_utility_banner.json",
-      "lp_leadgen/score_ux.json",
-      "lp_leadgen/spatial_v10_desktop.json",
-      "lp_leadgen/spatial_v10_mobile.json",
-      "lp_leadgen/spatial_v9.json",
-      "lp_leadgen/usp_signals.json",
-      "lp_leadgen/vision_desktop.json",
-      "lp_leadgen/vision_mobile.json",
-      "pages_discovered.json",
-      "pricing/capture.json",
-      "pricing/capture_pre_reparse_backup.json",
-      "pricing/capture_urllib_backup.json",
-      "pricing/capture_v2_meta.json",
-      "pricing/components.json",
-      "pricing/criterion_crops_v2_desktop.json",
-      "pricing/criterion_crops_v2_mobile.json",
-      "pricing/critic_report.json",
-      "pricing/evidence_ledger.json",
-      "pricing/perception_v13.json",
-      "pricing/recos_dedup_report.json",
-      "pricing/recos_enriched.json",
-      "pricing/recos_v13_final.json",
-      "pricing/recos_v13_prompts.json",
-      "pricing/recos_v21_cluster_final.json",
-      "pricing/recos_v21_cluster_prompts.json",
-      "pricing/score_coherence.json",
-      "pricing/score_hero.json",
-      "pricing/score_page_type.json",
-      "pricing/score_persuasion.json",
-      "pricing/score_psycho.json",
-      "pricing/score_semantic.json",
-      "pricing/score_specific.json",
-      "pricing/score_tech.json",
-      "pricing/score_utility_banner.json",
-      "pricing/score_ux.json",
-      "pricing/spatial_v10_desktop.json",
-      "pricing/spatial_v10_mobile.json",
-      "pricing/spatial_v9.json",
-      "pricing/spatial_v9_clean.json",
-      "pricing/usp_signals.json",
-      "pricing/vision_desktop.json",
-      "pricing/vision_mobile.json",
-      "pricing/vision_reconciled_desktop.json",
-      "pricing/vision_reconciled_mobile.json",
-      "scent_trail.json",
-      "site_audit.json"
-    ],
-    ".html": [
-      "_obsolete_pages_2026-04-29/blog/component_overlay.html",
-      "_obsolete_pages_2026-04-29/blog/page.html",
-      "_obsolete_pages_2026-04-29/collection/component_overlay.html",
-      "_obsolete_pages_2026-04-29/collection/page.html",
-      "_obsolete_pages_2026-04-29/home/component_overlay.html",
-      "_obsolete_pages_2026-04-29/home/page.html",
-      "_obsolete_pages_2026-04-29/pricing/component_overlay.html",
-      "_obsolete_pages_2026-04-29/pricing/page.html",
-      "blog/component_overlay.html",
-      "blog/page.html",
-      "collection/component_overlay.html",
-      "collection/page.html",
-      "home/component_overlay.html",
-      "home/page.html",
-      "lp_leadgen/page.html",
-      "pricing/component_overlay.html",
-      "pricing/page.html"
-    ],
-    ".css": [
-      "design_grammar/tokens.css"
-    ],
-    ".png": [
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_asis_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_asis_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_clean_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_clean_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_asis_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_asis_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_clean_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_clean_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_full_page.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_asis_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_asis_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_clean_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_clean_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_asis_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_asis_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_clean_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_clean_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_full_page.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/desktop_asis_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/desktop_clean_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/desktop_clean_full.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/mobile_asis_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/mobile_clean_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/mobile_clean_full.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_full_page.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_full_page.png",
-      "blog/screenshots/spatial_annotated_desktop.png",
-      "blog/screenshots/spatial_fold_desktop.png",
-      "blog/screenshots/spatial_fold_mobile.png",
-      "blog/screenshots/spatial_full_page.png",
-      "collection/screenshots/spatial_annotated_desktop.png",
-      "collection/screenshots/spatial_fold_desktop.png",
-      "collection/screenshots/spatial_fold_mobile.png",
-      "collection/screenshots/spatial_full_page.png",
-      "home/screenshots/desktop_asis_fold.png",
-      "home/screenshots/desktop_asis_full.png",
-      "home/screenshots/desktop_clean_fold.png",
-      "home/screenshots/desktop_clean_full.png",
-      "home/screenshots/mobile_asis_fold.png",
-      "home/screenshots/mobile_asis_full.png",
-      "home/screenshots/mobile_clean_fold.png",
-      "home/screenshots/mobile_clean_full.png",
-      "home/screenshots/spatial_annotated_desktop.png",
-      "home/screenshots/spatial_fold_desktop.png",
-      "home/screenshots/spatial_fold_mobile.png",
-      "home/screenshots/spatial_full_page.png",
-      "lp_leadgen/flow/intro.png",
-      "lp_leadgen/flow/step_01.png",
-      "lp_leadgen/flow/step_02.png",
-      "lp_leadgen/flow/step_03.png",
-      "lp_leadgen/screenshots/desktop_asis_fold.png",
-      "lp_leadgen/screenshots/desktop_asis_full.png",
-      "lp_leadgen/screenshots/desktop_clean_fold.png",
-      "lp_leadgen/screenshots/desktop_clean_full.png",
-      "lp_leadgen/screenshots/mobile_asis_fold.png",
-      "lp_leadgen/screenshots/mobile_asis_full.png",
-      "lp_leadgen/screenshots/mobile_clean_fold.png",
-      "lp_leadgen/screenshots/mobile_clean_full.png",
-      "lp_leadgen/screenshots/spatial_annotated_desktop.png",
-      "lp_leadgen/screenshots/spatial_fold_desktop.png",
-      "lp_leadgen/screenshots/spatial_fold_mobile.png",
-      "lp_leadgen/screenshots/spatial_full_page.png",
-      "pricing/screenshots/desktop_asis_fold.png",
-      "pricing/screenshots/desktop_asis_full.png",
-      "pricing/screenshots/desktop_clean_fold.png",
-      "pricing/screenshots/desktop_clean_full.png",
-      "pricing/screenshots/mobile_asis_fold.png",
-      "pricing/screenshots/mobile_asis_full.png",
-      "pricing/screenshots/mobile_clean_fold.png",
-      "pricing/screenshots/mobile_clean_full.png",
-      "pricing/screenshots/spatial_annotated_desktop.png",
-      "pricing/screenshots/spatial_fold_desktop.png",
-      "pricing/screenshots/spatial_fold_mobile.png",
-      "pricing/screenshots/spatial_full_page.png"
-    ]
-  },
+  "data_artefacts_per_client_sample_weglot": {},
   "expected_gsg_data_inputs": {
     "brand_dna.json": "ACTIVE — GenerationContextPack + design_tokens + brand_intelligence",
     "design_grammar/tokens.json": "ACTIVE_PARTIAL — GenerationContextPack/design_tokens; deeper component grammar still to wire",
