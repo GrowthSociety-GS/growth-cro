@@ -403,6 +403,38 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-11 — V27.2-G alignment Codex→Claude ($0 API)
+
+**Trigger** : after the codebase-cleanup epic + issue #13 (prompt arch refactor) landed, the canonical GSG entered a runtime/validation drift state. Codex handoff `.claude/docs/state/CODEX_TO_CLAUDE_GSG_ALIGNMENT_HANDOFF_2026-05-11.md` flagged 3 alignment breakages. Claude ran ALIGNMENT + VERIFY mode (no new feature, no architecture rewrite).
+
+**Verdict Codex audit** : 3/3 P0/P1 diagnostics confirmed against real code.
+
+**Fixes applied** (3 surgical commits) :
+1. `moteur_gsg/core/copy_writer.py` — removed dead import `_ensure_api_key`, routed Anthropic client through `growthcro.lib.anthropic_client.get_anthropic_client()` (single env-boundary doctrine).
+2. `moteur_gsg/core/canonical_registry.py` — fixed stale path `architecture/GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md` → `.claude/docs/architecture/...` (the file was moved by V26.AG cleanup but the registry wasn't updated).
+3. `scripts/check_gsg_creative_route_selector.py` + `scripts/check_gsg_visual_renderer.py` — bumped V27.2-F → V27.2-G to match `visual_system.py` emitting `gsg-visual-system-v27.2-g` + `gsg-premium-visual-layer-v27.2-g`.
+
+**Result — 6/6 GSG checks PASS sans LLM** :
+- `check_gsg_canonical` PASS
+- `check_gsg_controlled_renderer` PASS (mode_1_complete imports OK)
+- `check_gsg_creative_route_selector` PASS (V27.2-G markers)
+- `check_gsg_visual_renderer` PASS (4 cas : weglot/lp_listicle, weglot/advertorial, japhy/pdp, stripe/pricing)
+- `check_gsg_intake_wizard` PASS
+- `check_gsg_component_planner` PASS
+
+**Naming convention** : V27.2-F = structured route selector architecture (historical milestone, kept in docs). V27.2-G = premium visual layer (current). Both coexist conceptually; the canonical GSG status is now V27.2-G.
+
+**Docs synced** (post runtime-green only, per Codex DoD) :
+- `README.md` état header → V27.2-G
+- `moteur_gsg/README.md` → V27.2-G base
+- `skills/gsg/SKILL.md` → added V27.2-G premium visual layer block
+- `.claude/docs/reference/START_HERE_NEW_SESSION.md` → entry 19 (V27.2-G)
+- `.claude/docs/state/ARCHITECTURE_SNAPSHOT_POST_CLEANUP_2026-05-11.md` → resolved question 2
+
+**Hors scope volontaire** : pas de nouvelle feature GSG, pas de réécriture architecture, pas de retour mega-prompt, pas de génération Sonnet live. La prochaine marche légitime (per Codex final reminder) : validation V27.2-G + premier vrai run non-SaaS/non-listicle avec copy Sonnet + multi-judge.
+
+---
+
 ### 2026-05-10 — Codebase-cleanup epic landed ($0 API)
 
 **Trigger** : refactor V21→V26.AG brownfield → layered `growthcro/` package, drive orphans to zero, break god files along concern axes (PRD `codebase-cleanup`, epic `epic/codebase-cleanup`, issues #2-#12).
