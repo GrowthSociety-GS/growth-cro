@@ -1,4 +1,4 @@
-# Capabilities Summary — 2026-05-11T09:03:59
+# Capabilities Summary — 2026-05-11T09:05:48
 
 **Source de vérité** : `CAPABILITIES_REGISTRY.json` (auto-généré par `scripts/audit_capabilities.py`).
 
