@@ -16,8 +16,9 @@
 8. `python3 scripts/audit_capabilities.py` + lire [`docs/state/CAPABILITIES_SUMMARY.md`](docs/state/CAPABILITIES_SUMMARY.md)
 9. Skim [`memory/MEMORY.md`](memory/MEMORY.md) + [`docs/reference/GROWTHCRO_MANIFEST.md`](docs/reference/GROWTHCRO_MANIFEST.md) §12 changelog
 10. Lire [`docs/doctrine/CODE_DOCTRINE.md`](docs/doctrine/CODE_DOCTRINE.md) — doctrine code projet (mono-concern, 8 axes, hard rules)
+11. Lire [`docs/state/WEBAPP_ARCHITECTURE_MAP.yaml`](docs/state/WEBAPP_ARCHITECTURE_MAP.yaml) — source-of-truth machine-readable de l'architecture webapp post-cleanup (modules + data_artefacts + pipelines). Vue humaine Mermaid : [`docs/state/WEBAPP_ARCHITECTURE_MAP.md`](docs/state/WEBAPP_ARCHITECTURE_MAP.md). Mis à jour automatiquement à chaque epic terminé via `scripts/update_architecture_map.py` (idempotent, préserve les champs human-curated).
 
-**Ne jamais coder/scorer/auditer sans ces 10 étapes ET consigne explicite Mathis.**
+**Ne jamais coder/scorer/auditer sans ces 11 étapes ET consigne explicite Mathis.**
 
 ## Anti-patterns prouvés (à NE PLUS reproduire)
 
