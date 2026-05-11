@@ -1,39 +1,18 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T16:19:24",
+  "generated_at": "2026-05-11T19:26:47",
   "stats": {
-    "total_files": 247,
+    "total_files": 239,
     "active_wired": 4,
     "active_indirect": 10,
     "active_cli": 48,
-    "active_package_marker": 22,
-    "active_misc": 163,
+    "active_package_marker": 21,
+    "active_misc": 156,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
   },
   "capabilities": [
-    {
-      "id": "__init__",
-      "path": "skills/site-capture/scripts/reality_layer/__init__.py",
-      "filename": "__init__.py",
-      "what": "V26.C Reality Layer — connecteurs data réelle (GA4, Meta Ads, Google Ads, Shopify, Clarity).",
-      "imports": [
-        "",
-        "Connector",
-        "RealityLayerData",
-        "base",
-        "collect_for_page"
-      ],
-      "size_bytes": 1767,
-      "mtime": "2026-04-29",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "scripts/lint_code_hygiene.py"
-      ],
-      "status": "ACTIVE_PACKAGE_MARKER",
-      "criticality": "low"
-    },
     {
       "id": "__init__",
       "path": "moteur_gsg/core/__init__.py",
@@ -365,7 +344,7 @@
         "orchestrator",
         "shopify"
       ],
-      "size_bytes": 2622,
+      "size_bytes": 2678,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -789,50 +768,6 @@
     },
     {
       "id": "base",
-      "path": "skills/site-capture/scripts/reality_layer/base.py",
-      "filename": "base.py",
-      "what": "Base interface for Reality Layer connectors.",
-      "imports": [
-        "ABC",
-        "Any",
-        "Optional",
-        "__future__",
-        "abc",
-        "abstractmethod",
-        "annotations",
-        "config",
-        "dataclass",
-        "dataclasses",
-        "field",
-        "growthcro"
-      ],
-      "size_bytes": 2250,
-      "mtime": "2026-05-11",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "growthcro/reality/__init__.py",
-        "growthcro/reality/catchr.py",
-        "growthcro/reality/clarity.py",
-        "growthcro/reality/ga4.py",
-        "growthcro/reality/google_ads.py",
-        "growthcro/reality/meta_ads.py",
-        "growthcro/reality/orchestrator.py",
-        "growthcro/reality/shopify.py",
-        "moteur_gsg/core/css/__init__.py",
-        "scripts/lint_code_hygiene.py",
-        "skills/site-capture/scripts/reality_layer/__init__.py",
-        "skills/site-capture/scripts/reality_layer/catchr.py",
-        "skills/site-capture/scripts/reality_layer/clarity.py",
-        "skills/site-capture/scripts/reality_layer/google_ads.py",
-        "skills/site-capture/scripts/reality_layer/meta_ads.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/shopify.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "base",
       "path": "moteur_gsg/core/css/base.py",
       "filename": "base.py",
       "what": "CSS — base layer for the controlled GSG renderer.",
@@ -853,14 +788,7 @@
         "growthcro/reality/orchestrator.py",
         "growthcro/reality/shopify.py",
         "moteur_gsg/core/css/__init__.py",
-        "scripts/lint_code_hygiene.py",
-        "skills/site-capture/scripts/reality_layer/__init__.py",
-        "skills/site-capture/scripts/reality_layer/catchr.py",
-        "skills/site-capture/scripts/reality_layer/clarity.py",
-        "skills/site-capture/scripts/reality_layer/google_ads.py",
-        "skills/site-capture/scripts/reality_layer/meta_ads.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/shopify.py"
+        "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -893,14 +821,7 @@
         "growthcro/reality/orchestrator.py",
         "growthcro/reality/shopify.py",
         "moteur_gsg/core/css/__init__.py",
-        "scripts/lint_code_hygiene.py",
-        "skills/site-capture/scripts/reality_layer/__init__.py",
-        "skills/site-capture/scripts/reality_layer/catchr.py",
-        "skills/site-capture/scripts/reality_layer/clarity.py",
-        "skills/site-capture/scripts/reality_layer/google_ads.py",
-        "skills/site-capture/scripts/reality_layer/meta_ads.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/shopify.py"
+        "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1373,35 +1294,6 @@
     },
     {
       "id": "catchr",
-      "path": "skills/site-capture/scripts/reality_layer/catchr.py",
-      "filename": "catchr.py",
-      "what": "Catchr connector — GA4 wrapper used internally by Growth Society.",
-      "imports": [
-        "",
-        "Any",
-        "Connector",
-        "ConnectorError",
-        "NotConfiguredError",
-        "__future__",
-        "annotations",
-        "base",
-        "config",
-        "growthcro",
-        "httpx"
-      ],
-      "size_bytes": 4565,
-      "mtime": "2026-05-11",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "catchr",
       "path": "growthcro/reality/catchr.py",
       "filename": "catchr.py",
       "what": "Catchr connector — Growth Society internal GA4+ aggregator.",
@@ -1422,8 +1314,7 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+        "growthcro/reality/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1548,35 +1439,6 @@
     },
     {
       "id": "clarity",
-      "path": "skills/site-capture/scripts/reality_layer/clarity.py",
-      "filename": "clarity.py",
-      "what": "Microsoft Clarity Data Export connector — heatmaps + rage clicks + scroll depth.",
-      "imports": [
-        "",
-        "Any",
-        "Connector",
-        "ConnectorError",
-        "NotConfiguredError",
-        "__future__",
-        "annotations",
-        "base",
-        "config",
-        "growthcro",
-        "httpx"
-      ],
-      "size_bytes": 3992,
-      "mtime": "2026-05-11",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "clarity",
       "path": "growthcro/reality/clarity.py",
       "filename": "clarity.py",
       "what": "Microsoft Clarity Data Export connector — heatmaps + rage clicks + scroll depth.",
@@ -1597,8 +1459,7 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+        "growthcro/reality/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1796,8 +1657,7 @@
       "consumed_by": [
         "growthcro/reality/google_ads.py",
         "growthcro/recos/cli.py",
-        "growthcro/recos/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/google_ads.py"
+        "growthcro/recos/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2065,12 +1925,6 @@
         "skills/site-capture/scripts/geo_audit.py",
         "skills/site-capture/scripts/geo_readiness_monitor.py",
         "skills/site-capture/scripts/playwright_capture_v2.py",
-        "skills/site-capture/scripts/reality_layer/base.py",
-        "skills/site-capture/scripts/reality_layer/catchr.py",
-        "skills/site-capture/scripts/reality_layer/clarity.py",
-        "skills/site-capture/scripts/reality_layer/google_ads.py",
-        "skills/site-capture/scripts/reality_layer/meta_ads.py",
-        "skills/site-capture/scripts/reality_layer/shopify.py",
         "skills/site-capture/scripts/run_capture.py",
         "skills/site-capture/scripts/run_discover.py",
         "skills/site-capture/scripts/run_spatial_capture.py",
@@ -2972,37 +2826,6 @@
     },
     {
       "id": "google_ads",
-      "path": "skills/site-capture/scripts/reality_layer/google_ads.py",
-      "filename": "google_ads.py",
-      "what": "Google Ads API connector — campaign metrics par landing page.",
-      "imports": [
-        "",
-        "Any",
-        "Connector",
-        "ConnectorError",
-        "GoogleAdsClient",
-        "NotConfiguredError",
-        "__future__",
-        "annotations",
-        "base",
-        "client",
-        "config",
-        "google",
-        "growthcro"
-      ],
-      "size_bytes": 4572,
-      "mtime": "2026-05-11",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "google_ads",
       "path": "growthcro/reality/google_ads.py",
       "filename": "google_ads.py",
       "what": "Google Ads API connector — campaign metrics per landing page.",
@@ -3025,8 +2848,7 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+        "growthcro/reality/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -3537,35 +3359,6 @@
     },
     {
       "id": "meta_ads",
-      "path": "skills/site-capture/scripts/reality_layer/meta_ads.py",
-      "filename": "meta_ads.py",
-      "what": "Meta Marketing API connector — ad_spend + ROAS + CTR par landing page.",
-      "imports": [
-        "",
-        "Any",
-        "Connector",
-        "ConnectorError",
-        "NotConfiguredError",
-        "__future__",
-        "annotations",
-        "base",
-        "config",
-        "growthcro",
-        "httpx"
-      ],
-      "size_bytes": 3960,
-      "mtime": "2026-05-11",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "meta_ads",
       "path": "growthcro/reality/meta_ads.py",
       "filename": "meta_ads.py",
       "what": "Meta Marketing API connector — ad_spend + ROAS + CTR per landing page.",
@@ -3586,8 +3379,7 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+        "growthcro/reality/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -3868,60 +3660,6 @@
         "growthcro/api/audits.py",
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "orchestrator",
-      "path": "skills/site-capture/scripts/reality_layer/orchestrator.py",
-      "filename": "orchestrator.py",
-      "what": "Reality Layer orchestrator — collecte + fusion + computed fields.",
-      "imports": [
-        "",
-        "Any",
-        "CatchrConnector",
-        "ClarityConnector",
-        "ConnectorError",
-        "GoogleAdsConnector",
-        "MetaAdsConnector",
-        "NotConfiguredError",
-        "ShopifyConnector",
-        "__future__",
-        "annotations",
-        "base",
-        "catchr",
-        "clarity",
-        "collect_for_page",
-        "datetime",
-        "google_ads",
-        "meta_ads",
-        "shopify",
-        "timedelta"
-      ],
-      "size_bytes": 8736,
-      "mtime": "2026-05-11",
-      "is_cli_entrypoint": true,
-      "consumed_by": [
-        "growthcro/api/audits.py",
-        "growthcro/audit_gads/__init__.py",
-        "growthcro/audit_gads/cli.py",
-        "growthcro/audit_meta/__init__.py",
-        "growthcro/audit_meta/cli.py",
-        "growthcro/capture/cli.py",
-        "growthcro/reality/__init__.py",
-        "growthcro/recos/cli.py",
-        "moteur_gsg/modes/mode_1/__init__.py",
-        "moteur_gsg/modes/mode_1_complete.py",
-        "moteur_gsg/orchestrator.py",
-        "scripts/_test_weglot_listicle_V26AE.py",
-        "scripts/check_gsg_component_planner.py",
-        "scripts/check_gsg_controlled_renderer.py",
-        "scripts/check_gsg_creative_route_selector.py",
-        "scripts/check_gsg_intake_wizard.py",
-        "scripts/check_gsg_visual_renderer.py",
-        "scripts/lint_code_hygiene.py",
-        "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -5903,35 +5641,6 @@
     },
     {
       "id": "shopify",
-      "path": "skills/site-capture/scripts/reality_layer/shopify.py",
-      "filename": "shopify.py",
-      "what": "Shopify Admin GraphQL API connector — orders + revenue + funnel par landing page.",
-      "imports": [
-        "",
-        "Any",
-        "Connector",
-        "ConnectorError",
-        "NotConfiguredError",
-        "__future__",
-        "annotations",
-        "base",
-        "config",
-        "growthcro",
-        "httpx"
-      ],
-      "size_bytes": 5496,
-      "mtime": "2026-05-11",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "shopify",
       "path": "growthcro/reality/shopify.py",
       "filename": "shopify.py",
       "what": "Shopify Admin GraphQL API connector — orders + revenue + funnel per landing page.",
@@ -5952,8 +5661,7 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/reality/__init__.py",
-        "growthcro/reality/orchestrator.py",
-        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+        "growthcro/reality/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"

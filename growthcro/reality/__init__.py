@@ -5,7 +5,7 @@ Google Ads, Shopify, Clarity) for a (client, page, date-range), aggregate
 into `data/reality/<client>/<page>/<iso_date>/reality_snapshot.json`, and
 expose a credentials inspector for Mathis to know which clients are wired.
 
-Building blocks come from `skills/site-capture/scripts/reality_layer/`
+Building blocks consolidated in `growthcro/reality/` (legacy `skills/site-capture/scripts/reality_layer/` archived 2026-05-11)
 (legacy V26.AI location). This package is a thin promotion layer:
 
 - `credentials.py` — new this sprint. Lists which connectors have creds
