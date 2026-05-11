@@ -29,6 +29,8 @@ description: "GSG canonique V27 — seul skill public Growth Site Generator. Dé
 
 > **V27.2-F route selector** : `creative_route_selector.py` compile AURA + VisualIntelligencePack + Golden Bridge en `CreativeRouteContract` structuré (`golden_references`, `technique_references`, `renderer_overrides`) sans LLM ni prompt dumping. `visual_system.py` applique la route au renderer.
 
+> **V27.2-G premium visual layer** : `visual_system.py` étend la route en premium visual layer (`gsg-premium-visual-layer-v27.2-g`) avec modules visuels et reason-visual markers. Marker HTML : `data-premium-layer="gsg-premium-visual-layer-v27.2-g"`. Checks `check_gsg_creative_route_selector.py` + `check_gsg_visual_renderer.py` valident la marque V27.2-G.
+
 Avant toute génération GSG, vérifie le contrat :
 
 ```bash
@@ -219,7 +221,7 @@ moteur_gsg/
 │   ├── visual_intelligence.py    V27.2 : VisualIntelligencePack + CreativeRouteContract
 │   ├── creative_route_selector.py V27.2-F : Golden/AURA/CD → route contract structuré
 │   ├── component_library.py      V27.2-B : blueprints composants pour 7 page types prioritaires
-│   ├── visual_system.py          V27.2-F : visual modules/render profiles + route overrides par page type
+│   ├── visual_system.py          V27.2-G : premium visual layer + visual modules/render profiles + route overrides par page type
 │   ├── planner.py                V27.2 : plan sections déterministe + context/visual/route contracts
 │   ├── pattern_library.py        V27.2 : patterns structurés lp_listicle + page-type/CRO library contracts
 │   ├── design_tokens.py          V27.2 : tokens Brand DNA/Design Grammar/AURA + visual intelligence input

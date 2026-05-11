@@ -1,6 +1,6 @@
 # moteur_gsg
 
-GSG canonical engine V27.2-F. Generates landing pages from `BriefV2` via 5 modes.
+GSG canonical engine V27.2-G (premium visual layer on V27.2-F structured route selector base). Generates landing pages from `BriefV2` via 5 modes.
 
 ## Layout (post-#8 split)
 - `orchestrator.py` — public API: `generate_lp(mode, …)` dispatcher.
