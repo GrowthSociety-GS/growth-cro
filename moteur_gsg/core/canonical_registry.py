@@ -352,7 +352,7 @@ def validate_canonical_contract() -> dict[str, Any]:
         errors.append("Missing scripts/check_gsg_intake_wizard.py")
 
     for required in (
-        ROOT / "architecture" / "GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md",
+        ROOT / ".claude" / "docs" / "architecture" / "GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md",
         ROOT / "moteur_gsg" / "core" / "context_pack.py",
         ROOT / "moteur_gsg" / "core" / "intake_wizard.py",
         ROOT / "moteur_gsg" / "core" / "visual_intelligence.py",
