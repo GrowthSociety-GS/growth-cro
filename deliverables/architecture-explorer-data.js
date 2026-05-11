@@ -1,0 +1,5683 @@
+window.ARCH = {
+  "meta": {
+    "version": "1.0.0",
+    "generated_at": "2026-05-11T14:19:24Z",
+    "source_commit": "1e339f3edd4d67cc1f95c7162d6bb87378a786d6",
+    "generated_by": "scripts/update_architecture_map.py",
+    "notes": "Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated."
+  },
+  "modules": [
+    {
+      "id": "SCHEMA/validate",
+      "path": "SCHEMA/validate.py",
+      "purpose": "Validate one JSON file against a JSON schema — building block for validate_all.",
+      "inputs": [
+        "JSON file",
+        "schema file"
+      ],
+      "outputs": [
+        "exit 0 (valid) or stderr + exit 1"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #7 validation"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "SCHEMA"
+    },
+    {
+      "id": "SCHEMA/validate_all",
+      "path": "SCHEMA/validate_all.py",
+      "purpose": "Validate ALL pipeline files against their schemas — stops at first error (exit 1).",
+      "inputs": [
+        "data/captures/<client>/<page>/*.json",
+        "playbook/bloc_*_v3.json"
+      ],
+      "outputs": [
+        "exit 0 (all valid) or stderr + exit 1"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CLAUDE.md immuable rule schemas guard-rails"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "SCHEMA"
+    },
+    {
+      "id": "growthcro",
+      "path": "growthcro/__init__.py",
+      "purpose": "GrowthCRO — top-level package.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/gsg_lp",
+        "scripts/migrate_v27_to_supabase"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro"
+    },
+    {
+      "id": "growthcro/api",
+      "path": "growthcro/api/__init__.py",
+      "purpose": "GrowthCRO HTTP API surface (FastAPI).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "growthcro/api"
+    },
+    {
+      "id": "growthcro/api/audits",
+      "path": "growthcro/api/audits.py",
+      "purpose": "Agency audit routes (axis #4 — orchestration).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/audit_gads/notion_export_gads",
+        "growthcro/audit_gads/orchestrator",
+        "growthcro/audit_meta/notion_export_meta",
+        "growthcro/audit_meta/orchestrator"
+      ],
+      "imported_by": [
+        "growthcro/api/server"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "growthcro/api"
+    },
+    {
+      "id": "growthcro/api/server",
+      "path": "growthcro/api/server.py",
+      "purpose": "GrowthCRO FastAPI server — POST /capture, GET /captures, /audits, /clients. Exposed via Vercel edge functions in V28 target.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "JSON responses + pipeline kicks"
+      ],
+      "depends_on": [
+        "growthcro/api/audits",
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "FR-6 webapp-stratosphere PRD"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "growthcro/api"
+    },
+    {
+      "id": "growthcro/audit_gads",
+      "path": "growthcro/audit_gads/__init__.py",
+      "purpose": "Google Ads audit module — thin wrapper around the `anthropic-skills:gads-auditor` skill.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/audit_gads/notion_export_gads",
+        "growthcro/audit_gads/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_gads"
+    },
+    {
+      "id": "growthcro/audit_gads/cli",
+      "path": "growthcro/audit_gads/cli.py",
+      "purpose": "Google Ads audit CLI (axis #5).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/audit_gads/notion_export_gads",
+        "growthcro/audit_gads/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_gads"
+    },
+    {
+      "id": "growthcro/audit_gads/notion_export_gads",
+      "path": "growthcro/audit_gads/notion_export_gads.py",
+      "purpose": "Notion-template renderer for Google Ads audits (axis #8 — I/O serialization).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/api/audits",
+        "growthcro/audit_gads",
+        "growthcro/audit_gads/cli"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_gads"
+    },
+    {
+      "id": "growthcro/audit_gads/orchestrator",
+      "path": "growthcro/audit_gads/orchestrator.py",
+      "purpose": "Google Ads audit orchestration (axis #4 — orchestration).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/api/audits",
+        "growthcro/audit_gads",
+        "growthcro/audit_gads/cli"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_gads"
+    },
+    {
+      "id": "growthcro/audit_meta",
+      "path": "growthcro/audit_meta/__init__.py",
+      "purpose": "Meta Ads audit module — thin wrapper around `anthropic-skills:meta-ads-auditor`.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/audit_meta/notion_export_meta",
+        "growthcro/audit_meta/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_meta"
+    },
+    {
+      "id": "growthcro/audit_meta/cli",
+      "path": "growthcro/audit_meta/cli.py",
+      "purpose": "Meta Ads audit CLI (axis #5).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/audit_meta/notion_export_meta",
+        "growthcro/audit_meta/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_meta"
+    },
+    {
+      "id": "growthcro/audit_meta/notion_export_meta",
+      "path": "growthcro/audit_meta/notion_export_meta.py",
+      "purpose": "Notion-template renderer for Meta Ads audits (axis #8 — I/O serialization).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/api/audits",
+        "growthcro/audit_meta",
+        "growthcro/audit_meta/cli"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_meta"
+    },
+    {
+      "id": "growthcro/audit_meta/orchestrator",
+      "path": "growthcro/audit_meta/orchestrator.py",
+      "purpose": "Meta Ads audit orchestration (axis #4 — orchestration).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/api/audits",
+        "growthcro/audit_meta",
+        "growthcro/audit_meta/cli"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/audit_meta"
+    },
+    {
+      "id": "growthcro/capture",
+      "path": "growthcro/capture/__init__.py",
+      "purpose": "GrowthCRO capture package — single concern: collect raw page artifacts.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/browser",
+      "path": "growthcro/capture/browser.py",
+      "purpose": "Playwright browser lifecycle + cookie handling — owns local Chromium / cloud WSS / Bright Data CDP launch.",
+      "inputs": [
+        "BROWSER_WS_ENDPOINT",
+        "BRIGHT_DATA_CDP",
+        "growthcro.config"
+      ],
+      "outputs": [
+        "playwright.async_api.Browser",
+        "BrowserContext"
+      ],
+      "depends_on": [
+        "growthcro/capture/cloud",
+        "growthcro/capture/dom",
+        "growthcro/config"
+      ],
+      "imported_by": [
+        "growthcro/capture/orchestrator"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #4 orchestration"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/cli",
+      "path": "growthcro/capture/cli.py",
+      "purpose": "argparse CLI for cloud capture — single-page + batch dispatchers.",
+      "inputs": [
+        "argv"
+      ],
+      "outputs": [
+        "orchestrator invocations"
+      ],
+      "depends_on": [
+        "growthcro/capture/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #5 CLI"
+      ],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/cloud",
+      "path": "growthcro/capture/cloud.py",
+      "purpose": "Bright Data / Browserless cloud endpoint resolution — pure config logic, no I/O.",
+      "inputs": [
+        "growthcro.config accessors"
+      ],
+      "outputs": [
+        "WSS endpoint URL string"
+      ],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [
+        "growthcro/capture/browser",
+        "growthcro/capture/orchestrator"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #6 config"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/dom",
+      "path": "growthcro/capture/dom.py",
+      "purpose": "Browser-side JS payloads + static-HTML cleaning helpers — DOM serialization only, no scoring logic.",
+      "inputs": [
+        "raw HTML / rendered DOM"
+      ],
+      "outputs": [
+        "spatial_v9 JSON payload",
+        "cleaned HTML"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/capture/browser",
+        "growthcro/capture/orchestrator",
+        "growthcro/capture/scorer",
+        "growthcro/capture/signals"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #8 I/O serialization"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/orchestrator",
+      "path": "growthcro/capture/orchestrator.py",
+      "purpose": "Single + batch capture pipelines — coordinates browser → page → screenshots → DOM extraction → persistence.",
+      "inputs": [
+        "client URLs",
+        "page slugs",
+        "viewport configs"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/{spatial_v9.json,capture.json,page.html,screenshots/*.png}"
+      ],
+      "depends_on": [
+        "growthcro/capture/browser",
+        "growthcro/capture/cloud",
+        "growthcro/capture/dom",
+        "growthcro/capture/persist"
+      ],
+      "imported_by": [
+        "growthcro/capture/cli"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #4 orchestration"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/persist",
+      "path": "growthcro/capture/persist.py",
+      "purpose": "Capture artifact serialization — pure I/O assemblers for spatial_v9.json + capture.json + page.html.",
+      "inputs": [
+        "browser-side payloads"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/*.json"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/capture/orchestrator",
+        "growthcro/capture/scorer"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #3 persistence"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/scorer",
+      "path": "growthcro/capture/scorer.py",
+      "purpose": "Static-HTML CRO data extraction — parses rendered DOM into capture.json (150+ data points: CTAs, headings, trust signals, …).",
+      "inputs": [
+        "raw HTML",
+        "rendered DOM dumps"
+      ],
+      "outputs": [
+        "capture.json with 150+ extracted signals"
+      ],
+      "depends_on": [
+        "growthcro/capture/dom",
+        "growthcro/capture/persist",
+        "growthcro/capture/signals"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #8 I/O serialization"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/capture/signals",
+      "path": "growthcro/capture/signals.py",
+      "purpose": "Static-HTML signal extractors — pure functions, one extract_* per criterion bloc.",
+      "inputs": [
+        "BeautifulSoup-style DOM tree"
+      ],
+      "outputs": [
+        "typed signal dicts consumed by scorer.build_capture"
+      ],
+      "depends_on": [
+        "growthcro/capture/dom"
+      ],
+      "imported_by": [
+        "growthcro/capture/scorer"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #8 I/O serialization"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/capture"
+    },
+    {
+      "id": "growthcro/cli",
+      "path": "growthcro/cli/__init__.py",
+      "purpose": "GrowthCRO command-line entrypoints (add_client, capture_full, enrich_client).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/cli"
+    },
+    {
+      "id": "growthcro/cli/add_client",
+      "path": "growthcro/cli/add_client.py",
+      "purpose": "Onboarding CLI — quickly add a client (slug + URL) to data/clients_database.json.",
+      "inputs": [
+        "argv (slug, URL)"
+      ],
+      "outputs": [
+        "mutated data/clients_database.json"
+      ],
+      "depends_on": [
+        "growthcro/cli/enrich_client"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/cli"
+    },
+    {
+      "id": "growthcro/cli/capture_full",
+      "path": "growthcro/cli/capture_full.py",
+      "purpose": "Orchestrator V13 SaaS-grade — full per-client pipeline (capture → perception → scoring → recos) in one command.",
+      "inputs": [
+        "client slug"
+      ],
+      "outputs": [
+        "complete data/captures/<client>/<page>/* tree"
+      ],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/cli"
+    },
+    {
+      "id": "growthcro/cli/enrich_client",
+      "path": "growthcro/cli/enrich_client.py",
+      "purpose": "Discovery + URL validation + page selection for a new client — pre-capture intake.",
+      "inputs": [
+        "client URL"
+      ],
+      "outputs": [
+        "data/captures/<client>/discovered_pages_v25.json"
+      ],
+      "depends_on": [
+        "growthcro/config",
+        "growthcro/lib/anthropic_client"
+      ],
+      "imported_by": [
+        "growthcro/cli/add_client"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/cli"
+    },
+    {
+      "id": "growthcro/config",
+      "path": "growthcro/config.py",
+      "purpose": "Single env-var boundary for the project (Rule 2 doctrine). All other modules read env exclusively through `config`.",
+      "inputs": [
+        ".env",
+        "os.environ"
+      ],
+      "outputs": [
+        "config singleton",
+        "MissingConfigError on require_*"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/api/server",
+        "growthcro/capture/browser",
+        "growthcro/capture/cloud",
+        "growthcro/cli/capture_full",
+        "growthcro/cli/enrich_client",
+        "growthcro/lib/anthropic_client",
+        "growthcro/reality/base",
+        "growthcro/reality/catchr",
+        "growthcro/reality/clarity",
+        "growthcro/reality/credentials",
+        "growthcro/reality/ga4",
+        "growthcro/reality/google_ads",
+        "growthcro/reality/meta_ads",
+        "growthcro/reality/shopify",
+        "skills/growth-site-generator/scripts/aura_extract",
+        "skills/site-capture/scripts/batch_site",
+        "skills/site-capture/scripts/capture_site",
+        "skills/site-capture/scripts/discover_pages_v25",
+        "skills/site-capture/scripts/eclaireur_llm",
+        "skills/site-capture/scripts/geo_audit",
+        "skills/site-capture/scripts/geo_readiness_monitor",
+        "skills/site-capture/scripts/playwright_capture_v2",
+        "skills/site-capture/scripts/reality_layer/base",
+        "skills/site-capture/scripts/reality_layer/catchr",
+        "skills/site-capture/scripts/reality_layer/clarity",
+        "skills/site-capture/scripts/reality_layer/google_ads",
+        "skills/site-capture/scripts/reality_layer/meta_ads",
+        "skills/site-capture/scripts/reality_layer/shopify",
+        "skills/site-capture/scripts/run_capture",
+        "skills/site-capture/scripts/run_discover",
+        "skills/site-capture/scripts/run_spatial_capture",
+        "skills/site-capture/scripts/vision_spatial",
+        "skills/site-capture/scripts/web_vitals_adapter"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md Rule 2",
+        "FR-3 codebase-cleanup PRD"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "growthcro/config"
+    },
+    {
+      "id": "growthcro/experiment",
+      "path": "growthcro/experiment/__init__.py",
+      "purpose": "GrowthCRO Experiment Engine — V27 promoted to growthcro/.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/experiment/engine",
+        "growthcro/experiment/recorder",
+        "growthcro/experiment/runner"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/experiment"
+    },
+    {
+      "id": "growthcro/experiment/engine",
+      "path": "growthcro/experiment/engine.py",
+      "purpose": "Experiment Engine — sample-size calculator + spec builder.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/experiment",
+        "growthcro/experiment/runner"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/experiment"
+    },
+    {
+      "id": "growthcro/experiment/recorder",
+      "path": "growthcro/experiment/recorder.py",
+      "purpose": "Experiment Engine recorder — index + outcome import.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/experiment"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/experiment"
+    },
+    {
+      "id": "growthcro/experiment/runner",
+      "path": "growthcro/experiment/runner.py",
+      "purpose": "Experiment Engine runner — emit experiment PROPOSALS, zero auto-trigger (Issue",
+      "inputs": [
+        "client_slug",
+        "page_slug",
+        "reality_snapshot dict",
+        "recos list"
+      ],
+      "outputs": [
+        "data/experiments/<client>/<exp_id>.json (status=\"proposed\")"
+      ],
+      "depends_on": [
+        "growthcro/experiment/engine"
+      ],
+      "imported_by": [
+        "growthcro/experiment"
+      ],
+      "doctrine_refs": [
+        "FR-8 webapp-stratosphere PRD (US-6)"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/experiment"
+    },
+    {
+      "id": "growthcro/gsg_lp",
+      "path": "growthcro/gsg_lp/__init__.py",
+      "purpose": "Growth Site Generator — landing-page mega-prompt orchestrator.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/gsg_lp"
+    },
+    {
+      "id": "growthcro/gsg_lp/brand_blocks",
+      "path": "growthcro/gsg_lp/brand_blocks.py",
+      "purpose": "Mega-prompt block renderers for brand DNA + design grammar + AURA — 4 render_*_block helpers.",
+      "inputs": [
+        "brand DNA + design grammar dicts"
+      ],
+      "outputs": [
+        "concatenable prompt strings"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/gsg_lp/mega_prompt_builder"
+      ],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/gsg_lp"
+    },
+    {
+      "id": "growthcro/gsg_lp/data_loaders",
+      "path": "growthcro/gsg_lp/data_loaders.py",
+      "purpose": "Data loaders for the GSG mega-prompt pipeline — thin wrappers around file reads or subprocess calls.",
+      "inputs": [
+        "client artefacts (brand_dna, recos, page captures)"
+      ],
+      "outputs": [
+        "loaded dicts for prompt assembly"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/gsg_lp/lp_orchestrator",
+        "growthcro/gsg_lp/mega_prompt_builder",
+        "growthcro/gsg_lp/repair_loop"
+      ],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/gsg_lp"
+    },
+    {
+      "id": "growthcro/gsg_lp/lp_orchestrator",
+      "path": "growthcro/gsg_lp/lp_orchestrator.py",
+      "purpose": "GSG legacy lab — CLI entry point + Sonnet text-call wrapper.",
+      "inputs": [
+        "argv",
+        "client artefacts"
+      ],
+      "outputs": [
+        "LP HTML"
+      ],
+      "depends_on": [
+        "growthcro/gsg_lp/data_loaders",
+        "growthcro/gsg_lp/mega_prompt_builder",
+        "growthcro/gsg_lp/repair_loop"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/gsg_lp"
+    },
+    {
+      "id": "growthcro/gsg_lp/mega_prompt_builder",
+      "path": "growthcro/gsg_lp/mega_prompt_builder.py",
+      "purpose": "Mega-prompt builder for the GSG legacy LP pipeline — 3 concerns: assembly, output parsing, persistence.",
+      "inputs": [
+        "all GSG legacy inputs"
+      ],
+      "outputs": [
+        "full mega-prompt string"
+      ],
+      "depends_on": [
+        "growthcro/gsg_lp/brand_blocks",
+        "growthcro/gsg_lp/data_loaders"
+      ],
+      "imported_by": [
+        "growthcro/gsg_lp/lp_orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/gsg_lp"
+    },
+    {
+      "id": "growthcro/gsg_lp/repair_loop",
+      "path": "growthcro/gsg_lp/repair_loop.py",
+      "purpose": "V26.Z W3 — multi-judge → repair iteration loop (post-render gates).",
+      "inputs": [
+        "rendered HTML",
+        "multi-judge output"
+      ],
+      "outputs": [
+        "repaired HTML or stop signal"
+      ],
+      "depends_on": [
+        "growthcro/gsg_lp/data_loaders"
+      ],
+      "imported_by": [
+        "growthcro/gsg_lp/lp_orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "qa",
+      "package": "growthcro/gsg_lp"
+    },
+    {
+      "id": "growthcro/learning",
+      "path": "growthcro/learning/__init__.py",
+      "purpose": "GrowthCRO Learning Layer.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/learning/v30_data_driven"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/learning"
+    },
+    {
+      "id": "growthcro/learning/v30_data_driven",
+      "path": "growthcro/learning/v30_data_driven.py",
+      "purpose": "Learning V30 — data-driven Bayesian update on doctrine V3.3 (Issue",
+      "inputs": [
+        "data/experiments/<client>/<exp_id>.json with outcome != null",
+        "data/reality/<client>/<page_slug>/<iso_date>/reality_snapshot.json",
+        "playbook/bloc_*_v3-3.json (criterion metadata)"
+      ],
+      "outputs": [
+        "data/learning/data_driven_proposals/<iso_date>/<proposal_id>.json",
+        "data/learning/data_driven_stats.json",
+        "data/learning/data_driven_summary.md"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/learning"
+      ],
+      "doctrine_refs": [
+        "FR-8 webapp-stratosphere PRD (US-6)",
+        "playbook/bloc_*_v3-3.json (Issue #18)"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/learning"
+    },
+    {
+      "id": "growthcro/lib",
+      "path": "growthcro/lib/__init__.py",
+      "purpose": "Shared infrastructure utilities for GrowthCRO modules.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "growthcro/lib"
+    },
+    {
+      "id": "growthcro/lib/anthropic_client",
+      "path": "growthcro/lib/anthropic_client.py",
+      "purpose": "Shared Anthropic SDK factory — single point of API client construction with retries and graceful key validation.",
+      "inputs": [
+        "ANTHROPIC_API_KEY via growthcro.config"
+      ],
+      "outputs": [
+        "anthropic.Anthropic instance"
+      ],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [
+        "growthcro/cli/enrich_client",
+        "growthcro/recos/client",
+        "moteur_gsg/core/copy_writer"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #2 API client",
+        "FR-6 codebase-cleanup PRD"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "growthcro/lib"
+    },
+    {
+      "id": "growthcro/perception",
+      "path": "growthcro/perception/__init__.py",
+      "purpose": "Perception layer — DOM heuristics + adaptive DBSCAN clustering + role intent.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/perception/heuristics",
+        "growthcro/perception/intent",
+        "growthcro/perception/persist",
+        "growthcro/perception/vision"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/perception"
+    },
+    {
+      "id": "growthcro/perception/cli",
+      "path": "growthcro/perception/cli.py",
+      "purpose": "argparse entrypoint for the perception pipeline (single page or fleet-wide --all).",
+      "inputs": [
+        "argv"
+      ],
+      "outputs": [
+        "persist module invocations"
+      ],
+      "depends_on": [
+        "growthcro/perception/persist"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/perception"
+    },
+    {
+      "id": "growthcro/perception/heuristics",
+      "path": "growthcro/perception/heuristics.py",
+      "purpose": "DOM-driven keyword heuristics + bbox/font helpers + noise scoring 0-100.",
+      "inputs": [
+        "DOM element tree"
+      ],
+      "outputs": [
+        "heuristic scores per element"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/perception",
+        "growthcro/perception/intent",
+        "growthcro/perception/persist",
+        "growthcro/perception/vision"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/perception"
+    },
+    {
+      "id": "growthcro/perception/intent",
+      "path": "growthcro/perception/intent.py",
+      "purpose": "Cluster role assignment — maps a clustered set of DOM elements to a functional role (HERO/NAV/PRICING/FAQ/...).",
+      "inputs": [
+        "clustered DOM elements"
+      ],
+      "outputs": [
+        "role-tagged clusters (9 canonical roles)"
+      ],
+      "depends_on": [
+        "growthcro/perception/heuristics"
+      ],
+      "imported_by": [
+        "growthcro/perception",
+        "growthcro/perception/persist"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/perception"
+    },
+    {
+      "id": "growthcro/perception/persist",
+      "path": "growthcro/perception/persist.py",
+      "purpose": "Page-level orchestration — flatten elements, score noise, cluster, assign roles, write perception_v13.json.",
+      "inputs": [
+        "spatial_v9.json",
+        "capture.json"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/perception_v13.json"
+      ],
+      "depends_on": [
+        "growthcro/perception/heuristics",
+        "growthcro/perception/intent",
+        "growthcro/perception/vision"
+      ],
+      "imported_by": [
+        "growthcro/perception",
+        "growthcro/perception/cli"
+      ],
+      "doctrine_refs": [
+        "SCHEMA/perception_v13.schema.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/perception"
+    },
+    {
+      "id": "growthcro/perception/vision",
+      "path": "growthcro/perception/vision.py",
+      "purpose": "Adaptive 1-D vertical DBSCAN + cluster refinement (no Anthropic call yet — Sonnet vision integration deferred).",
+      "inputs": [
+        "element bbox list"
+      ],
+      "outputs": [
+        "clusters with vertical ranges"
+      ],
+      "depends_on": [
+        "growthcro/perception/heuristics"
+      ],
+      "imported_by": [
+        "growthcro/perception",
+        "growthcro/perception/persist"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/perception"
+    },
+    {
+      "id": "growthcro/reality",
+      "path": "growthcro/reality/__init__.py",
+      "purpose": "GrowthCRO Reality Layer — V26.C / V26.AI promoted to growthcro/.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/reality/base",
+        "growthcro/reality/catchr",
+        "growthcro/reality/clarity",
+        "growthcro/reality/credentials",
+        "growthcro/reality/ga4",
+        "growthcro/reality/google_ads",
+        "growthcro/reality/meta_ads",
+        "growthcro/reality/orchestrator",
+        "growthcro/reality/shopify"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/base",
+      "path": "growthcro/reality/base.py",
+      "purpose": "Reality Layer base interface (promoted from skills/site-capture).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/catchr",
+        "growthcro/reality/clarity",
+        "growthcro/reality/ga4",
+        "growthcro/reality/google_ads",
+        "growthcro/reality/meta_ads",
+        "growthcro/reality/orchestrator",
+        "growthcro/reality/shopify"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/catchr",
+      "path": "growthcro/reality/catchr.py",
+      "purpose": "Catchr connector — Growth Society internal GA4+ aggregator.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "growthcro/reality/base"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/clarity",
+      "path": "growthcro/reality/clarity.py",
+      "purpose": "Microsoft Clarity Data Export connector — heatmaps + rage clicks + scroll depth.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "growthcro/reality/base"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/credentials",
+      "path": "growthcro/reality/credentials.py",
+      "purpose": "Reality Layer credentials inspector — Issue #23. For a given client_slug, reports which connectors have credentials configured and which are missing. Never logs values.",
+      "inputs": [
+        "client_slug"
+      ],
+      "outputs": [
+        "report dict (connectors map → configured/missing/resolved_count)"
+      ],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/orchestrator"
+      ],
+      "doctrine_refs": [
+        "FR-8 webapp-stratosphere PRD (US-6)"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/ga4",
+      "path": "growthcro/reality/ga4.py",
+      "purpose": "Native Google Analytics 4 Data API v1 connector.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "growthcro/reality/base"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/google_ads",
+      "path": "growthcro/reality/google_ads.py",
+      "purpose": "Google Ads API connector — campaign metrics per landing page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "growthcro/reality/base"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/meta_ads",
+      "path": "growthcro/reality/meta_ads.py",
+      "purpose": "Meta Marketing API connector — ad_spend + ROAS + CTR per landing page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "growthcro/reality/base"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/orchestrator",
+      "path": "growthcro/reality/orchestrator.py",
+      "purpose": "Reality Layer orchestrator — multi-connector aggregator (Issue",
+      "inputs": [
+        "client_slug",
+        "page_url",
+        "page_slug",
+        "period_days"
+      ],
+      "outputs": [
+        "data/reality/<client>/<page_slug>/<iso_date>/reality_snapshot.json",
+        "data/captures/<client>/<page_slug>/reality_layer.json (legacy mirror)"
+      ],
+      "depends_on": [
+        "growthcro/reality/base",
+        "growthcro/reality/catchr",
+        "growthcro/reality/clarity",
+        "growthcro/reality/credentials",
+        "growthcro/reality/ga4",
+        "growthcro/reality/google_ads",
+        "growthcro/reality/meta_ads",
+        "growthcro/reality/shopify"
+      ],
+      "imported_by": [
+        "growthcro/reality"
+      ],
+      "doctrine_refs": [
+        "FR-8 webapp-stratosphere PRD (US-6)"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/reality/shopify",
+      "path": "growthcro/reality/shopify.py",
+      "purpose": "Shopify Admin GraphQL API connector — orders + revenue + funnel per landing page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "growthcro/reality/base"
+      ],
+      "imported_by": [
+        "growthcro/reality",
+        "growthcro/reality/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/reality"
+    },
+    {
+      "id": "growthcro/recos",
+      "path": "growthcro/recos/__init__.py",
+      "purpose": "Reco V13 generation pipeline — prompt prep + LLM enrichment.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/recos/cli",
+        "growthcro/recos/client",
+        "growthcro/recos/orchestrator",
+        "growthcro/recos/prompts"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/recos"
+    },
+    {
+      "id": "growthcro/recos/cli",
+      "path": "growthcro/recos/cli.py",
+      "purpose": "Reco CLI — single argparse entrypoint with `prepare` / `enrich` subcommands.",
+      "inputs": [
+        "argv"
+      ],
+      "outputs": [
+        "orchestrator invocations"
+      ],
+      "depends_on": [
+        "growthcro/recos"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/recos"
+    },
+    {
+      "id": "growthcro/recos/client",
+      "path": "growthcro/recos/client.py",
+      "purpose": "Anthropic SDK calls + structured retry — wraps growthcro.lib.anthropic_client.get_anthropic_client() with reco-specific retry logic.",
+      "inputs": [
+        "prompts strings",
+        "anthropic client"
+      ],
+      "outputs": [
+        "structured reco JSON responses"
+      ],
+      "depends_on": [
+        "growthcro/lib/anthropic_client",
+        "growthcro/recos"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #2 API client",
+        "FR-6 codebase-cleanup PRD"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/recos"
+    },
+    {
+      "id": "growthcro/recos/orchestrator",
+      "path": "growthcro/recos/orchestrator.py",
+      "purpose": "Reco orchestration — per-page prompt preparation + per-page LLM batch loop. Coordinates schema/prompts/client.",
+      "inputs": [
+        "page artefacts (capture, perception, scores)",
+        "client metadata"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/recos_enriched.json"
+      ],
+      "depends_on": [
+        "growthcro/recos"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #4 orchestration"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/recos"
+    },
+    {
+      "id": "growthcro/recos/prompts",
+      "path": "growthcro/recos/prompts.py",
+      "purpose": "Reco prompt assembly — turns page-level data into prompt strings (no LLM call, no I/O).",
+      "inputs": [
+        "intent, vision, USP, killer violations, page metadata"
+      ],
+      "outputs": [
+        "assembled prompt strings"
+      ],
+      "depends_on": [
+        "growthcro/recos"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #1 prompt assembly"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/recos"
+    },
+    {
+      "id": "growthcro/recos/schema",
+      "path": "growthcro/recos/schema.py",
+      "purpose": "Reco doctrine + scope matrix caches, JSON validation, ICE compute, fallback template — data-shape only.",
+      "inputs": [
+        "data/doctrine/applicability_matrix_v1.json",
+        "data/doctrine/criteria_scope_matrix_v1.json"
+      ],
+      "outputs": [
+        "validated reco dicts",
+        "ICE scores"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "scripts/compare_doctrine_v3_v3_3"
+      ],
+      "doctrine_refs": [
+        "SCHEMA/recos_enriched.schema.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/recos"
+    },
+    {
+      "id": "growthcro/research",
+      "path": "growthcro/research/__init__.py",
+      "purpose": "Research layer — full-site crawler + brand-identity extractor (orthogonal to perception).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/research/brand_identity",
+        "growthcro/research/content",
+        "growthcro/research/discovery"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/research"
+    },
+    {
+      "id": "growthcro/research/brand_identity",
+      "path": "growthcro/research/brand_identity.py",
+      "purpose": "CSS-based brand identity extraction — palette, typography, mood, logos, favicon.",
+      "inputs": [
+        "rendered DOM + computed CSS"
+      ],
+      "outputs": [
+        "brand identity payload (palette/typo/mood)"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/research",
+        "growthcro/research/cli"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/research"
+    },
+    {
+      "id": "growthcro/research/cli",
+      "path": "growthcro/research/cli.py",
+      "purpose": "argparse entrypoint — runs the full discovery + content + brand-identity pipeline.",
+      "inputs": [
+        "argv"
+      ],
+      "outputs": [
+        "discovery/content/brand pipeline invocations"
+      ],
+      "depends_on": [
+        "growthcro/research/brand_identity",
+        "growthcro/research/content",
+        "growthcro/research/discovery"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/research"
+    },
+    {
+      "id": "growthcro/research/content",
+      "path": "growthcro/research/content.py",
+      "purpose": "Page content fetching + structured extraction (text, certifications, prices, ratings).",
+      "inputs": [
+        "page URLs"
+      ],
+      "outputs": [
+        "page content dicts"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/research",
+        "growthcro/research/cli"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/research"
+    },
+    {
+      "id": "growthcro/research/discovery",
+      "path": "growthcro/research/discovery.py",
+      "purpose": "URL discovery + categorization — sitemap-style crawl of a client's domain.",
+      "inputs": [
+        "home URL"
+      ],
+      "outputs": [
+        "page list with category tags"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/research",
+        "growthcro/research/cli"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/research"
+    },
+    {
+      "id": "growthcro/scoring",
+      "path": "growthcro/scoring/__init__.py",
+      "purpose": "Scoring layer — pillars dispatcher + UX bloc + page-type-specific detectors + persist.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/scoring/pillars",
+        "growthcro/scoring/specific"
+      ],
+      "imported_by": [
+        "growthcro/scoring/specific"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/cli",
+      "path": "growthcro/scoring/cli.py",
+      "purpose": "argparse entrypoints for scoring CLIs (score_specific, score_ux) — unified subcommand dispatcher for sub-agents.",
+      "inputs": [
+        "argv"
+      ],
+      "outputs": [
+        "persist invocations"
+      ],
+      "depends_on": [
+        "growthcro/scoring/persist",
+        "growthcro/scoring/ux"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/persist",
+      "path": "growthcro/scoring/persist.py",
+      "purpose": "Page-type-specific scoring persist — score & write score_specific.json for one page.",
+      "inputs": [
+        "capture.json",
+        "perception_v13.json",
+        "page_type"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/score_specific.json + score_page_type.json"
+      ],
+      "depends_on": [
+        "growthcro/scoring/specific"
+      ],
+      "imported_by": [
+        "growthcro/scoring/cli",
+        "skills/site-capture/scripts/score_page_type"
+      ],
+      "doctrine_refs": [
+        "SCHEMA/score_page_type.schema.json",
+        "playbook/page_type_criteria.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/pillars",
+      "path": "growthcro/scoring/pillars.py",
+      "purpose": "Shared pillar dispatcher — pageType filtering, weight, caps, verdict. Used by every bloc scorer.",
+      "inputs": [
+        "bloc criteria JSON",
+        "capture.json",
+        "perception_v13.json"
+      ],
+      "outputs": [
+        "pillar score dict + verdict"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "growthcro/scoring",
+        "growthcro/scoring/ux"
+      ],
+      "doctrine_refs": [
+        "playbook/bloc_{1..6}_v3.json",
+        "SCHEMA/score_pillar.schema.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/specific",
+      "path": "growthcro/scoring/specific/__init__.py",
+      "purpose": "Page-type-specific detector aggregator — exports `DETECTORS`, `TERNARY`, helpers, fallback.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/scoring"
+      ],
+      "imported_by": [
+        "growthcro/scoring",
+        "growthcro/scoring/persist",
+        "growthcro/scoring/specific/home_leadgen",
+        "growthcro/scoring/specific/listicle",
+        "growthcro/scoring/specific/product",
+        "growthcro/scoring/specific/sales"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/specific/home_leadgen",
+      "path": "growthcro/scoring/specific/home_leadgen.py",
+      "purpose": "Home, pricing, checkout, bundle, advertorial, comparison, thank-you-page detectors.",
+      "inputs": [
+        "capture.json",
+        "perception_v13.json"
+      ],
+      "outputs": [
+        "specific criterion scores for home/pricing/comparison"
+      ],
+      "depends_on": [
+        "growthcro/scoring/specific",
+        "growthcro/scoring/specific/product"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "playbook/page_type_criteria.json#home"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/specific/listicle",
+      "path": "growthcro/scoring/specific/listicle.py",
+      "purpose": "Listicle / blog page-type detectors — list_* and blog_* criteria.",
+      "inputs": [
+        "capture.json",
+        "perception_v13.json"
+      ],
+      "outputs": [
+        "specific criterion scores for listicle/blog"
+      ],
+      "depends_on": [
+        "growthcro/scoring/specific"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "playbook/page_type_criteria.json#listicle"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/specific/product",
+      "path": "growthcro/scoring/specific/product.py",
+      "purpose": "Product / collection detectors — pdp_*, col_* + shared trust/social-proof helpers.",
+      "inputs": [
+        "capture.json",
+        "perception_v13.json"
+      ],
+      "outputs": [
+        "specific criterion scores for pdp/collection"
+      ],
+      "depends_on": [
+        "growthcro/scoring/specific"
+      ],
+      "imported_by": [
+        "growthcro/scoring/specific/home_leadgen",
+        "growthcro/scoring/specific/sales"
+      ],
+      "doctrine_refs": [
+        "playbook/page_type_criteria.json#pdp"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/specific/sales",
+      "path": "growthcro/scoring/specific/sales.py",
+      "purpose": "Sales-page detectors — vsl_*, sqz_*, lg_*, sp_*, web_*, chal_*, quiz_* criteria.",
+      "inputs": [
+        "capture.json",
+        "perception_v13.json"
+      ],
+      "outputs": [
+        "specific criterion scores for sales/leadgen/quiz"
+      ],
+      "depends_on": [
+        "growthcro/scoring/specific",
+        "growthcro/scoring/specific/product"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "playbook/page_type_criteria.json#sales"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "growthcro/scoring/ux",
+      "path": "growthcro/scoring/ux.py",
+      "purpose": "Bloc-3 UX scorer (ux_01..ux_08) — heuristic bloc scoring with shared dispatcher.",
+      "inputs": [
+        "capture.json",
+        "perception_v13.json"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/score_ux.json"
+      ],
+      "depends_on": [
+        "growthcro/scoring/pillars"
+      ],
+      "imported_by": [
+        "growthcro/scoring/cli"
+      ],
+      "doctrine_refs": [
+        "playbook/bloc_3_ux_v3.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "growthcro/scoring"
+    },
+    {
+      "id": "moteur_gsg",
+      "path": "moteur_gsg/__init__.py",
+      "purpose": "moteur_gsg — Growth Site Generator V26.AA.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/css"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg"
+    },
+    {
+      "id": "moteur_gsg/core",
+      "path": "moteur_gsg/core/__init__.py",
+      "purpose": "moteur_gsg.core — building blocs réutilisés par les 5 modes.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/css"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/animations",
+      "path": "moteur_gsg/core/animations.py",
+      "purpose": "Emil Kowalski motion layer for the controlled GSG renderer (V27.2-G+).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/asset_resolver",
+      "path": "moteur_gsg/core/asset_resolver.py",
+      "purpose": "Visual-asset key resolution for the controlled renderer — maps logical asset keys to actual URLs/paths from plan constraints.",
+      "inputs": [
+        "plan constraints.visual_assets mapping"
+      ],
+      "outputs": [
+        "resolved asset URLs"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/html_escaper",
+        "moteur_gsg/core/planner"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/component_renderer",
+        "moteur_gsg/core/hero_renderer"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/brand_intelligence",
+      "path": "moteur_gsg/core/brand_intelligence.py",
+      "purpose": "Brand Intelligence wrapper — combines brand_dna_extractor + brand_dna_diff_extractor outputs into a single bag for the pipeline.",
+      "inputs": [
+        "data/captures/<client>/brand_dna.json + brand_dna_diff.json"
+      ],
+      "outputs": [
+        "brand intelligence bag"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/core/prompt_assembly",
+        "moteur_gsg/modes/mode_1/orchestrator",
+        "moteur_gsg/modes/mode_1_complete",
+        "moteur_gsg/modes/mode_2_replace"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/brief_v15_builder",
+      "path": "moteur_gsg/core/brief_v15_builder.py",
+      "purpose": "Brief V15 builder — bridge format between audit V26 and GSG Mode 2 REPLACE (legacy).",
+      "inputs": [
+        "audit V26 output + brand_dna"
+      ],
+      "outputs": [
+        "BriefV15 JSON"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/modes/mode_2_replace"
+      ],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/brief_v2",
+      "path": "moteur_gsg/core/brief_v2.py",
+      "purpose": "BriefV2 schema + builder — 30+ inputs canonical brief format (V26.AD Sprint I).",
+      "inputs": [
+        "intake_wizard output"
+      ],
+      "outputs": [
+        "BriefV2 JSON"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/brief_v2_prefiller",
+        "moteur_gsg/core/brief_v2_validator",
+        "moteur_gsg/core/intake_wizard",
+        "moteur_gsg/core/pipeline_sequential",
+        "moteur_gsg/modes/mode_2_replace",
+        "moteur_gsg/modes/mode_3_extend",
+        "moteur_gsg/modes/mode_4_elevate",
+        "moteur_gsg/modes/mode_5_genesis",
+        "scripts/_test_weglot_listicle_V26AE",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [
+        "FRAMEWORK_CADRAGE_GSG_V26AC.md"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/brief_v2_prefiller",
+      "path": "moteur_gsg/core/brief_v2_prefiller.py",
+      "purpose": "BriefV2 prefiller — auto-fills brief from known client data via the root client_context router.",
+      "inputs": [
+        "client slug",
+        "scripts/client_context router"
+      ],
+      "outputs": [
+        "partial BriefV2"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/intake_wizard",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/brief_v2_validator",
+      "path": "moteur_gsg/core/brief_v2_validator.py",
+      "purpose": "BriefV2 validator — parses + validates a BriefV2 from JSON file or dict (V26.AD).",
+      "inputs": [
+        "BriefV2 JSON / dict"
+      ],
+      "outputs": [
+        "validated BriefV2 or ValidationError"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2"
+      ],
+      "imported_by": [
+        "scripts/_test_weglot_listicle_V26AE",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #7 validation"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/canonical_registry",
+      "path": "moteur_gsg/core/canonical_registry.py",
+      "purpose": "Canonical GSG contract + static validation helpers — single source of truth for the 'one GSG' boundary.",
+      "inputs": [
+        ".claude/docs/architecture/GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md"
+      ],
+      "outputs": [
+        "canonical assertions (check_gsg_canonical.py consumer)"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/creative_route_selector",
+        "moteur_gsg/core/legacy_lab_adapters",
+        "moteur_gsg/core/visual_system",
+        "moteur_gsg/orchestrator"
+      ],
+      "imported_by": [
+        "scripts/check_gsg_canonical"
+      ],
+      "doctrine_refs": [
+        "MANIFEST §12 V27.2-G alignment Codex"
+      ],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/component_library",
+      "path": "moteur_gsg/core/component_library.py",
+      "purpose": "Page-type component blueprints — V27.2-B turns strategic contracts into concrete section/component plans.",
+      "inputs": [
+        "page_type",
+        "CreativeRouteContract"
+      ],
+      "outputs": [
+        "section/component plan dict"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/planner"
+      ],
+      "doctrine_refs": [
+        "MANIFEST §12 V27.2-B entry"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/component_renderer",
+      "path": "moteur_gsg/core/component_renderer.py",
+      "purpose": "Reason / component visual + bullet-list rendering — three helpers for reason cards + component visuals + bullet lists.",
+      "inputs": [
+        "component plan",
+        "design tokens"
+      ],
+      "outputs": [
+        "component HTML"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/asset_resolver",
+        "moteur_gsg/core/fact_assembler",
+        "moteur_gsg/core/html_escaper",
+        "moteur_gsg/core/planner"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/context_pack",
+      "path": "moteur_gsg/core/context_pack.py",
+      "purpose": "Generation context pack — loads brand DNA, audience, proof inventory, scent contract, visual assets via the root client_context.",
+      "inputs": [
+        "client slug",
+        "client_context router"
+      ],
+      "outputs": [
+        "GenerationContextPack"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/copy_writer",
+      "path": "moteur_gsg/core/copy_writer.py",
+      "purpose": "Bounded copy writer — Sonnet writes JSON copy slots only, no layout/visuals. Uses growthcro.lib.anthropic_client.",
+      "inputs": [
+        "page plan",
+        "design tokens",
+        "context"
+      ],
+      "outputs": [
+        "copy_doc JSON (slots)"
+      ],
+      "depends_on": [
+        "growthcro/lib/anthropic_client",
+        "moteur_gsg/core/brand_intelligence",
+        "moteur_gsg/core/context_pack",
+        "moteur_gsg/core/doctrine_planner",
+        "moteur_gsg/core/minimal_guards",
+        "moteur_gsg/core/pattern_library",
+        "moteur_gsg/core/pipeline_single_pass",
+        "moteur_gsg/core/planner",
+        "moteur_gsg/core/visual_intelligence"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [
+        "CODEX_TO_CLAUDE handoff §copy_writer fix",
+        "FR-6 codebase-cleanup PRD"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/creative_route_selector",
+      "path": "moteur_gsg/core/creative_route_selector.py",
+      "purpose": "V27.2-F structured Golden/Creative route selector — no LLM, no prompt dumping. Bridges VisualIntelligencePack, AURA and Golden Bridge.",
+      "inputs": [
+        "VisualIntelligencePack",
+        "AURA output",
+        "Golden Bridge output"
+      ],
+      "outputs": [
+        "CreativeRouteContract (route name, risk level, golden refs, technique refs, decisions, renderer overrides)"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/legacy_lab_adapters",
+        "moteur_gsg/core/visual_intelligence"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/canonical_registry",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [
+        "MANIFEST §12 V27.2-F entry"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/css",
+      "path": "moteur_gsg/core/css/__init__.py",
+      "purpose": "CSS package for the controlled GSG renderer.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "moteur_gsg",
+        "moteur_gsg/core"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/css/base",
+      "path": "moteur_gsg/core/css/base.py",
+      "purpose": "CSS base layer — reset, body chrome, typography, byline, hero scaffold, brand-shot.",
+      "inputs": [
+        "design tokens"
+      ],
+      "outputs": [
+        "base CSS string"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/css/components",
+      "path": "moteur_gsg/core/css/components.py",
+      "purpose": "CSS components layer — argument lines, mechanism nodes, atlas hero, system-map, intro/proof.",
+      "inputs": [
+        "design tokens"
+      ],
+      "outputs": [
+        "components CSS string"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/css/responsive",
+      "path": "moteur_gsg/core/css/responsive.py",
+      "purpose": "CSS responsive + animations layer — @keyframes, prefers-reduced-motion, breakpoints.",
+      "inputs": [
+        "design tokens"
+      ],
+      "outputs": [
+        "responsive CSS string"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/design_grammar_loader",
+      "path": "moteur_gsg/core/design_grammar_loader.py",
+      "purpose": "Design Grammar Loader V30 — branches design_grammar V30 into Mode 1 (Sprint B V26.AA).",
+      "inputs": [
+        "skills/site-capture/scripts/design_grammar output"
+      ],
+      "outputs": [
+        "design grammar dict consumable by tokens"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/prompt_assembly",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/design_tokens",
+      "path": "moteur_gsg/core/design_tokens.py",
+      "purpose": "Deterministic design tokens — turns Brand DNA / Design Grammar / AURA into compact tokens for the renderer.",
+      "inputs": [
+        "brand DNA",
+        "design grammar V30",
+        "AURA"
+      ],
+      "outputs": [
+        "design_tokens dict (colors, fonts, spacing, radii)"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/minimal_guards"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/doctrine_planner",
+      "path": "moteur_gsg/core/doctrine_planner.py",
+      "purpose": "Constructive doctrine pack — turns audit doctrine into a creation contract (applicable criteria, evidence policy, copy directives, renderer directives).",
+      "inputs": [
+        "BriefV2",
+        "playbook/page_type_criteria.json",
+        "data/doctrine/applicability_matrix_v1.json"
+      ],
+      "outputs": [
+        "DoctrineCreationContract"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [
+        "playbook/bloc_{1..6}_v3.json",
+        "FR-3 webapp-stratosphere PRD (V3.3 fusion)"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/fact_assembler",
+      "path": "moteur_gsg/core/fact_assembler.py",
+      "purpose": "Fact-list selection + proof-strip rendering — pulls allowed_facts from plan evidence pack, sorts by source.",
+      "inputs": [
+        "plan evidence pack"
+      ],
+      "outputs": [
+        "fact list + proof strip HTML"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/html_escaper",
+        "moteur_gsg/core/planner"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/component_renderer",
+        "moteur_gsg/core/hero_renderer",
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/hero_renderer",
+      "path": "moteur_gsg/core/hero_renderer.py",
+      "purpose": "Hero-visual variant dispatch — branches on plan constraints to pick the hero visual style.",
+      "inputs": [
+        "page plan",
+        "design tokens"
+      ],
+      "outputs": [
+        "hero HTML"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/asset_resolver",
+        "moteur_gsg/core/fact_assembler",
+        "moteur_gsg/core/html_escaper",
+        "moteur_gsg/core/planner",
+        "moteur_gsg/core/visual_system"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/html_escaper",
+      "path": "moteur_gsg/core/html_escaper.py",
+      "purpose": "HTML-escaping micro-helpers — two tiny pure functions split out of page_renderer_orchestrator.",
+      "inputs": [
+        "raw text"
+      ],
+      "outputs": [
+        "HTML-escaped text"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/asset_resolver",
+        "moteur_gsg/core/component_renderer",
+        "moteur_gsg/core/fact_assembler",
+        "moteur_gsg/core/hero_renderer",
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/impeccable_qa",
+      "path": "moteur_gsg/core/impeccable_qa.py",
+      "purpose": "Impeccable post-render QA layer for the controlled GSG renderer.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/intake_wizard",
+      "path": "moteur_gsg/core/intake_wizard.py",
+      "purpose": "Deterministic GSG intake/wizard contract — turns a rough user request into a complete BriefV2 (V27.2-E).",
+      "inputs": [
+        "raw user prompt",
+        "client slug (optional)"
+      ],
+      "outputs": [
+        "BriefV2 ready for orchestrator"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2",
+        "moteur_gsg/core/brief_v2_prefiller"
+      ],
+      "imported_by": [
+        "scripts/check_gsg_intake_wizard"
+      ],
+      "doctrine_refs": [
+        "FRAMEWORK_CADRAGE_GSG_V26AC.md"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/legacy_lab_adapters",
+      "path": "moteur_gsg/core/legacy_lab_adapters.py",
+      "purpose": "Explicit adapters for the V26.Z growth-site-generator legacy lab — keeps useful components reachable without re-importing skill scripts.",
+      "inputs": [
+        "legacy script outputs"
+      ],
+      "outputs": [
+        "adapter functions called from moteur_gsg/core/*"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/canonical_registry",
+        "moteur_gsg/core/creative_route_selector",
+        "moteur_gsg/core/pipeline_single_pass",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/minimal_guards",
+      "path": "moteur_gsg/core/minimal_guards.py",
+      "purpose": "Deterministic guards for the minimal GSG path (V26.AH Day 5) — final whitelist of allowed runtime fixes.",
+      "inputs": [
+        "rendered HTML"
+      ],
+      "outputs": [
+        "pass/fail + guarded HTML"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/core/design_tokens",
+        "moteur_gsg/core/prompt_assembly",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/page_renderer_orchestrator",
+      "path": "moteur_gsg/core/page_renderer_orchestrator.py",
+      "purpose": "Public entry point for the controlled renderer — render_controlled_page(plan, copy_doc) dispatches listicle vs component pages.",
+      "inputs": [
+        "page plan",
+        "copy_doc"
+      ],
+      "outputs": [
+        "LP HTML string"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/animations",
+        "moteur_gsg/core/component_renderer",
+        "moteur_gsg/core/css",
+        "moteur_gsg/core/fact_assembler",
+        "moteur_gsg/core/hero_renderer",
+        "moteur_gsg/core/html_escaper",
+        "moteur_gsg/core/planner",
+        "moteur_gsg/core/section_renderer",
+        "moteur_gsg/core/visual_system"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/pattern_library",
+      "path": "moteur_gsg/core/pattern_library.py",
+      "purpose": "Structured pattern library — small, deterministic pattern packs replacing prompt dumping.",
+      "inputs": [
+        "page_type",
+        "creative route"
+      ],
+      "outputs": [
+        "pattern dicts (variants per section)"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/core/planner"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/pipeline_sequential",
+      "path": "moteur_gsg/core/pipeline_sequential.py",
+      "purpose": "Pipeline 4 stages séquentiels (V26.AF Sprint AF-1.B.2) — Strategy → Copy → Composer → Polish. Experimental, NOT default since V26.AG.",
+      "inputs": [
+        "BriefV2 + context"
+      ],
+      "outputs": [
+        "HTML string"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2",
+        "moteur_gsg/core/pipeline_single_pass"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/pipeline_single_pass",
+      "path": "moteur_gsg/core/pipeline_single_pass.py",
+      "purpose": "Single-pass Sonnet pipeline (V26.AA Sprint 3) — 1 call Sonnet → HTML (default Mode 1). No mega-prompt, no 4-stage pipeline.",
+      "inputs": [
+        "assembled prompt",
+        "anthropic client"
+      ],
+      "outputs": [
+        "HTML string"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/legacy_lab_adapters"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/core/pipeline_sequential",
+        "moteur_gsg/modes/mode_1/api_call",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/planner",
+      "path": "moteur_gsg/core/planner.py",
+      "purpose": "Deterministic page planner — decides structure before the LLM writes copy.",
+      "inputs": [
+        "page_type",
+        "CreativeRouteContract",
+        "component_library"
+      ],
+      "outputs": [
+        "page plan dict (sections, components, evidence pack)"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/component_library",
+        "moteur_gsg/core/pattern_library"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/asset_resolver",
+        "moteur_gsg/core/component_renderer",
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/core/fact_assembler",
+        "moteur_gsg/core/hero_renderer",
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer",
+        "moteur_gsg/core/visual_system",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/prompt_assembly",
+      "path": "moteur_gsg/core/prompt_assembly.py",
+      "purpose": "Prompt Assembly V26.AA Sprint 3 — short prompt (≤10K chars hard limit) for Mode 1 COMPLETE. Note: name shared with mode_1/prompt_assembly.py by AD-1 design.",
+      "inputs": [
+        "context + doctrine + brief"
+      ],
+      "outputs": [
+        "prompt string"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brand_intelligence",
+        "moteur_gsg/core/design_grammar_loader",
+        "moteur_gsg/core/minimal_guards"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [
+        "CODE_DOCTRINE.md axis #1 prompt assembly"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/section_renderer",
+      "path": "moteur_gsg/core/section_renderer.py",
+      "purpose": "Component-section + component-page assembly — assembles components into sections + sections into pages.",
+      "inputs": [
+        "section plan",
+        "component plans"
+      ],
+      "outputs": [
+        "section HTML"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/animations",
+        "moteur_gsg/core/component_renderer",
+        "moteur_gsg/core/css",
+        "moteur_gsg/core/fact_assembler",
+        "moteur_gsg/core/hero_renderer",
+        "moteur_gsg/core/html_escaper",
+        "moteur_gsg/core/planner",
+        "moteur_gsg/core/visual_system"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/page_renderer_orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/visual_intelligence",
+      "path": "moteur_gsg/core/visual_intelligence.py",
+      "purpose": "Visual intelligence contracts — translates context+doctrine into AURA input, creative director seed, golden bridge query (no LLM).",
+      "inputs": [
+        "GenerationContextPack",
+        "DoctrineCreationContract"
+      ],
+      "outputs": [
+        "VisualIntelligencePack"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/core/creative_route_selector",
+        "moteur_gsg/modes/mode_1_complete"
+      ],
+      "doctrine_refs": [
+        "CODEX_TO_CLAUDE handoff §Visual Intelligence Pack"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/core/visual_system",
+      "path": "moteur_gsg/core/visual_system.py",
+      "purpose": "V27.2-G deterministic visual system contract — emits gsg-visual-system-v27.2-g + gsg-premium-visual-layer-v27.2-g markers for the renderer.",
+      "inputs": [
+        "VisualIntelligencePack",
+        "page type"
+      ],
+      "outputs": [
+        "visual system contract for renderer"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/planner"
+      ],
+      "imported_by": [
+        "moteur_gsg/core/canonical_registry",
+        "moteur_gsg/core/hero_renderer",
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/section_renderer"
+      ],
+      "doctrine_refs": [
+        "GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md",
+        "MANIFEST §12 V27.2-G entry"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/core"
+    },
+    {
+      "id": "moteur_gsg/modes",
+      "path": "moteur_gsg/modes/__init__.py",
+      "purpose": "moteur_gsg.modes — les 5 situations type GSG (V26.AH minimal).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1",
+      "path": "moteur_gsg/modes/mode_1/__init__.py",
+      "purpose": "Mode 1 PERSONA NARRATOR — split sub-package (issue #8 + #13).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "moteur_gsg/modes"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/api_call",
+      "path": "moteur_gsg/modes/mode_1/api_call.py",
+      "purpose": "Sonnet API call adapters for Mode 1 PERSONA NARRATOR — re-exports pipeline_single_pass wrappers.",
+      "inputs": [
+        "prompt",
+        "client"
+      ],
+      "outputs": [
+        "HTML response"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/pipeline_single_pass"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/orchestrator",
+      "path": "moteur_gsg/modes/mode_1/orchestrator.py",
+      "purpose": "Mode 1 PERSONA NARRATOR master pipeline — uses the root client_context router (PIVOT V26.AC).",
+      "inputs": [
+        "client slug",
+        "page_type",
+        "brief"
+      ],
+      "outputs": [
+        "LP HTML"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brand_intelligence",
+        "moteur_gsg/modes/mode_1/api_call",
+        "moteur_gsg/modes/mode_1/philosophy_bridge",
+        "moteur_gsg/modes/mode_1/prompt_assembly",
+        "moteur_gsg/modes/mode_1/runtime_fixes",
+        "moteur_gsg/modes/mode_1/vision_selection",
+        "moteur_gsg/modes/mode_1/visual_gates"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/output_parsing",
+      "path": "moteur_gsg/modes/mode_1/output_parsing.py",
+      "purpose": "HTML extraction helpers for Mode 1 PERSONA NARRATOR responses.",
+      "inputs": [
+        "LLM raw response"
+      ],
+      "outputs": [
+        "clean HTML string"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/philosophy_bridge",
+      "path": "moteur_gsg/modes/mode_1/philosophy_bridge.py",
+      "purpose": "Golden Design Bridge cache + aesthetic-vector extraction (Sprint AD-3 V26.AD+).",
+      "inputs": [
+        "client brand_dna + golden refs"
+      ],
+      "outputs": [
+        "aesthetic vector + cached bridge results"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1/orchestrator",
+        "moteur_gsg/modes/mode_1/prompt_blocks",
+        "moteur_gsg/modes/mode_1/vision_selection"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/prompt_assembly",
+      "path": "moteur_gsg/modes/mode_1/prompt_assembly.py",
+      "purpose": "Mode 1 PERSONA NARRATOR prompt assembly entry point — takes client/page_type/brief/brand_dna and returns ≤8K-char prompt (V26.AF GUARD).",
+      "inputs": [
+        "client",
+        "page_type",
+        "brief",
+        "brand_dna"
+      ],
+      "outputs": [
+        "prompt string ≤8192 chars"
+      ],
+      "depends_on": [
+        "moteur_gsg/modes/mode_1/prompt_blocks",
+        "moteur_gsg/modes/mode_1/runtime_fixes",
+        "moteur_gsg/modes/mode_1/vision_selection"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1/orchestrator",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [
+        "CLAUDE.md anti-pattern #1 mega-prompt",
+        "CODE_DOCTRINE.md axis #1"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/prompt_blocks",
+      "path": "moteur_gsg/modes/mode_1/prompt_blocks.py",
+      "purpose": "Prompt block formatters for Mode 1 PERSONA NARRATOR — _format_*_block helpers for LITE variant (FULL variant quarantined inert).",
+      "inputs": [
+        "brand_dna, design_grammar, audit, scent"
+      ],
+      "outputs": [
+        "prompt block strings"
+      ],
+      "depends_on": [
+        "moteur_gsg/modes/mode_1/philosophy_bridge",
+        "moteur_gsg/modes/mode_1/runtime_fixes",
+        "moteur_gsg/modes/mode_1/vision_selection"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1/prompt_assembly",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/runtime_fixes",
+      "path": "moteur_gsg/modes/mode_1/runtime_fixes.py",
+      "purpose": "Runtime font / design-grammar fix-ups for Mode 1 PERSONA NARRATOR (Sprint AD-2 V26.AD + Sprint F V26.AC post-gates).",
+      "inputs": [
+        "rendered HTML"
+      ],
+      "outputs": [
+        "fixed HTML"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1/orchestrator",
+        "moteur_gsg/modes/mode_1/prompt_assembly",
+        "moteur_gsg/modes/mode_1/prompt_blocks",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/vision_selection",
+      "path": "moteur_gsg/modes/mode_1/vision_selection.py",
+      "purpose": "Sprint F V26.AC + AD-4 V26.AD+ — vision input picker for Sonnet. Selects ≤N screenshots from per-page artefacts.",
+      "inputs": [
+        "screenshot inventory"
+      ],
+      "outputs": [
+        "selected screenshot paths"
+      ],
+      "depends_on": [
+        "moteur_gsg/modes/mode_1/philosophy_bridge"
+      ],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1/orchestrator",
+        "moteur_gsg/modes/mode_1/prompt_assembly",
+        "moteur_gsg/modes/mode_1/prompt_blocks",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1/visual_gates",
+      "path": "moteur_gsg/modes/mode_1/visual_gates.py",
+      "purpose": "Sprint AD-6 V26.AD+ — anti-AI-slop visual pattern detection + repair via regex on CSS signatures.",
+      "inputs": [
+        "rendered HTML + CSS"
+      ],
+      "outputs": [
+        "gate pass/fail + repaired HTML"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/modes/mode_1/orchestrator",
+        "scripts/run_gsg_full_pipeline"
+      ],
+      "doctrine_refs": [
+        "CLAUDE.md anti-pattern #2 anti-AI-slop too aggressive"
+      ],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_1_complete",
+      "path": "moteur_gsg/modes/mode_1_complete.py",
+      "purpose": "Mode 1 COMPLETE — canonical GSG autonomous LP generation. Calls the full controlled pipeline.",
+      "inputs": [
+        "BriefV2",
+        "client artefacts"
+      ],
+      "outputs": [
+        "LP HTML"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brand_intelligence",
+        "moteur_gsg/core/context_pack",
+        "moteur_gsg/core/copy_writer",
+        "moteur_gsg/core/creative_route_selector",
+        "moteur_gsg/core/design_grammar_loader",
+        "moteur_gsg/core/design_tokens",
+        "moteur_gsg/core/doctrine_planner",
+        "moteur_gsg/core/impeccable_qa",
+        "moteur_gsg/core/legacy_lab_adapters",
+        "moteur_gsg/core/minimal_guards",
+        "moteur_gsg/core/page_renderer_orchestrator",
+        "moteur_gsg/core/pipeline_single_pass",
+        "moteur_gsg/core/planner",
+        "moteur_gsg/core/prompt_assembly",
+        "moteur_gsg/core/visual_intelligence"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CODEX_TO_CLAUDE handoff §Mode 1 Controlled Pipeline"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_2_replace",
+      "path": "moteur_gsg/modes/mode_2_replace.py",
+      "purpose": "Mode 2 REPLACE V26.AD — refonte d'une page existante avec audit comparatif (~25-30% des cas).",
+      "inputs": [
+        "audit V26 output",
+        "page_type",
+        "brand_dna"
+      ],
+      "outputs": [
+        "refonte LP HTML"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brand_intelligence",
+        "moteur_gsg/core/brief_v15_builder",
+        "moteur_gsg/core/brief_v2"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_3_extend",
+      "path": "moteur_gsg/modes/mode_3_extend.py",
+      "purpose": "Mode 3 EXTEND V26.AD — concept nouveau pour client existant (~15-20% des cas). Site existant a brand_dna mais nouveau concept.",
+      "inputs": [
+        "brand_dna existant",
+        "nouveau concept brief"
+      ],
+      "outputs": [
+        "LP HTML extension"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_4_elevate",
+      "path": "moteur_gsg/modes/mode_4_elevate.py",
+      "purpose": "Mode 4 ELEVATE V26.AD — challenger DA via inspirations URLs (~5-10% des cas). Client veut alternative plus quali.",
+      "inputs": [
+        "inspirations URLs",
+        "brand_dna client"
+      ],
+      "outputs": [
+        "LP HTML élevée"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/modes/mode_5_genesis",
+      "path": "moteur_gsg/modes/mode_5_genesis.py",
+      "purpose": "Mode 5 GENESIS V26.AD — brief seul sans URL existante (<5% des cas). Nouvelle brand sans site live.",
+      "inputs": [
+        "brief 8-12 questions"
+      ],
+      "outputs": [
+        "LP HTML genesis"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/modes"
+    },
+    {
+      "id": "moteur_gsg/orchestrator",
+      "path": "moteur_gsg/orchestrator.py",
+      "purpose": "Canonical public GSG API — single entrypoint for generate_lp() across all modes (1-5).",
+      "inputs": [
+        "brief_v2 dict",
+        "mode selector"
+      ],
+      "outputs": [
+        "LP HTML + multi-judge optional report"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_gsg/core/canonical_registry",
+        "scripts/_test_weglot_listicle_V26AE",
+        "scripts/check_gsg_component_planner",
+        "scripts/check_gsg_controlled_renderer",
+        "scripts/check_gsg_creative_route_selector",
+        "scripts/check_gsg_intake_wizard",
+        "scripts/check_gsg_visual_renderer"
+      ],
+      "doctrine_refs": [
+        "GSG_CANONICAL_CONTRACT_V27_2026-05-05.md",
+        "GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "moteur_gsg/orchestrator"
+    },
+    {
+      "id": "moteur_multi_judge",
+      "path": "moteur_multi_judge/__init__.py",
+      "purpose": "moteur_multi_judge — Multi-juge unifié sur doctrine V3.2 (V26.AA).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_multi_judge"
+    },
+    {
+      "id": "moteur_multi_judge/judges",
+      "path": "moteur_multi_judge/judges/__init__.py",
+      "purpose": "Judges individuels orchestrés par moteur_multi_judge.orchestrator.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "moteur_multi_judge/judges/doctrine_judge",
+        "moteur_multi_judge/judges/humanlike_judge",
+        "moteur_multi_judge/judges/implementation_check"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_multi_judge"
+    },
+    {
+      "id": "moteur_multi_judge/judges/doctrine_judge",
+      "path": "moteur_multi_judge/judges/doctrine_judge.py",
+      "purpose": "Doctrine Judge V26.AA — juge unifié sur les 54 critères V3.2 (racine partagée Audit + GSG).",
+      "inputs": [
+        "LP HTML",
+        "page_type"
+      ],
+      "outputs": [
+        "doctrine score + per-criterion verdicts"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_multi_judge/judges",
+        "moteur_multi_judge/orchestrator"
+      ],
+      "doctrine_refs": [
+        "playbook/bloc_{1..6}_v3.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_multi_judge"
+    },
+    {
+      "id": "moteur_multi_judge/judges/humanlike_judge",
+      "path": "moteur_multi_judge/judges/humanlike_judge.py",
+      "purpose": "Humanlike Judge V26.AE — wraps skills/growth-site-generator/scripts/gsg_humanlike_audit.py.",
+      "inputs": [
+        "LP HTML"
+      ],
+      "outputs": [
+        "humanlike score (8 dimensions)"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_multi_judge/judges"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_multi_judge"
+    },
+    {
+      "id": "moteur_multi_judge/judges/implementation_check",
+      "path": "moteur_multi_judge/judges/implementation_check.py",
+      "purpose": "Implementation Check V26.AE — wraps skills/growth-site-generator/scripts/fix_html_runtime.py for runtime bug detection.",
+      "inputs": [
+        "LP HTML"
+      ],
+      "outputs": [
+        "implementation bug list"
+      ],
+      "depends_on": [],
+      "imported_by": [
+        "moteur_multi_judge/judges"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_multi_judge"
+    },
+    {
+      "id": "moteur_multi_judge/orchestrator",
+      "path": "moteur_multi_judge/orchestrator.py",
+      "purpose": "Multi-Judge Orchestrator V26.AA Sprint 3 — orchestrates 3 complementary judges (doctrine 70%, humanlike 30%, implementation_check).",
+      "inputs": [
+        "LP HTML",
+        "BriefV2",
+        "audit V26 (optional)"
+      ],
+      "outputs": [
+        "data/_pipeline_runs/<run>/multi_judge.json"
+      ],
+      "depends_on": [
+        "moteur_multi_judge/judges/doctrine_judge"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "playbook/bloc_{1..6}_v3.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "moteur_multi_judge"
+    },
+    {
+      "id": "scripts/_test_weglot_listicle_V26AE",
+      "path": "scripts/_test_weglot_listicle_V26AE.py",
+      "purpose": "End-to-end smoke test for the Weglot listicle pipeline (V26.AE baseline, V26.AG post-cleanup compatible).",
+      "inputs": [
+        "argv"
+      ],
+      "outputs": [
+        "test verdict + multi_judge run"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2",
+        "moteur_gsg/core/brief_v2_validator",
+        "moteur_gsg/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/audit_capabilities",
+      "path": "scripts/audit_capabilities.py",
+      "purpose": "Anti-oubli auto-discovery — scans the repo and produces CAPABILITIES_REGISTRY.json + CAPABILITIES_SUMMARY.md (orphans tracker).",
+      "inputs": [
+        "the full source tree"
+      ],
+      "outputs": [
+        "CAPABILITIES_REGISTRY.json",
+        ".claude/docs/state/CAPABILITIES_SUMMARY.md"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CLAUDE.md init step #8"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/build_bloc_v3_3",
+      "path": "scripts/build_bloc_v3_3.py",
+      "purpose": "Build playbook/bloc_*_v3-3.json from existing bloc_*_v3.json files.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/check_gsg_canonical",
+      "path": "scripts/check_gsg_canonical.py",
+      "purpose": "Validate the canonical GSG boundary without generating a landing page (smoke check for canonical_registry).",
+      "inputs": [],
+      "outputs": [
+        "exit 0/1"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/canonical_registry"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/check_gsg_component_planner",
+      "path": "scripts/check_gsg_component_planner.py",
+      "purpose": "Smoke-test V27.2-B GSG component planner without LLM calls.",
+      "inputs": [],
+      "outputs": [
+        "exit 0/1"
+      ],
+      "depends_on": [
+        "moteur_gsg/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/check_gsg_controlled_renderer",
+      "path": "scripts/check_gsg_controlled_renderer.py",
+      "purpose": "Smoke-test the canonical GSG controlled renderer without LLM calls.",
+      "inputs": [],
+      "outputs": [
+        "exit 0/1 + rendered HTML in /tmp"
+      ],
+      "depends_on": [
+        "moteur_gsg/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/check_gsg_creative_route_selector",
+      "path": "scripts/check_gsg_creative_route_selector.py",
+      "purpose": "Check V27.2-G structured Golden/Creative route selector without API calls.",
+      "inputs": [],
+      "outputs": [
+        "exit 0/1"
+      ],
+      "depends_on": [
+        "moteur_gsg/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/check_gsg_intake_wizard",
+      "path": "scripts/check_gsg_intake_wizard.py",
+      "purpose": "Check the canonical GSG intake/wizard path without API calls.",
+      "inputs": [],
+      "outputs": [
+        "exit 0/1"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/intake_wizard",
+        "moteur_gsg/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/check_gsg_visual_renderer",
+      "path": "scripts/check_gsg_visual_renderer.py",
+      "purpose": "Smoke-test V27.2-G GSG visual renderer (4 cases: weglot listicle, weglot advertorial, japhy pdp, stripe pricing) + optional Playwright screenshots.",
+      "inputs": [],
+      "outputs": [
+        "exit 0/1 + screenshots in /tmp"
+      ],
+      "depends_on": [
+        "moteur_gsg/orchestrator"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "qa",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/client_context",
+      "path": "scripts/client_context.py",
+      "purpose": "ROUTER RACINE GrowthCRO (V26.AC Sprint F) — single read-only router that knows where every per-client artefact lives.",
+      "inputs": [
+        "client slug"
+      ],
+      "outputs": [
+        "client context bag (brand_dna, recos, captures, scent, design_grammar)"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "MANIFEST §12 V26.AC entry"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/compare_doctrine_v3_v3_3",
+      "path": "scripts/compare_doctrine_v3_v3_3.py",
+      "purpose": "Deterministic comparison V3.2.1 vs V3.3 doctrine on a per-criterion basis.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/recos/schema"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/doctrine",
+      "path": "scripts/doctrine.py",
+      "purpose": "GrowthCRO Doctrine Loader (V26.Z W4) — racine partagée Audit + GSG. Loads playbook/*.json + applies applicability matrix.",
+      "inputs": [
+        "playbook/bloc_*.json",
+        "data/doctrine/applicability_matrix_v1.json"
+      ],
+      "outputs": [
+        "loaded doctrine object"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "playbook/* directory"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/lint_code_hygiene",
+      "path": "scripts/lint_code_hygiene.py",
+      "purpose": "Mechanical hygiene gate — enforces docs/doctrine/CODE_DOCTRINE.md (no >800 LOC, no env outside config, no archive in active paths, no basename dups).",
+      "inputs": [
+        "the active source tree",
+        "--staged for pre-commit gate"
+      ],
+      "outputs": [
+        "exit 0 (green or DEBT/WARN/INFO), 1 (FAIL), 2 (internal error)"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "CLAUDE.md immuable rule code-hygiene gate",
+        "CODE_DOCTRINE.md"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/migrate_v27_to_supabase",
+      "path": "scripts/migrate_v27_to_supabase.py",
+      "purpose": "Migrate V27 static dataset to Supabase V28.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/precategorize_proposals",
+      "path": "scripts/precategorize_proposals.py",
+      "purpose": "Pre-categorize 69 audit-based doctrine proposals for Mathis review (Task #18 DoD).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/run_gsg_full_pipeline",
+      "path": "scripts/run_gsg_full_pipeline.py",
+      "purpose": "Canonical GSG intake runner — conversational orchestrator for the FULL GSG workflow (intake → brief → orchestrator → multi-judge).",
+      "inputs": [
+        "argv (--client, --page-type, --mode, --generation-path)"
+      ],
+      "outputs": [
+        "LP HTML + multi-judge report"
+      ],
+      "depends_on": [
+        "moteur_gsg/core/brief_v2",
+        "moteur_gsg/core/brief_v2_prefiller",
+        "moteur_gsg/core/brief_v2_validator",
+        "moteur_gsg/modes/mode_1/prompt_assembly",
+        "moteur_gsg/modes/mode_1/prompt_blocks",
+        "moteur_gsg/modes/mode_1/runtime_fixes",
+        "moteur_gsg/modes/mode_1/vision_selection",
+        "moteur_gsg/modes/mode_1/visual_gates"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [
+        "skills/gsg/SKILL.md"
+      ],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/test_agency_audits",
+      "path": "scripts/test_agency_audits.py",
+      "purpose": "test_agency_audits.py — Smoke test for the audit_gads + audit_meta modules.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/test_webapp_v27",
+      "path": "scripts/test_webapp_v27.py",
+      "purpose": "test_webapp_v27.py — Playwright headless smoke test for V27 Command Center.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "scripts/update_architecture_map",
+      "path": "scripts/update_architecture_map.py",
+      "purpose": "AST scan generator for WEBAPP_ARCHITECTURE_MAP.yaml — preserves human-curated fields between regens.",
+      "inputs": [
+        "growthcro/, moteur_gsg/, moteur_multi_judge/, skills/, scripts/, SCHEMA/"
+      ],
+      "outputs": [
+        ".claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "FR-1 webapp-stratosphere PRD (US-1)",
+        "CLAUDE.md init step #11"
+      ],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "scripts"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/aura_compute",
+      "path": "skills/growth-site-generator/scripts/aura_compute.py",
+      "purpose": "AURA Compute — Design Token Calculator. Legacy lab — wrapped via moteur_gsg/core/legacy_lab_adapters.",
+      "inputs": [
+        "brand_dna + design_grammar + page_type"
+      ],
+      "outputs": [
+        "AURA design tokens"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/aura_extract",
+      "path": "skills/growth-site-generator/scripts/aura_extract.py",
+      "purpose": "AURA Extract — Design DNA Extraction from HTML pages.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/creative_director",
+      "path": "skills/growth-site-generator/scripts/creative_director.py",
+      "purpose": "GSG Creative Director V26.Z E2 — produces 3 named visual theses. Legacy lab — used via legacy_lab_adapters.",
+      "inputs": [
+        "brief + brand context"
+      ],
+      "outputs": [
+        "3 thesis bundle"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/fix_html_runtime",
+      "path": "skills/growth-site-generator/scripts/fix_html_runtime.py",
+      "purpose": "GSG Fix HTML Runtime V26.Z bug-fix — patches LPs broken by counter-without-JS. Used by moteur_multi_judge/judges/implementation_check.",
+      "inputs": [
+        "LP HTML"
+      ],
+      "outputs": [
+        "fixed HTML"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "qa",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/golden_design_bridge",
+      "path": "skills/growth-site-generator/scripts/golden_design_bridge.py",
+      "purpose": "Golden Design Bridge — cross-category aesthetic matching. Legacy lab — wrapped via moteur_gsg/core/legacy_lab_adapters.",
+      "inputs": [
+        "brand category + target page"
+      ],
+      "outputs": [
+        "golden design refs"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/gsg_best_of_n",
+      "path": "skills/growth-site-generator/scripts/gsg_best_of_n.py",
+      "purpose": "GSG Best-of-N V26.Z P2 — génère N LPs (1 par route Safe/Premium/Bold) et garde la meilleure.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/gsg_humanlike_audit",
+      "path": "skills/growth-site-generator/scripts/gsg_humanlike_audit.py",
+      "purpose": "GSG Human-Like Audit V26.Z W1.b — solo judge on 8 human dimensions. Used by moteur_multi_judge/judges/humanlike_judge.",
+      "inputs": [
+        "LP HTML"
+      ],
+      "outputs": [
+        "humanlike score"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "qa",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/gsg_multi_judge",
+      "path": "skills/growth-site-generator/scripts/gsg_multi_judge.py",
+      "purpose": "GSG Multi-Judge legacy V26.Z W1 — 2 judges + Sonnet arbitration. Superseded by moteur_multi_judge/orchestrator.",
+      "inputs": [
+        "LP HTML + reference"
+      ],
+      "outputs": [
+        "multi-judge verdict"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "qa",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/gsg_pipeline_sequential",
+      "path": "skills/growth-site-generator/scripts/gsg_pipeline_sequential.py",
+      "purpose": "GSG Pipeline Sequential V26.Z P1 — 4 stages chained (Strategy → Copy → Composer → Polish). Experimental, superseded by moteur_gsg/core/pipeline_sequential.",
+      "inputs": [
+        "BriefV2 + context"
+      ],
+      "outputs": [
+        "LP HTML"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/growth-site-generator/scripts/scrap_inspiration",
+      "path": "skills/growth-site-generator/scripts/scrap_inspiration.py",
+      "purpose": "GSG scrap_inspiration — V26.Y.7",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "runtime",
+      "package": "skills/growth-site-generator"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py",
+      "purpose": "apify_enrich.py — Enrichit un capture.json natif avec les données visuelles Apify.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12.py",
+      "purpose": "build_dashboard_v12.py — Consolidate every client/page audit into a single JSON",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector.py",
+      "purpose": "component_detector.py — GrowthCRO V12 Phase 5.2 : Component Detector multi-signal.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception.py",
+      "purpose": "component_perception.py — Oracle V11 : Perception Sémantique & Spatiale",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator.py",
+      "purpose": "component_validator.py — GrowthCRO V12 Phase 5.4 : Critic/Validator.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
+      "purpose": "perception_pipeline.py — GrowthCRO V12 Phase 5 : Orchestrateur Layer 2 Perception.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
+      "purpose": "reco_enricher.py — GrowthCRO V12 Phase 4.5 : enrichit les recommandations.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site.py",
+      "purpose": "score_site.py — Agrégateur multi-pages GrowthCRO.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring",
+      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py",
+      "purpose": "spatial_scoring.py — Spatial enrichment layer for GrowthCRO V9",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/analyze_capture",
+      "path": "skills/site-capture/scripts/analyze_capture.py",
+      "purpose": "Helpers pour lire un SiteCapture et servir de base au scoring V3.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/audit_fleet_health",
+      "path": "skills/site-capture/scripts/audit_fleet_health.py",
+      "purpose": "V25.A — Audit santé fleet existante.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/audit_funnel_steps",
+      "path": "skills/site-capture/scripts/audit_funnel_steps.py",
+      "purpose": "V26.X.5 — Audit per-step tunnel.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/batch_rescore",
+      "path": "skills/site-capture/scripts/batch_rescore.py",
+      "purpose": "batch_rescore.py — Re-score toutes les pages de tous les clients (avec données spatiales).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/batch_site",
+      "path": "skills/site-capture/scripts/batch_site.py",
+      "purpose": "batch_site.py — Batch scoring 6 blocs pour tous les clients.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/brand_dna_diff_extractor",
+      "path": "skills/site-capture/scripts/brand_dna_diff_extractor.py",
+      "purpose": "GSG Brand DNA Diff V26.Z E1 — ajoute le 4e quadrant \"Fix\" au brand_dna existant.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/brand_dna_extractor",
+      "path": "skills/site-capture/scripts/brand_dna_extractor.py",
+      "purpose": "V29 GSG Brand DNA Extractor — Python+LLM hybrid that produces palette/voice/diff E1 per client.",
+      "inputs": [
+        "data/captures/<client>/* + LLM"
+      ],
+      "outputs": [
+        "data/captures/<client>/brand_dna.json"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/build_growth_audit_data",
+      "path": "skills/site-capture/scripts/build_growth_audit_data.py",
+      "purpose": "Build consolidated JS bundle for GrowthCRO-V27-CommandCenter.html — merges data/captures/* into deliverables/growth_audit_data.js.",
+      "inputs": [
+        "data/captures/<client>/*"
+      ],
+      "outputs": [
+        "deliverables/growth_audit_data.js (12MB, 56 clients)"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "SCHEMA/dashboard_v17_data.schema.json"
+      ],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/capture_site",
+      "path": "skills/site-capture/scripts/capture_site.py",
+      "purpose": "capture_site.py — Orchestrateur hybride GrowthCRO.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/compress_flow_steps",
+      "path": "skills/site-capture/scripts/compress_flow_steps.py",
+      "purpose": "V26.X.3 — Compresse les flow_summary steps en mergant les sub-actions",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/criterion_crops_v2",
+      "path": "skills/site-capture/scripts/criterion_crops_v2.py",
+      "purpose": "criterion_crops_v2.py — V20.CAPTURE C3 : mapping critère → crop à partir des",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/design_grammar",
+      "path": "skills/site-capture/scripts/design_grammar.py",
+      "purpose": "Design Grammar V30 extractor — per-client design system tokens (colors, fonts, spacing, components patterns).",
+      "inputs": [
+        "data/captures/<client>/*"
+      ],
+      "outputs": [
+        "data/captures/<client>/design_grammar/*"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/detect_canonical_tunnel",
+      "path": "skills/site-capture/scripts/detect_canonical_tunnel.py",
+      "purpose": "V26.X.2 — Detect canonical tunnel par client.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/discover_pages_v25",
+      "path": "skills/site-capture/scripts/discover_pages_v25.py",
+      "purpose": "V25.B Discovery + Classification intelligente — sitemap + nav crawl + categorization per client.",
+      "inputs": [
+        "home URL",
+        "slug"
+      ],
+      "outputs": [
+        "data/captures/<client>/discovered_pages_v25.json"
+      ],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "onboarding",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/dom_vision_reconciler",
+      "path": "skills/site-capture/scripts/dom_vision_reconciler.py",
+      "purpose": "dom_vision_reconciler.py — V20.CAPTURE C1'b : réconciliation DOM ↔ Vision.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/eclaireur_llm",
+      "path": "skills/site-capture/scripts/eclaireur_llm.py",
+      "purpose": "eclaireur_llm.py — P11.11 (V19) : Éclaireur LLM Discovery & Routing.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/enrich_scores_with_evidence",
+      "path": "skills/site-capture/scripts/enrich_scores_with_evidence.py",
+      "purpose": "V26.A.2 — Post-process score_*.json files to attach Evidence Ledger entries.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/evidence_ledger",
+      "path": "skills/site-capture/scripts/evidence_ledger.py",
+      "purpose": "V26.A Evidence Ledger — verifiable proofs per score and reco (criterion-level provenance).",
+      "inputs": [
+        "scores + recos + capture artefacts"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/evidence_ledger.json"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/experiment_engine",
+      "path": "skills/site-capture/scripts/experiment_engine.py",
+      "purpose": "V27 — A/B test specs + sample size calculator + guardrails. Reality Layer dependent.",
+      "inputs": [
+        "audit verdict + recos"
+      ],
+      "outputs": [
+        "A/B test spec JSON"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "FR-8 webapp-stratosphere PRD (reality loop)"
+      ],
+      "status": "active",
+      "lifecycle_phase": "learning",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/geo_audit",
+      "path": "skills/site-capture/scripts/geo_audit.py",
+      "purpose": "V24 axe 4 — GEO audit (Generative Engine Optimization).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/geo_readiness_monitor",
+      "path": "skills/site-capture/scripts/geo_readiness_monitor.py",
+      "purpose": "V31+ — GEO Readiness Monitor multi-engine (ChatGPT + Perplexity + Claude + AI Overviews).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/golden_bridge",
+      "path": "skills/site-capture/scripts/golden_bridge.py",
+      "purpose": "Golden Dataset Bridge for reco_enricher V16 — matches a target page against 29 golden references for cross-category aesthetic.",
+      "inputs": [
+        "page metadata + brand category"
+      ],
+      "outputs": [
+        "golden match list"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/golden_calibration_check",
+      "path": "skills/site-capture/scripts/golden_calibration_check.py",
+      "purpose": "V21.F.3 — Golden Calibration Loop",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/golden_differential",
+      "path": "skills/site-capture/scripts/golden_differential.py",
+      "purpose": "golden_differential.py — P11.2 Golden Differential Engine (online helper)",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/golden_percentiles",
+      "path": "skills/site-capture/scripts/golden_percentiles.py",
+      "purpose": "golden_percentiles.py — P11.2 Golden Differential Engine (offline batch)",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/intent_detector_v13",
+      "path": "skills/site-capture/scripts/intent_detector_v13.py",
+      "purpose": "Couche 2 Oracle Perception V13 — per-element intent (CTA, trust, social_proof, …) from clustered DOM.",
+      "inputs": [
+        "perception_v13.json"
+      ],
+      "outputs": [
+        "intent annotations per element"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/learning_layer_v29_audit_based",
+      "path": "skills/site-capture/scripts/learning_layer_v29_audit_based.py",
+      "purpose": "V29 Sprint B V26.AA — Learning Layer Audit-Based : doctrine_proposals from 56 curated clients (currently 69 proposals pending review for V3.3).",
+      "inputs": [
+        "data/captures/<curated>/*"
+      ],
+      "outputs": [
+        "data/learning/audit_based_proposals/*.json"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [
+        "FR-3 webapp-stratosphere PRD (V3.3 fusion)"
+      ],
+      "status": "active",
+      "lifecycle_phase": "learning",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/multi_judge",
+      "path": "skills/site-capture/scripts/multi_judge.py",
+      "purpose": "V26.D Multi-judge legacy — disagreement tracking between Haiku, rules, Sonnet. Superseded by moteur_multi_judge/orchestrator.",
+      "inputs": [
+        "audit + GSG outputs"
+      ],
+      "outputs": [
+        "disagreement matrix"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "legacy",
+      "lifecycle_phase": "qa",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/overlay_burn",
+      "path": "skills/site-capture/scripts/overlay_burn.py",
+      "purpose": "overlay_burn.py — GrowthCRO V12 Phase 5.3b : Overlay burned-in PNG.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/overlay_renderer",
+      "path": "skills/site-capture/scripts/overlay_renderer.py",
+      "purpose": "overlay_renderer.py — GrowthCRO V12 Phase 5.3 : Overlay honnête renderer.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/page_cleaner",
+      "path": "skills/site-capture/scripts/page_cleaner.py",
+      "purpose": "page_cleaner.py — GrowthCRO V12 Phase 5.1 : nettoyage post-capture.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/page_context",
+      "path": "skills/site-capture/scripts/page_context.py",
+      "purpose": "page_context.py — P11.5/P11.9 (V19) : PageContext threadé + contrats Pydantic 4 stages.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/page_type_filter",
+      "path": "skills/site-capture/scripts/page_type_filter.py",
+      "purpose": "page_type_filter.py — Source of truth for pageType applicability (GrowthCRO V12 doctrine v3.1.0).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/perception_bridge",
+      "path": "skills/site-capture/scripts/perception_bridge.py",
+      "purpose": "perception_bridge.py — Bridge Layer 2 Perception → Scoring V3.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/perception_inject",
+      "path": "skills/site-capture/scripts/perception_inject.py",
+      "purpose": "perception_inject.py — Injecte les composants perçus dans les données que les scoreurs consomment.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/pick_diverse_pages",
+      "path": "skills/site-capture/scripts/pick_diverse_pages.py",
+      "purpose": "pick_diverse_pages.py — sélection équitable de N pages pour batch reco ciblé.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/playwright_capture_v2",
+      "path": "skills/site-capture/scripts/playwright_capture_v2.py",
+      "purpose": "V20.CAPTURE C1c — robust 2-pass Playwright capture (cookies + JS-rendered DOM + screenshots).",
+      "inputs": [
+        "page URLs"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/{page.html, screenshots/*.png}"
+      ],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/project_snapshot",
+      "path": "skills/site-capture/scripts/project_snapshot.py",
+      "purpose": "GrowthCRO V12 — full project state snapshot (used for cleanup audits + AI handoffs).",
+      "inputs": [
+        "full project tree"
+      ],
+      "outputs": [
+        "project_snapshot JSON"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "infrastructure",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer",
+      "path": "skills/site-capture/scripts/reality_layer/__init__.py",
+      "purpose": "V26.C Reality Layer — connecteurs data réelle (GA4, Meta Ads, Google Ads, Shopify, Clarity).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer/base",
+      "path": "skills/site-capture/scripts/reality_layer/base.py",
+      "purpose": "Base interface for Reality Layer connectors.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [
+        "skills/site-capture/scripts/reality_layer/catchr",
+        "skills/site-capture/scripts/reality_layer/clarity",
+        "skills/site-capture/scripts/reality_layer/google_ads",
+        "skills/site-capture/scripts/reality_layer/meta_ads",
+        "skills/site-capture/scripts/reality_layer/orchestrator",
+        "skills/site-capture/scripts/reality_layer/shopify"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer/catchr",
+      "path": "skills/site-capture/scripts/reality_layer/catchr.py",
+      "purpose": "Catchr connector — GA4 wrapper used internally by Growth Society.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "skills/site-capture/scripts/reality_layer/base"
+      ],
+      "imported_by": [
+        "skills/site-capture/scripts/reality_layer/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer/clarity",
+      "path": "skills/site-capture/scripts/reality_layer/clarity.py",
+      "purpose": "Microsoft Clarity Data Export connector — heatmaps + rage clicks + scroll depth.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "skills/site-capture/scripts/reality_layer/base"
+      ],
+      "imported_by": [
+        "skills/site-capture/scripts/reality_layer/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer/google_ads",
+      "path": "skills/site-capture/scripts/reality_layer/google_ads.py",
+      "purpose": "Google Ads API connector — campaign metrics par landing page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "skills/site-capture/scripts/reality_layer/base"
+      ],
+      "imported_by": [
+        "skills/site-capture/scripts/reality_layer/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer/meta_ads",
+      "path": "skills/site-capture/scripts/reality_layer/meta_ads.py",
+      "purpose": "Meta Marketing API connector — ad_spend + ROAS + CTR par landing page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "skills/site-capture/scripts/reality_layer/base"
+      ],
+      "imported_by": [
+        "skills/site-capture/scripts/reality_layer/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer/orchestrator",
+      "path": "skills/site-capture/scripts/reality_layer/orchestrator.py",
+      "purpose": "Reality Layer orchestrator — collecte + fusion + computed fields.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "skills/site-capture/scripts/reality_layer/base",
+        "skills/site-capture/scripts/reality_layer/catchr",
+        "skills/site-capture/scripts/reality_layer/clarity",
+        "skills/site-capture/scripts/reality_layer/google_ads",
+        "skills/site-capture/scripts/reality_layer/meta_ads",
+        "skills/site-capture/scripts/reality_layer/shopify"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reality_layer/shopify",
+      "path": "skills/site-capture/scripts/reality_layer/shopify.py",
+      "purpose": "Shopify Admin GraphQL API connector — orders + revenue + funnel par landing page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config",
+        "skills/site-capture/scripts/reality_layer/base"
+      ],
+      "imported_by": [
+        "skills/site-capture/scripts/reality_layer/orchestrator"
+      ],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reco_lifecycle",
+      "path": "skills/site-capture/scripts/reco_lifecycle.py",
+      "purpose": "V26.B Reco Lifecycle — state machine pour le cycle de vie des recos.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/reco_quality_audit",
+      "path": "skills/site-capture/scripts/reco_quality_audit.py",
+      "purpose": "reco_quality_audit.py — Scan des recos_v13_final.json existants et quality score",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/recos_dedup",
+      "path": "skills/site-capture/scripts/recos_dedup.py",
+      "purpose": "V23.B — Semantic dedup post-LLM des recos individuelles + cluster par page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/recos_rewrite_fr",
+      "path": "skills/site-capture/scripts/recos_rewrite_fr.py",
+      "purpose": "V23.2.fr — Rewrite ciblé style FR consultant pour les recos déjà générées.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/run_capture",
+      "path": "skills/site-capture/scripts/run_capture.py",
+      "purpose": "run_capture.py — orchestrateur Apify pour site-capture.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/run_discover",
+      "path": "skills/site-capture/scripts/run_discover.py",
+      "purpose": "run_discover.py — Orchestrateur Apify pour la découverte de pages d'un site.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/run_spatial_capture",
+      "path": "skills/site-capture/scripts/run_spatial_capture.py",
+      "purpose": "run_spatial_capture.py — Lance spatial_capture_v9.js pour une page.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/scent_trail_analyzer",
+      "path": "skills/site-capture/scripts/scent_trail_analyzer.py",
+      "purpose": "scent_trail_analyzer.py — P11.15 (V19) : mesure cross-page scent trail CRO.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/schwartz_detector",
+      "path": "skills/site-capture/scripts/schwartz_detector.py",
+      "purpose": "schwartz_detector.py — GrowthCRO V12 S-05 : Schwartz Awareness Scale auto-detection.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_applicability_overlay",
+      "path": "skills/site-capture/scripts/score_applicability_overlay.py",
+      "purpose": "score_applicability_overlay.py — P2.A Doctrine v3.2.0-draft (2026-04-18)",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_coherence",
+      "path": "skills/site-capture/scripts/score_coherence.py",
+      "purpose": "score_coherence.py — Scorer Bloc 4 Cohérence V3 pour GrowthCRO Playbook.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_contextual_overlay",
+      "path": "skills/site-capture/scripts/score_contextual_overlay.py",
+      "purpose": "score_contextual_overlay.py — P1.B Doctrine v3.2.0-draft (2026-04-18)",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_funnel",
+      "path": "skills/site-capture/scripts/score_funnel.py",
+      "purpose": "V21.H — Score le funnel COMPLET (vs juste l'intro).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_hero",
+      "path": "skills/site-capture/scripts/score_hero.py",
+      "purpose": "score_hero.py — Scorer Hero V3 pour GrowthCRO Playbook.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_page_type",
+      "path": "skills/site-capture/scripts/score_page_type.py",
+      "purpose": "score_page_type.py — Orchestrateur pageType-aware GrowthCRO V12 doctrine v3.1.0.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/scoring/persist"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_persuasion",
+      "path": "skills/site-capture/scripts/score_persuasion.py",
+      "purpose": "score_persuasion.py — Scorer Bloc 2 Persuasion V3 pour GrowthCRO Playbook.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_psycho",
+      "path": "skills/site-capture/scripts/score_psycho.py",
+      "purpose": "score_psycho.py — Scorer Psycho V3 pour GrowthCRO Playbook.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_site",
+      "path": "skills/site-capture/scripts/score_site.py",
+      "purpose": "score_site.py — Agrégateur multi-pages GrowthCRO.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_tech",
+      "path": "skills/site-capture/scripts/score_tech.py",
+      "purpose": "score_tech.py — Scorer Tech V3 pour GrowthCRO Playbook.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_universal_extensions",
+      "path": "skills/site-capture/scripts/score_universal_extensions.py",
+      "purpose": "score_universal_extensions.py — Scorers pour les 8 critères universels ajoutés en doctrine v3.1.0.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/score_utility_banner",
+      "path": "skills/site-capture/scripts/score_utility_banner.py",
+      "purpose": "score_utility_banner.py — Scorer Bloc 7 Utility Elements (UTILITY_BANNER) V3.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/spatial_bridge",
+      "path": "skills/site-capture/scripts/spatial_bridge.py",
+      "purpose": "spatial_bridge.py — Bridge module entre spatial_v9.json et les 6 scorers existants.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/spatial_enrich",
+      "path": "skills/site-capture/scripts/spatial_enrich.py",
+      "purpose": "spatial_enrich.py — Corrige capture.json avec les données spatiales Ghost (spatial_v9.json).",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/usp_detector",
+      "path": "skills/site-capture/scripts/usp_detector.py",
+      "purpose": "V21.F.2 USP detector — extracts USPs (Unique Selling Propositions) from hero + above-the-fold copy.",
+      "inputs": [
+        "hero capture data"
+      ],
+      "outputs": [
+        "data/captures/<client>/<page>/usp_signals.json"
+      ],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/validate_utility_banner",
+      "path": "skills/site-capture/scripts/validate_utility_banner.py",
+      "purpose": "validate_utility_banner.py — Validation Étape 1a : Bloc 7 UTILITY_BANNER",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/vision_spatial",
+      "path": "skills/site-capture/scripts/vision_spatial.py",
+      "purpose": "vision_spatial.py — V20.CAPTURE C1' : Claude Vision Haiku 4.5 comme extracteur spatial.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    },
+    {
+      "id": "skills/site-capture/scripts/web_vitals_adapter",
+      "path": "skills/site-capture/scripts/web_vitals_adapter.py",
+      "purpose": "web_vitals_adapter.py — GrowthCRO V12 S-04 adapter Web Vitals.",
+      "inputs": [],
+      "outputs": [],
+      "depends_on": [
+        "growthcro/config"
+      ],
+      "imported_by": [],
+      "doctrine_refs": [],
+      "status": "active",
+      "lifecycle_phase": "runtime",
+      "package": "skills/site-capture"
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "audit_pipeline",
+      "description": "",
+      "stages": [
+        "discovery (growthcro/research/discovery)",
+        "capture (growthcro/capture/orchestrator → spatial_v9 + capture.json + page.html)",
+        "perception (growthcro/perception/persist → perception_v13.json)",
+        "scoring (growthcro/scoring/persist + scoring/specific/* → score_*.json)",
+        "evidence (skills/site-capture/scripts/evidence_ledger → evidence_ledger.json)",
+        "recos (growthcro/recos/orchestrator → recos_enriched.json)",
+        "lifecycle (skills/site-capture/scripts/reco_lifecycle)"
+      ],
+      "entrypoint": "python -m growthcro.cli.capture_full <url> <client>",
+      "duration": "< 5min per client (target)",
+      "status": "",
+      "extra": {}
+    },
+    {
+      "id": "gsg_pipeline",
+      "description": "",
+      "stages": [
+        "intake_wizard (moteur_gsg/core/intake_wizard)",
+        "brief_v2 (moteur_gsg/core/brief_v2 + prefiller + validator)",
+        "context_pack (moteur_gsg/core/context_pack)",
+        "doctrine_pack (moteur_gsg/core/doctrine_planner)",
+        "visual_intelligence (moteur_gsg/core/visual_intelligence)",
+        "creative_route_selector V27.2-F (moteur_gsg/core/creative_route_selector)",
+        "visual_system V27.2-G (moteur_gsg/core/visual_system)",
+        "page_plan (moteur_gsg/core/planner + component_library)",
+        "copy_llm (moteur_gsg/core/copy_writer — JSON slots only)",
+        "controlled_renderer (moteur_gsg/core/page_renderer_orchestrator)",
+        "qa_runtime (moteur_gsg/core/minimal_guards)",
+        "minimal_gates (moteur_gsg/modes/mode_1/visual_gates + runtime_fixes)",
+        "multi_judge_optional (moteur_multi_judge/orchestrator)"
+      ],
+      "entrypoint": "python -m moteur_gsg.orchestrator --mode <complete|replace|extend|elevate|genesis>",
+      "duration": "< 3min lite, < 8min with multi-judge",
+      "status": "",
+      "extra": {}
+    },
+    {
+      "id": "multi_judge",
+      "description": "",
+      "stages": [
+        "doctrine_judge V3.2.1 (moteur_multi_judge/judges/doctrine_judge)",
+        "humanlike_judge (moteur_multi_judge/judges/humanlike_judge)",
+        "implementation_check (moteur_multi_judge/judges/implementation_check)"
+      ],
+      "entrypoint": "",
+      "duration": "",
+      "status": "",
+      "extra": {
+        "invocation": "post-GSG QA, post-audit verification",
+        "weighting": "70% doctrine / 30% humanlike (V26.AA Sprint 3)"
+      }
+    },
+    {
+      "id": "reality_loop",
+      "description": "",
+      "stages": [
+        "reality_collect (growthcro/reality/orchestrator — 6 connectors GA4/Catchr/Meta/Google/Shopify/Clarity, per-client credentials via growthcro.config.reality_client_env)",
+        "experiment_propose (growthcro/experiment/runner — 5 AB types, ZERO auto-trigger, status=\"proposed\")",
+        "experiment_record (growthcro/experiment/recorder — atomic spec persistence + index)",
+        "experiment_measure_outcomes (growthcro/experiment/recorder.import_outcome — Mathis triggers post live A/B)",
+        "learning_v29_audit_based (skills/site-capture/scripts/learning_layer_v29_audit_based — 69 proposals from 56 curated V26 clients)",
+        "learning_v30_data_driven (growthcro/learning/v30_data_driven — Beta-Binomial Bayesian update on V3.3, fed by reality snapshots + experiment outcomes)"
+      ],
+      "entrypoint": "",
+      "duration": "",
+      "status": "V30 structurally READY — connectors + orchestrator + experiment engine + Bayesian learning all in place. Live runs PENDING per-client credentials in .env (Mathis collect, ~1.5h for 3 clients).",
+      "extra": {
+        "pilote_clients_proposed": [
+          "weglot (SaaS, ref Weglot V27.2-D listicle baseline)",
+          "japhy (DTC e-com, ref AD-5 page-types non-SaaS-listicle)",
+          "<agency_client_TBD> (1 active Growth Society client — Mathis picks at sprint start OR documented procedure)"
+        ],
+        "output_paths": [
+          "data/reality/<client>/<page_slug>/<iso_date>/reality_snapshot.json",
+          "data/captures/<client>/<page>/reality_layer.json (legacy mirror for V27 dashboards)",
+          "data/experiments/<client>/<exp_id>.json",
+          "data/experiments/_index/experiments_index.json (regen-able)",
+          "data/learning/data_driven_proposals/<iso_date>/<proposal_id>.json",
+          "data/learning/data_driven_stats.json",
+          "data/learning/data_driven_summary.md"
+        ],
+        "webapp_v28_apps": [
+          "webapp/apps/reality-monitor (lists pilote clients, credentials grid per client, snapshot KPIs, realtime runs)",
+          "webapp/apps/learning-lab (V29+V30 proposals listing, filter by track/status/type, accept/reject/defer with .review.json sidecar)"
+        ],
+        "issue": "#23 (epic webapp-stratosphere)"
+      }
+    },
+    {
+      "id": "webapp",
+      "description": "",
+      "stages": [],
+      "entrypoint": "",
+      "duration": "",
+      "status": "V27 HTML active (12MB growth_audit_data.js, 56 clients, 185 pages); V28 Next.js 0% — Epic #6",
+      "extra": {
+        "stages_v27_html": [
+          "growthcro/cli/capture_full per-client run",
+          "skills/site-capture/scripts/build_growth_audit_data consolidates data/captures/* → deliverables/growth_audit_data.js",
+          "deliverables/GrowthCRO-V27-CommandCenter.html consumes the JS bundle"
+        ],
+        "stages_v28_nextjs_target": [
+          "growthcro/api/server FastAPI exposed via Vercel edge functions",
+          "5 microfrontends: audit-app, reco-app, gsg-studio, reality-monitor, learning-lab",
+          "Supabase EU region (auth + tables clients/audits/recos/runs + realtime)"
+        ]
+      }
+    },
+    {
+      "id": "webapp_v27",
+      "description": "Static HTML/JS MVP — frozen data snapshot regenerated from data/captures/*. No server, opened via file://.",
+      "stages": [],
+      "entrypoint": "",
+      "duration": "",
+      "status": "V27 MVP honest — Issue",
+      "extra": {
+        "flow": [
+          "data/captures/* (3.7GB gitignored artifacts produced by audit_pipeline)",
+          "skills/site-capture/scripts/build_growth_audit_data.py (803 LOC, KNOWN_DEBT — pure IO, no growthcro/* imports)",
+          "deliverables/growth_audit_data.js (11.73MB, window.GROWTH_AUDIT_DATA)",
+          {
+            "deliverables/GrowthCRO-V27-CommandCenter.html (4 views": "command / audit / gsg / demo)"
+          }
+        ],
+        "smoke_test": "python3 scripts/test_webapp_v27.py",
+        "target_load_s": 3.0,
+        "measured_load_s": 0.61,
+        "panes": {
+          "command": {
+            "purpose": "Fleet KPIs + per-client detail (screenshots, pillars, top recos)",
+            "filters": [
+              "search query",
+              "panel role",
+              "sort by P0/score/name"
+            ]
+          },
+          "audit": {
+            "purpose": "Page-level audit detail + filtered recos backlog",
+            "filters": [
+              "priority (P0/P1/P2/P3)",
+              "effort (1-4h / 4-16h / 16h+)",
+              "lift (1-5% / 5-15% / 15%+)"
+            ],
+            "kpis": [
+              "page score",
+              "P0 count",
+              "P1 count",
+              "evidence count (+ step recos count when present)"
+            ]
+          },
+          "gsg": {
+            "purpose": "Deterministic GSG brief preview — copy-only LLM boundary, no full-HTML generation in browser",
+            "modes": [
+              "complete (Mode 1)",
+              "replace (Mode 2)",
+              "extend (Mode 3)",
+              "elevate (Mode 4)",
+              "genesis (Mode 5)"
+            ],
+            "outputs": [
+              "JSON brief (gsg_mode + brand_tokens + top_recos + layout + cta_label)",
+              "HTML preview tile (screenshot + headline + CTA)"
+            ]
+          },
+          "demo": {
+            "purpose": "End-to-end Weglot showcase — Audit → Reco → Brief → Renderer → Judges"
+          }
+        }
+      }
+    },
+    {
+      "id": "webapp_v28",
+      "description": "Next.js 14 (App Router) + Supabase EU + Vercel microfrontends. 5 microfrontends + 2 placeholders. Scale Growth Society 100+ clients.",
+      "stages": [],
+      "entrypoint": "",
+      "duration": "",
+      "status": "V28 v1 — scaffold + migrations + 3 deep microfrontends + 2 placeholders. Deploy Vercel + Supabase EU pending Mathis credentials.",
+      "extra": {
+        "microfrontends": [
+          "shell (3000) — auth + nav + dashboard + realtime runs feed [DEEP]",
+          "audit-app (3001) — clients + audits + scores + recos [DEEP]",
+          "reco-app (3002) — recos browser + filters + priority counts [DEEP]",
+          "gsg-studio (3003) — brief wizard + LP preview + multi-judge stage strip [DEEP]",
+          "reality-monitor (3004) — data sources panel GA4/Meta/Google/Shopify/Clarity [PLACEHOLDER]",
+          "learning-lab (3005) — doctrine proposals V29 + Bayesian V30 tracks [PLACEHOLDER]"
+        ],
+        "backend": "Option B chosen — FastAPI on Railway/Fly.io (rationale: long-running Playwright capture + LLM scoring incompatible with Vercel edge 30s limit). NEXT_PUBLIC_API_BASE_URL points to Fly.io URL.",
+        "auth": "Supabase auth — email/password + magic link via OTP. Cookie httpOnly via @supabase/ssr. Middleware gates everything except /login, /auth/callback, /privacy, /terms.",
+        "realtime": "Supabase channel `public:runs` subscribed by shell (postgres_changes on `runs` table).",
+        "rls": "org-based isolation via is_org_member(org_id) + is_org_admin(org_id) security-definer helpers. Anon role zero read. Service role bypass for migration scripts.",
+        "region": "eu-central-1 (Frankfurt) — RGPD compliance.",
+        "target_load_s": 2.0,
+        "target_consultants": "100+ clients agence Growth Society + futures agences.",
+        "skills_combo": "frontend-design + web-artifacts-builder + vercel-microfrontends + Figma Implement Design (≤4 per CLAUDE.md anti-pattern",
+        "task_ref": "Issue #21 webapp-stratosphere",
+        "migration_script": "scripts/migrate_v27_to_supabase.py (idempotent, 56 clients × 185 audits × 3045 recos)",
+        "architecture_doc": "architecture/GROWTHCRO_ARCHITECTURE_V1.md"
+      }
+    }
+  ],
+  "data_artefacts": [
+    {
+      "id": "data/_briefs_v2/<timestamp>_<client>_<page_type>_<run>.json",
+      "producer": "moteur_gsg/core/brief_v2 + brief_v2_prefiller",
+      "consumers": [
+        "moteur_gsg/orchestrator",
+        "moteur_gsg/modes/*"
+      ],
+      "schema": "implicit — BriefV2 contract",
+      "cardinality": "1 per GSG intake",
+      "extra": {}
+    },
+    {
+      "id": "data/_pipeline_runs/<run-id>/multi_judge.json",
+      "producer": "moteur_multi_judge/orchestrator",
+      "consumers": [
+        "scripts/run_gsg_full_pipeline",
+        "Mathis review"
+      ],
+      "schema": "implicit — final_score_pct + doctrine + humanlike + killers",
+      "cardinality": "1 per GSG run",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/<page>/capture.json",
+      "producer": "growthcro/capture/scorer",
+      "consumers": [
+        "growthcro/perception/persist",
+        "growthcro/scoring/persist",
+        "skills/site-capture/scripts/multi_judge"
+      ],
+      "schema": "SCHEMA/score_pillar.schema.json (capture is upstream of pillar scores)",
+      "cardinality": "1 per client per page",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/<page>/evidence_ledger.json",
+      "producer": "skills/site-capture/scripts/evidence_ledger",
+      "consumers": [
+        "growthcro/recos/orchestrator",
+        "deliverables/GrowthCRO-V27-CommandCenter.html"
+      ],
+      "schema": "implicit — evidence per criterion",
+      "cardinality": "1 per client per page",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/<page>/perception_v13.json",
+      "producer": "growthcro/perception/persist",
+      "consumers": [
+        "growthcro/scoring/persist",
+        "growthcro/recos/orchestrator",
+        "skills/site-capture/scripts/perception_bridge"
+      ],
+      "schema": "SCHEMA/perception_v13.schema.json",
+      "cardinality": "1 per client per page",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/<page>/recos_enriched.json",
+      "producer": "growthcro/recos/orchestrator",
+      "consumers": [
+        "skills/site-capture/scripts/build_growth_audit_data",
+        "growthcro/api/server"
+      ],
+      "schema": "SCHEMA/recos_enriched.schema.json",
+      "cardinality": "1 per client per page",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/<page>/score_page_type.json",
+      "producer": "growthcro/scoring/persist + growthcro/scoring/specific/*",
+      "consumers": [
+        "growthcro/recos/orchestrator"
+      ],
+      "schema": "SCHEMA/score_page_type.schema.json",
+      "cardinality": "1 per client per page",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/<page>/score_{hero,persuasion,ux,coherence,psycho,tech}.json",
+      "producer": "growthcro/scoring/persist + growthcro/scoring/ux + legacy skills/score_*.py",
+      "consumers": [
+        "growthcro/recos/orchestrator",
+        "growthcro/scoring/cli"
+      ],
+      "schema": "SCHEMA/score_pillar.schema.json",
+      "cardinality": "6 per client per page",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/<page>/spatial_v9.json",
+      "producer": "growthcro/capture/orchestrator (via spatial_v9.js DOM payload)",
+      "consumers": [
+        "growthcro/perception/persist",
+        "growthcro/perception/heuristics"
+      ],
+      "schema": "implicit — sections / bbox / hierarchy",
+      "cardinality": "1 per client per page",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/brand_dna.json",
+      "producer": "skills/site-capture/scripts/brand_dna_extractor",
+      "consumers": [
+        "moteur_gsg/core/brand_intelligence",
+        "moteur_gsg/core/context_pack"
+      ],
+      "schema": "implicit — palette / typography / voice / proof",
+      "cardinality": "1 per client",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/client_intent.json",
+      "producer": "growthcro/perception/intent + skills/site-capture/scripts/intent_detector_v13",
+      "consumers": [
+        "growthcro/recos/prompts",
+        "moteur_gsg/core/context_pack"
+      ],
+      "schema": "implicit — intent matrix",
+      "cardinality": "1 per client",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/design_grammar/*",
+      "producer": "skills/site-capture/scripts/design_grammar",
+      "consumers": [
+        "moteur_gsg/core/design_grammar_loader",
+        "moteur_gsg/core/design_tokens"
+      ],
+      "schema": "implicit — V30 design tokens",
+      "cardinality": "1 per client (multi-file)",
+      "extra": {}
+    },
+    {
+      "id": "data/captures/<client>/discovered_pages_v25.json",
+      "producer": "skills/site-capture/scripts/discover_pages_v25",
+      "consumers": [
+        "growthcro/cli/enrich_client",
+        "growthcro/research/discovery"
+      ],
+      "schema": "implicit — sitemap-style page inventory",
+      "cardinality": "1 per client",
+      "extra": {}
+    },
+    {
+      "id": "data/clients_database.json",
+      "producer": "growthcro/cli/add_client + skills/webapp-publisher",
+      "consumers": [
+        "growthcro/api/server",
+        "skills/site-capture/scripts/build_growth_audit_data"
+      ],
+      "schema": "SCHEMA/clients_database.schema.json",
+      "cardinality": "1 (global)",
+      "extra": {}
+    },
+    {
+      "id": "data/learning/audit_based_proposals/*.json",
+      "producer": "skills/site-capture/scripts/learning_layer_v29_audit_based",
+      "consumers": [
+        "playbook/* (Mathis review)"
+      ],
+      "schema": "implicit — 69 proposals V29",
+      "cardinality": "1 per proposal (currently 69)",
+      "extra": {}
+    },
+    {
+      "id": "deliverables/GrowthCRO-V27-CommandCenter.html",
+      "producer": "human-curated (V27)",
+      "consumers": [
+        "browser (file://)",
+        "scripts/test_webapp_v27"
+      ],
+      "schema": "",
+      "cardinality": "1 (global)",
+      "extra": {
+        "status": "active",
+        "views": [
+          "command (fleet + client detail)",
+          "audit (P0/P1/Evidence KPIs + priority/effort/lift filters)",
+          "gsg (5 modes selector — complete/replace/extend/elevate/genesis + deterministic brief)",
+          "demo (end-to-end Weglot showcase)"
+        ]
+      }
+    },
+    {
+      "id": "deliverables/growth_audit_data.js",
+      "producer": "skills/site-capture/scripts/build_growth_audit_data",
+      "consumers": [
+        "deliverables/GrowthCRO-V27-CommandCenter.html",
+        "scripts/test_webapp_v27"
+      ],
+      "schema": "SCHEMA/dashboard_v17_data.schema.json",
+      "cardinality": "1 (global)",
+      "extra": {
+        "size_mb": 11.73,
+        "status": "active",
+        "last_regen": "2026-05-11 (Issue #20 — post-cleanup, captures unchanged)",
+        "contents": "56 clients · 185 pages · 3045 LP-level recos · 170 step-level recos · 8347 evidence items"
+      }
+    }
+  ],
+  "skills_integration": {
+    "meta": {
+      "blueprint_doc": ".claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md",
+      "version": "1.0",
+      "last_updated": "2026-05-11",
+      "task_ref": "Issue #17 webapp-stratosphere",
+      "note": "Human-curated section. Preserved across scripts/update_architecture_map.py regens."
+    },
+    "combo_packs": {
+      "audit_run": {
+        "skills": [
+          "claude-api",
+          "cro-methodology"
+        ],
+        "on_demand": [
+          "form-cro",
+          "page-cro",
+          "signup-flow-cro",
+          "onboarding-cro",
+          "paywall-upgrade-cro",
+          "popup-cro"
+        ],
+        "max_session": 4,
+        "activation": "auto on python -m growthcro.cli.capture_full <url> <client>",
+        "modules_impacted": [
+          "growthcro/recos/orchestrator",
+          "growthcro/recos/prompts",
+          "growthcro/scoring/cli"
+        ],
+        "pipeline_stage": "audit_pipeline.recos",
+        "rationale": "Notre doctrine V3.2.1 (-> V3.3 post #18) reste UPSTREAM. cro-methodology enrichit en aval (POST-PROCESS). On-demand declenches selon page_type."
+      },
+      "gsg_generation": {
+        "skills": [
+          "frontend-design",
+          "brand-guidelines",
+          "Emil Kowalski Design Skill",
+          "Impeccable"
+        ],
+        "max_session": 4,
+        "activation": "auto on python -m moteur_gsg.orchestrator --mode <complete|replace|extend|elevate|genesis>",
+        "modules_impacted": [
+          "moteur_gsg/core/visual_system",
+          "moteur_gsg/core/page_renderer_orchestrator",
+          "moteur_gsg/core/brand_intelligence",
+          "moteur_gsg/core/design_grammar_loader",
+          "moteur_gsg/modes/mode_1/visual_gates",
+          "moteur_gsg/modes/mode_1/runtime_fixes",
+          "moteur_gsg/core/minimal_guards"
+        ],
+        "pipeline_stages": [
+          "gsg_pipeline.visual_system",
+          "gsg_pipeline.controlled_renderer",
+          "gsg_pipeline.qa_runtime",
+          "gsg_pipeline.minimal_gates"
+        ],
+        "rationale": "4 skills = direction artistique x couleur/typo per-client x motion x QA polish. Cones d action distincts -> pas de signaux contraires.",
+        "anti_regression": "Hard assert prompt persona_narrator <=8K chars reste actif (cf anti-pattern #1 CLAUDE.md)."
+      },
+      "webapp_nextjs": {
+        "skills": [
+          "frontend-design",
+          "web-artifacts-builder",
+          "vercel-microfrontends",
+          "Figma Implement Design"
+        ],
+        "max_session": 4,
+        "activation": "manual at start of sprint webapp V28 (Epic #21)",
+        "modules_impacted": [
+          "growthcro/api/server"
+        ],
+        "pipeline_stages": [
+          "webapp.stages_v28_nextjs_target"
+        ],
+        "rationale": "frontend-design pour composants, web-artifacts-builder pour shadcn/Tailwind, vercel-microfrontends pour archi multi-zones, Figma si Mathis fournit un design."
+      }
+    },
+    "essentials": [
+      {
+        "name": "frontend-design",
+        "source": "anthropic-builtin",
+        "installed": true,
+        "combo": "gsg_generation + webapp_nextjs"
+      },
+      {
+        "name": "brand-guidelines",
+        "source": "anthropic-builtin",
+        "installed": true,
+        "combo": "gsg_generation"
+      },
+      {
+        "name": "web-artifacts-builder",
+        "source": "anthropic-builtin",
+        "installed": true,
+        "combo": "webapp_nextjs"
+      },
+      {
+        "name": "vercel-microfrontends",
+        "source": "skills.sh/vercel/microfrontends/vercel-microfrontends",
+        "install_cmd": "npx skills add https://github.com/vercel/microfrontends --skill vercel-microfrontends",
+        "installed": false,
+        "combo": "webapp_nextjs"
+      },
+      {
+        "name": "cro-methodology",
+        "source": "skills.sh/wondelai/skills/cro-methodology",
+        "install_cmd": "npx skills add https://github.com/wondelai/skills --skill cro-methodology",
+        "installed": false,
+        "combo": "audit_run"
+      },
+      {
+        "name": "Emil Kowalski Design Skill",
+        "source": "emilkowal.ski/skill",
+        "install_cmd": "npx skills add emilkowalski/skill",
+        "installed": false,
+        "combo": "gsg_generation"
+      },
+      {
+        "name": "Impeccable",
+        "source": "impeccable.style",
+        "install_cmd": "npx skills add pbakaus/impeccable",
+        "installed": false,
+        "combo": "gsg_generation"
+      },
+      {
+        "name": "Figma Implement Design",
+        "source": "figma (nocodefactory list)",
+        "installed": true,
+        "combo": "webapp_nextjs"
+      }
+    ],
+    "on_demand": [
+      {
+        "name": "page-cro",
+        "source": "coreyhaines31",
+        "trigger": "/page-cro on any audited page",
+        "page_types": [
+          "home",
+          "pdp",
+          "landing",
+          "all"
+        ]
+      },
+      {
+        "name": "form-cro",
+        "source": "coreyhaines31",
+        "trigger": "/form-cro when page_type=lp_leadgen|signup|pricing-with-form"
+      },
+      {
+        "name": "signup-flow-cro",
+        "source": "coreyhaines31",
+        "trigger": "/signup-flow-cro for SaaS B2B with multi-step signup"
+      },
+      {
+        "name": "onboarding-cro",
+        "source": "coreyhaines31",
+        "trigger": "/onboarding-cro when page_type=onboarding"
+      },
+      {
+        "name": "paywall-upgrade-cro",
+        "source": "coreyhaines31",
+        "trigger": "/paywall-upgrade-cro for SaaS freemium pricing/paywall"
+      },
+      {
+        "name": "popup-cro",
+        "source": "coreyhaines31",
+        "trigger": "/popup-cro when audit detects popups (capture.json has_popup=true)"
+      }
+    ],
+    "excluded": [
+      {
+        "name": "lp-creator",
+        "source": "anthropic-builtin",
+        "rationale": "Notre moteur_gsg/orchestrator est plus evolue (12 stages vs 30 critiques auto-eval). Out-of-band autorise."
+      },
+      {
+        "name": "lp-front",
+        "source": "anthropic-builtin",
+        "rationale": "Notre moteur_gsg/core/visual_system V27.2-G + page_renderer_orchestrator produisent le front avec plus de couches."
+      },
+      {
+        "name": "theme-factory",
+        "source": "anthropic-builtin",
+        "rationale": "10 themes pre-set imposent une grille -> conflit avec Brand DNA per-client."
+      },
+      {
+        "name": "Taste Skill",
+        "source": "third-party",
+        "rationale": "Impose un parti pris visuel dark/premium -> conflit Brand DNA per-client. Signaux contraires empiriques."
+      },
+      {
+        "name": "Canvas Design",
+        "source": "anthropic-builtin",
+        "rationale": "Hors scope CRO core (visuels statiques marketing)."
+      }
+    ],
+    "anti_cacophonie_rules": [
+      "1 parti pris visuel par projet: ne JAMAIS activer Taste Skill + brand-guidelines simultanement.",
+      "Skills design en /nom ponctuel, pas auto-load permanent hors combo pack.",
+      "Limite Claude Code = 8 skills max session, donc combos disjoints (audit/GSG/webapp).",
+      "Skills CRO methodo en POST-PROCESS, jamais pre-prompt mega-system (anti-pattern #1 V26.AF).",
+      "Notre doctrine V3.2.1 -> V3.3 reste UPSTREAM. Skills externes en aval, jamais remplacer source.",
+      "lp-creator + lp-front exclus -> ne pas charger pour generer une LP. Utiliser moteur_gsg/orchestrator.",
+      "theme-factory exclu -> ne pas appliquer un theme. Utiliser brand-guidelines + design_grammar_loader.",
+      "Canvas Design exclu -> pas pour GSG. Utiliser visual_system V27.2-G."
+    ]
+  },
+  "mermaid_views": [
+    {
+      "title": "1. Global view — the whole program in one diagram",
+      "src": "flowchart TD\n    subgraph Onboarding[\"Onboarding & Intake\"]\n        AddClient[\"growthcro/cli/add_client<br/>add slug + URL\"]\n        Discovery[\"growthcro/research/discovery<br/>+ skills/discover_pages_v25\"]\n        Intake[\"moteur_gsg/core/intake_wizard\"]\n    end\n\n    subgraph Audit[\"Audit Engine (growthcro/*)\"]\n        Capture[\"capture/<br/>scorer · orchestrator · persist\"]\n        Perception[\"perception/<br/>heuristics · vision · intent\"]\n        Scoring[\"scoring/<br/>pillars · ux · specific/{listicle,product,sales,home_leadgen}\"]\n        Recos[\"recos/<br/>schema · prompts · client · orchestrator\"]\n    end\n\n    subgraph GSG[\"GSG Engine (moteur_gsg/* V27.2-G)\"]\n        BriefV2[\"core/brief_v2 + prefiller + validator\"]\n        Contracts[\"core/{context_pack,doctrine_planner,visual_intelligence}\"]\n        Routes[\"core/creative_route_selector V27.2-F<br/>+ visual_system V27.2-G\"]\n        Planner[\"core/{planner,component_library,pattern_library,design_tokens}\"]\n        Copy[\"core/copy_writer<br/>(JSON slots only)\"]\n        Renderer[\"core/page_renderer_orchestrator<br/>+ section/hero/component renderers\"]\n        Modes[\"modes/{1,2,3,4,5}\"]\n        ModeOrch[\"moteur_gsg/orchestrator<br/>(canonical public API)\"]\n    end\n\n    subgraph QA[\"QA / Multi-Judge\"]\n        Doctrine[\"judges/doctrine_judge V3.2.1<br/>(54 critères + 6 killers)\"]\n        Humanlike[\"judges/humanlike_judge<br/>(8 dimensions)\"]\n        ImplCheck[\"judges/implementation_check<br/>(runtime bug detection)\"]\n        MJOrch[\"moteur_multi_judge/orchestrator<br/>(70/30 weighting)\"]\n    end\n\n    subgraph Webapp[\"Webapp Surface\"]\n        APIServer[\"growthcro/api/server<br/>FastAPI\"]\n        V27HTML[\"deliverables/GrowthCRO-V27-CommandCenter.html<br/>+ growth_audit_data.js (12MB)\"]\n        V28Next[\"Webapp V28 Next.js<br/>(Epic #6 target)\"]:::pending\n    end\n\n    subgraph Loop[\"Reality / Experiment / Learning\"]\n        EvidenceLedger[\"skills/evidence_ledger\"]\n        V29Learn[\"skills/learning_layer_v29_audit_based<br/>(69 proposals)\"]\n        Experiment[\"skills/experiment_engine<br/>(A/B + sample size)\"]\n        Reality[\"Reality Layer<br/>(GA4/Meta/Google credentials)\"]:::pending\n        V30Bayes[\"Learning V30 Bayesian<br/>(data-driven)\"]:::pending\n    end\n\n    subgraph Infra[\"Infrastructure & Gates\"]\n        Config[\"growthcro/config<br/>(env-var boundary)\"]\n        AnthropicLib[\"growthcro/lib/anthropic_client\"]\n        Lint[\"scripts/lint_code_hygiene\"]\n        Capabilities[\"scripts/audit_capabilities\"]\n        Schemas[\"SCHEMA/validate_all\"]\n        ArchMap[\"scripts/update_architecture_map<br/>(THIS REGEN)\"]\n    end\n\n    AddClient --> Discovery --> Capture --> Perception --> Scoring --> Recos\n    Recos --> EvidenceLedger\n    EvidenceLedger --> V27HTML\n    Capture -.brand_dna.-> Contracts\n    Recos -.audit.-> BriefV2\n\n    Intake --> BriefV2 --> Contracts --> Routes --> Planner\n    Planner --> Copy --> Renderer\n    Planner --> Modes\n    Modes --> ModeOrch\n    ModeOrch --> Renderer\n    Renderer --> MJOrch\n    MJOrch --> Doctrine\n    MJOrch --> Humanlike\n    MJOrch --> ImplCheck\n\n    APIServer --> V27HTML\n    APIServer -.target.-> V28Next\n    Recos --> V29Learn\n    V29Learn -.proposals.-> Reality\n    Reality -.metrics.-> Experiment\n    Experiment -.results.-> V30Bayes\n\n    Config --- AnthropicLib\n    Lint --- Capabilities\n    Schemas --- ArchMap\n\n    classDef pending fill:#fff7d6,stroke:#d4a017,color:#5d4309,stroke-dasharray:5 3;"
+    },
+    {
+      "title": "2. Audit pipeline — capture to reco",
+      "src": "flowchart TD\n    Start([client URL + slug]) --> Add[\"growthcro/cli/add_client<br/>data/clients_database.json\"]\n    Add --> Enrich[\"growthcro/cli/enrich_client<br/>+ research/discovery\"]\n    Enrich --> DiscoverArt[(\"data/captures/&lt;client&gt;/<br/>discovered_pages_v25.json\")]\n    DiscoverArt --> CaptureCli[\"growthcro/cli/capture_full\"]\n    CaptureCli --> CaptureOrch[\"growthcro/capture/orchestrator<br/>+ browser + cloud + dom\"]\n    CaptureOrch --> CaptureArt[(\"data/captures/&lt;client&gt;/&lt;page&gt;/<br/>{capture.json, spatial_v9.json, page.html, screenshots/}\")]\n    CaptureArt --> Scorer[\"growthcro/capture/scorer<br/>+ signals\"]\n    Scorer -.refines.-> CaptureArt\n    CaptureArt --> PerceptionPersist[\"growthcro/perception/persist<br/>+ heuristics + vision + intent\"]\n    PerceptionPersist --> PerceptionArt[(\"perception_v13.json<br/>SCHEMA validated\")]\n    PerceptionArt --> ScoringPersist[\"growthcro/scoring/persist<br/>+ pillars + ux\"]\n    PerceptionArt --> ScoringSpecific[\"growthcro/scoring/specific/<br/>{listicle,product,sales,home_leadgen}\"]\n    ScoringPersist --> ScoreArt[(\"score_{hero,persuasion,ux,coherence,psycho,tech}.json<br/>+ score_page_type.json<br/>SCHEMA validated\")]\n    ScoringSpecific --> ScoreArt\n    ScoreArt --> Evidence[\"skills/evidence_ledger\"]\n    Evidence --> EvidenceArt[(\"evidence_ledger.json<br/>per-criterion provenance\")]\n    ScoreArt --> RecosOrch[\"growthcro/recos/orchestrator<br/>+ schema + prompts + client\"]\n    EvidenceArt --> RecosOrch\n    RecosOrch --> Anthropic[\"growthcro/lib/anthropic_client<br/>(Sonnet 4.5)\"]\n    Anthropic --> RecosOrch\n    RecosOrch --> RecosArt[(\"recos_enriched.json<br/>SCHEMA validated\")]\n    RecosArt --> Lifecycle[\"skills/reco_lifecycle\"]\n    Lifecycle --> DashJS[(\"deliverables/growth_audit_data.js<br/>12 MB · 56 clients · 185 pages\")]\n\n    classDef artefact fill:#e8f4ff,stroke:#3a73b0,color:#0c2a4c;\n    class DiscoverArt,CaptureArt,PerceptionArt,ScoreArt,EvidenceArt,RecosArt,DashJS artefact;"
+    },
+    {
+      "title": "3. GSG pipeline — V27.2-G controlled path",
+      "src": "flowchart TD\n    Raw([raw user request]) --> Intake[\"core/intake_wizard<br/>V27.2-E\"]\n    Intake --> BriefBuilder[\"core/brief_v2<br/>+ prefiller + validator\"]\n    Brief[(\"data/_briefs_v2/<br/>&lt;timestamp&gt;_&lt;client&gt;_&lt;page&gt;.json\")]\n    BriefBuilder --> Brief\n    Brief --> ContextPack[\"core/context_pack<br/>(brand_dna + audience + proof + scent)\"]\n    Brief --> DoctrinePack[\"core/doctrine_planner<br/>DoctrineCreationContract\"]\n    ContextPack --> VisualInt[\"core/visual_intelligence<br/>VisualIntelligencePack\"]\n    DoctrinePack --> VisualInt\n    VisualInt --> RouteSelector[\"core/creative_route_selector<br/>V27.2-F structured\"]\n    RouteSelector --> AURA[\"AURA tokens<br/>(legacy_lab_adapters)\"]\n    RouteSelector --> GoldenBridge[\"Golden Bridge<br/>(legacy_lab_adapters)\"]\n    AURA --> RouteSelector\n    GoldenBridge --> RouteSelector\n    RouteSelector --> VisualSystem[\"core/visual_system<br/>V27.2-G premium layer\"]\n    VisualSystem --> Tokens[\"core/design_tokens<br/>+ design_grammar_loader\"]\n    Tokens --> Planner[\"core/planner<br/>+ component_library + pattern_library\"]\n    Planner --> Plan[(\"page plan<br/>sections + components + evidence pack\")]\n    Plan --> CopyWriter[\"core/copy_writer<br/>Sonnet → JSON copy slots only\"]\n    Plan --> Renderer[\"core/page_renderer_orchestrator<br/>+ hero/section/component renderers\"]\n    CopyWriter --> Renderer\n    Renderer --> CSS[\"core/css/{base, components, responsive}\"]\n    CSS --> Renderer\n    Renderer --> Animations[\"core/animations<br/>Emil Kowalski layer V27.2-G+\"]\n    Animations --> Renderer\n    Renderer --> RuntimeFixes[\"modes/mode_1/runtime_fixes\"]\n    RuntimeFixes --> VisualGates[\"modes/mode_1/visual_gates<br/>anti-AI-slop\"]\n    VisualGates --> MinimalGuards[\"core/minimal_guards\"]\n    MinimalGuards --> ImpeccableQA[\"core/impeccable_qa<br/>post-render gate V27.2-G+\"]\n    ImpeccableQA --> HTML[(\"LP HTML<br/>deliverables/&lt;client&gt;-&lt;page&gt;-GSG-V27-2G.html\")]\n    HTML --> MJOpt{{\"optional multi-judge<br/>(see §4)\"}}\n    HTML --> RegGate{{\"regression gate<br/>scripts/test_gsg_regression.sh\"}}\n\n    classDef artefact fill:#e8f4ff,stroke:#3a73b0,color:#0c2a4c;\n    classDef gate fill:#fef3e7,stroke:#cc7d28,color:#5a3208;\n    class Brief,Plan,HTML artefact;\n    class RuntimeFixes,VisualGates,MinimalGuards,Animations,ImpeccableQA,RegGate gate;"
+    },
+    {
+      "title": "4. Multi-Judge — post-render QA layer",
+      "src": "flowchart TD\n    LP([rendered LP HTML]) --> Orch[\"moteur_multi_judge/orchestrator<br/>V26.AA Sprint 3\"]\n    Orch -->|70% weight| Doctrine[\"judges/doctrine_judge<br/>V3.2.1 — 54 critères + 6 killers\"]\n    Orch -->|30% weight| Humanlike[\"judges/humanlike_judge<br/>wraps skills/gsg_humanlike_audit<br/>(8 dimensions)\"]\n    Orch --> ImplCheck[\"judges/implementation_check<br/>wraps skills/fix_html_runtime<br/>(runtime bug detection)\"]\n\n    Doctrine --> DScore[(\"doctrine_score<br/>+ per-criterion verdicts\")]\n    Humanlike --> HScore[(\"humanlike_score<br/>+ 8-dim breakdown\")]\n    ImplCheck --> Bugs[(\"implementation_bugs<br/>(JS runtime errors, broken counters, …)\")]\n\n    DScore --> Aggregator[\"weighted aggregation<br/>70/30 + killer veto\"]\n    HScore --> Aggregator\n    Bugs --> Aggregator\n    Aggregator --> FinalReport[(\"data/_pipeline_runs/&lt;run&gt;/multi_judge.json<br/>final_score_pct + breakdown\")]\n    FinalReport --> Decision{{\"final_score_pct ≥ 70<br/>+ killers = 0?\"}}\n    Decision -->|YES| Ship([Ship — Weglot V27.2-D baseline: 70.9])\n    Decision -->|NO| Repair[\"growthcro/gsg_lp/repair_loop<br/>(legacy lab)\"]\n    Repair -.iterate.-> LP\n\n    classDef artefact fill:#e8f4ff,stroke:#3a73b0,color:#0c2a4c;\n    class DScore,HScore,Bugs,FinalReport artefact;"
+    },
+    {
+      "title": "5. Webapp — V27 HTML today, V28 Next.js target",
+      "src": "flowchart TD\n    subgraph V27[\"V27 HTML (active, 56 clients)\"]\n        AuditPipe[\"audit pipeline §2<br/>(56 clients × 185 pages)\"] --> CaptureTree[(\"data/captures/&lt;client&gt;/&lt;page&gt;/*<br/>~150 artefacts/page\")]\n        CaptureTree --> Builder[\"skills/build_growth_audit_data<br/>(consolidates the tree)\"]\n        Builder --> DashJS[(\"deliverables/growth_audit_data.js<br/>12 MB consolidated bundle\")]\n        DashJS --> CommandCenter[/\"deliverables/GrowthCRO-V27-CommandCenter.html<br/>11 panes: Audit / Reco / GSG / …\"/]\n        APIv1[\"growthcro/api/server<br/>FastAPI\"] -.programmatic.-> CommandCenter\n    end\n\n    subgraph V28[\"V28 Next.js (target, Epic #6)\"]\n        SupabaseAuth[\"Supabase EU<br/>auth + tables clients/audits/recos/runs\"]:::pending\n        APIv2[\"growthcro/api/server<br/>via Vercel edge functions\"]:::pending\n        MFAudit[\"audit-app microfrontend\"]:::pending\n        MFReco[\"reco-app microfrontend\"]:::pending\n        MFGSG[\"gsg-studio microfrontend\"]:::pending\n        MFReality[\"reality-monitor microfrontend\"]:::pending\n        MFLearn[\"learning-lab microfrontend\"]:::pending\n        VercelMF[\"vercel-microfrontends<br/>routing\"]:::pending\n\n        SupabaseAuth --> MFAudit\n        SupabaseAuth --> MFReco\n        APIv2 --> MFAudit\n        APIv2 --> MFReco\n        APIv2 --> MFGSG\n        APIv2 --> MFReality\n        APIv2 --> MFLearn\n        VercelMF --> MFAudit\n        VercelMF --> MFReco\n        VercelMF --> MFGSG\n        VercelMF --> MFReality\n        VercelMF --> MFLearn\n    end\n\n    AuditPipe -.same data tree.-> APIv2\n\n    classDef pending fill:#fff7d6,stroke:#d4a017,color:#5d4309,stroke-dasharray:5 3;"
+    },
+    {
+      "title": "6. Reality / Experiment / Learning loop",
+      "src": "flowchart TD\n    AuditFleet[\"56 audits sur disque<br/>data/captures/*\"] --> V29Learn[\"skills/learning_layer_v29_audit_based\"]\n    V29Learn --> Proposals[(\"data/learning/audit_based_proposals/<br/>69 proposals V29\")]\n    Proposals --> Review{{\"Mathis review<br/>accept / reject / defer\"}}\n    Review -->|accept| V33[(\"playbook/bloc_*_v3-3.json<br/>doctrine V3.3 CRE fusion\")]:::pending\n    Review -->|reject| Discard([discard])\n    Review -->|defer| ProposalsQueue([backlog])\n\n    subgraph Reality[\"Reality Layer (pending credentials)\"]\n        GA4[\"GA4 API\"]:::pending\n        Meta[\"Meta Ads API\"]:::pending\n        Google[\"Google Ads API\"]:::pending\n        Shopify[\"Shopify API\"]:::pending\n        Clarity[\"Microsoft Clarity\"]:::pending\n    end\n\n    GA4 --> RealityCollector[\"Reality collector<br/>(orchestrator V26.AI dry-run OK)\"]:::pending\n    Meta --> RealityCollector\n    Google --> RealityCollector\n    Shopify --> RealityCollector\n    Clarity --> RealityCollector\n    RealityCollector --> RealityData[(\"data/reality/&lt;client&gt;/*.json<br/>real-world metrics\")]:::pending\n\n    Recos[\"growthcro/recos/orchestrator<br/>recos_enriched\"] --> Experiment[\"skills/experiment_engine<br/>A/B specs + sample size + guardrails\"]\n    Experiment --> ABSpec[(\"A/B test specs<br/>(5 target on 3 pilot clients)\")]:::pending\n    ABSpec --> RealityCollector\n    RealityData --> V30Bayes[\"Learning V30 Bayesian update<br/>(data-driven, not audit-based)\"]:::pending\n    V30Bayes --> DataProposals[(\"data-driven doctrine proposals<br/>(target: ≥10 by Q4)\")]:::pending\n    DataProposals --> Review\n    V33 --> AuditEngine[\"audit engine consumes new doctrine<br/>(56 clients stay on V3.2.1 until next audit)\"]\n\n    classDef pending fill:#fff7d6,stroke:#d4a017,color:#5d4309,stroke-dasharray:5 3;"
+    }
+  ],
+  "counts": {
+    "modules": 251,
+    "pipelines": 7,
+    "data_artefacts": 17,
+    "essentials": 8,
+    "on_demand": 6,
+    "excluded": 5,
+    "mermaid_views": 6
+  },
+  "modules_by_package": {
+    "SCHEMA": [
+      "SCHEMA/validate",
+      "SCHEMA/validate_all"
+    ],
+    "growthcro": [
+      "growthcro"
+    ],
+    "growthcro/api": [
+      "growthcro/api",
+      "growthcro/api/audits",
+      "growthcro/api/server"
+    ],
+    "growthcro/audit_gads": [
+      "growthcro/audit_gads",
+      "growthcro/audit_gads/cli",
+      "growthcro/audit_gads/notion_export_gads",
+      "growthcro/audit_gads/orchestrator"
+    ],
+    "growthcro/audit_meta": [
+      "growthcro/audit_meta",
+      "growthcro/audit_meta/cli",
+      "growthcro/audit_meta/notion_export_meta",
+      "growthcro/audit_meta/orchestrator"
+    ],
+    "growthcro/capture": [
+      "growthcro/capture",
+      "growthcro/capture/browser",
+      "growthcro/capture/cli",
+      "growthcro/capture/cloud",
+      "growthcro/capture/dom",
+      "growthcro/capture/orchestrator",
+      "growthcro/capture/persist",
+      "growthcro/capture/scorer",
+      "growthcro/capture/signals"
+    ],
+    "growthcro/cli": [
+      "growthcro/cli",
+      "growthcro/cli/add_client",
+      "growthcro/cli/capture_full",
+      "growthcro/cli/enrich_client"
+    ],
+    "growthcro/config": [
+      "growthcro/config"
+    ],
+    "growthcro/experiment": [
+      "growthcro/experiment",
+      "growthcro/experiment/engine",
+      "growthcro/experiment/recorder",
+      "growthcro/experiment/runner"
+    ],
+    "growthcro/gsg_lp": [
+      "growthcro/gsg_lp",
+      "growthcro/gsg_lp/brand_blocks",
+      "growthcro/gsg_lp/data_loaders",
+      "growthcro/gsg_lp/lp_orchestrator",
+      "growthcro/gsg_lp/mega_prompt_builder",
+      "growthcro/gsg_lp/repair_loop"
+    ],
+    "growthcro/learning": [
+      "growthcro/learning",
+      "growthcro/learning/v30_data_driven"
+    ],
+    "growthcro/lib": [
+      "growthcro/lib",
+      "growthcro/lib/anthropic_client"
+    ],
+    "growthcro/perception": [
+      "growthcro/perception",
+      "growthcro/perception/cli",
+      "growthcro/perception/heuristics",
+      "growthcro/perception/intent",
+      "growthcro/perception/persist",
+      "growthcro/perception/vision"
+    ],
+    "growthcro/reality": [
+      "growthcro/reality",
+      "growthcro/reality/base",
+      "growthcro/reality/catchr",
+      "growthcro/reality/clarity",
+      "growthcro/reality/credentials",
+      "growthcro/reality/ga4",
+      "growthcro/reality/google_ads",
+      "growthcro/reality/meta_ads",
+      "growthcro/reality/orchestrator",
+      "growthcro/reality/shopify"
+    ],
+    "growthcro/recos": [
+      "growthcro/recos",
+      "growthcro/recos/cli",
+      "growthcro/recos/client",
+      "growthcro/recos/orchestrator",
+      "growthcro/recos/prompts",
+      "growthcro/recos/schema"
+    ],
+    "growthcro/research": [
+      "growthcro/research",
+      "growthcro/research/brand_identity",
+      "growthcro/research/cli",
+      "growthcro/research/content",
+      "growthcro/research/discovery"
+    ],
+    "growthcro/scoring": [
+      "growthcro/scoring",
+      "growthcro/scoring/cli",
+      "growthcro/scoring/persist",
+      "growthcro/scoring/pillars",
+      "growthcro/scoring/specific",
+      "growthcro/scoring/specific/home_leadgen",
+      "growthcro/scoring/specific/listicle",
+      "growthcro/scoring/specific/product",
+      "growthcro/scoring/specific/sales",
+      "growthcro/scoring/ux"
+    ],
+    "moteur_gsg": [
+      "moteur_gsg"
+    ],
+    "moteur_gsg/core": [
+      "moteur_gsg/core",
+      "moteur_gsg/core/animations",
+      "moteur_gsg/core/asset_resolver",
+      "moteur_gsg/core/brand_intelligence",
+      "moteur_gsg/core/brief_v15_builder",
+      "moteur_gsg/core/brief_v2",
+      "moteur_gsg/core/brief_v2_prefiller",
+      "moteur_gsg/core/brief_v2_validator",
+      "moteur_gsg/core/canonical_registry",
+      "moteur_gsg/core/component_library",
+      "moteur_gsg/core/component_renderer",
+      "moteur_gsg/core/context_pack",
+      "moteur_gsg/core/copy_writer",
+      "moteur_gsg/core/creative_route_selector",
+      "moteur_gsg/core/css",
+      "moteur_gsg/core/css/base",
+      "moteur_gsg/core/css/components",
+      "moteur_gsg/core/css/responsive",
+      "moteur_gsg/core/design_grammar_loader",
+      "moteur_gsg/core/design_tokens",
+      "moteur_gsg/core/doctrine_planner",
+      "moteur_gsg/core/fact_assembler",
+      "moteur_gsg/core/hero_renderer",
+      "moteur_gsg/core/html_escaper",
+      "moteur_gsg/core/impeccable_qa",
+      "moteur_gsg/core/intake_wizard",
+      "moteur_gsg/core/legacy_lab_adapters",
+      "moteur_gsg/core/minimal_guards",
+      "moteur_gsg/core/page_renderer_orchestrator",
+      "moteur_gsg/core/pattern_library",
+      "moteur_gsg/core/pipeline_sequential",
+      "moteur_gsg/core/pipeline_single_pass",
+      "moteur_gsg/core/planner",
+      "moteur_gsg/core/prompt_assembly",
+      "moteur_gsg/core/section_renderer",
+      "moteur_gsg/core/visual_intelligence",
+      "moteur_gsg/core/visual_system"
+    ],
+    "moteur_gsg/modes": [
+      "moteur_gsg/modes",
+      "moteur_gsg/modes/mode_1",
+      "moteur_gsg/modes/mode_1/api_call",
+      "moteur_gsg/modes/mode_1/orchestrator",
+      "moteur_gsg/modes/mode_1/output_parsing",
+      "moteur_gsg/modes/mode_1/philosophy_bridge",
+      "moteur_gsg/modes/mode_1/prompt_assembly",
+      "moteur_gsg/modes/mode_1/prompt_blocks",
+      "moteur_gsg/modes/mode_1/runtime_fixes",
+      "moteur_gsg/modes/mode_1/vision_selection",
+      "moteur_gsg/modes/mode_1/visual_gates",
+      "moteur_gsg/modes/mode_1_complete",
+      "moteur_gsg/modes/mode_2_replace",
+      "moteur_gsg/modes/mode_3_extend",
+      "moteur_gsg/modes/mode_4_elevate",
+      "moteur_gsg/modes/mode_5_genesis"
+    ],
+    "moteur_gsg/orchestrator": [
+      "moteur_gsg/orchestrator"
+    ],
+    "moteur_multi_judge": [
+      "moteur_multi_judge",
+      "moteur_multi_judge/judges",
+      "moteur_multi_judge/judges/doctrine_judge",
+      "moteur_multi_judge/judges/humanlike_judge",
+      "moteur_multi_judge/judges/implementation_check",
+      "moteur_multi_judge/orchestrator"
+    ],
+    "scripts": [
+      "scripts/_test_weglot_listicle_V26AE",
+      "scripts/audit_capabilities",
+      "scripts/build_bloc_v3_3",
+      "scripts/check_gsg_canonical",
+      "scripts/check_gsg_component_planner",
+      "scripts/check_gsg_controlled_renderer",
+      "scripts/check_gsg_creative_route_selector",
+      "scripts/check_gsg_intake_wizard",
+      "scripts/check_gsg_visual_renderer",
+      "scripts/client_context",
+      "scripts/compare_doctrine_v3_v3_3",
+      "scripts/doctrine",
+      "scripts/lint_code_hygiene",
+      "scripts/migrate_v27_to_supabase",
+      "scripts/precategorize_proposals",
+      "scripts/run_gsg_full_pipeline",
+      "scripts/test_agency_audits",
+      "scripts/test_webapp_v27",
+      "scripts/update_architecture_map"
+    ],
+    "skills/growth-site-generator": [
+      "skills/growth-site-generator/scripts/aura_compute",
+      "skills/growth-site-generator/scripts/aura_extract",
+      "skills/growth-site-generator/scripts/creative_director",
+      "skills/growth-site-generator/scripts/fix_html_runtime",
+      "skills/growth-site-generator/scripts/golden_design_bridge",
+      "skills/growth-site-generator/scripts/gsg_best_of_n",
+      "skills/growth-site-generator/scripts/gsg_humanlike_audit",
+      "skills/growth-site-generator/scripts/gsg_multi_judge",
+      "skills/growth-site-generator/scripts/gsg_pipeline_sequential",
+      "skills/growth-site-generator/scripts/scrap_inspiration"
+    ],
+    "skills/site-capture": [
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site",
+      "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring",
+      "skills/site-capture/scripts/analyze_capture",
+      "skills/site-capture/scripts/audit_fleet_health",
+      "skills/site-capture/scripts/audit_funnel_steps",
+      "skills/site-capture/scripts/batch_rescore",
+      "skills/site-capture/scripts/batch_site",
+      "skills/site-capture/scripts/brand_dna_diff_extractor",
+      "skills/site-capture/scripts/brand_dna_extractor",
+      "skills/site-capture/scripts/build_growth_audit_data",
+      "skills/site-capture/scripts/capture_site",
+      "skills/site-capture/scripts/compress_flow_steps",
+      "skills/site-capture/scripts/criterion_crops_v2",
+      "skills/site-capture/scripts/design_grammar",
+      "skills/site-capture/scripts/detect_canonical_tunnel",
+      "skills/site-capture/scripts/discover_pages_v25",
+      "skills/site-capture/scripts/dom_vision_reconciler",
+      "skills/site-capture/scripts/eclaireur_llm",
+      "skills/site-capture/scripts/enrich_scores_with_evidence",
+      "skills/site-capture/scripts/evidence_ledger",
+      "skills/site-capture/scripts/experiment_engine",
+      "skills/site-capture/scripts/geo_audit",
+      "skills/site-capture/scripts/geo_readiness_monitor",
+      "skills/site-capture/scripts/golden_bridge",
+      "skills/site-capture/scripts/golden_calibration_check",
+      "skills/site-capture/scripts/golden_differential",
+      "skills/site-capture/scripts/golden_percentiles",
+      "skills/site-capture/scripts/intent_detector_v13",
+      "skills/site-capture/scripts/learning_layer_v29_audit_based",
+      "skills/site-capture/scripts/multi_judge",
+      "skills/site-capture/scripts/overlay_burn",
+      "skills/site-capture/scripts/overlay_renderer",
+      "skills/site-capture/scripts/page_cleaner",
+      "skills/site-capture/scripts/page_context",
+      "skills/site-capture/scripts/page_type_filter",
+      "skills/site-capture/scripts/perception_bridge",
+      "skills/site-capture/scripts/perception_inject",
+      "skills/site-capture/scripts/pick_diverse_pages",
+      "skills/site-capture/scripts/playwright_capture_v2",
+      "skills/site-capture/scripts/project_snapshot",
+      "skills/site-capture/scripts/reality_layer",
+      "skills/site-capture/scripts/reality_layer/base",
+      "skills/site-capture/scripts/reality_layer/catchr",
+      "skills/site-capture/scripts/reality_layer/clarity",
+      "skills/site-capture/scripts/reality_layer/google_ads",
+      "skills/site-capture/scripts/reality_layer/meta_ads",
+      "skills/site-capture/scripts/reality_layer/orchestrator",
+      "skills/site-capture/scripts/reality_layer/shopify",
+      "skills/site-capture/scripts/reco_lifecycle",
+      "skills/site-capture/scripts/reco_quality_audit",
+      "skills/site-capture/scripts/recos_dedup",
+      "skills/site-capture/scripts/recos_rewrite_fr",
+      "skills/site-capture/scripts/run_capture",
+      "skills/site-capture/scripts/run_discover",
+      "skills/site-capture/scripts/run_spatial_capture",
+      "skills/site-capture/scripts/scent_trail_analyzer",
+      "skills/site-capture/scripts/schwartz_detector",
+      "skills/site-capture/scripts/score_applicability_overlay",
+      "skills/site-capture/scripts/score_coherence",
+      "skills/site-capture/scripts/score_contextual_overlay",
+      "skills/site-capture/scripts/score_funnel",
+      "skills/site-capture/scripts/score_hero",
+      "skills/site-capture/scripts/score_page_type",
+      "skills/site-capture/scripts/score_persuasion",
+      "skills/site-capture/scripts/score_psycho",
+      "skills/site-capture/scripts/score_site",
+      "skills/site-capture/scripts/score_tech",
+      "skills/site-capture/scripts/score_universal_extensions",
+      "skills/site-capture/scripts/score_utility_banner",
+      "skills/site-capture/scripts/spatial_bridge",
+      "skills/site-capture/scripts/spatial_enrich",
+      "skills/site-capture/scripts/usp_detector",
+      "skills/site-capture/scripts/validate_utility_banner",
+      "skills/site-capture/scripts/vision_spatial",
+      "skills/site-capture/scripts/web_vitals_adapter"
+    ]
+  }
+};
