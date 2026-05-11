@@ -1,0 +1,200 @@
+{
+  "_intelligence_applied": true,
+  "_intelligence_count": 4,
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "hero_band",
+        "video_block"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 65.0,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": true,
+      "pc_num_components": 9,
+      "pc_num_cta_bands": 2,
+      "pc_num_value_prop": 2,
+      "pc_types": [
+        "cta_band",
+        "hero_band",
+        "nav_bar",
+        "social_proof_logos",
+        "value_prop_stack",
+        "video_block"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 2
+    }
+  },
+  "activeCriteria": 6,
+  "capturedAt": "2026-04-17T08:29:12.649964+00:00",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "fake_indicators": [],
+        "has_countdown": false,
+        "has_deadline": false,
+        "has_stock": false,
+        "killerTriggered": false,
+        "scarcity_words": 0,
+        "urgency_words": 0
+      },
+      "id": "psy_01",
+      "label": "Urgence & Rareté — crédibilité",
+      "max": 3,
+      "rationale": "Pas d'urgence/rareté détectée. Opportunité manquée mais pas un défaut.",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "exclusivity_matches": 2,
+        "has_stock": false,
+        "levers_count": 3,
+        "levers_detail": [
+          "exclusivite(2)",
+          "personnalisation(8)",
+          "ancrage_comparatif(3)"
+        ],
+        "personalization_matches": 8,
+        "scarcity_words": 0
+      },
+      "id": "psy_02",
+      "label": "Rareté & Exclusivité — valeur perçue",
+      "max": 3,
+      "rationale": "3 leviers de valeur perçue actifs: exclusivite(2), personnalisation(8), ancrage_comparatif(3).",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 50.0,
+        "new_pct": 50.0,
+        "new_score": 1.5,
+        "old_pct": 50.0,
+        "old_score": 1.5,
+        "reason": "Doctrine flagged 'zero price anchoring'. However, Vision and page context show 'Get started for free' as primary messaging. For freemium SaaS, zero-price IS the anchor and framing device (value = risk-free trial). Paid tier exists but below-fold. This is deliberate, not a gap. Upgrade to 'weak' (imp"
+      },
+      "applicable": true,
+      "evidence": {
+        "anchoring_levers": 0,
+        "detail": [],
+        "has_crossed_price": false,
+        "has_discount": false,
+        "has_free": false,
+        "has_guarantee": false,
+        "loss_framing": 0
+      },
+      "id": "psy_03",
+      "label": "Ancrage prix/valeur — framing",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Zéro ancrage prix/valeur. Le prix est affiché sans contexte ni comparaison.",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 50.0,
+        "new_pct": 50.0,
+        "new_score": 1.5,
+        "old_pct": 50.0,
+        "old_score": 1.5,
+        "reason": "'Get started for free' IS a risk-reversal mechanic for SaaS signup intent (zero initial commitment). No explicit 'money-back guarantee' or 'no credit card' language detected in fold, but free trial model removes most perceived risk. Doctrine penalized absence of explicit reversal language; recalibra"
+      },
+      "applicable": true,
+      "evidence": {
+        "detail": [],
+        "free_trial_matches": 0,
+        "has_guarantee": false,
+        "loss_framing": 0,
+        "return_matches": 0,
+        "risk_levers": 0,
+        "security_matches": 0
+      },
+      "id": "psy_04",
+      "label": "Aversion perte & Risk Reversal",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Zéro risk reversal. Le visiteur supporte 100% du risque perçu.",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 20.0,
+        "new_pct": 70.0,
+        "new_score": 2.1,
+        "old_pct": 70.0,
+        "old_score": 2.1,
+        "reason": "Vision confirms 'G2 Reviews 4.8 stars, WordPress Plugin Directory 4.9 stars' + 'logos' detected. These are 2+ authority signals (platform reviews + plugin ecosystem proof). Doctrine counted 'experts(3)' but missed that multi-platform ratings + plugin directory presence = strong authority for dev/adm"
+      },
+      "applicable": true,
+      "evidence": {
+        "auth_signals": 2,
+        "awards": 0,
+        "certifications": 0,
+        "detail": [
+          "experts(3)",
+          "media(0,logos=True)"
+        ],
+        "expert_mentions": 3,
+        "killerTriggered": false,
+        "media_mentions": 0,
+        "press_logos": true,
+        "user_counts": 0
+      },
+      "id": "psy_05",
+      "label": "Autorité & Crédibilité",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_has_social_proof": true,
+      "rationale": "2 signal(s) d'autorité (< 3): experts(3), media(0,logos=True).",
+      "score": 2.1,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "detail": [
+          "lead_magnet(2)",
+          "formulaire(2_champs)",
+          "demo_sample(1)"
+        ],
+        "forms_count": 2,
+        "has_free": false,
+        "lead_magnets": 2,
+        "quiz_config": 0,
+        "recip_levers": 3
+      },
+      "id": "psy_06",
+      "label": "Réciprocité & Micro-engagements",
+      "max": 3,
+      "rationale": "3 leviers de réciprocité/engagement: lead_magnet(2), formulaire(2_champs), demo_sample(1).",
+      "score": 3,
+      "verdict": "top"
+    }
+  ],
+  "finalTotal": 12.6,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": null,
+  "killerTriggered": false,
+  "label": "weglot",
+  "max": 18,
+  "maxFull": 18,
+  "pageType": "collection",
+  "pillar": "psycho",
+  "rawTotal": 12.6,
+  "score100": 70.0,
+  "skippedCriteria": [],
+  "url": "https://weglot.com"
+}

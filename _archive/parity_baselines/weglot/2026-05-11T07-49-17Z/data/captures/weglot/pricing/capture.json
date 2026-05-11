@@ -1,0 +1,734 @@
+{
+  "hero": {
+    "ctas": [],
+    "h1": "Choose the plan that fits your needs",
+    "h1Count": 1,
+    "h1ParasiticFiltered": 0,
+    "h1Source": "h1",
+    "heroImages": [
+      {
+        "alt": "weglot logo",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678640efd4d181f55a374fd9_weglot%20logo.svg"
+      },
+      {
+        "alt": "Arrow down",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6786438aa08bc05b3b8c28bc_Vector.svg"
+      }
+    ],
+    "primaryCta": {
+      "classes": "button cta-navbar w-inline-block",
+      "href": "https://dashboard.weglot.com/register",
+      "inFold": false,
+      "isPrimary": true,
+      "label": "Try for free",
+      "primaryScore": 35,
+      "primaryScoreReasons": [
+        "actionVerb+20",
+        "buttonClass+15"
+      ],
+      "rawHref": "https://dashboard.weglot.com/register",
+      "tag": "a"
+    },
+    "socialProofInFold": {
+      "present": true,
+      "snippet": "",
+      "type": "trustpilot"
+    },
+    "subtitle": "Start for free, no credit card required\nMonthly\nAnnually - 2 months free!\nAnnually - 2 months free!\nUSD pricing is an estimate. The final price will be based on the EUR/USD rate on your subscription date."
+  },
+  "meta": {
+    "captureLevel": 0,
+    "captureSource": "ghost_capture.js (page.html rendered)",
+    "capturedAt": "2026-04-29T18:27:23.140260+00:00",
+    "capturedBy": "playwright-rendered-dom-v3",
+    "completeness": 1,
+    "confidence": "high",
+    "errors": [],
+    "fetchTimeMs": 0,
+    "finalUrl": "https://www.weglot.com/pricing",
+    "label": "weglot__pricing",
+    "metaDescription": "Weglot helps businesses translate their websites in a few clicks. Reach a wider audience and grow your business. Simple and transparent pricing.",
+    "pageType": "pricing",
+    "stagesCompleted": [
+      "fetch",
+      "extract",
+      "html"
+    ],
+    "title": "Weglot | Pricing",
+    "url": "https://www.weglot.com/pricing"
+  },
+  "overlays": {
+    "chatWidgets": [],
+    "cookieBanner": {
+      "cmpDetected": "axeptio",
+      "present": true,
+      "removalMethod": "none"
+    }
+  },
+  "pageSpecific": {
+    "has_faq": true,
+    "has_free_trial": true,
+    "has_money_back": false,
+    "has_plan_comparison": true,
+    "has_toggle_annual": true,
+    "plan_count": 136
+  },
+  "psychoSignals": {
+    "award_mentions": 0,
+    "certification_mentions": 0,
+    "expert_mentions": 3,
+    "has_countdown": false,
+    "has_crossed_price": false,
+    "has_deadline": true,
+    "has_discount_badge": true,
+    "has_free_offer": true,
+    "has_guarantee": false,
+    "has_press_logos": true,
+    "has_stock_indicator": false,
+    "loss_framing": 0,
+    "media_mentions": 0,
+    "scarcity_words": 0,
+    "urgency_words": 0,
+    "user_count_mentions": 0
+  },
+  "rawHtml": "page.html",
+  "screenshots": {},
+  "socialProof": {
+    "reviewCounts": [],
+    "testimonials": [],
+    "trustWidgets": [
+      {
+        "present": true,
+        "type": "trustpilot"
+      }
+    ]
+  },
+  "structure": {
+    "ctas": [
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "isPrimary": true,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button tertiary extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary cta-banner w-inline-block",
+        "href": "https://dashboard.weglot.com/register/",
+        "inFold": false,
+        "label": "Get started free - No commitment",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register/",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Book a demo",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://www.weglot.com/pricing",
+        "inFold": false,
+        "label": "Subscribe now",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small invert w-inline-block",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline w-inline-block",
+        "href": "https://wordcount.weglot.com/",
+        "inFold": false,
+        "label": "Discover",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://wordcount.weglot.com/",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary w-inline-block",
+        "href": "mailto:support@weglot.com?subject=I%20have%20a%20question",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "mailto:support@weglot.com?subject=I%20have%20a%20question",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index contact-enterprise-plan invert w-inline-block",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index contact-enterprise-plan invert w-inline-block",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button-4 w-button",
+        "href": "https://www.weglot.com/pricing",
+        "inFold": false,
+        "label": "Close",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "buttonType": "button",
+        "classes": "concierge-pill",
+        "href": "",
+        "inFold": false,
+        "label": "Have a question about Weglot?",
+        "primaryScore": 10,
+        "primaryScoreReasons": [
+          "button_button+10"
+        ],
+        "rawHref": "",
+        "tag": "button"
+      }
+    ],
+    "forms": [
+      {
+        "action": "",
+        "fields": 3,
+        "hiddenInputs": 0,
+        "inputs": 2,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 1
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "order": 1,
+        "text": "Choose the plan that fits your needs"
+      },
+      {
+        "level": 2,
+        "order": 2,
+        "text": "How many words do you have on your website?"
+      },
+      {
+        "level": 2,
+        "order": 3,
+        "text": "Common questions"
+      },
+      {
+        "level": 2,
+        "order": 4,
+        "text": "How many translated words do I need?"
+      },
+      {
+        "level": 2,
+        "order": 5,
+        "text": "What if I go over my limit?"
+      },
+      {
+        "level": 2,
+        "order": 6,
+        "text": "Do I pay full price when I upgrade my plan?"
+      },
+      {
+        "level": 2,
+        "order": 7,
+        "text": "What support do you provide?"
+      },
+      {
+        "level": 2,
+        "order": 8,
+        "text": "What do monthly translation requests mean?"
+      },
+      {
+        "level": 2,
+        "order": 9,
+        "text": "Can I use Weglot on more than one website?"
+      },
+      {
+        "level": 2,
+        "order": 10,
+        "text": "What happens after my 14-day free trial?"
+      },
+      {
+        "level": 2,
+        "order": 11,
+        "text": "What is the Carbon footprint displayed in the pricing table?"
+      },
+      {
+        "level": 2,
+        "order": 12,
+        "text": "Can I pay in a currency other than euros (for example, USD)?"
+      },
+      {
+        "level": 2,
+        "order": 13,
+        "text": "Is VAT Included in the price?"
+      },
+      {
+        "level": 2,
+        "order": 14,
+        "text": "Is there a specific pricing for web agencies and freelancers?"
+      },
+      {
+        "level": 2,
+        "order": 15,
+        "text": "Have a different question?"
+      },
+      {
+        "level": 2,
+        "order": 16,
+        "text": "Features table"
+      },
+      {
+        "level": 2,
+        "order": 17,
+        "text": "Good things come to those who wait. International traffic doesn’t."
+      },
+      {
+        "level": 3,
+        "order": 18,
+        "text": "Subscribe to our Newsletter"
+      }
+    ]
+  },
+  "techSignals": {
+    "dom_nodes": 2442,
+    "external_css_count": 3,
+    "external_scripts_count": 30,
+    "form_inputs_count": 2,
+    "form_labels_count": 0,
+    "h1_count": 1,
+    "has_aria_labels": true,
+    "has_canonical": true,
+    "has_charset": true,
+    "has_favicon": true,
+    "has_h1": true,
+    "has_hsts": false,
+    "has_lang": true,
+    "has_meta_desc": true,
+    "has_og_tags": true,
+    "has_robots": false,
+    "has_role_attributes": true,
+    "has_schema_org": true,
+    "has_skip_link": false,
+    "has_title": true,
+    "has_viewport": true,
+    "html_size_bytes": 351359,
+    "images_lazy_loaded": 221,
+    "images_total": 226,
+    "images_without_alt": 6,
+    "images_without_alt_count": 6,
+    "inline_style_blocks": 11,
+    "is_https": true,
+    "meta_desc_length": 144,
+    "robots_content": "",
+    "schema_types": [
+      "unknown",
+      "SoftwareApplication",
+      "unknown"
+    ],
+    "third_party_domains": [
+      "static.ads-twitter.com",
+      "bat.bing.com",
+      "cdn.firstpromoter.com",
+      "www.gstatic.com",
+      "cdn.kiflo.com",
+      "static.cloudflareinsights.com",
+      "cdn.prod.website-files.com",
+      "cdn-4.convertexperiments.com",
+      "cdn.intellimize.co",
+      "static.axept.io",
+      "a.quora.com",
+      "www.googletagmanager.com",
+      "wisepops.net",
+      "script.hotjar.com",
+      "www.redditstatic.com"
+    ],
+    "title_length": 16
+  },
+  "technical": {
+    "canonical": "https://www.weglot.com/pricing",
+    "charset": "utf-8",
+    "domNodes": 2442,
+    "favicon": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e6de156e5ca852745_649180bb70e6f03c6d4dcc3d_favicon-32x32.png",
+    "lang": "en",
+    "metaDescription": "Weglot helps businesses translate their websites in a few clicks. Reach a wider audience and grow your business. Simple and transparent pricing.",
+    "ogDescription": "Weglot helps businesses translate their websites in a few clicks. Reach a wider audience and grow your business. Simple and transparent pricing.",
+    "ogImage": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e697a38ff7063e798_649564583c43f45d2d72a18f_Weglot-thumbnail.png",
+    "ogTitle": "Weglot | Pricing",
+    "robots": "",
+    "schemaOrg": [
+      {
+        "@type": "unknown"
+      },
+      {
+        "@type": "SoftwareApplication"
+      },
+      {
+        "@type": "unknown"
+      }
+    ],
+    "title": "Weglot | Pricing",
+    "viewport": "width=device-width, initial-scale=1"
+  },
+  "uxSignals": {
+    "body_words": 3326,
+    "bold_count": 54,
+    "bullet_lists": 12,
+    "css_transitions": 40,
+    "dom_nodes": 2442,
+    "h2_count": 16,
+    "has_accordion": false,
+    "has_back_to_top": false,
+    "has_carousel": true,
+    "has_details_summary": false,
+    "has_progress_bar": false,
+    "has_slick": false,
+    "has_swiper": false,
+    "img_count": 226,
+    "lazy_images": 221,
+    "list_items": 47,
+    "overflow_x_patterns": 2,
+    "section_tags": 8,
+    "smooth_scroll": false,
+    "sticky_fixed": 4
+  }
+}

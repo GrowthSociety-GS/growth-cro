@@ -1,0 +1,2185 @@
+{
+  "business_category": "saas",
+  "doctrine_version": "v3.2.0-draft — doctrine V13 — 2026-04-18 (overlay-aware)",
+  "enricher_version": "v1.1.0-p2c-2026-04-18",
+  "page_type": "collection",
+  "perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "hero_band",
+        "video_block"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 65.0,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": true,
+      "pc_num_components": 9,
+      "pc_num_cta_bands": 2,
+      "pc_num_value_prop": 2,
+      "pc_types": [
+        "cta_band",
+        "hero_band",
+        "nav_bar",
+        "social_proof_logos",
+        "value_prop_stack",
+        "video_block"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 2
+    },
+    "verdict": "DEGRADED"
+  },
+  "recos": [
+    {
+      "ab_variants": {
+        "criterion_id": "hero_01",
+        "criterion_name": "H1 promesse",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "promesse_transformation",
+            "angle_label": "Transformation (avant → après)",
+            "best_for": [
+              "saas_b2c",
+              "dtc_subscription",
+              "edu",
+              "service_local"
+            ],
+            "copy_examples": [
+              "Passez de 100 leads/mois à 500 sans doubler votre budget",
+              "Dormez 8h complètes dès la première nuit"
+            ],
+            "psychological_trigger": "identity_shift + narrative_arc",
+            "risks": "Si promesse trop forte, déclenche skepticism — toujours appuyer avec preuve chiffrée dans sous-titre",
+            "template": "[Verbe action] [état désiré / résultat] [modifier: sans X / en Y jours / pour Z]"
+          },
+          {
+            "angle_id": "specificite_mecanisme",
+            "angle_label": "Mécanisme unique (Kennedy USP)",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c",
+              "dtc_subscription",
+              "edu"
+            ],
+            "copy_examples": [
+              "Norby : la méthode 3 minutes/jour pour apprendre une langue sans ennui",
+              "Stripe Terminal : l'API unifiée qui remplace votre stack POS"
+            ],
+            "psychological_trigger": "curiosity + authority",
+            "risks": "Fonctionne uniquement si le 'mécanisme' est réellement unique — sinon perçu comme buzzword",
+            "template": "[Produit] : la [méthode/technologie unique] qui [bénéfice spécifique]"
+          },
+          {
+            "angle_id": "preuve_chiffree",
+            "angle_label": "Preuve chiffrée hero",
+            "best_for": [
+              "dtc_subscription",
+              "saas_b2c",
+              "ecom_product",
+              "marketplace"
+            ],
+            "copy_examples": [
+              "47 000 indépendants utilisent Pennylane pour gérer leur compta en 15 min/mois",
+              "Le n°1 français du pet food premium — 250k chiens nourris"
+            ],
+            "psychological_trigger": "social_proof + authority",
+            "risks": "Exige la source en footnote — sinon flag anti-pattern social_proof_numbers_vague",
+            "template": "[Chiffre clients / résultat] [verbe d'usage] [produit] pour [bénéfice]"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "hero",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "Passez au digital sans toucher au code en 14 jours",
+            "Réduisez vos coûts serveur de 40% sans migration"
+          ],
+          "id": "h1_generic_brand_centric",
+          "instead_do": "H1 = bénéfice client spécifique + (si possible) chiffre ou délai. Formule : [Verbe action] + [transformation/bénéfice] + [spécificité/preuve]",
+          "mobile_specific": false,
+          "pattern": "H1 = 'Bienvenue chez [brand]', 'Notre entreprise', 'Nous sommes [brand]'",
+          "regulatory_risk": null,
+          "why_bad": "Zéro promesse client, langage corporate, pas de projection mentale. Visiteur = 'OK, et alors ?'"
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "hero_01",
+      "effort": 1,
+      "enriched_at": "2026-04-18T10:45:35.648918Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "doctrine_threshold": "easy ≤3j / medium 4-7j / hard 8-14j / deferred >14j",
+        "effort_1to5": 1,
+        "effort_days": 1,
+        "feasibility_flag": "easy"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 27.5,
+      "impact": 5,
+      "perception": {
+        "component_type": "hero_band",
+        "count": 1,
+        "present": true
+      },
+      "pillar": "hero",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P1",
+      "reco_text": "URGENT (P1 — Impact 5, Effort 1). AVANT : « International ecommerce » → APRÈS : « Gagnez [X temps/résultat] avec [produit] — sans [obstacle principal] ». Pourquoi : le H1 actuel ne communique pas la proposition de valeur — il manque : la cible (pour qui), le bénéfice concret (quoi), le différenciateur (pourquoi vous) Structure pour SaaS : '[Résultat chiffré] en [temps] sans [obstacle]'. Test : montrer le hero 5s à quelqu'un — il doit pouvoir résumer l'offre. ⚠️ Problème systémique : ce critère est critique sur TOUTES les pages (blog, collection, home, pricing) — correction prioritaire à l'échelle du site.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.1
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour hero_05 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "hero_05",
+      "effort": 1,
+      "enriched_at": "2026-04-18T10:45:35.650303Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "doctrine_threshold": "easy ≤3j / medium 4-7j / hard 8-14j / deferred >14j",
+        "effort_1to5": 1,
+        "effort_days": 1,
+        "feasibility_flag": "easy"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 22.0,
+      "impact": 4,
+      "perception": {
+        "component_type": "social_proof_logos",
+        "count": 1,
+        "present": true
+      },
+      "pillar": "hero",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P1",
+      "reco_text": "URGENT (P1 — Impact 4, Effort 1). Ajouter une preuve sociale au-dessus de la ligne de flottaison. AVANT : « [aucune preuve ATF] » → APRÈS : « ★★★★★ Noté 4.8/5 par nos clients ». Pourquoi : la preuve sociale ATF augmente la conversion de 15-20% Pour Weglot (SaaS), les plus efficaces : logos clients, rating G2/Capterra, nombre d'utilisateurs actifs. Placer juste sous le CTA ou à côté du H1. 📊 Cross-pages : ce critère est correct sur home, pricing mais critique sur blog, collection — analyser ce qui fonctionne sur home et l'appliquer à blog.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.1
+    },
+    {
+      "ab_variants": {
+        "criterion_id": "hero_03",
+        "criterion_name": "CTA principal",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "benefice_direct",
+            "angle_label": "Bénéfice direct",
+            "best_for": [
+              "lead_gen_simple",
+              "lead_gen_saas",
+              "quiz_vsl"
+            ],
+            "copy_examples": [
+              "Obtenir mon plan personnalisé",
+              "Voir mon ROI en 2 minutes",
+              "Trouver le bon plan pour mon équipe"
+            ],
+            "psychological_trigger": "outcome_projection",
+            "risks": null,
+            "template": "[Verbe projection] [bénéfice concret / résultat]"
+          },
+          {
+            "angle_id": "facilite_effort",
+            "angle_label": "Facilité / effort minimal",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c",
+              "dtc_subscription"
+            ],
+            "copy_examples": [
+              "Commencer l'essai gratuit (30 secondes)",
+              "Essayer — aucune carte bancaire",
+              "Réserver ma démo en 1 clic"
+            ],
+            "psychological_trigger": "ease_commitment_low",
+            "risks": null,
+            "template": "[Verbe démarrage] en [durée courte / sans X]"
+          },
+          {
+            "angle_id": "curiosite_projection",
+            "angle_label": "Curiosité + projection résultat",
+            "best_for": [
+              "saas_b2b",
+              "edu",
+              "quiz_vsl",
+              "advertorial"
+            ],
+            "copy_examples": [
+              "Voir la démo produit (90 secondes)",
+              "Découvrir votre score CRO personnalisé",
+              "Générer mon brief de campagne"
+            ],
+            "psychological_trigger": "curiosity_gap + visual_imagery",
+            "risks": null,
+            "template": "[Verbe découverte] [résultat / contenu] en [délai]"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "cta",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "Obtenir mon diagnostic en 2 min",
+            "Réserver ma démo (15 min)",
+            "Commencer l'essai gratuit"
+          ],
+          "id": "cta_wording_vague",
+          "instead_do": "Verbe d'action 1ère personne + bénéfice/délai. Formule : [Verbe projection] + [objet concret] + [preuve effort]",
+          "mobile_specific": false,
+          "pattern": "CTA label = 'Cliquer ici', 'En savoir plus', 'Découvrir', 'Voir', 'Suivant'",
+          "regulatory_risk": null,
+          "why_bad": "Aucune projection mentale, aucune action claire. L'utilisateur ne sait pas ce qui va se passer (Fitts' Law + Miller 1956)."
+        },
+        {
+          "category": "cta",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "cta_multiple_atf_competing",
+          "instead_do": "1 CTA primaire ATF (action conversion) + 1 secondaire faible contraste (ex: 'Voir démo vidéo') non-concurrent. Les secondaires descendent below-the-fold.",
+          "mobile_specific": false,
+          "pattern": "≥2 CTAs d'actions différentes au-dessus de la ligne (desktop OR mobile viewport)",
+          "regulatory_risk": null,
+          "why_bad": "Dilution attention (Hick-Hyman Law : log2(N+1) temps décision). Paralysie, taux de clic primary baisse de 25-40% par CTA concurrent ajouté (CXL 2019)."
+        },
+        {
+          "category": "friction",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "form_fields_excess",
+          "instead_do": "Formulaire 2-3 champs (email pro + nom + 1 qualifier) + progressive profiling (enrichissement post-submit via Clearbit/Apollo/ZoomInfo).",
+          "mobile_specific": false,
+          "pattern": "Formulaire lead-gen avec >5 champs pour une simple démo/contact",
+          "regulatory_risk": null,
+          "why_bad": "Chaque champ ajouté au-delà de 3 = -11% conversion (Expedia 2014 replicated). Perception d'engagement excessive avant valeur démontrée."
+        },
+        {
+          "category": "trust",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "scarcity_countdown_fake",
+          "instead_do": "Scarcity honnête : 'X places restantes' réelles, cohortes datées, rentrée de saison. OU pas de scarcity du tout.",
+          "mobile_specific": false,
+          "pattern": "Timer/countdown qui se reset au refresh ou à l'arrivée sur la page",
+          "regulatory_risk": "DGCCRF Art. L121-1",
+          "why_bad": "Destruction du trust irréversible une fois détecté (et il est TOUJOURS détecté). Risque DGCCRF."
+        },
+        {
+          "category": "trust",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "pricing_hidden_forced_form",
+          "instead_do": "Prix visible (même 'à partir de X€') + configurateur. Si vraiment custom B2B : fourchette 'entre X et Y par mois' + contact qualification.",
+          "mobile_specific": false,
+          "pattern": "Prix non-visible, CTA 'Nous contacter pour prix' en B2C ou SaaS self-serve",
+          "regulatory_risk": null,
+          "why_bad": "-40 à -60% conversion B2C (NNG 2019). Les visiteurs partent comparer sans revenir."
+        },
+        {
+          "category": "friction",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "chatbot_blocks_cta",
+          "instead_do": "Chatbot bottom-left OU mini-bubble <50x50px OU trigger uniquement après scroll 60%+ OU désactivé mobile.",
+          "mobile_specific": true,
+          "pattern": "Widget chatbot bottom-right qui recouvre CTA principal ou formulaire sur mobile",
+          "regulatory_risk": null,
+          "why_bad": "-12 à -25% conversion mobile si CTA partiellement couvert (CXL mobile heuristic 2021)."
+        },
+        {
+          "category": "psychology",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "urgency_everywhere_diluted",
+          "instead_do": "Choisir 2 déclencheurs primaires alignés avec Schwartz awareness level + business_category. Les autres en soft-touch.",
+          "mobile_specific": false,
+          "pattern": "Urgence ET scarcity ET social proof ET authority ET reciprocity tous au max sur une seule page",
+          "regulatory_risk": null,
+          "why_bad": "Over-selling tue la conversion (Cialdini 2021 Ch. 'influence undone'). Sentiment de manipulation."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "hero_03",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.649295Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "perception": {
+        "component_type": "hero_band",
+        "count": 1,
+        "present": true
+      },
+      "pillar": "hero",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Pour Weglot : AVANT : « Try for free » → APRÈS : « Créer mon compte en 30s ». Pourquoi : le CTA doit commencer par un verbe d'action orienté bénéfice. Le CTA doit être le premier élément d'interaction visible.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.1
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour hero_04 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "visual",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "screenshot dashboard avec vraie data",
+            "photo client avant/après",
+            "vidéo utilisation produit 15s"
+          ],
+          "id": "hero_stock_photo_generic",
+          "instead_do": "Screenshot produit réel, photo client réelle avec UGC, vidéo démo 15-30s, illustration custom alignée DA, dashboard annoté.",
+          "mobile_specific": false,
+          "pattern": "Image hero = stock photo générique (équipe souriante, handshake business, ordinateurs vides)",
+          "regulatory_risk": null,
+          "why_bad": "Banner blindness + zéro différentiation + zéro preuve produit. Signal pour l'utilisateur : rien d'unique ici."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "hero_04",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.649726Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "hero",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Images détectées dans le HTML mais dimensions non mesurées (rendu JS requis). Vérifier visuellement que le hero de Weglot montre un screenshot de l'interface avec des vraies données. Format recommandé : ≥800px large, WebP/AVIF, responsive.\n\n📐 Spatial : Image hero ne couvre que 0% de la section — agrandir pour occuper ≥25% pour impact émotionnel",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.1
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour hero_06 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "hero_06",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.650925Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "hero",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Le premier écran de Weglot doit répondre aux questions manquantes : 'C'est pour qui ?' (cible). KILLER — Ce critère cape le score du bloc Hero entier. AVANT : « [hero chargé : 0 éléments distrayants] » → APRÈS : « H1 + sous-titre + CTA + 1 preuve sociale — rien d'autre ». Pourquoi : le visiteur quitte en 5s s'il ne comprend pas l'offre Pour un SaaS, garder uniquement : H1 + sous-titre + CTA + 1 preuve sociale dans le premier écran. 📊 Cross-pages : ce critère est correct sur blog, home, pricing mais critique sur collection — analyser ce qui fonctionne sur blog et l'appliquer à collection.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.1
+    },
+    {
+      "ab_variants": {
+        "criterion_id": "per_05",
+        "criterion_name": "Tarif transparent / pricing lisible",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "price_anchor_value",
+            "angle_label": "Ancrage valeur (prix + value-stack)",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c",
+              "dtc_subscription",
+              "edu"
+            ],
+            "copy_examples": [
+              "49€/mois — inclut audit mensuel (≈300€), 5h consulting (≈500€), support prioritaire. Valeur totale >800€.",
+              "À partir de 29€/mois — tout inclus : onboarding 1-on-1, accès premium, résiliation 1 clic."
+            ],
+            "psychological_trigger": "anchoring + value_justification",
+            "risks": null,
+            "template": "[Prix] pour [liste 3-5 éléments value inclus] — valeur comparée [€]"
+          },
+          {
+            "angle_id": "price_per_usage",
+            "angle_label": "Prix ramené à l'unité / usage",
+            "best_for": [
+              "dtc_subscription",
+              "saas_b2c",
+              "edu"
+            ],
+            "copy_examples": [
+              "99€/an = le prix d'un café par semaine",
+              "0,97€/jour pour une compta complète qui se fait seule"
+            ],
+            "psychological_trigger": "framing + loss_aversion_reversal",
+            "risks": null,
+            "template": "[Prix] = [équivalent unité consommable quotidien]"
+          },
+          {
+            "angle_id": "price_tier_comparison",
+            "angle_label": "3 tiers + 'most popular'",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c",
+              "dtc_subscription"
+            ],
+            "copy_examples": [
+              "Starter 19€ / Pro 49€ ★ Most Popular / Scale 149€"
+            ],
+            "psychological_trigger": "decoy + center_stage",
+            "risks": "Éviter la tarification en 5+ tiers (Iyengar paralysis) — max 3 tiers visibles",
+            "template": "Tier 1 (starter) / Tier 2 (most popular — mis en avant) / Tier 3 (enterprise)"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "trust",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "pricing_hidden_forced_form",
+          "instead_do": "Prix visible (même 'à partir de X€') + configurateur. Si vraiment custom B2B : fourchette 'entre X et Y par mois' + contact qualification.",
+          "mobile_specific": false,
+          "pattern": "Prix non-visible, CTA 'Nous contacter pour prix' en B2C ou SaaS self-serve",
+          "regulatory_risk": null,
+          "why_bad": "-40 à -60% conversion B2C (NNG 2019). Les visiteurs partent comparer sans revenir."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "per_05",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.652740Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "perception": {
+        "component_type": "cta_band",
+        "count": 2,
+        "present": true
+      },
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Aucun témoignage crédible sur Weglot. AVANT : « Super produit, je recommande ! » → APRÈS : « Depuis que j utilise [produit], j ai gagné [résultat chiffré] en [temps] — [Prénom], [Rôle] ». Pourquoi : un témoignage sans détails concrets ne convainc personne Ajouter au minimum 3 témoignages avec : prénom + photo + résultat concret. Hiérarchie de crédibilité (doc CRO) : 1. Vidéo testimoniale > 2. Avis vérifiés tiers (Trustpilot/Google/G2) > 3. Screenshots d'avis > 4. Études de cas chiffrées > 5. Logos clients > 6. Badges/certifications. Pour un SaaS, intégrer un widget vérifié (Trustpilot, Google Reviews) qui est le plus crédible et le plus rapide à mettre en place. 📊 Cross-pages : ce critère est correct sur home, pricing mais critique sur blog, collection — analyser ce qui fonctionne sur home et l'appliquer à blog.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "criterion_id": "per_06",
+        "criterion_name": "Social proof / preuve sociale",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "voc_literal_customer",
+            "angle_label": "Voice of customer littérale",
+            "best_for": [
+              "all_categories"
+            ],
+            "copy_examples": [
+              "\"J'ai arrêté de bosser le weekend.\" — Julie Marchand, fondatrice @ Polène (Paris)",
+              "\"On a réduit notre churn de 12% à 4% en 4 mois.\" — Thomas D., Head of CS @ Spendesk"
+            ],
+            "psychological_trigger": "identification + social_proof",
+            "risks": null,
+            "template": "Citation client verbatim + photo + nom + fonction + entreprise + résultat chiffré"
+          },
+          {
+            "angle_id": "before_after_metric",
+            "angle_label": "Avant/Après métrique",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c",
+              "service_local"
+            ],
+            "copy_examples": [
+              "Avant : 2h30 de saisie/jour. Après : 15 min. — Cabinet Lefevre, 3 mois",
+              "CAC passé de 840€ à 312€ en 6 mois — Manatime, scale-up B2B"
+            ],
+            "psychological_trigger": "proof_concrete + loss_aversion_reversal",
+            "risks": null,
+            "template": "Avant [X] → Après [Y] — [attribution client + période]"
+          },
+          {
+            "angle_id": "brand_logos_concentration",
+            "angle_label": "Wall of logos (SaaS B2B enterprise)",
+            "best_for": [
+              "saas_b2b"
+            ],
+            "copy_examples": [
+              "Utilisé par les équipes produit de [Doctolib, BlaBlaCar, Back Market, Deezer, Alan]",
+              "Trusted by 200+ French scale-ups"
+            ],
+            "psychological_trigger": "authority_transfer + herd",
+            "risks": "Uniquement si logos sont pertinents ICP — logos random = signal faible",
+            "template": "Liste logos clients connus + headline 'utilisé par'"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "proof",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "testimonials_without_voc_attribution",
+          "instead_do": "Témoignage court + photo + nom + fonction + société (B2B) / ville + profession (B2C) + chiffre spécifique + reformulation en langage VoC client (mots du client, pas du marketing).",
+          "mobile_specific": false,
+          "pattern": "Témoignages sans photo, nom complet, fonction, entreprise, ou langage marketer-speak",
+          "regulatory_risk": null,
+          "why_bad": "Témoignage anonyme = zéro preuve sociale (Cialdini 2021). Langage marketer ('Solution incroyable qui a transformé notre business') = synthétique perçu."
+        },
+        {
+          "category": "trust",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "testimonials_all_positive_uniform",
+          "instead_do": "Inclure 1-2 avis 3-4 étoiles avec réponse entreprise + diversité de wording + mix vidéo/texte/screenshot UGC.",
+          "mobile_specific": false,
+          "pattern": "10+ témoignages tous 5 étoiles avec wording uniforme",
+          "regulatory_risk": null,
+          "why_bad": "Pattern suspect — perception d'invention. Cialdini : un avis mitigé honnête renforce les positifs."
+        },
+        {
+          "category": "proof",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "social_proof_numbers_vague",
+          "instead_do": "Chiffre + source + date + méthodologie. Ex: '12 847 clients actifs (mise à jour mars 2026)' ou 'ROI moyen 3.2× mesuré sur 47 clients (étude Cabinet X 2025)'.",
+          "mobile_specific": false,
+          "pattern": "Chiffres de preuve sociale sans source : '+10000 clients satisfaits', 'ROI 300%' sans attribution",
+          "regulatory_risk": null,
+          "why_bad": "Perçu comme invention, même si vrai. Aucune crédibilité scientifique."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "per_06",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.653001Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "perception": {
+        "component_type": "faq_accordion",
+        "count": 0,
+        "present": false
+      },
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "La FAQ de Weglot a 2 questions mais 0 business-relevant. Ajouter des questions qui lèvent les objections d'achat. Chaque réponse : preuve + lien vers plus d'info.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour per_07 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "proof",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "testimonials_without_voc_attribution",
+          "instead_do": "Témoignage court + photo + nom + fonction + société (B2B) / ville + profession (B2C) + chiffre spécifique + reformulation en langage VoC client (mots du client, pas du marketing).",
+          "mobile_specific": false,
+          "pattern": "Témoignages sans photo, nom complet, fonction, entreprise, ou langage marketer-speak",
+          "regulatory_risk": null,
+          "why_bad": "Témoignage anonyme = zéro preuve sociale (Cialdini 2021). Langage marketer ('Solution incroyable qui a transformé notre business') = synthétique perçu."
+        },
+        {
+          "category": "trust",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "testimonials_all_positive_uniform",
+          "instead_do": "Inclure 1-2 avis 3-4 étoiles avec réponse entreprise + diversité de wording + mix vidéo/texte/screenshot UGC.",
+          "mobile_specific": false,
+          "pattern": "10+ témoignages tous 5 étoiles avec wording uniforme",
+          "regulatory_risk": null,
+          "why_bad": "Pattern suspect — perception d'invention. Cialdini : un avis mitigé honnête renforce les positifs."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "per_07",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.653240Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Ton en « tu » cohérent mais 0 punchline(s) seulement. Ajouter des accroches courtes dans les titres de section. Formulations directes et orientées résultat.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour per_11 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "copy",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "Déployez en 2 minutes sans toucher à votre stack (API REST compatible n'importe quel langage)"
+          ],
+          "id": "benefit_features_confusion",
+          "instead_do": "Benefit Laddering : feature → functional benefit → emotional benefit → identity. Exposer bénéfice fonctionnel + émotionnel, lister features en tab/accordion détail.",
+          "mobile_specific": false,
+          "pattern": "Liste features techniques mise en avant comme bénéfices",
+          "regulatory_risk": null,
+          "why_bad": "Client ne traduit pas spec en bénéfice (Harvard 'jobs-to-be-done' Christensen). Perte de conversion."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "per_11",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.654495Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Weglot reste au niveau features (1 niveau). Laddering à construire sur les 2-3 bénéfices principaux : feature → functional → emotional → identity. Exemple : 'Croquettes 80% protéines' (feature) → 'Digestion facilitée' (functional) → 'Tu arrêtes de culpabiliser' (emotional) → 'Tu es un maître qui comprend son animal' (identity).",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour ux_01 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "ux_01",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.654795Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "ux",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Pour Weglot : corriger le saut H1→H3. ajouter des H2 descriptifs. Chaque H2 doit introduire une section claire. 📊 Cross-pages : excellent partout sauf sur collection — harmoniser avec le standard du reste du site.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour ux_02 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "ux_02",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.655079Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "ux",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Rythme correct (1 sections, 138 images) mais optimisable. Sections trop longues — découper.\n\n📐 Spatial : Section la plus longue fait 3985.0px — découper en blocs de ≤600px pour maintenir l'engagement",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "criterion_id": "ux_04",
+        "criterion_name": "CTAs répétés au long de la page",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "same_cta_anchors",
+            "angle_label": "Même CTA répété 3-4×",
+            "best_for": [
+              "lead_gen_simple",
+              "quiz_vsl",
+              "advertorial"
+            ],
+            "copy_examples": [
+              "'Obtenir mon diagnostic' répété ×4 dans la page"
+            ],
+            "psychological_trigger": "consistency + reminder",
+            "risks": null,
+            "template": "Même label CTA hero répété après hero, mid-page, avant FAQ, footer"
+          },
+          {
+            "angle_id": "evolving_cta_by_context",
+            "angle_label": "CTA évolutif selon section",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c"
+            ],
+            "copy_examples": [
+              "CTA hero 'Essayer gratuitement' puis 'Voir mon ROI' après section calcul"
+            ],
+            "psychological_trigger": "contextual_relevance",
+            "risks": null,
+            "template": "Hero 'Commencer' → après proof 'Voir un cas client' → après pricing 'Demander une démo'"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "cta",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "Obtenir mon diagnostic en 2 min",
+            "Réserver ma démo (15 min)",
+            "Commencer l'essai gratuit"
+          ],
+          "id": "cta_wording_vague",
+          "instead_do": "Verbe d'action 1ère personne + bénéfice/délai. Formule : [Verbe projection] + [objet concret] + [preuve effort]",
+          "mobile_specific": false,
+          "pattern": "CTA label = 'Cliquer ici', 'En savoir plus', 'Découvrir', 'Voir', 'Suivant'",
+          "regulatory_risk": null,
+          "why_bad": "Aucune projection mentale, aucune action claire. L'utilisateur ne sait pas ce qui va se passer (Fitts' Law + Miller 1956)."
+        },
+        {
+          "category": "cta",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "cta_multiple_atf_competing",
+          "instead_do": "1 CTA primaire ATF (action conversion) + 1 secondaire faible contraste (ex: 'Voir démo vidéo') non-concurrent. Les secondaires descendent below-the-fold.",
+          "mobile_specific": false,
+          "pattern": "≥2 CTAs d'actions différentes au-dessus de la ligne (desktop OR mobile viewport)",
+          "regulatory_risk": null,
+          "why_bad": "Dilution attention (Hick-Hyman Law : log2(N+1) temps décision). Paralysie, taux de clic primary baisse de 25-40% par CTA concurrent ajouté (CXL 2019)."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "ux_04",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.655559Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "ux",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "CTA répété 3 fois (9 total) — ajouter un CTA sticky mobile. S'assurer que chaque section clé se termine par un CTA.\n\n📐 Spatial : Trou de 2767px sans CTA (entre 15px et 2782px) — ajouter CTA dans cette zone morte 📐 Spatial : Pas de CTA sticky mobile — ajouter bar fixe bas (64px, CTA principal) pour mobile (CTR +30%)",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour ux_07 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "mobile",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "mobile_font_under_14px",
+          "instead_do": "Body ≥16px mobile, H1 ≥28px, H2 ≥22px. Line-height 1.5. Max 70 chars par ligne.",
+          "mobile_specific": true,
+          "pattern": "Texte corps <14px sur mobile (iOS/Android default readable = 16px)",
+          "regulatory_risk": null,
+          "why_bad": "Zoom forcé = friction + abandon. iOS safari déclenche auto-zoom sur input <16px."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "ux_07",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.655749Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "ux",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "1 micro-interactions. Ajouter guidages visuels : flèches, animations CTAs, transitions.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour ux_08 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "friction",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "form_fields_excess",
+          "instead_do": "Formulaire 2-3 champs (email pro + nom + 1 qualifier) + progressive profiling (enrichissement post-submit via Clearbit/Apollo/ZoomInfo).",
+          "mobile_specific": false,
+          "pattern": "Formulaire lead-gen avec >5 champs pour une simple démo/contact",
+          "regulatory_risk": null,
+          "why_bad": "Chaque champ ajouté au-delà de 3 = -11% conversion (Expedia 2014 replicated). Perception d'engagement excessive avant valeur démontrée."
+        },
+        {
+          "category": "friction",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "popup_newsletter_under_10s",
+          "instead_do": "Scroll-triggered (≥50% scroll) OU exit-intent desktop-only OU inline embed après 1er bloc de valeur.",
+          "mobile_specific": true,
+          "pattern": "Popup email/newsletter qui apparaît avant 10 secondes de lecture",
+          "regulatory_risk": null,
+          "why_bad": "Google Interstitial Penalty mars 2017 (mobile) + -15/-30% conversion mesurée (CXL, Baymard)."
+        },
+        {
+          "category": "friction",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "chatbot_blocks_cta",
+          "instead_do": "Chatbot bottom-left OU mini-bubble <50x50px OU trigger uniquement après scroll 60%+ OU désactivé mobile.",
+          "mobile_specific": true,
+          "pattern": "Widget chatbot bottom-right qui recouvre CTA principal ou formulaire sur mobile",
+          "regulatory_risk": null,
+          "why_bad": "-12 à -25% conversion mobile si CTA partiellement couvert (CXL mobile heuristic 2021)."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "ux_08",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.655961Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "ux",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Formulaire 2 champs — OK. Vérifier que chaque champ est indispensable. Micro-réassurance sous le formulaire.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour coh_04 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "coh_04",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.657328Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "coherence",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "2 axes de différenciation (origin, vs_competitor).  Pourquoi Weglot et pas un concurrent en SaaS ?\n\n📐 Arc narratif : Closing faible — ajouter CTA final + urgence + garantie dans les 500px finaux pour conversion finale",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.15
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour coh_05 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "visual",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "screenshot dashboard avec vraie data",
+            "photo client avant/après",
+            "vidéo utilisation produit 15s"
+          ],
+          "id": "hero_stock_photo_generic",
+          "instead_do": "Screenshot produit réel, photo client réelle avec UGC, vidéo démo 15-30s, illustration custom alignée DA, dashboard annoté.",
+          "mobile_specific": false,
+          "pattern": "Image hero = stock photo générique (équipe souriante, handshake business, ordinateurs vides)",
+          "regulatory_risk": null,
+          "why_bad": "Banner blindness + zéro différentiation + zéro preuve produit. Signal pour l'utilisateur : rien d'unique ici."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "coh_05",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.657635Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "coherence",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Ton correct en « vous » mais 0 marqueur(s) IA à corriger. Maintenir la cohérence sur toutes les pages.\n\n📐 Arc narratif : Closing faible — ajouter CTA final + urgence + garantie dans les 500px finaux pour conversion finale",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.15
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour coh_09 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "coh_09",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.658687Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "coherence",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Aucun Unique Mechanism nommé chez Weglot — le 'comment' est noyé dans des bénéfices génériques. Créer un nom propriétaire (majuscule/trademark/encadré), expliqué en 3 points dans le hero ou section 2, avec un visuel dédié (schéma ou icônes). Exemple : 'AI-Powered Signal Engine™' avec architecture visuelle 3 blocs.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 1.15
+    },
+    {
+      "ab_variants": {
+        "criterion_id": "psy_01",
+        "criterion_name": "Scarcity / urgence",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "real_scarcity_inventory",
+            "angle_label": "Scarcity réelle basée inventaire",
+            "best_for": [
+              "edu",
+              "dtc_subscription",
+              "luxe",
+              "ecom_product"
+            ],
+            "copy_examples": [
+              "Il reste 7 places sur la cohorte avril (limitée à 30)",
+              "Plus que 12 unités en stock — production limitée 2026"
+            ],
+            "psychological_trigger": "scarcity_real + loss_aversion",
+            "risks": "Le chiffre doit être VRAI et vérifiable côté back-office",
+            "template": "[N] places/produits restants cette [cohorte/saison/drop]"
+          },
+          {
+            "angle_id": "cohort_deadline",
+            "angle_label": "Deadline de cohorte / inscription",
+            "best_for": [
+              "edu",
+              "saas_b2b",
+              "service_local"
+            ],
+            "copy_examples": [
+              "Inscriptions fermées le 30 avril. Prochaine cohorte : septembre.",
+              "Campagne Mars — dernières 48h avant cut-off planning"
+            ],
+            "psychological_trigger": "urgency_real + commitment",
+            "risks": null,
+            "template": "Inscriptions fermées le [date fixe] — prochaine cohorte en [délai]"
+          },
+          {
+            "angle_id": "narrative_moment",
+            "angle_label": "Urgence narrative (sans timer)",
+            "best_for": [
+              "saas_b2b",
+              "service_local",
+              "edu"
+            ],
+            "copy_examples": [
+              "Avant la rentrée de septembre, posez les fondations de votre stack",
+              "Q1 se termine : ne rate pas ton bilan"
+            ],
+            "psychological_trigger": "urgency_contextual",
+            "risks": "Ne JAMAIS accompagner d'un countdown qui reset — voir anti-pattern scarcity_countdown_fake",
+            "template": "[Saison/événement contexte] = le bon moment pour [action]"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "trust",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "scarcity_countdown_fake",
+          "instead_do": "Scarcity honnête : 'X places restantes' réelles, cohortes datées, rentrée de saison. OU pas de scarcity du tout.",
+          "mobile_specific": false,
+          "pattern": "Timer/countdown qui se reset au refresh ou à l'arrivée sur la page",
+          "regulatory_risk": "DGCCRF Art. L121-1",
+          "why_bad": "Destruction du trust irréversible une fois détecté (et il est TOUJOURS détecté). Risque DGCCRF."
+        },
+        {
+          "category": "psychology",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "urgency_everywhere_diluted",
+          "instead_do": "Choisir 2 déclencheurs primaires alignés avec Schwartz awareness level + business_category. Les autres en soft-touch.",
+          "mobile_specific": false,
+          "pattern": "Urgence ET scarcity ET social proof ET authority ET reciprocity tous au max sur une seule page",
+          "regulatory_risk": null,
+          "why_bad": "Over-selling tue la conversion (Cialdini 2021 Ch. 'influence undone'). Sentiment de manipulation."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "psy_01",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.658926Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "psycho",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Urgence présente (0 signaux) mais pas assez impactante. Renforcer avec deadline concrète ou rareté réelle.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active",
+      "v32_weight_boost": 0.95
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour tech_02 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "tech_02",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.659432Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "tech",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Accessibilité partielle. Alt texts manquants sur 63 images. ARIA OK.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour tech_03 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "tech_03",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.659730Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "tech",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "SEO à améliorer : title à 23c (cible 30-60c), meta desc à 91c (cible 120-160c), ajouter schema markup JSON-LD. 📊 Cross-pages : excellent partout sauf sur collection — harmoniser avec le standard du reste du site.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour tech_04 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [],
+        "status": "active"
+      },
+      "criterion_id": "tech_04",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.659866Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "tech",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Tracking incomplet. Ajouter : Meta Pixel.",
+      "schwartz_awareness": "solution_aware",
+      "status": "active"
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour per_04 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "proof",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "social_proof_numbers_vague",
+          "instead_do": "Chiffre + source + date + méthodologie. Ex: '12 847 clients actifs (mise à jour mars 2026)' ou 'ROI moyen 3.2× mesuré sur 47 clients (étude Cabinet X 2025)'.",
+          "mobile_specific": false,
+          "pattern": "Chiffres de preuve sociale sans source : '+10000 clients satisfaits', 'ROI 300%' sans attribution",
+          "regulatory_risk": null,
+          "why_bad": "Perçu comme invention, même si vrai. Aucune crédibilité scientifique."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "per_04",
+      "effort": 2,
+      "enriched_at": "2026-04-18T10:45:35.651939Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "doctrine_threshold": "easy ≤3j / medium 4-7j / hard 8-14j / deferred >14j",
+        "effort_1to5": 2,
+        "effort_days": 2,
+        "feasibility_flag": "easy"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 21.0,
+      "impact": 5,
+      "perception": {
+        "component_type": "testimonial_block",
+        "count": 0,
+        "present": false
+      },
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P1",
+      "reco_text": "KILLER (P1 — Impact 5, Effort 2). Weglot manque de preuves factuelles (0 type(s) seulement). Ajouter : chiffres/pourcentages de résultats, études ou données tierces, grands nombres (clients, utilisateurs). Pour un SaaS, les visiteurs convertissent quand ils voient des chiffres concrets. Psychologie : chaque affirmation sans preuve = doute supplémentaire. 📊 Cross-pages : ce critère est correct sur home, pricing mais critique sur blog, collection — analyser ce qui fonctionne sur home et l'appliquer à blog.",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "criterion_id": "per_01",
+        "criterion_name": "Angle persuasif / Hook principal",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "pas_framework",
+            "angle_label": "Problem-Agitate-Solution",
+            "best_for": [
+              "problem_aware_audience",
+              "advertorial",
+              "vsl",
+              "dtc_subscription"
+            ],
+            "copy_examples": [
+              "Votre équipe perd 8h/semaine sur la saisie Excel. Ça coûte 40k€/an à votre boîte. Acme automatise tout en 20 min.",
+              "Tu dors mal ? Tu penses que c'est le stress. C'est ton matelas — voici pourquoi."
+            ],
+            "psychological_trigger": "pain_amplification + relief",
+            "risks": null,
+            "template": "[Identifier problème client] → [amplifier coût/conséquence] → [présenter solution]"
+          },
+          {
+            "angle_id": "bab_framework",
+            "angle_label": "Before-After-Bridge",
+            "best_for": [
+              "saas_b2b",
+              "edu",
+              "service_local",
+              "dtc_subscription"
+            ],
+            "copy_examples": [
+              "Avant : 12 outils, 3h/jour à consolider les data. Après : un dashboard unique. Le pont : Acme connecte tout en 10 min.",
+              "De no-code sans résultats à +200% leads en 6 semaines : la méthode Growth Society"
+            ],
+            "psychological_trigger": "transformation_narrative",
+            "risks": null,
+            "template": "[État actuel douloureux] → [état désiré idéal] → [le pont = votre produit]"
+          },
+          {
+            "angle_id": "proof_first",
+            "angle_label": "Preuve d'abord (Joanna Wiebe)",
+            "best_for": [
+              "saas_b2b",
+              "most_aware_audience",
+              "case_study"
+            ],
+            "copy_examples": [
+              "\"On a signé 14 deals enterprise en 90 jours.\" — CRO @ Doctolib. Voici comment Apollo.io y arrive.",
+              "47 000 clients Pennylane gagnent 5h/semaine — la méthode qu'on utilise en interne"
+            ],
+            "psychological_trigger": "social_proof + authority_first",
+            "risks": null,
+            "template": "[Résultat client chiffré + attribution] → [mécanisme] → [promesse]"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "copy",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "Déployez en 2 minutes sans toucher à votre stack (API REST compatible n'importe quel langage)"
+          ],
+          "id": "benefit_features_confusion",
+          "instead_do": "Benefit Laddering : feature → functional benefit → emotional benefit → identity. Exposer bénéfice fonctionnel + émotionnel, lister features en tab/accordion détail.",
+          "mobile_specific": false,
+          "pattern": "Liste features techniques mise en avant comme bénéfices",
+          "regulatory_risk": null,
+          "why_bad": "Client ne traduit pas spec en bénéfice (Harvard 'jobs-to-be-done' Christensen). Perte de conversion."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          },
+          {
+            "is_foundation": false,
+            "prerequisite_id": "coh_01",
+            "prerequisite_name": "Promesse de valeur unifiée (hero ↔ corps ↔ CTA)",
+            "rationale": "Sans value proposition unifiée, chaque bloc parle à un prospect différent → le copy persuasion n'a pas de centre de gravité.",
+            "typical_fix_effort_days": 3
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "per_01",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.651184Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "perception": {
+        "component_type": "social_proof_logos",
+        "count": 1,
+        "present": true
+      },
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Ratio bénéfices/features à 0% (cible ≥55%). Reformuler les 0 titres features en bénéfices client. Pour chaque feature : 'Et donc pour le client, ça veut dire…'",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour per_03 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "per_03",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.651407Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "1 objections couvertes (securite_rgpd), mais il manque : prix, complexité, migration. Formule : reconnaissance du doute + explication + preuve + micro-CTA.",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour per_09 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          },
+          {
+            "is_foundation": false,
+            "prerequisite_id": "coh_01",
+            "prerequisite_name": "Promesse de valeur unifiée (hero ↔ corps ↔ CTA)",
+            "rationale": "Sans value proposition unifiée, chaque bloc parle à un prospect différent → le copy persuasion n'a pas de centre de gravité.",
+            "typical_fix_effort_days": 3
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "per_09",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.653746Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Mismatch Schwartz majeur chez Weglot : ton hero 'unknown' vs attendu 'à aligner sur la source trafic dominante (UTM)'. Sur cold paid, un hero 'offre/prix' sur un trafic Unaware tue le message. Reformuler le hero : - Si trafic froid : pain-first éducatif (Problem-aware), pas de prix/offre; - Si retarget PDP : offre + urgence justifiée; - Si checkout/post-quiz : réassurance + conversion. Valider scent trail ad→LP sur le niveau de conscience.",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour per_10 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          },
+          {
+            "is_foundation": false,
+            "prerequisite_id": "coh_01",
+            "prerequisite_name": "Promesse de valeur unifiée (hero ↔ corps ↔ CTA)",
+            "rationale": "Sans value proposition unifiée, chaque bloc parle à un prospect différent → le copy persuasion n'a pas de centre de gravité.",
+            "typical_fix_effort_days": 3
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "per_10",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.654107Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "persuasion",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Aucune structure narrative identifiable sur Weglot — la page est une succession de blocs sans fil rouge. Reconstruire le copy autour d'un framework PAS (Problem-Agitate-Solution) ou SB7 (StoryBrand). Cible : ≥4 blocs séquentiels alignés avec le framework choisi. Tester 2 variantes du framework en A/B.",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.05
+    },
+    {
+      "ab_variants": {
+        "criterion_id": "coh_01",
+        "criterion_name": "Promesse unifiée (hero ↔ CTA ↔ corps)",
+        "min_variants_per_major_reco": 2,
+        "recommended_test_duration": {
+          "ecom_product_home": "14 jours min + 5k visitors per variant",
+          "lead_gen_simple": "10-14 jours + 3k sessions",
+          "luxe": "30+ jours, attention aux cycles saisonniers",
+          "quiz_vsl": "21 jours + cohorte complète quiz finish",
+          "saas_b2b_demo": "28 jours min + 2k sessions per variant"
+        },
+        "selection_context": {
+          "business_category": "saas",
+          "excluded_anti_patterns": [],
+          "schwartz_awareness": "solution_aware"
+        },
+        "variants": [
+          {
+            "angle_id": "one_promise_one_verb",
+            "angle_label": "Une promesse, un verbe",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c",
+              "dtc_subscription"
+            ],
+            "copy_examples": [
+              "'Automatiser' : H1 'Automatisez votre compta', CTA 'Commencer à automatiser', Section 'Ce qu'ils automatisent', FAQ 'Que puis-je automatiser ?'"
+            ],
+            "psychological_trigger": "clarity + commitment_consistency",
+            "risks": null,
+            "template": "Le même verbe/bénéfice central répété en hero, CTA, section proof, FAQ"
+          },
+          {
+            "angle_id": "moore_positioning_explicit",
+            "angle_label": "Moore positioning template explicite",
+            "best_for": [
+              "saas_b2b",
+              "saas_b2c"
+            ],
+            "copy_examples": [
+              "Pour les indépendants français qui détestent la compta, Pennylane est un logiciel de comptabilité qui automatise 90% des tâches, contrairement à Excel qui nécessite 5h/mois de saisie"
+            ],
+            "psychological_trigger": "clarity + segmentation",
+            "risks": null,
+            "template": "For [target] who [need], [product] is a [category] that [key benefit] unlike [alternative] which [limitation]"
+          }
+        ]
+      },
+      "anti_patterns": [
+        {
+          "category": "hero",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "Passez au digital sans toucher au code en 14 jours",
+            "Réduisez vos coûts serveur de 40% sans migration"
+          ],
+          "id": "h1_generic_brand_centric",
+          "instead_do": "H1 = bénéfice client spécifique + (si possible) chiffre ou délai. Formule : [Verbe action] + [transformation/bénéfice] + [spécificité/preuve]",
+          "mobile_specific": false,
+          "pattern": "H1 = 'Bienvenue chez [brand]', 'Notre entreprise', 'Nous sommes [brand]'",
+          "regulatory_risk": null,
+          "why_bad": "Zéro promesse client, langage corporate, pas de projection mentale. Visiteur = 'OK, et alors ?'"
+        },
+        {
+          "category": "copy",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [
+            "Déployez en 2 minutes sans toucher à votre stack (API REST compatible n'importe quel langage)"
+          ],
+          "id": "benefit_features_confusion",
+          "instead_do": "Benefit Laddering : feature → functional benefit → emotional benefit → identity. Exposer bénéfice fonctionnel + émotionnel, lister features en tab/accordion détail.",
+          "mobile_specific": false,
+          "pattern": "Liste features techniques mise en avant comme bénéfices",
+          "regulatory_risk": null,
+          "why_bad": "Client ne traduit pas spec en bénéfice (Harvard 'jobs-to-be-done' Christensen). Perte de conversion."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "coh_01",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.656493Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "perception": {
+        "component_type": "cta_band",
+        "count": 2,
+        "present": true
+      },
+      "pillar": "coherence",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Le premier écran de Weglot ne répond pas aux 3 questions. Restructurer le hero : H1 = proposition de valeur, sous-titre = preuve/méthode, CTA = action claire. Pour un SaaS : 'quoi, pour qui, quoi faire' sans scroller. ⚠️ Problème systémique : ce critère est critique sur TOUTES les pages (blog, collection, home, pricing) — correction prioritaire à l'échelle du site.\n\n📐 Arc narratif : Closing faible — ajouter CTA final + urgence + garantie dans les 500px finaux pour conversion finale",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.15
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour coh_02 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "trust",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "pricing_hidden_forced_form",
+          "instead_do": "Prix visible (même 'à partir de X€') + configurateur. Si vraiment custom B2B : fourchette 'entre X et Y par mois' + contact qualification.",
+          "mobile_specific": false,
+          "pattern": "Prix non-visible, CTA 'Nous contacter pour prix' en B2C ou SaaS self-serve",
+          "regulatory_risk": null,
+          "why_bad": "-40 à -60% conversion B2C (NNG 2019). Les visiteurs partent comparer sans revenir."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "coh_02",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.657049Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "coherence",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Le visiteur de Weglot ne sait pas si le produit est pour lui. Nommer la cible dans le H1/sous-titre, mentionner leur problème. En SaaS, identifier le persona type et s'adresser directement à lui. Psychologie : In-group bias — le visiteur convertit quand il se reconnaît. ⚠️ Problème systémique : ce critère est critique sur TOUTES les pages (blog, collection, home, pricing) — correction prioritaire à l'échelle du site.\n\n📐 Arc narratif : Closing faible — ajouter CTA final + urgence + garantie dans les 500px finaux pour conversion finale",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.15
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour coh_07 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "coh_07",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.657989Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "coherence",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Positioning Statement de Weglot illisible depuis la page. Construire le template : 'Pour [cible] qui [besoin], Weglot est le/la [catégorie] qui [bénéfice] parce que [différenciation unique]'. Les 5 composants doivent être reconstituables depuis le hero + section 2 sans ambiguïté. Composants manquants : cible/bénéfice/différenciation.",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.15
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour coh_08 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "hero_01",
+            "prerequisite_name": "H1 promesse claire",
+            "rationale": "H1 = colonne vertébrale du message. Sans H1 clair qui porte la promesse, optimiser le persuasion-stack (frameworks, benefit laddering, Schwartz, Moore positioning) revient à polir un message absent.",
+            "typical_fix_effort_days": 2
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : H1 promesse claire (hero_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "hero_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "coh_08",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.658324Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0.0,
+      "impact": null,
+      "pillar": "coherence",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Message Hierarchy perfectible sur Weglot : seulement 0 secondary identifié (cible 2-3). Audit : (1) reformuler 1 seul primary en hero; (2) s'assurer que 2-3 sections body soutiennent ce primary; (3) supprimer ou déplacer en footer les sections 'values/about/team' si elles ne prouvent pas le primary.",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 1.15
+    },
+    {
+      "ab_variants": {
+        "note": "Aucun angle A/B standardisé pour psy_08 — utiliser les variantes spécifiques de la reco.",
+        "variants": []
+      },
+      "anti_patterns": [
+        {
+          "category": "proof",
+          "detection_status": "advisory",
+          "dom_reason": null,
+          "examples_good": [],
+          "id": "testimonials_without_voc_attribution",
+          "instead_do": "Témoignage court + photo + nom + fonction + société (B2B) / ville + profession (B2C) + chiffre spécifique + reformulation en langage VoC client (mots du client, pas du marketing).",
+          "mobile_specific": false,
+          "pattern": "Témoignages sans photo, nom complet, fonction, entreprise, ou langage marketer-speak",
+          "regulatory_risk": null,
+          "why_bad": "Témoignage anonyme = zéro preuve sociale (Cialdini 2021). Langage marketer ('Solution incroyable qui a transformé notre business') = synthétique perçu."
+        }
+      ],
+      "business_category": "saas",
+      "cascade": {
+        "blocking_prerequisites": [
+          {
+            "is_foundation": false,
+            "prerequisite_id": "coh_01",
+            "prerequisite_name": "Promesse de valeur unifiée (hero ↔ corps ↔ CTA)",
+            "rationale": "Sans value proposition unifiée, chaque bloc parle à un prospect différent → le copy persuasion n'a pas de centre de gravité.",
+            "typical_fix_effort_days": 3
+          }
+        ],
+        "message": "Reco reportée — fixer d'abord : Promesse de valeur unifiée (hero ↔ corps ↔ CTA) (coh_01).",
+        "reason_code": "prerequisite_critical",
+        "revisit_when": "coh_01 status != critical",
+        "status": "deferred"
+      },
+      "criterion_id": "psy_08",
+      "effort": null,
+      "enriched_at": "2026-04-18T10:45:35.659275Z",
+      "enricher_version": "v1.0.0-doctrineV12-2026-04-13",
+      "feasibility": {
+        "effort_days": null,
+        "feasibility_flag": "unknown"
+      },
+      "guardrails_triggered": [],
+      "ice_score": 0,
+      "impact": null,
+      "pillar": "psycho",
+      "prerequisite_cascade": {
+        "blocked_by": [],
+        "blocks": []
+      },
+      "priority": "P3",
+      "reco_text": "Aucune Voice of Customer chez Weglot — copy en langage corporate. Ajouter : (a) ≥3 témoignages avec verbatims exacts entre guillemets (pas résumés), (b) ≥1 formulation vernaculaire dans H1/sub/body, (c) FAQ formulée comme le client la pose (pas en langage produit).",
+      "schwartz_awareness": "solution_aware",
+      "status": "deferred",
+      "v32_weight_boost": 0.95
+    }
+  ],
+  "schwartz_awareness": "solution_aware",
+  "schwartz_detection": {
+    "confidence": "low",
+    "level": "solution_aware",
+    "source": "page_type_default",
+    "trace": [
+      "page_type=collection → default solution_aware"
+    ]
+  },
+  "summary": {
+    "active_count": 21,
+    "anti_patterns_detected_count": 0,
+    "bonus_opportunity_count": 0,
+    "deferred_count": 10,
+    "effort_distribution": {
+      "deferred_>14d": 0,
+      "easy_<=3d": 3,
+      "hard_8-14d": 0,
+      "medium_4-7d": 0
+    },
+    "guardrails_triggered_count": 0,
+    "priority_distribution": {
+      "P0": 0,
+      "P1": 3,
+      "P2": 0,
+      "P3": 28
+    },
+    "schema_validation": {
+      "enabled": false,
+      "invalid_recos": 0,
+      "total_errors": 0
+    },
+    "suppressed_count": 0,
+    "total_recos": 31,
+    "v32_overlay_applied": true,
+    "v32_overlay_stats": {
+      "bonus_flagged": 0,
+      "manipulation_flagged": 0,
+      "na_suppressed": 0,
+      "optional_flagged": 0,
+      "required_promoted_p0": 0,
+      "rescue_demoted": 0,
+      "weight_boosted": 21
+    }
+  },
+  "v32_applicability_overlay": {
+    "applied": false,
+    "business_type": "saas",
+    "rules_matched": [],
+    "weight_bias": {
+      "coherence": 1.15,
+      "hero": 1.1,
+      "persuasion": 1.05,
+      "psycho": 0.95,
+      "tech": 1.0,
+      "ux": 1.0
+    }
+  },
+  "v32_contextual_overlay": {
+    "applied": false,
+    "rules_fired": [],
+    "total_delta": 0
+  }
+}

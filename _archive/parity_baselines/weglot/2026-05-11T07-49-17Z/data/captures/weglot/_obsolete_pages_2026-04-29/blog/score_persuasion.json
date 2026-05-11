@@ -1,0 +1,290 @@
+{
+  "_intelligence_applied": true,
+  "_intelligence_count": 6,
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "content_text",
+        "hero_band",
+        "pricing_tiers"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 67.6,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": true,
+      "pc_has_social_proof": false,
+      "pc_has_video": false,
+      "pc_num_components": 10,
+      "pc_num_cta_bands": 2,
+      "pc_num_value_prop": 3,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "hero_band",
+        "nav_bar",
+        "pricing_tiers",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 2
+    }
+  },
+  "_vision_lift_applied": true,
+  "_vision_lift_count": 1,
+  "activeCriteria": 7,
+  "capsApplied": [
+    "per_04_critical cap 9/21"
+  ],
+  "client": "weglot",
+  "criteria": [
+    {
+      "_intelligence_lift": {
+        "delta_pct": 31.7,
+        "new_pct": 65.0,
+        "new_score": 1.95,
+        "old_pct": 65.0,
+        "old_score": 1.95,
+        "reason": "Doctrine detected 0 outcome hits, but Vision shows H1 'easiest way', subtitle emphasizes 'instantly', 'go live', and 'mind-blowing simple' — all outcome-framed claims (time-to-value, simplicity, automation). Below-fold sections reinforce benefits (speed, accuracy, ease). Ratio is outcome-heavy; doct"
+      },
+      "applicable": true,
+      "evidence": {
+        "body_feature": 0,
+        "body_outcome": 0,
+        "feature_hits_headings": 0,
+        "outcome_hits_headings": 0,
+        "outcome_ratio": 0.0
+      },
+      "id": "per_01",
+      "label": "Bénéfices > features",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_has_social_proof": false,
+      "rationale": "Outcome hits dans H1/subtitle/headings=0 vs features=0. Ratio outcome/(outcome+feature)=0.00. Top>=0.55+out>=3, OK>=0.30, critical<0.30.",
+      "score": 1.95,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 1.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 25.0,
+        "new_pct": 25.0,
+        "new_score": 0.75,
+        "old_pct": 75.0,
+        "old_score": 2.25,
+        "reason": "Doctrine found 0 founder storytelling signals. However, for SaaS B2B lead-gen funnels, founder narrative is secondary to product demo + social proof. Page compensates with strong product positioning and platform credibility. Bump to 25% reflects that absence is acceptable for this vertical/intent, n"
+      },
+      "_vision_lift": {
+        "new_score": 2.25,
+        "old_score": 0.75,
+        "reason": "primary_cta_focus_intentional"
+      },
+      "applicable": true,
+      "evidence": {
+        "has_mission": false,
+        "has_origin": false,
+        "has_trigger": false,
+        "signals": {},
+        "total_distinct": 0
+      },
+      "id": "per_02",
+      "label": "Storytelling fondateur",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: ≥3 signaux distincts + déclencheur + (mission OR origine). OK: origine + mission sans déclencheur. Weak: ≥1 signal isolé. Critical: 0.",
+      "score": 0.75,
+      "verdict": "critical",
+      "weight": 1.0,
+      "weightedScore": 0.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 5.3,
+        "new_pct": 72.0,
+        "new_score": 2.16,
+        "old_pct": 72.0,
+        "old_score": 2.16,
+        "reason": "Doctrine scored 2/3 on objection handling (FAQ or explicit blockers). Vision confirms FAQ section addresses 4+ objections implicitly (integration speed, human refinement, multilingual support, ease of setup). Scoring already strong; minor bump reflects coherent objection-handling through FAQ placeme"
+      },
+      "applicable": true,
+      "evidence": {
+        "distinct_objections_covered": 1,
+        "faq_question_count": 9,
+        "objection_markers_hit": {
+          "securite_rgpd": 2
+        }
+      },
+      "id": "per_03",
+      "label": "Objections levées",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: ≥4 objections distinctes + FAQ ≥5 Q. OK: ≥2 objections ou FAQ ≥4 Q. Weak: ≥1. Critical: 0.",
+      "score": 2.16,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 2.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 40.0,
+        "new_pct": 40.0,
+        "new_score": 1.2,
+        "old_pct": 40.0,
+        "old_score": 1.2,
+        "reason": "Doctrine scored 0 for concrete proof (no stats/studies/metrics). Vision shows 4.8★/4.9★ ratings from 3 platforms — this IS quantified proof, though indirect. For SaaS freemium, star ratings on G2/WordPress are PRIMARY credibility proof. Bump reflects that doctrine's definition of 'proof' (% improvem"
+      },
+      "applicable": true,
+      "evidence": {
+        "before_after": 0,
+        "big_numbers": 0,
+        "percent_mentions": 1,
+        "press_logos": 0,
+        "proof_types_distinct": 0,
+        "study_mentions": 0,
+        "trust_widgets": 0,
+        "year_experience": 0
+      },
+      "id": "per_04",
+      "label": "Preuves concrètes",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_social_proof_count": 0,
+      "rationale": "Top: ≥4 types de preuves + (3+ % OU étude). OK: ≥2 types. Weak: 1 type. Critical: 0.",
+      "score": 1.2,
+      "verdict": "critical",
+      "weight": 1.0,
+      "weightedScore": 0.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 35.0,
+        "new_pct": 35.0,
+        "new_score": 1.05,
+        "old_pct": 35.0,
+        "old_score": 1.05,
+        "reason": "Doctrine found 0 named testimonials. Vision-crawl did not reveal customer testimonials with names/photos below fold. However, 4.8★ G2 badge typically links to verified review widgets (not on-page visible). For SaaS freemium funnels, absence of on-page testimonials is gap but not critical if social p"
+      },
+      "applicable": true,
+      "evidence": {
+        "has_photo": false,
+        "has_verified_widget": false,
+        "named_count": 0,
+        "testimonial_count": 0,
+        "video_testimonial_hits": 0
+      },
+      "id": "per_05",
+      "label": "Témoignages nommés + photo/vidéo",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_cta_bands_count": 2,
+      "rationale": "Top: (vidéo OU widget vérifié) + ≥2 nommés + photo. OK: ≥2 nommés OU widget. Weak: ≥1 témoignage. Critical: 0.",
+      "score": 1.05,
+      "verdict": "critical",
+      "weight": 0.7,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "business_q": 0,
+        "categories": [
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "autre"
+        ],
+        "categories_distinct": 0,
+        "faq_count": 9,
+        "sample_questions": [
+          "our integration?",
+          "out, and their pros and cons. Elizabeth Pokorny March 26, 2026 Website translation How Accurate is Google Translate?",
+          "ou can implement them in your business as well. Merve Alsan March 4, 2025 March 23, 2026 Website translation Does AI Favor Translated Content?",
+          "our international search visibility. Elizabeth Pokorny April 8, 2026 International marketing Does Google&#x27;s AI Favor YouTube?",
+          "Out Does Gemini cite YouTube more because it&#x27;s Google&#x27;s?",
+          "our First International Market Expansion Opportunity Expanding into new markets?",
+          "our DNS records while setting up a project or switching to subdomains or subdirectories?",
+          "ou discover important Weglot features you might have missed. New User Permission : Billing access We&#x27;ve often been asked, &quot;Why isn&#x27;t your translation tool translated?"
+        ]
+      },
+      "id": "per_06",
+      "label": "FAQ ciblée objections",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=blog",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 24.7,
+        "new_pct": 58.0,
+        "new_score": 1.74,
+        "old_pct": 58.0,
+        "old_score": 1.74,
+        "reason": "Doctrine scored 1/3 on brand voice (limited punchlines detected). Vision shows consistent conversational, slightly playful tone ('mind-blowing simple', subtitle enthusiasm) but volume of distinct voice signals is modest. Bump reflects that SaaS B2B voice doesn't require high punchline density — cons"
+      },
+      "applicable": true,
+      "evidence": {
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "per_07",
+      "label": "Ton cohérent",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: adresse stable + ≥3 punchlines. OK: adresse stable volume ≥20. Weak: mix ou faible volume.",
+      "score": 1.74,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 1.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "distinct_jargon_patterns": 0,
+        "jargon_hits": {},
+        "jargon_total": 0
+      },
+      "id": "per_08",
+      "label": "Absence de jargon creux",
+      "max": 3,
+      "rationale": "Top: 0 hit. OK: 1-4 hits. Weak: 5-7 hits. Critical: ≥8 hits → cap 20/24.",
+      "score": 3,
+      "verdict": "top",
+      "weight": 1.0,
+      "weightedScore": 3.0
+    }
+  ],
+  "finalCapped": 7.31,
+  "finalMax": 21,
+  "finalNormalized": 7.31,
+  "finalRounded": 7.5,
+  "finalTotal": 11.85,
+  "gridVersion": "3.2.0-draft",
+  "pageType": "blog",
+  "rawMax": 21,
+  "rawTotal": 11.85,
+  "score100": 56.4,
+  "scoredAt": "2026-04-17T08:29:12.815815+00:00",
+  "scoredBy": "score_persuasion.py v2.0",
+  "skippedCriteria": [
+    "per_06"
+  ],
+  "url": "https://weglot.com",
+  "verdict": "Killer triggered",
+  "weightedMax": 20.1,
+  "weightedSum": 7.0
+}

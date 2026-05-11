@@ -1,0 +1,985 @@
+{
+  "_criterion_crops_generated": true,
+  "_semantic_mapped": true,
+  "criterion_crops": {
+    "coh_01": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 592,
+          "x": 732,
+          "y": 269
+        }
+      ],
+      "label": "Promesse 5 sec",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_02": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 592,
+          "x": 732,
+          "y": 269
+        }
+      ],
+      "label": "Cible identifiable",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_03": {
+      "highlights": [],
+      "label": "Cohérence message",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_04": {
+      "highlights": [],
+      "label": "Positionnement",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_01": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 592,
+          "x": 732,
+          "y": 269
+        }
+      ],
+      "label": "Titre principal (H1)",
+      "y_end": 475,
+      "y_start": 189,
+      "zone": "HERO_SECTION"
+    },
+    "hero_02": {
+      "highlights": [],
+      "label": "Sous-titre",
+      "y_end": 595,
+      "y_start": 269,
+      "zone": "HERO_SECTION"
+    },
+    "hero_03": {
+      "highlights": [
+        {
+          "h": 42,
+          "w": 115,
+          "x": 1285,
+          "y": 15
+        }
+      ],
+      "label": "CTA principal",
+      "y_end": 137,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_04": {
+      "highlights": [
+        {
+          "h": 69,
+          "w": 45,
+          "x": 412,
+          "y": 3
+        },
+        {
+          "h": 72,
+          "w": 89,
+          "x": 1113,
+          "y": 0
+        },
+        {
+          "h": 72,
+          "w": 35,
+          "x": 1226,
+          "y": 0
+        },
+        {
+          "h": 42,
+          "w": 115,
+          "x": 1285,
+          "y": 15
+        },
+        {
+          "h": 48,
+          "w": 339,
+          "x": 550,
+          "y": 836
+        }
+      ],
+      "label": "Isolation CTA (focus)",
+      "y_end": 801,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_05": {
+      "highlights": [],
+      "label": "Visuel produit/service",
+      "y_end": 600,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_06": {
+      "highlights": [],
+      "label": "Lisibilité en 5 secondes",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_07": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_08": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_09": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_10": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "per_01": {
+      "highlights": [],
+      "label": "Bénéfices vs features",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_02": {
+      "highlights": [],
+      "label": "Storytelling fondateur",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_03": {
+      "highlights": [],
+      "label": "Objections levées",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_04": {
+      "highlights": [],
+      "label": "Social proof",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_05": {
+      "highlights": [],
+      "label": "Urgence/rareté",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_06": {
+      "highlights": [],
+      "label": "Garanties",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "psy_01": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_02": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_03": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_04": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_05": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_06": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_01": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_02": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_03": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_04": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_05": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_06": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_01": {
+      "highlights": [],
+      "label": "Hiérarchie visuelle",
+      "y_end": 801,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_02": {
+      "highlights": [],
+      "label": "Rythme de page",
+      "y_end": 801,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_03": {
+      "highlights": [],
+      "label": "Scan-ability",
+      "y_end": 801,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_04": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_05": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_06": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    }
+  },
+  "hero": {
+    "ctas": [],
+    "h1": "International ecommerce",
+    "h1Count": 1,
+    "h1ParasiticFiltered": 0,
+    "h1Source": "h1",
+    "heroImages": [
+      {
+        "alt": "weglot logo",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678640efd4d181f55a374fd9_weglot%20logo.svg"
+      },
+      {
+        "alt": "Arrow down",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6786438aa08bc05b3b8c28bc_Vector.svg"
+      }
+    ],
+    "primaryCta": {
+      "label": "Try for free",
+      "source": "semantic_mapper"
+    },
+    "socialProofInFold": {
+      "present": false,
+      "snippet": "",
+      "type": null
+    },
+    "subtitle": "Reach new audiences in minutes without sacrificing your team’s time. Anyone can install it.\nThank you! Your submission has been received!\nOops! Something went wrong while submitting the form."
+  },
+  "hero_semantic": {
+    "headline": "International ecommerce",
+    "headline_font_size": 63.0,
+    "headline_y": 269,
+    "images": [],
+    "primary_cta": "Try for free",
+    "primary_cta_y": 15,
+    "secondary_ctas": [
+      "Pricing",
+      "Contact sales",
+      "Have a question about Weglot?"
+    ],
+    "subtitle": null,
+    "subtitle_y": null
+  },
+  "meta": {
+    "captureLevel": 0,
+    "captureSource": "ghost_capture.js (page.html rendered)",
+    "capturedAt": "2026-04-17T08:29:12.649964+00:00",
+    "capturedBy": "playwright-rendered-dom-v3",
+    "completeness": 1,
+    "confidence": "high",
+    "errors": [],
+    "fetchTimeMs": 0,
+    "finalUrl": "https://weglot.com",
+    "label": "weglot__collection",
+    "metaDescription": "Reach new audiences in minutes without sacrificing your team’s time. Anyone can install it.",
+    "pageType": "collection",
+    "stagesCompleted": [
+      "fetch",
+      "extract",
+      "html"
+    ],
+    "title": "International ecommerce",
+    "url": "https://weglot.com"
+  },
+  "overlays": {
+    "chatWidgets": [],
+    "cookieBanner": {
+      "cmpDetected": "axeptio",
+      "present": true,
+      "removalMethod": "none"
+    }
+  },
+  "pageSpecific": {
+    "has_breadcrumb": false,
+    "has_filters": true,
+    "has_pagination": true,
+    "product_cards_count": 244
+  },
+  "psychoSignals": {
+    "award_mentions": 0,
+    "certification_mentions": 0,
+    "expert_mentions": 3,
+    "has_countdown": false,
+    "has_crossed_price": false,
+    "has_deadline": false,
+    "has_discount_badge": false,
+    "has_free_offer": false,
+    "has_guarantee": false,
+    "has_press_logos": true,
+    "has_stock_indicator": false,
+    "loss_framing": 0,
+    "media_mentions": 0,
+    "scarcity_words": 0,
+    "urgency_words": 0,
+    "user_count_mentions": 0
+  },
+  "rawHtml": "page.html",
+  "screenshots": {},
+  "semantic_map": [
+    {
+      "element_count": 27,
+      "headline": "International ecommerce",
+      "height": 801,
+      "type": "HERO_SECTION",
+      "y_end": 801,
+      "y_start": 0
+    },
+    {
+      "element_count": 126,
+      "headline": "The Business Case for Ecommerce Localization Beyond Translation",
+      "height": 2163,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2964,
+      "y_start": 801
+    },
+    {
+      "element_count": 18,
+      "headline": "The Complete Ecommerce Localization Checklist To Drive Global Sales",
+      "height": 631,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1432,
+      "y_start": 801
+    },
+    {
+      "element_count": 18,
+      "headline": "Professional Localization Services vs Translation Plugins: Which Path Scales You",
+      "height": 631,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1432,
+      "y_start": 801
+    },
+    {
+      "element_count": 3,
+      "headline": "",
+      "height": 333,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1409,
+      "y_start": 1076
+    },
+    {
+      "element_count": 15,
+      "headline": "How Ecommerce Localization Builds Trust and Drives Global Conversions",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2076,
+      "y_start": 1473
+    },
+    {
+      "element_count": 18,
+      "headline": "Shopify vs WooCommerce for Multilingual Ecommerce Stores",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2076,
+      "y_start": 1473
+    },
+    {
+      "element_count": 18,
+      "headline": "How to Create a Multilingual WooCommerce Store (Free & Paid Options)",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2076,
+      "y_start": 1473
+    },
+    {
+      "element_count": 3,
+      "headline": "",
+      "height": 304,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2052,
+      "y_start": 1748
+    },
+    {
+      "element_count": 15,
+      "headline": "Shopify AI Tools: The Ultimate List",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2718,
+      "y_start": 2115
+    },
+    {
+      "element_count": 18,
+      "headline": "Advanced Shopify Localization Strategies for Global Growth",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2718,
+      "y_start": 2115
+    },
+    {
+      "element_count": 18,
+      "headline": "Shopify Translate & Adapt: Addressing Key Limitations",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2718,
+      "y_start": 2115
+    },
+    {
+      "element_count": 3,
+      "headline": "",
+      "height": 304,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2694,
+      "y_start": 2390
+    },
+    {
+      "element_count": 1,
+      "headline": "",
+      "height": 62,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2844,
+      "y_start": 2782
+    },
+    {
+      "element_count": 13,
+      "headline": "Ready to get started?",
+      "height": 485,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3449,
+      "y_start": 2964
+    },
+    {
+      "element_count": 1,
+      "headline": "",
+      "height": 484,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3448,
+      "y_start": 2964
+    },
+    {
+      "element_count": 206,
+      "headline": "",
+      "height": 536,
+      "type": "FOOTER",
+      "y_end": 3985,
+      "y_start": 3449
+    }
+  ],
+  "socialProof": {
+    "reviewCounts": [],
+    "testimonials": [],
+    "trustWidgets": []
+  },
+  "structure": {
+    "ctas": [
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "isPrimary": true,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary w-inline-block",
+        "href": "https://dashboard.weglot.com/register/",
+        "inFold": false,
+        "label": "Get started for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register/",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Book a demo",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://weglot.com",
+        "inFold": false,
+        "label": "Subscribe now",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "w-pagination-next button tertiary",
+        "href": "https://weglot.com?b5c1d1b4_page=2",
+        "inFold": false,
+        "label": "Next page",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "?b5c1d1b4_page=2",
+        "tag": "a"
+      },
+      {
+        "classes": "button-4 w-button",
+        "href": "https://weglot.com",
+        "inFold": false,
+        "label": "Close",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      }
+    ],
+    "forms": [
+      {
+        "action": "",
+        "fields": 2,
+        "hiddenInputs": 0,
+        "inputs": 2,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 0
+      },
+      {
+        "action": "",
+        "fields": 2,
+        "hiddenInputs": 0,
+        "inputs": 2,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 0
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "order": 1,
+        "text": "International ecommerce"
+      },
+      {
+        "level": 3,
+        "order": 2,
+        "text": "The Business Case for Ecommerce Localization Beyond Translation"
+      },
+      {
+        "level": 3,
+        "order": 3,
+        "text": "The Complete Ecommerce Localization Checklist To Drive Global Sales"
+      },
+      {
+        "level": 3,
+        "order": 4,
+        "text": "Professional Localization Services vs Translation Plugins: Which Path Scales Your Ecommerce"
+      },
+      {
+        "level": 3,
+        "order": 5,
+        "text": "How Ecommerce Localization Builds Trust and Drives Global Conversions"
+      },
+      {
+        "level": 3,
+        "order": 6,
+        "text": "Shopify vs WooCommerce for Multilingual Ecommerce Stores"
+      },
+      {
+        "level": 3,
+        "order": 7,
+        "text": "How to Create a Multilingual WooCommerce Store (Free & Paid Options)"
+      },
+      {
+        "level": 3,
+        "order": 8,
+        "text": "Shopify AI Tools: The Ultimate List"
+      },
+      {
+        "level": 3,
+        "order": 9,
+        "text": "Advanced Shopify Localization Strategies for Global Growth"
+      },
+      {
+        "level": 3,
+        "order": 10,
+        "text": "Shopify Translate & Adapt: Addressing Key Limitations"
+      },
+      {
+        "level": 2,
+        "order": 11,
+        "text": "Ready to get started?"
+      },
+      {
+        "level": 3,
+        "order": 12,
+        "text": "Subscribe to our Newsletter"
+      }
+    ]
+  },
+  "techSignals": {
+    "dom_nodes": 1132,
+    "external_css_count": 0,
+    "external_scripts_count": 10,
+    "form_inputs_count": 4,
+    "form_labels_count": 0,
+    "h1_count": 1,
+    "has_aria_labels": true,
+    "has_canonical": true,
+    "has_charset": true,
+    "has_favicon": true,
+    "has_h1": true,
+    "has_hsts": false,
+    "has_lang": true,
+    "has_meta_desc": true,
+    "has_og_tags": true,
+    "has_robots": false,
+    "has_role_attributes": true,
+    "has_schema_org": false,
+    "has_skip_link": false,
+    "has_title": true,
+    "has_viewport": true,
+    "html_size_bytes": 206647,
+    "images_lazy_loaded": 138,
+    "images_total": 138,
+    "images_without_alt": 63,
+    "images_without_alt_count": 63,
+    "inline_style_blocks": 5,
+    "is_https": true,
+    "meta_desc_length": 91,
+    "robots_content": "",
+    "schema_types": [],
+    "third_party_domains": [
+      "www.google.com",
+      "cdn.weglot.com",
+      "cdn-4.convertexperiments.com",
+      "cdn.prod.website-files.com",
+      "app.concierge.ai",
+      "static.cloudflareinsights.com",
+      "ajax.googleapis.com",
+      "d3e54v103j8qbb.cloudfront.net"
+    ],
+    "title_length": 23
+  },
+  "technical": {
+    "canonical": "https://www.weglot.com/category/international-ecommerce",
+    "charset": "utf-8",
+    "domNodes": 1132,
+    "favicon": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e6de156e5ca852745_649180bb70e6f03c6d4dcc3d_favicon-32x32.png",
+    "lang": "en",
+    "metaDescription": "Reach new audiences in minutes without sacrificing your team’s time. Anyone can install it.",
+    "ogDescription": "Reach new audiences in minutes without sacrificing your team’s time. Anyone can install it.",
+    "ogImage": "",
+    "ogTitle": "International ecommerce",
+    "robots": "",
+    "schemaOrg": [],
+    "title": "International ecommerce",
+    "viewport": "width=device-width, initial-scale=1"
+  },
+  "uxSignals": {
+    "body_words": 1125,
+    "bold_count": 0,
+    "bullet_lists": 10,
+    "css_transitions": 0,
+    "dom_nodes": 1132,
+    "h2_count": 1,
+    "has_accordion": false,
+    "has_back_to_top": false,
+    "has_carousel": true,
+    "has_details_summary": false,
+    "has_progress_bar": false,
+    "has_slick": false,
+    "has_swiper": false,
+    "img_count": 138,
+    "lazy_images": 138,
+    "list_items": 40,
+    "overflow_x_patterns": 1,
+    "section_tags": 3,
+    "smooth_scroll": false,
+    "sticky_fixed": 0
+  },
+  "zone_crops": [
+    {
+      "headline": "International ecommerce",
+      "height": 811,
+      "y_end": 811,
+      "y_start": 0,
+      "zone_type": "HERO_SECTION"
+    },
+    {
+      "headline": "The Business Case for Ecommerce Localization Beyond Translation",
+      "height": 2183,
+      "y_end": 2974,
+      "y_start": 791,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "The Complete Ecommerce Localization Checklist To Drive Global Sales",
+      "height": 651,
+      "y_end": 1442,
+      "y_start": 791,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Professional Localization Services vs Translation Plugins: Which Path Scales You",
+      "height": 651,
+      "y_end": 1442,
+      "y_start": 791,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 353,
+      "y_end": 1419,
+      "y_start": 1066,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How Ecommerce Localization Builds Trust and Drives Global Conversions",
+      "height": 623,
+      "y_end": 2086,
+      "y_start": 1463,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Shopify vs WooCommerce for Multilingual Ecommerce Stores",
+      "height": 623,
+      "y_end": 2086,
+      "y_start": 1463,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How to Create a Multilingual WooCommerce Store (Free & Paid Options)",
+      "height": 623,
+      "y_end": 2086,
+      "y_start": 1463,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 324,
+      "y_end": 2062,
+      "y_start": 1738,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Shopify AI Tools: The Ultimate List",
+      "height": 623,
+      "y_end": 2728,
+      "y_start": 2105,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Advanced Shopify Localization Strategies for Global Growth",
+      "height": 623,
+      "y_end": 2728,
+      "y_start": 2105,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Shopify Translate & Adapt: Addressing Key Limitations",
+      "height": 623,
+      "y_end": 2728,
+      "y_start": 2105,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 324,
+      "y_end": 2704,
+      "y_start": 2380,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 82,
+      "y_end": 2854,
+      "y_start": 2772,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Ready to get started?",
+      "height": 505,
+      "y_end": 3459,
+      "y_start": 2954,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 504,
+      "y_end": 3458,
+      "y_start": 2954,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 546,
+      "y_end": 3985,
+      "y_start": 3439,
+      "zone_type": "FOOTER"
+    }
+  ]
+}

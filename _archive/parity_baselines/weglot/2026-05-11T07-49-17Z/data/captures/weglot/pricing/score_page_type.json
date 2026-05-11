@@ -1,0 +1,1073 @@
+{
+  "aggregate": {
+    "bt_weight_bias": {
+      "coherence": 1.15,
+      "hero": 1.1,
+      "persuasion": 1.05,
+      "psycho": 0.95,
+      "tech": 1.0,
+      "ux": 1.0
+    },
+    "bt_weighted_score100": 66.4,
+    "delta_vs_expected": 0.0,
+    "expectedRawMax": 147,
+    "funnel_weight_applied": null,
+    "linearScore100": 67.7,
+    "pageTypeMultipliers": null,
+    "rawMax": 147.0,
+    "rawTotal": 99.5,
+    "score100": 67.7,
+    "score100_funnel_aware": null,
+    "score100_intro_only": 67.7,
+    "weightedScore100": null
+  },
+  "applicability_overlay": {
+    "applied": false,
+    "bonus_hits": [],
+    "business_type": "saas",
+    "label": "weglot",
+    "optional_flags": [],
+    "page_type": "pricing",
+    "page_type_resolved": "pricing",
+    "removed_na": [],
+    "required_hits": [],
+    "rules_matched": [
+      "rule_saas_coherence_required"
+    ],
+    "rules_matched_count": 1,
+    "version": "1.0 (doctrine v3.2.0-draft)",
+    "weight_bias": {
+      "coherence": 1.15,
+      "hero": 1.1,
+      "persuasion": 1.05,
+      "psycho": 0.95,
+      "tech": 1.0,
+      "ux": 1.0
+    },
+    "weighted_per_pillar": {
+      "coherence": {
+        "score100": 55.6,
+        "weight": 1.15,
+        "weighted_score100": 63.94
+      },
+      "hero": {
+        "score100": 40.0,
+        "weight": 1.1,
+        "weighted_score100": 44.0
+      },
+      "persuasion": {
+        "score100": 61.7,
+        "weight": 1.05,
+        "weighted_score100": 64.79
+      },
+      "psycho": {
+        "score100": 62.5,
+        "weight": 0.95,
+        "weighted_score100": 59.38
+      },
+      "tech": {
+        "score100": 100.0,
+        "weight": 1.0,
+        "weighted_score100": 100.0
+      },
+      "ux": {
+        "score100": 87.5,
+        "weight": 1.0,
+        "weighted_score100": 87.5
+      }
+    }
+  },
+  "contextual_overlay": {
+    "adjustments": [],
+    "adjustments_count": 0,
+    "applied": false,
+    "by_pillar_delta": {},
+    "group_stats": {
+      "BENEFIT_FLOW": {
+        "max_score": 3.0,
+        "mean_score": 1.93,
+        "members_present": 7,
+        "min_score": 1.5,
+        "sigma": 0.68
+      },
+      "COHERENCE_FULL": {
+        "max_score": 3.0,
+        "mean_score": 1.69,
+        "members_present": 8,
+        "min_score": 0.0,
+        "sigma": 1.17
+      },
+      "EMOTIONAL_DRIVERS": {
+        "max_score": 3.0,
+        "mean_score": 2.0,
+        "members_present": 6,
+        "min_score": 0.0,
+        "sigma": 1.12
+      },
+      "HERO_ENSEMBLE": {
+        "max_score": 1.5,
+        "mean_score": 1.2,
+        "members_present": 5,
+        "min_score": 0.0,
+        "sigma": 0.6
+      },
+      "SOCIAL_PROOF_STACK": {
+        "max_score": 2.0,
+        "mean_score": 1.75,
+        "members_present": 4,
+        "min_score": 1.5,
+        "sigma": 0.25
+      },
+      "TECH_FOUNDATION": {
+        "max_score": 3.0,
+        "mean_score": 3.0,
+        "members_present": 5,
+        "min_score": 3.0,
+        "sigma": 0.0
+      },
+      "VISUAL_HIERARCHY": {
+        "max_score": 3.0,
+        "mean_score": 3.0,
+        "members_present": 4,
+        "min_score": 3.0,
+        "sigma": 0.0
+      }
+    },
+    "perception_available": true,
+    "rules_fired": [],
+    "total_delta": 0,
+    "version": "1.0 (doctrine v3.2.0-draft)"
+  },
+  "doctrineVersion": "v3.2.0-draft — doctrine V13 — 2026-04-18 (ensemble-aware)",
+  "exclusions": {
+    "applied": [
+      "hero_03",
+      "per_02"
+    ],
+    "count": 2,
+    "reasons": {
+      "hero_03": "Pas de visuel produit en usage sur une page pricing — le hero est la grille de prix",
+      "per_02": "Pas de storytelling narratif sur une page pricing (c'est de la comparaison rationnelle)"
+    }
+  },
+  "funnel": {
+    "applicable": false,
+    "score100": null
+  },
+  "label": "weglot",
+  "maxPerPageType": {
+    "rawMax": 147,
+    "scoreBase": 100,
+    "specific": 4,
+    "total": 49,
+    "universal": 45
+  },
+  "notes": [
+    "Universal criteria are filtered post-scorer using page_type_criteria.json.universalExclusions.",
+    "Specific criteria are scored by score_specific_criteria.py (35 detectors + LLM-review fallback).",
+    "Dual-viewport aggregation is delegated to bloc scorers' own viewport_check logic.",
+    "delta_vs_expected should be ≈ 0 once all bloc scorers expose criterion IDs cleanly.",
+    "Semantic overlay (v1.0, 2026-04-18): Haiku scores replace regex for 18 creative criteria when score_semantic.json exists. Each kept_criterion with method='semantic_haiku' also stores regex_score/regex_verdict for traceability. Pillar rawTotal / score100 are recomputed post-overlay; aggregate follows.",
+    "Contextual overlay (P1.B, doctrine v3.2.0-draft, 2026-04-18): ENSEMBLE-scope criteria may be rescued upwards by strong peers in the same synergy group (HERO_ENSEMBLE, BENEFIT_FLOW, SOCIAL_PROOF_STACK…) or penalized for contradictions (manipulation flag: urgency without risk reversal). Each affected kept_criterion records pre_contextual_score/tier + contextual_rule + rationale. ASSET-scope criteria (tech_*, counts) are INVARIANT."
+  ],
+  "pageType": "pricing",
+  "semantic_overlay": {
+    "applied": true,
+    "by_pillar_delta": {
+      "coherence": 6.0,
+      "hero": 1.5,
+      "persuasion": 0.5,
+      "psycho": -4.5,
+      "tech": 0.0,
+      "ux": 0.0
+    },
+    "criteria_count": 17,
+    "criteria_overridden": [
+      {
+        "delta": 1.5,
+        "id": "hero_01",
+        "pillar": "hero",
+        "regex_score": 0.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 0.0,
+        "id": "hero_02",
+        "pillar": "hero",
+        "regex_score": 1.5,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 1.5,
+        "id": "hero_04",
+        "pillar": "hero",
+        "regex_score": 0.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": -1.5,
+        "id": "hero_05",
+        "pillar": "hero",
+        "regex_score": 3.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 0.0,
+        "id": "hero_06",
+        "pillar": "hero",
+        "regex_score": 0.0,
+        "semantic_score": 0.0,
+        "verdict": "critical"
+      },
+      {
+        "delta": 0.5,
+        "id": "per_01",
+        "pillar": "persuasion",
+        "regex_score": 1.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": -0.5,
+        "id": "per_03",
+        "pillar": "persuasion",
+        "regex_score": 2.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 0.5,
+        "id": "per_07",
+        "pillar": "persuasion",
+        "regex_score": 1.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 0.0,
+        "id": "per_08",
+        "pillar": "persuasion",
+        "regex_score": 3.0,
+        "semantic_score": 3.0,
+        "verdict": "top"
+      },
+      {
+        "delta": 1.5,
+        "id": "coh_01",
+        "pillar": "coherence",
+        "regex_score": 0.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 1.5,
+        "id": "coh_02",
+        "pillar": "coherence",
+        "regex_score": 0.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 3.0,
+        "id": "coh_03",
+        "pillar": "coherence",
+        "regex_score": 0.0,
+        "semantic_score": 3.0,
+        "verdict": "top"
+      },
+      {
+        "delta": 0.0,
+        "id": "coh_05",
+        "pillar": "coherence",
+        "regex_score": 1.5,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 0.0,
+        "id": "psy_01",
+        "pillar": "psycho",
+        "regex_score": 1.5,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": -3.0,
+        "id": "psy_02",
+        "pillar": "psycho",
+        "regex_score": 3.0,
+        "semantic_score": 0.0,
+        "verdict": "critical"
+      },
+      {
+        "delta": 0.0,
+        "id": "psy_05",
+        "pillar": "psycho",
+        "regex_score": 1.5,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": -1.5,
+        "id": "psy_08",
+        "pillar": "psycho",
+        "regex_score": 3.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      }
+    ],
+    "model": "claude-haiku-4-5-20251001",
+    "semantic_criteria_available": [
+      "coh_01",
+      "coh_02",
+      "coh_03",
+      "coh_05",
+      "hero_01",
+      "hero_02",
+      "hero_04",
+      "hero_05",
+      "hero_06",
+      "per_01",
+      "per_02",
+      "per_03",
+      "per_07",
+      "per_08",
+      "psy_01",
+      "psy_02",
+      "psy_05",
+      "psy_08"
+    ],
+    "total_delta": 3.5,
+    "version": "1.0"
+  },
+  "specific": {
+    "rawMax": 12,
+    "rawTotal": 9.0,
+    "result": {
+      "doctrineVersion": "v3.1.0 — doctrine V12 — 2026-04-13",
+      "maxPerPageType": {
+        "rawMax": 147,
+        "scoreBase": 100,
+        "specific": 4,
+        "total": 49,
+        "universal": 45
+      },
+      "pageType": "pricing",
+      "rawMax": 12,
+      "rawTotal": 9.0,
+      "results": [
+        {
+          "confidence": "high",
+          "id": "price_01",
+          "label": "Comparaison de plans claire et scannable (tableau ou cards côte à côte, features alignées)",
+          "pillar": "ux",
+          "proof": {
+            "plans": 11
+          },
+          "score": 3.0,
+          "signal": "Tableau + 11 plans",
+          "tier": "top",
+          "viewport_check": null
+        },
+        {
+          "confidence": "low",
+          "id": "price_02",
+          "label": "Plan recommandé mis en avant (badge 'populaire', couleur, taille différente)",
+          "pillar": "psycho",
+          "proof": {
+            "reason": "No automated detector; deferred to Layer 2 perception (screenshot + DOM analysis)"
+          },
+          "requires_llm_evaluation": true,
+          "score": 1.5,
+          "signal": "requires_llm_evaluation",
+          "tier": "ok",
+          "viewport_check": null
+        },
+        {
+          "confidence": "medium",
+          "id": "price_03",
+          "label": "Toggle mensuel/annuel avec économie affichée (pas juste un switch sans contexte)",
+          "pillar": "persuasion",
+          "proof": {},
+          "score": 1.5,
+          "signal": "Toggle détecté mais économie peu visible",
+          "tier": "ok",
+          "viewport_check": null
+        },
+        {
+          "confidence": "high",
+          "id": "price_04",
+          "label": "Transparence des limites par plan (ce qui est inclus ET ce qui ne l'est pas)",
+          "pillar": "coherence",
+          "proof": {},
+          "score": 3.0,
+          "signal": "Tier enterprise détecté (['enterprise', 'custom'])",
+          "tier": "top",
+          "viewport_check": null
+        }
+      ],
+      "reviewRequiredCount": 1,
+      "score100": 75.0,
+      "specificCount": 4
+    },
+    "reviewRequiredCount": 1,
+    "score100": 75.0
+  },
+  "universal": {
+    "byPillar": {
+      "coherence": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [],
+        "bloc": "coherence",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "applicability_rule_id": "rule_saas_coherence_required",
+            "applicability_status": "REQUIRED",
+            "id": "coh_01",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 0.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "La promesse existe (flexibilité tarifaire, démarrage gratuit) mais reste générique et peu différenciante. Le H1 'Choose the plan that fits your needs' est vague et ne communique pas la valeur unique de Weglot. L'absence de promesse métier (ex: 'Localisez votre site en 48h') affaiblit l'impact ATF.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "applicability_rule_id": "rule_saas_coherence_required",
+            "applicability_status": "REQUIRED",
+            "id": "coh_02",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 0.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "La cible est devinable (propriétaires de sites web ayant besoin de traduction) mais pas explicitement nommée. La question 'How many words do you have on your website?' oriente vers les propriétaires de sites, mais sans persona claire (PME, agences, e-commerce, etc.). Le visiteur doit déduire s'il est concerné plutôt que de se sentir immédiatement visé.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "applicability_rule_id": "rule_saas_coherence_required",
+            "applicability_status": "REQUIRED",
+            "id": "coh_03",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 0.0,
+            "regex_verdict": null,
+            "score": 3.0,
+            "semantic_rationale": "Le scent trail est parfaitement cohérent : la meta description promet une solution de traduction simple et transparente pour atteindre une audience plus large, le H1 invite à choisir un plan adapté aux besoins, et le CTA 'Try for free' concrétise l'accès immédiat à la solution. Le visiteur retrouve exactement ce qu'il cherchait.",
+            "tier": "top"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "applicability_rule_id": "rule_saas_coherence_required",
+            "applicability_status": "REQUIRED",
+            "id": "coh_04",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "coh_05",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 1.5,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Le ton est globalement professionnel et B2B cohérent, mais on observe une légère variation entre le hero (direct et orienté bénéfices: 'Choose the plan that fits your needs') et la FAQ (plus technique et fonctionnelle avec des questions précises). L'ensemble reste néanmoins reconnaissable comme une voix Weglot unifiée, sans rupture majeure.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "coh_06",
+            "max": 3.0,
+            "method": null,
+            "score": 1.5,
+            "tier": null
+          },
+          {
+            "confidence": "high",
+            "id": "coh_07",
+            "label": "Positioning Statement clair (For X who Y, our Z is the W that...) — Moore template",
+            "max": 3,
+            "proof": {},
+            "score": 0.0,
+            "signal": "Pas de positioning statement explicite (audience × différenciation)",
+            "tier": "critical"
+          },
+          {
+            "confidence": "high",
+            "id": "coh_08",
+            "label": "Message Hierarchy explicite (primary / secondary / supporting)",
+            "max": 3,
+            "proof": {
+              "h1_present": true,
+              "h2_count": 16,
+              "sub_present": true
+            },
+            "score": 3.0,
+            "signal": "3 niveaux hiérarchie présents (H1 / sous-titre / H2+)",
+            "tier": "top"
+          },
+          {
+            "confidence": "high",
+            "id": "coh_09",
+            "label": "Unique Mechanism nommé (le 'comment' différenciant — Schwartz/Georgi)",
+            "max": 3,
+            "proof": {},
+            "score": 0.0,
+            "signal": "Aucun unique mechanism nommé — différenciation floue",
+            "tier": "critical"
+          }
+        ],
+        "kept_criteria_count": 6,
+        "original_rawMax": 15,
+        "original_rawTotal": 6.0,
+        "original_score100": 33.3,
+        "pre_applicability_rawMax": 27.0,
+        "pre_applicability_rawTotal": 15.0,
+        "pre_semantic_rawTotal": 9.0,
+        "rawMax": 27.0,
+        "rawTotal": 15.0,
+        "score100": 55.6,
+        "semantic_delta": 6.0,
+        "v3_1_0_extensions_applied": [
+          "coh_07",
+          "coh_08",
+          "coh_09"
+        ]
+      },
+      "hero": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [
+          "hero_03"
+        ],
+        "bloc": "hero",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "hero_01",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 0.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Le H1 'Choose the plan that fits your needs' est correct mais générique : il décrit une fonctionnalité (choix de plans) sans bénéfice client clair ni différenciateur. Le sous-titre 'Start for free, no credit card required' apporte une valeur (gratuit, sans friction), ce qui sauve partiellement la promesse, mais le H1 seul manque de spécificité et de mémorabilité pour une page pricing.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "hero_02",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 1.5,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Le sous-titre reformule partiellement le H1 (« Start for free ») sans ajouter d'information stratégique majeure. Il mentionne « no credit card required » (bénéfice utile) mais le reste du texte est du contenu technique (toggle mensuel/annuel, disclaimer de devise) qui dilue le message plutôt que de le renforcer. L'ensemble H1+sous-titre manque de clarté sur la proposition de valeur unique.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "hero_04",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 0.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Le visuel hero se limite au logo Weglot et une flèche de navigation, sans montrer le produit en contexte d'usage ni le résultat promis (multilingue, traduction de site). Bien que cohérent avec la marque, le visuel est trop minimaliste et générique pour illustrer efficacement la proposition de valeur d'une plateforme de traduction multilingue.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "hero_05",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Un widget Trustpilot est détecté ATF, mais le snippet est vide (données non extraites). La preuve sociale est présente mais non spécifiée : absence de note chiffrée visible, nombre d'avis, ou témoignages concrets dans la zone hero. Cela affaiblit l'impact de crédibilité immédiat.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "hero_06",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 0.0,
+            "regex_verdict": null,
+            "score": 0.0,
+            "semantic_rationale": "Le H1 'Choose the plan that fits your needs' ne communique PAS ce que propose Weglot (traduction/localisation multilingue). Le visiteur ne comprend pas le produit en 5 secondes. Le sous-titre parle de pricing sans expliquer la valeur. La cible (qui ?) reste floue. Seule l'action CTA est claire. Absence totale de proposition de valeur immédiate.",
+            "tier": "critical"
+          }
+        ],
+        "kept_criteria_count": 5,
+        "original_rawMax": 15,
+        "original_rawTotal": 6.0,
+        "original_score100": 40.0,
+        "pre_applicability_rawMax": 15.0,
+        "pre_applicability_rawTotal": 6.0,
+        "pre_semantic_rawTotal": 4.5,
+        "rawMax": 15.0,
+        "rawTotal": 6.0,
+        "score100": 40.0,
+        "semantic_delta": 1.5
+      },
+      "persuasion": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [
+          "per_02"
+        ],
+        "bloc": "persuasion",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_01",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 1.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "La page mélange features et bénéfices : les titres principaux (plans tarifaires, calcul de mots) sont centrés produit/features, tandis que la section FAQ aborde partiellement les outcomes (« What if I go over my limit? », « What happens after my free trial? »). Cependant, aucun titre de section majeure ne met en avant clairement la transformation ou le résultat concret pour l'utilisateur (ex: « Touchez un marché global sans effort technique »). Le copy reste trop orienté spécifications plutôt que bénéfices utilisateur.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_03",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 2.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "La page adresse partiellement les objections via une FAQ structurée (12 questions couvrant prix, limites, support, essai gratuit), mais elle reste centrée sur des questions techniques/produit plutôt que sur les vraies objections commerciales (ROI, complexité d'intégration, risques de qualité traduction). Aucune section rassurance explicite, garantie ou social proof visible dans la zone hero pour lever les doutes avant engagement.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_04",
+            "max": 3.0,
+            "method": null,
+            "score": 2.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_05",
+            "max": 3.0,
+            "method": null,
+            "score": 2.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_06",
+            "max": 3.0,
+            "method": null,
+            "score": 1.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_07",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 1.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Le ton est professionnel et clair, approprié à un SaaS B2B de traduction, mais manque de personnalité distinctive. Les messages sont fonctionnels et rassurants (« simple et transparent ») sans créer d'émotion ou de différenciation mémorable face aux concurrents. Le ton ne reflète pas une marque avec une identité forte.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_08",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 3.0,
+            "semantic_rationale": "Le copy est extrêmement spécifique au produit Weglot : les titres ancrent directement la proposition de valeur (traduction de sites web en quelques clics), les CTA sont concrets (Start free, Contact us), et les FAQ adressent des questions métier précises (limites de mots, upgrade, multi-sites, essai gratuit). Zéro jargon startup creux, aucune formule interchangeable. Chaque élément renforce la clarté du service.",
+            "tier": "top"
+          },
+          {
+            "confidence": "medium",
+            "id": "per_09",
+            "label": "Awareness match Schwartz (Unaware → Most Aware) × pageType default",
+            "max": 3,
+            "proof": {
+              "detected": "product_aware",
+              "expected": "most_aware",
+              "requires_llm_evaluation": true
+            },
+            "score": 1.5,
+            "signal": "Awareness détecté 'product_aware' diffère de default 'most_aware' — peut être volontaire (UTM/brief)",
+            "tier": "ok"
+          },
+          {
+            "confidence": "high",
+            "id": "per_10",
+            "label": "Structure copy identifiable (PAS/PASTOR/AIDA/BAB/FAB/SB7/4P/SSS/Slippery/CAP)",
+            "max": 3,
+            "proof": {
+              "framework": "PAS",
+              "h2_count": 16
+            },
+            "score": 3.0,
+            "signal": "Structure narrative PAS identifiable (16 H2)",
+            "tier": "top"
+          },
+          {
+            "confidence": "medium",
+            "id": "per_11",
+            "label": "Benefit Laddering profond (feature → functional → emotional → identity)",
+            "max": 3,
+            "proof": {
+              "requires_llm_evaluation": true
+            },
+            "score": 1.5,
+            "signal": "Laddering partiel (e=0, i=1)",
+            "tier": "ok"
+          }
+        ],
+        "kept_criteria_count": 7,
+        "original_rawMax": 21,
+        "original_rawTotal": 12,
+        "original_score100": 57.1,
+        "pre_applicability_rawMax": 30.0,
+        "pre_applicability_rawTotal": 18.5,
+        "pre_semantic_rawTotal": 18.0,
+        "rawMax": 30.0,
+        "rawTotal": 18.5,
+        "score100": 61.7,
+        "semantic_delta": 0.5,
+        "v3_1_0_extensions_applied": [
+          "per_09",
+          "per_10",
+          "per_11"
+        ]
+      },
+      "psycho": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [],
+        "bloc": "psycho",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_01",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 1.5,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Sur une page pricing SaaS B2B, l'absence d'urgence réelle n'est pas critique. Si une deadline ou badge promo est présent, il doit être vérifiable (date explicite, conditions claires) pour éviter une perception de fausse urgence qui nuirait à la crédibilité. Sans détails vérifiables, le signal d'urgence reste cosmétique et acceptable pour ce type de page.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_02",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 0.0,
+            "semantic_rationale": "Sur une page pricing SaaS, afficher une deadline et un badge promo constitue une fausse rareté manifeste. Les abonnements SaaS sont des services continus sans limitation de places ni stock réel. Cette tactique manipulatrice crée une urgence artificielle pour forcer la conversion, ce qui érode la confiance et peut générer des abandons post-achat.",
+            "tier": "critical"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_03",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_04",
+            "max": 3.0,
+            "method": null,
+            "score": 1.5,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_05",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 1.5,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Weglot affiche 3 mentions d'experts/fondateurs et des logos presse reconnaissables, signaux positifs pour une SaaS B2B. Cependant, l'absence de certifications vérifiables, de biographies détaillées des fondateurs et de social proof ATF (Trustpilot détecté mais snippet vide) limite la crédibilité perçue. Les signaux d'autorité restent superficiels et nécessitent un renforcement avec des credentials concrets.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_06",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "confidence": "high",
+            "id": "psy_07",
+            "label": "4 déclencheurs émotionnels actifs (peur / désir / aspiration / appartenance)",
+            "max": 3,
+            "proof": {
+              "counts": {
+                "appartenance": 1,
+                "aspiration": 1,
+                "désir": 2,
+                "peur": 1
+              },
+              "triggers": [
+                "peur",
+                "désir",
+                "aspiration",
+                "appartenance"
+              ]
+            },
+            "score": 3.0,
+            "signal": "4/4 déclencheurs émotionnels actifs",
+            "tier": "top"
+          },
+          {
+            "confidence": "high",
+            "id": "psy_08",
+            "label": "Voice of Customer (verbatims client réinjectés, pas marketer-speak)",
+            "max": 3,
+            "method": "semantic_haiku",
+            "proof": {
+              "marketer_speak": 1,
+              "quotes": 3075,
+              "testimonials": 8
+            },
+            "regex_score": 3.0,
+            "regex_verdict": "top",
+            "score": 1.5,
+            "semantic_rationale": "Widget Trustpilot détecté en ATF indiquant la présence de témoignages vérifiés, mais aucun témoignage texte visible dans le HTML capturé. La présence du badge Trustpilot constitue un signal de crédibilité suffisant, bien que l'absence de détails spécifiques (note, nombre d'avis, snippets texte) limite le score à OK.",
+            "signal": "VoC présente : 3075 citations, 8 témoins nommés",
+            "tier": "ok"
+          }
+        ],
+        "kept_criteria_count": 6,
+        "original_rawMax": 18,
+        "original_rawTotal": 13.5,
+        "original_score100": 75.0,
+        "pre_applicability_rawMax": 24.0,
+        "pre_applicability_rawTotal": 15.0,
+        "pre_semantic_rawTotal": 19.5,
+        "rawMax": 24.0,
+        "rawTotal": 15.0,
+        "score100": 62.5,
+        "semantic_delta": -4.5,
+        "v3_1_0_extensions_applied": [
+          "psy_07",
+          "psy_08"
+        ]
+      },
+      "tech": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [],
+        "bloc": "tech",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_01",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_02",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_03",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_04",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_05",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          }
+        ],
+        "kept_criteria_count": 5,
+        "original_rawMax": 15,
+        "original_rawTotal": 15,
+        "original_score100": 100.0,
+        "pre_applicability_rawMax": 15.0,
+        "pre_applicability_rawTotal": 15.0,
+        "rawMax": 15.0,
+        "rawTotal": 15.0,
+        "score100": 100.0
+      },
+      "ux": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [],
+        "bloc": "ux",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_01",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_02",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_03",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_04",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_05",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_06",
+            "max": 3.0,
+            "method": null,
+            "score": 0.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_07",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_08",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          }
+        ],
+        "kept_criteria_count": 8,
+        "original_rawMax": 21,
+        "original_rawTotal": 21,
+        "original_score100": 100.0,
+        "pre_applicability_rawMax": 24.0,
+        "pre_applicability_rawTotal": 21.0,
+        "rawMax": 24.0,
+        "rawTotal": 21.0,
+        "score100": 87.5
+      }
+    },
+    "rawMax": 135.0,
+    "rawTotal": 90.5,
+    "score100": 67.0
+  },
+  "utility_banner": {
+    "applicable": false,
+    "contribution_page_score": 0,
+    "label": "weglot",
+    "max": 21,
+    "pageType": "pricing",
+    "reason": "no UTILITY_BANNER cluster detected",
+    "total": 0
+  }
+}

@@ -1,0 +1,1517 @@
+{
+  "_criterion_crops_generated": true,
+  "_semantic_mapped": true,
+  "criterion_crops": {
+    "coh_01": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 592,
+          "x": 424,
+          "y": 144
+        }
+      ],
+      "label": "Promesse 5 sec",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_02": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 592,
+          "x": 424,
+          "y": 144
+        }
+      ],
+      "label": "Cible identifiable",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_03": {
+      "highlights": [],
+      "label": "Cohérence message",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_04": {
+      "highlights": [],
+      "label": "Positionnement",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_01": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 592,
+          "x": 424,
+          "y": 144
+        }
+      ],
+      "label": "Titre principal (H1)",
+      "y_end": 350,
+      "y_start": 64,
+      "zone": "HERO_SECTION"
+    },
+    "hero_02": {
+      "highlights": [],
+      "label": "Sous-titre",
+      "y_end": 470,
+      "y_start": 144,
+      "zone": "HERO_SECTION"
+    },
+    "hero_03": {
+      "highlights": [
+        {
+          "h": 42,
+          "w": 115,
+          "x": 1285,
+          "y": 15
+        }
+      ],
+      "label": "CTA principal",
+      "y_end": 137,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_04": {
+      "highlights": [
+        {
+          "h": 69,
+          "w": 45,
+          "x": 542,
+          "y": 3
+        },
+        {
+          "h": 72,
+          "w": 89,
+          "x": 1113,
+          "y": 0
+        },
+        {
+          "h": 72,
+          "w": 35,
+          "x": 1226,
+          "y": 0
+        },
+        {
+          "h": 42,
+          "w": 115,
+          "x": 1285,
+          "y": 15
+        },
+        {
+          "h": 36,
+          "w": 97,
+          "x": 143,
+          "y": 578
+        }
+      ],
+      "label": "Isolation CTA (focus)",
+      "y_end": 395,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_05": {
+      "highlights": [],
+      "label": "Visuel produit/service",
+      "y_end": 395,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_06": {
+      "highlights": [],
+      "label": "Lisibilité en 5 secondes",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_07": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_08": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_09": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_10": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "per_01": {
+      "highlights": [],
+      "label": "Bénéfices vs features",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_02": {
+      "highlights": [],
+      "label": "Storytelling fondateur",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_03": {
+      "highlights": [],
+      "label": "Objections levées",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_04": {
+      "highlights": [],
+      "label": "Social proof",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_05": {
+      "highlights": [],
+      "label": "Urgence/rareté",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_06": {
+      "highlights": [],
+      "label": "Garanties",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "psy_01": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_02": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_03": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_04": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_05": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_06": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_01": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_02": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_03": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_04": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_05": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_06": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_01": {
+      "highlights": [],
+      "label": "Hiérarchie visuelle",
+      "y_end": 395,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_02": {
+      "highlights": [],
+      "label": "Rythme de page",
+      "y_end": 395,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_03": {
+      "highlights": [],
+      "label": "Scan-ability",
+      "y_end": 395,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_04": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_05": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_06": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    }
+  },
+  "hero": {
+    "ctas": [],
+    "h1": "Choose the plan that fits your needs",
+    "h1Count": 1,
+    "h1ParasiticFiltered": 0,
+    "h1Source": "h1",
+    "heroImages": [
+      {
+        "alt": "weglot logo",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678640efd4d181f55a374fd9_weglot%20logo.svg"
+      },
+      {
+        "alt": "Arrow down",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6786438aa08bc05b3b8c28bc_Vector.svg"
+      }
+    ],
+    "primaryCta": {
+      "label": "Try for free",
+      "source": "semantic_mapper"
+    },
+    "socialProofInFold": {
+      "present": true,
+      "snippet": "",
+      "type": "trustpilot"
+    },
+    "subtitle": "Start for free, no credit card required\nMonthly\nAnnually - 2 months free!\nAnnually - 2 months free!\nUSD pricing is an estimate. The final price will be based on the EUR/USD rate on your subscription date."
+  },
+  "hero_semantic": {
+    "headline": "Choose the plan that fits your needs",
+    "headline_font_size": 63.0,
+    "headline_y": 144,
+    "images": [],
+    "primary_cta": "Try for free",
+    "primary_cta_y": 15,
+    "secondary_ctas": [
+      "Start free",
+      "Pricing",
+      "Contact sales"
+    ],
+    "subtitle": null,
+    "subtitle_y": null
+  },
+  "meta": {
+    "captureLevel": 0,
+    "captureSource": "ghost_capture.js (page.html rendered)",
+    "capturedAt": "2026-04-17T08:29:13.000360+00:00",
+    "capturedBy": "playwright-rendered-dom-v3",
+    "completeness": 1,
+    "confidence": "high",
+    "errors": [],
+    "fetchTimeMs": 0,
+    "finalUrl": "https://weglot.com",
+    "label": "weglot__pricing",
+    "metaDescription": "Weglot helps businesses translate their websites in a few clicks. Reach a wider audience and grow your business. Simple and transparent pricing.",
+    "pageType": "pricing",
+    "stagesCompleted": [
+      "fetch",
+      "extract",
+      "html"
+    ],
+    "title": "Weglot | Pricing",
+    "url": "https://weglot.com"
+  },
+  "overlays": {
+    "chatWidgets": [],
+    "cookieBanner": {
+      "cmpDetected": "axeptio",
+      "present": true,
+      "removalMethod": "none"
+    }
+  },
+  "pageSpecific": {
+    "has_faq": true,
+    "has_free_trial": true,
+    "has_money_back": false,
+    "has_plan_comparison": true,
+    "has_toggle_annual": true,
+    "plan_count": 136
+  },
+  "psychoSignals": {
+    "award_mentions": 0,
+    "certification_mentions": 0,
+    "expert_mentions": 3,
+    "has_countdown": false,
+    "has_crossed_price": false,
+    "has_deadline": true,
+    "has_discount_badge": true,
+    "has_free_offer": true,
+    "has_guarantee": false,
+    "has_press_logos": true,
+    "has_stock_indicator": false,
+    "loss_framing": 0,
+    "media_mentions": 0,
+    "scarcity_words": 0,
+    "urgency_words": 0,
+    "user_count_mentions": 0
+  },
+  "rawHtml": "page.html",
+  "screenshots": {},
+  "semantic_map": [
+    {
+      "element_count": 4,
+      "headline": "Choose the plan that fits your needs",
+      "height": 395,
+      "type": "HERO_SECTION",
+      "y_end": 395,
+      "y_start": 0
+    },
+    {
+      "element_count": 62,
+      "headline": "",
+      "height": 753,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1148,
+      "y_start": 395
+    },
+    {
+      "element_count": 11,
+      "headline": "",
+      "height": 468,
+      "type": "CONTENT_BLOCK",
+      "y_end": 932,
+      "y_start": 464
+    },
+    {
+      "element_count": 11,
+      "headline": "",
+      "height": 468,
+      "type": "CONTENT_BLOCK",
+      "y_end": 932,
+      "y_start": 464
+    },
+    {
+      "element_count": 11,
+      "headline": "",
+      "height": 468,
+      "type": "CONTENT_BLOCK",
+      "y_end": 932,
+      "y_start": 464
+    },
+    {
+      "element_count": 11,
+      "headline": "",
+      "height": 468,
+      "type": "CONTENT_BLOCK",
+      "y_end": 932,
+      "y_start": 464
+    },
+    {
+      "element_count": 11,
+      "headline": "",
+      "height": 468,
+      "type": "CONTENT_BLOCK",
+      "y_end": 932,
+      "y_start": 464
+    },
+    {
+      "element_count": 8,
+      "headline": "",
+      "height": 468,
+      "type": "CONTENT_BLOCK",
+      "y_end": 932,
+      "y_start": 464
+    },
+    {
+      "element_count": 5,
+      "headline": "",
+      "height": 275,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1029,
+      "y_start": 754
+    },
+    {
+      "element_count": 21,
+      "headline": "",
+      "height": 224,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1372,
+      "y_start": 1148
+    },
+    {
+      "element_count": 26,
+      "headline": "How many words do you have on your website?",
+      "height": 521,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1893,
+      "y_start": 1372
+    },
+    {
+      "element_count": 6,
+      "headline": "",
+      "height": 111,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1709,
+      "y_start": 1598
+    },
+    {
+      "element_count": 37,
+      "headline": "Common questions",
+      "height": 1462,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3355,
+      "y_start": 1893
+    },
+    {
+      "element_count": 139,
+      "headline": "How many translated words do I need?",
+      "height": 1090,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3235,
+      "y_start": 2145
+    },
+    {
+      "element_count": 12,
+      "headline": "What if I go over my limit?",
+      "height": 348,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2622,
+      "y_start": 2274
+    },
+    {
+      "element_count": 8,
+      "headline": "Do I pay full price when I upgrade my plan?",
+      "height": 169,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2511,
+      "y_start": 2342
+    },
+    {
+      "element_count": 5,
+      "headline": "What support do you provide?",
+      "height": 119,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2529,
+      "y_start": 2410
+    },
+    {
+      "element_count": 5,
+      "headline": "What do monthly translation requests mean?",
+      "height": 119,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2598,
+      "y_start": 2479
+    },
+    {
+      "element_count": 5,
+      "headline": "Can I use Weglot on more than one website?",
+      "height": 119,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2666,
+      "y_start": 2547
+    },
+    {
+      "element_count": 5,
+      "headline": "What happens after my 14-day free trial?",
+      "height": 119,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2734,
+      "y_start": 2615
+    },
+    {
+      "element_count": 5,
+      "headline": "What is the Carbon footprint displayed in the pricing table?",
+      "height": 143,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2826,
+      "y_start": 2683
+    },
+    {
+      "element_count": 5,
+      "headline": "Can I pay in a currency other than euros (for example, USD)?",
+      "height": 169,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2920,
+      "y_start": 2751
+    },
+    {
+      "element_count": 5,
+      "headline": "Is VAT Included in the price?",
+      "height": 143,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2963,
+      "y_start": 2820
+    },
+    {
+      "element_count": 6,
+      "headline": "Is there a specific pricing for web agencies and freelancers?",
+      "height": 119,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3007,
+      "y_start": 2888
+    },
+    {
+      "element_count": 12,
+      "headline": "Have a different question?",
+      "height": 342,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3298,
+      "y_start": 2956
+    },
+    {
+      "element_count": 2,
+      "headline": "",
+      "height": 96,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3193,
+      "y_start": 3097
+    },
+    {
+      "element_count": 2,
+      "headline": "Features table",
+      "height": 261,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3616,
+      "y_start": 3355
+    },
+    {
+      "element_count": 1620,
+      "headline": "",
+      "height": 2391,
+      "type": "CONTENT_BLOCK",
+      "y_end": 6007,
+      "y_start": 3616
+    },
+    {
+      "element_count": 8,
+      "headline": "Good things come to those who wait. International traffic doesn’t.",
+      "height": 625,
+      "type": "CONTENT_BLOCK",
+      "y_end": 6632,
+      "y_start": 6007
+    },
+    {
+      "element_count": 1,
+      "headline": "",
+      "height": 352,
+      "type": "CONTENT_BLOCK",
+      "y_end": 6511,
+      "y_start": 6159
+    },
+    {
+      "element_count": 203,
+      "headline": "",
+      "height": 535,
+      "type": "FOOTER",
+      "y_end": 7166,
+      "y_start": 6631
+    }
+  ],
+  "socialProof": {
+    "reviewCounts": [],
+    "testimonials": [],
+    "trustWidgets": [
+      {
+        "present": true,
+        "type": "trustpilot"
+      }
+    ]
+  },
+  "structure": {
+    "ctas": [
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "isPrimary": true,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button tertiary extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Start free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary cta-banner w-inline-block",
+        "href": "https://dashboard.weglot.com/register/",
+        "inFold": false,
+        "label": "Get started free - No commitment",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register/",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Book a demo",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://weglot.com",
+        "inFold": false,
+        "label": "Subscribe now",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small invert w-inline-block",
+        "href": "https://weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline w-inline-block",
+        "href": "https://wordcount.weglot.com/",
+        "inFold": false,
+        "label": "Discover",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://wordcount.weglot.com/",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary w-inline-block",
+        "href": "https://weglot.com/cdn-cgi/l/email-protection#24575154544b565064534143484b500a474b491b5751464e414750196d0116144c4552410116144501161455514157504d4b4a",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "/cdn-cgi/l/email-protection#24575154544b565064534143484b500a474b491b5751464e414750196d0116144c4552410116144501161455514157504d4b4a",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index contact-enterprise-plan invert w-inline-block",
+        "href": "https://weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button extra-small z-index contact-enterprise-plan invert w-inline-block",
+        "href": "https://weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Contact us",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button-4 w-button",
+        "href": "https://weglot.com",
+        "inFold": false,
+        "label": "Close",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      }
+    ],
+    "forms": [
+      {
+        "action": "",
+        "fields": 2,
+        "hiddenInputs": 0,
+        "inputs": 2,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 0
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "order": 1,
+        "text": "Choose the plan that fits your needs"
+      },
+      {
+        "level": 2,
+        "order": 2,
+        "text": "How many words do you have on your website?"
+      },
+      {
+        "level": 2,
+        "order": 3,
+        "text": "Common questions"
+      },
+      {
+        "level": 2,
+        "order": 4,
+        "text": "How many translated words do I need?"
+      },
+      {
+        "level": 2,
+        "order": 5,
+        "text": "What if I go over my limit?"
+      },
+      {
+        "level": 2,
+        "order": 6,
+        "text": "Do I pay full price when I upgrade my plan?"
+      },
+      {
+        "level": 2,
+        "order": 7,
+        "text": "What support do you provide?"
+      },
+      {
+        "level": 2,
+        "order": 8,
+        "text": "What do monthly translation requests mean?"
+      },
+      {
+        "level": 2,
+        "order": 9,
+        "text": "Can I use Weglot on more than one website?"
+      },
+      {
+        "level": 2,
+        "order": 10,
+        "text": "What happens after my 14-day free trial?"
+      },
+      {
+        "level": 2,
+        "order": 11,
+        "text": "What is the Carbon footprint displayed in the pricing table?"
+      },
+      {
+        "level": 2,
+        "order": 12,
+        "text": "Can I pay in a currency other than euros (for example, USD)?"
+      },
+      {
+        "level": 2,
+        "order": 13,
+        "text": "Is VAT Included in the price?"
+      },
+      {
+        "level": 2,
+        "order": 14,
+        "text": "Is there a specific pricing for web agencies and freelancers?"
+      },
+      {
+        "level": 2,
+        "order": 15,
+        "text": "Have a different question?"
+      },
+      {
+        "level": 2,
+        "order": 16,
+        "text": "Features table"
+      },
+      {
+        "level": 2,
+        "order": 17,
+        "text": "Good things come to those who wait. International traffic doesn’t."
+      },
+      {
+        "level": 3,
+        "order": 18,
+        "text": "Subscribe to our Newsletter"
+      }
+    ]
+  },
+  "techSignals": {
+    "dom_nodes": 2342,
+    "external_css_count": 0,
+    "external_scripts_count": 11,
+    "form_inputs_count": 2,
+    "form_labels_count": 0,
+    "h1_count": 1,
+    "has_aria_labels": false,
+    "has_canonical": true,
+    "has_charset": true,
+    "has_favicon": true,
+    "has_h1": true,
+    "has_hsts": false,
+    "has_lang": true,
+    "has_meta_desc": true,
+    "has_og_tags": true,
+    "has_robots": false,
+    "has_role_attributes": true,
+    "has_schema_org": true,
+    "has_skip_link": false,
+    "has_title": true,
+    "has_viewport": true,
+    "html_size_bytes": 287045,
+    "images_lazy_loaded": 221,
+    "images_total": 221,
+    "images_without_alt": 2,
+    "images_without_alt_count": 2,
+    "inline_style_blocks": 5,
+    "is_https": true,
+    "meta_desc_length": 144,
+    "robots_content": "",
+    "schema_types": [
+      "unknown",
+      "SoftwareApplication",
+      "unknown"
+    ],
+    "third_party_domains": [
+      "www.google.com",
+      "static.cloudflareinsights.com",
+      "cdn-4.convertexperiments.com",
+      "ajax.googleapis.com",
+      "d3e54v103j8qbb.cloudfront.net",
+      "app.concierge.ai",
+      "cdn.prod.website-files.com",
+      "cdn.weglot.com"
+    ],
+    "title_length": 16
+  },
+  "technical": {
+    "canonical": "https://www.weglot.com/pricing",
+    "charset": "utf-8",
+    "domNodes": 2342,
+    "favicon": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e6de156e5ca852745_649180bb70e6f03c6d4dcc3d_favicon-32x32.png",
+    "lang": "en",
+    "metaDescription": "Weglot helps businesses translate their websites in a few clicks. Reach a wider audience and grow your business. Simple and transparent pricing.",
+    "ogDescription": "Weglot helps businesses translate their websites in a few clicks. Reach a wider audience and grow your business. Simple and transparent pricing.",
+    "ogImage": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e697a38ff7063e798_649564583c43f45d2d72a18f_Weglot-thumbnail.png",
+    "ogTitle": "Weglot | Pricing",
+    "robots": "",
+    "schemaOrg": [
+      {
+        "@type": "unknown"
+      },
+      {
+        "@type": "SoftwareApplication"
+      },
+      {
+        "@type": "unknown"
+      }
+    ],
+    "title": "Weglot | Pricing",
+    "viewport": "width=device-width, initial-scale=1"
+  },
+  "uxSignals": {
+    "body_words": 3323,
+    "bold_count": 54,
+    "bullet_lists": 12,
+    "css_transitions": 0,
+    "dom_nodes": 2342,
+    "h2_count": 16,
+    "has_accordion": false,
+    "has_back_to_top": false,
+    "has_carousel": true,
+    "has_details_summary": false,
+    "has_progress_bar": false,
+    "has_slick": false,
+    "has_swiper": false,
+    "img_count": 221,
+    "lazy_images": 221,
+    "list_items": 47,
+    "overflow_x_patterns": 1,
+    "section_tags": 8,
+    "smooth_scroll": false,
+    "sticky_fixed": 0
+  },
+  "zone_crops": [
+    {
+      "headline": "Choose the plan that fits your needs",
+      "height": 405,
+      "y_end": 405,
+      "y_start": 0,
+      "zone_type": "HERO_SECTION"
+    },
+    {
+      "headline": "",
+      "height": 773,
+      "y_end": 1158,
+      "y_start": 385,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 488,
+      "y_end": 942,
+      "y_start": 454,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 488,
+      "y_end": 942,
+      "y_start": 454,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 488,
+      "y_end": 942,
+      "y_start": 454,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 488,
+      "y_end": 942,
+      "y_start": 454,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 488,
+      "y_end": 942,
+      "y_start": 454,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 488,
+      "y_end": 942,
+      "y_start": 454,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 295,
+      "y_end": 1039,
+      "y_start": 744,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 244,
+      "y_end": 1382,
+      "y_start": 1138,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How many words do you have on your website?",
+      "height": 541,
+      "y_end": 1903,
+      "y_start": 1362,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 131,
+      "y_end": 1719,
+      "y_start": 1588,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Common questions",
+      "height": 1482,
+      "y_end": 3365,
+      "y_start": 1883,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How many translated words do I need?",
+      "height": 1110,
+      "y_end": 3245,
+      "y_start": 2135,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "What if I go over my limit?",
+      "height": 368,
+      "y_end": 2632,
+      "y_start": 2264,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Do I pay full price when I upgrade my plan?",
+      "height": 189,
+      "y_end": 2521,
+      "y_start": 2332,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "What support do you provide?",
+      "height": 139,
+      "y_end": 2539,
+      "y_start": 2400,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "What do monthly translation requests mean?",
+      "height": 139,
+      "y_end": 2608,
+      "y_start": 2469,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Can I use Weglot on more than one website?",
+      "height": 139,
+      "y_end": 2676,
+      "y_start": 2537,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "What happens after my 14-day free trial?",
+      "height": 139,
+      "y_end": 2744,
+      "y_start": 2605,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "What is the Carbon footprint displayed in the pricing table?",
+      "height": 163,
+      "y_end": 2836,
+      "y_start": 2673,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Can I pay in a currency other than euros (for example, USD)?",
+      "height": 189,
+      "y_end": 2930,
+      "y_start": 2741,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Is VAT Included in the price?",
+      "height": 163,
+      "y_end": 2973,
+      "y_start": 2810,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Is there a specific pricing for web agencies and freelancers?",
+      "height": 139,
+      "y_end": 3017,
+      "y_start": 2878,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Have a different question?",
+      "height": 362,
+      "y_end": 3308,
+      "y_start": 2946,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 116,
+      "y_end": 3203,
+      "y_start": 3087,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Features table",
+      "height": 281,
+      "y_end": 3626,
+      "y_start": 3345,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 2411,
+      "y_end": 6017,
+      "y_start": 3606,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Good things come to those who wait. International traffic doesn’t.",
+      "height": 645,
+      "y_end": 6642,
+      "y_start": 5997,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 372,
+      "y_end": 6521,
+      "y_start": 6149,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 546,
+      "y_end": 7167,
+      "y_start": 6621,
+      "zone_type": "FOOTER"
+    }
+  ]
+}

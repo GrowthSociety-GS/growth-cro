@@ -1,0 +1,247 @@
+{
+  "_intelligence_applied": true,
+  "_intelligence_count": 3,
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "feature_grid",
+        "hero_band",
+        "value_prop_stack"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 83.9,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 12,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 4,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "feature_grid",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "testimonial_block",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "BLOCKED",
+      "pc_violations_count": 3
+    }
+  },
+  "_vision_lift_applied": true,
+  "_vision_lift_count": 1,
+  "activeCriteria": 5,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "_intelligence_lift": {
+        "delta_pct": 20.0,
+        "new_pct": 70.0,
+        "new_score": 2.1,
+        "old_pct": 70.0,
+        "old_score": 2.1,
+        "reason": "Doctrine rated 0/3 questions answered in fold (H1='Choose plan', subtitle='Free trial'). These DO answer pricing intent (e.g., 'Can I start free? Yes. What do I choose? The plan that fits.'). For pricing pages, clarity bar is different—immediate question is 'How much?' and 'Can I try free?' Both ans"
+      },
+      "_vision_lift": {
+        "new_score": 1.5,
+        "old_score": 0,
+        "reason": "vision_coh_subtitle_distinct"
+      },
+      "applicable": true,
+      "evidence": {
+        "h1": "Choose the plan that fits your needs",
+        "h1_wordcount": 7,
+        "has_pour_qui": false,
+        "has_pourquoi": false,
+        "has_quoi": false,
+        "is_slogan_vague": false,
+        "questions": 0,
+        "subtitle": "Start for free, no credit card required\nMonthly\nAnnually - 2 months free!\nAnnually - 2 months free!\n"
+      },
+      "id": "coh_01",
+      "label": "Promesse claire 5 sec",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_cta_bands_count": 1,
+      "rationale": "Seulement 0/3 questions répondues dans le fold.",
+      "score": 2.1,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 0.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 55.0,
+        "new_pct": 55.0,
+        "new_score": 1.65,
+        "old_pct": 55.0,
+        "old_score": 1.65,
+        "reason": "Doctrine flagged 'no target identifiable in fold/headings=0'. Weglot targets web developers/agencies/SMBs who need site translation—this IS inferrable from pricing tiers ('Unlimited sites' suggests SMB/agency), 'no code needed' pattern (developer-friendly), and product name/context. Pricing page hea"
+      },
+      "applicable": true,
+      "evidence": {
+        "has_defi": false,
+        "persona_body": 2,
+        "persona_fold_signals": 0,
+        "persona_headings": 0
+      },
+      "id": "coh_02",
+      "label": "Cible identifiable",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_has_hero": true,
+      "perception_has_social_proof": true,
+      "rationale": "Aucune cible identifiable (fold=0, headings=0).",
+      "score": 1.65,
+      "verdict": "ok",
+      "weight": 0.9,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "coherence_score": 1,
+        "cta_label": "try for free",
+        "desc_overlap": 0.14,
+        "offer_patterns_found": [],
+        "title_overlap": 0.0
+      },
+      "id": "coh_03",
+      "label": "Alignement ad → LP",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=pricing",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "diff_count": 3,
+        "diff_signals": {
+          "certification": 1,
+          "origin": 6,
+          "unique_claim": 6
+        },
+        "generic_hits": 0
+      },
+      "id": "coh_04",
+      "label": "Positionnement différenciant",
+      "max": 3,
+      "rationale": "3 signaux différenciation, 0 patterns génériques.",
+      "score": 3,
+      "verdict": "top",
+      "weight": 0.9,
+      "weightedScore": 2.7
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "ai_slop_hits": 0,
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tone_inconsistent": false,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "coh_05",
+      "label": "Ton de marque",
+      "max": 3,
+      "rationale": "Ton identifiable: punch=0, AI slop=0, mix=0%.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 0.9,
+      "weightedScore": 1.35
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 65.0,
+        "new_pct": 65.0,
+        "new_score": 1.95,
+        "old_pct": 65.0,
+        "old_score": 1.95,
+        "reason": "Doctrine flagged 'objective flou: primaire 0×, 6 destinations, ratio 0%'. However, pricing page PRIMARY objective IS always signup (choose plan + CTA). Multiple destinations (plan tiers) are EXPECTED and intentional—not fluff. Doctrine confused 'multiple CTAs' (feature) with 'multiple objectives' (a"
+      },
+      "applicable": true,
+      "evidence": {
+        "attention_ratio": 0.0,
+        "competing_ctas": [
+          {
+            "count": 21,
+            "href": "dashboard.weglot.com/register"
+          },
+          {
+            "count": 4,
+            "href": "weglot.com/contact/enterprise"
+          },
+          {
+            "count": 2,
+            "href": "weglot.com/"
+          },
+          {
+            "count": 2,
+            "href": "dashboard.weglot.com/login"
+          },
+          {
+            "count": 1,
+            "href": "wordcount.weglot.com/"
+          }
+        ],
+        "primary_count": 0,
+        "primary_href": null,
+        "total_links": 31,
+        "unique_destinations": 6
+      },
+      "id": "coh_06",
+      "label": "Mono-objectif par page",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Objectif flou: primaire 0×, 6 destinations, ratio 0%.",
+      "score": 1.95,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 0.0
+    }
+  ],
+  "finalMax": 15,
+  "finalNormalized": 4.31,
+  "finalRounded": 4.5,
+  "finalTotal": 10.2,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": "KILLERS déclenchés coh_01 (promesse 5s manquante); coh_06 (multi-objectifs diluant le focus) mais score déjà sous cap 5.0",
+  "killersTriggered": [
+    {
+      "capRatio": 0.333,
+      "description": "coh_01 (promesse 5s manquante)",
+      "id": "coh_01"
+    },
+    {
+      "capRatio": 0.5,
+      "description": "coh_06 (multi-objectifs diluant le focus)",
+      "id": "coh_06"
+    }
+  ],
+  "pageType": "pricing",
+  "rawMax": 15,
+  "rawTotal": 10.2,
+  "score100": 68.0,
+  "scoredAt": "2026-04-17T08:29:13.000360+00:00",
+  "scoredBy": "score_coherence.py v1.0",
+  "skippedCriteria": [
+    "coh_03"
+  ],
+  "url": "https://weglot.com",
+  "verdict": "FAIBLE",
+  "weightedMax": 14.1,
+  "weightedSum": 4.05
+}

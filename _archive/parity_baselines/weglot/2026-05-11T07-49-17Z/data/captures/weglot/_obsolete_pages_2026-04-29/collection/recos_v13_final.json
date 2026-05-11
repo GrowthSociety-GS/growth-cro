@@ -1,0 +1,61 @@
+{
+  "_dedup_applied": true,
+  "_dedup_report": {
+    "n_kept": 2,
+    "n_superseded": 0,
+    "version": "V23.B-jaccard-0.45"
+  },
+  "client": "weglot",
+  "fallback_reasons": {},
+  "grounding_avg_score": null,
+  "grounding_retried": 0,
+  "intent": "signup_commit",
+  "model": "claude-haiku-4-5-20251001",
+  "n_fallback": 0,
+  "n_ok": 0,
+  "n_prompts": 23,
+  "n_retries_total": 0,
+  "n_skipped": 2,
+  "page": "collection",
+  "recos": [
+    {
+      "_dedup_kept": true,
+      "_retry_count": 0,
+      "_skipped": true,
+      "_skipped_reason": "no_cluster_for_ensemble",
+      "_tokens": 0,
+      "after": "⚠️ Recapture requise — perception_v13 n'a pas identifié de cluster pour ce critère. Relancer `ghost_capture --headed` puis `perception_v13.py --client weglot --page collection`.",
+      "before": "⚠️ SKIPPED (no_cluster_for_ensemble) — critère ux_08 scope=ENSEMBLE sans cluster perception.",
+      "cluster_id": null,
+      "cluster_role": null,
+      "criterion_id": "ux_08",
+      "effort_hours": 1,
+      "expected_lift_pct": 0,
+      "implementation_notes": "reco_enricher skip : no_cluster_for_ensemble. Corriger en amont (re-capture).",
+      "priority": "P3",
+      "why": "Un critère ENSEMBLE (ux_08) ne peut pas recevoir de reco fiable sans le cluster perceptuel (éléments H1/subtitle/CTA/visual qui l'entourent). Skip gracieux au lieu de générer du jus générique."
+    },
+    {
+      "_dedup_kept": true,
+      "_retry_count": 0,
+      "_skipped": true,
+      "_skipped_reason": "no_cluster_for_ensemble",
+      "_tokens": 0,
+      "after": "⚠️ Recapture requise — perception_v13 n'a pas identifié de cluster pour ce critère. Relancer `ghost_capture --headed` puis `perception_v13.py --client weglot --page collection`.",
+      "before": "⚠️ SKIPPED (no_cluster_for_ensemble) — critère ux_02 scope=ENSEMBLE sans cluster perception.",
+      "cluster_id": null,
+      "cluster_role": null,
+      "criterion_id": "ux_02",
+      "effort_hours": 1,
+      "expected_lift_pct": 0,
+      "implementation_notes": "reco_enricher skip : no_cluster_for_ensemble. Corriger en amont (re-capture).",
+      "priority": "P3",
+      "why": "Un critère ENSEMBLE (ux_02) ne peut pas recevoir de reco fiable sans le cluster perceptuel (éléments H1/subtitle/CTA/visual qui l'entourent). Skip gracieux au lieu de générer du jus générique."
+    }
+  ],
+  "skipped_reasons": {
+    "no_cluster_for_ensemble": 2
+  },
+  "tokens_total": 0,
+  "version": "v13.3.0-reco-final"
+}

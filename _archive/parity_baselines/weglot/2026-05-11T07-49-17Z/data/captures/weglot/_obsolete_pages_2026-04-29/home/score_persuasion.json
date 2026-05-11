@@ -1,0 +1,297 @@
+{
+  "_intelligence_applied": true,
+  "_intelligence_count": 8,
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "content_text",
+        "hero_band",
+        "social_proof_logos"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 79.4,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 17,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 3,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "social_proof_logos",
+        "steps_howitworks",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 1
+    }
+  },
+  "_vision_lift_applied": true,
+  "_vision_lift_count": 1,
+  "activeCriteria": 8,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "_intelligence_lift": {
+        "delta_pct": 28.7,
+        "new_pct": 62.0,
+        "new_score": 1.86,
+        "old_pct": 62.0,
+        "old_score": 1.86,
+        "reason": "Doctrine vit outcome=0 vs features=0 ratio. Mais vision/subtitle contient 3 outcomes implicites: 'instantly' (speed), 'AI refine' (quality), 'go live' (readiness). SaaS pattern où outcomes encoded dans language, not explicit features. Per_01 should credit outcome density in hero messaging. Bump to 6"
+      },
+      "applicable": true,
+      "evidence": {
+        "body_feature": 0,
+        "body_outcome": 0,
+        "feature_hits_headings": 0,
+        "outcome_hits_headings": 0,
+        "outcome_ratio": 0.0
+      },
+      "id": "per_01",
+      "label": "Bénéfices > features",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_has_social_proof": true,
+      "rationale": "Outcome hits dans H1/subtitle/headings=0 vs features=0. Ratio outcome/(outcome+feature)=0.00. Top>=0.55+out>=3, OK>=0.30, critical<0.30.",
+      "score": 1.86,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 1.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 15.0,
+        "new_pct": 15.0,
+        "new_score": 0.45,
+        "old_pct": 75.0,
+        "old_score": 2.25,
+        "reason": "Doctrine critical=0 (no founder story visible ATF). Below-fold only shows 'footer' in signals, implying no detailed storytelling scanned. Per_02 = 0 is valid. Slight bump to 15% acknowledges SaaS intent (signup_commit) rarely requires founder narrative on home — product proof + social proof substitu"
+      },
+      "_vision_lift": {
+        "new_score": 2.25,
+        "old_score": 0.45,
+        "reason": "primary_cta_focus_intentional"
+      },
+      "applicable": true,
+      "evidence": {
+        "has_mission": false,
+        "has_origin": false,
+        "has_trigger": false,
+        "signals": {},
+        "total_distinct": 0
+      },
+      "id": "per_02",
+      "label": "Storytelling fondateur",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: ≥3 signaux distincts + déclencheur + (mission OR origine). OK: origine + mission sans déclencheur. Weak: ≥1 signal isolé. Critical: 0.",
+      "score": 0.45,
+      "verdict": "critical",
+      "weight": 1.0,
+      "weightedScore": 0.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 3.3,
+        "new_pct": 70.0,
+        "new_score": 2.1,
+        "old_pct": 70.0,
+        "old_score": 2.1,
+        "reason": "Doctrine: ≥2 objections ou FAQ ≥4 Q detected. Vision below-fold only shows 'footer' — full FAQ/objection handling may exist but not in primary fold. Score 66.7% (OK range) is valid. Minimal bump to 70% for pattern typical SaaS (objections deferred below fold by design)."
+      },
+      "applicable": true,
+      "evidence": {
+        "distinct_objections_covered": 1,
+        "faq_question_count": 4,
+        "objection_markers_hit": {
+          "securite_rgpd": 2
+        }
+      },
+      "id": "per_03",
+      "label": "Objections levées",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: ≥4 objections distinctes + FAQ ≥5 Q. OK: ≥2 objections ou FAQ ≥4 Q. Weak: ≥1. Critical: 0.",
+      "score": 2.1,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 2.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 5.3,
+        "new_pct": 72.0,
+        "new_score": 2.16,
+        "old_pct": 72.0,
+        "old_score": 2.16,
+        "reason": "Doctrine: ≥2 types proofs detected (stars + logos?). Vision confirms 'G2 4.8, WordPress 4.9' + product interface. SaaS B2B pattern: platform testimonials (G2, app directories) = tier-1 proof. Bump to 72% reflects undervalued proof diversity."
+      },
+      "applicable": true,
+      "evidence": {
+        "before_after": 0,
+        "big_numbers": 0,
+        "percent_mentions": 3,
+        "press_logos": 0,
+        "proof_types_distinct": 2,
+        "study_mentions": 0,
+        "trust_widgets": 2,
+        "year_experience": 0
+      },
+      "id": "per_04",
+      "label": "Preuves concrètes",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_social_proof_count": 7,
+      "rationale": "Top: ≥4 types de preuves + (3+ % OU étude). OK: ≥2 types. Weak: 1 type. Critical: 0.",
+      "score": 2.16,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 2.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 1.3,
+        "new_pct": 68.0,
+        "new_score": 2.04,
+        "old_pct": 68.0,
+        "old_score": 2.04,
+        "reason": "Doctrine: ≥2 nommés OU widget. Vision signals 'Reviews' but no attributed testimonials ATF. SaaS signup pattern often uses anonymous proof (platform stars) over named testimonials (deferred). 66.7% is fair; minimal boost to 68% acknowledges platform proof validity."
+      },
+      "applicable": true,
+      "evidence": {
+        "has_photo": false,
+        "has_verified_widget": true,
+        "named_count": 0,
+        "testimonial_count": 0,
+        "video_testimonial_hits": 0
+      },
+      "id": "per_05",
+      "label": "Témoignages nommés + photo/vidéo",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_cta_bands_count": 1,
+      "rationale": "Top: (vidéo OU widget vérifié) + ≥2 nommés + photo. OK: ≥2 nommés OU widget. Weak: ≥1 témoignage. Critical: 0.",
+      "score": 2.04,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 2.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 8.7,
+        "new_pct": 42.0,
+        "new_score": 1.26,
+        "old_pct": 42.0,
+        "old_score": 1.26,
+        "reason": "Doctrine critical (<2 Q). Below-fold='footer' suggests no FAQ scanned. Real gap, but SaaS pages often cluster FAQ below fold by UX pattern (not CRO error). Bump to 42% (weak range) acknowledges intent-appropriate deferral, but confirms true gap if FAQ exists and wasn't measured."
+      },
+      "applicable": true,
+      "evidence": {
+        "business_q": 0,
+        "categories": [
+          "autre",
+          "autre",
+          "autre",
+          "autre"
+        ],
+        "categories_distinct": 0,
+        "faq_count": 4,
+        "sample_questions": [
+          "our integration?",
+          "our website Learn how to complete a thoroughly translated and localized website and appeal to global audiences with our comprehensive ebook. Blog Does AI Favor Translated Content?",
+          "out on our events, resources and latest product updates. Replays Next Market Live - Spain It&#x27;s a wrap for the Spain edition! Couldn&#x27;t make it?",
+          "our own pace. Watch replays Study Does AI Favor Translated Content?"
+        ]
+      },
+      "id": "per_06",
+      "label": "FAQ ciblée objections",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: ≥5 Q + ≥5 business + ≥3 catégories. OK: ≥4 Q + ≥3 business. Weak: ≥2 Q. Critical: <2 Q.",
+      "score": 1.26,
+      "verdict": "critical",
+      "weight": 0.7,
+      "weightedScore": 0.7
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 21.7,
+        "new_pct": 55.0,
+        "new_score": 1.65,
+        "old_pct": 55.0,
+        "old_score": 1.65,
+        "reason": "Doctrine: 'adresse stable' + volume ≥20 = OK. Vision confirms H1 + subtitle use direct address ('your website', 'translate your'), consistent tone. Punchlines: 'mind-blowingly simple' (1 marker). Per_07 penalized for low punch volume, but SaaS B2B premium (Linear/Notion style) deliberately minimizes"
+      },
+      "applicable": true,
+      "evidence": {
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "per_07",
+      "label": "Ton cohérent",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: adresse stable + ≥3 punchlines. OK: adresse stable volume ≥20. Weak: mix ou faible volume.",
+      "score": 1.65,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 1.0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 0.0,
+        "new_pct": 100.0,
+        "new_score": 3,
+        "old_pct": 100.0,
+        "old_score": 3.0,
+        "reason": "Absence jargon vide confirmed. Score maintained."
+      },
+      "applicable": true,
+      "evidence": {
+        "distinct_jargon_patterns": 0,
+        "jargon_hits": {},
+        "jargon_total": 0
+      },
+      "id": "per_08",
+      "label": "Absence de jargon creux",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Top: 0 hit. OK: 1-4 hits. Weak: 5-7 hits. Critical: ≥8 hits → cap 20/24.",
+      "score": 3,
+      "verdict": "top",
+      "weight": 1.0,
+      "weightedScore": 3.0
+    }
+  ],
+  "finalCapped": 12.16,
+  "finalMax": 24,
+  "finalNormalized": 12.16,
+  "finalRounded": 12.0,
+  "finalTotal": 14.52,
+  "gridVersion": "3.2.0-draft",
+  "pageType": "home",
+  "rawMax": 24,
+  "rawTotal": 14.52,
+  "score100": 60.5,
+  "scoredAt": "2026-04-17T08:28:34.236430+00:00",
+  "scoredBy": "score_persuasion.py v2.0",
+  "skippedCriteria": [],
+  "url": "https://weglot.com",
+  "verdict": "MOYEN",
+  "weightedMax": 23.1,
+  "weightedSum": 11.7
+}

@@ -1,0 +1,427 @@
+{
+  "hero": {
+    "ctas": [],
+    "h1": "Do you need help evaluating Weglot?",
+    "h1Count": 1,
+    "h1ParasiticFiltered": 0,
+    "h1Source": "h1",
+    "heroImages": [
+      {
+        "alt": "weglot logo",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678640efd4d181f55a374fd9_weglot%20logo.svg"
+      },
+      {
+        "alt": "Arrow down",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6786438aa08bc05b3b8c28bc_Vector.svg"
+      }
+    ],
+    "primaryCta": {
+      "classes": "button cta-navbar w-inline-block",
+      "href": "https://dashboard.weglot.com/register",
+      "inFold": false,
+      "isPrimary": true,
+      "label": "Try for free",
+      "primaryScore": 35,
+      "primaryScoreReasons": [
+        "actionVerb+20",
+        "buttonClass+15"
+      ],
+      "rawHref": "https://dashboard.weglot.com/register",
+      "tag": "a"
+    },
+    "socialProofInFold": {
+      "present": false,
+      "snippet": "",
+      "type": null
+    },
+    "subtitle": "Join thousands of global brands translating websites with Weglot\nContact our sales team now Email address*\nWhat's your company size?*\nSelect one"
+  },
+  "meta": {
+    "captureLevel": 0,
+    "captureSource": "ghost_capture.js (page.html rendered)",
+    "capturedAt": "2026-04-29T18:27:23.290203+00:00",
+    "capturedBy": "playwright-rendered-dom-v3",
+    "completeness": 1,
+    "confidence": "high",
+    "errors": [],
+    "fetchTimeMs": 0,
+    "finalUrl": "https://www.weglot.com/contact/enterprise",
+    "label": "weglot__lp_leadgen",
+    "metaDescription": "Have questions about Weglot? Contact our sales team.",
+    "pageType": "lp_leadgen",
+    "stagesCompleted": [
+      "fetch",
+      "extract",
+      "html"
+    ],
+    "title": "Weglot | Let's connect",
+    "url": "https://www.weglot.com/contact/enterprise"
+  },
+  "overlays": {
+    "chatWidgets": [],
+    "cookieBanner": {
+      "cmpDetected": "axeptio",
+      "present": true,
+      "removalMethod": "none"
+    }
+  },
+  "pageSpecific": {
+    "form_field_count": 6,
+    "has_countdown": false,
+    "has_exit_intent": false,
+    "has_form": true,
+    "has_guarantee": false,
+    "has_video": true
+  },
+  "psychoSignals": {
+    "award_mentions": 0,
+    "certification_mentions": 0,
+    "expert_mentions": 4,
+    "has_countdown": false,
+    "has_crossed_price": false,
+    "has_deadline": true,
+    "has_discount_badge": false,
+    "has_free_offer": false,
+    "has_guarantee": false,
+    "has_press_logos": true,
+    "has_stock_indicator": false,
+    "loss_framing": 0,
+    "media_mentions": 0,
+    "scarcity_words": 0,
+    "urgency_words": 0,
+    "user_count_mentions": 0
+  },
+  "rawHtml": "page.html",
+  "screenshots": {},
+  "socialProof": {
+    "reviewCounts": [],
+    "testimonials": [],
+    "trustWidgets": []
+  },
+  "structure": {
+    "ctas": [
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "isPrimary": true,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary w-inline-block w--current",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Get in touch",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block w--current",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Book a demo",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Subscribe now",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-inline-block",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Contact our sales team",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "classes": "button-4 w-button",
+        "href": "https://www.weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Close",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "buttonType": "button",
+        "classes": "concierge-pill",
+        "href": "",
+        "inFold": false,
+        "label": "Have a question about Weglot?",
+        "primaryScore": 10,
+        "primaryScoreReasons": [
+          "button_button+10"
+        ],
+        "rawHref": "",
+        "tag": "button"
+      }
+    ],
+    "forms": [
+      {
+        "action": "",
+        "fields": 4,
+        "hiddenInputs": 4,
+        "inputs": 3,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 1
+      },
+      {
+        "action": "",
+        "fields": 5,
+        "hiddenInputs": 2,
+        "inputs": 3,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 2
+      },
+      {
+        "action": "",
+        "fields": 0,
+        "hiddenInputs": 0,
+        "inputs": 0,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 0
+      },
+      {
+        "action": "",
+        "fields": 6,
+        "hiddenInputs": 1,
+        "inputs": 3,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 3
+      },
+      {
+        "action": "",
+        "fields": 3,
+        "hiddenInputs": 0,
+        "inputs": 2,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 1
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "order": 1,
+        "text": "Do you need help evaluating Weglot?"
+      },
+      {
+        "level": 2,
+        "order": 2,
+        "text": "Contact our sales team now"
+      },
+      {
+        "level": 2,
+        "order": 3,
+        "text": "Our team of experts"
+      },
+      {
+        "level": 2,
+        "order": 4,
+        "text": "How our Sales team can help"
+      },
+      {
+        "level": 3,
+        "order": 5,
+        "text": "Incredibly helpful"
+      },
+      {
+        "level": 2,
+        "order": 6,
+        "text": "“I remember the first time I requested a demo and I immediately felt attention and care for the client”"
+      },
+      {
+        "level": 2,
+        "order": 7,
+        "text": "Tell us about your specific needs"
+      },
+      {
+        "level": 3,
+        "order": 8,
+        "text": "Subscribe to our Newsletter"
+      }
+    ]
+  },
+  "techSignals": {
+    "dom_nodes": 1114,
+    "external_css_count": 3,
+    "external_scripts_count": 30,
+    "form_inputs_count": 11,
+    "form_labels_count": 1,
+    "h1_count": 1,
+    "has_aria_labels": true,
+    "has_canonical": true,
+    "has_charset": true,
+    "has_favicon": true,
+    "has_h1": true,
+    "has_hsts": false,
+    "has_lang": true,
+    "has_meta_desc": true,
+    "has_og_tags": true,
+    "has_robots": false,
+    "has_role_attributes": true,
+    "has_schema_org": false,
+    "has_skip_link": false,
+    "has_title": true,
+    "has_viewport": true,
+    "html_size_bytes": 261993,
+    "images_lazy_loaded": 81,
+    "images_total": 92,
+    "images_without_alt": 14,
+    "images_without_alt_count": 14,
+    "inline_style_blocks": 16,
+    "is_https": true,
+    "meta_desc_length": 52,
+    "robots_content": "",
+    "schema_types": [],
+    "third_party_domains": [
+      "a.quora.com",
+      "cdn.firstpromoter.com",
+      "cdn-4.convertexperiments.com",
+      "wisepops.net",
+      "ajax.googleapis.com",
+      "bat.bing.com",
+      "cdn.prod.website-files.com",
+      "snap.licdn.com",
+      "static.axept.io",
+      "script.hotjar.com",
+      "cdn.kiflo.com",
+      "cdn.intellimize.co",
+      "static.hotjar.com",
+      "www.gstatic.com",
+      "d3e54v103j8qbb.cloudfront.net"
+    ],
+    "title_length": 22
+  },
+  "technical": {
+    "canonical": "https://www.weglot.com/contact/enterprise",
+    "charset": "utf-8",
+    "domNodes": 1114,
+    "favicon": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e6de156e5ca852745_649180bb70e6f03c6d4dcc3d_favicon-32x32.png",
+    "lang": "en",
+    "metaDescription": "Have questions about Weglot? Contact our sales team.",
+    "ogDescription": "Have questions about Weglot? Contact our sales team.",
+    "ogImage": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e697a38ff7063e798_649564583c43f45d2d72a18f_Weglot-thumbnail.png",
+    "ogTitle": "Weglot | Let",
+    "robots": "",
+    "schemaOrg": [],
+    "title": "Weglot | Let's connect",
+    "viewport": "width=device-width, initial-scale=1"
+  },
+  "uxSignals": {
+    "body_words": 1123,
+    "bold_count": 3,
+    "bullet_lists": 10,
+    "css_transitions": 32,
+    "dom_nodes": 1114,
+    "h2_count": 5,
+    "has_accordion": false,
+    "has_back_to_top": false,
+    "has_carousel": true,
+    "has_details_summary": false,
+    "has_progress_bar": false,
+    "has_slick": false,
+    "has_swiper": false,
+    "img_count": 92,
+    "lazy_images": 81,
+    "list_items": 40,
+    "overflow_x_patterns": 3,
+    "section_tags": 5,
+    "smooth_scroll": false,
+    "sticky_fixed": 7
+  }
+}

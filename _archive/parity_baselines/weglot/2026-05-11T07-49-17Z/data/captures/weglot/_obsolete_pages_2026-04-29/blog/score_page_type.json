@@ -1,0 +1,1109 @@
+{
+  "aggregate": {
+    "bt_weight_bias": {
+      "coherence": 1.15,
+      "hero": 1.1,
+      "persuasion": 1.05,
+      "psycho": 0.95,
+      "tech": 1.0,
+      "ux": 1.0
+    },
+    "bt_weighted_score100": 65.3,
+    "delta_vs_expected": 0.0,
+    "expectedRawMax": 135,
+    "linearScore100": 64.9,
+    "pageTypeMultipliers": null,
+    "rawMax": 135.0,
+    "rawTotal": 87.63,
+    "score100": 64.9,
+    "weightedScore100": null
+  },
+  "applicability_overlay": {
+    "applied": false,
+    "bonus_hits": [],
+    "business_type": "saas",
+    "label": "weglot",
+    "optional_flags": [],
+    "page_type": "blog",
+    "page_type_resolved": "blog",
+    "removed_na": [],
+    "required_hits": [],
+    "rules_matched": [
+      "rule_blog_scan_required"
+    ],
+    "rules_matched_count": 1,
+    "version": "1.0 (doctrine v3.2.0-draft)",
+    "weight_bias": {
+      "coherence": 1.15,
+      "hero": 1.1,
+      "persuasion": 1.05,
+      "psycho": 0.95,
+      "tech": 1.0,
+      "ux": 1.0
+    },
+    "weighted_per_pillar": {
+      "coherence": {
+        "score100": 62.8,
+        "weight": 1.15,
+        "weighted_score100": 72.22
+      },
+      "hero": {
+        "score100": 77.5,
+        "weight": 1.1,
+        "weighted_score100": 85.25
+      },
+      "persuasion": {
+        "score100": 43.6,
+        "weight": 1.05,
+        "weighted_score100": 45.78
+      },
+      "psycho": {
+        "score100": 60.3,
+        "weight": 0.95,
+        "weighted_score100": 57.28
+      },
+      "tech": {
+        "score100": 87.4,
+        "weight": 1.0,
+        "weighted_score100": 87.4
+      },
+      "ux": {
+        "score100": 88.3,
+        "weight": 1.0,
+        "weighted_score100": 88.3
+      }
+    }
+  },
+  "contextual_overlay": {
+    "adjustments": [],
+    "adjustments_count": 0,
+    "applied": false,
+    "by_pillar_delta": {},
+    "group_stats": {
+      "BENEFIT_FLOW": {
+        "max_score": 3.0,
+        "mean_score": 1.52,
+        "members_present": 8,
+        "min_score": 0.0,
+        "sigma": 1.12
+      },
+      "COHERENCE_FULL": {
+        "max_score": 3.0,
+        "mean_score": 1.87,
+        "members_present": 7,
+        "min_score": 0.0,
+        "sigma": 1.25
+      },
+      "EMOTIONAL_DRIVERS": {
+        "max_score": 3.0,
+        "mean_score": 2.34,
+        "members_present": 4,
+        "min_score": 1.5,
+        "sigma": 0.67
+      },
+      "HERO_ENSEMBLE": {
+        "max_score": 3.0,
+        "mean_score": 2.33,
+        "members_present": 4,
+        "min_score": 1.5,
+        "sigma": 0.55
+      },
+      "SOCIAL_PROOF_STACK": {
+        "max_score": 1.5,
+        "mean_score": 0.94,
+        "members_present": 4,
+        "min_score": 0.0,
+        "sigma": 0.56
+      },
+      "TECH_FOUNDATION": {
+        "max_score": 3.0,
+        "mean_score": 2.62,
+        "members_present": 5,
+        "min_score": 1.95,
+        "sigma": 0.47
+      },
+      "VISUAL_HIERARCHY": {
+        "max_score": 3.0,
+        "mean_score": 2.76,
+        "members_present": 4,
+        "min_score": 2.04,
+        "sigma": 0.42
+      }
+    },
+    "perception_available": true,
+    "rules_fired": [],
+    "total_delta": 0,
+    "version": "1.0 (doctrine v3.2.0-draft)"
+  },
+  "doctrineVersion": "v3.2.0-draft — doctrine V13 — 2026-04-18 (ensemble-aware)",
+  "exclusions": {
+    "applied": [
+      "coh_03",
+      "hero_03",
+      "hero_04",
+      "psy_03",
+      "psy_04",
+      "ux_06",
+      "ux_08"
+    ],
+    "count": 7,
+    "reasons": {
+      "coh_03": "Pas d'alignement ad→LP sur un article (trafic organique)",
+      "hero_03": "Pas de visuel produit en hero sur un article — le hero est éditorial",
+      "hero_04": "Pas de CTA primaire ATF sur un article (c'est du contenu éducatif d'abord)",
+      "psy_03": "Pas de scarcité/urgence sur un article",
+      "psy_04": "Pas d'ancrage prix sur un article",
+      "ux_06": "La navigation full est normale sur un blog",
+      "ux_08": "Pas de friction form/checkout sur un article"
+    }
+  },
+  "label": "weglot",
+  "maxPerPageType": {
+    "rawMax": 135,
+    "scoreBase": 100,
+    "specific": 5,
+    "total": 45,
+    "universal": 40
+  },
+  "notes": [
+    "Universal criteria are filtered post-scorer using page_type_criteria.json.universalExclusions.",
+    "Specific criteria are scored by score_specific_criteria.py (35 detectors + LLM-review fallback).",
+    "Dual-viewport aggregation is delegated to bloc scorers' own viewport_check logic.",
+    "delta_vs_expected should be ≈ 0 once all bloc scorers expose criterion IDs cleanly.",
+    "Semantic overlay (v1.0, 2026-04-18): Haiku scores replace regex for 18 creative criteria when score_semantic.json exists. Each kept_criterion with method='semantic_haiku' also stores regex_score/regex_verdict for traceability. Pillar rawTotal / score100 are recomputed post-overlay; aggregate follows.",
+    "Contextual overlay (P1.B, doctrine v3.2.0-draft, 2026-04-18): ENSEMBLE-scope criteria may be rescued upwards by strong peers in the same synergy group (HERO_ENSEMBLE, BENEFIT_FLOW, SOCIAL_PROOF_STACK…) or penalized for contradictions (manipulation flag: urgency without risk reversal). Each affected kept_criterion records pre_contextual_score/tier + contextual_rule + rationale. ASSET-scope criteria (tech_*, counts) are INVARIANT."
+  ],
+  "pageType": "blog",
+  "semantic_overlay": {
+    "applied": true,
+    "by_pillar_delta": {
+      "coherence": 0.0,
+      "hero": -1.5,
+      "persuasion": 1.05,
+      "psycho": -6.0,
+      "tech": 0.0,
+      "ux": 0.0
+    },
+    "criteria_count": 6,
+    "criteria_overridden": [
+      {
+        "delta": -1.5,
+        "id": "hero_02",
+        "pillar": "hero",
+        "regex_score": 3.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": 1.05,
+        "id": "per_01",
+        "pillar": "persuasion",
+        "regex_score": 1.95,
+        "semantic_score": 3.0,
+        "verdict": "top"
+      },
+      {
+        "delta": 0.0,
+        "id": "per_08",
+        "pillar": "persuasion",
+        "regex_score": 3.0,
+        "semantic_score": 3.0,
+        "verdict": "top"
+      },
+      {
+        "delta": -1.5,
+        "id": "psy_02",
+        "pillar": "psycho",
+        "regex_score": 3.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": -1.5,
+        "id": "psy_05",
+        "pillar": "psycho",
+        "regex_score": 3.0,
+        "semantic_score": 1.5,
+        "verdict": "ok"
+      },
+      {
+        "delta": -3.0,
+        "id": "psy_08",
+        "pillar": "psycho",
+        "regex_score": 3.0,
+        "semantic_score": 0.0,
+        "verdict": "critical"
+      }
+    ],
+    "model": "claude-haiku-4-5-20251001",
+    "semantic_criteria_available": [
+      "coh_01",
+      "coh_02",
+      "coh_03",
+      "coh_05",
+      "hero_01",
+      "hero_02",
+      "hero_04",
+      "hero_05",
+      "hero_06",
+      "per_01",
+      "per_02",
+      "per_03",
+      "per_07",
+      "per_08",
+      "psy_01",
+      "psy_02",
+      "psy_05",
+      "psy_08"
+    ],
+    "total_delta": -6.45,
+    "version": "1.0"
+  },
+  "specific": {
+    "rawMax": 15,
+    "rawTotal": 9.0,
+    "result": {
+      "doctrineVersion": "v3.1.0 — doctrine V12 — 2026-04-13",
+      "maxPerPageType": {
+        "rawMax": 135,
+        "scoreBase": 100,
+        "specific": 5,
+        "total": 45,
+        "universal": 40
+      },
+      "pageType": "blog",
+      "rawMax": 15,
+      "rawTotal": 9.0,
+      "results": [
+        {
+          "confidence": "medium",
+          "id": "blog_01",
+          "label": "Table des matières cliquable (outline de l'article visible ATF)",
+          "pillar": "ux",
+          "proof": {
+            "signals": [
+              "17 internal anchors"
+            ]
+          },
+          "score": 1.5,
+          "signal": "TOC partielle (1 signal)",
+          "tier": "ok",
+          "viewport_check": null
+        },
+        {
+          "confidence": "high",
+          "id": "blog_02",
+          "label": "Maillage interne pertinent (liens vers articles liés + vers pages produit/service)",
+          "pillar": "tech",
+          "proof": {
+            "count": 132
+          },
+          "score": 3.0,
+          "signal": "132 liens internes",
+          "tier": "top",
+          "viewport_check": null
+        },
+        {
+          "confidence": "high",
+          "id": "blog_03",
+          "label": "CTA contextuel mid-article (encart, bannière, ou inline CTA lié au sujet traité)",
+          "pillar": "persuasion",
+          "proof": {
+            "count": 11
+          },
+          "score": 3.0,
+          "signal": "11 CTAs détectés in-content",
+          "tier": "top",
+          "viewport_check": null
+        },
+        {
+          "confidence": "high",
+          "id": "blog_04",
+          "label": "Temps de lecture affiché + date de publication/mise à jour",
+          "pillar": "ux",
+          "proof": {
+            "author": false,
+            "date": true,
+            "read_time": false
+          },
+          "score": 0.0,
+          "signal": "1/3 signaux crédibilité (insuffisant)",
+          "tier": "critical",
+          "viewport_check": null
+        },
+        {
+          "confidence": "low",
+          "id": "blog_05",
+          "label": "Structure éditoriale riche (H2/H3 logiques, visuels, encadrés, listes, citations)",
+          "pillar": "ux",
+          "proof": {
+            "reason": "No automated detector; deferred to Layer 2 perception (screenshot + DOM analysis)"
+          },
+          "requires_llm_evaluation": true,
+          "score": 1.5,
+          "signal": "requires_llm_evaluation",
+          "tier": "ok",
+          "viewport_check": null
+        }
+      ],
+      "reviewRequiredCount": 1,
+      "score100": 60.0,
+      "specificCount": 5
+    },
+    "reviewRequiredCount": 1,
+    "score100": 60.0
+  },
+  "universal": {
+    "byPillar": {
+      "coherence": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [
+          "coh_03"
+        ],
+        "bloc": "coherence",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": {
+              "new_score": 3,
+              "old_score": 0,
+              "reason": "vision_coh_strong_overlap"
+            },
+            "id": "coh_01",
+            "max": 3.0,
+            "method": "vision_lift_preserved_over_semantic",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 3.0,
+            "semantic_rationale_skipped": "La promesse 'unlock new markets' est présente mais reste générique et peu différenciante pour un SaaS B2B. Elle manque de spécificité sur le ROI ou le bénéfice concret (ex: 'Augmentez vos revenus internationaux de X%'), et se dilue rapidement avec des éléments secondaires (newsletter, articles populaires) qui détournent l'attention du visiteur.",
+            "semantic_score_seen": 1.5,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": {
+              "new_score": 3,
+              "old_score": 0,
+              "reason": "vision_visual_coh_top_rich_desc"
+            },
+            "id": "coh_02",
+            "max": 3.0,
+            "method": "vision_lift_preserved_over_semantic",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 3.0,
+            "semantic_rationale_skipped": "La cible est devinable (propriétaires de sites web cherchant à se développer à l'international) mais pas explicitement nommée. Le H1 'unlock new markets' et les titres d'articles ('international customers', 'multilingual website') donnent des indices, mais un visiteur doit inférer qu'il s'agit de responsables marketing/product/tech de PME/scale-ups plutôt que de le comprendre immédiatement.",
+            "semantic_score_seen": 1.5,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 20.0,
+              "new_pct": 70.0,
+              "new_score": 2.1,
+              "old_pct": 70.0,
+              "old_score": 2.1,
+              "reason": "Doctrine flagged 1 differentiation vs 0 generic patterns. Vision shows clear USP: 'AI + human refinement + live multilingual' is specific to Weglot's approach (most competitors are AI-only or manual-only). This IS differentiated positioning. Bump reflects that doctrine underweighted the competitive "
+            },
+            "_vision_lift": null,
+            "id": "coh_04",
+            "max": 3.0,
+            "method": "regex+intelligence+intelligence",
+            "score": 2.1,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 16.0,
+              "new_pct": 66.0,
+              "new_score": 1.98,
+              "old_pct": 66.0,
+              "old_score": 1.98,
+              "reason": "Doctrine scored 50% on brand tone (punch=0, AI slop=0). Vision shows consistent tone across H1, subtitle, and CTA copy — direct, approachable, outcome-focused language without buzzwords ('mind-blowing simple', 'go live'). Tone is coherent even if not playful. Bump reflects acceptable brand voice for"
+            },
+            "_vision_lift": null,
+            "id": "coh_05",
+            "max": 3.0,
+            "method": "intelligence_lift_preserved_over_semantic",
+            "regex_score": 1.98,
+            "regex_verdict": null,
+            "score": 1.98,
+            "semantic_rationale_skipped": "Le ton reste globalement professionnel et informatif tout au long de la page, avec une cohérence de niveau de langue acceptable. Cependant, on observe une légère variation entre le hero punchy ('Articles to help you unlock new markets') et les titres d'articles plus descriptifs et techniques, suggérant une possible variation d'auteurs sans impact majeur sur la cohérence globale.",
+            "semantic_score_seen": 1.5,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 55.0,
+              "new_pct": 55.0,
+              "new_score": 1.65,
+              "old_pct": 0.0,
+              "old_score": 0.0,
+              "reason": "Doctrine flagged 0% mono-objective (10 destinations, unclear primary). However, Vision confirms PRIMARY objective is 'Get started for free' (repeated 4×, sticky-positioned if applicable). Secondary CTAs (learn, demo, docs) are navigation — acceptable for SaaS funnel. Bump reflects that SaaS pages le"
+            },
+            "_vision_lift": {
+              "new_score": 1.98,
+              "old_score": 1.65,
+              "reason": "visual_voice_coherence_implicit"
+            },
+            "id": "coh_06",
+            "max": 3.0,
+            "method": "regex+intelligence",
+            "score": 1.98,
+            "tier": null
+          },
+          {
+            "confidence": "high",
+            "id": "coh_07",
+            "label": "Positioning Statement clair (For X who Y, our Z is the W that...) — Moore template",
+            "max": 3,
+            "proof": {},
+            "score": 0.0,
+            "signal": "Pas de positioning statement explicite (audience × différenciation)",
+            "tier": "critical"
+          },
+          {
+            "confidence": "high",
+            "id": "coh_08",
+            "label": "Message Hierarchy explicite (primary / secondary / supporting)",
+            "max": 3,
+            "proof": {
+              "h1_present": true,
+              "h2_count": 3,
+              "sub_present": true
+            },
+            "score": 3.0,
+            "signal": "3 niveaux hiérarchie présents (H1 / sous-titre / H2+)",
+            "tier": "top"
+          },
+          {
+            "confidence": "high",
+            "id": "coh_09",
+            "label": "Unique Mechanism nommé (le 'comment' différenciant — Schwartz/Georgi)",
+            "max": 3,
+            "proof": {},
+            "score": 0.0,
+            "signal": "Aucun unique mechanism nommé — différenciation floue",
+            "tier": "critical"
+          }
+        ],
+        "kept_criteria_count": 5,
+        "original_rawMax": 15,
+        "original_rawTotal": 12.06,
+        "original_score100": 80.4,
+        "pre_applicability_rawMax": 24.0,
+        "pre_applicability_rawTotal": 15.06,
+        "rawMax": 24.0,
+        "rawTotal": 15.06,
+        "score100": 62.8,
+        "v3_1_0_extensions_applied": [
+          "coh_07",
+          "coh_08",
+          "coh_09"
+        ]
+      },
+      "hero": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [
+          "hero_03",
+          "hero_04"
+        ],
+        "bloc": "hero",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": {
+              "delta_pct": 25.0,
+              "new_pct": 75.0,
+              "new_score": 2.25,
+              "old_pct": 75.0,
+              "old_score": 2.25,
+              "reason": "H1 'The easiest way to translate a website' IS specific to translation use case and directly addresses buyer intent (simplicity + speed). Doctrine flagged as 'vague' but Vision confirms it answers 2/3 core questions: WHAT (translation) + HOW (easiest way). For SaaS B2B/self-serve, this concision is "
+            },
+            "_vision_lift": {
+              "new_score": 1.5,
+              "old_score": 0,
+              "reason": "vision_h1_ok_specific_no_verb"
+            },
+            "id": "hero_01",
+            "max": 3.0,
+            "method": "vision+intelligence_lift_preserved_over_semantic",
+            "regex_score": 2.25,
+            "regex_verdict": null,
+            "score": 2.25,
+            "semantic_rationale_skipped": "Le H1 est générique et manque de spécificité : 'Articles to help you unlock new markets' ne communique pas de bénéfice client clair ni de différenciateur Weglot. Le sous-titre précise le contenu (news, tips, updates) mais ne rattrape pas l'absence de promesse de valeur. Le H1 devrait mettre en avant la traduction/localisation comme solution pour conquérir de nouveaux marchés, pas simplement annoncer des articles.",
+            "semantic_score_seen": 1.5,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "hero_02",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Le sous-titre reformule partiellement le H1 en listant les types de contenu (news, tips, updates) sans ajouter de bénéfice client clair. La combinaison H1+sous-titre manque de précision sur le 'pourquoi' (quel problème résout-on ?) et le 'pour qui' (quelle cible exacte ?). Le CTA 'Try for free' crée une incohérence : on est sur une page de blog/ressources, pas sur une page de conversion produit.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 19.0,
+              "new_pct": 85.0,
+              "new_score": 2.55,
+              "old_pct": 85.0,
+              "old_score": 2.55,
+              "reason": "Vision confirms 3 distinct social proof signals ATF: 4.8★ G2 Reviews, 4.9★ WordPress Plugin Directory, 4.9★ Trust badges. Doctrine scored 66% (1.98/3) but Vision detection shows all three visible in fold. For SaaS freemium model targeting self-serve, 3 platform badges is sufficient credibility play."
+            },
+            "_vision_lift": {
+              "new_score": 1.98,
+              "old_score": 0,
+              "reason": "vision_social_proof_ok_present"
+            },
+            "id": "hero_05",
+            "max": 3.0,
+            "method": "vision+intelligence_lift_preserved_over_semantic",
+            "regex_score": 2.55,
+            "regex_verdict": null,
+            "score": 2.55,
+            "semantic_rationale_skipped": "Aucune preuve sociale détectée dans la zone hero (ATF). L'absence totale d'avis vérifiés, de logos clients, de chiffres d'utilisateurs ou de badges de confiance représente une opportunité manquée majeure pour rassurer les visiteurs et augmenter la crédibilité de Weglot dès l'arrivée.",
+            "semantic_score_seen": 0.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": {
+              "new_score": 3,
+              "old_score": 0,
+              "reason": "vision_5s_top_all_elements"
+            },
+            "id": "hero_06",
+            "max": 3.0,
+            "method": "vision_lift_preserved_over_semantic",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 3.0,
+            "semantic_rationale_skipped": "Le visiteur comprend qu'il s'agit d'une section blog/ressources (QUOI), mais l'action principale reste ambiguë : le H1 parle d'articles tandis que le CTA 'Try for free' renvoie au produit Weglot. La cible (QUI) n'est pas explicitement définie. Le message manque de clarté sur l'objectif principal de cette page hero.",
+            "semantic_score_seen": 1.5,
+            "tier": null
+          }
+        ],
+        "kept_criteria_count": 4,
+        "original_rawMax": 15,
+        "original_rawTotal": 13.8,
+        "original_score100": 92.0,
+        "pre_applicability_rawMax": 12.0,
+        "pre_applicability_rawTotal": 9.3,
+        "pre_semantic_rawTotal": 10.8,
+        "rawMax": 12.0,
+        "rawTotal": 9.3,
+        "score100": 77.5,
+        "semantic_delta": -1.5
+      },
+      "persuasion": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [],
+        "bloc": "persuasion",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": {
+              "delta_pct": 31.7,
+              "new_pct": 65.0,
+              "new_score": 1.95,
+              "old_pct": 65.0,
+              "old_score": 1.95,
+              "reason": "Doctrine detected 0 outcome hits, but Vision shows H1 'easiest way', subtitle emphasizes 'instantly', 'go live', and 'mind-blowing simple' — all outcome-framed claims (time-to-value, simplicity, automation). Below-fold sections reinforce benefits (speed, accuracy, ease). Ratio is outcome-heavy; doct"
+            },
+            "_vision_lift": null,
+            "id": "per_01",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 1.95,
+            "regex_verdict": null,
+            "score": 3.0,
+            "semantic_rationale": "La page hero privilégie clairement les bénéfices utilisateur avec 'unlock new markets' (outcome business). Les 12 titres d'articles suivants sont 100% orientés résultats et transformations : gains de visibilité SEO, succès Netflix, acquisition de clients internationaux, amélioration de précision traduction, workflows optimisés. Zéro langage technique ou feature-centric. Chaque titre répond au 'Et alors ?' en promettant un impact concret pour l'expansion internationale.",
+            "tier": "top"
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 25.0,
+              "new_pct": 25.0,
+              "new_score": 0.75,
+              "old_pct": 75.0,
+              "old_score": 2.25,
+              "reason": "Doctrine found 0 founder storytelling signals. However, for SaaS B2B lead-gen funnels, founder narrative is secondary to product demo + social proof. Page compensates with strong product positioning and platform credibility. Bump to 25% reflects that absence is acceptable for this vertical/intent, n"
+            },
+            "_vision_lift": {
+              "new_score": 2.25,
+              "old_score": 0.75,
+              "reason": "primary_cta_focus_intentional"
+            },
+            "id": "per_02",
+            "max": 3.0,
+            "method": "vision+intelligence_lift_preserved_over_semantic",
+            "regex_score": 0.75,
+            "regex_verdict": null,
+            "score": 0.75,
+            "semantic_rationale_skipped": "La page est une simple agrégation d'articles de blog sans arc narratif. Il n'y a pas de progression logique (problème → solution → preuve), pas de fil conducteur qui guide le visiteur, et aucun storytelling reliant les sections entre elles. C'est un catalogue de contenus, pas une expérience narrative.",
+            "semantic_score_seen": 0.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 5.3,
+              "new_pct": 72.0,
+              "new_score": 2.16,
+              "old_pct": 72.0,
+              "old_score": 2.16,
+              "reason": "Doctrine scored 2/3 on objection handling (FAQ or explicit blockers). Vision confirms FAQ section addresses 4+ objections implicitly (integration speed, human refinement, multilingual support, ease of setup). Scoring already strong; minor bump reflects coherent objection-handling through FAQ placeme"
+            },
+            "_vision_lift": null,
+            "id": "per_03",
+            "max": 3.0,
+            "method": "intelligence_lift_preserved_over_semantic",
+            "regex_score": 2.16,
+            "regex_verdict": null,
+            "score": 2.16,
+            "semantic_rationale_skipped": "La page hero est une landing de blog/ressources éducatives sans aucun mécanisme de levée d'objections. Absence totale de FAQ, section rassurance, garanties, témoignages ou éléments de confiance (prix, engagement, qualité). Les visiteurs ne trouvent aucune réponse aux questions critiques avant conversion (coût, complexité, risque).",
+            "semantic_score_seen": 0.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 40.0,
+              "new_pct": 40.0,
+              "new_score": 1.2,
+              "old_pct": 40.0,
+              "old_score": 1.2,
+              "reason": "Doctrine scored 0 for concrete proof (no stats/studies/metrics). Vision shows 4.8★/4.9★ ratings from 3 platforms — this IS quantified proof, though indirect. For SaaS freemium, star ratings on G2/WordPress are PRIMARY credibility proof. Bump reflects that doctrine's definition of 'proof' (% improvem"
+            },
+            "_vision_lift": null,
+            "id": "per_04",
+            "max": 3.0,
+            "method": "regex+intelligence+intelligence",
+            "score": 1.2,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 35.0,
+              "new_pct": 35.0,
+              "new_score": 1.05,
+              "old_pct": 35.0,
+              "old_score": 1.05,
+              "reason": "Doctrine found 0 named testimonials. Vision-crawl did not reveal customer testimonials with names/photos below fold. However, 4.8★ G2 badge typically links to verified review widgets (not on-page visible). For SaaS freemium funnels, absence of on-page testimonials is gap but not critical if social p"
+            },
+            "_vision_lift": null,
+            "id": "per_05",
+            "max": 3.0,
+            "method": "regex+intelligence+intelligence",
+            "score": 1.05,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_06",
+            "max": 3.0,
+            "method": null,
+            "score": 0.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 24.7,
+              "new_pct": 58.0,
+              "new_score": 1.74,
+              "old_pct": 58.0,
+              "old_score": 1.74,
+              "reason": "Doctrine scored 1/3 on brand voice (limited punchlines detected). Vision shows consistent conversational, slightly playful tone ('mind-blowing simple', subtitle enthusiasm) but volume of distinct voice signals is modest. Bump reflects that SaaS B2B voice doesn't require high punchline density — cons"
+            },
+            "_vision_lift": null,
+            "id": "per_07",
+            "max": 3.0,
+            "method": "intelligence_lift_preserved_over_semantic",
+            "regex_score": 1.74,
+            "regex_verdict": null,
+            "score": 1.74,
+            "semantic_rationale_skipped": "Le ton est professionnel et approprié à un SaaS B2B de localization, mais reste générique et peu distinctif. Les titres d'articles sont informatifs et SEO-friendly, sans personnalité marquée qui différencierait Weglot de ses concurrents ou qui renforcerait son positionnement unique sur le marché.",
+            "semantic_score_seen": 1.5,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "per_08",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 3.0,
+            "semantic_rationale": "Le copy est hautement spécifique à Weglot : les titres d'articles traitent de cas d'usage concrets (localization testing, Google Search par pays, Netflix, SEO multilingue, AI translation). Aucune formule creuse type startup. Chaque élément est ancré dans des problèmes réels que les utilisateurs cherchent à résoudre (expansion internationale, traduction de site, workflows de localisation).",
+            "tier": "top"
+          },
+          {
+            "confidence": "high",
+            "id": "per_09",
+            "label": "Awareness match Schwartz (Unaware → Most Aware) × pageType default",
+            "max": 3,
+            "proof": {
+              "expected": "problem_aware"
+            },
+            "score": 0.0,
+            "signal": "Niveau d'awareness indéterminable — copy trop générique",
+            "tier": "critical"
+          },
+          {
+            "confidence": "medium",
+            "id": "per_10",
+            "label": "Structure copy identifiable (PAS/PASTOR/AIDA/BAB/FAB/SB7/4P/SSS/Slippery/CAP)",
+            "max": 3,
+            "proof": {
+              "h2_count": 3,
+              "requires_llm_evaluation": true
+            },
+            "score": 1.5,
+            "signal": "Structure présente (3 H2) mais framework peu lisible",
+            "tier": "ok"
+          },
+          {
+            "confidence": "high",
+            "id": "per_11",
+            "label": "Benefit Laddering profond (feature → functional → emotional → identity)",
+            "max": 3,
+            "proof": {
+              "emotional_count": 0
+            },
+            "score": 0.0,
+            "signal": "Copy reste au niveau feature/fonctionnel — pas de laddering émotionnel",
+            "tier": "critical"
+          }
+        ],
+        "kept_criteria_count": 8,
+        "original_rawMax": 21,
+        "original_rawTotal": 11.85,
+        "original_score100": 56.4,
+        "pre_applicability_rawMax": 33.0,
+        "pre_applicability_rawTotal": 14.4,
+        "pre_semantic_rawTotal": 13.35,
+        "rawMax": 33.0,
+        "rawTotal": 14.4,
+        "score100": 43.6,
+        "semantic_delta": 1.05,
+        "v3_1_0_extensions_applied": [
+          "per_09",
+          "per_10",
+          "per_11"
+        ]
+      },
+      "psycho": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [
+          "psy_03",
+          "psy_04"
+        ],
+        "bloc": "psycho",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": {
+              "delta_pct": 12.0,
+              "new_pct": 62.0,
+              "new_score": 1.86,
+              "old_pct": 62.0,
+              "old_score": 1.86,
+              "reason": "Doctrine detected 1 urgency signal (limited, 'slightly suspecious'). Vision shows 'instantly' + 'go live' language, which conveys time-bound urgency implicitly. For SaaS freemium, hard scarcity is inappropriate; soft urgency (speed of value delivery) is the right lever. Bump reflects adequate urgenc"
+            },
+            "_vision_lift": null,
+            "id": "psy_01",
+            "max": 3.0,
+            "method": "intelligence_lift_preserved_over_semantic",
+            "regex_score": 1.86,
+            "regex_verdict": null,
+            "score": 1.86,
+            "semantic_rationale_skipped": "Page blog de Weglot : l'absence d'urgence est normale et non critique pour ce type de contenu éducatif. Les blogs visent l'engagement long terme et le SEO, pas la conversion immédiate. Aucune fausse urgence détectée.",
+            "semantic_score_seen": 1.5,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_02",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Une deadline est détectée sur une page blog de SaaS, mais sans contexte de rareté réelle (stock, places limitées, édition). Pour un service SaaS continu, l'absence de fausse rareté est appropriée ; la deadline détectée est probablement liée à une promotion temporaire ou un événement, ce qui est acceptable sans preuve concrète de limitation.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_05",
+            "max": 3.0,
+            "method": "semantic_haiku",
+            "regex_score": 3.0,
+            "regex_verdict": null,
+            "score": 1.5,
+            "semantic_rationale": "Weglot affiche 3 mentions d'experts/fondateurs et des logos presse reconnaissables, signalant une certaine crédibilité. Cependant, l'absence totale de social proof détaillée (témoignages clients nommés, études de cas, chiffres vérifiables) et de certifications affaiblit significativement la force persuasive de ces signaux d'autorité.",
+            "tier": "ok"
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "psy_06",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "confidence": "high",
+            "id": "psy_07",
+            "label": "4 déclencheurs émotionnels actifs (peur / désir / aspiration / appartenance)",
+            "max": 3,
+            "proof": {
+              "counts": {
+                "appartenance": 1,
+                "aspiration": 0,
+                "désir": 1,
+                "peur": 1
+              },
+              "triggers": [
+                "peur",
+                "désir",
+                "appartenance"
+              ]
+            },
+            "score": 3.0,
+            "signal": "3/4 déclencheurs émotionnels actifs",
+            "tier": "top"
+          },
+          {
+            "confidence": "high",
+            "id": "psy_08",
+            "label": "Voice of Customer (verbatims client réinjectés, pas marketer-speak)",
+            "max": 3,
+            "method": "semantic_haiku",
+            "proof": {
+              "marketer_speak": 0,
+              "quotes": 2105,
+              "testimonials": 11
+            },
+            "regex_score": 3.0,
+            "regex_verdict": "top",
+            "score": 0.0,
+            "semantic_rationale": "Aucun témoignage détecté et aucun signal de preuve sociale visible (pas de widget Trustpilot, Google Reviews, badges d'avis vérifiés, compteur d'utilisateurs ou logos clients). La page home manque complètement de crédibilité sociale, ce qui représente une opportunité majeure de conversion.",
+            "signal": "VoC présente : 2105 citations, 11 témoins nommés",
+            "tier": "critical"
+          }
+        ],
+        "kept_criteria_count": 4,
+        "original_rawMax": 18,
+        "original_rawTotal": 14.82,
+        "original_score100": 82.3,
+        "pre_applicability_rawMax": 18.0,
+        "pre_applicability_rawTotal": 10.86,
+        "pre_semantic_rawTotal": 16.86,
+        "rawMax": 18.0,
+        "rawTotal": 10.86,
+        "score100": 60.3,
+        "semantic_delta": -6.0,
+        "v3_1_0_extensions_applied": [
+          "psy_07",
+          "psy_08"
+        ]
+      },
+      "tech": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [],
+        "bloc": "tech",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_01",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 15.0,
+              "new_pct": 65.0,
+              "new_score": 1.95,
+              "old_pct": 65.0,
+              "old_score": 1.95,
+              "reason": "Doctrine scored 3/6 accessibility checks (partial). Vision confirms h1_unique, proper heading hierarchy (H1>H2>H3), and semantic HTML structure visible. ARIA labels likely present on form (12 fields detected suggest form markup). Bump reflects that page has baseline accessibility; not perfect, but s"
+            },
+            "_vision_lift": null,
+            "id": "tech_02",
+            "max": 3.0,
+            "method": "regex+intelligence+intelligence",
+            "score": 1.95,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_03",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 22.0,
+              "new_pct": 72.0,
+              "new_score": 2.16,
+              "old_pct": 72.0,
+              "old_score": 2.16,
+              "reason": "Doctrine detected 2/4 tracking tools (Google Analytics, GTM). Vision confirms GTM implementation allows flexible event tracking; GA provides basic funnel visibility. For SaaS lead-gen, GA + GTM is sufficient baseline (Facebook Pixel, Segment optional). Bump reflects that core analytics stack is in p"
+            },
+            "_vision_lift": null,
+            "id": "tech_04",
+            "max": 3.0,
+            "method": "regex+intelligence+intelligence",
+            "score": 2.16,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "tech_05",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          }
+        ],
+        "kept_criteria_count": 5,
+        "original_rawMax": 15,
+        "original_rawTotal": 13.11,
+        "original_score100": 87.4,
+        "pre_applicability_rawMax": 15.0,
+        "pre_applicability_rawTotal": 13.11,
+        "rawMax": 15.0,
+        "rawTotal": 13.11,
+        "score100": 87.4
+      },
+      "ux": {
+        "applicability_delta_rawMax": 0.0,
+        "applicability_delta_rawTotal": 0.0,
+        "applicability_removed_count": 0,
+        "applied_exclusions": [
+          "ux_06",
+          "ux_08"
+        ],
+        "bloc": "ux",
+        "kept_criteria": [
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "applicability_rule_id": "rule_blog_scan_required",
+            "applicability_status": "REQUIRED",
+            "id": "ux_01",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 18.0,
+              "new_pct": 68.0,
+              "new_score": 2.04,
+              "old_pct": 68.0,
+              "old_score": 2.04,
+              "reason": "Doctrine scored 50% on page rhythm (5 sections, high image count, uneven word density). Vision shows well-paced visual blocks with product mockups, clear section breaks, and hierarchy. For SaaS freemium landing page, 5 sections + heavy image usage (152 images) is intentional for engagement; rhythm i"
+            },
+            "_vision_lift": null,
+            "id": "ux_02",
+            "max": 3.0,
+            "method": "regex+intelligence+intelligence",
+            "score": 2.04,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_03",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "id": "ux_04",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": null,
+            "_vision_lift": null,
+            "applicability_rule_id": "rule_blog_scan_required",
+            "applicability_status": "REQUIRED",
+            "id": "ux_05",
+            "max": 3.0,
+            "method": null,
+            "score": 3.0,
+            "tier": null
+          },
+          {
+            "_intelligence_lift": {
+              "delta_pct": 12.0,
+              "new_pct": 62.0,
+              "new_score": 1.86,
+              "old_pct": 62.0,
+              "old_score": 1.86,
+              "reason": "Doctrine found only lazy-load as micro-interaction. Vision confirms page has scroll-triggered reveals and hero UI mockup (likely interactive demo or autoplay). For SaaS product pages, lazy-load + visual demo constitute adequate micro-interaction suite. Not boosting higher because no explicit click-t"
+            },
+            "_vision_lift": null,
+            "id": "ux_07",
+            "max": 3.0,
+            "method": "regex+intelligence+intelligence",
+            "score": 1.86,
+            "tier": null
+          }
+        ],
+        "kept_criteria_count": 6,
+        "original_rawMax": 18,
+        "original_rawTotal": 15.9,
+        "original_score100": 88.3,
+        "pre_applicability_rawMax": 18.0,
+        "pre_applicability_rawTotal": 15.9,
+        "rawMax": 18.0,
+        "rawTotal": 15.9,
+        "score100": 88.3
+      }
+    },
+    "rawMax": 120.0,
+    "rawTotal": 78.63,
+    "score100": 65.5
+  },
+  "utility_banner": {
+    "applicable": false,
+    "contribution_page_score": 0,
+    "label": "weglot",
+    "max": 21,
+    "pageType": "blog",
+    "reason": "no UTILITY_BANNER cluster detected",
+    "total": 0
+  }
+}

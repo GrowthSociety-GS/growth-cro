@@ -1,0 +1,173 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "content_text",
+        "hero_band",
+        "social_proof_logos"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 79.4,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 17,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 3,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "social_proof_logos",
+        "steps_howitworks",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 1
+    }
+  },
+  "activeCriteria": 6,
+  "capturedAt": "2026-04-29T18:27:23.429694+00:00",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "h1": "The easiest way to translate a website",
+        "h1Count": 6,
+        "hasBenefit": false,
+        "hasDifferentiator": false,
+        "hasTarget": false,
+        "signals": 0,
+        "wordCount": 7
+      },
+      "id": "hero_01",
+      "label": "H1 = promesse spécifique",
+      "max": 3,
+      "rationale": "H1 vague + anti-pattern SEO : 6 H1 sur la page. Le premier H1 n'exprime aucun bénéfice.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "addsInfo": false,
+        "hasBulletList": true,
+        "subtitle": "Website translation so on brand, no one will suspect AI\nThe AI way to translate a website\nAI website translation, true to your brand\nAI website translation that runs itself\nAI website translation, on ",
+        "wordCount": 35
+      },
+      "id": "hero_02",
+      "label": "Sous-titre explicite",
+      "max": 3,
+      "rationale": "Sous-titre présent mais long (35 mots, max recommandé 25).",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "contrastText": null,
+        "height": null,
+        "href": "https://dashboard.weglot.com/register",
+        "label": "Try for free",
+        "primaryScore": 35,
+        "reasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "width": null,
+        "wordCount": 3
+      },
+      "id": "hero_03",
+      "label": "CTA principal visible ATF",
+      "max": 3,
+      "rationale": "CTA 'Try for free': verbe action OK mais taille 0×0 sous 44px.",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "heroImagesCount": 2,
+        "mainImage": null,
+        "spatialImgArea": 0,
+        "spatialImgRatio": 0,
+        "spatialVisualDetected": false,
+        "validImagesCount": 0
+      },
+      "id": "hero_04",
+      "label": "Visuel hero pertinent",
+      "max": 3,
+      "rationale": "Aucun visuel hero détecté — ni en balise <img>, ni dans le screenshot spatial.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "present": true,
+        "reviewCounts": [],
+        "snippet": "",
+        "spatialInFold": null,
+        "trustWidgets": [
+          {
+            "present": true,
+            "type": "trustpilot"
+          },
+          {
+            "present": true,
+            "type": "google_reviews"
+          }
+        ],
+        "type": "trustpilot"
+      },
+      "id": "hero_05",
+      "label": "Preuve sociale ATF",
+      "max": 3,
+      "perception_has_social_proof": true,
+      "rationale": "Preuve sociale visible : type=trustpilot, widgets=2, chiffres=[].",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "distractions": [],
+        "hasFocus": false,
+        "killerTriggered": false,
+        "primaryScore": 35,
+        "q_action": true,
+        "q_pour_qui": false,
+        "q_quoi": true,
+        "questionsAnswered": 2,
+        "secondaryScore": 0
+      },
+      "id": "hero_06",
+      "label": "Test 5s + ratio 1:1",
+      "max": 3,
+      "rationale": "Test 5s échoué : 2/3 questions, focus CTA=False, distractions=[].",
+      "score": 0,
+      "verdict": "critical"
+    }
+  ],
+  "finalTotal": 6.0,
+  "gridVersion": "3.2.1-draft",
+  "killerNote": null,
+  "killerTriggered": false,
+  "label": "weglot",
+  "max": 18,
+  "maxFull": 18,
+  "pageType": "home",
+  "pillar": "hero",
+  "rawTotal": 6.0,
+  "score100": 33.3,
+  "skippedCriteria": [],
+  "url": "https://www.weglot.com"
+}

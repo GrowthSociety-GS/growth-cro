@@ -1,0 +1,1460 @@
+{
+  "_criterion_crops_generated": true,
+  "_semantic_mapped": true,
+  "criterion_crops": {
+    "coh_01": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 781,
+          "x": 543,
+          "y": 283
+        }
+      ],
+      "label": "Promesse 5 sec",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_02": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 781,
+          "x": 543,
+          "y": 283
+        }
+      ],
+      "label": "Cible identifiable",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_03": {
+      "highlights": [],
+      "label": "Cohérence message",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "coh_04": {
+      "highlights": [],
+      "label": "Positionnement",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_01": {
+      "highlights": [
+        {
+          "h": 126,
+          "w": 781,
+          "x": 543,
+          "y": 283
+        }
+      ],
+      "label": "Titre principal (H1)",
+      "y_end": 489,
+      "y_start": 203,
+      "zone": "HERO_SECTION"
+    },
+    "hero_02": {
+      "highlights": [],
+      "label": "Sous-titre",
+      "y_end": 609,
+      "y_start": 283,
+      "zone": "HERO_SECTION"
+    },
+    "hero_03": {
+      "highlights": [
+        {
+          "h": 42,
+          "w": 115,
+          "x": 1285,
+          "y": 15
+        }
+      ],
+      "label": "CTA principal",
+      "y_end": 137,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_04": {
+      "highlights": [
+        {
+          "h": 69,
+          "w": 45,
+          "x": 542,
+          "y": 3
+        },
+        {
+          "h": 72,
+          "w": 89,
+          "x": 1113,
+          "y": 0
+        },
+        {
+          "h": 72,
+          "w": 35,
+          "x": 1226,
+          "y": 0
+        },
+        {
+          "h": 42,
+          "w": 115,
+          "x": 1285,
+          "y": 15
+        },
+        {
+          "h": 62,
+          "w": 314,
+          "x": 543,
+          "y": 483
+        }
+      ],
+      "label": "Isolation CTA (focus)",
+      "y_end": 699,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_05": {
+      "highlights": [],
+      "label": "Visuel produit/service",
+      "y_end": 600,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_06": {
+      "highlights": [],
+      "label": "Lisibilité en 5 secondes",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_07": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_08": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_09": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "hero_10": {
+      "highlights": [],
+      "label": "Zone hero",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "HERO_SECTION"
+    },
+    "per_01": {
+      "highlights": [],
+      "label": "Bénéfices vs features",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_02": {
+      "highlights": [],
+      "label": "Storytelling fondateur",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_03": {
+      "highlights": [],
+      "label": "Objections levées",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_04": {
+      "highlights": [],
+      "label": "Social proof",
+      "y_end": 4724,
+      "y_start": 3940,
+      "zone": "SOCIAL_PROOF"
+    },
+    "per_05": {
+      "highlights": [],
+      "label": "Urgence/rareté",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "per_06": {
+      "highlights": [],
+      "label": "Garanties",
+      "y_end": 1700,
+      "y_start": 900,
+      "zone": "CONTENT"
+    },
+    "psy_01": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_02": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_03": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_04": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_05": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "psy_06": {
+      "highlights": [],
+      "label": "Psychologie",
+      "y_end": 1300,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_01": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_02": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_03": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_04": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_05": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "tech_06": {
+      "highlights": [],
+      "label": "Technique",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_01": {
+      "highlights": [],
+      "label": "Hiérarchie visuelle",
+      "y_end": 699,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_02": {
+      "highlights": [],
+      "label": "Rythme de page",
+      "y_end": 699,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_03": {
+      "highlights": [],
+      "label": "Scan-ability",
+      "y_end": 699,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_04": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_05": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    },
+    "ux_06": {
+      "highlights": [],
+      "label": "Structure UX",
+      "y_end": 900,
+      "y_start": 0,
+      "zone": "FULL_PAGE"
+    }
+  },
+  "hero": {
+    "ctas": [],
+    "h1": "Articles to help you unlock new markets",
+    "h1Count": 1,
+    "h1ParasiticFiltered": 0,
+    "h1Source": "h1",
+    "heroImages": [
+      {
+        "alt": "weglot logo",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678640efd4d181f55a374fd9_weglot%20logo.svg"
+      },
+      {
+        "alt": "Arrow down",
+        "htmlHeight": null,
+        "htmlWidth": null,
+        "inFold": true,
+        "loading": "lazy",
+        "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6786438aa08bc05b3b8c28bc_Vector.svg"
+      }
+    ],
+    "primaryCta": {
+      "label": "Try for free",
+      "source": "semantic_mapper"
+    },
+    "socialProofInFold": {
+      "present": false,
+      "snippet": "",
+      "type": null
+    },
+    "subtitle": "The latest international marketing news, website translation tips and Weglot updates\nSubscribe to our Newsletter\nMost popular articles"
+  },
+  "hero_semantic": {
+    "headline": "Articles to help you unlock new markets",
+    "headline_font_size": 63.0,
+    "headline_y": 283,
+    "images": [],
+    "primary_cta": "Try for free",
+    "primary_cta_y": 15,
+    "secondary_ctas": [
+      "Subscribe to our Newsletter",
+      "Pricing",
+      "Contact sales"
+    ],
+    "subtitle": null,
+    "subtitle_y": null
+  },
+  "meta": {
+    "captureLevel": 0,
+    "captureSource": "ghost_capture.js (page.html rendered)",
+    "capturedAt": "2026-04-17T08:29:12.815815+00:00",
+    "capturedBy": "playwright-rendered-dom-v3",
+    "completeness": 1,
+    "confidence": "high",
+    "errors": [],
+    "fetchTimeMs": 0,
+    "finalUrl": "https://weglot.com",
+    "label": "weglot__blog",
+    "metaDescription": "Tips, tutorials, design inspiration, SEO, and localization advice for translating your website",
+    "pageType": "blog",
+    "stagesCompleted": [
+      "fetch",
+      "extract",
+      "html"
+    ],
+    "title": "Weglot Blog | Resources for multilingual websites",
+    "url": "https://weglot.com"
+  },
+  "overlays": {
+    "chatWidgets": [],
+    "cookieBanner": {
+      "cmpDetected": "axeptio",
+      "present": true,
+      "removalMethod": "none"
+    }
+  },
+  "pageSpecific": {
+    "has_author": true,
+    "has_date": true,
+    "has_reading_time": false,
+    "has_related_articles": false,
+    "has_share_buttons": true,
+    "has_toc": false,
+    "word_count": 1659
+  },
+  "psychoSignals": {
+    "award_mentions": 1,
+    "certification_mentions": 0,
+    "expert_mentions": 3,
+    "has_countdown": false,
+    "has_crossed_price": false,
+    "has_deadline": true,
+    "has_discount_badge": false,
+    "has_free_offer": false,
+    "has_guarantee": false,
+    "has_press_logos": true,
+    "has_stock_indicator": false,
+    "loss_framing": 1,
+    "media_mentions": 0,
+    "scarcity_words": 0,
+    "urgency_words": 0,
+    "user_count_mentions": 0
+  },
+  "rawHtml": "page.html",
+  "screenshots": {},
+  "semantic_map": [
+    {
+      "element_count": 13,
+      "headline": "Articles to help you unlock new markets",
+      "height": 699,
+      "type": "HERO_SECTION",
+      "y_end": 699,
+      "y_start": 0
+    },
+    {
+      "element_count": 50,
+      "headline": "Most popular articles",
+      "height": 897,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1596,
+      "y_start": 699
+    },
+    {
+      "element_count": 134,
+      "headline": "Complete Guide to Localization Testing: Best Practices and Step by Step",
+      "height": 537,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1476,
+      "y_start": 939
+    },
+    {
+      "element_count": 21,
+      "headline": "How to See Google Search Results for Different Countries (Step-By-Step)",
+      "height": 506,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1445,
+      "y_start": 939
+    },
+    {
+      "element_count": 21,
+      "headline": "How Accurate is Google Translate?",
+      "height": 506,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1445,
+      "y_start": 939
+    },
+    {
+      "element_count": 21,
+      "headline": "How to Set up a Localization Workflow",
+      "height": 537,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1476,
+      "y_start": 939
+    },
+    {
+      "element_count": 15,
+      "headline": "Decoding Netflix's Global Success: The Power of Localization",
+      "height": 513,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1452,
+      "y_start": 939
+    },
+    {
+      "element_count": 15,
+      "headline": "Does AI Favor Translated Content? (+1.3 Million Citations Analyzed)",
+      "height": 337,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1276,
+      "y_start": 939
+    },
+    {
+      "element_count": 15,
+      "headline": "6 Marketing Tips to Get Found by International Customers Online",
+      "height": 337,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1276,
+      "y_start": 939
+    },
+    {
+      "element_count": 15,
+      "headline": "17 Best Multilingual Web Fonts to Use on Your Website in 2024",
+      "height": 337,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1276,
+      "y_start": 939
+    },
+    {
+      "element_count": 5,
+      "headline": "",
+      "height": 429,
+      "type": "CONTENT_BLOCK",
+      "y_end": 1252,
+      "y_start": 823
+    },
+    {
+      "element_count": 0,
+      "headline": "",
+      "height": 537,
+      "type": "UNKNOWN",
+      "y_end": 1476,
+      "y_start": 939
+    },
+    {
+      "element_count": 63,
+      "headline": "Contentful Localization Strategies Compared",
+      "height": 2344,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3939,
+      "y_start": 1595
+    },
+    {
+      "element_count": 98,
+      "headline": "Contentful Localization Strategies Compared",
+      "height": 2068,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3819,
+      "y_start": 1751
+    },
+    {
+      "element_count": 18,
+      "headline": "Translate Website to Chinese Without Losing Your SEO",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2354,
+      "y_start": 1751
+    },
+    {
+      "element_count": 18,
+      "headline": "Automatic Website Translation Explained for Site Owners",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2354,
+      "y_start": 1751
+    },
+    {
+      "element_count": 3,
+      "headline": "",
+      "height": 304,
+      "type": "CONTENT_BLOCK",
+      "y_end": 2330,
+      "y_start": 2026
+    },
+    {
+      "element_count": 15,
+      "headline": "Does Google's AI Favor YouTube? We Analyzed 180 Queries Across Three LLMs to Fin",
+      "height": 657,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3051,
+      "y_start": 2394
+    },
+    {
+      "element_count": 18,
+      "headline": "How to Translate a Business Website With AI Website Translation",
+      "height": 657,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3051,
+      "y_start": 2394
+    },
+    {
+      "element_count": 0,
+      "headline": "",
+      "height": 205,
+      "type": "UNKNOWN",
+      "y_end": 2874,
+      "y_start": 2669
+    },
+    {
+      "element_count": 18,
+      "headline": "How to Choose Your First International Market Expansion Opportunity",
+      "height": 657,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3051,
+      "y_start": 2394
+    },
+    {
+      "element_count": 0,
+      "headline": "",
+      "height": 205,
+      "type": "UNKNOWN",
+      "y_end": 2874,
+      "y_start": 2669
+    },
+    {
+      "element_count": 3,
+      "headline": "",
+      "height": 83,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3027,
+      "y_start": 2944
+    },
+    {
+      "element_count": 15,
+      "headline": "How to Easily Translate a Lovable Website (Without Rebuilding It)",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3694,
+      "y_start": 3091
+    },
+    {
+      "element_count": 18,
+      "headline": "When and How to Use Hreflang X-Default on Multilingual Pages",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3694,
+      "y_start": 3091
+    },
+    {
+      "element_count": 18,
+      "headline": "How Machine Translation Works from Rules to Context-Aware Systems",
+      "height": 603,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3694,
+      "y_start": 3091
+    },
+    {
+      "element_count": 3,
+      "headline": "",
+      "height": 304,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3670,
+      "y_start": 3366
+    },
+    {
+      "element_count": 1,
+      "headline": "",
+      "height": 62,
+      "type": "CONTENT_BLOCK",
+      "y_end": 3820,
+      "y_start": 3758
+    },
+    {
+      "element_count": 8,
+      "headline": "Weglot keeps getting better!",
+      "height": 784,
+      "type": "SOCIAL_PROOF",
+      "y_end": 4724,
+      "y_start": 3940
+    },
+    {
+      "element_count": 16,
+      "headline": "Preview in setup",
+      "height": 544,
+      "type": "SOCIAL_PROOF",
+      "y_end": 4604,
+      "y_start": 4060
+    },
+    {
+      "element_count": 6,
+      "headline": "Post-Setup Checklist",
+      "height": 341,
+      "type": "CONTENT_BLOCK",
+      "y_end": 4518,
+      "y_start": 4177
+    },
+    {
+      "element_count": 6,
+      "headline": "User Permission : Billing access",
+      "height": 341,
+      "type": "CONTENT_BLOCK",
+      "y_end": 4518,
+      "y_start": 4177
+    },
+    {
+      "element_count": 0,
+      "headline": "",
+      "height": 227,
+      "type": "UNKNOWN",
+      "y_end": 4477,
+      "y_start": 4250
+    },
+    {
+      "element_count": 1,
+      "headline": "",
+      "height": 62,
+      "type": "CONTENT_BLOCK",
+      "y_end": 4603,
+      "y_start": 4541
+    },
+    {
+      "element_count": 9,
+      "headline": "Ready to get started?",
+      "height": 385,
+      "type": "CONTENT_BLOCK",
+      "y_end": 5108,
+      "y_start": 4723
+    },
+    {
+      "element_count": 1,
+      "headline": "",
+      "height": 384,
+      "type": "CONTENT_BLOCK",
+      "y_end": 5107,
+      "y_start": 4723
+    },
+    {
+      "element_count": 203,
+      "headline": "",
+      "height": 535,
+      "type": "FOOTER",
+      "y_end": 5643,
+      "y_start": 5108
+    },
+    {
+      "element_count": 9,
+      "headline": "",
+      "height": 26,
+      "type": "UNKNOWN",
+      "y_end": 5628,
+      "y_start": 5602
+    }
+  ],
+  "socialProof": {
+    "reviewCounts": [],
+    "testimonials": [],
+    "trustWidgets": []
+  },
+  "structure": {
+    "ctas": [
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "isPrimary": true,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button cta-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/register",
+        "inFold": false,
+        "label": "Try for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-inline-block",
+        "href": "https://weglot.com",
+        "inFold": false,
+        "label": "Subscribe to our Newsletter",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "classes": "button secondary w-inline-block",
+        "href": "https://dashboard.weglot.com/register/",
+        "inFold": false,
+        "label": "Get started for free",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/register/",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://weglot.com/contact/enterprise",
+        "inFold": false,
+        "label": "Book a demo",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "/contact/enterprise",
+        "tag": "a"
+      },
+      {
+        "classes": "button w-variant-81dab279-e7a5-7579-d1af-b965e0f08bbc w-inline-block",
+        "href": "https://weglot.com",
+        "inFold": false,
+        "label": "Subscribe now",
+        "primaryScore": 35,
+        "primaryScoreReasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      },
+      {
+        "classes": "card white-with-border w-inline-block",
+        "href": "https://weglot.com/blog/how-to-see-google-search-results-for-other-locations",
+        "inFold": false,
+        "label": "International marketingHow to See Google Search Results for Different Countries (Step-By-Step)Learn ",
+        "primaryScore": 20,
+        "primaryScoreReasons": [
+          "actionVerb+20"
+        ],
+        "rawHref": "/blog/how-to-see-google-search-results-for-other-locations",
+        "tag": "a"
+      },
+      {
+        "classes": "card white-with-border w-inline-block",
+        "href": "https://weglot.com/blog/how-accurate-is-google-translate",
+        "inFold": false,
+        "label": "Website translationHow Accurate is Google Translate?Learn more about Google Translate's accuracy and",
+        "primaryScore": 20,
+        "primaryScoreReasons": [
+          "actionVerb+20"
+        ],
+        "rawHref": "/blog/how-accurate-is-google-translate",
+        "tag": "a"
+      },
+      {
+        "classes": "card white-with-border w-inline-block",
+        "href": "https://weglot.com/blog/international-customers",
+        "inFold": false,
+        "label": "International marketing6 Marketing Tips to Get Found by International Customers OnlineLearn 6 market",
+        "primaryScore": 20,
+        "primaryScoreReasons": [
+          "actionVerb+20"
+        ],
+        "rawHref": "/blog/international-customers",
+        "tag": "a"
+      },
+      {
+        "classes": "card white-with-border w-inline-block",
+        "href": "https://weglot.com/blog/translate-website-to-chinese",
+        "inFold": false,
+        "label": "Website translationTranslate Website to Chinese Without Losing Your SEOBrowser tools won’t get your ",
+        "primaryScore": 20,
+        "primaryScoreReasons": [
+          "actionVerb+20"
+        ],
+        "rawHref": "/blog/translate-website-to-chinese",
+        "tag": "a"
+      },
+      {
+        "classes": "card white-with-border w-inline-block",
+        "href": "https://weglot.com/blog/translate-lovable-website",
+        "inFold": false,
+        "label": "Website translationHow to Easily Translate a Lovable Website (Without Rebuilding It)Learn how to tra",
+        "primaryScore": 20,
+        "primaryScoreReasons": [
+          "actionVerb+20"
+        ],
+        "rawHref": "/blog/translate-lovable-website",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "button-inline-navbar w-inline-block",
+        "href": "https://dashboard.weglot.com/login/",
+        "inFold": false,
+        "label": "Login",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://dashboard.weglot.com/login/",
+        "tag": "a"
+      },
+      {
+        "classes": "w-pagination-next button tertiary",
+        "href": "https://weglot.com?94b55635_page=2",
+        "inFold": false,
+        "label": "Load more",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "?94b55635_page=2",
+        "tag": "a"
+      },
+      {
+        "classes": "button tertiary w-inline-block",
+        "href": "https://changelog.weglot.com/",
+        "inFold": false,
+        "label": "All releases",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "https://changelog.weglot.com/",
+        "tag": "a"
+      },
+      {
+        "classes": "button-4 w-button",
+        "href": "https://weglot.com",
+        "inFold": false,
+        "label": "Close",
+        "primaryScore": 15,
+        "primaryScoreReasons": [
+          "buttonClass+15"
+        ],
+        "rawHref": "#",
+        "tag": "a"
+      }
+    ],
+    "forms": [
+      {
+        "action": "",
+        "fields": 12,
+        "hiddenInputs": 0,
+        "inputs": 12,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 0
+      },
+      {
+        "action": "",
+        "fields": 2,
+        "hiddenInputs": 0,
+        "inputs": 2,
+        "method": "GET",
+        "selects": 0,
+        "submit": "",
+        "submitLabel": "",
+        "textareas": 0
+      }
+    ],
+    "headings": [
+      {
+        "level": 1,
+        "order": 1,
+        "text": "Articles to help you unlock new markets"
+      },
+      {
+        "level": 2,
+        "order": 2,
+        "text": "Most popular articles"
+      },
+      {
+        "level": 3,
+        "order": 3,
+        "text": "Complete Guide to Localization Testing: Best Practices and Step by Step"
+      },
+      {
+        "level": 3,
+        "order": 4,
+        "text": "How to See Google Search Results for Different Countries (Step-By-Step)"
+      },
+      {
+        "level": 3,
+        "order": 5,
+        "text": "How Accurate is Google Translate?"
+      },
+      {
+        "level": 3,
+        "order": 6,
+        "text": "How to Set up a Localization Workflow"
+      },
+      {
+        "level": 3,
+        "order": 7,
+        "text": "Decoding Netflix's Global Success: The Power of Localization"
+      },
+      {
+        "level": 3,
+        "order": 8,
+        "text": "Does AI Favor Translated Content? (+1.3 Million Citations Analyzed)"
+      },
+      {
+        "level": 3,
+        "order": 9,
+        "text": "6 Marketing Tips to Get Found by International Customers Online"
+      },
+      {
+        "level": 3,
+        "order": 10,
+        "text": "17 Best Multilingual Web Fonts to Use on Your Website in 2024"
+      },
+      {
+        "level": 3,
+        "order": 11,
+        "text": "Translate Website to Chinese Without Losing Your SEO"
+      },
+      {
+        "level": 3,
+        "order": 12,
+        "text": "Automatic Website Translation Explained for Site Owners"
+      },
+      {
+        "level": 3,
+        "order": 13,
+        "text": "Does Google's AI Favor YouTube? We Analyzed 180 Queries Across Three LLMs to Find Out"
+      },
+      {
+        "level": 3,
+        "order": 14,
+        "text": "How to Translate a Business Website With AI Website Translation"
+      },
+      {
+        "level": 3,
+        "order": 15,
+        "text": "How to Choose Your First International Market Expansion Opportunity"
+      },
+      {
+        "level": 3,
+        "order": 16,
+        "text": "How to Easily Translate a Lovable Website (Without Rebuilding It)"
+      },
+      {
+        "level": 3,
+        "order": 17,
+        "text": "When and How to Use Hreflang X-Default on Multilingual Pages"
+      },
+      {
+        "level": 3,
+        "order": 18,
+        "text": "How Machine Translation Works from Rules to Context-Aware Systems"
+      },
+      {
+        "level": 3,
+        "order": 19,
+        "text": "Keeping WordPress Fast and SEO Friendly with Automatic Translation"
+      },
+      {
+        "level": 2,
+        "order": 20,
+        "text": "Weglot keeps getting better!"
+      },
+      {
+        "level": 3,
+        "order": 21,
+        "text": "Preview in setup"
+      },
+      {
+        "level": 3,
+        "order": 22,
+        "text": "Post-Setup Checklist"
+      },
+      {
+        "level": 3,
+        "order": 23,
+        "text": "User Permission : Billing access"
+      },
+      {
+        "level": 2,
+        "order": 24,
+        "text": "Ready to get started?"
+      },
+      {
+        "level": 3,
+        "order": 25,
+        "text": "Subscribe to our Newsletter"
+      }
+    ]
+  },
+  "techSignals": {
+    "dom_nodes": 1392,
+    "external_css_count": 0,
+    "external_scripts_count": 13,
+    "form_inputs_count": 14,
+    "form_labels_count": 10,
+    "h1_count": 1,
+    "has_aria_labels": true,
+    "has_canonical": true,
+    "has_charset": true,
+    "has_favicon": true,
+    "has_h1": true,
+    "has_hsts": false,
+    "has_lang": true,
+    "has_meta_desc": true,
+    "has_og_tags": true,
+    "has_robots": false,
+    "has_role_attributes": true,
+    "has_schema_org": true,
+    "has_skip_link": false,
+    "has_title": true,
+    "has_viewport": true,
+    "html_size_bytes": 230186,
+    "images_lazy_loaded": 152,
+    "images_total": 152,
+    "images_without_alt": 67,
+    "images_without_alt_count": 67,
+    "inline_style_blocks": 5,
+    "is_https": true,
+    "meta_desc_length": 94,
+    "robots_content": "",
+    "schema_types": [
+      "unknown"
+    ],
+    "third_party_domains": [
+      "ajax.googleapis.com",
+      "cdn.jsdelivr.net",
+      "d3e54v103j8qbb.cloudfront.net",
+      "static.cloudflareinsights.com",
+      "app.concierge.ai",
+      "cdn.weglot.com",
+      "www.google.com",
+      "cdn.prod.website-files.com",
+      "cdn-4.convertexperiments.com"
+    ],
+    "title_length": 49
+  },
+  "technical": {
+    "canonical": "https://www.weglot.com/blog",
+    "charset": "utf-8",
+    "domNodes": 1392,
+    "favicon": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67cee95e6de156e5ca852745_649180bb70e6f03c6d4dcc3d_favicon-32x32.png",
+    "lang": "en",
+    "metaDescription": "Tips, tutorials, design inspiration, SEO, and localization advice for translating your website",
+    "ogDescription": "Tips, tutorials, design inspiration, SEO, and localization advice for translating your website",
+    "ogImage": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67d42ef79861f78dc63f5bbd_651302d2e61c2989cef4050c_Weglot%20Blog%20Thumbnail.png",
+    "ogTitle": "Weglot Blog | Resources for multilingual websites",
+    "robots": "",
+    "schemaOrg": [
+      {
+        "@type": "unknown"
+      }
+    ],
+    "title": "Weglot Blog | Resources for multilingual websites",
+    "viewport": "width=device-width, initial-scale=1"
+  },
+  "uxSignals": {
+    "body_words": 1659,
+    "bold_count": 0,
+    "bullet_lists": 10,
+    "css_transitions": 0,
+    "dom_nodes": 1392,
+    "h2_count": 3,
+    "has_accordion": false,
+    "has_back_to_top": false,
+    "has_carousel": true,
+    "has_details_summary": false,
+    "has_progress_bar": false,
+    "has_slick": false,
+    "has_swiper": false,
+    "img_count": 152,
+    "lazy_images": 152,
+    "list_items": 40,
+    "overflow_x_patterns": 1,
+    "section_tags": 5,
+    "smooth_scroll": false,
+    "sticky_fixed": 0
+  },
+  "zone_crops": [
+    {
+      "headline": "Articles to help you unlock new markets",
+      "height": 709,
+      "y_end": 709,
+      "y_start": 0,
+      "zone_type": "HERO_SECTION"
+    },
+    {
+      "headline": "Most popular articles",
+      "height": 917,
+      "y_end": 1606,
+      "y_start": 689,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Complete Guide to Localization Testing: Best Practices and Step by Step",
+      "height": 557,
+      "y_end": 1486,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How to See Google Search Results for Different Countries (Step-By-Step)",
+      "height": 526,
+      "y_end": 1455,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How Accurate is Google Translate?",
+      "height": 526,
+      "y_end": 1455,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How to Set up a Localization Workflow",
+      "height": 557,
+      "y_end": 1486,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Decoding Netflix's Global Success: The Power of Localization",
+      "height": 533,
+      "y_end": 1462,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Does AI Favor Translated Content? (+1.3 Million Citations Analyzed)",
+      "height": 357,
+      "y_end": 1286,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "6 Marketing Tips to Get Found by International Customers Online",
+      "height": 357,
+      "y_end": 1286,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "17 Best Multilingual Web Fonts to Use on Your Website in 2024",
+      "height": 357,
+      "y_end": 1286,
+      "y_start": 929,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 449,
+      "y_end": 1262,
+      "y_start": 813,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 557,
+      "y_end": 1486,
+      "y_start": 929,
+      "zone_type": "UNKNOWN"
+    },
+    {
+      "headline": "Contentful Localization Strategies Compared",
+      "height": 2364,
+      "y_end": 3949,
+      "y_start": 1585,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Contentful Localization Strategies Compared",
+      "height": 2088,
+      "y_end": 3829,
+      "y_start": 1741,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Translate Website to Chinese Without Losing Your SEO",
+      "height": 623,
+      "y_end": 2364,
+      "y_start": 1741,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Automatic Website Translation Explained for Site Owners",
+      "height": 623,
+      "y_end": 2364,
+      "y_start": 1741,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 324,
+      "y_end": 2340,
+      "y_start": 2016,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Does Google's AI Favor YouTube? We Analyzed 180 Queries Across Three LLMs to Fin",
+      "height": 677,
+      "y_end": 3061,
+      "y_start": 2384,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How to Translate a Business Website With AI Website Translation",
+      "height": 677,
+      "y_end": 3061,
+      "y_start": 2384,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 225,
+      "y_end": 2884,
+      "y_start": 2659,
+      "zone_type": "UNKNOWN"
+    },
+    {
+      "headline": "How to Choose Your First International Market Expansion Opportunity",
+      "height": 677,
+      "y_end": 3061,
+      "y_start": 2384,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 225,
+      "y_end": 2884,
+      "y_start": 2659,
+      "zone_type": "UNKNOWN"
+    },
+    {
+      "headline": "",
+      "height": 103,
+      "y_end": 3037,
+      "y_start": 2934,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How to Easily Translate a Lovable Website (Without Rebuilding It)",
+      "height": 623,
+      "y_end": 3704,
+      "y_start": 3081,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "When and How to Use Hreflang X-Default on Multilingual Pages",
+      "height": 623,
+      "y_end": 3704,
+      "y_start": 3081,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "How Machine Translation Works from Rules to Context-Aware Systems",
+      "height": 623,
+      "y_end": 3704,
+      "y_start": 3081,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 324,
+      "y_end": 3680,
+      "y_start": 3356,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 82,
+      "y_end": 3830,
+      "y_start": 3748,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Weglot keeps getting better!",
+      "height": 804,
+      "y_end": 4734,
+      "y_start": 3930,
+      "zone_type": "SOCIAL_PROOF"
+    },
+    {
+      "headline": "Preview in setup",
+      "height": 564,
+      "y_end": 4614,
+      "y_start": 4050,
+      "zone_type": "SOCIAL_PROOF"
+    },
+    {
+      "headline": "Post-Setup Checklist",
+      "height": 361,
+      "y_end": 4528,
+      "y_start": 4167,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "User Permission : Billing access",
+      "height": 361,
+      "y_end": 4528,
+      "y_start": 4167,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 247,
+      "y_end": 4487,
+      "y_start": 4240,
+      "zone_type": "UNKNOWN"
+    },
+    {
+      "headline": "",
+      "height": 82,
+      "y_end": 4613,
+      "y_start": 4531,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "Ready to get started?",
+      "height": 405,
+      "y_end": 5118,
+      "y_start": 4713,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 404,
+      "y_end": 5117,
+      "y_start": 4713,
+      "zone_type": "CONTENT_BLOCK"
+    },
+    {
+      "headline": "",
+      "height": 555,
+      "y_end": 5653,
+      "y_start": 5098,
+      "zone_type": "FOOTER"
+    },
+    {
+      "headline": "",
+      "height": 46,
+      "y_end": 5638,
+      "y_start": 5592,
+      "zone_type": "UNKNOWN"
+    }
+  ]
+}

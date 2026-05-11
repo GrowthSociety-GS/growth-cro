@@ -1,0 +1,3630 @@
+{
+  "clusters": [
+    {
+      "alt_roles": [
+        [
+          "PRICING",
+          75
+        ]
+      ],
+      "bbox": {
+        "h": 72,
+        "w": 1227,
+        "x": 173,
+        "y": 0
+      },
+      "cluster_id": 13,
+      "confidence": 75,
+      "element_count": 9,
+      "element_indices": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.004,
+        0.005
+      ],
+      "role": "NAV"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 23,
+        "w": 758,
+        "x": 40,
+        "y": 25
+      },
+      "cluster_id": 0,
+      "confidence": 60,
+      "element_count": 6,
+      "element_indices": [
+        71,
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "has_cta": false,
+      "has_h1": false,
+      "rel_y": [
+        0.004,
+        0.004
+      ],
+      "role": "SOCIAL_PROOF"
+    },
+    {
+      "_reconstituted_from_orphans": true,
+      "alt_roles": [],
+      "bbox": {
+        "h": 1854,
+        "w": 1220,
+        "x": 40,
+        "y": 25
+      },
+      "cluster_id": 14,
+      "confidence": 75,
+      "element_count": 22,
+      "element_indices": [
+        0,
+        1,
+        2,
+        3,
+        28,
+        29,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        121
+      ],
+      "has_cta": true,
+      "has_h1": true,
+      "rel_y": [
+        0.003,
+        0.23
+      ],
+      "role": "HERO"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 187,
+        "w": 872,
+        "x": 284,
+        "y": 836
+      },
+      "cluster_id": 1,
+      "confidence": 60,
+      "element_count": 9,
+      "element_indices": [
+        1,
+        70,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        121
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.105,
+        0.121
+      ],
+      "role": "SOCIAL_PROOF"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 520,
+        "w": 1080,
+        "x": 180,
+        "y": 1359
+      },
+      "cluster_id": 2,
+      "confidence": 55,
+      "element_count": 4,
+      "element_indices": [
+        3,
+        29,
+        83,
+        84
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.189,
+        0.21
+      ],
+      "role": "VALUE_PROPS"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 520,
+        "w": 1080,
+        "x": 180,
+        "y": 1895
+      },
+      "cluster_id": 3,
+      "confidence": 55,
+      "element_count": 4,
+      "element_indices": [
+        4,
+        30,
+        85,
+        86
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.251,
+        0.276
+      ],
+      "role": "VALUE_PROPS"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 495,
+        "w": 1080,
+        "x": 180,
+        "y": 2431
+      },
+      "cluster_id": 4,
+      "confidence": 55,
+      "element_count": 4,
+      "element_indices": [
+        5,
+        31,
+        87,
+        88
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.318,
+        0.339
+      ],
+      "role": "VALUE_PROPS"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 520,
+        "w": 1080,
+        "x": 180,
+        "y": 2941
+      },
+      "cluster_id": 5,
+      "confidence": 55,
+      "element_count": 4,
+      "element_indices": [
+        6,
+        32,
+        89,
+        90
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.381,
+        0.402
+      ],
+      "role": "VALUE_PROPS"
+    },
+    {
+      "alt_roles": [
+        [
+          "VALUE_PROPS",
+          55
+        ]
+      ],
+      "bbox": {
+        "h": 569,
+        "w": 1187,
+        "x": 127,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "confidence": 60,
+      "element_count": 17,
+      "element_indices": [
+        7,
+        33,
+        34,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.461,
+        0.527
+      ],
+      "role": "SOCIAL_PROOF"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 179,
+        "w": 2365,
+        "x": 116,
+        "y": 4884
+      },
+      "cluster_id": 7,
+      "confidence": 60,
+      "element_count": 11,
+      "element_indices": [
+        35,
+        36,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.599,
+        0.615
+      ],
+      "role": "SOCIAL_PROOF"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 449,
+        "w": 1144,
+        "x": 148,
+        "y": 5562
+      },
+      "cluster_id": 8,
+      "confidence": 30,
+      "element_count": 3,
+      "element_indices": [
+        10,
+        11,
+        114
+      ],
+      "has_cta": false,
+      "has_h1": false,
+      "rel_y": [
+        0.694,
+        0.707
+      ],
+      "role": "CONTENT"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 58,
+        "w": 1144,
+        "x": 148,
+        "y": 6111
+      },
+      "cluster_id": 9,
+      "confidence": 30,
+      "element_count": 2,
+      "element_indices": [
+        12,
+        13
+      ],
+      "has_cta": false,
+      "has_h1": false,
+      "rel_y": [
+        0.748,
+        0.75
+      ],
+      "role": "CONTENT"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 394,
+        "w": 1044,
+        "x": 140,
+        "y": 6533
+      },
+      "cluster_id": 10,
+      "confidence": 60,
+      "element_count": 7,
+      "element_indices": [
+        14,
+        15,
+        16,
+        17,
+        115,
+        116,
+        117
+      ],
+      "has_cta": false,
+      "has_h1": false,
+      "rel_y": [
+        0.801,
+        0.845
+      ],
+      "role": "SOCIAL_PROOF"
+    },
+    {
+      "alt_roles": [],
+      "bbox": {
+        "h": 303,
+        "w": 592,
+        "x": 116,
+        "y": 7245
+      },
+      "cluster_id": 11,
+      "confidence": 70,
+      "element_count": 2,
+      "element_indices": [
+        18,
+        37
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.894,
+        0.918
+      ],
+      "role": "FINAL_CTA"
+    },
+    {
+      "alt_roles": [
+        [
+          "PRICING",
+          75
+        ],
+        [
+          "SOCIAL_PROOF",
+          60
+        ]
+      ],
+      "bbox": {
+        "h": 414,
+        "w": 1208,
+        "x": 116,
+        "y": 7773
+      },
+      "cluster_id": 12,
+      "confidence": 85,
+      "element_count": 35,
+      "element_indices": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        118,
+        119,
+        120
+      ],
+      "has_cta": true,
+      "has_h1": false,
+      "rel_y": [
+        0.951,
+        0.999
+      ],
+      "role": "FOOTER"
+    }
+  ],
+  "elements": [
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 189,
+        "w": 489,
+        "x": 116,
+        "y": 192
+      },
+      "cluster_id": 14,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "63px",
+        "fontWeight": "700",
+        "lineHeight": "63px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h1",
+      "text": "The easiest way to translate a website",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 48,
+        "w": 576,
+        "x": 432,
+        "y": 891
+      },
+      "cluster_id": 14,
+      "computedStyle": {
+        "backgroundColor": "rgb(24,22,76)",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 16.7,
+        "fontSize": "20px",
+        "fontWeight": "700",
+        "lineHeight": "24px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "111,368+ global brands rely on Weglot to translate their websites",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 96,
+        "w": 872,
+        "x": 284,
+        "y": 1191
+      },
+      "cluster_id": 14,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "48px",
+        "fontWeight": "700",
+        "lineHeight": "48px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Start your website’s\nmultilingual growth with AI",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 77,
+        "w": 520,
+        "x": 740,
+        "y": 1508
+      },
+      "cluster_id": 14,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 15.6,
+        "fontSize": "32px",
+        "fontWeight": "700",
+        "lineHeight": "38.4px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Make your website available in 110+ languages",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 38,
+        "w": 484,
+        "x": 180,
+        "y": 2038
+      },
+      "cluster_id": 3,
+      "computedStyle": {
+        "backgroundColor": "rgb(194,227,251)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 12.5,
+        "fontSize": "32px",
+        "fontWeight": "700",
+        "lineHeight": "38.4px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Translate with AI and scale faster",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 77,
+        "w": 520,
+        "x": 740,
+        "y": 2568
+      },
+      "cluster_id": 4,
+      "computedStyle": {
+        "backgroundColor": "rgb(245,205,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 12,
+        "fontSize": "32px",
+        "fontWeight": "700",
+        "lineHeight": "38.4px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Refine with human editing and control quality",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 38,
+        "w": 355,
+        "x": 180,
+        "y": 3097
+      },
+      "cluster_id": 5,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 15.6,
+        "fontSize": "32px",
+        "fontWeight": "700",
+        "lineHeight": "38.4px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "‍Built-in multilingual SEO",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 96,
+        "w": 592,
+        "x": 424,
+        "y": 4109
+      },
+      "cluster_id": 6,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "48px",
+        "fontWeight": "700",
+        "lineHeight": "48px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Weglot is compatible with your marketing stack",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 192,
+        "w": 387,
+        "x": 116,
+        "y": 4570
+      },
+      "cluster_id": null,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 15.6,
+        "fontSize": "48px",
+        "fontWeight": "700",
+        "lineHeight": "48px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Businesses like yours recommend Weglot",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 112,
+        "w": 797,
+        "x": 321,
+        "y": 5303
+      },
+      "cluster_id": null,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "48px",
+        "fontWeight": "700",
+        "lineHeight": "48px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Learn the best practices to thrive with your multilingual website",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 86,
+        "w": 220,
+        "x": 148,
+        "y": 5642
+      },
+      "cluster_id": 8,
+      "computedStyle": {
+        "backgroundColor": "rgb(245,205,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 12,
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h3",
+      "text": "AI prompts list for international growth",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 144,
+        "w": 220,
+        "x": 1072,
+        "y": 5642
+      },
+      "cluster_id": 8,
+      "computedStyle": {
+        "backgroundColor": "rgb(204,26,133)",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 5.2,
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h3",
+      "text": "Multilingual SEO Best Practices: Your Implementation Guide",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 29,
+        "w": 464,
+        "x": 148,
+        "y": 6111
+      },
+      "cluster_id": 9,
+      "computedStyle": {
+        "backgroundColor": "rgb(194,227,251)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 12.5,
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h3",
+      "text": "Best practices for translating your website",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 58,
+        "w": 528,
+        "x": 764,
+        "y": 6111
+      },
+      "cluster_id": 9,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 15.6,
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h3",
+      "text": "Does AI Favor Translated Content? (+1.3 Million Citations Analyzed)",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 48,
+        "w": 797,
+        "x": 321,
+        "y": 6533
+      },
+      "cluster_id": 10,
+      "computedStyle": {
+        "backgroundColor": "rgb(194,227,251)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 12.5,
+        "fontSize": "48px",
+        "fontWeight": "700",
+        "lineHeight": "48px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "What’s new at Weglot",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 29,
+        "w": 265,
+        "x": 140,
+        "y": 6739
+      },
+      "cluster_id": 10,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h3",
+      "text": "Next Market Live - Spain",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 58,
+        "w": 328,
+        "x": 556,
+        "y": 6739
+      },
+      "cluster_id": 10,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h3",
+      "text": "Does AI Favor Translated Content?",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 29,
+        "w": 212,
+        "x": 972,
+        "y": 6739
+      },
+      "cluster_id": 10,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "24px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h3",
+      "text": "AI Language Model",
+      "type": "heading"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "bbox": {
+        "h": 144,
+        "w": 592,
+        "x": 116,
+        "y": 7245
+      },
+      "cluster_id": 11,
+      "computedStyle": {
+        "backgroundColor": "rgb(71,58,224)",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 7.1,
+        "fontSize": "48px",
+        "fontWeight": "700",
+        "lineHeight": "48px"
+      },
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "h2",
+      "text": "Good things come to those who wait. International traffic doesn’t.",
+      "type": "heading"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 3042,
+      "bbox": {
+        "h": 36,
+        "w": 85,
+        "x": 173,
+        "y": 15
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "4px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 80,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 0.5,
+      "noise_reasons": [
+        "nav_keyword"
+      ],
+      "noise_score": 15,
+      "tag": "div",
+      "text": "English",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 4886,
+      "bbox": {
+        "h": 69,
+        "w": 71,
+        "x": 335,
+        "y": 3
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "div",
+      "text": "Product",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 6720,
+      "bbox": {
+        "h": 69,
+        "w": 97,
+        "x": 426,
+        "y": 3
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "div",
+      "text": "Integrations",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 3174,
+      "bbox": {
+        "h": 69,
+        "w": 46,
+        "x": 543,
+        "y": 3
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/pricing",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Pricing",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 5525,
+      "bbox": {
+        "h": 69,
+        "w": 80,
+        "x": 609,
+        "y": 3
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "div",
+      "text": "Solutions",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 6115,
+      "bbox": {
+        "h": 69,
+        "w": 89,
+        "x": 709,
+        "y": 3
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "div",
+      "text": "Resources",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 6489,
+      "bbox": {
+        "h": 72,
+        "w": 90,
+        "x": 1112,
+        "y": 0
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/contact/enterprise",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Contact sales",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2577,
+      "bbox": {
+        "h": 72,
+        "w": 36,
+        "x": 1226,
+        "y": 0
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://dashboard.weglot.com/login/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Login",
+      "type": "cta"
+    },
+    {
+      "_is_nav_prezone": true,
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 4785,
+      "bbox": {
+        "h": 42,
+        "w": 114,
+        "x": 1286,
+        "y": 15
+      },
+      "cluster_id": 13,
+      "computedStyle": {
+        "backgroundColor": "rgb(71,58,224)",
+        "borderRadius": "8px",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 7.1,
+        "fontSize": "14px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://dashboard.weglot.com/register",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Try for free",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 14972,
+      "bbox": {
+        "h": 62,
+        "w": 241,
+        "x": 116,
+        "y": 515
+      },
+      "cluster_id": 14,
+      "computedStyle": {
+        "backgroundColor": "rgb(71,58,224)",
+        "borderRadius": "8px",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 7.1,
+        "fontSize": "18px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://dashboard.weglot.com/register",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Get started for free",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 4991,
+      "bbox": {
+        "h": 27,
+        "w": 184,
+        "x": 740,
+        "y": 1702
+      },
+      "cluster_id": 14,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 15.6,
+        "fontSize": "16px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/integrations",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "See our integrations",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 7408,
+      "bbox": {
+        "h": 27,
+        "w": 272,
+        "x": 180,
+        "y": 2244
+      },
+      "cluster_id": 3,
+      "computedStyle": {
+        "backgroundColor": "rgb(194,227,251)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 12.5,
+        "fontSize": "16px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/ai-translation",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Learn more about how we use AI",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 8208,
+      "bbox": {
+        "h": 27,
+        "w": 302,
+        "x": 740,
+        "y": 2761
+      },
+      "cluster_id": 4,
+      "computedStyle": {
+        "backgroundColor": "rgb(245,205,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 12,
+        "fontSize": "16px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/ai-translation",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Learn more about translation quality",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 7898,
+      "bbox": {
+        "h": 27,
+        "w": 290,
+        "x": 180,
+        "y": 3278
+      },
+      "cluster_id": 5,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 15.6,
+        "fontSize": "16px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/multilingual-seo",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Learn more about multilingual SEO",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 20885,
+      "bbox": {
+        "h": 144,
+        "w": 145,
+        "x": 1169,
+        "y": 3885
+      },
+      "cluster_id": 6,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(0, 0, 238)",
+        "contrastRatio": 9.4,
+        "fontSize": "16px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/integrations",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "+ See all integrations",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 5545,
+      "bbox": {
+        "h": 27,
+        "w": 204,
+        "x": 618,
+        "y": 4303
+      },
+      "cluster_id": 6,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "16px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/integrations",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Explore all integrations",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2500,
+      "bbox": {
+        "h": 50,
+        "w": 50,
+        "x": 116,
+        "y": 5013
+      },
+      "cluster_id": 7,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "borderRadius": "0px",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 1.1,
+        "fontSize": "40px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "div",
+      "text": "previous slide",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2500,
+      "bbox": {
+        "h": 50,
+        "w": 50,
+        "x": 176,
+        "y": 5013
+      },
+      "cluster_id": 7,
+      "computedStyle": {
+        "backgroundColor": "rgb(246,247,251)",
+        "borderRadius": "0px",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 1.1,
+        "fontSize": "40px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "div",
+      "text": "next slide",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 22832,
+      "bbox": {
+        "h": 62,
+        "w": 368,
+        "x": 116,
+        "y": 7486
+      },
+      "cluster_id": 11,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "8px",
+        "color": "rgb(24, 22, 76)",
+        "contrastRatio": 16.7,
+        "fontSize": "18px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://dashboard.weglot.com/register/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "a",
+      "text": "Get started free\n - No commitment",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1756,
+      "bbox": {
+        "h": 22,
+        "w": 78,
+        "x": 116,
+        "y": 7773
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/integrations",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Integrations",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2023,
+      "bbox": {
+        "h": 22,
+        "w": 90,
+        "x": 116,
+        "y": 7804
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/integrations/wordpress-translation-plugin",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "-   WordPress",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2359,
+      "bbox": {
+        "h": 22,
+        "w": 105,
+        "x": 116,
+        "y": 7834
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/integrations/translate-squarespace-website",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "-   Squarespace",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1544,
+      "bbox": {
+        "h": 22,
+        "w": 69,
+        "x": 116,
+        "y": 7865
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/integrations/shopify-translation-app",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "-   Shopify",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1609,
+      "bbox": {
+        "h": 22,
+        "w": 72,
+        "x": 116,
+        "y": 7895
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/customers",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Customers",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1031,
+      "bbox": {
+        "h": 22,
+        "w": 46,
+        "x": 116,
+        "y": 7925
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/pricing",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Pricing",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2946,
+      "bbox": {
+        "h": 22,
+        "w": 131,
+        "x": 116,
+        "y": 7956
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/documentation/available-languages",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Available languages",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 3372,
+      "bbox": {
+        "h": 22,
+        "w": 150,
+        "x": 116,
+        "y": 7986
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/technical-presentation",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Technical Presentation",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 3142,
+      "bbox": {
+        "h": 22,
+        "w": 140,
+        "x": 116,
+        "y": 8017
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/enterprise",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Weglot for Enterprise",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1772,
+      "bbox": {
+        "h": 22,
+        "w": 79,
+        "x": 321,
+        "y": 7773
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/about",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Our Mission",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1254,
+      "bbox": {
+        "h": 22,
+        "w": 56,
+        "x": 321,
+        "y": 7804
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/partners",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Partners",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 725,
+      "bbox": {
+        "h": 22,
+        "w": 32,
+        "x": 321,
+        "y": 7834
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/jobs",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Jobs",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2243,
+      "bbox": {
+        "h": 22,
+        "w": 100,
+        "x": 527,
+        "y": 7773
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://support.weglot.com/category/244-getting-started",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Getting Started",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1770,
+      "bbox": {
+        "h": 22,
+        "w": 79,
+        "x": 527,
+        "y": 7804
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://support.weglot.com/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Help Center",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1679,
+      "bbox": {
+        "h": 22,
+        "w": 75,
+        "x": 527,
+        "y": 7834
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://developers.weglot.com/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Developers",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1036,
+      "bbox": {
+        "h": 22,
+        "w": 46,
+        "x": 527,
+        "y": 7865
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/resources/guides",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Guides",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2484,
+      "bbox": {
+        "h": 22,
+        "w": 111,
+        "x": 527,
+        "y": 7895
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://wordcount.weglot.com/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Word Count Tool",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2520,
+      "bbox": {
+        "h": 22,
+        "w": 112,
+        "x": 527,
+        "y": 7925
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/academy",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Weglot Academy",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 7410,
+      "bbox": {
+        "h": 45,
+        "w": 165,
+        "x": 527,
+        "y": 7956
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/ebooks/state-of-machine-translation-report",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "State of Machine Translation Report",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1398,
+      "bbox": {
+        "h": 22,
+        "w": 62,
+        "x": 527,
+        "y": 8009
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/migration",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Migration",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2884,
+      "bbox": {
+        "h": 22,
+        "w": 129,
+        "x": 527,
+        "y": 8039
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/alternatives",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Weglot Alternatives",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 7410,
+      "bbox": {
+        "h": 45,
+        "w": 165,
+        "x": 527,
+        "y": 8070
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/international-expert-directory",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "International Expert Directory",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 827,
+      "bbox": {
+        "h": 22,
+        "w": 37,
+        "x": 732,
+        "y": 7773
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/press",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Press",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 924,
+      "bbox": {
+        "h": 22,
+        "w": 41,
+        "x": 732,
+        "y": 7804
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/terms",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Terms",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2074,
+      "bbox": {
+        "h": 22,
+        "w": 93,
+        "x": 732,
+        "y": 7834
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/privacy",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Privacy Policy",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 662,
+      "bbox": {
+        "h": 22,
+        "w": 30,
+        "x": 732,
+        "y": 7865
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/blog",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Blog",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2649,
+      "bbox": {
+        "h": 22,
+        "w": 118,
+        "x": 732,
+        "y": 7895
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://roadmap.weglot.com/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Product Roadmap",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 1608,
+      "bbox": {
+        "h": 22,
+        "w": 72,
+        "x": 732,
+        "y": 7925
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://changelog.weglot.com/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Changelog",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 935,
+      "bbox": {
+        "h": 22,
+        "w": 42,
+        "x": 732,
+        "y": 7956
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://status.weglot.com/",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Status",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 2682,
+      "bbox": {
+        "h": 22,
+        "w": 120,
+        "x": 732,
+        "y": 7986
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "0px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "14px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/security",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Trust and security",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 5366,
+      "bbox": {
+        "h": 42,
+        "w": 128,
+        "x": 937,
+        "y": 7861
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(71,58,224)",
+        "borderRadius": "8px",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 7.1,
+        "fontSize": "14px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/contact/enterprise",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Book a demo",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 5874,
+      "bbox": {
+        "h": 42,
+        "w": 140,
+        "x": 937,
+        "y": 8039
+      },
+      "cluster_id": 12,
+      "computedStyle": {
+        "backgroundColor": "rgb(71,58,224)",
+        "borderRadius": "8px",
+        "color": "rgb(255, 255, 255)",
+        "contrastRatio": 7.1,
+        "fontSize": "14px",
+        "fontWeight": "700"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": "https://www.weglot.com/#",
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "tag": "a",
+      "text": "Subscribe now",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "area": 16340,
+      "bbox": {
+        "h": 48,
+        "w": 339,
+        "x": 550,
+        "y": 836
+      },
+      "cluster_id": 14,
+      "computedStyle": {
+        "backgroundColor": "rgb(255,255,255)",
+        "borderRadius": "999px",
+        "color": "rgb(67, 70, 73)",
+        "contrastRatio": 9.5,
+        "fontSize": "16px",
+        "fontWeight": "400"
+      },
+      "distanceToNearestCompetitor": 0,
+      "href": null,
+      "isStickyOrFixed": false,
+      "isolationScore": 1,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "tag": "button",
+      "text": "Have a question about Weglot?",
+      "type": "cta"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "weglot logo",
+      "bbox": {
+        "h": 23,
+        "w": 117,
+        "x": 40,
+        "y": 25
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 24,
+      "naturalWidth": 122,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 5.08,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678640efd4d181f55a374fd9_weglot%20logo.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Arrow down",
+      "bbox": {
+        "h": 12,
+        "w": 12,
+        "x": 237,
+        "y": 27
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 6,
+      "naturalWidth": 11,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.83,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6786438aa08bc05b3b8c28bc_Vector.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "arrow navbar\n",
+      "bbox": {
+        "h": 7,
+        "w": 11,
+        "x": 395,
+        "y": 32
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 5,
+      "naturalWidth": 8,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.6,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/677bd20abddfbf90ef7a01c8_Vector.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "arrow navbar\n",
+      "bbox": {
+        "h": 7,
+        "w": 11,
+        "x": 512,
+        "y": 32
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 5,
+      "naturalWidth": 8,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.6,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/677bd20abddfbf90ef7a01c8_Vector.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "arrow navbar\n",
+      "bbox": {
+        "h": 7,
+        "w": 11,
+        "x": 678,
+        "y": 32
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 5,
+      "naturalWidth": 8,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.6,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/677bd20abddfbf90ef7a01c8_Vector.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "arrow navbar\n",
+      "bbox": {
+        "h": 7,
+        "w": 11,
+        "x": 787,
+        "y": 32
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 5,
+      "naturalWidth": 8,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.6,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/677bd20abddfbf90ef7a01c8_Vector.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "HBO-white",
+      "bbox": {
+        "h": 60,
+        "w": 125,
+        "x": 284,
+        "y": 963
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 30,
+      "naturalWidth": 100,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67e958387e00d84a735285e0_HBO-white.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Nielsen-white",
+      "bbox": {
+        "h": 60,
+        "w": 125,
+        "x": 433,
+        "y": 963
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 30,
+      "naturalWidth": 100,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67e9583ec22904b2b24d6d68_Nielsen-white.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "IBM-white",
+      "bbox": {
+        "h": 60,
+        "w": 125,
+        "x": 583,
+        "y": 963
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 30,
+      "naturalWidth": 100,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67e95839a8ca619091287ba2_IBM-white.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Decathlon-white",
+      "bbox": {
+        "h": 60,
+        "w": 125,
+        "x": 732,
+        "y": 963
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 30,
+      "naturalWidth": 100,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67e958368336152373a9ccb2_Decathlon-white.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Logo Roche",
+      "bbox": {
+        "h": 60,
+        "w": 125,
+        "x": 881,
+        "y": 963
+      },
+      "cluster_id": 14,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 30,
+      "naturalWidth": 100,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67e95b15528c3b1646977f34_Roche-white.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Amazon logo",
+      "bbox": {
+        "h": 60,
+        "w": 125,
+        "x": 1031,
+        "y": 963
+      },
+      "cluster_id": 14,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 108,
+      "naturalWidth": 360,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67d878810b7caa042fa26798_Amazon-white.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "product image",
+      "bbox": {
+        "h": 520,
+        "w": 520,
+        "x": 180,
+        "y": 1359
+      },
+      "cluster_id": 14,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 1800,
+      "naturalWidth": 1800,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67ab283885743a012161b76a_product1%20weglot.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 898,
+        "y": 1708
+      },
+      "cluster_id": 14,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Weglot AI Language Model - Translation Accuracy",
+      "bbox": {
+        "h": 520,
+        "w": 520,
+        "x": 740,
+        "y": 1895
+      },
+      "cluster_id": 3,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 1440,
+      "naturalWidth": 1440,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/68adbafcd5c33be0c6c14f28_AI%20Language%20Model%20-%20Translation%20Accuracy.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 427,
+        "y": 2250
+      },
+      "cluster_id": 3,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Product image Weglot",
+      "bbox": {
+        "h": 495,
+        "w": 520,
+        "x": 180,
+        "y": 2431
+      },
+      "cluster_id": 4,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 1369,
+      "naturalWidth": 1439,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.05,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67dacfc03e31ab0e20e181a5_Manual%20review%20%26%20editing%20-%20Weglot%20Features.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 1016,
+        "y": 2767
+      },
+      "cluster_id": 4,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 520,
+        "w": 520,
+        "x": 740,
+        "y": 2941
+      },
+      "cluster_id": 5,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 1440,
+      "naturalWidth": 1440,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/67c5dcb2d22e91304ff8d93c_Multilingual%20SEO%20-%20Weglot%20Features.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 445,
+        "y": 3284
+      },
+      "cluster_id": 5,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 127,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebbb2397fe96c21aa50e_66190ec3bd104cec7fb5633e_WordPress.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 303,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 60,
+      "naturalWidth": 200,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb658cc2cefc50b8a8a_675726050a0090467d9c3efb_Webflow%2520new.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 479,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb1eaef01228e25081b_66190fec471caacdc6cd4670_Shopify.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 655,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb5b0c18b92b5f83b0a_66191165bd104cec7fb7afcc_SquareSpace.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 831,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebbabe8fb2cf25343dac_6619110be0769de30190d8f1_Wix.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 1007,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb6fab4844b40a5a02a_6619120e91190b3f296f83b5_Custom%2520Code.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 1183,
+        "y": 3761
+      },
+      "cluster_id": 6,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb2eaef01228e2508c5_661910d1f1663424c7218d31_Bubble.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 127,
+        "y": 3937
+      },
+      "cluster_id": 6,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb642f1f25859952f3f_6619126c949f7cd002ee47de_JS.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 19,
+        "w": 114,
+        "x": 303,
+        "y": 3944
+      },
+      "cluster_id": 6,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 14,
+      "naturalWidth": 82,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 5.86,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/688b2ce81cecc687078bb978_Mask%20group.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 479,
+        "y": 3937
+      },
+      "cluster_id": 6,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb53104ad2a985c1048_6619115fbba67f40a5e9dc73_SquareOnline.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 655,
+        "y": 3937
+      },
+      "cluster_id": 6,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebba6cbd5c27a7c65077_66191101b6c7e82f239725c7_WooCommerce.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 53,
+        "w": 114,
+        "x": 831,
+        "y": 3927
+      },
+      "cluster_id": 6,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 1050,
+      "naturalWidth": 1050,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb3d6a1ec7bc41f78ab_673b7d94ea569735b17ab4ae_Framer%2520logo.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 34,
+        "w": 114,
+        "x": 1007,
+        "y": 3937
+      },
+      "cluster_id": 6,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 90,
+      "naturalWidth": 300,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 3.33,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/6784ebb797e189425df5a8de_661913c51e8a837ea028e5f7_HelpScout.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 796,
+        "y": 4309
+      },
+      "cluster_id": 6,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Best Usability Weglot G2 Badge",
+      "bbox": {
+        "h": 70,
+        "w": 60,
+        "x": 116,
+        "y": 4889
+      },
+      "cluster_id": 7,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6821f6f97d766012eb8e0fd6_Best%20Usability%20Weglot.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Best Support Weglot G2 Badge",
+      "bbox": {
+        "h": 70,
+        "w": 60,
+        "x": 184,
+        "y": 4889
+      },
+      "cluster_id": 7,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6821f715719b4bc718bd7dbc_Best%20Support%20Weglot.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "High Performer Weglot G2 Badge",
+      "bbox": {
+        "h": 70,
+        "w": 60,
+        "x": 252,
+        "y": 4889
+      },
+      "cluster_id": 7,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6821f742470663513e99c4bb_High%20Performer%20Weglot.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 35,
+        "w": 35,
+        "x": 696,
+        "y": 4884
+      },
+      "cluster_id": 7,
+      "format": "jpeg",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/68ecbfd7e2900dd4da7cee39_1672502964100.jpeg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 35,
+        "w": 35,
+        "x": 1046,
+        "y": 4884
+      },
+      "cluster_id": 7,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/67814a07b536d97d5dea05f0_648c30a9c4e9b2d9a229cfd1_Adele%2520Aubry.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 35,
+        "w": 35,
+        "x": 1396,
+        "y": 4884
+      },
+      "cluster_id": 7,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/67814a0cb536d97d5dea0dbf_648c2e585d647e80489c36c7_Rich%2520Ball.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 35,
+        "w": 35,
+        "x": 1746,
+        "y": 4884
+      },
+      "cluster_id": 7,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/67814a0c5743ff60dc77f764_648c2cf4b24c80339e20f907_Sophie%2520von%2520Kirchmann.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 35,
+        "w": 35,
+        "x": 2096,
+        "y": 4884
+      },
+      "cluster_id": 7,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/67814a0872ea45ff29b5bf8f_64fb38adf868b9927957ea2b_E02V3V16UJW-UPE6CVCBS-12f666199022-512.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 35,
+        "w": 35,
+        "x": 2446,
+        "y": 4884
+      },
+      "cluster_id": 7,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/67814a0d12eeccb7d2ec81f5_648c27fdab407caeda373ea4_Tim%2520Dumain.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "",
+      "bbox": {
+        "h": 449,
+        "w": 262,
+        "x": 426,
+        "y": 5562
+      },
+      "cluster_id": 8,
+      "format": "avif",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01dc/67814c01bb81003ae79be738_6619028c4327f423e2d44a35_Angell%2520Thumbnail.avif",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 254,
+        "y": 6883
+      },
+      "cluster_id": 10,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 646,
+        "y": 6911
+      },
+      "cluster_id": 10,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Blue arrow\n",
+      "bbox": {
+        "h": 16,
+        "w": 20,
+        "x": 1089,
+        "y": 6883
+      },
+      "cluster_id": 10,
+      "format": "webp",
+      "loading": "lazy",
+      "naturalHeight": 32,
+      "naturalWidth": 41,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.28,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/6780e96057ee7224927a8569_Vector.webp",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "linkedin icon ",
+      "bbox": {
+        "h": 20,
+        "w": 20,
+        "x": 1232,
+        "y": 8167
+      },
+      "cluster_id": 12,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678695e642b9c955aa259a2d_linkedin.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "instagram icon ",
+      "bbox": {
+        "h": 20,
+        "w": 20,
+        "x": 1268,
+        "y": 8167
+      },
+      "cluster_id": 12,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678695e7bcab10cfa68dd73a_instagram.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "twitter icon",
+      "bbox": {
+        "h": 20,
+        "w": 20,
+        "x": 1304,
+        "y": 8167
+      },
+      "cluster_id": 12,
+      "format": "svg",
+      "loading": "lazy",
+      "naturalHeight": 0,
+      "naturalWidth": 0,
+      "noise_reasons": [
+        "near_bottom"
+      ],
+      "noise_score": 15,
+      "ratio": null,
+      "src": "https://cdn.prod.website-files.com/677bd20abddfbf90ef7a01bb/678695e6bfdca4f1f3b60cb3_twitter.svg",
+      "type": "image"
+    },
+    {
+      "_src_section_id": "section_0",
+      "_src_section_type": "hero",
+      "alt": "Company logo",
+      "bbox": {
+        "h": 32,
+        "w": 32,
+        "x": 558,
+        "y": 844
+      },
+      "cluster_id": 14,
+      "format": "com/eyj0exblijoichjvehkilcjzcmmioijodhrwczovl2ltywdlcy5jbgvyay5kzxyvdxbsb2fkzwqvaw1nxzm4vhjmzux4efjozfmweumzzmnothdqn0fywsj9",
+      "loading": "eager",
+      "naturalHeight": 432,
+      "naturalWidth": 439,
+      "noise_reasons": [],
+      "noise_score": 0,
+      "ratio": 1.02,
+      "src": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzM4VHJmZUx4eFJOZFMweUMzZmNoTHdqN0FyWSJ9",
+      "type": "image"
+    }
+  ],
+  "meta": {
+    "eps_used": 206.6,
+    "page_max_y": 8187,
+    "page_type": "home",
+    "source_capture": null,
+    "source_spatial": "data/captures/weglot/home/spatial_v9.json",
+    "url": "https://www.weglot.com/"
+  },
+  "primary_cta": {
+    "bbox": {
+      "h": 48,
+      "w": 339,
+      "x": 550,
+      "y": 836
+    },
+    "cluster_id": 14,
+    "href": null,
+    "text": "Have a question about Weglot?"
+  },
+  "stats": {
+    "clusters": 15,
+    "noise_filtered": 0,
+    "roles": {
+      "CONTENT": 2,
+      "FINAL_CTA": 1,
+      "FOOTER": 1,
+      "HERO": 1,
+      "NAV": 1,
+      "SOCIAL_PROOF": 5,
+      "VALUE_PROPS": 4
+    },
+    "total_elements": 122
+  },
+  "version": "v13.0.0-perception"
+}

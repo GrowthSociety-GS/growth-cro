@@ -1,0 +1,158 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "hero_band",
+        "video_block"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 65.0,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": true,
+      "pc_num_components": 9,
+      "pc_num_cta_bands": 2,
+      "pc_num_value_prop": 2,
+      "pc_types": [
+        "cta_band",
+        "hero_band",
+        "nav_bar",
+        "social_proof_logos",
+        "value_prop_stack",
+        "video_block"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 2
+    }
+  },
+  "activeCriteria": 6,
+  "capturedAt": "2026-04-17T08:29:12.649964+00:00",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "h1": "International ecommerce",
+        "h1Count": 1,
+        "hasBenefit": false,
+        "hasDifferentiator": false,
+        "hasTarget": false,
+        "signals": 0,
+        "wordCount": 2
+      },
+      "id": "hero_01",
+      "label": "H1 = promesse spécifique",
+      "max": 3,
+      "rationale": "H1 vague, 0 élément détecté. Répond à 0-1 question sur 3.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "addsInfo": false,
+        "hasBulletList": true,
+        "subtitle": "Reach new audiences in minutes without sacrificing your team’s time. Anyone can install it.\nThank you! Your submission has been received!\nOops! Something went wrong while submitting the form.",
+        "wordCount": 29
+      },
+      "id": "hero_02",
+      "label": "Sous-titre explicite",
+      "max": 3,
+      "rationale": "Sous-titre ajoute de l'info (29 mots). Puces=True, adds_info=False.",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "contrastText": 0,
+        "height": 0,
+        "href": null,
+        "label": null,
+        "primaryScore": 0,
+        "reasons": [],
+        "width": 0,
+        "wordCount": 0
+      },
+      "id": "hero_03",
+      "label": "CTA principal visible ATF",
+      "max": 3,
+      "rationale": "Aucun CTA primaire détecté dans le fold.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "heroImagesCount": 2,
+        "mainImage": null,
+        "spatialImgArea": 0,
+        "spatialImgRatio": 0,
+        "spatialVisualDetected": false,
+        "validImagesCount": 0
+      },
+      "id": "hero_04",
+      "label": "Visuel hero pertinent",
+      "max": 3,
+      "rationale": "Aucun visuel hero détecté — ni en balise <img>, ni dans le screenshot spatial.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "present": false,
+        "reviewCounts": [],
+        "snippet": "",
+        "spatialInFold": null,
+        "trustWidgets": [],
+        "type": null
+      },
+      "id": "hero_05",
+      "label": "Preuve sociale ATF",
+      "max": 3,
+      "perception_has_social_proof": true,
+      "rationale": "Aucune preuve sociale détectée dans le fold.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "distractions": [],
+        "hasFocus": false,
+        "killerTriggered": true,
+        "primaryScore": 0,
+        "q_action": false,
+        "q_pour_qui": false,
+        "q_quoi": true,
+        "questionsAnswered": 1,
+        "secondaryScore": 0
+      },
+      "id": "hero_06",
+      "label": "Test 5s + ratio 1:1",
+      "max": 3,
+      "rationale": "Test 5s échoué : 1/3 questions, focus CTA=False, distractions=[].",
+      "score": 0,
+      "verdict": "critical"
+    }
+  ],
+  "finalTotal": 3,
+  "gridVersion": "3.2.1-draft",
+  "killerNote": "KILLER hero_06 déclenché: plafond 6/18 (raw=3)",
+  "killerTriggered": true,
+  "label": "weglot",
+  "max": 18,
+  "maxFull": 18,
+  "pageType": "collection",
+  "pillar": "hero",
+  "rawTotal": 3,
+  "score100": 16.7,
+  "skippedCriteria": [],
+  "url": "https://weglot.com"
+}

@@ -1,0 +1,237 @@
+{
+  "_intelligence_applied": true,
+  "_intelligence_count": 6,
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "feature_grid",
+        "hero_band",
+        "value_prop_stack"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 83.9,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 12,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 4,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "feature_grid",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "testimonial_block",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "BLOCKED",
+      "pc_violations_count": 3
+    }
+  },
+  "activeCriteria": 6,
+  "capturedAt": "2026-04-17T08:29:13.000360+00:00",
+  "criteria": [
+    {
+      "_intelligence_lift": {
+        "delta_pct": 10.0,
+        "new_pct": 60.0,
+        "new_score": 1.8,
+        "old_pct": 60.0,
+        "old_score": 1.8,
+        "reason": "Doctrine detected urgency=1, scarcity=0. Vision signals do not flag urgency overlays or 'limited slots' language. For freemium SaaS, artificial urgency is ANTI-pattern (erodes trust). Absence of urgency/scarcity is actually correct here. Doctrine penalized for legitimately calm tone. Boost to reflec"
+      },
+      "applicable": true,
+      "evidence": {
+        "fake_indicators": [],
+        "has_countdown": false,
+        "has_deadline": true,
+        "has_stock": false,
+        "killerTriggered": false,
+        "scarcity_words": 0,
+        "urgency_words": 0
+      },
+      "id": "psy_01",
+      "label": "Urgence & Rareté — crédibilité",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Urgence/rareté présente mais limitée ou légèrement suspecte: urgency=1, scarcity=0.",
+      "score": 1.8,
+      "verdict": "ok"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 0.0,
+        "new_pct": 100.0,
+        "new_score": 3,
+        "old_pct": 100.0,
+        "old_score": 3.0,
+        "reason": "Doctrine confirmed 2 levers active: exclusivity (plan tiers) + personalization (30 signals). Value-framing is strong. Maintain score."
+      },
+      "applicable": true,
+      "evidence": {
+        "exclusivity_matches": 2,
+        "has_stock": false,
+        "levers_count": 2,
+        "levers_detail": [
+          "exclusivite(2)",
+          "personnalisation(30)"
+        ],
+        "personalization_matches": 30,
+        "scarcity_words": 0
+      },
+      "id": "psy_02",
+      "label": "Rareté & Exclusivité — valeur perçue",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "2 leviers de valeur perçue actifs: exclusivite(2), personnalisation(30).",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 0.0,
+        "new_pct": 100.0,
+        "new_score": 3,
+        "old_pct": 100.0,
+        "old_score": 3.0,
+        "reason": "Doctrine confirmed 3 anchoring techniques: promo badge + cost-per-day framing + free offer. Price perception is well-designed. Maintain score."
+      },
+      "applicable": true,
+      "evidence": {
+        "anchoring_levers": 3,
+        "detail": [
+          "badge_promo",
+          "cout_quotidien(46)",
+          "offre_gratuite"
+        ],
+        "has_crossed_price": false,
+        "has_discount": true,
+        "has_free": true,
+        "has_guarantee": false,
+        "loss_framing": 0
+      },
+      "id": "psy_03",
+      "label": "Ancrage prix/valeur — framing",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "3 techniques d'ancrage actives: badge_promo, cout_quotidien(46), offre_gratuite.",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 15.0,
+        "new_pct": 65.0,
+        "new_score": 1.95,
+        "old_pct": 65.0,
+        "old_score": 1.95,
+        "reason": "Doctrine detected essai_gratuit(4)=risk reversal lever. One strong lever (free trial) is the PRIMARY risk-reversal for SaaS pricing. Additional risk signals (money-back guarantee, no CC required in subtitle) add depth. For freemium model, free trial IS the core reversal. Boost to 65% reflects streng"
+      },
+      "applicable": true,
+      "evidence": {
+        "detail": [
+          "essai_gratuit(4)"
+        ],
+        "free_trial_matches": 4,
+        "has_guarantee": false,
+        "loss_framing": 0,
+        "return_matches": 0,
+        "risk_levers": 1,
+        "security_matches": 0
+      },
+      "id": "psy_04",
+      "label": "Aversion perte & Risk Reversal",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "1 seul levier de risk reversal: essai_gratuit(4).",
+      "score": 1.95,
+      "verdict": "ok"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 15.0,
+        "new_pct": 65.0,
+        "new_score": 1.95,
+        "old_pct": 65.0,
+        "old_score": 1.95,
+        "reason": "Doctrine detected 3 expert signals + 0 media coverage + customer logos present. For SaaS, customer logos (logos=True in doctrine) + expert positioning are SUFFICIENT authority. Media coverage is lower-priority. Adjust to 65% to reflect: logos + expertise = solid credibility for pricing page."
+      },
+      "applicable": true,
+      "evidence": {
+        "auth_signals": 2,
+        "awards": 0,
+        "certifications": 0,
+        "detail": [
+          "experts(3)",
+          "media(0,logos=True)"
+        ],
+        "expert_mentions": 3,
+        "killerTriggered": false,
+        "media_mentions": 0,
+        "press_logos": true,
+        "user_counts": 0
+      },
+      "id": "psy_05",
+      "label": "Autorité & Crédibilité",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "perception_has_social_proof": true,
+      "rationale": "2 signal(s) d'autorité (< 3): experts(3), media(0,logos=True).",
+      "score": 1.95,
+      "verdict": "ok"
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 0.0,
+        "new_pct": 100.0,
+        "new_score": 3,
+        "old_pct": 100.0,
+        "old_score": 3.0,
+        "reason": "Doctrine confirmed 5 reciprocity levers: free offer, quiz/configurator(3), form(2 fields), freemium(20), demo(1). Micro-engagement is exemplary. Maintain score."
+      },
+      "applicable": true,
+      "evidence": {
+        "detail": [
+          "offre_gratuite",
+          "quiz_configurateur(3)",
+          "formulaire(2_champs)",
+          "freemium(20)",
+          "demo_sample(1)"
+        ],
+        "forms_count": 1,
+        "has_free": true,
+        "lead_magnets": 0,
+        "quiz_config": 3,
+        "recip_levers": 5
+      },
+      "id": "psy_06",
+      "label": "Réciprocité & Micro-engagements",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "5 leviers de réciprocité/engagement: offre_gratuite, quiz_configurateur(3), formulaire(2_champs), freemium(20), demo_sample(1).",
+      "score": 3,
+      "verdict": "top"
+    }
+  ],
+  "finalTotal": 14.7,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": null,
+  "killerTriggered": false,
+  "label": "weglot",
+  "max": 18,
+  "maxFull": 18,
+  "pageType": "pricing",
+  "pillar": "psycho",
+  "rawTotal": 14.7,
+  "score100": 81.7,
+  "skippedCriteria": [],
+  "url": "https://weglot.com"
+}

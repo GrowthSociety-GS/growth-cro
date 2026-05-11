@@ -1,0 +1,181 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "feature_grid",
+        "hero_band",
+        "value_prop_stack"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 83.9,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 12,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 4,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "feature_grid",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "testimonial_block",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "BLOCKED",
+      "pc_violations_count": 3
+    }
+  },
+  "activeCriteria": 6,
+  "capturedAt": "2026-04-29T18:27:23.140260+00:00",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "fake_indicators": [],
+        "has_countdown": false,
+        "has_deadline": true,
+        "has_stock": false,
+        "killerTriggered": false,
+        "scarcity_words": 0,
+        "urgency_words": 0
+      },
+      "id": "psy_01",
+      "label": "Urgence & Rareté — crédibilité",
+      "max": 3,
+      "rationale": "Urgence/rareté présente mais limitée ou légèrement suspecte: urgency=1, scarcity=0.",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "exclusivity_matches": 2,
+        "has_stock": false,
+        "levers_count": 2,
+        "levers_detail": [
+          "exclusivite(2)",
+          "personnalisation(30)"
+        ],
+        "personalization_matches": 30,
+        "scarcity_words": 0
+      },
+      "id": "psy_02",
+      "label": "Rareté & Exclusivité — valeur perçue",
+      "max": 3,
+      "rationale": "2 leviers de valeur perçue actifs: exclusivite(2), personnalisation(30).",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "anchoring_levers": 3,
+        "detail": [
+          "badge_promo",
+          "cout_quotidien(46)",
+          "offre_gratuite"
+        ],
+        "has_crossed_price": false,
+        "has_discount": true,
+        "has_free": true,
+        "has_guarantee": false,
+        "loss_framing": 0
+      },
+      "id": "psy_03",
+      "label": "Ancrage prix/valeur — framing",
+      "max": 3,
+      "rationale": "3 techniques d'ancrage actives: badge_promo, cout_quotidien(46), offre_gratuite.",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "detail": [
+          "essai_gratuit(4)"
+        ],
+        "free_trial_matches": 4,
+        "has_guarantee": false,
+        "loss_framing": 0,
+        "return_matches": 0,
+        "risk_levers": 1,
+        "security_matches": 0
+      },
+      "id": "psy_04",
+      "label": "Aversion perte & Risk Reversal",
+      "max": 3,
+      "rationale": "1 seul levier de risk reversal: essai_gratuit(4).",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "auth_signals": 2,
+        "awards": 0,
+        "certifications": 0,
+        "detail": [
+          "experts(3)",
+          "media(0,logos=True)"
+        ],
+        "expert_mentions": 3,
+        "killerTriggered": false,
+        "media_mentions": 0,
+        "press_logos": true,
+        "user_counts": 0
+      },
+      "id": "psy_05",
+      "label": "Autorité & Crédibilité",
+      "max": 3,
+      "perception_has_social_proof": true,
+      "rationale": "2 signal(s) d'autorité (< 3): experts(3), media(0,logos=True).",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "detail": [
+          "offre_gratuite",
+          "quiz_configurateur(3)",
+          "formulaire(3_champs)",
+          "freemium(20)",
+          "demo_sample(1)"
+        ],
+        "forms_count": 1,
+        "has_free": true,
+        "lead_magnets": 0,
+        "quiz_config": 3,
+        "recip_levers": 5
+      },
+      "id": "psy_06",
+      "label": "Réciprocité & Micro-engagements",
+      "max": 3,
+      "rationale": "5 leviers de réciprocité/engagement: offre_gratuite, quiz_configurateur(3), formulaire(3_champs), freemium(20), demo_sample(1).",
+      "score": 3,
+      "verdict": "top"
+    }
+  ],
+  "finalTotal": 13.5,
+  "gridVersion": "3.2.1-draft",
+  "killerNote": null,
+  "killerTriggered": false,
+  "label": "weglot",
+  "max": 18,
+  "maxFull": 18,
+  "pageType": "pricing",
+  "pillar": "psycho",
+  "rawTotal": 13.5,
+  "score100": 75.0,
+  "skippedCriteria": [],
+  "url": "https://www.weglot.com/pricing"
+}

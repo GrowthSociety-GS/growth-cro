@@ -1,0 +1,203 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "content_text",
+        "hero_band",
+        "social_proof_logos"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 79.4,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 17,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 3,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "social_proof_logos",
+        "steps_howitworks",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 1
+    }
+  },
+  "activeCriteria": 5,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "h1": "The easiest way to translate a website",
+        "h1_wordcount": 7,
+        "has_pour_qui": false,
+        "has_pourquoi": false,
+        "has_quoi": false,
+        "is_slogan_vague": false,
+        "questions": 0,
+        "subtitle": "Website translation so on brand, no one will suspect AI\nThe AI way to translate a website\nAI website"
+      },
+      "id": "coh_01",
+      "label": "Promesse claire 5 sec",
+      "max": 3,
+      "perception_cta_bands_count": 1,
+      "rationale": "Seulement 0/3 questions répondues dans le fold.",
+      "score": 0,
+      "verdict": "critical",
+      "weight": 1.2,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "has_defi": false,
+        "persona_body": 2,
+        "persona_fold_signals": 0,
+        "persona_headings": 0
+      },
+      "id": "coh_02",
+      "label": "Cible identifiable",
+      "max": 3,
+      "perception_has_hero": true,
+      "perception_has_social_proof": true,
+      "rationale": "Aucune cible identifiable (fold=0, headings=0).",
+      "score": 0,
+      "verdict": "critical",
+      "weight": 1.1,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "coherence_score": 1,
+        "cta_label": "try for free",
+        "desc_overlap": 0.2,
+        "offer_patterns_found": [],
+        "title_overlap": 0.2
+      },
+      "id": "coh_03",
+      "label": "Alignement ad → LP",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=home",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "diff_count": 1,
+        "diff_signals": {
+          "origin": 8
+        },
+        "generic_hits": 0
+      },
+      "id": "coh_04",
+      "label": "Positionnement différenciant",
+      "max": 3,
+      "rationale": "1 différenciation mais 0 patterns génériques.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 1.2,
+      "weightedScore": 1.8
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "ai_slop_hits": 0,
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tone_inconsistent": false,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "coh_05",
+      "label": "Ton de marque",
+      "max": 3,
+      "rationale": "Ton identifiable: punch=0, AI slop=0, mix=0%.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 1.1,
+      "weightedScore": 1.65
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "attention_ratio": 0.86,
+        "competing_ctas": [
+          {
+            "count": 2,
+            "href": "weglot.com/ai-translation"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/multilingual-seo"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/contact/enterprise"
+          },
+          {
+            "count": 2,
+            "href": "weglot.com/"
+          },
+          {
+            "count": 2,
+            "href": "dashboard.weglot.com/login"
+          }
+        ],
+        "primary_count": 6,
+        "primary_href": "https://dashboard.weglot.com/register",
+        "total_links": 16,
+        "unique_destinations": 7
+      },
+      "id": "coh_06",
+      "label": "Mono-objectif par page",
+      "max": 3,
+      "rationale": "Objectif identifiable: primaire 6×, 7 destinations, 6 concurrents.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 1.5
+    }
+  ],
+  "finalMax": 15,
+  "finalNormalized": 4.42,
+  "finalRounded": 4.5,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": "KILLERS déclenchés coh_01 (promesse 5s manquante) mais score déjà sous cap 5.0",
+  "killersTriggered": [
+    {
+      "capRatio": 0.333,
+      "description": "coh_01 (promesse 5s manquante)",
+      "id": "coh_01"
+    }
+  ],
+  "pageType": "home",
+  "rawMax": 15,
+  "rawTotal": 4.5,
+  "score100": 30.0,
+  "scoredAt": "2026-04-29T18:27:23.429694+00:00",
+  "scoredBy": "score_coherence.py v1.0",
+  "skippedCriteria": [
+    "coh_03"
+  ],
+  "url": "https://www.weglot.com",
+  "verdict": "FAIBLE",
+  "weightedMax": 16.8,
+  "weightedSum": 4.95
+}

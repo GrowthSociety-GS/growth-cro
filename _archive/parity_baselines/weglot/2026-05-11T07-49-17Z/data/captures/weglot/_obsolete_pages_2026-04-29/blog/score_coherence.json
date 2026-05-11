@@ -1,0 +1,253 @@
+{
+  "_intelligence_applied": true,
+  "_intelligence_count": 3,
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "content_text",
+        "hero_band",
+        "pricing_tiers"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 67.6,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": true,
+      "pc_has_social_proof": false,
+      "pc_has_video": false,
+      "pc_num_components": 10,
+      "pc_num_cta_bands": 2,
+      "pc_num_value_prop": 3,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "hero_band",
+        "nav_bar",
+        "pricing_tiers",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 2
+    }
+  },
+  "_vision_lift_applied": true,
+  "_vision_lift_count": 1,
+  "activeCriteria": 5,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "_vision_lift": {
+        "new_score": 3,
+        "old_score": 0,
+        "reason": "vision_coh_strong_overlap"
+      },
+      "applicable": true,
+      "evidence": {
+        "h1": "Articles to help you unlock new markets",
+        "h1_wordcount": 7,
+        "has_pour_qui": false,
+        "has_pourquoi": false,
+        "has_quoi": false,
+        "is_slogan_vague": false,
+        "questions": 0,
+        "subtitle": "The latest international marketing news, website translation tips and Weglot updates\nSubscribe to ou"
+      },
+      "id": "coh_01",
+      "label": "Promesse claire 5 sec",
+      "max": 3,
+      "perception_cta_bands_count": 2,
+      "rationale": "Seulement 0/3 questions répondues dans le fold.",
+      "score": 3,
+      "verdict": "top",
+      "weight": 0.8,
+      "weightedScore": 0.0
+    },
+    {
+      "_vision_lift": {
+        "new_score": 3,
+        "old_score": 0,
+        "reason": "vision_visual_coh_top_rich_desc"
+      },
+      "applicable": true,
+      "evidence": {
+        "has_defi": false,
+        "persona_body": 2,
+        "persona_fold_signals": 0,
+        "persona_headings": 0
+      },
+      "id": "coh_02",
+      "label": "Cible identifiable",
+      "max": 3,
+      "perception_has_hero": true,
+      "perception_has_social_proof": false,
+      "rationale": "Aucune cible identifiable (fold=0, headings=0).",
+      "score": 3,
+      "verdict": "top",
+      "weight": 0.9,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "coherence_score": 1,
+        "cta_label": "try for free",
+        "desc_overlap": 0.0,
+        "offer_patterns_found": [],
+        "title_overlap": 0.0
+      },
+      "id": "coh_03",
+      "label": "Alignement ad → LP",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=blog",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 20.0,
+        "new_pct": 70.0,
+        "new_score": 2.1,
+        "old_pct": 70.0,
+        "old_score": 2.1,
+        "reason": "Doctrine flagged 1 differentiation vs 0 generic patterns. Vision shows clear USP: 'AI + human refinement + live multilingual' is specific to Weglot's approach (most competitors are AI-only or manual-only). This IS differentiated positioning. Bump reflects that doctrine underweighted the competitive "
+      },
+      "applicable": true,
+      "evidence": {
+        "diff_count": 1,
+        "diff_signals": {
+          "origin": 14
+        },
+        "generic_hits": 0
+      },
+      "id": "coh_04",
+      "label": "Positionnement différenciant",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "1 différenciation mais 0 patterns génériques.",
+      "score": 2.1,
+      "verdict": "ok",
+      "weight": 0.9,
+      "weightedScore": 1.35
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 16.0,
+        "new_pct": 66.0,
+        "new_score": 1.98,
+        "old_pct": 66.0,
+        "old_score": 1.98,
+        "reason": "Doctrine scored 50% on brand tone (punch=0, AI slop=0). Vision shows consistent tone across H1, subtitle, and CTA copy — direct, approachable, outcome-focused language without buzzwords ('mind-blowing simple', 'go live'). Tone is coherent even if not playful. Bump reflects acceptable brand voice for"
+      },
+      "applicable": true,
+      "evidence": {
+        "ai_slop_hits": 0,
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tone_inconsistent": false,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "coh_05",
+      "label": "Ton de marque",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Ton identifiable: punch=0, AI slop=0, mix=0%.",
+      "score": 1.98,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 1.5
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 55.0,
+        "new_pct": 55.0,
+        "new_score": 1.65,
+        "old_pct": 0.0,
+        "old_score": 0.0,
+        "reason": "Doctrine flagged 0% mono-objective (10 destinations, unclear primary). However, Vision confirms PRIMARY objective is 'Get started for free' (repeated 4×, sticky-positioned if applicable). Secondary CTAs (learn, demo, docs) are navigation — acceptable for SaaS funnel. Bump reflects that SaaS pages le"
+      },
+      "_vision_lift": {
+        "new_score": 1.98,
+        "old_score": 1.65,
+        "reason": "visual_voice_coherence_implicit"
+      },
+      "applicable": true,
+      "evidence": {
+        "attention_ratio": 0.0,
+        "competing_ctas": [
+          {
+            "count": 3,
+            "href": "dashboard.weglot.com/register"
+          },
+          {
+            "count": 4,
+            "href": "weglot.com/"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/contact/enterprise"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/blog/how-to-see-google-search-results-for-other-l"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/blog/how-accurate-is-google-translate"
+          }
+        ],
+        "primary_count": 0,
+        "primary_href": null,
+        "total_links": 16,
+        "unique_destinations": 10
+      },
+      "id": "coh_06",
+      "label": "Mono-objectif par page",
+      "max": 3,
+      "method": "regex+intelligence",
+      "rationale": "Objectif flou: primaire 0×, 10 destinations, ratio 0%.",
+      "score": 1.98,
+      "verdict": "ok",
+      "weight": 0.8,
+      "weightedScore": 0.0
+    }
+  ],
+  "finalMax": 15,
+  "finalNormalized": 3.24,
+  "finalRounded": 3.0,
+  "finalTotal": 12.06,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": "KILLERS déclenchés coh_01 (promesse 5s manquante); coh_06 (multi-objectifs diluant le focus) mais score déjà sous cap 5.0",
+  "killersTriggered": [
+    {
+      "capRatio": 0.333,
+      "description": "coh_01 (promesse 5s manquante)",
+      "id": "coh_01"
+    },
+    {
+      "capRatio": 0.5,
+      "description": "coh_06 (multi-objectifs diluant le focus)",
+      "id": "coh_06"
+    }
+  ],
+  "pageType": "blog",
+  "rawMax": 15,
+  "rawTotal": 12.06,
+  "score100": 80.4,
+  "scoredAt": "2026-04-17T08:29:12.815815+00:00",
+  "scoredBy": "score_coherence.py v1.0",
+  "skippedCriteria": [
+    "coh_03"
+  ],
+  "url": "https://weglot.com",
+  "verdict": "FAIBLE",
+  "weightedMax": 13.2,
+  "weightedSum": 2.85
+}

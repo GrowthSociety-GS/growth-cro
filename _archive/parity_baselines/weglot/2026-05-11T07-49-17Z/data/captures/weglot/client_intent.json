@@ -1,0 +1,164 @@
+{
+  "client": "weglot",
+  "confidence": 0.928,
+  "funnel_chain": [
+    {
+      "required_pages": [
+        "home"
+      ],
+      "required_roles": [
+        "HERO"
+      ],
+      "stage": "awareness",
+      "status": "complete"
+    },
+    {
+      "required_pages": [
+        "pricing"
+      ],
+      "required_roles": [
+        "PRICING",
+        "SOCIAL_PROOF"
+      ],
+      "stage": "evaluation",
+      "status": "complete"
+    },
+    {
+      "required_pages": [
+        "home"
+      ],
+      "required_roles": [
+        "SOCIAL_PROOF",
+        "FAQ"
+      ],
+      "stage": "trust",
+      "status": "complete"
+    },
+    {
+      "required_pages": [
+        "pricing",
+        "home"
+      ],
+      "required_roles": [
+        "FINAL_CTA"
+      ],
+      "stage": "commit",
+      "status": "complete"
+    },
+    {
+      "required_pages": [],
+      "required_roles": [],
+      "stage": "onboarding",
+      "status": "complete"
+    }
+  ],
+  "intent_scores": {
+    "contact_lead": 2.1,
+    "content_consume": 0.75,
+    "discovery_quiz": 0.0,
+    "purchase": 0.0,
+    "signup_commit": 11.61
+  },
+  "intent_source": "cta_signals",
+  "intent_votes": {
+    "signup_commit": 4.3
+  },
+  "is_multi_intent": false,
+  "max_cta_signal": 11.61,
+  "page_types_available": [
+    "blog",
+    "collection",
+    "home",
+    "pricing"
+  ],
+  "pages": [
+    {
+      "page_intent_scores": {
+        "contact_lead": 0.0,
+        "content_consume": 0.0,
+        "discovery_quiz": 0.0,
+        "purchase": 0.0,
+        "signup_commit": 0.0
+      },
+      "page_type": "blog",
+      "primary_cta_href": "",
+      "primary_cta_text": "",
+      "top_intent": null
+    },
+    {
+      "page_intent_scores": {
+        "contact_lead": 0.0,
+        "content_consume": 0.0,
+        "discovery_quiz": 0.0,
+        "purchase": 0.0,
+        "signup_commit": 2.2
+      },
+      "page_type": "collection",
+      "primary_cta_href": "",
+      "primary_cta_text": "",
+      "top_intent": "signup_commit"
+    },
+    {
+      "page_intent_scores": {
+        "contact_lead": 0.0,
+        "content_consume": 0.0,
+        "discovery_quiz": 0.0,
+        "purchase": 0.0,
+        "signup_commit": 2.2
+      },
+      "page_type": "home",
+      "primary_cta_href": null,
+      "primary_cta_text": "Have a question about Weglot?",
+      "top_intent": "signup_commit"
+    },
+    {
+      "page_intent_scores": {
+        "contact_lead": 1.4,
+        "content_consume": 0.0,
+        "discovery_quiz": 0.0,
+        "purchase": 0.0,
+        "signup_commit": 2.8
+      },
+      "page_type": "pricing",
+      "primary_cta_href": null,
+      "primary_cta_text": "Have a question about Weglot?",
+      "top_intent": "signup_commit"
+    }
+  ],
+  "primary_intent": "signup_commit",
+  "role_presence": {
+    "CONTENT": 11,
+    "FAQ": 1,
+    "FINAL_CTA": 1,
+    "FOOTER": 2,
+    "HERO": 4,
+    "NAV": 4,
+    "PRICING": 4,
+    "SOCIAL_PROOF": 10,
+    "VALUE_PROPS": 6
+  },
+  "secondary_intent": "contact_lead",
+  "version": "v13.1.0-intent",
+  "vocabulary": {
+    "avoid_words": [
+      "panier",
+      "livraison",
+      "commander"
+    ],
+    "cta_tone": "réduction de friction + preuve de valeur rapide",
+    "proof_priority": [
+      "logos clients",
+      "ROI metrics",
+      "integrations",
+      "expert reviews"
+    ],
+    "use_words": [
+      "essai gratuit",
+      "compte",
+      "trial",
+      "onboarding",
+      "setup",
+      "démo"
+    ]
+  }
+}

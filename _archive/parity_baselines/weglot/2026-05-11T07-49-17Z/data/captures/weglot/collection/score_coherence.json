@@ -1,0 +1,202 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "hero_band",
+        "video_block"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 65.0,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": true,
+      "pc_num_components": 9,
+      "pc_num_cta_bands": 2,
+      "pc_num_value_prop": 2,
+      "pc_types": [
+        "cta_band",
+        "hero_band",
+        "nav_bar",
+        "social_proof_logos",
+        "value_prop_stack",
+        "video_block"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 2
+    }
+  },
+  "activeCriteria": 5,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "h1": "International ecommerce",
+        "h1_wordcount": 2,
+        "has_pour_qui": false,
+        "has_pourquoi": false,
+        "has_quoi": false,
+        "is_slogan_vague": false,
+        "questions": 0,
+        "subtitle": "Reach new audiences in minutes without sacrificing your team’s time. Anyone can install it.\nThank yo"
+      },
+      "id": "coh_01",
+      "label": "Promesse claire 5 sec",
+      "max": 3,
+      "perception_cta_bands_count": 2,
+      "rationale": "Seulement 0/3 questions répondues dans le fold.",
+      "score": 0,
+      "verdict": "critical",
+      "weight": 0.9,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "has_defi": false,
+        "persona_body": 2,
+        "persona_fold_signals": 0,
+        "persona_headings": 0
+      },
+      "id": "coh_02",
+      "label": "Cible identifiable",
+      "max": 3,
+      "perception_has_hero": true,
+      "perception_has_social_proof": true,
+      "rationale": "Aucune cible identifiable (fold=0, headings=0).",
+      "score": 0,
+      "verdict": "critical",
+      "weight": 0.8,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "coherence_score": 2,
+        "cta_label": "try for free",
+        "desc_overlap": 0.0,
+        "offer_patterns_found": [],
+        "title_overlap": 1.0
+      },
+      "id": "coh_03",
+      "label": "Alignement ad → LP",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=collection",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "diff_count": 2,
+        "diff_signals": {
+          "origin": 15,
+          "vs_competitor": 3
+        },
+        "generic_hits": 0
+      },
+      "id": "coh_04",
+      "label": "Positionnement différenciant",
+      "max": 3,
+      "rationale": "2 différenciation mais 0 patterns génériques.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 0.8,
+      "weightedScore": 1.2
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "ai_slop_hits": 0,
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tone_inconsistent": false,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "coh_05",
+      "label": "Ton de marque",
+      "max": 3,
+      "rationale": "Ton identifiable: punch=0, AI slop=0, mix=0%.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 0.9,
+      "weightedScore": 1.35
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "attention_ratio": 0.0,
+        "competing_ctas": [
+          {
+            "count": 3,
+            "href": "dashboard.weglot.com/register"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/contact/enterprise"
+          },
+          {
+            "count": 3,
+            "href": "weglot.com/"
+          },
+          {
+            "count": 2,
+            "href": "dashboard.weglot.com/login"
+          }
+        ],
+        "primary_count": 0,
+        "primary_href": null,
+        "total_links": 9,
+        "unique_destinations": 4
+      },
+      "id": "coh_06",
+      "label": "Mono-objectif par page",
+      "max": 3,
+      "rationale": "Objectif flou: primaire 0×, 4 destinations, ratio 0%.",
+      "score": 0,
+      "verdict": "critical",
+      "weight": 0.9,
+      "weightedScore": 0.0
+    }
+  ],
+  "finalMax": 15,
+  "finalNormalized": 2.97,
+  "finalRounded": 3.0,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": "KILLERS déclenchés coh_01 (promesse 5s manquante); coh_06 (multi-objectifs diluant le focus) mais score déjà sous cap 5.0",
+  "killersTriggered": [
+    {
+      "capRatio": 0.333,
+      "description": "coh_01 (promesse 5s manquante)",
+      "id": "coh_01"
+    },
+    {
+      "capRatio": 0.5,
+      "description": "coh_06 (multi-objectifs diluant le focus)",
+      "id": "coh_06"
+    }
+  ],
+  "pageType": "collection",
+  "rawMax": 15,
+  "rawTotal": 3.0,
+  "score100": 20.0,
+  "scoredAt": "2026-04-17T08:29:12.649964+00:00",
+  "scoredBy": "score_coherence.py v1.0",
+  "skippedCriteria": [
+    "coh_03"
+  ],
+  "url": "https://weglot.com",
+  "verdict": "FAIBLE",
+  "weightedMax": 12.9,
+  "weightedSum": 2.55
+}

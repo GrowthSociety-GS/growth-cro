@@ -1,0 +1,135 @@
+{
+  "_perception": {
+    "available": false,
+    "signals": {
+      "pc_available": false
+    }
+  },
+  "activeCriteria": 6,
+  "capturedAt": "2026-04-29T18:27:23.290203+00:00",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "h1": "Do you need help evaluating Weglot?",
+        "h1Count": 1,
+        "hasBenefit": false,
+        "hasDifferentiator": false,
+        "hasTarget": false,
+        "signals": 0,
+        "wordCount": 6
+      },
+      "id": "hero_01",
+      "label": "H1 = promesse spécifique",
+      "max": 3,
+      "rationale": "H1 vague, 0 élément détecté. Répond à 0-1 question sur 3.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "addsInfo": false,
+        "hasBulletList": true,
+        "subtitle": "Join thousands of global brands translating websites with Weglot\nContact our sales team now Email address*\nWhat's your company size?*\nSelect one",
+        "wordCount": 22
+      },
+      "id": "hero_02",
+      "label": "Sous-titre explicite",
+      "max": 3,
+      "rationale": "Sous-titre ajoute de l'info (22 mots). Puces=True, adds_info=False.",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "contrastText": null,
+        "height": null,
+        "href": "https://dashboard.weglot.com/register",
+        "label": "Try for free",
+        "primaryScore": 35,
+        "reasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "width": null,
+        "wordCount": 3
+      },
+      "id": "hero_03",
+      "label": "CTA principal visible ATF",
+      "max": 3,
+      "rationale": "CTA 'Try for free': verbe action OK mais taille 0×0 sous 44px.",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "heroImagesCount": 2,
+        "mainImage": null,
+        "spatialImgArea": 0,
+        "spatialImgRatio": 0,
+        "spatialVisualDetected": false,
+        "validImagesCount": 0
+      },
+      "id": "hero_04",
+      "label": "Visuel hero pertinent",
+      "max": 3,
+      "rationale": "Aucun visuel hero détecté — ni en balise <img>, ni dans le screenshot spatial.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "present": false,
+        "reviewCounts": [],
+        "snippet": "",
+        "spatialInFold": null,
+        "trustWidgets": [],
+        "type": null
+      },
+      "id": "hero_05",
+      "label": "Preuve sociale ATF",
+      "max": 3,
+      "perception_has_social_proof": false,
+      "rationale": "Aucune preuve sociale détectée dans le fold.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "distractions": [],
+        "hasFocus": false,
+        "killerTriggered": false,
+        "primaryScore": 35,
+        "q_action": true,
+        "q_pour_qui": false,
+        "q_quoi": true,
+        "questionsAnswered": 2,
+        "secondaryScore": 0
+      },
+      "id": "hero_06",
+      "label": "Test 5s + ratio 1:1",
+      "max": 3,
+      "rationale": "Test 5s échoué : 2/3 questions, focus CTA=False, distractions=[].",
+      "score": 0,
+      "verdict": "critical"
+    }
+  ],
+  "finalTotal": 4.5,
+  "gridVersion": "3.2.1-draft",
+  "killerNote": null,
+  "killerTriggered": false,
+  "label": "weglot",
+  "max": 18,
+  "maxFull": 18,
+  "pageType": "lp_leadgen",
+  "pillar": "hero",
+  "rawTotal": 4.5,
+  "score100": 25.0,
+  "skippedCriteria": [],
+  "url": "https://www.weglot.com/contact/enterprise"
+}

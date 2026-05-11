@@ -1,0 +1,205 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "feature_grid",
+        "hero_band",
+        "value_prop_stack"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 83.9,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 12,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 4,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "feature_grid",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "testimonial_block",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "BLOCKED",
+      "pc_violations_count": 3
+    }
+  },
+  "activeCriteria": 5,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "h1": "Choose the plan that fits your needs",
+        "h1_wordcount": 7,
+        "has_pour_qui": false,
+        "has_pourquoi": false,
+        "has_quoi": false,
+        "is_slogan_vague": false,
+        "questions": 0,
+        "subtitle": "Start for free, no credit card required\nMonthly\nAnnually - 2 months free!\nAnnually - 2 months free!\n"
+      },
+      "id": "coh_01",
+      "label": "Promesse claire 5 sec",
+      "max": 3,
+      "perception_cta_bands_count": 1,
+      "rationale": "Seulement 0/3 questions répondues dans le fold.",
+      "score": 0,
+      "verdict": "critical",
+      "weight": 1.0,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "has_defi": false,
+        "persona_body": 2,
+        "persona_fold_signals": 0,
+        "persona_headings": 0
+      },
+      "id": "coh_02",
+      "label": "Cible identifiable",
+      "max": 3,
+      "perception_has_hero": true,
+      "perception_has_social_proof": true,
+      "rationale": "Aucune cible identifiable (fold=0, headings=0).",
+      "score": 0,
+      "verdict": "critical",
+      "weight": 0.9,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "coherence_score": 1,
+        "cta_label": "try for free",
+        "desc_overlap": 0.14,
+        "offer_patterns_found": [],
+        "title_overlap": 0.0
+      },
+      "id": "coh_03",
+      "label": "Alignement ad → LP",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=pricing",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "diff_count": 3,
+        "diff_signals": {
+          "certification": 1,
+          "origin": 6,
+          "unique_claim": 6
+        },
+        "generic_hits": 0
+      },
+      "id": "coh_04",
+      "label": "Positionnement différenciant",
+      "max": 3,
+      "rationale": "3 signaux différenciation, 0 patterns génériques.",
+      "score": 3,
+      "verdict": "top",
+      "weight": 0.9,
+      "weightedScore": 2.7
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "ai_slop_hits": 0,
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tone_inconsistent": false,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "coh_05",
+      "label": "Ton de marque",
+      "max": 3,
+      "rationale": "Ton identifiable: punch=0, AI slop=0, mix=0%.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 0.9,
+      "weightedScore": 1.35
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "attention_ratio": 3.5,
+        "competing_ctas": [
+          {
+            "count": 4,
+            "href": "weglot.com/contact/enterprise"
+          },
+          {
+            "count": 2,
+            "href": "weglot.com/pricing"
+          },
+          {
+            "count": 2,
+            "href": "dashboard.weglot.com/login"
+          },
+          {
+            "count": 1,
+            "href": "wordcount.weglot.com/"
+          },
+          {
+            "count": 1,
+            "href": "support@weglot.com"
+          }
+        ],
+        "primary_count": 21,
+        "primary_href": "https://dashboard.weglot.com/register",
+        "total_links": 30,
+        "unique_destinations": 6
+      },
+      "id": "coh_06",
+      "label": "Mono-objectif par page",
+      "max": 3,
+      "rationale": "Objectif identifiable: primaire 21×, 6 destinations, 5 concurrents.",
+      "score": 1.5,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 1.5
+    }
+  ],
+  "finalMax": 15,
+  "finalNormalized": 5.9,
+  "finalRounded": 5.0,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": "KILLERS coh_01 (promesse 5s manquante) — cap appliqué 5.0/15 (strictest=coh_01 ratio=0.33, raw=6.0)",
+  "killersTriggered": [
+    {
+      "capRatio": 0.333,
+      "description": "coh_01 (promesse 5s manquante)",
+      "id": "coh_01"
+    }
+  ],
+  "pageType": "pricing",
+  "rawMax": 15,
+  "rawTotal": 6.0,
+  "score100": 33.3,
+  "scoredAt": "2026-04-29T18:27:23.140260+00:00",
+  "scoredBy": "score_coherence.py v1.0",
+  "skippedCriteria": [
+    "coh_03"
+  ],
+  "url": "https://www.weglot.com/pricing",
+  "verdict": "FAIBLE",
+  "weightedMax": 14.1,
+  "weightedSum": 5.55
+}

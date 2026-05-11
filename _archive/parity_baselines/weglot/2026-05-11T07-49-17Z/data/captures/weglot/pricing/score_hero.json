@@ -1,0 +1,171 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "feature_grid",
+        "hero_band",
+        "value_prop_stack"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 83.9,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 12,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 4,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "feature_grid",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "testimonial_block",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "BLOCKED",
+      "pc_violations_count": 3
+    }
+  },
+  "activeCriteria": 5,
+  "capturedAt": "2026-04-29T18:27:23.140260+00:00",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "h1": "Choose the plan that fits your needs",
+        "h1Count": 1,
+        "hasBenefit": false,
+        "hasDifferentiator": false,
+        "hasTarget": false,
+        "signals": 0,
+        "wordCount": 7
+      },
+      "id": "hero_01",
+      "label": "H1 = promesse spécifique",
+      "max": 3,
+      "rationale": "H1 vague, 0 élément détecté. Répond à 0-1 question sur 3.",
+      "score": 0,
+      "verdict": "critical"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "addsInfo": false,
+        "hasBulletList": true,
+        "subtitle": "Start for free, no credit card required\nMonthly\nAnnually - 2 months free!\nAnnually - 2 months free!\nUSD pricing is an estimate. The final price will be based on the EUR/USD rate on your subscription d",
+        "wordCount": 37
+      },
+      "id": "hero_02",
+      "label": "Sous-titre explicite",
+      "max": 3,
+      "rationale": "Sous-titre présent mais long (37 mots, max recommandé 25).",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "contrastText": null,
+        "height": null,
+        "href": "https://dashboard.weglot.com/register",
+        "label": "Try for free",
+        "primaryScore": 35,
+        "reasons": [
+          "actionVerb+20",
+          "buttonClass+15"
+        ],
+        "width": null,
+        "wordCount": 3
+      },
+      "id": "hero_03",
+      "label": "CTA principal visible ATF",
+      "max": 3,
+      "rationale": "CTA 'Try for free': verbe action OK mais taille 0×0 sous 44px.",
+      "score": 1.5,
+      "verdict": "ok"
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "heroImagesCount": 2,
+        "mainImage": null,
+        "spatialImgArea": 0,
+        "spatialImgRatio": 0,
+        "spatialVisualDetected": false,
+        "validImagesCount": 0
+      },
+      "id": "hero_04",
+      "label": "Visuel hero pertinent",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=pricing",
+      "score": 0,
+      "verdict": "skipped"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "present": true,
+        "reviewCounts": [],
+        "snippet": "",
+        "spatialInFold": null,
+        "trustWidgets": [
+          {
+            "present": true,
+            "type": "trustpilot"
+          }
+        ],
+        "type": "trustpilot"
+      },
+      "id": "hero_05",
+      "label": "Preuve sociale ATF",
+      "max": 3,
+      "perception_has_social_proof": true,
+      "rationale": "Preuve sociale visible : type=trustpilot, widgets=1, chiffres=[].",
+      "score": 3,
+      "verdict": "top"
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "distractions": [],
+        "hasFocus": false,
+        "killerTriggered": false,
+        "primaryScore": 35,
+        "q_action": true,
+        "q_pour_qui": false,
+        "q_quoi": true,
+        "questionsAnswered": 2,
+        "secondaryScore": 0
+      },
+      "id": "hero_06",
+      "label": "Test 5s + ratio 1:1",
+      "max": 3,
+      "rationale": "Test 5s échoué : 2/3 questions, focus CTA=False, distractions=[].",
+      "score": 0,
+      "verdict": "critical"
+    }
+  ],
+  "finalTotal": 6.0,
+  "gridVersion": "3.2.1-draft",
+  "killerNote": null,
+  "killerTriggered": false,
+  "label": "weglot",
+  "max": 15,
+  "maxFull": 18,
+  "pageType": "pricing",
+  "pillar": "hero",
+  "rawTotal": 6.0,
+  "score100": 40.0,
+  "skippedCriteria": [
+    "hero_04"
+  ],
+  "url": "https://www.weglot.com/pricing"
+}

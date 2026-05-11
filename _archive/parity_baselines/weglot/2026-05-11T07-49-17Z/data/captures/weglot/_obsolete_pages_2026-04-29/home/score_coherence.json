@@ -1,0 +1,255 @@
+{
+  "_intelligence_applied": true,
+  "_intelligence_count": 5,
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "content_text",
+        "hero_band",
+        "social_proof_logos"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 79.4,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 17,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 3,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "social_proof_logos",
+        "steps_howitworks",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "DEGRADED",
+      "pc_violations_count": 1
+    }
+  },
+  "_vision_lift_applied": true,
+  "_vision_lift_count": 1,
+  "activeCriteria": 5,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "_vision_lift": {
+        "new_score": 3,
+        "old_score": 0,
+        "reason": "vision_coh_strong_overlap"
+      },
+      "applicable": true,
+      "evidence": {
+        "h1": "The easiest way to translate a website",
+        "h1_wordcount": 7,
+        "has_pour_qui": false,
+        "has_pourquoi": false,
+        "has_quoi": false,
+        "is_slogan_vague": false,
+        "questions": 0,
+        "subtitle": "Translate your website instantly with AI, refine with human edits, and go live in multiple languages"
+      },
+      "id": "coh_01",
+      "label": "Promesse claire 5 sec",
+      "max": 3,
+      "perception_cta_bands_count": 1,
+      "rationale": "Seulement 0/3 questions répondues dans le fold.",
+      "score": 3,
+      "verdict": "top",
+      "weight": 1.2,
+      "weightedScore": 0.0
+    },
+    {
+      "_vision_lift": {
+        "new_score": 3,
+        "old_score": 0,
+        "reason": "vision_visual_coh_top_rich_desc"
+      },
+      "applicable": true,
+      "evidence": {
+        "has_defi": false,
+        "persona_body": 2,
+        "persona_fold_signals": 0,
+        "persona_headings": 0
+      },
+      "id": "coh_02",
+      "label": "Cible identifiable",
+      "max": 3,
+      "perception_has_hero": true,
+      "perception_has_social_proof": true,
+      "rationale": "Aucune cible identifiable (fold=0, headings=0).",
+      "score": 3,
+      "verdict": "top",
+      "weight": 1.1,
+      "weightedScore": 0.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "coherence_score": 1,
+        "cta_label": "try for free",
+        "desc_overlap": 0.2,
+        "offer_patterns_found": [],
+        "title_overlap": 0.2
+      },
+      "id": "coh_03",
+      "label": "Alignement ad → LP",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=home",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 18.0,
+        "new_pct": 68.0,
+        "new_score": 2.04,
+        "old_pct": 68.0,
+        "old_score": 2.04,
+        "reason": "Doctrine: 1 différenciation (simplicity/ease), 0 generic patterns. Vision confirms 'easiest way' is core positioning. Bump to 68% (OK range) reflects legitimate product differentiation in translation space (vs generic 'translate website' competitors). Real strategic positioning, underscore by doctri"
+      },
+      "applicable": true,
+      "evidence": {
+        "diff_count": 1,
+        "diff_signals": {
+          "origin": 12
+        },
+        "generic_hits": 0
+      },
+      "id": "coh_04",
+      "label": "Positionnement différenciant",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "1 différenciation mais 0 patterns génériques.",
+      "score": 2.04,
+      "verdict": "ok",
+      "weight": 1.2,
+      "weightedScore": 1.8
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 13.0,
+        "new_pct": 63.0,
+        "new_score": 1.89,
+        "old_pct": 63.0,
+        "old_score": 1.89,
+        "reason": "Doctrine: tone identifiable but punch=0, AI slop=0, mix=0%. 'Mind-blowingly simple' + 'instantly' + direct address ('your website') = consistent SaaS minimalist tone. Not high-punch, but coherent. Bump to 63% reflects brand tone clarity despite low hyperbole volume."
+      },
+      "applicable": true,
+      "evidence": {
+        "ai_slop_hits": 0,
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tone_inconsistent": false,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "coh_05",
+      "label": "Ton de marque",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Ton identifiable: punch=0, AI slop=0, mix=0%.",
+      "score": 1.89,
+      "verdict": "ok",
+      "weight": 1.1,
+      "weightedScore": 1.65
+    },
+    {
+      "_intelligence_lift": {
+        "delta_pct": 35.0,
+        "new_pct": 35.0,
+        "new_score": 1.05,
+        "old_pct": 66.0,
+        "old_score": 1.98,
+        "reason": "Doctrine: 7 destinations, ratio=0%, primaire=0. SaaS home pages naturally multi-objectif (signup, learn, pricing view, docs link, etc.). Single-objective pages (lead-gen/landing pages) are exception. Weglot home serving signup+exploration intent is business-appropriate. Bump to 35% (weak) acknowledg"
+      },
+      "_vision_lift": {
+        "new_score": 1.98,
+        "old_score": 1.05,
+        "reason": "visual_voice_coherence_implicit"
+      },
+      "applicable": true,
+      "evidence": {
+        "attention_ratio": 0.0,
+        "competing_ctas": [
+          {
+            "count": 6,
+            "href": "dashboard.weglot.com/register"
+          },
+          {
+            "count": 2,
+            "href": "weglot.com/ai-translation"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/multilingual-seo"
+          },
+          {
+            "count": 1,
+            "href": "weglot.com/contact/enterprise"
+          },
+          {
+            "count": 2,
+            "href": "weglot.com/"
+          }
+        ],
+        "primary_count": 0,
+        "primary_href": null,
+        "total_links": 16,
+        "unique_destinations": 7
+      },
+      "id": "coh_06",
+      "label": "Mono-objectif par page",
+      "max": 3,
+      "method": "regex+intelligence+intelligence",
+      "rationale": "Objectif flou: primaire 0×, 7 destinations, ratio 0%.",
+      "score": 1.05,
+      "verdict": "critical",
+      "weight": 1.0,
+      "weightedScore": 0.0
+    }
+  ],
+  "finalMax": 15,
+  "finalNormalized": 3.08,
+  "finalRounded": 3.0,
+  "finalTotal": 10.98,
+  "gridVersion": "3.2.0-draft",
+  "killerNote": "KILLERS déclenchés coh_01 (promesse 5s manquante); coh_06 (multi-objectifs diluant le focus) mais score déjà sous cap 5.0",
+  "killersTriggered": [
+    {
+      "capRatio": 0.333,
+      "description": "coh_01 (promesse 5s manquante)",
+      "id": "coh_01"
+    },
+    {
+      "capRatio": 0.5,
+      "description": "coh_06 (multi-objectifs diluant le focus)",
+      "id": "coh_06"
+    }
+  ],
+  "pageType": "home",
+  "rawMax": 15,
+  "rawTotal": 10.98,
+  "score100": 73.2,
+  "scoredAt": "2026-04-17T08:28:34.236430+00:00",
+  "scoredBy": "score_coherence.py v1.0",
+  "skippedCriteria": [
+    "coh_03"
+  ],
+  "url": "https://weglot.com",
+  "verdict": "FAIBLE",
+  "weightedMax": 16.8,
+  "weightedSum": 3.45
+}

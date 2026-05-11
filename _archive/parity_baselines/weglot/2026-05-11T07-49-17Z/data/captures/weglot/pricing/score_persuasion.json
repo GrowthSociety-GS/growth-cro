@@ -1,0 +1,230 @@
+{
+  "_perception": {
+    "available": true,
+    "signals": {
+      "pc_atf_types": [
+        "feature_grid",
+        "hero_band",
+        "value_prop_stack"
+      ],
+      "pc_available": true,
+      "pc_classification_rate": 83.9,
+      "pc_has_faq": false,
+      "pc_has_footer": false,
+      "pc_has_form": false,
+      "pc_has_hero": true,
+      "pc_has_nav": true,
+      "pc_has_pricing": false,
+      "pc_has_social_proof": true,
+      "pc_has_video": false,
+      "pc_num_components": 12,
+      "pc_num_cta_bands": 1,
+      "pc_num_value_prop": 4,
+      "pc_types": [
+        "content_text",
+        "cta_band",
+        "feature_grid",
+        "hero_band",
+        "image_gallery",
+        "nav_bar",
+        "testimonial_block",
+        "value_prop_stack"
+      ],
+      "pc_verdict": "BLOCKED",
+      "pc_violations_count": 3
+    }
+  },
+  "activeCriteria": 7,
+  "capsApplied": [],
+  "client": "weglot",
+  "criteria": [
+    {
+      "applicable": true,
+      "evidence": {
+        "body_feature": 0,
+        "body_outcome": 0,
+        "feature_hits_headings": 0,
+        "outcome_hits_headings": 0,
+        "outcome_ratio": 0.0
+      },
+      "id": "per_01",
+      "label": "Bénéfices > features",
+      "max": 3,
+      "perception_has_social_proof": true,
+      "rationale": "Outcome hits dans H1/subtitle/headings=0 vs features=0. Ratio outcome/(outcome+feature)=0.00. Top>=0.55+out>=3, OK>=0.30, critical<0.30.",
+      "score": 1,
+      "verdict": "weak",
+      "weight": 1.0,
+      "weightedScore": 1.0
+    },
+    {
+      "applicable": false,
+      "evidence": {
+        "has_mission": false,
+        "has_origin": false,
+        "has_trigger": false,
+        "signals": {},
+        "total_distinct": 0
+      },
+      "id": "per_02",
+      "label": "Storytelling fondateur",
+      "max": 3,
+      "rationale": "Critère non applicable pour pageType=pricing",
+      "score": 0,
+      "verdict": "skipped",
+      "weight": 0,
+      "weightedScore": 0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "distinct_objections_covered": 1,
+        "faq_question_count": 13,
+        "objection_markers_hit": {
+          "securite_rgpd": 2
+        }
+      },
+      "id": "per_03",
+      "label": "Objections levées",
+      "max": 3,
+      "rationale": "Top: ≥4 objections distinctes + FAQ ≥5 Q. OK: ≥2 objections ou FAQ ≥4 Q. Weak: ≥1. Critical: 0.",
+      "score": 2,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 2.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "before_after": 0,
+        "big_numbers": 4,
+        "percent_mentions": 1,
+        "press_logos": 0,
+        "proof_types_distinct": 2,
+        "study_mentions": 0,
+        "trust_widgets": 1,
+        "year_experience": 0
+      },
+      "id": "per_04",
+      "label": "Preuves concrètes",
+      "max": 3,
+      "perception_social_proof_count": 1,
+      "rationale": "Top: ≥4 types de preuves + (3+ % OU étude). OK: ≥2 types. Weak: 1 type. Critical: 0.",
+      "score": 2,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 2.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "has_photo": false,
+        "has_verified_widget": true,
+        "named_count": 0,
+        "testimonial_count": 0,
+        "video_testimonial_hits": 0
+      },
+      "id": "per_05",
+      "label": "Témoignages nommés + photo/vidéo",
+      "max": 3,
+      "perception_cta_bands_count": 1,
+      "rationale": "Top: (vidéo OU widget vérifié) + ≥2 nommés + photo. OK: ≥2 nommés OU widget. Weak: ≥1 témoignage. Critical: 0.",
+      "score": 2,
+      "verdict": "ok",
+      "weight": 1.0,
+      "weightedScore": 2.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "business_q": 2,
+        "categories": [
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "support",
+          "autre",
+          "autre",
+          "autre",
+          "autre",
+          "garantie",
+          "autre",
+          "autre"
+        ],
+        "categories_distinct": 2,
+        "faq_count": 13,
+        "sample_questions": [
+          "our integration?",
+          "ou have on your website?",
+          "our website. Discover Common questions How many translated words do I need?",
+          "ounted once and not each time it's translated. You can watch our video to learn more about how translated word count is calculated. What if I go over my limit?",
+          "ou upgrade your plan or delete the extra translations to stay within your plan’s translated word count. Do I pay full price when I upgrade my plan?",
+          "ou already paid for your current plan, you will only pay the difference for the upgraded plan, and only for the remainder of your billing period. What support do you provide?",
+          "our website to Weglot Translation API in one month. This is approximately equal to the number of monthly translated page views on your website. Can I use Weglot on more than one website?",
+          "ou have at least a Pro plan you have the multisite feature. It allows you to manage several websites separately and gives access to one person per website. What happens after my 14-day free trial?"
+        ]
+      },
+      "id": "per_06",
+      "label": "FAQ ciblée objections",
+      "max": 3,
+      "rationale": "Top: ≥5 Q + ≥5 business + ≥3 catégories. OK: ≥4 Q + ≥3 business. Weak: ≥2 Q. Critical: <2 Q.",
+      "score": 1,
+      "verdict": "weak",
+      "weight": 1.2,
+      "weightedScore": 1.2
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "mix_ratio": 0.0,
+        "punchline_hits": 0,
+        "tu_hits": 0,
+        "vous_hits": 0
+      },
+      "id": "per_07",
+      "label": "Ton cohérent",
+      "max": 3,
+      "rationale": "Top: adresse stable + ≥3 punchlines. OK: adresse stable volume ≥20. Weak: mix ou faible volume.",
+      "score": 1,
+      "verdict": "weak",
+      "weight": 1.0,
+      "weightedScore": 1.0
+    },
+    {
+      "applicable": true,
+      "evidence": {
+        "distinct_jargon_patterns": 0,
+        "jargon_hits": {},
+        "jargon_total": 0
+      },
+      "id": "per_08",
+      "label": "Absence de jargon creux",
+      "max": 3,
+      "rationale": "Top: 0 hit. OK: 1-4 hits. Weak: 5-7 hits. Critical: ≥8 hits → cap 20/24.",
+      "score": 3,
+      "verdict": "top",
+      "weight": 1.0,
+      "weightedScore": 3.0
+    }
+  ],
+  "finalCapped": 11.86,
+  "finalMax": 21,
+  "finalNormalized": 11.86,
+  "finalRounded": 12.0,
+  "gridVersion": "3.2.0-draft",
+  "pageType": "pricing",
+  "rawMax": 21,
+  "rawTotal": 12,
+  "score100": 57.1,
+  "scoredAt": "2026-04-29T18:27:23.140260+00:00",
+  "scoredBy": "score_persuasion.py v2.0",
+  "skippedCriteria": [
+    "per_02"
+  ],
+  "url": "https://www.weglot.com/pricing",
+  "verdict": "MOYEN",
+  "weightedMax": 21.6,
+  "weightedSum": 12.2
+}
