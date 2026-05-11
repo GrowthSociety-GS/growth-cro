@@ -1,0 +1,10 @@
+Campaign,Campaign type,Status,Impressions,Clicks,Cost,Conversions,Conv. value,CTR,Avg. CPC,Cost / conv.,Conv. value / cost
+Brand - Search EXACT,Search,Enabled,12000,800,420,30,4500,6.67,0.53,14.0,10.71
+Brand - Search PHRASE,Search,Enabled,8500,520,310,18,2700,6.12,0.60,17.22,8.71
+Generic - Search BROAD,Search,Enabled,40000,1500,1100,45,4500,3.75,0.73,24.44,4.09
+Shopping FR - Standard,Shopping,Enabled,80000,1200,1500,80,12000,1.50,1.25,18.75,8.00
+Shopping FR - Smart,Shopping,Enabled,55000,950,1250,55,8200,1.73,1.32,22.73,6.56
+Performance Max - DTC,Performance Max,Enabled,150000,1800,2400,120,21000,1.20,1.33,20.00,8.75
+Performance Max - Retargeting,Performance Max,Paused,30000,420,500,40,7200,1.40,1.19,12.50,14.40
+Demand Gen - Awareness,Demand Gen,Enabled,200000,1100,1800,25,3500,0.55,1.64,72.00,1.94
+Display Remarketing,Display,Enabled,180000,650,400,8,800,0.36,0.62,50.00,2.00
