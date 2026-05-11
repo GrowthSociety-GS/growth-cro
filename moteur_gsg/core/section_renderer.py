@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .animations import render_animations_css
 from .component_renderer import _component_bullets, _component_visual
 from .css import render_renderer_css
 from .fact_assembler import _proof_strip
@@ -95,6 +96,7 @@ def _render_component_page(
   <meta name="description" content="{_e(meta.get('description') or hero.get('dek'))}">
   <style>
 {render_renderer_css(tokens)}
+{render_animations_css(tokens)}
   </style>
 </head>
 <body>

@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T15:17:06",
+  "generated_at": "2026-05-11T15:40:00",
   "stats": {
-    "total_files": 210,
+    "total_files": 212,
     "active_wired": 4,
     "active_indirect": 10,
     "active_cli": 46,
     "active_package_marker": 17,
-    "active_misc": 133,
+    "active_misc": 135,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
@@ -398,6 +398,26 @@
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "animations",
+      "path": "moteur_gsg/core/animations.py",
+      "filename": "animations.py",
+      "what": "Emil Kowalski motion layer for the controlled GSG renderer (V27.2-G+).",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 11754,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2722,6 +2742,28 @@
       "criticality": "low"
     },
     {
+      "id": "impeccable_qa",
+      "path": "moteur_gsg/core/impeccable_qa.py",
+      "filename": "impeccable_qa.py",
+      "what": "Impeccable post-render QA layer for the controlled GSG renderer.",
+      "imports": [
+        "Any",
+        "HTMLParser",
+        "__future__",
+        "annotations",
+        "html",
+        "parser"
+      ],
+      "size_bytes": 14285,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "implementation_check",
       "path": "moteur_multi_judge/judges/implementation_check.py",
       "filename": "implementation_check.py",
@@ -3074,6 +3116,7 @@
         "fallback_copy_from_plan",
         "get_brand_summary",
         "has_brand_dna",
+        "impeccable_qa",
         "legacy_lab_adapters",
         "load_aura_tokens",
         "load_brand_dna",
@@ -3086,11 +3129,12 @@
         "planner",
         "prompt_assembly",
         "render_controlled_page",
+        "run_impeccable_qa",
         "run_multi_judge",
         "single_pass",
         "visual_intelligence"
       ],
-      "size_bytes": 24450,
+      "size_bytes": 25789,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -3625,6 +3669,7 @@
         "_proof_strip",
         "_reason_visual",
         "_render_component_page",
+        "animations",
         "annotations",
         "build_visual_system",
         "component_renderer",
@@ -3633,11 +3678,12 @@
         "hero_renderer",
         "html_escaper",
         "planner",
+        "render_animations_css",
         "render_renderer_css",
         "section_renderer",
         "visual_system"
       ],
-      "size_bytes": 4716,
+      "size_bytes": 5197,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -4902,6 +4948,7 @@
         "_e",
         "_hero_visual",
         "_proof_strip",
+        "animations",
         "annotations",
         "build_visual_system",
         "component_renderer",
@@ -4910,10 +4957,11 @@
         "hero_renderer",
         "html_escaper",
         "planner",
+        "render_animations_css",
         "render_renderer_css",
         "visual_system"
       ],
-      "size_bytes": 5802,
+      "size_bytes": 5880,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [

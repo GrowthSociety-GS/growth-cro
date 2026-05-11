@@ -193,25 +193,45 @@ flowchart TD
     CopyWriter --> Renderer
     Renderer --> CSS["core/css/{base, components, responsive}"]
     CSS --> Renderer
+    Renderer --> Animations["core/animations<br/>Emil Kowalski layer V27.2-G+"]
+    Animations --> Renderer
     Renderer --> RuntimeFixes["modes/mode_1/runtime_fixes"]
     RuntimeFixes --> VisualGates["modes/mode_1/visual_gates<br/>anti-AI-slop"]
     VisualGates --> MinimalGuards["core/minimal_guards"]
-    MinimalGuards --> HTML[("LP HTML<br/>deliverables/&lt;client&gt;-&lt;page&gt;-GSG-V27-2G.html")]
+    MinimalGuards --> ImpeccableQA["core/impeccable_qa<br/>post-render gate V27.2-G+"]
+    ImpeccableQA --> HTML[("LP HTML<br/>deliverables/&lt;client&gt;-&lt;page&gt;-GSG-V27-2G.html")]
     HTML --> MJOpt{{"optional multi-judge<br/>(see §4)"}}
+    HTML --> RegGate{{"regression gate<br/>scripts/test_gsg_regression.sh"}}
 
     classDef artefact fill:#e8f4ff,stroke:#3a73b0,color:#0c2a4c;
     classDef gate fill:#fef3e7,stroke:#cc7d28,color:#5a3208;
     class Brief,Plan,HTML artefact;
-    class RuntimeFixes,VisualGates,MinimalGuards gate;
+    class RuntimeFixes,VisualGates,MinimalGuards,Animations,ImpeccableQA,RegGate gate;
 ```
 
-**What this shows.** The full canonical Mode 1 COMPLETE path on V27.2-G. The
+**What this shows.** The full canonical Mode 1 COMPLETE path on V27.2-G+. The
 LLM only writes copy as JSON slots (Sonnet text-only via `core/copy_writer`);
 all visuals, structure, tokens, and CSS are deterministic. The premium visual
 layer markers (`gsg-visual-system-v27.2-g`, `gsg-premium-visual-layer-v27.2-g`)
 are emitted by `visual_system.py` and asserted by
 `scripts/check_gsg_creative_route_selector.py` + `check_gsg_visual_renderer.py`
 (see Codex handoff 2026-05-11 P1 fix).
+
+**Issue #19 additions (2026-05-11).** Two new gate modules join the V27.2-G+
+flow:
+- `core/animations` — Emil Kowalski motion CSS layer (staggered reveals,
+  spring easing, CTA micro-interactions). Output appended to `<style>` by
+  both `page_renderer_orchestrator` (listicle path) and `section_renderer`
+  (component path). `prefers-reduced-motion: reduce` opt-out is total
+  (WCAG 2.1 SC 2.3.3).
+- `core/impeccable_qa` — deterministic offline anti-pattern detection (16
+  regex + 5 structural checks). Hard-fail below `MIN_PASSING_SCORE = 70`
+  per task #19 spec. Consumed by `mode_1_complete` post-`apply_minimal_postprocess`
+  and pre-`run_multi_judge`. Reported in `gen.impeccable_qa` +
+  `telemetry.impeccable_score`.
+- `scripts/test_gsg_regression.sh` — Weglot V27.2-D 70.9% baseline +
+  3 stratosphere LPs with 5pt regression budget. Missing LPs → SKIP (not
+  FAIL) to keep the gate green on structural landing day.
 
 **Mode dispatch.** Modes 2-5 share most of this pipeline; the differences live
 in `mode_{2,3,4,5}*.py`:

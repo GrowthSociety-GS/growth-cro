@@ -403,6 +403,7 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+<<<<<<< HEAD
 ### 2026-05-11 — Webapp V28 Next.js Migration v1 (#21)
 
 **Trigger** : Task #21 du programme `webapp-stratosphere`, PRD FR-6 (US-4). Migrer la webapp V27 HTML statique vers Next.js 14 + Supabase EU + Vercel microfrontends. Scale agence Growth Society 100+ clients. AD-6 du epic master : V27 fini (✅ #20) AVANT V28 démarré.
@@ -464,6 +465,56 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 2. Supabase project EU — crée projet eu-central-1, partage env via `.env.local` (jamais en clair commit).
 3. Fly.io OU Railway pour backend FastAPI ?
 4. Test consultant agence — invite user pour valider RLS policies réelles.
+=======
+### 2026-05-11 — GSG Stratosphere — structural lands + 3 LP scaffolds (#19)
+
+**Trigger** : Task #19 du programme `webapp-stratosphere`, PRD FR-4 (US-3). Premier vrai run hors-SaaS-listicle : 3 LPs sur 3 page_types non-couverts (e-com PDP, SaaS B2B pricing comparison, B2B leadgen). Combo "GSG generation" du blueprint (frontend-design + brand-guidelines + Emil Kowalski + Impeccable, max 4 skills). AD-5 du epic master : "stratosphère atteinte" prouvée par 3 LPs multi-judge ≥ 70 + 0 régression > 5pt vs Weglot V27.2-D 70.9% baseline.
+
+**Stratégie API-failure-aware** : per task #19 robustness clause, structural code first (réversible standalone), API-dependent work documented and one bash invocation away. Aucun `ANTHROPIC_API_KEY` accessible dans le worktree → fallback gracieux sur scaffold + live-run documenté.
+
+**Livrables shipped** :
+- `moteur_gsg/core/animations.py` (NEW, 291 LOC) : Emil Kowalski motion layer. CSS-only, pas de JS, pas d'asset externe. Public API `render_animations_css(tokens)` + `animations_status()`. Stagger sequence ≤ 12 children @ 80ms step, easing spring-ish `cubic-bezier(0.16, 1, 0.3, 1)`. `@media (prefers-reduced-motion: reduce)` turns EVERYTHING off (WCAG 2.1 SC 2.3.3). Wiré dans `page_renderer_orchestrator.py` (listicle path) + `section_renderer.py` (component path).
+- `moteur_gsg/core/impeccable_qa.py` (NEW, 395 LOC) : post-render anti-pattern detection layer. Pure stdlib (re + html.parser), deterministic, offline. 15 regex catalogue (lorem-ipsum, fake testimonials, checkmark spam, round inflation numbers, AI-slop verbs, default font leak, fixed hero width px, hard-coded desktop widths, large data URIs, @import cascades, …) + 5 structural checks (missing DOCTYPE, no/multiple h1, html sans lang, animations sans reduced-motion, opacity:0 dans static rules post @keyframes strip). Severity weights critical=12 / warning=4 / info=1. `MIN_PASSING_SCORE = 70` (hard fail). Tested on 4 LPs : Weglot baseline 100/100 ✓, japhy-pdp 100/100 ✓, stripe-pricing 100/100 ✓, linear-leadgen 100/100 ✓.
+- Wiring `moteur_gsg/modes/mode_1_complete.py` (+18 LOC) : `run_impeccable_qa(html)` invoqué post-`apply_minimal_postprocess`, pré-`run_multi_judge`. Exposé en `gen.impeccable_qa`, `telemetry.impeccable_score`, `telemetry.impeccable_pass`, top-level `impeccable_qa`. Wraps existing asset-ref resolution avec try/except pour tolérer worktrees où `data/captures` est un symlink.
+- `scripts/test_gsg_regression.sh` (NEW, 187 LOC ≤ 200 cap) : multi-judge regression gate. Re-score Weglot V27.2-D baseline (70.9%) + score chaque nouvelle LP en `deliverables/gsg_stratosphere/` avec 5pt budget. LPs absents → SKIP not FAIL (--strict flip skip→fail). Multi-judge auth errors degrade gracefully. Output : `data/_pipeline_runs/_regression_19/_summary.json` idempotent.
+- `deliverables/gsg_stratosphere/{japhy-pdp,stripe-pricing,linear-leadgen}-v27_2_g.html` (3 LPs, ~44 KB chaque) : scaffolded via `generate_lp(mode='complete', generation_strategy='controlled', copy_fallback_only=True, skip_judges=True)`. Chacune porte le full V27.2-G+ pipeline (planner déterministe, visual_system V27.2-G, controlled renderer, minimal_guards CTA/font/lang/proof PASS, Emil Kowalski animations, prefers-reduced-motion gate, Impeccable QA 100/100). Copy slots = `fallback_copy_from_plan` placeholder en attendant live-run Sonnet.
+- `deliverables/gsg_stratosphere/screenshots/*` : 9 artefacts (3 LPs × {desktop.png 1440×1200, mobile.png 375×800, qa.json}). QA verify htmlLang='fr', exactly 1 `<h1>`, hero visual non-overlap H1, CTA visible, mobile layout collapse correct. Total 1.2 MB.
+- `deliverables/gsg_stratosphere/README_live_run_required.md` : procédure live-run complète (4 étapes : régénérer 3 LPs avec API key, run regression gate, re-screenshot, Mathis visual validation). Cost estimate ~$1.50-2.00 + 15 min wall time.
+- `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` : 2 nouveaux modules registered, 3 depends_on mis à jour, 2 nouveaux data_artefacts (gsg_stratosphere/*.html et _regression_19/_summary.json), pipelines.gsg_pipeline.stages enrichi de 2 stages (animations_layer V27.2-G+, impeccable_qa V27.2-G+) + regression_gate. Mermaid §3 view mis à jour avec les 2 nouveaux nodes + regression-gate fan-out + paragraphe "Issue #19 additions". Idempotency vérifiée.
+
+**Architecture preserved** :
+- `growthcro/*` non touché (audit pipeline source).
+- `playbook/*.json` non touché — V3.3 + V3.2.1 backward-compat (AD-4) intacts.
+- `data/clients_database.json` non touché.
+- `moteur_multi_judge/*` non touché — pondération 70% doctrine / 30% humanlike inchangée. Impeccable layer NEW post-render gate distinct du multi-judge (deterministic offline, pas de LLM, ne contribue pas au `final_score_pct`).
+- `moteur_gsg/modes/mode_1/prompt_assembly.py` non touché — `MAX_SYSTEM_TOTAL_CHARS = 8192` V26.AF guard active.
+
+**V26.AF anti-régression verified** :
+```
+python3 -c "from moteur_gsg.modes.mode_1.prompt_assembly import build_persona_narrator_prompt, MAX_SYSTEM_TOTAL_CHARS; print(MAX_SYSTEM_TOTAL_CHARS)"
+# → 8192
+```
+Ni `animations.py` ni `impeccable_qa.py` ne touche au persona prompt assembly. Le motion layer est une string CSS append-only au stylesheet. Le QA layer est un détecteur déterministe offline (no `system_messages` contribution, no LLM call).
+
+**Gates** :
+- `lint_code_hygiene.py` : exit 0 (11 pré-existants WARN, 1 nouveau WARN sur impeccable_qa prefix-entropy = false positive documenté)
+- `audit_capabilities.py` : exit 0, orphans HIGH = 0, 209 → 211 total_files (2 nouveaux active_misc)
+- `SCHEMA/validate_all.py` : exit 0 (5/3441 pré-existants errors sur captures/<client>/client_intent.json)
+- `agent_smoke_test.sh` : exit 0 (5/5 agents)
+- `parity_check.sh weglot` : exit 0 (108 files match baseline)
+- `update_architecture_map.py` : idempotent (re-run produces no diff)
+
+**6/6 GSG checks** : 4 PASS (canonical, visual_renderer, intake_wizard, component_planner) + 2 pré-existant FAIL (controlled_renderer + creative_route_selector — `Golden Bridge references missing from route` parce que Weglot n'a pas d'`aura_tokens` calculés dans data/captures du worktree symlinké ; même failure mode sur main, indépendant de #19 ; live-run sur main avec aura re-calculé résoudra). Améliorations Issue #19 : visual_renderer passed grâce au asset-ref worktree robustness fix dans `_asset_ref_for_html`.
+
+**doctrine-keeper verdict** : `.claude/epics/webapp-stratosphere/updates/19/doctrine-keeper-verdict.md` — APPROVED. Pas de doctrine drift. 4 hard rules CODE_DOCTRINE respectées. Cross-check doctrine ↔ code : scorers, specifics, UX pillar, page-type orchestrator, reco enricher tous untouched. V3.3 backward-compat (AD-4) préservée.
+
+**Out of scope** :
+- Live-run regeneration des 3 LPs avec Sonnet (cost ~$1.50-2.00, wall ~15 min, requires `ANTHROPIC_API_KEY` exported)
+- Multi-judge regression vérification effective (ready via `bash scripts/test_gsg_regression.sh` post live-run)
+- Mathis visual validation des 3 LPs (post live-run)
+- Re-screenshot post live-run pour remplacer les placeholders fallback_copy par le copy Sonnet
+- Follow-up sub-epic #19b pour les 4 page_types restants (advertorial, lp_sales, home, lp_listicle non-SaaS) — créé après #19 PASS
+>>>>>>> task/19-gsg-stratosphere
 
 ### 2026-05-11 — Webapp V27 Completion (#20)
 

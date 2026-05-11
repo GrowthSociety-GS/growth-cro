@@ -10,11 +10,19 @@
 Split out of ``controlled_renderer.py`` (issue #8). The legacy
 ``moteur_gsg.core.controlled_renderer`` module is now a shim that
 re-exports ``render_controlled_page`` from here.
+
+V27.2-G+ (issue #19): the renderer appends the Emil Kowalski motion
+layer (``animations.render_animations_css``) to the stylesheet for both
+the listicle path and the component-section path. The QA post-render
+gate (``impeccable_qa.run_impeccable_qa``) is invoked by callers in
+``moteur_gsg.modes.mode_1_complete`` after ``apply_minimal_postprocess``
+and before ``run_multi_judge`` (see task #19 spec).
 """
 from __future__ import annotations
 
 from typing import Any
 
+from .animations import render_animations_css
 from .css import render_renderer_css
 from .fact_assembler import _proof_strip
 from .hero_renderer import _hero_visual
@@ -77,6 +85,7 @@ def render_controlled_page(
   <meta name="description" content="{_e(meta.get('description') or hero.get('dek'))}">
   <style>
 {render_renderer_css(tokens)}
+{render_animations_css(tokens)}
   </style>
 </head>
 <body>
