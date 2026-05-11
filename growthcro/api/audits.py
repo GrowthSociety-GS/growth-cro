@@ -20,13 +20,13 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from growthcro.audit_gads.orchestrator import AuditInputs as GadsInputs, run_audit as run_gads
-from growthcro.audit_gads.notion_export import (
+from growthcro.audit_gads.notion_export_gads import (
     render_bundle_json as gads_render_bundle_json,
     render_notion_markdown as gads_render_markdown,
     render_notion_payload as gads_render_payload,
 )
 from growthcro.audit_meta.orchestrator import AuditInputs as MetaInputs, run_audit as run_meta
-from growthcro.audit_meta.notion_export import (
+from growthcro.audit_meta.notion_export_meta import (
     render_bundle_json as meta_render_bundle_json,
     render_notion_markdown as meta_render_markdown,
     render_notion_payload as meta_render_payload,

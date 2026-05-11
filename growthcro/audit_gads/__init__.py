@@ -18,7 +18,7 @@ from growthcro.audit_gads.orchestrator import (
     AuditOutputs,
     run_audit,
 )
-from growthcro.audit_gads.notion_export import (
+from growthcro.audit_gads.notion_export_gads import (
     NOTION_TEMPLATE_SECTIONS,
     render_notion_markdown,
     render_notion_payload,

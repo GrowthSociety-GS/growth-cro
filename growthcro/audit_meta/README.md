@@ -31,7 +31,7 @@ Limite session = **3 skills max**, activation **contextual** sur routes
 |---|---|---|
 | `__init__.py` | — | Re-exports publics |
 | `orchestrator.py` | #4 | Pipeline parse → KPIs → sections → slots skill |
-| `notion_export.py` | #8 | Pure dict→Markdown / dict→Notion-API payload |
+| `notion_export_meta.py` | #8 | Pure dict→Markdown / dict→Notion-API payload (Meta Ads) |
 | `cli.py` | #5 | `python -m growthcro.audit_meta.cli` |
 
 Aucune lecture env (`os.environ` / `os.getenv`).

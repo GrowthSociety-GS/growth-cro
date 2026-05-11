@@ -18,7 +18,7 @@ from growthcro.audit_meta.orchestrator import (
     AuditOutputs,
     run_audit,
 )
-from growthcro.audit_meta.notion_export import (
+from growthcro.audit_meta.notion_export_meta import (
     NOTION_TEMPLATE_SECTIONS,
     render_notion_markdown,
     render_notion_payload,

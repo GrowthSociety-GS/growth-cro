@@ -160,7 +160,7 @@ def render_notion_markdown(bundle: dict) -> str:
         parts.append("")
 
     parts.append("---")
-    parts.append("_Rendered by `growthcro.audit_gads.notion_export`._")
+    parts.append("_Rendered by `growthcro.audit_gads.notion_export_gads`._")
     return "\n".join(parts).rstrip() + "\n"
 
 

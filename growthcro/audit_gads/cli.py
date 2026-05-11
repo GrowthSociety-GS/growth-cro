@@ -21,7 +21,7 @@ import json
 import pathlib
 import sys
 
-from growthcro.audit_gads.notion_export import (
+from growthcro.audit_gads.notion_export_gads import (
     render_bundle_json,
     render_notion_markdown,
     render_notion_payload,
