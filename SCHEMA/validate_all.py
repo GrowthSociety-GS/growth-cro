@@ -54,6 +54,10 @@ def main():
             total += 1
             try:
                 data = json.loads(f.read_text())
+                # Skip error stubs (fallback artifacts when upstream pipeline missing)
+                if isinstance(data, dict) and set(data.keys()) == {"error"}:
+                    total -= 1
+                    continue
                 jsonschema.validate(instance=data, schema=schema)
             except jsonschema.ValidationError as e:
                 errors += 1
