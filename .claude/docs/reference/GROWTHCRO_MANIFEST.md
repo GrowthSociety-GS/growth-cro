@@ -403,6 +403,68 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-11 — Webapp V28 Next.js Migration v1 (#21)
+
+**Trigger** : Task #21 du programme `webapp-stratosphere`, PRD FR-6 (US-4). Migrer la webapp V27 HTML statique vers Next.js 14 + Supabase EU + Vercel microfrontends. Scale agence Growth Society 100+ clients. AD-6 du epic master : V27 fini (✅ #20) AVANT V28 démarré.
+
+**Livrables** :
+- `webapp/` racine Next.js 14 (App Router) monorepo npm workspaces. **67 TS/TSX files, 4325 LOC total** (TS/TSX/CSS/SQL/JSON/JS hors node_modules/.next).
+- 6 microfrontends ports dédiés :
+  - `shell` (3000) **DEEP** — auth + nav + dashboard + realtime runs feed. 7 routes (/, /login, /privacy, /terms, /auth/callback, /auth/signout, server-rendered shell). Middleware auth gate gracieusement bypassable si env manquant (CI/build).
+  - `audit-app` (3001) **DEEP** — port V27 audit pane : client picker (search + category filter) + `/[clientSlug]` détail audits/scores/recos.
+  - `reco-app` (3002) **DEEP** — port V27 reco pane : listing par client + filtres priority/search + compteurs.
+  - `gsg-studio` (3003) **DEEP** — brief wizard 8 champs + LP preview + flow strip 5 stages + trigger run vers FastAPI.
+  - `reality-monitor` (3004) **PLACEHOLDER** — wireframe 5 data sources (GA4/Meta/Google/Shopify/Clarity) pending credentials.
+  - `learning-lab` (3005) **PLACEHOLDER** — wireframe V29 audit-based (69 proposals) + V30 Bayesian tracks.
+- 3 packages partagés :
+  - `@growthcro/ui` — primitives (Button/Card/KpiCard/ScoreBar/RecoCard/Pill/ClientRow/NavItem/ConsentBanner) + tokens.ts + styles.css. Couleurs/typo V27 (dark/gold) pour continuité visuelle pendant transition.
+  - `@growthcro/data` — Supabase client (browser/server/service-role) + entities typés + queries (clients/audits/recos/runs) + `subscribeRuns` realtime helper.
+  - `@growthcro/config` — env-derived config (miroir TS de `growthcro/config.py`).
+- `microfrontends.json` racine `webapp/` — config Vercel `@vercel/microfrontends` (6 applications, routing per basePath).
+- **Supabase schema** : 4 migrations SQL (`webapp/supabase/migrations/`)
+  - `0001_init_schema` — `organizations` / `org_members` / `clients` / `audits` / `recos` / `runs` + indexes + triggers updated_at
+  - `0002_rls_policies` — RLS via `is_org_member(org_id)` / `is_org_admin(org_id)` security-definer helpers. Anon role zéro accès. 12 policies (read + write par data table).
+  - `0003_views` — `clients_with_stats` + `recos_with_audit` (RLS héritée)
+  - `0004_realtime` — `runs` ajouté à `supabase_realtime` publication
+- **Migration script** : `scripts/migrate_v27_to_supabase.py` (329 LOC, stdlib-only urllib pour PostgREST). Parse `deliverables/growth_audit_data.js` (5.5MB), UPSERT 56 clients × 185 audits × 3045 recos. **Idempotent** (delete-then-insert audits par client). **DRY-RUN automatique** si env manquant. Uses `growthcro.config.system_env(...)` — pas d'`os.environ` raw.
+- **Auth Supabase** : email/password + magic link (OTP) via `@supabase/ssr`. Cookies httpOnly. `/auth/callback?code=...&redirect=...` handler. `/auth/signout` POST handler. Middleware shell gate.
+- **Realtime** : `subscribeRuns()` souscrit `postgres_changes` sur `public.runs`. `RunsLiveFeed` component shell affiche last 12 runs + live INSERT/UPDATE/DELETE.
+- **Backend choice** : **Option B** — FastAPI sur Railway/Fly.io. Rationale documenté §4 du doc archi : Vercel edge 30s limit incompatible avec capture Playwright + LLM scoring long-running. Réutilise `growthcro/api/server.py` zero changement.
+- **Architecture doc** : `architecture/GROWTHCRO_ARCHITECTURE_V1.md` (248 LOC, 13 sections : goal / diagram / topology / backend choice / data model / RLS / auth / migration / RGPD / skills / anti-patterns / open questions Mathis / refs).
+- **Playwright tests** : 4 suites (`auth` / `nav` / `client-detail` / `realtime`) × Desktop Chrome + Pixel 7. Smoke-level (auth UI methods, public routes, <2s budget, no JS crash). Full round-trip auth nécessite Supabase live (Mathis post-merge).
+- **RGPD compliance** : hosting EU Supabase eu-central-1 (Frankfurt) + Vercel Frankfurt edge. `ConsentBanner` mounted shell layout (localStorage opt-in). `/privacy` page droits utilisateurs + sous-traitants + DPAs + rétention 24 mois. `/terms` page usage interne agence.
+- `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` : nouvelle pipeline `webapp_v28` (microfrontends + backend + auth + realtime + RLS + region + skills_combo + status). `scripts/migrate_v27_to_supabase` auto-discovered (1 nouveau module).
+
+**Migration progressive** : V27 HTML `deliverables/GrowthCRO-V27-CommandCenter.html` reste accessible en parallèle. Pas de bascule forcée — Mathis valide visuellement la parité V28 page par page.
+
+**Performance** :
+- Shell build : 7 routes (3 static, 4 dynamic), 87 kB shared JS first-load.
+- Audit/Reco/GSG : ~88 kB shared.
+- Placeholders : ~88 kB.
+- Target page load < 2s — non mesuré live (Vercel deploy pending).
+
+**Architecture preserved** :
+- V27 HTML intact (parallèle transition).
+- `growthcro/api/server.py` zero changement (Option B backend = wrap existant).
+- `playbook/*.json` non touché.
+- `data/clients_database.json` non touché.
+
+**Gates** : lint exit 0 (FAIL=0), audit_capabilities 0 orphans HIGH, SCHEMA/validate_all 15/15 PASS, agent_smoke_test PASS, parity `weglot` PASS, update_architecture_map idempotent. **6/6 microfrontends `npm run build` exit 0**. **6/6 `npx tsc --noEmit` exit 0**.
+
+**Out of scope** :
+- Vercel project setup (Mathis crée projets + provisionne secrets — `architecture/GROWTHCRO_ARCHITECTURE_V1.md` §12)
+- Supabase project EU creation (Mathis crée projet + partage connection string + service role key)
+- FastAPI deploy Fly.io (Mathis choisit Fly vs Railway puis runs `flyctl deploy`)
+- Test consultant agence (Mathis invite user test + role consultant pour valider RLS)
+- Notion auto-sync (Mathis verrouille toujours manuellement)
+- `Taste Skill` / `theme-factory` activation (conflit Brand DNA per-client documenté SKILLS_INTEGRATION_BLUEPRINT)
+
+**Open pour Mathis** :
+1. Vercel project setup — crée projets `growthcro-shell` + 5 sous-apps OU demande livraison `vercel-init.sh`.
+2. Supabase project EU — crée projet eu-central-1, partage env via `.env.local` (jamais en clair commit).
+3. Fly.io OU Railway pour backend FastAPI ?
+4. Test consultant agence — invite user pour valider RLS policies réelles.
+
 ### 2026-05-11 — Webapp V27 Completion (#20)
 
 **Trigger** : Task #20 du programme `webapp-stratosphere`, PRD FR-5. Finir le V27 Command Center HTML statique comme MVP honnête (3 panes accessibles, 56 clients live, page load < 3s) avant que la migration Next.js V28 (Epic #21) ne démarre. AD-6 du epic master : V27 fini AVANT V28 lancé.

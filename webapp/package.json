@@ -1,0 +1,36 @@
+{
+  "name": "growthcro-webapp",
+  "version": "0.28.0",
+  "private": true,
+  "description": "GrowthCRO V28 — Next.js 14 + Supabase EU + Vercel microfrontends. Migration cible depuis V27 HTML statique.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/shell",
+    "dev:shell": "npm run dev --workspace=apps/shell",
+    "dev:audit": "npm run dev --workspace=apps/audit-app",
+    "dev:reco": "npm run dev --workspace=apps/reco-app",
+    "dev:gsg": "npm run dev --workspace=apps/gsg-studio",
+    "dev:reality": "npm run dev --workspace=apps/reality-monitor",
+    "dev:learning": "npm run dev --workspace=apps/learning-lab",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.0",
+    "prettier": "^3.2.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

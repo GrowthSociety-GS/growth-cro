@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T11:32:20Z'
-  source_commit: 6149972eea18eec1ad56bab6b45f0f25fa041e30
+  generated_at: '2026-05-11T13:17:14Z'
+  source_commit: dadcc7df39d7839f3702c86d39d4dc230d2bd7fd
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -42,6 +42,7 @@ modules:
     depends_on: []
     imported_by:
     - growthcro/gsg_lp
+    - scripts/migrate_v27_to_supabase
     doctrine_refs: []
     status: active
     lifecycle_phase: runtime
@@ -1990,6 +1991,17 @@ modules:
     - CODE_DOCTRINE.md
     status: active
     lifecycle_phase: infrastructure
+  scripts/migrate_v27_to_supabase:
+    path: scripts/migrate_v27_to_supabase.py
+    purpose: Migrate V27 static dataset to Supabase V28.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: infrastructure
   scripts/precategorize_proposals:
     path: scripts/precategorize_proposals.py
     purpose: 'Pre-categorize 69 audit-based doctrine proposals for Mathis review (Task #18 DoD).'
@@ -3189,6 +3201,33 @@ pipelines:
       demo:
         purpose: End-to-end Weglot showcase — Audit → Reco → Brief → Renderer → Judges
     status: V27 MVP honest — Issue
+  webapp_v28:
+    description: Next.js 14 (App Router) + Supabase EU + Vercel microfrontends. 5 microfrontends + 2 placeholders. Scale Growth
+      Society 100+ clients.
+    microfrontends:
+    - shell (3000) — auth + nav + dashboard + realtime runs feed [DEEP]
+    - audit-app (3001) — clients + audits + scores + recos [DEEP]
+    - reco-app (3002) — recos browser + filters + priority counts [DEEP]
+    - gsg-studio (3003) — brief wizard + LP preview + multi-judge stage strip [DEEP]
+    - reality-monitor (3004) — data sources panel GA4/Meta/Google/Shopify/Clarity [PLACEHOLDER]
+    - learning-lab (3005) — doctrine proposals V29 + Bayesian V30 tracks [PLACEHOLDER]
+    backend: 'Option B chosen — FastAPI on Railway/Fly.io (rationale: long-running Playwright capture + LLM scoring incompatible
+      with Vercel edge 30s limit). NEXT_PUBLIC_API_BASE_URL points to Fly.io URL.'
+    auth: Supabase auth — email/password + magic link via OTP. Cookie httpOnly via @supabase/ssr. Middleware gates everything
+      except /login, /auth/callback, /privacy, /terms.
+    realtime: Supabase channel `public:runs` subscribed by shell (postgres_changes on `runs` table).
+    rls: org-based isolation via is_org_member(org_id) + is_org_admin(org_id) security-definer helpers. Anon role zero read.
+      Service role bypass for migration scripts.
+    region: eu-central-1 (Frankfurt) — RGPD compliance.
+    target_load_s: 2.0
+    target_consultants: 100+ clients agence Growth Society + futures agences.
+    skills_combo: frontend-design + web-artifacts-builder + vercel-microfrontends + Figma Implement Design (≤4 per CLAUDE.md
+      anti-pattern
+    status: V28 v1 — scaffold + migrations + 3 deep microfrontends + 2 placeholders. Deploy Vercel + Supabase EU pending Mathis
+      credentials.
+    task_ref: 'Issue #21 webapp-stratosphere'
+    migration_script: scripts/migrate_v27_to_supabase.py (idempotent, 56 clients × 185 audits × 3045 recos)
+    architecture_doc: architecture/GROWTHCRO_ARCHITECTURE_V1.md
 skills_integration:
   meta:
     blueprint_doc: .claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md
