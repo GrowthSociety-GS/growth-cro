@@ -1,0 +1,23 @@
+import "@growthcro/ui/styles.css";
+import "./globals.css";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { ConsentBanner } from "@growthcro/ui";
+
+export const metadata: Metadata = {
+  title: "GrowthCRO V28 — Command Center",
+  description:
+    "Consultant CRO senior automatisé pour Growth Society — Webapp Next.js + Supabase EU.",
+  robots: "noindex,nofollow",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="fr">
+      <body>
+        {children}
+        <ConsentBanner />
+      </body>
+    </html>
+  );
+}
