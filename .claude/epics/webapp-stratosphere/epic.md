@@ -1,9 +1,9 @@
 ---
 name: webapp-stratosphere
-status: in_progress
+status: completed
 created: 2026-05-11T09:21:13Z
-updated: 2026-05-11T13:41:08Z
-progress: 75%
+updated: 2026-05-11T14:19:52Z
+progress: 100%
 prd: .claude/prds/webapp-stratosphere.md
 github: https://github.com/GrowthSociety-GS/growth-cro/issues/14
 ---
@@ -173,8 +173,8 @@ Total : 8 tasks. Parallel possible : #1 → #2 (en partie), #4 ↔ #5, #7 ↔ #8
 - [x] #19 — GSG Stratosphere (3 LPs non-SaaS-listicle ≥70) — L/7-10j (parallel: false, deps: #17, #18)
 - [x] #20 — Webapp V27 Completion (HTML refresh + 56 clients live) — M/4-5j (parallel: true with #19, deps: #16)
 - [x] #21 — Webapp V28 Next.js Migration — XL/3-4 semaines (parallel: false, deps: #17, #20)
-- [ ] #22 — Agency Products Extension (Google + Meta Ads) — M/3-4j (parallel: true with #23, deps: #21)
-- [ ] #23 — Reality / Experiment / Learning Loop — XL/3 semaines étalable (parallel: true with #22, deps: #18, #21)
+- [x] #22 — Agency Products Extension (Google + Meta Ads) — M/3-4j (parallel: true with #23, deps: #21)
+- [x] #23 — Reality / Experiment / Learning Loop — XL/3 semaines étalable (parallel: true with #22, deps: #18, #21)
 
 Total tasks: 8
 Parallel tasks: 3 paires possibles (#19↔#20, #22↔#23, partiellement #17↔#20)
