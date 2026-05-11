@@ -11,11 +11,11 @@
     "version": { "type": "string", "description": "Intent extraction version (e.g. v13.1.0-intent)." },
     "primary_intent": {
       "type": "string",
-      "enum": ["signup_commit", "contact_lead", "purchase", "content_consume", "discovery_quiz"]
+      "enum": ["signup_commit", "contact_lead", "purchase", "content_consume", "discovery_quiz", "unknown"]
     },
     "secondary_intent": {
       "type": ["string", "null"],
-      "enum": ["signup_commit", "contact_lead", "purchase", "content_consume", "discovery_quiz", null]
+      "enum": ["signup_commit", "contact_lead", "purchase", "content_consume", "discovery_quiz", "unknown", null]
     },
     "intent_scores": { "type": "object" },
     "intent_votes": { "type": "object" },
