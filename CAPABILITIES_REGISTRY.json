@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T16:19:03",
+  "generated_at": "2026-05-11T16:19:24",
   "stats": {
-    "total_files": 231,
+    "total_files": 247,
     "active_wired": 4,
     "active_indirect": 10,
     "active_cli": 48,
-    "active_package_marker": 19,
-    "active_misc": 150,
+    "active_package_marker": 22,
+    "active_misc": 163,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
@@ -239,6 +239,29 @@
     },
     {
       "id": "__init__",
+      "path": "growthcro/experiment/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO Experiment Engine — V27 promoted to growthcro/.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "engine",
+        "experiment",
+        "growthcro",
+        "recorder",
+        "runner"
+      ],
+      "size_bytes": 1900,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
       "path": "growthcro/gsg_lp/__init__.py",
       "filename": "__init__.py",
       "what": "Growth Site Generator — landing-page mega-prompt orchestrator.",
@@ -250,6 +273,26 @@
         "main"
       ],
       "size_bytes": 1588,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/learning/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO Learning Layer.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "growthcro",
+        "v30_data_driven"
+      ],
+      "size_bytes": 758,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -288,6 +331,41 @@
         "vision"
       ],
       "size_bytes": 918,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/reality/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO Reality Layer — V26.C / V26.AI promoted to growthcro/.",
+      "imports": [
+        "CatchrConnector",
+        "ClarityConnector",
+        "GA4Connector",
+        "GoogleAdsConnector",
+        "MetaAdsConnector",
+        "ShopifyConnector",
+        "__future__",
+        "annotations",
+        "base",
+        "catchr",
+        "clarity",
+        "collect_reality_snapshot",
+        "credentials",
+        "ga4",
+        "google_ads",
+        "growthcro",
+        "meta_ads",
+        "orchestrator",
+        "shopify"
+      ],
+      "size_bytes": 2622,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -732,6 +810,14 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/catchr.py",
+        "growthcro/reality/clarity.py",
+        "growthcro/reality/ga4.py",
+        "growthcro/reality/google_ads.py",
+        "growthcro/reality/meta_ads.py",
+        "growthcro/reality/orchestrator.py",
+        "growthcro/reality/shopify.py",
         "moteur_gsg/core/css/__init__.py",
         "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/reality_layer/__init__.py",
@@ -758,6 +844,54 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/catchr.py",
+        "growthcro/reality/clarity.py",
+        "growthcro/reality/ga4.py",
+        "growthcro/reality/google_ads.py",
+        "growthcro/reality/meta_ads.py",
+        "growthcro/reality/orchestrator.py",
+        "growthcro/reality/shopify.py",
+        "moteur_gsg/core/css/__init__.py",
+        "scripts/lint_code_hygiene.py",
+        "skills/site-capture/scripts/reality_layer/__init__.py",
+        "skills/site-capture/scripts/reality_layer/catchr.py",
+        "skills/site-capture/scripts/reality_layer/clarity.py",
+        "skills/site-capture/scripts/reality_layer/google_ads.py",
+        "skills/site-capture/scripts/reality_layer/meta_ads.py",
+        "skills/site-capture/scripts/reality_layer/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/shopify.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "base",
+      "path": "growthcro/reality/base.py",
+      "filename": "base.py",
+      "what": "Reality Layer base interface (promoted from skills/site-capture).",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations",
+        "config",
+        "dataclass",
+        "dataclasses",
+        "field",
+        "growthcro"
+      ],
+      "size_bytes": 2400,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/catchr.py",
+        "growthcro/reality/clarity.py",
+        "growthcro/reality/ga4.py",
+        "growthcro/reality/google_ads.py",
+        "growthcro/reality/meta_ads.py",
+        "growthcro/reality/orchestrator.py",
+        "growthcro/reality/shopify.py",
         "moteur_gsg/core/css/__init__.py",
         "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/reality_layer/__init__.py",
@@ -1259,6 +1393,36 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "catchr",
+      "path": "growthcro/reality/catchr.py",
+      "filename": "catchr.py",
+      "what": "Catchr connector — Growth Society internal GA4+ aggregator.",
+      "imports": [
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
+        "__future__",
+        "annotations",
+        "base",
+        "config",
+        "growthcro",
+        "httpx"
+      ],
+      "size_bytes": 3980,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
       "status": "ACTIVE",
@@ -1404,6 +1568,36 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "clarity",
+      "path": "growthcro/reality/clarity.py",
+      "filename": "clarity.py",
+      "what": "Microsoft Clarity Data Export connector — heatmaps + rage clicks + scroll depth.",
+      "imports": [
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
+        "__future__",
+        "annotations",
+        "base",
+        "config",
+        "growthcro",
+        "httpx"
+      ],
+      "size_bytes": 3512,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
       "status": "ACTIVE",
@@ -1600,6 +1794,7 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/google_ads.py",
         "growthcro/recos/cli.py",
         "growthcro/recos/orchestrator.py",
         "skills/site-capture/scripts/reality_layer/google_ads.py"
@@ -1842,7 +2037,7 @@
         "growthcro",
         "lru_cache"
       ],
-      "size_bytes": 11456,
+      "size_bytes": 15160,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
@@ -1853,6 +2048,14 @@
         "growthcro/cli/enrich_client.py",
         "growthcro/config.py",
         "growthcro/lib/anthropic_client.py",
+        "growthcro/reality/base.py",
+        "growthcro/reality/catchr.py",
+        "growthcro/reality/clarity.py",
+        "growthcro/reality/credentials.py",
+        "growthcro/reality/ga4.py",
+        "growthcro/reality/google_ads.py",
+        "growthcro/reality/meta_ads.py",
+        "growthcro/reality/shopify.py",
         "scripts/migrate_v27_to_supabase.py",
         "skills/growth-site-generator/scripts/aura_extract.py",
         "skills/site-capture/scripts/batch_site.py",
@@ -2020,6 +2223,31 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "credentials",
+      "path": "growthcro/reality/credentials.py",
+      "filename": "credentials.py",
+      "what": "Reality Layer credentials inspector — Issue #23.",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations",
+        "config",
+        "credentials",
+        "growthcro",
+        "missing_credentials_report"
+      ],
+      "size_bytes": 4793,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/credentials.py",
+        "growthcro/reality/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2361,6 +2589,28 @@
       "criticality": "low"
     },
     {
+      "id": "engine",
+      "path": "growthcro/experiment/engine.py",
+      "filename": "engine.py",
+      "what": "Experiment Engine — sample-size calculator + spec builder.",
+      "imports": [
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations",
+        "math"
+      ],
+      "size_bytes": 9990,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/experiment/__init__.py",
+        "growthcro/experiment/runner.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "enrich_client",
       "path": "growthcro/cli/enrich_client.py",
       "filename": "enrich_client.py",
@@ -2531,6 +2781,36 @@
         "moteur_gsg/core/legacy_lab_adapters.py",
         "moteur_gsg/core/pipeline_single_pass.py"
       ]
+    },
+    {
+      "id": "ga4",
+      "path": "growthcro/reality/ga4.py",
+      "filename": "ga4.py",
+      "what": "Native Google Analytics 4 Data API v1 connector.",
+      "imports": [
+        "Any",
+        "BetaAnalyticsDataClient",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
+        "__future__",
+        "annotations",
+        "base",
+        "config",
+        "data_v1beta",
+        "google",
+        "growthcro",
+        "types"
+      ],
+      "size_bytes": 7134,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "geo_audit",
@@ -2714,6 +2994,38 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "google_ads",
+      "path": "growthcro/reality/google_ads.py",
+      "filename": "google_ads.py",
+      "what": "Google Ads API connector — campaign metrics per landing page.",
+      "imports": [
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "GoogleAdsClient",
+        "NotConfiguredError",
+        "__future__",
+        "annotations",
+        "base",
+        "client",
+        "config",
+        "google",
+        "growthcro"
+      ],
+      "size_bytes": 4440,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
       "status": "ACTIVE",
@@ -3245,6 +3557,36 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "meta_ads",
+      "path": "growthcro/reality/meta_ads.py",
+      "filename": "meta_ads.py",
+      "what": "Meta Marketing API connector — ad_spend + ROAS + CTR per landing page.",
+      "imports": [
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
+        "__future__",
+        "annotations",
+        "base",
+        "config",
+        "growthcro",
+        "httpx"
+      ],
+      "size_bytes": 3619,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
       "status": "ACTIVE",
@@ -3567,6 +3909,7 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -3612,6 +3955,7 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -3670,6 +4014,7 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -3713,6 +4058,7 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -3756,6 +4102,7 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -3799,6 +4146,7 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -3855,6 +4203,65 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_gsg/orchestrator.py",
+        "scripts/_test_weglot_listicle_V26AE.py",
+        "scripts/check_gsg_component_planner.py",
+        "scripts/check_gsg_controlled_renderer.py",
+        "scripts/check_gsg_creative_route_selector.py",
+        "scripts/check_gsg_intake_wizard.py",
+        "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "orchestrator",
+      "path": "growthcro/reality/orchestrator.py",
+      "filename": "orchestrator.py",
+      "what": "Reality Layer orchestrator — multi-connector aggregator.",
+      "imports": [
+        "Any",
+        "CatchrConnector",
+        "ClarityConnector",
+        "ConnectorError",
+        "GA4Connector",
+        "GoogleAdsConnector",
+        "MetaAdsConnector",
+        "NotConfiguredError",
+        "Optional",
+        "ShopifyConnector",
+        "__future__",
+        "annotations",
+        "base",
+        "catchr",
+        "clarity",
+        "credentials",
+        "datetime",
+        "ga4",
+        "google_ads",
+        "growthcro",
+        "meta_ads",
+        "missing_credentials_report",
+        "shopify",
+        "timedelta"
+      ],
+      "size_bytes": 10185,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
+        "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -3901,6 +4308,7 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
@@ -4729,6 +5137,26 @@
       "criticality": "low"
     },
     {
+      "id": "recorder",
+      "path": "growthcro/experiment/recorder.py",
+      "filename": "recorder.py",
+      "what": "Experiment Engine recorder — index + outcome import.",
+      "imports": [
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 7220,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/experiment/__init__.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "recos_dedup",
       "path": "skills/site-capture/scripts/recos_dedup.py",
       "filename": "recos_dedup.py",
@@ -4914,6 +5342,29 @@
       "consumed_by": [
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "runner",
+      "path": "growthcro/experiment/runner.py",
+      "filename": "runner.py",
+      "what": "Experiment Engine runner — emit experiment PROPOSALS (zero auto-trigger).",
+      "imports": [
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations",
+        "build_experiment_spec",
+        "engine",
+        "growthcro"
+      ],
+      "size_bytes": 7840,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/experiment/__init__.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -5472,6 +5923,36 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "shopify",
+      "path": "growthcro/reality/shopify.py",
+      "filename": "shopify.py",
+      "what": "Shopify Admin GraphQL API connector — orders + revenue + funnel per landing page.",
+      "imports": [
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
+        "__future__",
+        "annotations",
+        "base",
+        "config",
+        "growthcro",
+        "httpx"
+      ],
+      "size_bytes": 4860,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/__init__.py",
+        "growthcro/reality/orchestrator.py",
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
       "status": "ACTIVE",
@@ -5682,6 +6163,30 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/scoring/cli.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "v30_data_driven",
+      "path": "growthcro/learning/v30_data_driven.py",
+      "filename": "v30_data_driven.py",
+      "what": "Learning V30 — data-driven Bayesian update on doctrine V3.3.",
+      "imports": [
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations",
+        "dataclass",
+        "dataclasses",
+        "defaultdict",
+        "math"
+      ],
+      "size_bytes": 19133,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/learning/__init__.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"

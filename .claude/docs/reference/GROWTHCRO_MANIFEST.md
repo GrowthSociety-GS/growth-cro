@@ -404,7 +404,10 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 ## 12. Changelog manifest
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> epic/webapp-stratosphere
 ### 2026-05-11 — Agency Products Extension v1 (#22)
 
 **Trigger** : Task #22 du programme `webapp-stratosphere`, PRD FR-7 (US-5). Activer les skills Anthropic `gads-auditor` + `meta-ads-auditor` comme produits parallèles Growth Society. Permet à l'agence de vendre **3 audits** (CRO + Google Ads + Meta Ads) depuis la même webapp V28. AD-7 du epic master : skill Anthropic + module *thin wrapper* qui pipe les outputs vers le template Notion agence — **aucune réinvention** de l'audit Ads.
@@ -475,6 +478,70 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 4. **Décider OAuth follow-up** : prioriser Google Ads API ou Meta Marketing API en post-MVP ? (Meta API est plus restrictive en 2026.)
 
 **Vision atteinte** : Growth Society peut vendre les **3 audits** (CRO + Google Ads + Meta Ads) depuis la même webapp V28, dès demain. Les 2 modules thin wrappers sont production-ready, testés 64/64 sur synthetic CSVs. Reste validation 1-shot sur data réelle pour confirmer qualité skill output.
+=======
+### 2026-05-11 — Reality / Experiment / Learning Loop v1 (#23)
+
+**Trigger** : Task #23 du programme `webapp-stratosphere`, PRD FR-8 (US-6). Activer la boucle fermée Reality → Experiment → Learning V30 data-driven sur 3 clients pilotes. AD-8 : 3 clients pilotes minimum avant V3.4. Building blocks existaient partiellement (Reality Layer V26.AI dans `skills/`, Experiment Engine V27 dans `skills/`, Learning V29 audit-based dans `skills/`) — ce sprint COMPLÈTE la boucle pour V30 data-driven.
+
+**Livrables structuraux** (live runs PENDING per-client credentials, ~30min × 3 clients = ~1.5h Mathis collect) :
+
+- **Reality Layer** : `growthcro/reality/{base, credentials, ga4, catchr, meta_ads, google_ads, shopify, clarity, orchestrator}.py` (1220 LOC sur 10 fichiers). Promotion des connecteurs depuis `skills/site-capture/scripts/reality_layer/` avec une nouvelle structure mono-concern :
+  - `credentials.py` (134 LOC, nouveau) — `missing_credentials_report(client_slug)` + CLI `python3 -m growthcro.reality.credentials --client <slug>`. Ne loggue JAMAIS les valeurs.
+  - `ga4.py` (173 LOC, nouveau) — Native Google Analytics Data API v1 (service account flow). Alt à Catchr pour clients sans la SaaS Growth Society.
+  - `catchr.py`, `meta_ads.py`, `google_ads.py`, `shopify.py`, `clarity.py` — connecteurs réimplémentés avec `config.reality_client_env(var, slug)` au lieu de `os.environ.get` direct (single env boundary preservation).
+  - `orchestrator.py` (280 LOC) — `collect_reality_snapshot(client, page_url, page_slug, period_days, …)` écrit `data/reality/<client>/<page_slug>/<iso_date>/reality_snapshot.json` (nouveau path V30) + mirror `data/captures/<client>/<page>/reality_layer.json` (compat V27 dashboards). Idempotent (atomic tmp → replace).
+
+- **Experiment Engine** : `growthcro/experiment/{engine, runner, recorder}.py` (751 LOC sur 4 fichiers).
+  - `engine.py` — Z-test sample-size calculator + spec builder (Beasley-Springer-Moro inverse normal CDF, stdlib-only). Promotion depuis `skills/site-capture/scripts/experiment_engine.py`.
+  - `runner.py` — `propose_experiments(client, page, reality_snapshot, recos, …)` génère jusqu'à 5 propositions, une par AB type canonique (`hero_copy` / `cta_wording` / `social_proof_position` / `form_fields_count` / `pricing_display`). **Zéro auto-trigger** — output `status="proposed"`, Mathis valide + lance manuellement.
+  - `recorder.py` — Index filesystem à `data/experiments/_index/experiments_index.json` (regen-able) + `import_outcome(experiment_id, outcome, lift, confidence)` pour mesures post-A/B.
+
+- **Learning V30** : `growthcro/learning/v30_data_driven.py` (474 LOC).
+  - `BayesianBetaPosterior` per criterion (prior Beta(1,1)). Won → α+=1; lost → β+=1; inconclusive → both += 0.5.
+  - 4 patterns de proposals : `strengthen_recommendation` (posterior_mean ≥ 0.65, n ≥ 3), `weaken_recommendation` (≤ 0.35), `gather_more_evidence` (CI width ≥ 0.40), `revisit_criterion` (reality CR < 0.5%).
+  - Output schema identique à V29 (`proposal_id` / `type` / `evidence` / `proposed_change` / `risk` / `requires_human_approval`) → pipeline review réutilisé.
+  - Source field distingue V29 (`audit-based learning v29 (56 curated clients V26)`) vs V30 (`learning v30 data-driven (experiment outcomes + reality snapshots)`).
+  - Coexiste avec V29 audit-based (parallel folder `data/learning/data_driven_proposals/<date>/` vs `data/learning/audit_based_proposals/`).
+
+- **Webapp V28 deep-impl** (~1100 LOC TS, 12 nouveaux fichiers) :
+  - `webapp/apps/reality-monitor/` — root liste 3 pilote candidates avec credentials status pills + latest snapshot date ; `/reality/<slug>/` montre `CredentialsGrid` (6 connecteurs configured/missing) + `SnapshotMetricsCard` (sessions, CR, bounce, ad spend, ROAS Meta/Google, page revenue, friction Clarity) + historical snapshot list + `RecentRunsTracker` (Supabase realtime sur `runs` table type=reality).
+  - `webapp/apps/learning-lab/` — liste V29+V30 proposals avec filter par track/status/type ; `/learning/<id>/` montre full evidence + Accept/Reject/Defer ; POST `/learning/api/proposals/review` écrit `<id>.review.json` sidecar (atomic tmp → replace).
+  - Both apps build clean : reality-monitor 4 routes, learning-lab 5 routes, TS noEmit 0 errors.
+
+- **`.env.example` étendu** avec 15 nouvelles variables Reality Layer per-client (CATCHR / GA4 / META / GOOGLE_ADS / SHOPIFY / CLARITY × suffixe `_<CLIENT_SLUG>`). Convention validée par `config.reality_client_env(var, slug)` (per-client puis global fallback).
+
+- **Sprints F-L status** : documenté dans `.claude/epics/webapp-stratosphere/updates/23/SPRINTS_F_L_STATUS.md`. F+G+K → DONE (mutualised with #10/#18/#21 + this sprint), H → partial (CRE done, wizard deferred), I+J → out of scope future `gsg-modes-refactor` epic, L → structurally ready (3 pilotes scaffolded, live runs pending credentials).
+
+- **WEBAPP_ARCHITECTURE_MAP.yaml** : 14 nouveaux modules auto-détectés (+232 modules total), `pipelines.reality_loop` enrichi avec 6 stages + pilote_clients_proposed + output_paths + webapp_v28_apps mapping + status `V30 structurally READY`. 4 entrées-clés (`reality/orchestrator`, `reality/credentials`, `experiment/runner`, `learning/v30_data_driven`) avec inputs/outputs/doctrine_refs human-curated. Idempotent (`scripts/update_architecture_map.py` exit 0 round-trip).
+
+**Gates** : `scripts/lint_code_hygiene.py` FAIL=0 / WARN=0, `audit_capabilities.py` orphans=0, `SCHEMA/validate_all.py` 15/15, `agent_smoke_test.sh` ALL PASS, webapp `tsc --noEmit` 0 errors both apps, `next build` clean both apps. `parity_check.sh weglot` exit 1 attendu (worktree fresh, pas de baseline per-worktree).
+
+**Ouvert pour Mathis** (~1.5h credentials collect, puis live runs) :
+- GA4 service account JSON × 3 clients pilotes (Weglot + Japhy + 1 client agence à choisir)
+- Meta Ads access token + ad account ID × 3
+- Google Ads OAuth refresh token + customer ID × 3
+- Shopify Admin API token × 3 (si applicable au client)
+- Microsoft Clarity API token × 3
+
+Une fois credentials dans `.env`, flow per-client :
+```bash
+python3 -m growthcro.reality.credentials --client weglot
+python3 -m growthcro.reality.orchestrator --client weglot --page-url <url> --page-slug <slug>
+# Mathis lance 5 A/Bs manuellement (Optimizely/VWO/etc.)
+# Après mesure, Mathis pousse outcomes via growthcro.experiment.import_outcome
+python3 -m growthcro.learning.v30_data_driven --min-trials 3
+```
+
+**Limites mémoires** :
+- Anti-pattern #9 respecté : tous lectures env via `growthcro.config.reality_client_env`.
+- Anti-pattern #10 respecté : pas d'archives dans paths actifs.
+- Anti-pattern #11 respecté : pas de basename dupliqué (chaque module mono-concern).
+- Anti-pattern #12 respecté : skills loading inchangé.
+- Code doctrine : tous nouveaux fichiers ≤ 500 LOC (max : v30_data_driven 474 LOC). 0 print() en pipeline (juste CLI `main()`).
+- Backward compat V29 : audit-based proposals intacts, V30 dans folder parallèle.
+
+**Non poussé, non mergé**. Stop sur `task/23-reality-loop` jusqu'à validation Mathis.
+>>>>>>> task/23-reality-loop
 
 ---
 
