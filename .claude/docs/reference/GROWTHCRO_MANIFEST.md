@@ -403,6 +403,83 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+<<<<<<< HEAD
+=======
+### 2026-05-11 — Agency Products Extension v1 (#22)
+
+**Trigger** : Task #22 du programme `webapp-stratosphere`, PRD FR-7 (US-5). Activer les skills Anthropic `gads-auditor` + `meta-ads-auditor` comme produits parallèles Growth Society. Permet à l'agence de vendre **3 audits** (CRO + Google Ads + Meta Ads) depuis la même webapp V28. AD-7 du epic master : skill Anthropic + module *thin wrapper* qui pipe les outputs vers le template Notion agence — **aucune réinvention** de l'audit Ads.
+
+**Livrables shipped** :
+
+- `growthcro/audit_gads/` (782 LOC total, 4 fichiers mono-concern + README) :
+  - `__init__.py` re-exports
+  - `orchestrator.py` (axis #4, 358 LOC) — parse Google Ads Editor / Reports CSV (EN+FR columns), KPIs roll-up (impressions, clics, coût, conversions, ROAS, CPA), assemble sections A–H avec slots `<<SKILL_FILLED>>` pour C–G
+  - `notion_export_gads.py` (axis #8, 263 LOC) — pure dict→Markdown + dict→Notion-API payload (45 children blocks par audit)
+  - `cli.py` (axis #5, 126 LOC) — `python -m growthcro.audit_gads.cli --client <slug> --csv <path>`
+  - `README.md` — usage + format CSV reconnu (Brand Search, Generic, Shopping, PMax, Demand Gen, Display) + procédure validation
+- `growthcro/audit_meta/` (788 LOC total, structure miroir) :
+  - `orchestrator.py` (axis #4, 378 LOC) — parse Meta Ads Manager CSV (Campaign name, Objective, Impressions, Reach, Link clicks, Amount spent, Purchases, Purchases conversion value, Leads, Frequency, Purchase ROAS), KPIs (CTR, CPM, CPC, ROAS, CPA), sections A–H avec slots C–G
+  - `notion_export_meta.py` (axis #8, 249 LOC)
+  - `cli.py` (axis #5, 126 LOC) — `python -m growthcro.audit_meta.cli --client <slug> --csv <path>`
+  - `README.md` — usage + format CSV reconnu (ASC, Advantage+, DPA Retargeting, LAL, Lead form, Awareness, Engagement)
+- **Template Notion sections A–H** (Growth Society) — A overview / B campagnes / C audiences ou keywords / D creatives / E conversions (Pixel + CAPI + offline) / F recommandations priorisées / G next steps / H annexes. Sections déterministes : A, B, H (depuis CSV). Sections narratives : C–G (remplies par le skill à l'invocation).
+- `growthcro/api/audits.py` (214 LOC, axis #4) — FastAPI router avec 3 routes :
+  - `POST /audit/gads` — body `{client_slug, csv_path | csv_text, period_label?, business_category?, notes?, persist?}` → bundle + Markdown + Notion payload + chemins artefacts
+  - `POST /audit/meta` — même shape pour Meta
+  - `GET /audit/list?platform=gads|meta|all` — liste des audits persistés
+  - Wiring `growthcro/api/server.py` : `app.include_router(audits_router)` (+4 lignes). Version API bumpée 1.0.0 → 1.1.0
+- Webapp V28 shell intégration :
+  - `webapp/apps/shell/components/Sidebar.tsx` : 2 nouveaux items menu `Audit Google Ads` + `Audit Meta Ads` avec hint `Agency`
+  - `webapp/apps/shell/app/audit-gads/page.tsx` (96 LOC) — route placeholder V1 : workflow steps + combo skills info + lien README + bouton "New audit (CSV)" désactivé (form UI post-MVP)
+  - `webapp/apps/shell/app/audit-meta/page.tsx` (96 LOC) — même structure pour Meta
+  - Auth-gated par middleware existant. `npx tsc -p tsconfig.json --noEmit` exit 0
+- **Test audits sur CSV synthétiques** :
+  - `data/audits/_fixtures/gads_synthetic_30d.csv` — 9 campagnes (Brand Search ×2, Generic Search, Shopping ×2, PMax ×2, Demand Gen, Display)
+  - `data/audits/_fixtures/meta_synthetic_30d.csv` — 8 campagnes (ASC EU/FR, Advantage+ DPA, LAL 1%, Past purchasers 90d, Lead form B2B, Awareness, Engagement Reels)
+  - `scripts/test_agency_audits.py` (281 LOC, axis #5+#7) — runs each CLI in `--no-write` + write modes, validates 3 artefacts, KPIs positivity, all 8 section titles, Notion payload structure
+  - **Résultat** : `64/64 checks PASS`. KPIs gads : 9 campagnes / 755,500 impressions / 8,940 clics / €9,680 coût / ROAS 6.65. KPIs meta : 8 campagnes / 2.32M impressions / 1.34M reach / €13,450 spend / ROAS 5.89 / 180 leads
+- `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` :
+  - 10 nouveaux modules (audit_gads/* + audit_meta/* + api/audits) avec inputs/outputs/doctrine_refs human-curated
+  - 2 nouvelles pipelines `audit_gads_pipeline` + `audit_meta_pipeline` (6 stages chacune : parse_csv → kpi_rollup → section_assembly → skill_invocation_handoff → notion_render → persist)
+  - `skills_integration.combo_packs.agency_products` : `claude-api + anthropic-skills:gads-auditor + anthropic-skills:meta-ads-auditor`, max 3 skills/session, activation contextual sur `/audit-gads` ou `/audit-meta`
+  - `skills_integration.essentials` enrichi avec les 2 audit skills (anthropic-builtin, installed)
+- `.gitignore` : `data/audits/gads/` + `data/audits/meta/` ignorés (KPIs client sensibles) ; `data/audits/_fixtures/` tracké pour la CI
+
+**Architecture preserved** :
+- `growthcro/{capture, perception, scoring, recos, research, gsg_lp}` zero changement
+- `growthcro/api/server.py` extension non-breaking (+4 lignes : import + include_router + version bump)
+- `moteur_gsg/`, `moteur_multi_judge/`, `playbook/*.json`, `data/clients_database.json` non touchés
+- `webapp/apps/{audit,reco,gsg,reality,learning}-app/` non touchés (changements isolés dans `shell`)
+
+**Combo skills "Agency products"** (CLAUDE.md anti-pattern compliance) :
+- `claude-api` + `anthropic-skills:gads-auditor` + `anthropic-skills:meta-ads-auditor` = **3 skills max** (sous la limite 8 skills/session)
+- Activation **contextual** : auto-load sur invocation CLI ou route webapp, jamais en pre-prompt mega-system
+- Anti-cacophonie : pas de conflit avec les autres combos (audit_run / gsg_generation / webapp_nextjs) — distincts par contexte
+
+**Gates** : `lint_code_hygiene` FAIL 0, `audit_capabilities` orphans HIGH=0 (212 → 222 files registered), `SCHEMA/validate_all` 15/15 PASS, `agent_smoke_test` 4/4 PASS, `update_architecture_map` idempotent, `test_agency_audits` 64/64 PASS, `npx tsc --noEmit` shell PASS. `parity_check weglot` exit 1 attendu (worktree fresh, `data/captures/` non peuplé — documenté task spec).
+
+**Out of scope** :
+- OAuth API direct (Google Ads API + Meta Marketing API) — éviter export CSV manuel
+- Génération PDF (post-MVP)
+- Form UI "New audit (CSV)" (file upload + period picker + business-category) — post-MVP
+- Wiring `GET /audit/list` côté shell (placeholder mentionne l'endpoint)
+- Tarification + branding final agence (hors scope code)
+- 1 vrai audit Google Ads + 1 vrai Meta Ads sur compte client agence (pending Mathis avec data réelle)
+
+**YAML dumper truncation bug surfaced (latent)** : `scripts/update_architecture_map.py` écrit des plain-style scalars qui PyYAML loader tronque à `#`. Les champs comme `status: V1 — Issue #22 webapp-stratosphere` étaient coupés à `status: V1 — Issue`. Contourné en quotant explicitement les strings concernées. Follow-up doctrine : promouvoir une règle "no `#` in pipeline status/description without surrounding quotes" OR fixer au niveau dumper (toujours quoter strings contenant `#` ou `:`).
+
+**Open pour Mathis** :
+1. **Tarification + branding** final avec direction Growth Society — quel prix pour audit Google Ads ? Pour audit Meta Ads ? Bundle 3 audits ?
+2. **1 vrai audit Google Ads** sur compte client agence (export CSV Reports 30j → `python -m growthcro.audit_gads.cli --client <slug> --csv <real.csv>` → invoquer `/anthropic-skills:gads-auditor` avec `bundle.json` → valider qualité output)
+3. **1 vrai audit Meta Ads** idem avec compte client
+4. **Décider OAuth follow-up** : prioriser Google Ads API ou Meta Marketing API en post-MVP ? (Meta API est plus restrictive en 2026.)
+
+**Vision atteinte** : Growth Society peut vendre les **3 audits** (CRO + Google Ads + Meta Ads) depuis la même webapp V28, dès demain. Les 2 modules thin wrappers sont production-ready, testés 64/64 sur synthetic CSVs. Reste validation 1-shot sur data réelle pour confirmer qualité skill output.
+
+---
+
+<<<<<<< HEAD
+>>>>>>> epic/webapp-stratosphere
 ### 2026-05-11 — Webapp V28 Next.js Migration v1 (#21)
 
 **Trigger** : Task #21 du programme `webapp-stratosphere`, PRD FR-6 (US-4). Migrer la webapp V27 HTML statique vers Next.js 14 + Supabase EU + Vercel microfrontends. Scale agence Growth Society 100+ clients. AD-6 du epic master : V27 fini (✅ #20) AVANT V28 démarré.

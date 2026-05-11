@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T15:40:37",
+  "generated_at": "2026-05-11T16:19:03",
   "stats": {
-    "total_files": 221,
+    "total_files": 231,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 47,
-    "active_package_marker": 17,
-    "active_misc": 143,
+    "active_cli": 48,
+    "active_package_marker": 19,
+    "active_misc": 150,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
@@ -161,6 +161,44 @@
       "what": "GrowthCRO HTTP API surface (FastAPI).",
       "imports": [],
       "size_bytes": 44,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/audit_gads/__init__.py",
+      "filename": "__init__.py",
+      "what": "Google Ads audit module — thin wrapper around the `anthropic-skills:gads-auditor` skill.",
+      "imports": [
+        "growthcro",
+        "notion_export_gads",
+        "orchestrator"
+      ],
+      "size_bytes": 1090,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/audit_meta/__init__.py",
+      "filename": "__init__.py",
+      "what": "Meta Ads audit module — thin wrapper around `anthropic-skills:meta-ads-auditor`.",
+      "imports": [
+        "growthcro",
+        "notion_export_meta",
+        "orchestrator"
+      ],
+      "size_bytes": 1081,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -589,6 +627,38 @@
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "audits",
+      "path": "growthcro/api/audits.py",
+      "filename": "audits.py",
+      "what": "Agency audit routes (axis #4 — orchestration).",
+      "imports": [
+        "APIRouter",
+        "AuditInputs",
+        "BaseModel",
+        "Field",
+        "HTTPException",
+        "Literal",
+        "Optional",
+        "__future__",
+        "annotations",
+        "fastapi",
+        "growthcro",
+        "notion_export_gads",
+        "notion_export_meta",
+        "orchestrator",
+        "pydantic",
+        "run_audit"
+      ],
+      "size_bytes": 8306,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/api/server.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -1335,6 +1405,52 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/audit_gads/cli.py",
+      "filename": "cli.py",
+      "what": "Google Ads audit CLI (axis #5).",
+      "imports": [
+        "AuditInputs",
+        "__future__",
+        "annotations",
+        "growthcro",
+        "notion_export_gads",
+        "orchestrator",
+        "run_audit"
+      ],
+      "size_bytes": 4404,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/audit_meta/cli.py",
+      "filename": "cli.py",
+      "what": "Meta Ads audit CLI (axis #5).",
+      "imports": [
+        "AuditInputs",
+        "__future__",
+        "annotations",
+        "growthcro",
+        "notion_export_meta",
+        "orchestrator",
+        "run_audit"
+      ],
+      "size_bytes": 4393,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -3373,6 +3489,48 @@
       "criticality": "low"
     },
     {
+      "id": "notion_export_gads",
+      "path": "growthcro/audit_gads/notion_export_gads.py",
+      "filename": "notion_export_gads.py",
+      "what": "Notion-template renderer for Google Ads audits (axis #8 — I/O serialization).",
+      "imports": [
+        "Iterable",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 9344,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "notion_export_meta",
+      "path": "growthcro/audit_meta/notion_export_meta.py",
+      "filename": "notion_export_meta.py",
+      "what": "Notion-template renderer for Meta Ads audits (axis #8 — I/O serialization).",
+      "imports": [
+        "Iterable",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 8620,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "orchestrator",
       "path": "skills/site-capture/scripts/reality_layer/orchestrator.py",
       "filename": "orchestrator.py",
@@ -3403,6 +3561,11 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -3443,6 +3606,11 @@
       "mtime": "2026-05-05",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -3496,6 +3664,11 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -3534,6 +3707,97 @@
       "mtime": "2026-05-03",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_gsg/orchestrator.py",
+        "scripts/_test_weglot_listicle_V26AE.py",
+        "scripts/check_gsg_component_planner.py",
+        "scripts/check_gsg_controlled_renderer.py",
+        "scripts/check_gsg_creative_route_selector.py",
+        "scripts/check_gsg_intake_wizard.py",
+        "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "orchestrator",
+      "path": "growthcro/audit_gads/orchestrator.py",
+      "filename": "orchestrator.py",
+      "what": "Google Ads audit orchestration (axis #4 — orchestration).",
+      "imports": [
+        "Iterable",
+        "__future__",
+        "annotations",
+        "csv",
+        "dataclass",
+        "dataclasses",
+        "datetime",
+        "field",
+        "io",
+        "timezone"
+      ],
+      "size_bytes": 13109,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_gsg/orchestrator.py",
+        "scripts/_test_weglot_listicle_V26AE.py",
+        "scripts/check_gsg_component_planner.py",
+        "scripts/check_gsg_controlled_renderer.py",
+        "scripts/check_gsg_creative_route_selector.py",
+        "scripts/check_gsg_intake_wizard.py",
+        "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "orchestrator",
+      "path": "growthcro/audit_meta/orchestrator.py",
+      "filename": "orchestrator.py",
+      "what": "Meta Ads audit orchestration (axis #4 — orchestration).",
+      "imports": [
+        "Iterable",
+        "__future__",
+        "annotations",
+        "csv",
+        "dataclass",
+        "dataclasses",
+        "datetime",
+        "field",
+        "io",
+        "timezone"
+      ],
+      "size_bytes": 14170,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -3585,6 +3849,11 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -3626,6 +3895,11 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -5158,16 +5432,18 @@
         "JSONResponse",
         "Optional",
         "asyncio",
+        "audits",
         "config",
         "cors",
         "fastapi",
         "growthcro",
         "pydantic",
         "responses",
+        "router",
         "subprocess",
         "uvicorn"
       ],
-      "size_bytes": 11082,
+      "size_bytes": 11293,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
@@ -5296,6 +5572,24 @@
         "skills/site-capture/scripts/spatial_bridge.py"
       ],
       "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "test_agency_audits",
+      "path": "scripts/test_agency_audits.py",
+      "filename": "test_agency_audits.py",
+      "what": "test_agency_audits.py — Smoke test for the audit_gads + audit_meta modules.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "shutil",
+        "subprocess"
+      ],
+      "size_bytes": 8980,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {

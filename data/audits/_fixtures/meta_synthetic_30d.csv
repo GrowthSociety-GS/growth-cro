@@ -1,0 +1,9 @@
+Campaign name,Objective,Buying type,Delivery,Impressions,Reach,Link clicks,CTR (link),CPM,CPC (link),Amount spent (EUR),Purchases,Purchases conversion value,Leads,Frequency,Purchase ROAS
+ASC - Prospecting EU,outcome_sales,auction,active,500000,250000,3500,0.70,9.00,1.29,4500,180,28000,0,2.00,6.22
+ASC - Prospecting FR,outcome_sales,auction,active,250000,140000,2100,0.84,7.20,0.86,1800,95,15500,0,1.79,8.61
+Advantage Plus DPA - Retargeting,outcome_sales,auction,active,80000,40000,1200,1.50,10.00,0.67,800,90,15000,0,2.00,18.75
+LAL 1pct - EU prospecting,outcome_sales,auction,active,200000,120000,2200,1.10,9.00,0.82,1800,60,9500,0,1.67,5.28
+Custom audience - Past purchasers 90d,outcome_sales,auction,active,40000,18000,900,2.25,7.50,0.33,300,55,9200,0,2.22,30.67
+Lead form - FR B2B,outcome_leads,auction,active,150000,90000,1800,1.20,8.00,0.67,1200,0,0,180,1.67,0
+Awareness - Brand video,outcome_awareness,auction,active,800000,500000,2200,0.28,2.50,0.91,2000,5,800,0,1.60,0.40
+Engagement - Reels boost,outcome_engagement,auction,active,300000,180000,1500,0.50,3.50,0.70,1050,8,1200,0,1.67,1.14

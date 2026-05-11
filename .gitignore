@@ -68,6 +68,12 @@ data/screenshots/
 data/_archive_*/
 skills/site-capture/data/
 
+# data/audits — outputs des audits agence (gads + meta, Issue #22).
+# Contiennent des KPIs client sensibles. On garde toutefois les fixtures
+# synthétiques de test (CSV) en tracking pour la CI.
+data/audits/gads/
+data/audits/meta/
+
 # clients_database.json est petit et central — on le garde tracké.
 !data/clients_database.json
 
