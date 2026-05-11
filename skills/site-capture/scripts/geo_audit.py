@@ -36,6 +36,7 @@ import time
 from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
+from growthcro.config import config
 CAPTURES = ROOT / "data" / "captures"
 SCRIPTS = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
@@ -538,12 +539,11 @@ def main():
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
 
-    _load_dotenv_if_needed()
     try:
         import anthropic
     except ImportError:
         print("❌ pip install anthropic", file=sys.stderr); sys.exit(1)
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = config.anthropic_api_key()
     if not api_key:
         print("❌ ANTHROPIC_API_KEY absent", file=sys.stderr); sys.exit(1)
     client = anthropic.Anthropic(api_key=api_key, timeout=60.0, max_retries=2)

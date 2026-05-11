@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
+import subprocess
 import sys
 from datetime import datetime, timedelta
 
@@ -32,12 +33,12 @@ PLAYBOOK = ROOT / "playbook"
 PIPELINE_STAGES = [
     ("capture",       "capture.json",         "ghost_capture.js → batch_spatial_capture.py"),
     ("spatial_v9",    "spatial_v9.json",      "spatial_v9.js (via batch_spatial_capture)"),
-    ("perception",    "perception_v13.json",  "perception_v13.py --all"),
+    ("perception",    "perception_v13.json",  "python -m growthcro.perception.cli --all"),
     ("intent",        "client_intent.json",   "intent_detector_v13.py --all (per client)"),
     ("score_pillars", "score_hero.json",      "batch_rescore.py (6 piliers)"),
     ("score_page",    "score_page_type.json", "score_page_type.py <label> <pageType>"),
-    ("recos_prep",    "recos_v13_prompts.json", "reco_enricher_v13.py --all --prepare"),
-    ("recos_api",     "recos_v13_final.json",   "reco_enricher_v13_api.py --all (Sonnet)"),
+    ("recos_prep",    "recos_v13_prompts.json", "python -m growthcro.recos.cli prepare --all"),
+    ("recos_api",     "recos_v13_final.json",   "python -m growthcro.recos.cli enrich --all (Sonnet)"),
 ]
 
 def _count_stage(filename: str) -> int:
@@ -176,6 +177,31 @@ def render_hint():
     print("  2. cat .claude/memory/MEMORY.md                       # index mémoires")
     print("  3. python3 state.py --recent             # ce qui a bougé récemment")
 
+
+def render_lint_summary():
+    """Run lint_code_hygiene.py --json and print one summary line.
+
+    Doctrine anchor: docs/doctrine/CODE_DOCTRINE.md. The linter is the
+    anti-regression contract surfaced on every state.py dump.
+    """
+    linter = ROOT / "scripts" / "lint_code_hygiene.py"
+    if not linter.exists():
+        return
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(linter), "--json"],
+            capture_output=True, text=True, timeout=15,
+        )
+        data = json.loads(proc.stdout)
+    except (subprocess.TimeoutExpired, json.JSONDecodeError, FileNotFoundError):
+        print("CODE HYGIENE — linter unavailable")
+        return
+    _hr("CODE HYGIENE (docs/doctrine/CODE_DOCTRINE.md)")
+    print(f"CODE HYGIENE — fail: {len(data['fail'])}, "
+          f"warn: {len(data['warn'])}, "
+          f"info: {len(data['info'])}, "
+          f"debt: {len(data['debt'])}")
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--clients",  action="store_true")
@@ -194,6 +220,7 @@ def main():
         render_playbooks()
         render_recent()
         render_hint()
+        render_lint_summary()
         return
 
     if args.pipeline: render_pipeline()
@@ -201,6 +228,7 @@ def main():
     if args.scripts:  render_scripts()
     if args.playbook: render_playbooks()
     if args.recent:   render_recent()
+    render_lint_summary()
 
 if __name__ == "__main__":
     main()

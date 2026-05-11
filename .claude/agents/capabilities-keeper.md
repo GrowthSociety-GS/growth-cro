@@ -34,6 +34,18 @@ python3 scripts/audit_capabilities.py  # regenère si stale (>1 jour)
 cat .claude/docs/state/CAPABILITIES_SUMMARY.md
 ```
 
+Issue #10 : le registry distingue désormais 5 statuts pour les fichiers actifs :
+- `ACTIVE_WIRED_AS_EXPECTED` — câblé là où la map `EXPECTED_GSG_CONSUMERS` l'attendait
+- `ACTIVE_INDIRECT_VIA_OUTPUT` — pas d'import direct mais output JSON consummé en aval
+- `ACTIVE_CLI_ENTRYPOINT` — fichier avec `if __name__ == "__main__"` (CLI invoquée depuis shell/sub-agent)
+- `ACTIVE_PACKAGE_MARKER` — `__init__.py` (collisions d'id par convention package)
+- `ACTIVE` — câblé via import direct (autre que la map d'attente)
+
+Un orphelin réel (`POTENTIALLY_ORPHANED`) est désormais un signal fort : **ni
+importé, ni CLI, ni branché via output**. La cible est 0 orphelins (Issue #10
+acceptance criterion). Si l'audit en signale un, deux options : (a) le brancher,
+(b) `git mv` vers `_archive/<area>/<date>/` avec rationale dans `_archive/README.md`.
+
 ### Étape 2 — Identifier capacités pertinentes pour le sprint à venir
 Lister :
 - Quelles capacités ACTIVE branchées (peuvent être réutilisées)
@@ -111,3 +123,14 @@ Format markdown structuré :
 ## Version
 
 V1.0 (2026-05-04) — création post audit Mathis "j'en ai marre que t'oublies tout".
+
+## Refus / Refuse to emit
+
+This agent MUST NOT emit code that violates the 4 hard rules in [`docs/doctrine/CODE_DOCTRINE.md`](../docs/doctrine/CODE_DOCTRINE.md):
+
+1. No file >800 LOC in active paths.
+2. No `os.environ` / `os.getenv` outside `growthcro/config.py`.
+3. No `_archive*` / `_obsolete*` / `*deprecated*` / `*backup*` folder inside an active path.
+4. No basename duplicates in active paths (excluding `__init__.py`, `cli.py`, and AD-1 canonical names `base/orchestrator/persist/prompt_assembly`).
+
+Before any code-emission action, this agent runs `python3 scripts/lint_code_hygiene.py --staged` against the proposed change. If `fail > 0`, the change is refused and the user is told which rule(s) blocked it.

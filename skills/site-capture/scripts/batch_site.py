@@ -20,6 +20,7 @@ import json, sys, os, time, pathlib, subprocess
 from datetime import datetime, timezone
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
+from growthcro.config import config
 SCRIPTS = pathlib.Path(__file__).resolve().parent
 DB_FILE = ROOT / "data" / "clients_database.json"
 CAPTURES_DIR = ROOT / "data" / "captures"
@@ -127,9 +128,9 @@ for idx, client in enumerate(clients):
         if not USE_APIFY:
             cmd.extend(["--level", str(APIFY_LEVEL)])
 
-    env = {**os.environ}
-    if USE_APIFY and os.environ.get("APIFY_TOKEN"):
-        env["APIFY_TOKEN"] = os.environ["APIFY_TOKEN"]
+    env = config.system_env_copy()
+    if USE_APIFY and config.apify_token():
+        env["APIFY_TOKEN"] = config.require_apify_token()
 
     try:
         result = subprocess.run(

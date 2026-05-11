@@ -291,7 +291,6 @@ def call_arbitrage_sonnet(html: str, defender: dict, skeptic: dict,
 
     Si humanlike est None, retombe sur l'arbitrage 2-way (defender vs skeptic) historique.
     """
-    _ensure_api_key()
     import anthropic
     client_api = anthropic.Anthropic()
 

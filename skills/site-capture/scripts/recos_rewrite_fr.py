@@ -398,7 +398,6 @@ async def main_async(targets: list, max_concurrent: int, force: bool, dry_run: b
     if dry_run:
         client_api = None
     else:
-        _load_dotenv_if_needed()
         import anthropic
         client_api = anthropic.Anthropic(timeout=90.0, max_retries=3)
 

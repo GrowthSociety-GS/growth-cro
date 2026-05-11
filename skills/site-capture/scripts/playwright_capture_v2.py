@@ -48,6 +48,7 @@ import time
 from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
+from growthcro.config import config
 CAPTURES = ROOT / "data" / "captures"
 SPATIAL_JS = ROOT / "skills" / "site-capture" / "references" / "spatial_capture_v9.js"
 
@@ -572,7 +573,7 @@ async def capture_one_viewport(browser, url: str, viewport: str, out_dir: pathli
                 await page.wait_for_timeout(800)
 
         # V23.A — Aggressive 4th try (only if AGGRESSIVE_CMP=1 env): scroll-interact + 8s delay + retry
-        if not clicked and os.environ.get("AGGRESSIVE_CMP") == "1":
+        if not clicked and config.is_aggressive_cmp():
             try:
                 await page.evaluate(SCROLL_INTERACT_JS)
             except Exception:
@@ -605,7 +606,7 @@ async def capture_one_viewport(browser, url: str, viewport: str, out_dir: pathli
                 post_signatures = await page.evaluate(SCAN_POPUP_SIGNATURES_JS)
                 result["popup_signatures_after_close"] = post_signatures
                 # V23.A — If still present AND AGGRESSIVE_CMP=1, escalate to brutal removal
-                if post_signatures and os.environ.get("AGGRESSIVE_CMP") == "1":
+                if post_signatures and config.is_aggressive_cmp():
                     aggr_removed = await page.evaluate(FORCE_REMOVE_AGGRESSIVE_JS)
                     result["popup_close"]["aggressive_removed"] = aggr_removed
                     await page.wait_for_timeout(400)

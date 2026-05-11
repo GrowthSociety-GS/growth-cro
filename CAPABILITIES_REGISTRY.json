@@ -1,14 +1,16 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-08T13:02:03",
+  "generated_at": "2026-05-11T09:16:04",
   "stats": {
-    "total_files": 153,
+    "total_files": 204,
     "active_wired": 4,
-    "active_indirect": 14,
-    "active_misc": 87,
+    "active_indirect": 10,
+    "active_cli": 40,
+    "active_package_marker": 17,
+    "active_misc": 133,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
-    "potentially_orphaned": 48
+    "potentially_orphaned": 0
   },
   "capabilities": [
     {
@@ -18,13 +20,19 @@
       "what": "V26.C Reality Layer — connecteurs data réelle (GA4, Meta Ads, Google Ads, Shopify, Clarity).",
       "imports": [
         "",
-        "base"
+        "Connector",
+        "RealityLayerData",
+        "base",
+        "collect_for_page"
       ],
       "size_bytes": 1767,
-      "mtime": "2026-04-29",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
     },
     {
       "id": "__init__",
@@ -33,10 +41,41 @@
       "what": "moteur_gsg.core — building blocs réutilisés par les 5 modes.",
       "imports": [],
       "size_bytes": 309,
-      "mtime": "2026-05-03",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "moteur_gsg/core/css/__init__.py",
+      "filename": "__init__.py",
+      "what": "CSS package for the controlled GSG renderer.",
+      "imports": [
+        "",
+        "Any",
+        "BASE_CSS",
+        "COMPONENTS_CSS",
+        "RESPONSIVE_CSS",
+        "__future__",
+        "annotations",
+        "base",
+        "components",
+        "design_tokens",
+        "render_design_tokens_css",
+        "responsive"
+      ],
+      "size_bytes": 1641,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
     },
     {
       "id": "__init__",
@@ -45,22 +84,263 @@
       "what": "moteur_gsg.modes — les 5 situations type GSG (V26.AH minimal).",
       "imports": [],
       "size_bytes": 921,
-      "mtime": "2026-05-04",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "moteur_gsg/modes/mode_1/__init__.py",
+      "filename": "__init__.py",
+      "what": "Mode 1 PERSONA NARRATOR — split sub-package (issue #8).",
+      "imports": [
+        "",
+        "__future__",
+        "annotations",
+        "extract_html",
+        "orchestrator",
+        "output_parsing",
+        "prompt_assembly",
+        "run_mode_1_persona_narrator"
+      ],
+      "size_bytes": 2822,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
     },
     {
       "id": "__init__",
       "path": "moteur_multi_judge/judges/__init__.py",
       "filename": "__init__.py",
       "what": "Judges individuels orchestrés par moteur_multi_judge.orchestrator.",
+      "imports": [
+        "audit_humanlike",
+        "audit_lp_doctrine",
+        "check_implementation",
+        "doctrine_judge",
+        "humanlike_judge",
+        "implementation_check",
+        "moteur_multi_judge"
+      ],
+      "size_bytes": 523,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO — top-level package.",
       "imports": [],
-      "size_bytes": 74,
-      "mtime": "2026-05-03",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "size_bytes": 510,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/api/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO HTTP API surface (FastAPI).",
+      "imports": [],
+      "size_bytes": 44,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/capture/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO capture package — single concern: collect raw page artifacts.",
+      "imports": [],
+      "size_bytes": 333,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/cli/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO command-line entrypoints (add_client, capture_full, enrich_client).",
+      "imports": [],
+      "size_bytes": 84,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/gsg_lp/__init__.py",
+      "filename": "__init__.py",
+      "what": "Growth Site Generator — landing-page mega-prompt orchestrator.",
+      "imports": [
+        "",
+        "__future__",
+        "annotations",
+        "lp_orchestrator",
+        "main"
+      ],
+      "size_bytes": 1588,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/lib/__init__.py",
+      "filename": "__init__.py",
+      "what": "Shared infrastructure utilities for GrowthCRO modules.",
+      "imports": [],
+      "size_bytes": 61,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/perception/__init__.py",
+      "filename": "__init__.py",
+      "what": "Perception layer — DOM heuristics + adaptive DBSCAN clustering + role intent.",
+      "imports": [
+        "assign_cluster_role",
+        "growthcro",
+        "heuristics",
+        "intent",
+        "persist",
+        "process_page",
+        "vision"
+      ],
+      "size_bytes": 918,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/recos/__init__.py",
+      "filename": "__init__.py",
+      "what": "Reco V13 generation pipeline — prompt prep + LLM enrichment.",
+      "imports": [],
+      "size_bytes": 578,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/research/__init__.py",
+      "filename": "__init__.py",
+      "what": "Research layer — full-site crawler + brand-identity extractor (orthogonal to perception).",
+      "imports": [
+        "StyleExtractor",
+        "brand_identity",
+        "content",
+        "discovery",
+        "extract_brand_identity",
+        "growthcro"
+      ],
+      "size_bytes": 732,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/scoring/__init__.py",
+      "filename": "__init__.py",
+      "what": "Scoring layer — pillars dispatcher + UX bloc + page-type-specific detectors + persist.",
+      "imports": [
+        "DETECTORS",
+        "TERNARY",
+        "d_review_required",
+        "growthcro",
+        "pillars",
+        "specific"
+      ],
+      "size_bytes": 480,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/scoring/specific/__init__.py",
+      "filename": "__init__.py",
+      "what": "Page-type-specific detector aggregator — exports `DETECTORS`, `TERNARY`, helpers, fallback.",
+      "imports": [
+        "Callable",
+        "__future__",
+        "annotations",
+        "growthcro",
+        "home_leadgen",
+        "listicle",
+        "product",
+        "sales",
+        "specific"
+      ],
+      "size_bytes": 2868,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
     },
     {
       "id": "_test_weglot_listicle_V26AE",
@@ -68,17 +348,44 @@
       "filename": "_test_weglot_listicle_V26AE.py",
       "what": "Test FINAL Weglot listicle V26.AE — pipeline propre depuis le départ.",
       "imports": [
+        "BriefV2",
         "__future__",
+        "annotations",
         "brief_v2",
         "brief_v2_validator",
+        "generate_lp",
         "moteur_gsg",
         "orchestrator"
       ],
-      "size_bytes": 7395,
-      "mtime": "2026-05-04",
+      "size_bytes": 7106,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "add_client",
+      "path": "growthcro/cli/add_client.py",
+      "filename": "add_client.py",
+      "what": "add_client.py — Ajout rapide d'un client dont on a déjà l'URL.",
+      "imports": [
+        "Path",
+        "add_client",
+        "enrich_client",
+        "growthcro",
+        "parse",
+        "urllib",
+        "urlparse"
+      ],
+      "size_bytes": 13210,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/cli/add_client.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "analyze_capture",
@@ -87,7 +394,8 @@
       "what": "Helpers pour lire un SiteCapture et servir de base au scoring V3.",
       "imports": [],
       "size_bytes": 1068,
-      "mtime": "2026-04-08",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -95,19 +403,66 @@
       "criticality": "low"
     },
     {
-      "id": "apify_enrich",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py",
-      "filename": "apify_enrich.py",
-      "what": "apify_enrich.py — Enrichit un capture.json natif avec les données visuelles Apify.",
+      "id": "anthropic_client",
+      "path": "growthcro/lib/anthropic_client.py",
+      "filename": "anthropic_client.py",
+      "what": "Shared Anthropic SDK client factory — single concern: lazy SDK init + key validation.",
       "imports": [
-        "run_capture",
-        "shutil"
+        "__future__",
+        "annotations",
+        "config",
+        "growthcro"
       ],
-      "size_bytes": 15978,
-      "mtime": "2026-04-10",
+      "size_bytes": 1794,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/capture_site.py",
-        "skills/site-capture/scripts/project_snapshot.py"
+        "growthcro/cli/enrich_client.py",
+        "growthcro/recos/client.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "api_call",
+      "path": "moteur_gsg/modes/mode_1/api_call.py",
+      "filename": "api_call.py",
+      "what": "Sonnet API call adapters for Mode 1 PERSONA NARRATOR.",
+      "imports": [
+        "",
+        "__future__",
+        "annotations",
+        "pipeline_single_pass"
+      ],
+      "size_bytes": 1015,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "asset_resolver",
+      "path": "moteur_gsg/core/asset_resolver.py",
+      "filename": "asset_resolver.py",
+      "what": "Visual-asset key resolution for the controlled GSG renderer.",
+      "imports": [
+        "",
+        "GSGPagePlan",
+        "__future__",
+        "_e",
+        "annotations",
+        "html_escaper",
+        "planner"
+      ],
+      "size_bytes": 1501,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/component_renderer.py",
+        "moteur_gsg/core/hero_renderer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -118,12 +473,16 @@
       "filename": "audit_capabilities.py",
       "what": "audit_capabilities.py V26.AC Sprint E — système anti-oubli auto-discovery.",
       "imports": [
+        "Optional",
         "__future__",
+        "__init__",
+        "annotations",
         "aura_compute",
         "aura_extract",
         "brand_dna_diff_extractor",
         "brand_dna_extractor",
         "creative_director",
+        "defaultdict",
         "design_grammar",
         "doctrine",
         "enrich_v143_public",
@@ -148,11 +507,12 @@
         "score_ux",
         "vision_spatial"
       ],
-      "size_bytes": 20288,
-      "mtime": "2026-05-08",
+      "size_bytes": 22959,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "audit_fleet_health",
@@ -160,15 +520,18 @@
       "filename": "audit_fleet_health.py",
       "what": "V25.A — Audit santé fleet existante.",
       "imports": [
+        "Optional",
         "__future__",
+        "annotations",
         "asyncio",
         "httpx"
       ],
       "size_bytes": 11890,
-      "mtime": "2026-04-28",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "audit_funnel_steps",
@@ -177,14 +540,16 @@
       "what": "V26.X.5 — Audit per-step tunnel.",
       "imports": [
         "__future__",
+        "annotations",
         "asyncio",
         "base64"
       ],
-      "size_bytes": 9983,
-      "mtime": "2026-04-30",
+      "size_bytes": 9608,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "aura_compute",
@@ -192,14 +557,16 @@
       "filename": "aura_compute.py",
       "what": "AURA Compute — Design Token Calculator.",
       "imports": [
+        "Path",
         "math",
         "random"
       ],
       "size_bytes": 31025,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/growth-site-generator/scripts/gsg_best_of_n.py",
-        "skills/growth-site-generator/scripts/gsg_generate_lp.py"
+        "growthcro/gsg_lp/data_loaders.py",
+        "skills/growth-site-generator/scripts/gsg_best_of_n.py"
       ],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -214,11 +581,16 @@
       "filename": "aura_extract.py",
       "what": "AURA Extract — Design DNA Extraction from HTML pages.",
       "imports": [
+        "Counter",
+        "Path",
         "asyncio",
+        "config",
+        "growthcro",
         "math"
       ],
-      "size_bytes": 28121,
-      "mtime": "2026-04-18",
+      "size_bytes": 28147,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -233,13 +605,25 @@
       "filename": "base.py",
       "what": "Base interface for Reality Layer connectors.",
       "imports": [
+        "ABC",
+        "Any",
+        "Optional",
         "__future__",
         "abc",
-        "dataclasses"
+        "abstractmethod",
+        "annotations",
+        "config",
+        "dataclass",
+        "dataclasses",
+        "field",
+        "growthcro"
       ],
-      "size_bytes": 2210,
-      "mtime": "2026-04-29",
+      "size_bytes": 2250,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
+        "moteur_gsg/core/css/__init__.py",
+        "scripts/lint_code_hygiene.py",
         "skills/site-capture/scripts/reality_layer/__init__.py",
         "skills/site-capture/scripts/reality_layer/catchr.py",
         "skills/site-capture/scripts/reality_layer/clarity.py",
@@ -252,18 +636,30 @@
       "criticality": "low"
     },
     {
-      "id": "batch_enrich",
-      "path": "skills/site-capture/scripts/batch_enrich.py",
-      "filename": "batch_enrich.py",
-      "what": "batch_enrich.py — Run reco_enricher on every client/page that has score_page_type.json.",
+      "id": "base",
+      "path": "moteur_gsg/core/css/base.py",
+      "filename": "base.py",
+      "what": "CSS — base layer for the controlled GSG renderer.",
       "imports": [
-        "reco_enricher"
+        "__future__",
+        "annotations"
       ],
-      "size_bytes": 4733,
-      "mtime": "2026-04-14",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "size_bytes": 10035,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/css/__init__.py",
+        "scripts/lint_code_hygiene.py",
+        "skills/site-capture/scripts/reality_layer/__init__.py",
+        "skills/site-capture/scripts/reality_layer/catchr.py",
+        "skills/site-capture/scripts/reality_layer/clarity.py",
+        "skills/site-capture/scripts/reality_layer/google_ads.py",
+        "skills/site-capture/scripts/reality_layer/meta_ads.py",
+        "skills/site-capture/scripts/reality_layer/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/shopify.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "batch_rescore",
@@ -271,6 +667,7 @@
       "filename": "batch_rescore.py",
       "what": "batch_rescore.py — Re-score toutes les pages de tous les clients (avec données spatiales).",
       "imports": [
+        "defaultdict",
         "score_coherence",
         "score_hero",
         "score_page_type",
@@ -282,7 +679,8 @@
         "score_ux"
       ],
       "size_bytes": 4586,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -296,12 +694,34 @@
       "what": "batch_site.py — Batch scoring 6 blocs pour tous les clients.",
       "imports": [
         "capture_site",
-        "datetime"
+        "config",
+        "datetime",
+        "growthcro",
+        "timezone"
       ],
-      "size_bytes": 8758,
-      "mtime": "2026-04-12",
+      "size_bytes": 8798,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "brand_blocks",
+      "path": "growthcro/gsg_lp/brand_blocks.py",
+      "filename": "brand_blocks.py",
+      "what": "Mega-prompt block renderers for brand DNA + design grammar + AURA.",
+      "imports": [
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 11337,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/gsg_lp/mega_prompt_builder.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -312,14 +732,19 @@
       "filename": "brand_dna_diff_extractor.py",
       "what": "GSG Brand DNA Diff V26.Z E1 — ajoute le 4e quadrant \"Fix\" au brand_dna existant.",
       "imports": [
+        "Image",
+        "Optional",
         "PIL",
         "__future__",
+        "annotations",
         "base64",
         "brand_dna_diff_extractor",
+        "extract_diff",
         "io"
       ],
-      "size_bytes": 15059,
-      "mtime": "2026-05-01",
+      "size_bytes": 14673,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/brand_dna_diff_extractor.py"
       ],
@@ -335,9 +760,18 @@
       "filename": "brand_dna_extractor.py",
       "what": "V29 prep — GSG Brand DNA Extractor (Python+LLM hybrid).",
       "imports": [
+        "Any",
+        "Counter",
+        "Image",
+        "KMeans",
+        "Optional",
         "PIL",
         "__future__",
+        "_get_api_client",
+        "_load_dotenv_if_needed",
+        "annotations",
         "async_api",
+        "async_playwright",
         "asyncio",
         "base64",
         "cluster",
@@ -346,8 +780,9 @@
         "playwright",
         "sklearn"
       ],
-      "size_bytes": 27565,
-      "mtime": "2026-04-30",
+      "size_bytes": 27528,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -356,20 +791,50 @@
       ]
     },
     {
+      "id": "brand_identity",
+      "path": "growthcro/research/brand_identity.py",
+      "filename": "brand_identity.py",
+      "what": "CSS-based brand identity extraction — palette, typography, mood, logos, favicon.",
+      "imports": [
+        "Counter",
+        "HTMLParser",
+        "__future__",
+        "annotations",
+        "html",
+        "parse",
+        "parser",
+        "subprocess",
+        "urllib",
+        "urlparse"
+      ],
+      "size_bytes": 18192,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/research/__init__.py",
+        "growthcro/research/cli.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "brand_intelligence",
       "path": "moteur_gsg/core/brand_intelligence.py",
       "filename": "brand_intelligence.py",
       "what": "Brand Intelligence — V26.AA Sprint 3.",
       "imports": [
-        "__future__"
+        "Any",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 9668,
-      "mtime": "2026-05-03",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/prompt_assembly.py",
+        "moteur_gsg/modes/mode_1/orchestrator.py",
         "moteur_gsg/modes/mode_1_complete.py",
-        "moteur_gsg/modes/mode_1_persona_narrator.py",
         "moteur_gsg/modes/mode_2_replace.py"
       ],
       "status": "ACTIVE",
@@ -381,10 +846,13 @@
       "filename": "brief_v15_builder.py",
       "what": "Brief V15 Builder V26.AA Sprint B (skeleton, full impl Sprint C).",
       "imports": [
-        "__future__"
+        "Optional",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 7232,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/modes/mode_2_replace.py"
       ],
@@ -397,11 +865,19 @@
       "filename": "brief_v2.py",
       "what": "moteur_gsg.core.brief_v2 — V26.AD Sprint I.",
       "imports": [
+        "Literal",
+        "Optional",
+        "Path",
         "__future__",
-        "dataclasses"
+        "annotations",
+        "asdict",
+        "dataclass",
+        "dataclasses",
+        "field"
       ],
       "size_bytes": 19356,
-      "mtime": "2026-05-08",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
         "moteur_gsg/core/brief_v2_validator.py",
@@ -424,16 +900,25 @@
       "what": "moteur_gsg.core.brief_v2_prefiller — V26.AF Sprint AF-1.B.1.",
       "imports": [
         "",
+        "BriefV2",
+        "ClientContext",
+        "Optional",
+        "SourcedNumber",
         "__future__",
+        "annotations",
         "brief_v2",
         "brief_v2_prefiller",
         "client_context",
+        "load_client_context",
         "moteur_gsg",
         "parse",
-        "urllib"
+        "prefill_brief_v2_from_client",
+        "urllib",
+        "urlparse"
       ],
       "size_bytes": 15005,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
         "moteur_gsg/core/intake_wizard.py",
@@ -449,11 +934,15 @@
       "what": "moteur_gsg.core.brief_v2_validator — V26.AD Sprint I.",
       "imports": [
         "",
+        "Any",
+        "BriefV2",
         "__future__",
+        "annotations",
         "brief_v2"
       ],
       "size_bytes": 6734,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "scripts/_test_weglot_listicle_V26AE.py",
         "scripts/run_gsg_full_pipeline.py"
@@ -462,16 +951,34 @@
       "criticality": "low"
     },
     {
-      "id": "build_dashboard_v12",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12.py",
-      "filename": "build_dashboard_v12.py",
-      "what": "build_dashboard_v12.py — Consolidate every client/page audit into a single JSON\nand inject it into growthcro_v12_dashboard.html.",
-      "imports": [],
-      "size_bytes": 10954,
-      "mtime": "2026-04-14",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "id": "browser",
+      "path": "growthcro/capture/browser.py",
+      "filename": "browser.py",
+      "what": "Playwright browser lifecycle + cookie handling — single concern: browser sessions.",
+      "imports": [
+        "",
+        "CLOSE_POPUPS_JS",
+        "COOKIE_CLICK_JS",
+        "COOKIE_FORCE_REMOVE_JS",
+        "Optional",
+        "STEALTH_JS",
+        "__future__",
+        "annotations",
+        "cloud",
+        "config",
+        "dom",
+        "get_brightdata_endpoint",
+        "growthcro",
+        "resolve_browserless_endpoint"
+      ],
+      "size_bytes": 7644,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "build_growth_audit_data",
@@ -480,13 +987,17 @@
       "what": "build_growth_audit_data.py — Build data consolidé pour `GrowthCRO-V26-WebApp.html`.",
       "imports": [
         "__future__",
-        "datetime"
+        "annotations",
+        "datetime",
+        "defaultdict",
+        "timezone"
       ],
       "size_bytes": 37792,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "canonical_registry",
@@ -494,7 +1005,9 @@
       "filename": "canonical_registry.py",
       "what": "Canonical GSG contract and static validation helpers.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
         "check_gsg_component_planner",
         "check_gsg_controlled_renderer",
         "check_gsg_creative_route_selector",
@@ -503,22 +1016,49 @@
         "component_library",
         "context_pack",
         "creative_route_selector",
+        "creative_route_selector_status",
         "intake_wizard",
+        "legacy_component_status",
         "legacy_lab_adapters",
+        "list_supported_modes",
         "mode_2_replace",
         "mode_5_genesis",
         "moteur_gsg",
         "orchestrator",
         "run_gsg_full_pipeline",
         "visual_intelligence",
-        "visual_system"
+        "visual_system",
+        "visual_system_status"
       ],
       "size_bytes": 17981,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "scripts/check_gsg_canonical.py"
       ],
       "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "capture_full",
+      "path": "growthcro/cli/capture_full.py",
+      "filename": "capture_full.py",
+      "what": "capture_full.py — Orchestrateur V13 SaaS-grade (ghost-first, cloud-native).",
+      "imports": [
+        "capture_site",
+        "check_liveness",
+        "config",
+        "enrich_client",
+        "growthcro",
+        "intent_detector_v13",
+        "shutil",
+        "subprocess"
+      ],
+      "size_bytes": 24469,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {
@@ -528,8 +1068,10 @@
       "what": "capture_site.py — Orchestrateur hybride GrowthCRO.",
       "imports": [
         "apify_enrich",
+        "config",
         "datetime",
         "discover_pages",
+        "growthcro",
         "native_capture",
         "run_spatial_capture",
         "score_coherence",
@@ -538,11 +1080,14 @@
         "score_psycho",
         "score_site",
         "score_tech",
-        "score_ux"
+        "score_ux",
+        "timezone"
       ],
-      "size_bytes": 22814,
-      "mtime": "2026-04-12",
+      "size_bytes": 22859,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/cli/capture_full.py",
         "skills/site-capture/scripts/batch_site.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -556,12 +1101,20 @@
       "what": "Catchr connector — GA4 wrapper used internally by Growth Society.",
       "imports": [
         "",
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
         "__future__",
+        "annotations",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 4525,
-      "mtime": "2026-04-29",
+      "size_bytes": 4565,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -575,14 +1128,18 @@
       "what": "Validate the canonical GSG boundary without generating a landing page.",
       "imports": [
         "__future__",
+        "annotations",
         "canonical_registry",
-        "moteur_gsg"
+        "format_markdown",
+        "moteur_gsg",
+        "validate_canonical_contract"
       ],
       "size_bytes": 760,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "check_gsg_component_planner",
@@ -591,14 +1148,17 @@
       "what": "Smoke-test V27.2-B GSG component planner without LLM calls.",
       "imports": [
         "__future__",
+        "annotations",
+        "generate_lp",
         "moteur_gsg",
         "orchestrator"
       ],
       "size_bytes": 3998,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "check_gsg_controlled_renderer",
@@ -607,14 +1167,17 @@
       "what": "Smoke-test the canonical GSG controlled renderer without LLM calls.",
       "imports": [
         "__future__",
+        "annotations",
+        "generate_lp",
         "moteur_gsg",
         "orchestrator"
       ],
       "size_bytes": 3801,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "check_gsg_creative_route_selector",
@@ -623,14 +1186,17 @@
       "what": "Check V27.2-F structured Golden/Creative route selector without API calls.",
       "imports": [
         "__future__",
+        "annotations",
+        "generate_lp",
         "moteur_gsg",
         "orchestrator"
       ],
       "size_bytes": 3131,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "check_gsg_intake_wizard",
@@ -639,15 +1205,19 @@
       "what": "Check the canonical GSG intake/wizard path without API calls.",
       "imports": [
         "__future__",
+        "annotations",
+        "build_intake_from_user_request",
+        "generate_lp",
         "intake_wizard",
         "moteur_gsg",
         "orchestrator"
       ],
       "size_bytes": 4729,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "check_gsg_visual_renderer",
@@ -656,15 +1226,18 @@
       "what": "Smoke-test V27.2-F GSG visual renderer and optional Playwright screenshots.",
       "imports": [
         "__future__",
+        "annotations",
+        "generate_lp",
         "moteur_gsg",
         "orchestrator",
         "subprocess"
       ],
       "size_bytes": 5064,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "clarity",
@@ -673,14 +1246,174 @@
       "what": "Microsoft Clarity Data Export connector — heatmaps + rage clicks + scroll depth.",
       "imports": [
         "",
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
         "__future__",
+        "annotations",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 3952,
-      "mtime": "2026-04-29",
+      "size_bytes": 3992,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/capture/cli.py",
+      "filename": "cli.py",
+      "what": "argparse CLI for cloud capture — single concern: command-line dispatch.",
+      "imports": [
+        "",
+        "__future__",
+        "annotations",
+        "async_api",
+        "async_playwright",
+        "asyncio",
+        "orchestrator",
+        "playwright",
+        "run_batch",
+        "run_single"
+      ],
+      "size_bytes": 3643,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/perception/cli.py",
+      "filename": "cli.py",
+      "what": "argparse entrypoint for the perception pipeline (single page or fleet-wide --all).",
+      "imports": [
+        "Path",
+        "__future__",
+        "annotations",
+        "growthcro",
+        "persist",
+        "process_page"
+      ],
+      "size_bytes": 2363,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/recos/cli.py",
+      "filename": "cli.py",
+      "what": "Reco CLI — single argparse entrypoint with `prepare` / `enrich` subcommands.",
+      "imports": [
+        "Path",
+        "__future__",
+        "annotations",
+        "asyncio",
+        "client",
+        "growthcro",
+        "orchestrator",
+        "recos"
+      ],
+      "size_bytes": 11183,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/research/cli.py",
+      "filename": "cli.py",
+      "what": "argparse entrypoint — runs the full discovery + content + brand-identity pipeline.",
+      "imports": [
+        "Path",
+        "__future__",
+        "annotations",
+        "brand_identity",
+        "content",
+        "discovery",
+        "extract_brand_identity",
+        "extract_structured_content",
+        "fetch_page_text",
+        "growthcro",
+        "parse",
+        "subprocess",
+        "urllib",
+        "urlparse"
+      ],
+      "size_bytes": 8243,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/scoring/cli.py",
+      "filename": "cli.py",
+      "what": "argparse entrypoints for scoring CLIs (score_specific, score_ux).",
+      "imports": [
+        "__future__",
+        "_import_page_type_filter",
+        "annotations",
+        "growthcro",
+        "persist",
+        "score_ux",
+        "ux",
+        "write_specific_score"
+      ],
+      "size_bytes": 3207,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "client",
+      "path": "growthcro/recos/client.py",
+      "filename": "client.py",
+      "what": "Anthropic SDK calls + structured retry — single concern: LLM transport.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "anthropic_client",
+        "asyncio",
+        "get_anthropic_client",
+        "growthcro",
+        "recos",
+        "schema"
+      ],
+      "size_bytes": 7010,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/recos/cli.py",
+        "growthcro/recos/orchestrator.py",
+        "skills/site-capture/scripts/reality_layer/google_ads.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -691,18 +1424,25 @@
       "filename": "client_context.py",
       "what": "client_context.py V26.AC Sprint F — ROUTER RACINE GrowthCRO.",
       "imports": [
+        "Any",
+        "Optional",
         "__future__",
+        "annotations",
         "client_context",
+        "dataclass",
         "dataclasses",
+        "field",
+        "load_client_context",
         "scripts"
       ],
       "size_bytes": 17604,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
         "moteur_gsg/core/context_pack.py",
         "moteur_gsg/core/pipeline_sequential.py",
-        "moteur_gsg/modes/mode_1_persona_narrator.py",
+        "moteur_gsg/modes/mode_1/vision_selection.py",
         "scripts/client_context.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
@@ -710,19 +1450,23 @@
       "criticality": "low"
     },
     {
-      "id": "component_detector",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector.py",
-      "filename": "component_detector.py",
-      "what": "component_detector.py — GrowthCRO V12 Phase 5.2 : Component Detector multi-signal.",
+      "id": "cloud",
+      "path": "growthcro/capture/cloud.py",
+      "filename": "cloud.py",
+      "what": "Bright Data / Browserless cloud endpoint resolution — single concern: cloud delegation.",
       "imports": [
+        "Optional",
         "__future__",
-        "datetime"
+        "annotations",
+        "config",
+        "growthcro"
       ],
-      "size_bytes": 35037,
-      "mtime": "2026-04-14",
+      "size_bytes": 1473,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
-        "skills/site-capture/scripts/project_snapshot.py"
+        "growthcro/capture/browser.py",
+        "growthcro/capture/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -733,11 +1477,15 @@
       "filename": "component_library.py",
       "what": "Page-type component blueprints for the canonical GSG.",
       "imports": [
+        "Any",
         "__future__",
-        "copy"
+        "annotations",
+        "copy",
+        "deepcopy"
       ],
       "size_bytes": 15639,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/planner.py"
       ],
@@ -745,36 +1493,48 @@
       "criticality": "low"
     },
     {
-      "id": "component_perception",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception.py",
-      "filename": "component_perception.py",
-      "what": "component_perception.py — Oracle V11 : Perception Sémantique & Spatiale",
+      "id": "component_renderer",
+      "path": "moteur_gsg/core/component_renderer.py",
+      "filename": "component_renderer.py",
+      "what": "Reason / component visual + bullet-list rendering.",
       "imports": [
-        "parse",
-        "urllib"
+        "",
+        "Any",
+        "GSGPagePlan",
+        "__future__",
+        "_asset_img",
+        "_e",
+        "_fact_chips",
+        "annotations",
+        "asset_resolver",
+        "fact_assembler",
+        "html_escaper",
+        "planner"
       ],
-      "size_bytes": 28334,
-      "mtime": "2026-04-13",
+      "size_bytes": 6417,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/project_snapshot.py"
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
     },
     {
-      "id": "component_validator",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator.py",
-      "filename": "component_validator.py",
-      "what": "component_validator.py — GrowthCRO V12 Phase 5.4 : Critic/Validator.",
+      "id": "components",
+      "path": "moteur_gsg/core/css/components.py",
+      "filename": "components.py",
+      "what": "CSS — components layer for the controlled GSG renderer.",
       "imports": [
         "__future__",
-        "datetime"
+        "annotations"
       ],
-      "size_bytes": 11264,
-      "mtime": "2026-04-14",
+      "size_bytes": 11556,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
-        "skills/site-capture/scripts/project_snapshot.py"
+        "moteur_gsg/core/css/__init__.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -785,13 +1545,87 @@
       "filename": "compress_flow_steps.py",
       "what": "V26.X.3 — Compresse les flow_summary steps en mergant les sub-actions\nsur la même étape conceptuelle.",
       "imports": [
-        "__future__"
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 5102,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "config",
+      "path": "growthcro/config.py",
+      "filename": "config.py",
+      "what": "Single environment-variable boundary for GrowthCRO.",
+      "imports": [
+        "Optional",
+        "__future__",
+        "annotations",
+        "config",
+        "functools",
+        "growthcro",
+        "lru_cache"
+      ],
+      "size_bytes": 11456,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/api/server.py",
+        "growthcro/capture/browser.py",
+        "growthcro/capture/cloud.py",
+        "growthcro/cli/capture_full.py",
+        "growthcro/cli/enrich_client.py",
+        "growthcro/config.py",
+        "growthcro/lib/anthropic_client.py",
+        "skills/growth-site-generator/scripts/aura_extract.py",
+        "skills/site-capture/scripts/batch_site.py",
+        "skills/site-capture/scripts/capture_site.py",
+        "skills/site-capture/scripts/discover_pages_v25.py",
+        "skills/site-capture/scripts/eclaireur_llm.py",
+        "skills/site-capture/scripts/geo_audit.py",
+        "skills/site-capture/scripts/geo_readiness_monitor.py",
+        "skills/site-capture/scripts/playwright_capture_v2.py",
+        "skills/site-capture/scripts/reality_layer/base.py",
+        "skills/site-capture/scripts/reality_layer/catchr.py",
+        "skills/site-capture/scripts/reality_layer/clarity.py",
+        "skills/site-capture/scripts/reality_layer/google_ads.py",
+        "skills/site-capture/scripts/reality_layer/meta_ads.py",
+        "skills/site-capture/scripts/reality_layer/shopify.py",
+        "skills/site-capture/scripts/run_capture.py",
+        "skills/site-capture/scripts/run_discover.py",
+        "skills/site-capture/scripts/run_spatial_capture.py",
+        "skills/site-capture/scripts/vision_spatial.py",
+        "skills/site-capture/scripts/web_vitals_adapter.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "content",
+      "path": "growthcro/research/content.py",
+      "filename": "content.py",
+      "what": "Page content fetching + structured extraction (text, certifications, prices, ratings).",
+      "imports": [
+        "HTMLParser",
+        "Path",
+        "__future__",
+        "annotations",
+        "html",
+        "parser",
+        "subprocess"
+      ],
+      "size_bytes": 4437,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/research/__init__.py",
+        "growthcro/research/cli.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "context_pack",
@@ -799,35 +1633,22 @@
       "filename": "context_pack.py",
       "what": "Generation context pack for the canonical GSG.",
       "imports": [
+        "Any",
+        "ClientContext",
         "__future__",
+        "annotations",
+        "asdict",
         "client_context",
-        "dataclasses"
+        "dataclass",
+        "dataclasses",
+        "field",
+        "load_client_context"
       ],
       "size_bytes": 13314,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
-        "moteur_gsg/modes/mode_1_complete.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "controlled_renderer",
-      "path": "moteur_gsg/core/controlled_renderer.py",
-      "filename": "controlled_renderer.py",
-      "what": "Controlled HTML renderer for canonical GSG page plans.",
-      "imports": [
-        "",
-        "__future__",
-        "design_tokens",
-        "html",
-        "planner",
-        "visual_system"
-      ],
-      "size_bytes": 50721,
-      "mtime": "2026-05-07",
-      "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
       "status": "ACTIVE",
@@ -840,18 +1661,31 @@
       "what": "Bounded copy writer for the canonical GSG.",
       "imports": [
         "",
+        "Any",
+        "GSGPagePlan",
+        "SONNET_MODEL",
         "__future__",
+        "_ensure_api_key",
+        "annotations",
         "brand_intelligence",
         "context_pack",
         "doctrine_planner",
+        "format_brand_block",
+        "format_context_pack_for_prompt",
+        "format_doctrine_pack_for_prompt",
+        "format_minimal_constraints_block",
+        "format_pattern_pack_for_prompt",
+        "format_plan_for_prompt",
+        "format_visual_pack_for_prompt",
         "minimal_guards",
         "pattern_library",
         "pipeline_single_pass",
         "planner",
         "visual_intelligence"
       ],
-      "size_bytes": 16035,
-      "mtime": "2026-05-07",
+      "size_bytes": 16013,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
@@ -864,16 +1698,23 @@
       "filename": "creative_director.py",
       "what": "GSG Creative Director V26.Z E2 — production de 3 thèses visuelles nommées.",
       "imports": [
+        "Literal",
+        "Optional",
         "__future__",
-        "creative_director"
+        "annotations",
+        "creative_director",
+        "generate_routes",
+        "render_creative_route_block",
+        "select_route"
       ],
-      "size_bytes": 27179,
-      "mtime": "2026-05-02",
+      "size_bytes": 26771,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/gsg_lp/mega_prompt_builder.py",
         "moteur_gsg/core/legacy_lab_adapters.py",
         "skills/growth-site-generator/scripts/creative_director.py",
-        "skills/growth-site-generator/scripts/gsg_best_of_n.py",
-        "skills/growth-site-generator/scripts/gsg_generate_lp.py"
+        "skills/growth-site-generator/scripts/gsg_best_of_n.py"
       ],
       "status": "ACTIVE_WIRED_AS_EXPECTED",
       "criticality": "ok",
@@ -889,12 +1730,18 @@
       "what": "Structured creative route selector for the canonical GSG.",
       "imports": [
         "",
+        "Any",
+        "CreativeRouteContract",
+        "LegacyLabUnavailable",
         "__future__",
+        "annotations",
+        "get_golden_design_benchmark",
         "legacy_lab_adapters",
         "visual_intelligence"
       ],
       "size_bytes": 11712,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
@@ -907,13 +1754,41 @@
       "filename": "criterion_crops_v2.py",
       "what": "criterion_crops_v2.py — V20.CAPTURE C3 : mapping critère → crop à partir des\nassertions Vision reconciliées.",
       "imports": [
-        "__future__"
+        "Optional",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 19370,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "data_loaders",
+      "path": "growthcro/gsg_lp/data_loaders.py",
+      "filename": "data_loaders.py",
+      "what": "Data loaders for the GSG mega-prompt pipeline.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "aura_compute",
+        "detect_runtime_bugs",
+        "fix_html_runtime",
+        "golden_design_bridge",
+        "subprocess"
+      ],
+      "size_bytes": 6281,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/gsg_lp/lp_orchestrator.py",
+        "growthcro/gsg_lp/mega_prompt_builder.py",
+        "growthcro/gsg_lp/repair_loop.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "design_grammar",
@@ -921,10 +1796,13 @@
       "filename": "design_grammar.py",
       "what": "V30 — GSG Design Grammar : transformation Brand DNA → grammaire de génération.",
       "imports": [
-        "__future__"
+        "Any",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 20530,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -938,10 +1816,14 @@
       "filename": "design_grammar_loader.py",
       "what": "Design Grammar Loader V26.AA Sprint B — branche design_grammar V30 au Mode 1.",
       "imports": [
-        "__future__"
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 6118,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/prompt_assembly.py",
         "moteur_gsg/modes/mode_1_complete.py"
@@ -956,13 +1838,17 @@
       "what": "Deterministic design tokens for the canonical GSG renderer.",
       "imports": [
         "",
+        "Any",
         "__future__",
+        "annotations",
+        "choose_target_fonts",
         "minimal_guards"
       ],
       "size_bytes": 8888,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "moteur_gsg/core/controlled_renderer.py",
+        "moteur_gsg/core/css/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py"
       ],
       "status": "ACTIVE",
@@ -975,14 +1861,17 @@
       "what": "V26.X.2 — Detect canonical tunnel par client.",
       "imports": [
         "__future__",
+        "annotations",
         "parse",
-        "urllib"
+        "urllib",
+        "urlparse"
       ],
       "size_bytes": 5630,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "discover_pages_v25",
@@ -990,23 +1879,60 @@
       "filename": "discover_pages_v25.py",
       "what": "V25.B — Discovery + Classification intelligente (input: home_url + slug).",
       "imports": [
+        "Any",
         "ElementTree",
+        "Optional",
         "__future__",
+        "_load_dotenv_if_needed",
+        "annotations",
         "async_api",
+        "async_playwright",
         "asyncio",
         "base64",
+        "config",
+        "growthcro",
         "hashlib",
         "httpx",
         "parse",
         "playwright",
+        "urldefrag",
+        "urljoin",
         "urllib",
+        "urlparse",
         "xml"
       ],
-      "size_bytes": 45974,
-      "mtime": "2026-04-29",
+      "size_bytes": 45984,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "discovery",
+      "path": "growthcro/research/discovery.py",
+      "filename": "discovery.py",
+      "what": "URL discovery + categorization — sitemap-style crawl of a client's domain.",
+      "imports": [
+        "HTMLParser",
+        "__future__",
+        "annotations",
+        "html",
+        "parse",
+        "parser",
+        "subprocess",
+        "urllib",
+        "urlparse"
+      ],
+      "size_bytes": 4605,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/research/__init__.py",
+        "growthcro/research/cli.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "doctrine",
@@ -1014,12 +1940,19 @@
       "filename": "doctrine.py",
       "what": "GrowthCRO Doctrine Loader (V26.Z W4 — racine partagée Audit + GSG).",
       "imports": [
+        "Optional",
         "__future__",
+        "annotations",
+        "criterion_to_gsg_principle",
         "doctrine",
-        "functools"
+        "functools",
+        "killer_rules_for_page_type",
+        "lru_cache",
+        "top_critical_for_page_type"
       ],
       "size_bytes": 16929,
-      "mtime": "2026-05-03",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/doctrine_planner.py",
         "moteur_gsg/core/pipeline_sequential.py",
@@ -1041,14 +1974,18 @@
       "what": "Doctrine Judge V26.AA — juge unifié sur les 54 critères V3.2 (racine partagée).",
       "imports": [
         "__future__",
+        "annotations",
+        "audit_lp_doctrine",
         "doctrine",
         "doctrine_judge",
         "moteur_multi_judge"
       ],
-      "size_bytes": 18152,
-      "mtime": "2026-05-03",
+      "size_bytes": 17766,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "moteur_gsg/modes/mode_1_persona_narrator.py",
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "moteur_multi_judge/judges/__init__.py",
         "moteur_multi_judge/judges/doctrine_judge.py",
         "moteur_multi_judge/orchestrator.py"
       ],
@@ -1061,15 +1998,44 @@
       "filename": "doctrine_planner.py",
       "what": "Constructive doctrine pack for the canonical GSG planner.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
+        "asdict",
+        "dataclass",
         "dataclasses",
-        "doctrine"
+        "doctrine",
+        "field"
       ],
       "size_bytes": 15728,
-      "mtime": "2026-05-06",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "dom",
+      "path": "growthcro/capture/dom.py",
+      "filename": "dom.py",
+      "what": "Browser-side JS payloads + static-HTML cleaning helpers — single concern: DOM serialization.",
+      "imports": [
+        "Optional",
+        "__future__",
+        "annotations",
+        "html"
+      ],
+      "size_bytes": 24482,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/browser.py",
+        "growthcro/capture/orchestrator.py",
+        "growthcro/capture/scorer.py",
+        "growthcro/capture/signals.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1080,14 +2046,17 @@
       "filename": "dom_vision_reconciler.py",
       "what": "dom_vision_reconciler.py — V20.CAPTURE C1'b : réconciliation DOM ↔ Vision.",
       "imports": [
+        "Optional",
         "__future__",
+        "annotations",
         "unicodedata"
       ],
       "size_bytes": 22949,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "eclaireur_llm",
@@ -1095,17 +2064,67 @@
       "filename": "eclaireur_llm.py",
       "what": "eclaireur_llm.py — P11.11 (V19) : Éclaireur LLM Discovery & Routing.",
       "imports": [
+        "Optional",
+        "Path",
         "__future__",
+        "annotations",
+        "config",
         "error",
+        "growthcro",
         "parse",
         "request",
-        "urllib"
+        "urljoin",
+        "urllib",
+        "urlparse"
       ],
-      "size_bytes": 12681,
-      "mtime": "2026-04-20",
+      "size_bytes": 12069,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "enrich_client",
+      "path": "growthcro/cli/enrich_client.py",
+      "filename": "enrich_client.py",
+      "what": "enrich_client.py — Discovery + validation URL + pages pour un nouveau client.",
+      "imports": [
+        "HTMLParser",
+        "HTTPError",
+        "Path",
+        "Request",
+        "URLError",
+        "anthropic_client",
+        "config",
+        "datetime",
+        "enrich_client",
+        "error",
+        "get_anthropic_client",
+        "growthcro",
+        "html",
+        "parse",
+        "parser",
+        "request",
+        "shutil",
+        "subprocess",
+        "timezone",
+        "unicodedata",
+        "urljoin",
+        "urllib",
+        "urlopen",
+        "urlparse"
+      ],
+      "size_bytes": 25047,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/cli/add_client.py",
+        "growthcro/cli/capture_full.py",
+        "growthcro/cli/enrich_client.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "enrich_scores_with_evidence",
@@ -1113,39 +2132,21 @@
       "filename": "enrich_scores_with_evidence.py",
       "what": "V26.A.2 — Post-process score_*.json files to attach Evidence Ledger entries.",
       "imports": [
+        "EvidenceLedger",
+        "Optional",
         "__future__",
+        "annotations",
+        "attach_evidence_to_reco",
+        "attach_evidence_to_score",
+        "compute_capture_hash",
         "evidence_ledger"
       ],
       "size_bytes": 10258,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
-    },
-    {
-      "id": "enrich_v143_public",
-      "path": "scripts/enrich_v143_public.py",
-      "filename": "enrich_v143_public.py",
-      "what": "enrich_v143_public.py — V14.3.1",
-      "imports": [
-        "__future__",
-        "dataclasses",
-        "datetime",
-        "error",
-        "parse",
-        "request",
-        "shutil",
-        "subprocess",
-        "urllib"
-      ],
-      "size_bytes": 54508,
-      "mtime": "2026-04-18",
-      "consumed_by": [],
-      "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
-      "criticality": "ok",
-      "should_be_consumed_by": [
-        "moteur_gsg/core/"
-      ]
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "evidence_ledger",
@@ -1153,12 +2154,17 @@
       "filename": "evidence_ledger.py",
       "what": "V26.A Evidence Ledger — preuves vérifiables pour chaque score et reco.",
       "imports": [
+        "Any",
+        "EvidenceLedger",
+        "Optional",
         "__future__",
+        "annotations",
         "evidence_ledger",
         "hashlib"
       ],
       "size_bytes": 12059,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/enrich_scores_with_evidence.py",
         "skills/site-capture/scripts/evidence_ledger.py"
@@ -1175,14 +2181,46 @@
       "filename": "experiment_engine.py",
       "what": "V27 — Experiment Engine : A/B test specs + sample size + guardrails.",
       "imports": [
+        "Any",
+        "Optional",
         "__future__",
+        "annotations",
+        "build_experiment_spec",
+        "compute_sample_size",
         "experiment_engine",
         "math"
       ],
       "size_bytes": 14233,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/experiment_engine.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "fact_assembler",
+      "path": "moteur_gsg/core/fact_assembler.py",
+      "filename": "fact_assembler.py",
+      "what": "Fact-list selection and proof-strip rendering for the GSG renderer.",
+      "imports": [
+        "",
+        "GSGPagePlan",
+        "__future__",
+        "_e",
+        "annotations",
+        "html_escaper",
+        "planner"
+      ],
+      "size_bytes": 3077,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/component_renderer.py",
+        "moteur_gsg/core/hero_renderer.py",
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1194,18 +2232,21 @@
       "what": "GSG Fix HTML Runtime V26.Z BUG-FIX — patch les LPs cassées par counter-without-JS.",
       "imports": [
         "__future__",
+        "annotations",
+        "detect_runtime_bugs",
         "fix_html_runtime",
         "shutil"
       ],
       "size_bytes": 17817,
-      "mtime": "2026-05-01",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/gsg_lp/data_loaders.py",
         "moteur_gsg/core/legacy_lab_adapters.py",
         "moteur_multi_judge/judges/implementation_check.py",
         "moteur_multi_judge/orchestrator.py",
         "skills/growth-site-generator/scripts/fix_html_runtime.py",
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
-        "skills/growth-site-generator/scripts/gsg_generate_lp.py",
         "skills/growth-site-generator/scripts/gsg_multi_judge.py"
       ],
       "status": "ACTIVE_WIRED_AS_EXPECTED",
@@ -1221,16 +2262,23 @@
       "filename": "geo_audit.py",
       "what": "V24 axe 4 — GEO audit (Generative Engine Optimization).",
       "imports": [
+        "Optional",
         "__future__",
+        "_load_dotenv_if_needed",
+        "annotations",
         "async_api",
+        "async_playwright",
         "asyncio",
+        "config",
+        "growthcro",
         "playwright"
       ],
-      "size_bytes": 24517,
-      "mtime": "2026-04-28",
+      "size_bytes": 24515,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "geo_readiness_monitor",
@@ -1238,27 +2286,37 @@
       "filename": "geo_readiness_monitor.py",
       "what": "V31+ — GEO Readiness Monitor multi-engine (ChatGPT + Perplexity + Claude + AI Overviews).",
       "imports": [
+        "Any",
+        "Optional",
         "__future__",
+        "annotations",
         "asyncio",
+        "config",
+        "growthcro",
         "hashlib",
         "httpx"
       ],
-      "size_bytes": 17996,
-      "mtime": "2026-04-29",
+      "size_bytes": 17598,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "golden_bridge",
       "path": "skills/site-capture/scripts/golden_bridge.py",
       "filename": "golden_bridge.py",
       "what": "golden_bridge.py — Golden Dataset Bridge for reco_enricher V16",
-      "imports": [],
+      "imports": [
+        "Optional",
+        "Path"
+      ],
       "size_bytes": 8111,
-      "mtime": "2026-04-17",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/reco_enricher_v13.py"
+        "growthcro/recos/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1269,15 +2327,22 @@
       "filename": "golden_calibration_check.py",
       "what": "V21.F.3 — Golden Calibration Loop",
       "imports": [
+        "Path",
+        "UTC",
         "__future__",
+        "annotations",
         "datetime",
-        "statistics"
+        "defaultdict",
+        "mean",
+        "statistics",
+        "stdev"
       ],
       "size_bytes": 12538,
-      "mtime": "2026-04-27",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "golden_design_bridge",
@@ -1285,14 +2350,16 @@
       "filename": "golden_design_bridge.py",
       "what": "Golden Design Bridge — Cross-category aesthetic matching.",
       "imports": [
+        "Path",
         "math"
       ],
       "size_bytes": 17095,
-      "mtime": "2026-04-18",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/gsg_lp/data_loaders.py",
         "moteur_gsg/core/legacy_lab_adapters.py",
-        "moteur_gsg/modes/mode_1_persona_narrator.py",
-        "skills/growth-site-generator/scripts/gsg_generate_lp.py"
+        "moteur_gsg/modes/mode_1/philosophy_bridge.py"
       ],
       "status": "ACTIVE_WIRED_AS_EXPECTED",
       "criticality": "ok",
@@ -1306,15 +2373,21 @@
       "filename": "golden_differential.py",
       "what": "golden_differential.py — P11.2 Golden Differential Engine (online helper)",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
+        "compute_differential_block",
         "golden_differential",
-        "golden_percentiles"
+        "golden_percentiles",
+        "page_metrics",
+        "segment_key"
       ],
       "size_bytes": 16696,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/golden_differential.py",
-        "skills/site-capture/scripts/reco_enricher_v13.py"
+        "growthcro/recos/orchestrator.py",
+        "skills/site-capture/scripts/golden_differential.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1325,12 +2398,16 @@
       "filename": "golden_percentiles.py",
       "what": "golden_percentiles.py — P11.2 Golden Differential Engine (offline batch)",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
         "datetime",
+        "defaultdict",
         "math"
       ],
       "size_bytes": 12248,
-      "mtime": "2026-04-19",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/golden_differential.py"
       ],
@@ -1344,13 +2421,22 @@
       "what": "Google Ads API connector — campaign metrics par landing page.",
       "imports": [
         "",
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "GoogleAdsClient",
+        "NotConfiguredError",
         "__future__",
+        "annotations",
         "base",
         "client",
-        "google"
+        "config",
+        "google",
+        "growthcro"
       ],
-      "size_bytes": 4532,
-      "mtime": "2026-04-29",
+      "size_bytes": 4572,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -1363,44 +2449,31 @@
       "filename": "gsg_best_of_n.py",
       "what": "GSG Best-of-N V26.Z P2 — génère N LPs (1 par route Safe/Premium/Bold) et garde la meilleure.",
       "imports": [
+        "Optional",
         "__future__",
+        "annotations",
         "aura_compute",
         "creative_director",
+        "detect_runtime_bugs",
         "fix_html_runtime",
+        "generate_routes",
         "gsg_best_of_n",
         "gsg_multi_judge",
         "gsg_pipeline_sequential",
+        "render_creative_route_block",
+        "run_best_of_n",
+        "run_multi_judge",
+        "run_sequential_pipeline",
         "subprocess"
       ],
       "size_bytes": 15371,
-      "mtime": "2026-05-02",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/growth-site-generator/scripts/gsg_best_of_n.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
-    },
-    {
-      "id": "gsg_generate_lp",
-      "path": "skills/growth-site-generator/scripts/gsg_generate_lp.py",
-      "filename": "gsg_generate_lp.py",
-      "what": "GSG Generate LP — V26.Y full pipeline orchestrator.",
-      "imports": [
-        "__future__",
-        "aura_compute",
-        "creative_director",
-        "datetime",
-        "fix_html_runtime",
-        "golden_design_bridge",
-        "gsg_multi_judge",
-        "gsg_pipeline_sequential",
-        "subprocess"
-      ],
-      "size_bytes": 60253,
-      "mtime": "2026-05-05",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
     },
     {
       "id": "gsg_humanlike_audit",
@@ -1409,10 +2482,13 @@
       "what": "GSG Human-Like Audit V26.Z W1.b — juge en solo sur les 8 dimensions humaines.",
       "imports": [
         "__future__",
+        "annotations",
+        "audit_lp_humanlike",
         "gsg_humanlike_audit"
       ],
-      "size_bytes": 13445,
-      "mtime": "2026-05-01",
+      "size_bytes": 13059,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_multi_judge/judges/humanlike_judge.py",
         "moteur_multi_judge/orchestrator.py",
@@ -1428,17 +2504,28 @@
       "filename": "gsg_multi_judge.py",
       "what": "GSG Multi-Judge — Orchestrateur 2 juges + arbitrage Sonnet (V26.Z W1).",
       "imports": [
+        "Optional",
         "__future__",
+        "_ensure_api_key",
+        "_strip_fences",
+        "annotations",
+        "audit_lp",
+        "audit_lp_humanlike",
+        "detect_runtime_bugs",
         "fix_html_runtime",
         "gsg_humanlike_audit",
         "gsg_multi_judge",
-        "gsg_self_audit"
+        "gsg_self_audit",
+        "print_audit_summary",
+        "print_humanlike_summary",
+        "run_multi_judge"
       ],
-      "size_bytes": 27881,
-      "mtime": "2026-05-05",
+      "size_bytes": 27859,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/gsg_lp/repair_loop.py",
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
-        "skills/growth-site-generator/scripts/gsg_generate_lp.py",
         "skills/growth-site-generator/scripts/gsg_multi_judge.py"
       ],
       "status": "ACTIVE",
@@ -1450,15 +2537,122 @@
       "filename": "gsg_pipeline_sequential.py",
       "what": "GSG Pipeline Sequential V26.Z P1 — découpage du mega-prompt en 4 stages chaînés.",
       "imports": [
+        "Optional",
         "__future__",
-        "gsg_pipeline_sequential"
+        "annotations",
+        "gsg_pipeline_sequential",
+        "run_sequential_pipeline"
       ],
-      "size_bytes": 27984,
-      "mtime": "2026-05-02",
+      "size_bytes": 27598,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/gsg_lp/lp_orchestrator.py",
         "skills/growth-site-generator/scripts/gsg_best_of_n.py",
-        "skills/growth-site-generator/scripts/gsg_generate_lp.py",
         "skills/growth-site-generator/scripts/gsg_pipeline_sequential.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "hero_renderer",
+      "path": "moteur_gsg/core/hero_renderer.py",
+      "filename": "hero_renderer.py",
+      "what": "Hero-visual variant dispatch for the controlled GSG renderer.",
+      "imports": [
+        "",
+        "Any",
+        "GSGPagePlan",
+        "__future__",
+        "_asset_img",
+        "_e",
+        "_facts",
+        "annotations",
+        "asset_resolver",
+        "build_visual_system",
+        "fact_assembler",
+        "html_escaper",
+        "planner",
+        "visual_system"
+      ],
+      "size_bytes": 7135,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "heuristics",
+      "path": "growthcro/perception/heuristics.py",
+      "filename": "heuristics.py",
+      "what": "DOM-driven keyword heuristics + bbox/font helpers + noise scoring (0-100).",
+      "imports": [
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 4924,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/perception/__init__.py",
+        "growthcro/perception/intent.py",
+        "growthcro/perception/persist.py",
+        "growthcro/perception/vision.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "home_leadgen",
+      "path": "growthcro/scoring/specific/home_leadgen.py",
+      "filename": "home_leadgen.py",
+      "what": "Home, pricing, checkout, bundle, advertorial, comparison, thank-you-page detectors.",
+      "imports": [
+        "__future__",
+        "_h1",
+        "_mk",
+        "_text",
+        "annotations",
+        "d_trust_badges",
+        "growthcro",
+        "product",
+        "specific"
+      ],
+      "size_bytes": 14417,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/scoring/specific/__init__.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "html_escaper",
+      "path": "moteur_gsg/core/html_escaper.py",
+      "filename": "html_escaper.py",
+      "what": "HTML-escaping micro-helpers used across the controlled GSG renderer.",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations",
+        "escape",
+        "html"
+      ],
+      "size_bytes": 807,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/asset_resolver.py",
+        "moteur_gsg/core/component_renderer.py",
+        "moteur_gsg/core/fact_assembler.py",
+        "moteur_gsg/core/hero_renderer.py",
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1471,13 +2665,17 @@
       "imports": [
         "__future__",
         "_humanlike_audit_native",
+        "annotations",
         "gsg_humanlike_audit"
       ],
       "size_bytes": 2445,
-      "mtime": "2026-05-04",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_multi_judge/judges/__init__.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "implementation_check",
@@ -1487,13 +2685,17 @@
       "imports": [
         "__future__",
         "_fix_html_runtime_native",
+        "annotations",
         "fix_html_runtime"
       ],
       "size_bytes": 3132,
-      "mtime": "2026-05-04",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_multi_judge/judges/__init__.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "intake_wizard",
@@ -1502,18 +2704,50 @@
       "what": "Deterministic GSG intake/wizard contract.",
       "imports": [
         "",
+        "Any",
+        "BriefV2",
         "__future__",
+        "annotations",
+        "asdict",
         "brief_v2",
         "brief_v2_prefiller",
+        "dataclass",
         "dataclasses",
+        "field",
         "parse",
-        "urllib"
+        "prefill_brief_v2_from_client",
+        "urllib",
+        "urlparse"
       ],
       "size_bytes": 20156,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/check_gsg_intake_wizard.py",
         "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "intent",
+      "path": "growthcro/perception/intent.py",
+      "filename": "intent.py",
+      "what": "Cluster role assignment — maps a clustered set of DOM elements to a functional role.",
+      "imports": [
+        "CTA_PRIMARY_KEYWORDS",
+        "FOOTER_KEYWORDS",
+        "__future__",
+        "annotations",
+        "growthcro",
+        "heuristics"
+      ],
+      "size_bytes": 6355,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/perception/__init__.py",
+        "growthcro/perception/persist.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1523,10 +2757,17 @@
       "path": "skills/site-capture/scripts/intent_detector_v13.py",
       "filename": "intent_detector_v13.py",
       "what": "intent_detector_v13.py — Couche 2 Oracle Perception V13",
-      "imports": [],
+      "imports": [
+        "Any",
+        "Counter",
+        "Path"
+      ],
       "size_bytes": 26180,
-      "mtime": "2026-04-14",
-      "consumed_by": [],
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/cli/capture_full.py"
+      ],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
       "should_be_consumed_by": [
@@ -1539,13 +2780,17 @@
       "filename": "learning_layer_v29_audit_based.py",
       "what": "V29 Sprint B V26.AA — Learning Layer Audit-Based : doctrine_proposals depuis 56 clients curatés.",
       "imports": [
-        "__future__"
+        "Optional",
+        "__future__",
+        "annotations",
+        "defaultdict"
       ],
       "size_bytes": 17933,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "legacy_lab_adapters",
@@ -1553,7 +2798,9 @@
       "filename": "legacy_lab_adapters.py",
       "what": "Explicit adapters for the V26.Z growth-site-generator legacy lab.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
         "aura_compute",
         "contextlib",
         "creative_director",
@@ -1567,11 +2814,113 @@
         "io"
       ],
       "size_bytes": 7283,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/creative_route_selector.py",
         "moteur_gsg/core/pipeline_single_pass.py",
         "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "lint_code_hygiene",
+      "path": "scripts/lint_code_hygiene.py",
+      "filename": "lint_code_hygiene.py",
+      "what": "lint_code_hygiene.py — mechanical hygiene gate for GrowthCRO source tree.",
+      "imports": [
+        "Path",
+        "__future__",
+        "__init__",
+        "annotations",
+        "ast",
+        "base",
+        "cli",
+        "date",
+        "datetime",
+        "orchestrator",
+        "persist",
+        "prompt_assembly",
+        "subprocess"
+      ],
+      "size_bytes": 15626,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "listicle",
+      "path": "growthcro/scoring/specific/listicle.py",
+      "filename": "listicle.py",
+      "what": "Listicle / blog page-type detectors — list_* and blog_* criteria.",
+      "imports": [
+        "__future__",
+        "_h1",
+        "_mk",
+        "_nearest_digit",
+        "_text",
+        "annotations",
+        "growthcro",
+        "specific"
+      ],
+      "size_bytes": 4605,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/scoring/specific/__init__.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "lp_orchestrator",
+      "path": "growthcro/gsg_lp/lp_orchestrator.py",
+      "filename": "lp_orchestrator.py",
+      "what": "GSG legacy lab — CLI entry point + Sonnet text-call wrapper.",
+      "imports": [
+        "",
+        "__future__",
+        "annotations",
+        "data_loaders",
+        "gsg_pipeline_sequential",
+        "mega_prompt_builder",
+        "repair_loop",
+        "run_repair_loop",
+        "run_sequential_pipeline"
+      ],
+      "size_bytes": 14696,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/gsg_lp/__init__.py",
+        "growthcro/gsg_lp/repair_loop.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "mega_prompt_builder",
+      "path": "growthcro/gsg_lp/mega_prompt_builder.py",
+      "filename": "mega_prompt_builder.py",
+      "what": "Mega-prompt builder for the GSG legacy LP pipeline.",
+      "imports": [
+        "",
+        "Optional",
+        "ROOT",
+        "__future__",
+        "annotations",
+        "brand_blocks",
+        "creative_director",
+        "data_loaders"
+      ],
+      "size_bytes": 23691,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/gsg_lp/lp_orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1583,12 +2932,20 @@
       "what": "Meta Marketing API connector — ad_spend + ROAS + CTR par landing page.",
       "imports": [
         "",
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
         "__future__",
+        "annotations",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 3920,
-      "mtime": "2026-04-29",
+      "size_bytes": 3960,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -1601,11 +2958,15 @@
       "filename": "minimal_guards.py",
       "what": "Deterministic guards for the minimal GSG path.",
       "imports": [
+        "Any",
         "__future__",
-        "html"
+        "annotations",
+        "html",
+        "unescape"
       ],
       "size_bytes": 28643,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/design_tokens.py",
@@ -1622,60 +2983,53 @@
       "what": "Mode 1 COMPLETE — canonical GSG autonomous LP generation.",
       "imports": [
         "",
+        "Any",
         "__future__",
+        "annotations",
+        "apply_minimal_postprocess",
+        "apply_runtime_fixes",
         "brand_intelligence",
+        "build_design_tokens",
+        "build_doctrine_pack",
+        "build_generation_context_pack",
+        "build_minimal_constraints",
+        "build_mode1_prompt",
+        "build_page_plan",
+        "build_structured_creative_route_contract",
+        "build_visual_intelligence_pack",
+        "call_copy_llm",
         "context_pack",
-        "controlled_renderer",
         "copy_writer",
         "creative_route_selector",
         "design_grammar_loader",
         "design_tokens",
         "doctrine_planner",
+        "fallback_copy_from_plan",
+        "get_brand_summary",
+        "has_brand_dna",
         "legacy_lab_adapters",
+        "load_aura_tokens",
+        "load_brand_dna",
+        "load_design_grammar",
         "minimal_guards",
         "moteur_multi_judge",
         "orchestrator",
+        "page_renderer_orchestrator",
         "pipeline_single_pass",
         "planner",
         "prompt_assembly",
+        "render_controlled_page",
+        "run_multi_judge",
+        "single_pass",
         "visual_intelligence"
       ],
-      "size_bytes": 24443,
-      "mtime": "2026-05-07",
+      "size_bytes": 24450,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_3_extend.py",
         "moteur_gsg/modes/mode_4_elevate.py",
         "moteur_gsg/orchestrator.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "mode_1_persona_narrator",
-      "path": "moteur_gsg/modes/mode_1_persona_narrator.py",
-      "filename": "mode_1_persona_narrator.py",
-      "what": "Mode 1 PERSONA NARRATOR V26.AB Sprint D POC — excellence dès le 1er run.",
-      "imports": [
-        "",
-        "__future__",
-        "brand_intelligence",
-        "client_context",
-        "copy",
-        "doctrine_judge",
-        "golden_design_bridge",
-        "io",
-        "moteur_multi_judge",
-        "pipeline_single_pass"
-      ],
-      "size_bytes": 68141,
-      "mtime": "2026-05-04",
-      "consumed_by": [
-        "moteur_gsg/modes/mode_2_replace.py",
-        "moteur_gsg/modes/mode_3_extend.py",
-        "moteur_gsg/modes/mode_4_elevate.py",
-        "moteur_gsg/modes/mode_5_genesis.py",
-        "moteur_gsg/orchestrator.py",
-        "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1687,14 +3041,24 @@
       "what": "Mode 2 REPLACE V26.AD — refonte d'une page existante avec audit comparatif.",
       "imports": [
         "",
+        "Any",
+        "BriefV2",
+        "Optional",
+        "Union",
         "__future__",
+        "annotations",
         "brand_intelligence",
         "brief_v15_builder",
         "brief_v2",
-        "mode_1_persona_narrator"
+        "build_brief_v15",
+        "has_brand_dna",
+        "mode_1_persona_narrator",
+        "run_mode_1_persona_narrator",
+        "save_brief_v15"
       ],
       "size_bytes": 9888,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1708,13 +3072,21 @@
       "what": "Mode 3 EXTEND V26.AD — concept nouveau pour client existant (~15-20% des cas).",
       "imports": [
         "",
+        "Any",
+        "BriefV2",
+        "Optional",
+        "Union",
         "__future__",
+        "annotations",
         "brief_v2",
         "mode_1_complete",
-        "mode_1_persona_narrator"
+        "mode_1_persona_narrator",
+        "run_mode_1_complete",
+        "run_mode_1_persona_narrator"
       ],
       "size_bytes": 4778,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1728,13 +3100,21 @@
       "what": "Mode 4 ELEVATE V26.AD — challenger DA via inspirations URLs (~5-10% des cas).",
       "imports": [
         "",
+        "Any",
+        "BriefV2",
+        "Optional",
+        "Union",
         "__future__",
+        "annotations",
         "brief_v2",
         "mode_1_complete",
-        "mode_1_persona_narrator"
+        "mode_1_persona_narrator",
+        "run_mode_1_complete",
+        "run_mode_1_persona_narrator"
       ],
       "size_bytes": 5449,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1748,12 +3128,19 @@
       "what": "Mode 5 GENESIS V26.AD — brief seul sans URL existante (<5% des cas).",
       "imports": [
         "",
+        "Any",
+        "BriefV2",
+        "Optional",
+        "Union",
         "__future__",
+        "annotations",
         "brief_v2",
-        "mode_1_persona_narrator"
+        "mode_1_persona_narrator",
+        "run_mode_1_persona_narrator"
       ],
       "size_bytes": 7008,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/orchestrator.py"
       ],
@@ -1766,33 +3153,16 @@
       "filename": "multi_judge.py",
       "what": "V26.D Multi-judge — disagreement tracking entre Haiku, règles déterministes, Sonnet.",
       "imports": [
-        "__future__"
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 8509,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
-    },
-    {
-      "id": "native_capture",
-      "path": "skills/site-capture/scripts/native_capture.py",
-      "filename": "native_capture.py",
-      "what": "native_capture.py v2.0 — Capteur CRO natif Python (SANS Apify).",
-      "imports": [
-        "datetime",
-        "html",
-        "parse",
-        "request",
-        "urllib"
-      ],
-      "size_bytes": 48682,
-      "mtime": "2026-04-17",
-      "consumed_by": [
-        "skills/site-capture/scripts/capture_site.py",
-        "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {
@@ -1802,18 +3172,33 @@
       "what": "Reality Layer orchestrator — collecte + fusion + computed fields.",
       "imports": [
         "",
+        "Any",
+        "CatchrConnector",
+        "ClarityConnector",
+        "ConnectorError",
+        "GoogleAdsConnector",
+        "MetaAdsConnector",
+        "NotConfiguredError",
+        "ShopifyConnector",
         "__future__",
+        "annotations",
         "base",
         "catchr",
         "clarity",
+        "collect_for_page",
         "datetime",
         "google_ads",
         "meta_ads",
-        "shopify"
+        "shopify",
+        "timedelta"
       ],
-      "size_bytes": 9196,
-      "mtime": "2026-05-05",
+      "size_bytes": 8736,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
         "moteur_gsg/orchestrator.py",
         "scripts/_test_weglot_listicle_V26AE.py",
@@ -1822,6 +3207,7 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -1833,7 +3219,10 @@
       "filename": "orchestrator.py",
       "what": "moteur_gsg.orchestrator — canonical public GSG API.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
+        "generate_lp",
         "mode_1_complete",
         "mode_1_persona_narrator",
         "mode_2_replace",
@@ -1844,8 +3233,12 @@
         "orchestrator"
       ],
       "size_bytes": 6155,
-      "mtime": "2026-05-05",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
         "moteur_gsg/orchestrator.py",
         "scripts/_test_weglot_listicle_V26AE.py",
@@ -1854,6 +3247,61 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "orchestrator",
+      "path": "moteur_gsg/modes/mode_1/orchestrator.py",
+      "filename": "orchestrator.py",
+      "what": "Mode 1 PERSONA NARRATOR — master pipeline.",
+      "imports": [
+        "",
+        "KNOWN_FOUNDERS",
+        "Optional",
+        "ROOT",
+        "__future__",
+        "_check_ai_slop_visual_patterns",
+        "_repair_ai_slop_visual_patterns",
+        "_select_vision_screenshots",
+        "annotations",
+        "api_call",
+        "apply_runtime_fixes",
+        "audit_lp_doctrine",
+        "brand_intelligence",
+        "build_persona_narrator_prompt",
+        "call_sonnet",
+        "call_sonnet_multimodal",
+        "doctrine_judge",
+        "has_brand_dna",
+        "load_brand_dna",
+        "load_client_context",
+        "moteur_multi_judge",
+        "philosophy_bridge",
+        "prompt_assembly",
+        "runtime_fixes",
+        "vision_selection",
+        "visual_gates"
+      ],
+      "size_bytes": 13298,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_gsg/orchestrator.py",
+        "scripts/_test_weglot_listicle_V26AE.py",
+        "scripts/check_gsg_component_planner.py",
+        "scripts/check_gsg_controlled_renderer.py",
+        "scripts/check_gsg_creative_route_selector.py",
+        "scripts/check_gsg_intake_wizard.py",
+        "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
@@ -1865,7 +3313,10 @@
       "filename": "orchestrator.py",
       "what": "Multi-Judge Orchestrator V26.AA Sprint 3.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
+        "audit_lp_doctrine",
         "doctrine_judge",
         "fix_html_runtime",
         "fix_html_runtime_v26z",
@@ -1874,8 +3325,12 @@
         "moteur_multi_judge"
       ],
       "size_bytes": 10201,
-      "mtime": "2026-05-03",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
         "moteur_gsg/modes/mode_1_complete.py",
         "moteur_gsg/orchestrator.py",
         "scripts/_test_weglot_listicle_V26AE.py",
@@ -1884,7 +3339,118 @@
         "scripts/check_gsg_creative_route_selector.py",
         "scripts/check_gsg_intake_wizard.py",
         "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
         "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "orchestrator",
+      "path": "growthcro/capture/orchestrator.py",
+      "filename": "orchestrator.py",
+      "what": "Single + batch capture pipelines — single concern: orchestration.",
+      "imports": [
+        "",
+        "ANNOTATE_JS",
+        "Optional",
+        "REMOVE_ANNOTATIONS_JS",
+        "__future__",
+        "annotations",
+        "assemble_spatial_v9",
+        "async_api",
+        "async_playwright",
+        "asyncio",
+        "browser",
+        "cloud",
+        "dom",
+        "get_brightdata_endpoint",
+        "get_browser",
+        "handle_cookies",
+        "load_extraction_js",
+        "new_stealth_context",
+        "persist",
+        "playwright",
+        "random",
+        "write_html",
+        "write_spatial_v9"
+      ],
+      "size_bytes": 18141,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_gsg/orchestrator.py",
+        "scripts/_test_weglot_listicle_V26AE.py",
+        "scripts/check_gsg_component_planner.py",
+        "scripts/check_gsg_controlled_renderer.py",
+        "scripts/check_gsg_creative_route_selector.py",
+        "scripts/check_gsg_intake_wizard.py",
+        "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "orchestrator",
+      "path": "growthcro/recos/orchestrator.py",
+      "filename": "orchestrator.py",
+      "what": "Reco orchestration — per-page prompt preparation + per-page LLM batch loop.",
+      "imports": [
+        "GoldenBridge",
+        "Path",
+        "__future__",
+        "annotations",
+        "asyncio",
+        "client",
+        "compute_differential_block",
+        "golden_bridge",
+        "golden_differential",
+        "growthcro",
+        "prompts",
+        "recos",
+        "schema"
+      ],
+      "size_bytes": 28034,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/cli.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_gsg/orchestrator.py",
+        "scripts/_test_weglot_listicle_V26AE.py",
+        "scripts/check_gsg_component_planner.py",
+        "scripts/check_gsg_controlled_renderer.py",
+        "scripts/check_gsg_creative_route_selector.py",
+        "scripts/check_gsg_intake_wizard.py",
+        "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "output_parsing",
+      "path": "moteur_gsg/modes/mode_1/output_parsing.py",
+      "filename": "output_parsing.py",
+      "what": "HTML extraction helpers for Mode 1 PERSONA NARRATOR responses.",
+      "imports": [
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 944,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/__init__.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1895,11 +3461,16 @@
       "filename": "overlay_burn.py",
       "what": "overlay_burn.py — GrowthCRO V12 Phase 5.3b : Overlay burned-in PNG.",
       "imports": [
+        "Image",
+        "ImageDraw",
+        "ImageFont",
         "PIL",
-        "__future__"
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 7601,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -1913,12 +3484,13 @@
       "what": "overlay_renderer.py — GrowthCRO V12 Phase 5.3 : Overlay honnête renderer.",
       "imports": [
         "__future__",
+        "annotations",
         "datetime"
       ],
       "size_bytes": 16223,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -1930,14 +3502,16 @@
       "filename": "page_cleaner.py",
       "what": "page_cleaner.py — GrowthCRO V12 Phase 5.1 : nettoyage post-capture.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
         "datetime",
         "hashlib"
       ],
       "size_bytes": 14110,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -1949,16 +3523,62 @@
       "filename": "page_context.py",
       "what": "page_context.py — P11.5/P11.9 (V19) : PageContext threadé + contrats Pydantic 4 stages.",
       "imports": [
+        "Any",
+        "BaseModel",
+        "Field",
+        "Optional",
+        "Path",
         "__future__",
+        "annotations",
+        "dataclass",
         "dataclasses",
         "datetime",
+        "field",
         "pydantic"
       ],
       "size_bytes": 14177,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "page_renderer_orchestrator",
+      "path": "moteur_gsg/core/page_renderer_orchestrator.py",
+      "filename": "page_renderer_orchestrator.py",
+      "what": "Public entry point for the controlled GSG renderer.",
+      "imports": [
+        "",
+        "Any",
+        "GSGPagePlan",
+        "__future__",
+        "_e",
+        "_hero_visual",
+        "_paragraphs",
+        "_proof_strip",
+        "_reason_visual",
+        "_render_component_page",
+        "annotations",
+        "build_visual_system",
+        "component_renderer",
+        "css",
+        "fact_assembler",
+        "hero_renderer",
+        "html_escaper",
+        "planner",
+        "render_renderer_css",
+        "section_renderer",
+        "visual_system"
+      ],
+      "size_bytes": 4716,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "page_type_filter",
@@ -1966,15 +3586,19 @@
       "filename": "page_type_filter.py",
       "what": "page_type_filter.py — Source of truth for pageType applicability (GrowthCRO V12 doctrine v3.1.0).",
       "imports": [
+        "Iterable",
         "__future__",
-        "functools"
+        "annotations",
+        "functools",
+        "lru_cache"
       ],
       "size_bytes": 7791,
-      "mtime": "2026-04-18",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/scoring/persist.py",
         "skills/site-capture/scripts/project_snapshot.py",
-        "skills/site-capture/scripts/score_page_type.py",
-        "skills/site-capture/scripts/score_specific_criteria.py"
+        "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1985,10 +3609,13 @@
       "filename": "pattern_library.py",
       "what": "Structured pattern library for canonical GSG planning.",
       "imports": [
-        "__future__"
+        "Any",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 11914,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/planner.py"
@@ -2002,20 +3629,25 @@
       "filename": "perception_bridge.py",
       "what": "perception_bridge.py — Bridge Layer 2 Perception → Scoring V3.",
       "imports": [
+        "Any",
+        "Dict",
+        "List",
+        "Optional",
         "__future__",
+        "annotations",
         "perception_bridge"
       ],
       "size_bytes": 9232,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
+        "growthcro/scoring/ux.py",
         "skills/site-capture/scripts/perception_bridge.py",
         "skills/site-capture/scripts/score_coherence.py",
         "skills/site-capture/scripts/score_hero.py",
         "skills/site-capture/scripts/score_persuasion.py",
         "skills/site-capture/scripts/score_psycho.py",
-        "skills/site-capture/scripts/score_tech.py",
-        "skills/site-capture/scripts/score_ux.py"
+        "skills/site-capture/scripts/score_tech.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2027,10 +3659,12 @@
       "what": "perception_inject.py — Injecte les composants perçus dans les données que les scoreurs consomment.",
       "imports": [
         "parse",
-        "urllib"
+        "urllib",
+        "urlparse"
       ],
       "size_bytes": 10308,
-      "mtime": "2026-04-13",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -2038,43 +3672,115 @@
       "criticality": "low"
     },
     {
-      "id": "perception_pipeline",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py",
-      "filename": "perception_pipeline.py",
-      "what": "perception_pipeline.py — GrowthCRO V12 Phase 5 : Orchestrateur Layer 2 Perception.",
+      "id": "persist",
+      "path": "growthcro/capture/persist.py",
+      "filename": "persist.py",
+      "what": "Capture artifact serialization — single concern: write spatial_v9.json + capture.json + page.html.",
       "imports": [
+        "Any",
         "__future__",
-        "component_detector",
-        "component_validator",
-        "datetime",
-        "overlay_renderer",
-        "page_cleaner",
-        "subprocess"
+        "annotations",
+        "ghost_capture_cloud"
       ],
-      "size_bytes": 5883,
-      "mtime": "2026-04-14",
+      "size_bytes": 2147,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/project_snapshot.py"
+        "growthcro/capture/orchestrator.py",
+        "growthcro/capture/scorer.py",
+        "growthcro/perception/__init__.py",
+        "growthcro/perception/cli.py",
+        "growthcro/scoring/cli.py",
+        "scripts/lint_code_hygiene.py",
+        "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
     },
     {
-      "id": "perception_v13",
-      "path": "skills/site-capture/scripts/perception_v13.py",
-      "filename": "perception_v13.py",
-      "what": "perception_v13.py — Couche 1 Oracle Perception V13",
+      "id": "persist",
+      "path": "growthcro/perception/persist.py",
+      "filename": "persist.py",
+      "what": "Page-level orchestration — flatten elements, score noise, cluster, assign roles, write JSON.",
       "imports": [
-        "math"
+        "Path",
+        "__future__",
+        "annotations",
+        "assign_cluster_role",
+        "growthcro",
+        "heuristics",
+        "intent",
+        "vision"
       ],
-      "size_bytes": 49857,
-      "mtime": "2026-04-15",
-      "consumed_by": [],
-      "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
-      "criticality": "ok",
-      "should_be_consumed_by": [
-        "moteur_gsg/core/"
-      ]
+      "size_bytes": 23145,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/orchestrator.py",
+        "growthcro/capture/scorer.py",
+        "growthcro/perception/__init__.py",
+        "growthcro/perception/cli.py",
+        "growthcro/scoring/cli.py",
+        "scripts/lint_code_hygiene.py",
+        "skills/site-capture/scripts/score_page_type.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "persist",
+      "path": "growthcro/scoring/persist.py",
+      "filename": "persist.py",
+      "what": "Page-type-specific scoring persist — score & write `score_specific.json` for one page.",
+      "imports": [
+        "DETECTORS",
+        "TERNARY",
+        "__future__",
+        "annotations",
+        "d_review_required",
+        "growthcro",
+        "page_type_filter",
+        "specific"
+      ],
+      "size_bytes": 4262,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/orchestrator.py",
+        "growthcro/capture/scorer.py",
+        "growthcro/perception/__init__.py",
+        "growthcro/perception/cli.py",
+        "growthcro/scoring/cli.py",
+        "scripts/lint_code_hygiene.py",
+        "skills/site-capture/scripts/score_page_type.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "philosophy_bridge",
+      "path": "moteur_gsg/modes/mode_1/philosophy_bridge.py",
+      "filename": "philosophy_bridge.py",
+      "what": "Golden Design Bridge cache + aesthetic-vector extraction.",
+      "imports": [
+        "Optional",
+        "__future__",
+        "annotations",
+        "chain",
+        "contextlib",
+        "golden_design_bridge",
+        "io"
+      ],
+      "size_bytes": 2613,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "moteur_gsg/modes/mode_1/prompt_blocks.py",
+        "moteur_gsg/modes/mode_1/vision_selection.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "pick_diverse_pages",
@@ -2082,15 +3788,40 @@
       "filename": "pick_diverse_pages.py",
       "what": "pick_diverse_pages.py — sélection équitable de N pages pour batch reco ciblé.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
+        "defaultdict",
         "math",
         "random"
       ],
       "size_bytes": 6998,
-      "mtime": "2026-04-19",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "pillars",
+      "path": "growthcro/scoring/pillars.py",
+      "filename": "pillars.py",
+      "what": "Shared pillar dispatcher — pageType filtering, weight, caps, verdict (used by every bloc).",
+      "imports": [
+        "Callable",
+        "Optional",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 3327,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/scoring/__init__.py",
+        "growthcro/scoring/ux.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "pipeline_sequential",
@@ -2099,14 +3830,22 @@
       "what": "moteur_gsg.core.pipeline_sequential — V26.AF Sprint AF-1.B.2.",
       "imports": [
         "",
+        "BriefV2",
+        "ClientContext",
+        "Optional",
         "__future__",
+        "annotations",
+        "apply_runtime_fixes",
         "brief_v2",
+        "call_sonnet",
+        "call_sonnet_multimodal",
         "client_context",
         "doctrine",
         "pipeline_single_pass"
       ],
       "size_bytes": 25751,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/run_gsg_full_pipeline.py"
       ],
@@ -2120,16 +3859,21 @@
       "what": "Pipeline Single-Pass V26.AA Sprint 3.",
       "imports": [
         "",
+        "Any",
+        "LegacyLabUnavailable",
         "__future__",
+        "annotations",
+        "apply_fix_html_runtime",
         "legacy_lab_adapters"
       ],
-      "size_bytes": 9091,
-      "mtime": "2026-05-05",
+      "size_bytes": 8683,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/pipeline_sequential.py",
-        "moteur_gsg/modes/mode_1_complete.py",
-        "moteur_gsg/modes/mode_1_persona_narrator.py"
+        "moteur_gsg/modes/mode_1/api_call.py",
+        "moteur_gsg/modes/mode_1_complete.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2141,16 +3885,29 @@
       "what": "Deterministic page planner for the canonical GSG.",
       "imports": [
         "",
+        "Any",
         "__future__",
+        "annotations",
+        "asdict",
         "component_library",
+        "dataclass",
         "dataclasses",
+        "field",
+        "get_component_blueprints",
+        "get_pattern_pack",
         "pattern_library"
       ],
       "size_bytes": 9209,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "moteur_gsg/core/controlled_renderer.py",
+        "moteur_gsg/core/asset_resolver.py",
+        "moteur_gsg/core/component_renderer.py",
         "moteur_gsg/core/copy_writer.py",
+        "moteur_gsg/core/fact_assembler.py",
+        "moteur_gsg/core/hero_renderer.py",
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py",
         "moteur_gsg/core/visual_system.py",
         "moteur_gsg/modes/mode_1_complete.py"
       ],
@@ -2163,15 +3920,45 @@
       "filename": "playwright_capture_v2.py",
       "what": "playwright_capture_v2.py — V20.CAPTURE C1c : capture robuste en deux passes.",
       "imports": [
+        "Optional",
         "__future__",
+        "annotations",
         "async_api",
+        "async_playwright",
         "asyncio",
+        "config",
+        "growthcro",
         "playwright"
       ],
-      "size_bytes": 36521,
-      "mtime": "2026-04-28",
+      "size_bytes": 36531,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
+      "criticality": "low"
+    },
+    {
+      "id": "product",
+      "path": "growthcro/scoring/specific/product.py",
+      "filename": "product.py",
+      "what": "Product / collection detectors — pdp_*, col_* (and shared trust/social-proof helpers).",
+      "imports": [
+        "__future__",
+        "_mk",
+        "_text",
+        "annotations",
+        "growthcro",
+        "specific"
+      ],
+      "size_bytes": 5412,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/scoring/specific/__init__.py",
+        "growthcro/scoring/specific/home_leadgen.py",
+        "growthcro/scoring/specific/sales.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -2180,8 +3967,11 @@
       "filename": "project_snapshot.py",
       "what": "project_snapshot.py — GrowthCRO V12 état complet du projet.",
       "imports": [
+        "Counter",
+        "OrderedDict",
         "__future__",
         "analyze_capture",
+        "annotations",
         "apify_enrich",
         "batch_capture",
         "batch_rescore",
@@ -2227,10 +4017,11 @@
         "subprocess"
       ],
       "size_bytes": 39591,
-      "mtime": "2026-05-08",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "prompt_assembly",
@@ -2240,105 +4031,106 @@
       "imports": [
         "",
         "__future__",
+        "annotations",
         "brand_intelligence",
         "design_grammar_loader",
         "doctrine",
+        "format_brand_block",
+        "format_design_grammar_block",
+        "format_minimal_constraints_block",
+        "has_design_grammar",
+        "load_brand_dna",
+        "load_design_grammar",
         "minimal_guards"
       ],
       "size_bytes": 14472,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "moteur_gsg/modes/mode_1_complete.py"
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
     },
     {
-      "id": "reco_enricher",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
-      "filename": "reco_enricher.py",
-      "what": "reco_enricher.py — GrowthCRO V12 Phase 4.5 : enrichit les recommandations.",
+      "id": "prompt_assembly",
+      "path": "moteur_gsg/modes/mode_1/prompt_assembly.py",
+      "filename": "prompt_assembly.py",
+      "what": "Prompt assembly entry point for Mode 1 PERSONA NARRATOR.",
+      "imports": [
+        "",
+        "ClientContext",
+        "Optional",
+        "__future__",
+        "_extract_brand_font_family",
+        "annotations",
+        "prompt_blocks",
+        "runtime_fixes",
+        "vision_selection"
+      ],
+      "size_bytes": 17388,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "prompt_blocks",
+      "path": "moteur_gsg/modes/mode_1/prompt_blocks.py",
+      "filename": "prompt_blocks.py",
+      "what": "Prompt block formatters for Mode 1 PERSONA NARRATOR.",
+      "imports": [
+        "",
+        "ClientContext",
+        "Optional",
+        "__future__",
+        "_substitute_ai_slop_in_aura",
+        "annotations",
+        "philosophy_bridge",
+        "runtime_fixes",
+        "vision_selection"
+      ],
+      "size_bytes": 25164,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/prompt_assembly.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "prompts",
+      "path": "growthcro/recos/prompts.py",
+      "filename": "prompts.py",
+      "what": "Reco prompt assembly — data → string only.",
       "imports": [
         "__future__",
-        "datetime",
-        "functools",
-        "perception_bridge",
-        "schwartz_detector",
-        "unicodedata"
+        "annotations",
+        "growthcro",
+        "recos",
+        "schema"
       ],
-      "size_bytes": 51419,
-      "mtime": "2026-04-18",
+      "size_bytes": 49442,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/batch_enrich.py",
-        "skills/site-capture/scripts/project_snapshot.py"
+        "growthcro/recos/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
-    },
-    {
-      "id": "reco_enricher_v13",
-      "path": "skills/site-capture/scripts/reco_enricher_v13.py",
-      "filename": "reco_enricher_v13.py",
-      "what": "reco_enricher_v13.py — Couche 3 Oracle Perception V13",
-      "imports": [
-        "golden_bridge",
-        "golden_differential"
-      ],
-      "size_bytes": 89991,
-      "mtime": "2026-05-04",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
-    },
-    {
-      "id": "reco_enricher_v13",
-      "path": "scripts/reco_enricher_v13.py",
-      "filename": "reco_enricher_v13.py",
-      "what": "",
-      "imports": [
-        "datetime",
-        "math"
-      ],
-      "size_bytes": 4953,
-      "mtime": "2026-04-20",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
-    },
-    {
-      "id": "reco_enricher_v13_api",
-      "path": "skills/site-capture/scripts/reco_enricher_v13_api.py",
-      "filename": "reco_enricher_v13_api.py",
-      "what": "reco_enricher_v13_api.py — Couche 3 Oracle Perception V13 : mode API",
-      "imports": [
-        "asyncio"
-      ],
-      "size_bytes": 35085,
-      "mtime": "2026-05-04",
-      "consumed_by": [],
-      "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
-      "criticality": "ok",
-      "should_be_consumed_by": [
-        "moteur_gsg/core/"
-      ]
-    },
-    {
-      "id": "reco_enricher_v13_api",
-      "path": "scripts/reco_enricher_v13_api.py",
-      "filename": "reco_enricher_v13_api.py",
-      "what": "Reco Enricher V13 — reads prompts_v13, calls Claude API, writes final JSON",
-      "imports": [
-        "datetime",
-        "math"
-      ],
-      "size_bytes": 6338,
-      "mtime": "2026-04-20",
-      "consumed_by": [],
-      "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
-      "criticality": "ok",
-      "should_be_consumed_by": [
-        "moteur_gsg/core/"
-      ]
     },
     {
       "id": "reco_lifecycle",
@@ -2346,13 +4138,19 @@
       "filename": "reco_lifecycle.py",
       "what": "V26.B Reco Lifecycle — state machine pour le cycle de vie des recos.",
       "imports": [
-        "__future__"
+        "Any",
+        "Optional",
+        "RecoLifecycle",
+        "__future__",
+        "annotations",
+        "transition"
       ],
       "size_bytes": 10134,
-      "mtime": "2026-04-29",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "reco_quality_audit",
@@ -2360,13 +4158,18 @@
       "filename": "reco_quality_audit.py",
       "what": "reco_quality_audit.py — Scan des recos_v13_final.json existants et quality score\npar reco. Permet de n'appliquer `--force` qu'aux recos sous un seuil, pour\nminimiser le coût de re-enrichissement.",
       "imports": [
-        "__future__"
+        "Any",
+        "Counter",
+        "__future__",
+        "annotations",
+        "defaultdict"
       ],
       "size_bytes": 10321,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "recos_dedup",
@@ -2374,13 +4177,16 @@
       "filename": "recos_dedup.py",
       "what": "V23.B — Semantic dedup post-LLM des recos individuelles + cluster par page.",
       "imports": [
-        "__future__"
+        "Optional",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 14293,
-      "mtime": "2026-04-27",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "recos_rewrite_fr",
@@ -2388,25 +4194,77 @@
       "filename": "recos_rewrite_fr.py",
       "what": "V23.2.fr — Rewrite ciblé style FR consultant pour les recos déjà générées.",
       "imports": [
+        "Optional",
         "__future__",
+        "_load_dotenv_if_needed",
+        "annotations",
         "asyncio"
       ],
-      "size_bytes": 26725,
-      "mtime": "2026-04-28",
+      "size_bytes": 26692,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "repair_loop",
+      "path": "growthcro/gsg_lp/repair_loop.py",
+      "filename": "repair_loop.py",
+      "what": "V26.Z W3 — multi-judge → repair iteration loop.",
+      "imports": [
+        "",
+        "ROOT",
+        "SCRIPTS",
+        "__future__",
+        "annotations",
+        "auto_fix_runtime",
+        "call_sonnet",
+        "data_loaders",
+        "gsg_multi_judge",
+        "lp_orchestrator",
+        "run_multi_judge"
+      ],
+      "size_bytes": 9230,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/gsg_lp/lp_orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "responsive",
+      "path": "moteur_gsg/core/css/responsive.py",
+      "filename": "responsive.py",
+      "what": "CSS — responsive + animations layer for the controlled GSG renderer.",
+      "imports": [
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 8300,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/css/__init__.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "run_capture",
       "path": "skills/site-capture/scripts/run_capture.py",
       "filename": "run_capture.py",
       "what": "run_capture.py — orchestrateur Apify pour site-capture.",
-      "imports": [],
-      "size_bytes": 7029,
-      "mtime": "2026-04-10",
+      "imports": [
+        "config",
+        "growthcro"
+      ],
+      "size_bytes": 7055,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py",
         "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
@@ -2418,16 +4276,20 @@
       "filename": "run_discover.py",
       "what": "run_discover.py — Orchestrateur Apify pour la découverte de pages d'un site.",
       "imports": [
+        "config",
         "datetime",
         "discover_pages",
         "error",
+        "growthcro",
         "parse",
         "request",
         "subprocess",
-        "urllib"
+        "urllib",
+        "urlparse"
       ],
-      "size_bytes": 13218,
-      "mtime": "2026-04-10",
+      "size_bytes": 13244,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
       ],
@@ -2440,27 +4302,41 @@
       "filename": "run_gsg_full_pipeline.py",
       "what": "scripts/run_gsg_full_pipeline.py — canonical GSG intake runner.",
       "imports": [
+        "BriefV2",
         "__future__",
+        "_select_vision_screenshots",
+        "annotations",
         "brief_v2",
         "brief_v2_prefiller",
         "brief_v2_validator",
+        "build_founder_persona",
         "client_context",
+        "generate_lp",
         "intake_wizard",
-        "mode_1_persona_narrator",
+        "load_client_context",
         "moteur_gsg",
         "moteur_multi_judge",
         "orchestrator",
         "parse",
         "pipeline_sequential",
+        "prompt_assembly",
+        "prompt_blocks",
+        "run_multi_judge",
+        "run_pipeline_sequential_4_stages",
+        "runtime_fixes",
         "scripts",
         "traceback",
-        "urllib"
+        "urllib",
+        "urlparse",
+        "vision_selection",
+        "visual_gates"
       ],
-      "size_bytes": 22289,
-      "mtime": "2026-05-07",
+      "size_bytes": 22223,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "run_spatial_capture",
@@ -2468,15 +4344,65 @@
       "filename": "run_spatial_capture.py",
       "what": "run_spatial_capture.py — Lance spatial_capture_v9.js pour une page.",
       "imports": [
+        "config",
+        "growthcro",
         "request",
         "tempfile",
         "urllib"
       ],
-      "size_bytes": 11172,
-      "mtime": "2026-04-13",
+      "size_bytes": 11198,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "runtime_fixes",
+      "path": "moteur_gsg/modes/mode_1/runtime_fixes.py",
+      "filename": "runtime_fixes.py",
+      "what": "Runtime font / design-grammar fix-ups for Mode 1 PERSONA NARRATOR.",
+      "imports": [
+        "Optional",
+        "__future__",
+        "annotations",
+        "copy"
+      ],
+      "size_bytes": 9683,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "moteur_gsg/modes/mode_1/prompt_assembly.py",
+        "moteur_gsg/modes/mode_1/prompt_blocks.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "sales",
+      "path": "growthcro/scoring/specific/sales.py",
+      "filename": "sales.py",
+      "what": "Sales-page detectors — vsl_*, sqz_*, lg_*, sp_*, web_*, chal_*, quiz_* criteria.",
+      "imports": [
+        "__future__",
+        "_mk",
+        "_text",
+        "annotations",
+        "d_social_proof_count",
+        "growthcro",
+        "product",
+        "specific"
+      ],
+      "size_bytes": 18120,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/scoring/specific/__init__.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2487,13 +4413,38 @@
       "filename": "scent_trail_analyzer.py",
       "what": "scent_trail_analyzer.py — P11.15 (V19) : mesure cross-page scent trail CRO.",
       "imports": [
-        "__future__"
+        "Optional",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 13096,
-      "mtime": "2026-04-20",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "schema",
+      "path": "growthcro/recos/schema.py",
+      "filename": "schema.py",
+      "what": "Reco doctrine + scope matrix caches, JSON validation, ICE compute, fallback template.",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 24271,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/recos/client.py",
+        "growthcro/recos/orchestrator.py",
+        "growthcro/recos/prompts.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "schwartz_detector",
@@ -2501,13 +4452,16 @@
       "filename": "schwartz_detector.py",
       "what": "schwartz_detector.py — GrowthCRO V12 S-05 : Schwartz Awareness Scale auto-detection.",
       "imports": [
+        "Literal",
         "__future__",
+        "annotations",
+        "detect_awareness",
         "schwartz_detector"
       ],
       "size_bytes": 10582,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py",
         "skills/site-capture/scripts/schwartz_detector.py"
       ],
       "status": "ACTIVE",
@@ -2519,12 +4473,16 @@
       "filename": "score_applicability_overlay.py",
       "what": "score_applicability_overlay.py — P2.A Doctrine v3.2.0-draft (2026-04-18)",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
         "datetime",
-        "functools"
+        "functools",
+        "lru_cache"
       ],
       "size_bytes": 12645,
-      "mtime": "2026-04-18",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
       ],
@@ -2537,14 +4495,20 @@
       "filename": "score_coherence.py",
       "what": "score_coherence.py — Scorer Bloc 4 Cohérence V3 pour GrowthCRO Playbook.",
       "imports": [
+        "Counter",
         "datetime",
+        "get_spatial_evidence",
+        "load_spatial",
         "parse",
         "perception_bridge",
         "spatial_bridge",
-        "urllib"
+        "timezone",
+        "urllib",
+        "urlparse"
       ],
       "size_bytes": 26566,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2560,12 +4524,15 @@
       "filename": "score_contextual_overlay.py",
       "what": "score_contextual_overlay.py — P1.B Doctrine v3.2.0-draft (2026-04-18)",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
         "datetime",
         "math"
       ],
       "size_bytes": 22653,
-      "mtime": "2026-04-19",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py"
       ],
@@ -2578,13 +4545,16 @@
       "filename": "score_funnel.py",
       "what": "V21.H — Score le funnel COMPLET (vs juste l'intro).",
       "imports": [
-        "__future__"
+        "Path",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 10923,
-      "mtime": "2026-04-30",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "score_hero",
@@ -2592,11 +4562,14 @@
       "filename": "score_hero.py",
       "what": "score_hero.py — Scorer Hero V3 pour GrowthCRO Playbook.",
       "imports": [
+        "get_spatial_evidence",
+        "load_spatial",
         "perception_bridge",
         "spatial_bridge"
       ],
       "size_bytes": 36012,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2616,23 +4589,26 @@
       "what": "score_page_type.py — Orchestrateur pageType-aware GrowthCRO V12 doctrine v3.1.0.",
       "imports": [
         "__future__",
+        "annotations",
         "datetime",
+        "growthcro",
         "page_type_filter",
+        "persist",
         "score_applicability_overlay",
         "score_coherence",
         "score_contextual_overlay",
         "score_hero",
         "score_persuasion",
         "score_psycho",
-        "score_specific_criteria",
         "score_tech",
         "score_universal_extensions",
         "score_utility_banner",
         "score_ux",
         "subprocess"
       ],
-      "size_bytes": 29875,
-      "mtime": "2026-04-27",
+      "size_bytes": 31213,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/project_snapshot.py"
@@ -2647,11 +4623,15 @@
       "what": "score_persuasion.py — Scorer Bloc 2 Persuasion V3 pour GrowthCRO Playbook.",
       "imports": [
         "datetime",
+        "get_spatial_evidence",
+        "load_spatial",
         "perception_bridge",
-        "spatial_bridge"
+        "spatial_bridge",
+        "timezone"
       ],
       "size_bytes": 28597,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2667,34 +4647,19 @@
       "filename": "score_psycho.py",
       "what": "score_psycho.py — Scorer Psycho V3 pour GrowthCRO Playbook.",
       "imports": [
+        "get_spatial_evidence",
+        "load_spatial",
         "perception_bridge",
         "spatial_bridge"
       ],
       "size_bytes": 28343,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py",
         "skills/site-capture/scripts/score_page_type.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "score_site",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site.py",
-      "filename": "score_site.py",
-      "what": "score_site.py — Agrégateur multi-pages GrowthCRO.",
-      "imports": [
-        "datetime"
-      ],
-      "size_bytes": 9231,
-      "mtime": "2026-04-10",
-      "consumed_by": [
-        "skills/site-capture/scripts/batch_rescore.py",
-        "skills/site-capture/scripts/capture_site.py",
-        "skills/site-capture/scripts/project_snapshot.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2705,33 +4670,16 @@
       "filename": "score_site.py",
       "what": "score_site.py — Agrégateur multi-pages GrowthCRO.",
       "imports": [
-        "datetime"
+        "datetime",
+        "timezone"
       ],
       "size_bytes": 13896,
-      "mtime": "2026-05-04",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
         "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "score_specific_criteria",
-      "path": "skills/site-capture/scripts/score_specific_criteria.py",
-      "filename": "score_specific_criteria.py",
-      "what": "score_specific_criteria.py — Scorer des critères spécifiques par pageType (GrowthCRO V12 doctrine v3.1.0).",
-      "imports": [
-        "__future__",
-        "page_type_filter"
-      ],
-      "size_bytes": 54357,
-      "mtime": "2026-04-14",
-      "consumed_by": [
-        "skills/site-capture/scripts/batch_rescore.py",
-        "skills/site-capture/scripts/project_snapshot.py",
-        "skills/site-capture/scripts/score_page_type.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2742,14 +4690,19 @@
       "filename": "score_tech.py",
       "what": "score_tech.py — Scorer Tech V3 pour GrowthCRO Playbook.",
       "imports": [
+        "fetch_web_vitals",
+        "get_spatial_evidence",
+        "load_spatial",
         "parse",
         "perception_bridge",
         "spatial_bridge",
         "urllib",
+        "urlparse",
         "web_vitals_adapter"
       ],
       "size_bytes": 25186,
-      "mtime": "2026-04-14",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/batch_rescore.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -2765,10 +4718,13 @@
       "filename": "score_universal_extensions.py",
       "what": "score_universal_extensions.py — Scorers pour les 8 critères universels ajoutés en doctrine v3.1.0.",
       "imports": [
-        "__future__"
+        "Callable",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 20378,
-      "mtime": "2026-04-13",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py",
         "skills/site-capture/scripts/score_page_type.py"
@@ -2781,9 +4737,12 @@
       "path": "skills/site-capture/scripts/score_utility_banner.py",
       "filename": "score_utility_banner.py",
       "what": "score_utility_banner.py — Scorer Bloc 7 Utility Elements (UTILITY_BANNER) V3.",
-      "imports": [],
+      "imports": [
+        "Any"
+      ],
       "size_bytes": 21409,
-      "mtime": "2026-04-15",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/score_page_type.py",
         "skills/site-capture/scripts/validate_utility_banner.py"
@@ -2792,26 +4751,31 @@
       "criticality": "low"
     },
     {
-      "id": "score_ux",
-      "path": "skills/site-capture/scripts/score_ux.py",
-      "filename": "score_ux.py",
-      "what": "score_ux.py — Scorer Bloc 3 UX V3 pour GrowthCRO Playbook.",
+      "id": "scorer",
+      "path": "growthcro/capture/scorer.py",
+      "filename": "scorer.py",
+      "what": "Static-HTML CRO data extraction — single concern: parse rendered DOM into capture.json.",
       "imports": [
+        "",
+        "Request",
+        "__future__",
+        "annotations",
         "datetime",
-        "parse",
-        "perception_bridge",
-        "spatial_bridge",
-        "urllib"
+        "dom",
+        "persist",
+        "request",
+        "signals",
+        "ssl",
+        "timezone",
+        "urllib",
+        "urlopen",
+        "write_capture_json"
       ],
-      "size_bytes": 31338,
-      "mtime": "2026-05-04",
-      "consumed_by": [
-        "skills/site-capture/scripts/batch_rescore.py",
-        "skills/site-capture/scripts/capture_site.py",
-        "skills/site-capture/scripts/project_snapshot.py",
-        "skills/site-capture/scripts/score_page_type.py"
-      ],
-      "status": "ACTIVE",
+      "size_bytes": 18788,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {
@@ -2821,15 +4785,84 @@
       "what": "GSG scrap_inspiration — V26.Y.7",
       "imports": [
         "__future__",
+        "annotations",
         "parse",
         "request",
         "urllib"
       ],
-      "size_bytes": 5450,
-      "mtime": "2026-04-30",
+      "size_bytes": 5107,
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "section_renderer",
+      "path": "moteur_gsg/core/section_renderer.py",
+      "filename": "section_renderer.py",
+      "what": "Component-section + component-page assembly.",
+      "imports": [
+        "",
+        "Any",
+        "GSGPagePlan",
+        "__future__",
+        "_component_bullets",
+        "_component_visual",
+        "_e",
+        "_hero_visual",
+        "_proof_strip",
+        "annotations",
+        "build_visual_system",
+        "component_renderer",
+        "css",
+        "fact_assembler",
+        "hero_renderer",
+        "html_escaper",
+        "planner",
+        "render_renderer_css",
+        "visual_system"
+      ],
+      "size_bytes": 5802,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/page_renderer_orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "server",
+      "path": "growthcro/api/server.py",
+      "filename": "server.py",
+      "what": "api_server.py — API REST GrowthCRO (FastAPI).",
+      "imports": [
+        "BackgroundTasks",
+        "BaseModel",
+        "CORSMiddleware",
+        "FastAPI",
+        "FileResponse",
+        "HTTPException",
+        "HttpUrl",
+        "JSONResponse",
+        "Optional",
+        "asyncio",
+        "config",
+        "cors",
+        "fastapi",
+        "growthcro",
+        "pydantic",
+        "responses",
+        "subprocess",
+        "uvicorn"
+      ],
+      "size_bytes": 11082,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
     },
     {
       "id": "shopify",
@@ -2838,12 +4871,20 @@
       "what": "Shopify Admin GraphQL API connector — orders + revenue + funnel par landing page.",
       "imports": [
         "",
+        "Any",
+        "Connector",
+        "ConnectorError",
+        "NotConfiguredError",
         "__future__",
+        "annotations",
         "base",
+        "config",
+        "growthcro",
         "httpx"
       ],
-      "size_bytes": 5456,
-      "mtime": "2026-04-29",
+      "size_bytes": 5496,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
@@ -2851,22 +4892,29 @@
       "criticality": "low"
     },
     {
-      "id": "site_intelligence",
-      "path": "scripts/site_intelligence.py",
-      "filename": "site_intelligence.py",
-      "what": "site_intelligence.py — V15 Full Site Crawler & Content Extractor",
+      "id": "signals",
+      "path": "growthcro/capture/signals.py",
+      "filename": "signals.py",
+      "what": "Static-HTML signal extractors — single concern: parse one capture artifact bloc per function.",
       "imports": [
-        "html",
+        "",
+        "__future__",
+        "annotations",
+        "clean",
+        "dom",
         "parse",
-        "parser",
-        "subprocess",
-        "urllib"
+        "urljoin",
+        "urllib",
+        "urlparse"
       ],
-      "size_bytes": 38050,
-      "mtime": "2026-04-16",
-      "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "size_bytes": 28934,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/scorer.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "spatial_bridge",
@@ -2874,19 +4922,25 @@
       "filename": "spatial_bridge.py",
       "what": "spatial_bridge.py — Bridge module entre spatial_v9.json et les 6 scorers existants.",
       "imports": [
+        "Any",
+        "Dict",
+        "Optional",
+        "get_spatial_evidence",
+        "load_spatial",
         "spatial_bridge",
         "spatial_scoring"
       ],
       "size_bytes": 4082,
-      "mtime": "2026-04-12",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/scoring/ux.py",
         "skills/site-capture/scripts/project_snapshot.py",
         "skills/site-capture/scripts/score_coherence.py",
         "skills/site-capture/scripts/score_hero.py",
         "skills/site-capture/scripts/score_persuasion.py",
         "skills/site-capture/scripts/score_psycho.py",
         "skills/site-capture/scripts/score_tech.py",
-        "skills/site-capture/scripts/score_ux.py",
         "skills/site-capture/scripts/spatial_bridge.py"
       ],
       "status": "ACTIVE",
@@ -2899,28 +4953,10 @@
       "what": "spatial_enrich.py — Corrige capture.json avec les données spatiales Ghost (spatial_v9.json).",
       "imports": [],
       "size_bytes": 12646,
-      "mtime": "2026-04-13",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "spatial_scoring",
-      "path": "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py",
-      "filename": "spatial_scoring.py",
-      "what": "spatial_scoring.py — Spatial enrichment layer for GrowthCRO V9",
-      "imports": [
-        "spatial_scoring",
-        "statistics"
-      ],
-      "size_bytes": 31426,
-      "mtime": "2026-04-12",
-      "consumed_by": [
-        "skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py",
-        "skills/site-capture/scripts/project_snapshot.py",
-        "skills/site-capture/scripts/spatial_bridge.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2931,13 +4967,49 @@
       "filename": "usp_detector.py",
       "what": "V21.F.2 — USP detector",
       "imports": [
-        "__future__"
+        "Path",
+        "__future__",
+        "annotations"
       ],
       "size_bytes": 20960,
-      "mtime": "2026-04-27",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "ux",
+      "path": "growthcro/scoring/ux.py",
+      "filename": "ux.py",
+      "what": "Bloc-3 UX scorer (ux_01..ux_08) — heuristic bloc scoring with shared dispatcher.",
+      "imports": [
+        "Counter",
+        "Path",
+        "__future__",
+        "annotations",
+        "datetime",
+        "get_spatial_evidence",
+        "growthcro",
+        "load_perception",
+        "load_spatial",
+        "parse",
+        "perception_bridge",
+        "perception_signals",
+        "pillars",
+        "spatial_bridge",
+        "timezone",
+        "urllib",
+        "urlparse"
+      ],
+      "size_bytes": 25418,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/scoring/cli.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "validate_utility_banner",
@@ -2946,14 +5018,68 @@
       "what": "validate_utility_banner.py — Validation Étape 1a : Bloc 7 UTILITY_BANNER",
       "imports": [
         "__future__",
+        "annotations",
         "score_utility_banner",
         "subprocess"
       ],
       "size_bytes": 7215,
-      "mtime": "2026-04-15",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
-      "status": "POTENTIALLY_ORPHANED",
-      "criticality": "review_needed"
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "vision",
+      "path": "growthcro/perception/vision.py",
+      "filename": "vision.py",
+      "what": "Adaptive 1-D vertical DBSCAN + cluster refinement (no Anthropic call yet).",
+      "imports": [
+        "__future__",
+        "annotations",
+        "bbox_center",
+        "growthcro",
+        "heuristics",
+        "math"
+      ],
+      "size_bytes": 4621,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/perception/__init__.py",
+        "growthcro/perception/persist.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "vision_selection",
+      "path": "moteur_gsg/modes/mode_1/vision_selection.py",
+      "filename": "vision_selection.py",
+      "what": "Sprint F V26.AC + AD-4 V26.AD+ — vision input picker for Sonnet.",
+      "imports": [
+        "",
+        "ClientContext",
+        "Optional",
+        "ROOT",
+        "__future__",
+        "annotations",
+        "client_context",
+        "load_client_context",
+        "philosophy_bridge",
+        "without"
+      ],
+      "size_bytes": 3798,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "moteur_gsg/modes/mode_1/prompt_assembly.py",
+        "moteur_gsg/modes/mode_1/prompt_blocks.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
     },
     {
       "id": "vision_spatial",
@@ -2961,14 +5087,22 @@
       "filename": "vision_spatial.py",
       "what": "vision_spatial.py — V20.CAPTURE C1' : Claude Vision Haiku 4.5 comme extracteur spatial.",
       "imports": [
+        "Image",
+        "Optional",
         "PIL",
+        "ThreadPoolExecutor",
         "__future__",
+        "annotations",
+        "as_completed",
         "base64",
+        "config",
+        "growthcro",
         "hashlib",
         "io"
       ],
-      "size_bytes": 21821,
-      "mtime": "2026-04-28",
+      "size_bytes": 21433,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_INDIRECT_VIA_OUTPUT",
       "criticality": "ok",
@@ -2977,16 +5111,41 @@
       ]
     },
     {
+      "id": "visual_gates",
+      "path": "moteur_gsg/modes/mode_1/visual_gates.py",
+      "filename": "visual_gates.py",
+      "what": "Sprint AD-6 V26.AD+ — anti-AI-slop visual pattern detection + repair.",
+      "imports": [
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 8448,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "visual_intelligence",
       "path": "moteur_gsg/core/visual_intelligence.py",
       "filename": "visual_intelligence.py",
       "what": "Visual intelligence contracts for the canonical GSG.",
       "imports": [
+        "Any",
         "__future__",
-        "dataclasses"
+        "annotations",
+        "asdict",
+        "dataclass",
+        "dataclasses",
+        "field"
       ],
       "size_bytes": 13404,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy_writer.py",
         "moteur_gsg/core/creative_route_selector.py",
@@ -3002,13 +5161,20 @@
       "what": "Deterministic visual system contract for the controlled GSG renderer.",
       "imports": [
         "",
+        "Any",
+        "GSGPagePlan",
+        "SectionPlan",
         "__future__",
+        "annotations",
         "planner"
       ],
       "size_bytes": 10375,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-09",
+      "is_cli_entrypoint": false,
       "consumed_by": [
-        "moteur_gsg/core/controlled_renderer.py"
+        "moteur_gsg/core/hero_renderer.py",
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -3019,15 +5185,20 @@
       "filename": "web_vitals_adapter.py",
       "what": "web_vitals_adapter.py — GrowthCRO V12 S-04 adapter Web Vitals.",
       "imports": [
+        "Any",
         "__future__",
+        "annotations",
+        "config",
         "datetime",
+        "growthcro",
         "parse",
         "request",
         "subprocess",
         "urllib"
       ],
-      "size_bytes": 7515,
-      "mtime": "2026-04-14",
+      "size_bytes": 7499,
+      "mtime": "2026-05-10",
+      "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/score_tech.py"
       ],
@@ -3035,427 +5206,7 @@
       "criticality": "low"
     }
   ],
-  "data_artefacts_per_client_sample_weglot": {
-    ".json": [
-      "_obsolete_pages_2026-04-29/blog/capture.json",
-      "_obsolete_pages_2026-04-29/blog/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/blog/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/blog/capture_v2_meta.json",
-      "_obsolete_pages_2026-04-29/blog/components.json",
-      "_obsolete_pages_2026-04-29/blog/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/blog/critic_report.json",
-      "_obsolete_pages_2026-04-29/blog/perception_v13.json",
-      "_obsolete_pages_2026-04-29/blog/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/blog/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/blog/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/blog/score_coherence.json",
-      "_obsolete_pages_2026-04-29/blog/score_hero.json",
-      "_obsolete_pages_2026-04-29/blog/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/blog/score_page_type.json",
-      "_obsolete_pages_2026-04-29/blog/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/blog/score_psycho.json",
-      "_obsolete_pages_2026-04-29/blog/score_semantic.json",
-      "_obsolete_pages_2026-04-29/blog/score_specific.json",
-      "_obsolete_pages_2026-04-29/blog/score_tech.json",
-      "_obsolete_pages_2026-04-29/blog/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/blog/score_ux.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v10_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v10_mobile.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/blog/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/blog/usp_signals.json",
-      "_obsolete_pages_2026-04-29/blog/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/blog/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/blog/vision_reconciled_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/capture.json",
-      "_obsolete_pages_2026-04-29/collection/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/collection/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/collection/capture_v2_meta.json",
-      "_obsolete_pages_2026-04-29/collection/components.json",
-      "_obsolete_pages_2026-04-29/collection/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/critic_report.json",
-      "_obsolete_pages_2026-04-29/collection/perception_v13.json",
-      "_obsolete_pages_2026-04-29/collection/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/collection/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/collection/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/collection/score_coherence.json",
-      "_obsolete_pages_2026-04-29/collection/score_hero.json",
-      "_obsolete_pages_2026-04-29/collection/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/collection/score_page_type.json",
-      "_obsolete_pages_2026-04-29/collection/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/collection/score_psycho.json",
-      "_obsolete_pages_2026-04-29/collection/score_semantic.json",
-      "_obsolete_pages_2026-04-29/collection/score_specific.json",
-      "_obsolete_pages_2026-04-29/collection/score_tech.json",
-      "_obsolete_pages_2026-04-29/collection/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/collection/score_ux.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v10_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v10_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/collection/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/collection/usp_signals.json",
-      "_obsolete_pages_2026-04-29/collection/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/collection/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/collection/vision_reconciled_mobile.json",
-      "_obsolete_pages_2026-04-29/home/capture.json",
-      "_obsolete_pages_2026-04-29/home/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/home/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/home/components.json",
-      "_obsolete_pages_2026-04-29/home/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/home/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/home/critic_report.json",
-      "_obsolete_pages_2026-04-29/home/perception_v13.json",
-      "_obsolete_pages_2026-04-29/home/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/home/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/home/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/home/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/home/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/home/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/home/score_coherence.json",
-      "_obsolete_pages_2026-04-29/home/score_hero.json",
-      "_obsolete_pages_2026-04-29/home/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/home/score_page_type.json",
-      "_obsolete_pages_2026-04-29/home/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/home/score_psycho.json",
-      "_obsolete_pages_2026-04-29/home/score_semantic.json",
-      "_obsolete_pages_2026-04-29/home/score_specific.json",
-      "_obsolete_pages_2026-04-29/home/score_tech.json",
-      "_obsolete_pages_2026-04-29/home/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/home/score_ux.json",
-      "_obsolete_pages_2026-04-29/home/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/home/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/home/usp_signals.json",
-      "_obsolete_pages_2026-04-29/home/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/home/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/home/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/home/vision_reconciled_mobile.json",
-      "_obsolete_pages_2026-04-29/pricing/capture.json",
-      "_obsolete_pages_2026-04-29/pricing/capture_pre_reparse_backup.json",
-      "_obsolete_pages_2026-04-29/pricing/capture_urllib_backup.json",
-      "_obsolete_pages_2026-04-29/pricing/components.json",
-      "_obsolete_pages_2026-04-29/pricing/criterion_crops_v2_desktop.json",
-      "_obsolete_pages_2026-04-29/pricing/criterion_crops_v2_mobile.json",
-      "_obsolete_pages_2026-04-29/pricing/critic_report.json",
-      "_obsolete_pages_2026-04-29/pricing/perception_v13.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_dedup_report.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_enriched.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v13_final.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v13_prompts.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v21_cluster_final.json",
-      "_obsolete_pages_2026-04-29/pricing/recos_v21_cluster_prompts.json",
-      "_obsolete_pages_2026-04-29/pricing/score_coherence.json",
-      "_obsolete_pages_2026-04-29/pricing/score_hero.json",
-      "_obsolete_pages_2026-04-29/pricing/score_intelligence.json",
-      "_obsolete_pages_2026-04-29/pricing/score_page_type.json",
-      "_obsolete_pages_2026-04-29/pricing/score_persuasion.json",
-      "_obsolete_pages_2026-04-29/pricing/score_psycho.json",
-      "_obsolete_pages_2026-04-29/pricing/score_semantic.json",
-      "_obsolete_pages_2026-04-29/pricing/score_specific.json",
-      "_obsolete_pages_2026-04-29/pricing/score_tech.json",
-      "_obsolete_pages_2026-04-29/pricing/score_utility_banner.json",
-      "_obsolete_pages_2026-04-29/pricing/score_ux.json",
-      "_obsolete_pages_2026-04-29/pricing/spatial_v9.json",
-      "_obsolete_pages_2026-04-29/pricing/spatial_v9_clean.json",
-      "_obsolete_pages_2026-04-29/pricing/usp_signals.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_desktop.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_mobile.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_reconciled_desktop.json",
-      "_obsolete_pages_2026-04-29/pricing/vision_reconciled_mobile.json",
-      "blog/capture.json",
-      "blog/capture_pre_reparse_backup.json",
-      "blog/capture_urllib_backup.json",
-      "blog/components.json",
-      "blog/criterion_crops_v2_desktop.json",
-      "blog/criterion_crops_v2_mobile.json",
-      "blog/critic_report.json",
-      "blog/perception_v13.json",
-      "blog/recos_dedup_report.json",
-      "blog/recos_enriched.json",
-      "blog/recos_v13_final.json",
-      "blog/recos_v13_prompts.json",
-      "blog/recos_v21_cluster_final.json",
-      "blog/recos_v21_cluster_prompts.json",
-      "blog/score_coherence.json",
-      "blog/score_hero.json",
-      "blog/score_page_type.json",
-      "blog/score_persuasion.json",
-      "blog/score_psycho.json",
-      "blog/score_semantic.json",
-      "blog/score_specific.json",
-      "blog/score_tech.json",
-      "blog/score_utility_banner.json",
-      "blog/score_ux.json",
-      "blog/spatial_v9.json",
-      "blog/spatial_v9_clean.json",
-      "blog/vision_desktop.json",
-      "blog/vision_mobile.json",
-      "blog/vision_reconciled_desktop.json",
-      "blog/vision_reconciled_mobile.json",
-      "brand_dna.json",
-      "canonical_tunnel.json",
-      "capture_meta.json",
-      "client_intent.json",
-      "collection/capture.json",
-      "collection/capture_pre_reparse_backup.json",
-      "collection/capture_urllib_backup.json",
-      "collection/components.json",
-      "collection/criterion_crops_v2_desktop.json",
-      "collection/criterion_crops_v2_mobile.json",
-      "collection/critic_report.json",
-      "collection/perception_v13.json",
-      "collection/recos_dedup_report.json",
-      "collection/recos_enriched.json",
-      "collection/recos_v13_final.json",
-      "collection/recos_v13_prompts.json",
-      "collection/recos_v21_cluster_final.json",
-      "collection/recos_v21_cluster_prompts.json",
-      "collection/score_coherence.json",
-      "collection/score_hero.json",
-      "collection/score_page_type.json",
-      "collection/score_persuasion.json",
-      "collection/score_psycho.json",
-      "collection/score_semantic.json",
-      "collection/score_specific.json",
-      "collection/score_tech.json",
-      "collection/score_utility_banner.json",
-      "collection/score_ux.json",
-      "collection/spatial_v9.json",
-      "collection/spatial_v9_clean.json",
-      "collection/vision_desktop.json",
-      "collection/vision_mobile.json",
-      "collection/vision_reconciled_desktop.json",
-      "collection/vision_reconciled_mobile.json",
-      "design_grammar/brand_forbidden_patterns.json",
-      "design_grammar/component_grammar.json",
-      "design_grammar/composition_rules.json",
-      "design_grammar/quality_gates.json",
-      "design_grammar/section_grammar.json",
-      "design_grammar/tokens.json",
-      "discovered_pages_v25.json",
-      "home/capture.json",
-      "home/capture_pre_reparse_backup.json",
-      "home/capture_urllib_backup.json",
-      "home/capture_v2_meta.json",
-      "home/components.json",
-      "home/criterion_crops_v2_desktop.json",
-      "home/criterion_crops_v2_mobile.json",
-      "home/critic_report.json",
-      "home/evidence_ledger.json",
-      "home/perception_v13.json",
-      "home/recos_dedup_report.json",
-      "home/recos_enriched.json",
-      "home/recos_v13_final.json",
-      "home/recos_v13_prompts.json",
-      "home/recos_v21_cluster_final.json",
-      "home/recos_v21_cluster_prompts.json",
-      "home/score_coherence.json",
-      "home/score_hero.json",
-      "home/score_page_type.json",
-      "home/score_persuasion.json",
-      "home/score_psycho.json",
-      "home/score_semantic.json",
-      "home/score_specific.json",
-      "home/score_tech.json",
-      "home/score_utility_banner.json",
-      "home/score_ux.json",
-      "home/spatial_v10_desktop.json",
-      "home/spatial_v10_mobile.json",
-      "home/spatial_v9.json",
-      "home/spatial_v9_clean.json",
-      "home/usp_signals.json",
-      "home/vision_desktop.json",
-      "home/vision_mobile.json",
-      "home/vision_reconciled_desktop.json",
-      "home/vision_reconciled_mobile.json",
-      "lp_leadgen/capture.json",
-      "lp_leadgen/capture_v2_meta.json",
-      "lp_leadgen/evidence_ledger.json",
-      "lp_leadgen/flow/flow_summary.json",
-      "lp_leadgen/flow/intro.json",
-      "lp_leadgen/flow/step_01.json",
-      "lp_leadgen/flow/step_02.json",
-      "lp_leadgen/flow/step_03.json",
-      "lp_leadgen/flow/step_recos.json",
-      "lp_leadgen/perception_v13.json",
-      "lp_leadgen/recos_dedup_report.json",
-      "lp_leadgen/recos_v13_final.json",
-      "lp_leadgen/recos_v13_prompts.json",
-      "lp_leadgen/score_coherence.json",
-      "lp_leadgen/score_funnel.json",
-      "lp_leadgen/score_hero.json",
-      "lp_leadgen/score_page_type.json",
-      "lp_leadgen/score_persuasion.json",
-      "lp_leadgen/score_psycho.json",
-      "lp_leadgen/score_specific.json",
-      "lp_leadgen/score_tech.json",
-      "lp_leadgen/score_utility_banner.json",
-      "lp_leadgen/score_ux.json",
-      "lp_leadgen/spatial_v10_desktop.json",
-      "lp_leadgen/spatial_v10_mobile.json",
-      "lp_leadgen/spatial_v9.json",
-      "lp_leadgen/usp_signals.json",
-      "lp_leadgen/vision_desktop.json",
-      "lp_leadgen/vision_mobile.json",
-      "pages_discovered.json",
-      "pricing/capture.json",
-      "pricing/capture_pre_reparse_backup.json",
-      "pricing/capture_urllib_backup.json",
-      "pricing/capture_v2_meta.json",
-      "pricing/components.json",
-      "pricing/criterion_crops_v2_desktop.json",
-      "pricing/criterion_crops_v2_mobile.json",
-      "pricing/critic_report.json",
-      "pricing/evidence_ledger.json",
-      "pricing/perception_v13.json",
-      "pricing/recos_dedup_report.json",
-      "pricing/recos_enriched.json",
-      "pricing/recos_v13_final.json",
-      "pricing/recos_v13_prompts.json",
-      "pricing/recos_v21_cluster_final.json",
-      "pricing/recos_v21_cluster_prompts.json",
-      "pricing/score_coherence.json",
-      "pricing/score_hero.json",
-      "pricing/score_page_type.json",
-      "pricing/score_persuasion.json",
-      "pricing/score_psycho.json",
-      "pricing/score_semantic.json",
-      "pricing/score_specific.json",
-      "pricing/score_tech.json",
-      "pricing/score_utility_banner.json",
-      "pricing/score_ux.json",
-      "pricing/spatial_v10_desktop.json",
-      "pricing/spatial_v10_mobile.json",
-      "pricing/spatial_v9.json",
-      "pricing/spatial_v9_clean.json",
-      "pricing/usp_signals.json",
-      "pricing/vision_desktop.json",
-      "pricing/vision_mobile.json",
-      "pricing/vision_reconciled_desktop.json",
-      "pricing/vision_reconciled_mobile.json",
-      "scent_trail.json",
-      "site_audit.json"
-    ],
-    ".html": [
-      "_obsolete_pages_2026-04-29/blog/component_overlay.html",
-      "_obsolete_pages_2026-04-29/blog/page.html",
-      "_obsolete_pages_2026-04-29/collection/component_overlay.html",
-      "_obsolete_pages_2026-04-29/collection/page.html",
-      "_obsolete_pages_2026-04-29/home/component_overlay.html",
-      "_obsolete_pages_2026-04-29/home/page.html",
-      "_obsolete_pages_2026-04-29/pricing/component_overlay.html",
-      "_obsolete_pages_2026-04-29/pricing/page.html",
-      "blog/component_overlay.html",
-      "blog/page.html",
-      "collection/component_overlay.html",
-      "collection/page.html",
-      "home/component_overlay.html",
-      "home/page.html",
-      "lp_leadgen/page.html",
-      "pricing/component_overlay.html",
-      "pricing/page.html"
-    ],
-    ".css": [
-      "design_grammar/tokens.css"
-    ],
-    ".png": [
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_asis_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_asis_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_clean_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/desktop_clean_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_asis_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_asis_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_clean_fold.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/mobile_clean_full.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/blog/screenshots/spatial_full_page.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_asis_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_asis_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_clean_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/desktop_clean_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_asis_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_asis_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_clean_fold.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/mobile_clean_full.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/collection/screenshots/spatial_full_page.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/desktop_asis_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/desktop_clean_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/desktop_clean_full.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/mobile_asis_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/mobile_clean_fold.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/mobile_clean_full.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/home/screenshots/spatial_full_page.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_annotated_desktop.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_fold_desktop.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_fold_mobile.png",
-      "_obsolete_pages_2026-04-29/pricing/screenshots/spatial_full_page.png",
-      "blog/screenshots/spatial_annotated_desktop.png",
-      "blog/screenshots/spatial_fold_desktop.png",
-      "blog/screenshots/spatial_fold_mobile.png",
-      "blog/screenshots/spatial_full_page.png",
-      "collection/screenshots/spatial_annotated_desktop.png",
-      "collection/screenshots/spatial_fold_desktop.png",
-      "collection/screenshots/spatial_fold_mobile.png",
-      "collection/screenshots/spatial_full_page.png",
-      "home/screenshots/desktop_asis_fold.png",
-      "home/screenshots/desktop_asis_full.png",
-      "home/screenshots/desktop_clean_fold.png",
-      "home/screenshots/desktop_clean_full.png",
-      "home/screenshots/mobile_asis_fold.png",
-      "home/screenshots/mobile_asis_full.png",
-      "home/screenshots/mobile_clean_fold.png",
-      "home/screenshots/mobile_clean_full.png",
-      "home/screenshots/spatial_annotated_desktop.png",
-      "home/screenshots/spatial_fold_desktop.png",
-      "home/screenshots/spatial_fold_mobile.png",
-      "home/screenshots/spatial_full_page.png",
-      "lp_leadgen/flow/intro.png",
-      "lp_leadgen/flow/step_01.png",
-      "lp_leadgen/flow/step_02.png",
-      "lp_leadgen/flow/step_03.png",
-      "lp_leadgen/screenshots/desktop_asis_fold.png",
-      "lp_leadgen/screenshots/desktop_asis_full.png",
-      "lp_leadgen/screenshots/desktop_clean_fold.png",
-      "lp_leadgen/screenshots/desktop_clean_full.png",
-      "lp_leadgen/screenshots/mobile_asis_fold.png",
-      "lp_leadgen/screenshots/mobile_asis_full.png",
-      "lp_leadgen/screenshots/mobile_clean_fold.png",
-      "lp_leadgen/screenshots/mobile_clean_full.png",
-      "lp_leadgen/screenshots/spatial_annotated_desktop.png",
-      "lp_leadgen/screenshots/spatial_fold_desktop.png",
-      "lp_leadgen/screenshots/spatial_fold_mobile.png",
-      "lp_leadgen/screenshots/spatial_full_page.png",
-      "pricing/screenshots/desktop_asis_fold.png",
-      "pricing/screenshots/desktop_asis_full.png",
-      "pricing/screenshots/desktop_clean_fold.png",
-      "pricing/screenshots/desktop_clean_full.png",
-      "pricing/screenshots/mobile_asis_fold.png",
-      "pricing/screenshots/mobile_asis_full.png",
-      "pricing/screenshots/mobile_clean_fold.png",
-      "pricing/screenshots/mobile_clean_full.png",
-      "pricing/screenshots/spatial_annotated_desktop.png",
-      "pricing/screenshots/spatial_fold_desktop.png",
-      "pricing/screenshots/spatial_fold_mobile.png",
-      "pricing/screenshots/spatial_full_page.png"
-    ]
-  },
+  "data_artefacts_per_client_sample_weglot": {},
   "expected_gsg_data_inputs": {
     "brand_dna.json": "ACTIVE — GenerationContextPack + design_tokens + brand_intelligence",
     "design_grammar/tokens.json": "ACTIVE_PARTIAL — GenerationContextPack/design_tokens; deeper component grammar still to wire",

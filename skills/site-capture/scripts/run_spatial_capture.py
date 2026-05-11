@@ -18,7 +18,7 @@ Output :
 v2.0 — 2026-04-13 — Ghost engine (local Playwright) par défaut
 """
 import os, sys, json, time, pathlib, subprocess, shutil
-
+from growthcro.config import config
 # ──────────────────────────────────────────────
 # PARSE ARGS
 # ──────────────────────────────────────────────
@@ -145,7 +145,7 @@ def run_ghost():
 def run_apify():
     import urllib.request, urllib.error
 
-    TOKEN = os.environ.get("APIFY_TOKEN")
+    TOKEN = config.apify_token()
     if not TOKEN:
         print("ERROR: APIFY_TOKEN env var missing (required for --engine apify)", file=sys.stderr)
         sys.exit(1)

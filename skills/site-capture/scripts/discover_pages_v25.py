@@ -44,6 +44,7 @@ from typing import Any, Optional
 from urllib.parse import urljoin, urlparse, urldefrag
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
+from growthcro.config import config
 CAPTURES = ROOT / "data" / "captures"
 SCRIPTS = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
@@ -954,12 +955,11 @@ def main():
                     help="Stop after health check (no LLM, no Playwright sampling)")
     args = ap.parse_args()
 
-    _load_dotenv_if_needed()
     try:
         import anthropic
     except ImportError:
         print("❌ pip install anthropic", file=sys.stderr); sys.exit(1)
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"], timeout=60.0, max_retries=2) \
+    client = anthropic.Anthropic(api_key=config.require_anthropic_api_key(), timeout=60.0, max_retries=2) \
         if not args.skip_sampling else None
 
     asyncio.run(discover_client(args.client, args.url, args.max_candidates,

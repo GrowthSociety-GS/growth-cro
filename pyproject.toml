@@ -1,0 +1,34 @@
+# GrowthCRO — package manifest
+#
+# Why this file exists: scripts launched from sub-directories
+# (skills/site-capture/scripts/foo.py, scripts/bar.py, …) need
+# `from growthcro.config import config` to resolve regardless of
+# Python's auto-derived sys.path. Registering the package via
+# `pip install -e .` is the standard answer; it replaces the per-file
+# `growthcro path bootstrap` blocks that issue #3 originally introduced.
+#
+# Setup (once per fresh clone or CI image):
+#   pip install --no-deps -e .
+#
+# `--no-deps` is intentional: runtime dependencies are managed via
+# requirements.txt (the source of truth pre-cleanup) until Task #11
+# consolidates them into the [project.dependencies] table below.
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "growthcro"
+version = "0.1.0"
+description = "GrowthCRO — automated CRO consultant for Growth Society agency"
+requires-python = ">=3.11"
+authors = [{ name = "Growth Society" }]
+# Runtime dependencies: declared in requirements.txt for now.
+# Task #11 will migrate them here with version pinning aligned to
+# the active code paths after the cleanup epic completes.
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["growthcro*"]
+exclude = ["_archive*", "tests*", "deliverables*", "data*"]

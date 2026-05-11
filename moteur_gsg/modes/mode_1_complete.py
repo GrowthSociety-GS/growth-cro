@@ -58,7 +58,7 @@ from ..core.design_tokens import build_design_tokens, load_aura_tokens
 from ..core.doctrine_planner import build_doctrine_pack
 from ..core.planner import build_page_plan
 from ..core.copy_writer import call_copy_llm, fallback_copy_from_plan
-from ..core.controlled_renderer import render_controlled_page
+from ..core.page_renderer_orchestrator import render_controlled_page
 from ..core.visual_intelligence import build_visual_intelligence_pack
 from ..core.legacy_lab_adapters import (
     LegacyLabUnavailable,

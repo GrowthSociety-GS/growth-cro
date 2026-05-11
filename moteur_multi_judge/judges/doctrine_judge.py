@@ -132,17 +132,6 @@ TOOL_SUBMIT_AUDIT = {
 }
 
 
-def _ensure_api_key() -> None:
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return
-    env_fp = ROOT / ".env"
-    if env_fp.exists():
-        for line in env_fp.read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
-                os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                return
-
-
 def _strip_fences(raw: str) -> str:
     text = raw.strip()
     if text.startswith("```"):
@@ -213,7 +202,6 @@ Score chaque critère du pilier {pillar} ci-dessus selon la doctrine V3.2 ternai
 
     system_prompt = _build_pillar_system_prompt(pillar, criteria)
 
-    _ensure_api_key()
     import anthropic
     api = anthropic.Anthropic()
 

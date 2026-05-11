@@ -5,8 +5,7 @@ import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Optional
-
-
+from growthcro.config import config
 @dataclass
 class RealityLayerData:
     """Container for connector output. Each connector writes its slice here."""
@@ -44,7 +43,7 @@ class Connector(ABC):
         # Fall back to global vars (CATCHR_API_KEY) if no per-client.
         for var in self.required_env_vars:
             specific = f"{var}_{self.client_slug.upper().replace('-', '_')}"
-            if not (os.environ.get(specific) or os.environ.get(var)):
+            if not (config.system_env(specific) or config.system_env(var)):
                 return False
         return True
 

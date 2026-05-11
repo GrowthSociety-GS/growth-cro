@@ -17,8 +17,8 @@ Lance l'actor correspondant, télécharge capture.json + 6 PNG + html dans data/
 Tag `capturedBy` + `confidence` dans capture.json pour traçabilité.
 """
 import os, sys, json, time, pathlib, urllib.request, urllib.error
-
-TOKEN = os.environ.get("APIFY_TOKEN")
+from growthcro.config import config
+TOKEN = config.apify_token()
 if not TOKEN:
     print("ERROR: APIFY_TOKEN env var missing", file=sys.stderr); sys.exit(1)
 

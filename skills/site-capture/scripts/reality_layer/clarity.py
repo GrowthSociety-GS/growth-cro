@@ -21,15 +21,14 @@ import os
 from typing import Any
 
 from .base import Connector, NotConfiguredError, ConnectorError
-
-
+from growthcro.config import config
 class ClarityConnector(Connector):
     name = "clarity"
     required_env_vars = ["CLARITY_API_TOKEN", "CLARITY_PROJECT_ID"]
 
     def _client_env(self, var: str) -> str | None:
         specific = f"{var}_{self.client_slug.upper().replace('-', '_')}"
-        return os.environ.get(specific) or os.environ.get(var)
+        return config.system_env(specific) or config.system_env(var)
 
     def fetch(self, page_url: str, period_start: str, period_end: str) -> dict[str, Any]:
         """Note : Clarity API only supports last 1-3 days. period_start/end ignored,

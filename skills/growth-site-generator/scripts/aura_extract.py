@@ -29,7 +29,7 @@ import sys
 import math
 from pathlib import Path
 from collections import Counter
-
+from growthcro.config import config
 # ─── Constants ────────────────────────────────────────────────────────────────
 
 DEFAULT_MODEL = "claude-haiku-4-5-20251001"
@@ -395,7 +395,7 @@ async def analyze_with_haiku(technical_data: dict, site_label: str, page_type: s
                               category: str, model: str = DEFAULT_MODEL) -> dict:
     """Use Haiku to produce qualitative design analysis from technical extraction."""
     
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = config.anthropic_api_key()
     if not api_key:
         print("WARNING: No ANTHROPIC_API_KEY — skipping Haiku analysis")
         return {}

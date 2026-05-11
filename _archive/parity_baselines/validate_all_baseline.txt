@@ -1,0 +1,27 @@
+
+── data/captures/*/*/score_hero.json (0 files) → score_pillar.schema.json ──
+
+── data/captures/*/*/score_persuasion.json (0 files) → score_pillar.schema.json ──
+
+── data/captures/*/*/score_ux.json (0 files) → score_pillar.schema.json ──
+
+── data/captures/*/*/score_coherence.json (0 files) → score_pillar.schema.json ──
+
+── data/captures/*/*/score_psycho.json (0 files) → score_pillar.schema.json ──
+
+── data/captures/*/*/score_tech.json (0 files) → score_pillar.schema.json ──
+
+── data/captures/*/*/score_page_type.json (0 files) → score_page_type.schema.json ──
+
+── data/captures/*/*/perception_v13.json (0 files) → perception_v13.schema.json ──
+
+── data/captures/*/*/recos_enriched.json (0 files) → recos_enriched.schema.json ──
+
+── playbook/bloc_*_v3.json (7 files) → bloc_v3.schema.json ──
+
+── data/clients_database.json (1 files) → clients_database.schema.json ──
+
+── deliverables/growthcro_data_v17.json (0 files) → dashboard_v17_data.schema.json ──
+
+════════════════════════════════════════════════════════════
+✓ 8 files validated — all passing

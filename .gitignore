@@ -125,9 +125,22 @@ test_stealth/
 
 # ─── Archives locales (_archive_deprecated_*, archive/) ─
 _archive_deprecated_*/
-_archive/
+_archive/*
 archive/
 !memory/archive/
+# Parity baselines for the codebase-cleanup epic are the regression
+# contract; future task agents must diff against them.
+!_archive/parity_baselines/
+# Migration tools authored during the cleanup epic — kept under archive
+# so the strict `os.environ` grep gate doesn't see them, but tracked in
+# git so the audit trail of how each refactor was performed survives.
+!_archive/migration_tools/
+# The archive's own purpose + provenance log (Task #4 of cleanup epic).
+!_archive/README.md
+# Issue #6 (codebase-cleanup) — `enrich_v143_public.py` archived 2026-05-10
+# with deprecation README. Kept tracked so the move is auditable.
+!_archive/scripts/
+!_archive/scripts/**
 
 # ─── Logs ─────────────────────────────────────────────
 *.log

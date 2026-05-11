@@ -31,7 +31,7 @@ v1.0 — 2026-04-10
 
 import json, sys, os, re, time, pathlib, subprocess
 from datetime import datetime, timezone
-
+from growthcro.config import config
 # ── Args ──────────────────────────────────────────────────────
 args = sys.argv[1:]
 USE_APIFY = False
@@ -321,7 +321,7 @@ if USE_APIFY:
     print("PHASE 4 : ENRICHISSEMENT APIFY (screenshots + données visuelles)")
     print(f"{'═' * 60}")
 
-    token = os.environ.get("APIFY_TOKEN")
+    token = config.apify_token()
     if not token:
         print("  ⚠️  APIFY_TOKEN non défini — skip Apify")
     else:
@@ -346,7 +346,7 @@ if USE_APIFY:
             result = subprocess.run(
                 [sys.executable, str(SCRIPTS / "apify_enrich.py"), LABEL, pt, url, "--level", str(level)],
                 capture_output=True, text=True, timeout=360,
-                env={**os.environ, "APIFY_TOKEN": token},
+                env={**config.system_env_copy(), "APIFY_TOKEN": token},
             )
             t_apify = round(time.time() - t_apify, 2)
 
@@ -409,7 +409,7 @@ if USE_SPATIAL:
     print("PHASE 4b : SPATIAL V9 CAPTURE (Perception Tree)")
     print(f"{'═' * 60}")
 
-    token = os.environ.get("APIFY_TOKEN")
+    token = config.apify_token()
     if not token:
         print("  ⚠️  APIFY_TOKEN non défini — skip spatial capture")
     else:
@@ -432,7 +432,7 @@ if USE_SPATIAL:
             result = subprocess.run(
                 [sys.executable, str(SCRIPTS / "run_spatial_capture.py"), url, LABEL, pt, "--level", str(level)],
                 capture_output=True, text=True, timeout=480,
-                env={**os.environ, "APIFY_TOKEN": token},
+                env={**config.system_env_copy(), "APIFY_TOKEN": token},
             )
             t_sp = round(time.time() - t_sp, 2)
 

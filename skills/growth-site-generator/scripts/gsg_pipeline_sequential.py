@@ -93,17 +93,6 @@ ROOT = pathlib.Path(__file__).resolve().parents[3]
 SONNET_MODEL = "claude-sonnet-4-5-20250929"
 
 
-def _ensure_api_key() -> None:
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return
-    env_fp = ROOT / ".env"
-    if env_fp.exists():
-        for line in env_fp.read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
-                os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                return
-
-
 def _strip_fences(raw: str, lang: str = "json") -> str:
     text = raw.strip()
     if text.startswith("```"):
@@ -132,7 +121,6 @@ def _call_sonnet(system: str, user: str, max_tokens: int = 4000,
                  temperature: float = 0.5, label: str = "stage",
                  verbose: bool = True) -> tuple[str, int, int]:
     """Call Sonnet with system + user message. Returns (text, tokens_in, tokens_out)."""
-    _ensure_api_key()
     import anthropic
     client_api = anthropic.Anthropic()
     if verbose:

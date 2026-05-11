@@ -241,14 +241,6 @@ def main():
     ap.add_argument("--business-type", default="unknown")
     ap.add_argument("--all-funnels", action="store_true")
     args = ap.parse_args()
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        # Try to load from .env
-        env_fp = ROOT / ".env"
-        if env_fp.exists():
-            for line in env_fp.read_text().splitlines():
-                if line.startswith("ANTHROPIC_API_KEY="):
-                    os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
-                    break
     asyncio.run(main_async(args))
 
 

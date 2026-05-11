@@ -38,6 +38,18 @@ GrowthCRO est un **consultant CRO senior automatisé** pour les ~100 clients de 
 
 ---
 
+## 1.bis Setup environnement (une seule fois par clone)
+
+Le package `growthcro/` (config + futures sous-modules de l'epic codebase-cleanup) est enregistré via `pyproject.toml`. Pour qu'un script lancé depuis n'importe quel sous-dossier puisse faire `from growthcro.config import config`, installer en mode editable :
+
+```bash
+pip install --no-deps -e .
+```
+
+`--no-deps` car les runtime deps restent gérées par `requirements.txt` (sera consolidé dans `[project.dependencies]` lors de la Task #11 de l'epic). Variables d'env : copier `.env.example` → `.env` et remplir `ANTHROPIC_API_KEY` (auto-loadé par `growthcro.config` au premier import).
+
+---
+
 ## 2. Architecture — 8 modules
 
 | # | Module | État V26.AI |
@@ -98,12 +110,12 @@ GrowthCRO est un **consultant CRO senior automatisé** pour les ~100 clients de 
 │   ├── check_gsg_intake_wizard.py    ← Validation demande brute → BriefV2 → rendu fallback sans API
 │   ├── check_gsg_creative_route_selector.py ← Validation Golden/Creative route selector sans API
 │   ├── enrich_v143_public.py         ← Founder/VoC/Scarcity enrichment
-│   └── reco_enricher_v13.py + .api.py
+│   └── (recos canoniques sous growthcro/recos/, voir growthcro/recos/cli.py)
 │
 ├── moteur_gsg/                       ← GSG canonique V27.2-F (intake_wizard + 5 modes + structured route selector + context/doctrine/visual/component/visual-system contracts)
 │   ├── orchestrator.py               ← API publique generate_lp(mode, ...)
 │   ├── core/                         ← context_pack, doctrine_planner, visual_intelligence, creative_route_selector, component_library, visual_system, planner, pattern_library, design_tokens, copy_writer, controlled_renderer, guards
-│   └── modes/                        ← mode_1_persona_narrator, mode_2_replace, mode_3_extend, mode_4_elevate, mode_5_genesis
+│   └── modes/                        ← mode_1/ (sub-pkg), mode_2_replace, mode_3_extend, mode_4_elevate, mode_5_genesis
 │
 ├── moteur_multi_judge/               ← Multi-judge unifié V26.AA
 │   ├── orchestrator.py               ← run_multi_judge 70/30 doctrine/humanlike
@@ -165,14 +177,14 @@ URL client → DISCOVERY → CAPTURE → INTERPRETATION → SCORING → EVIDENCE
 **Lancement ad-hoc** :
 ```bash
 # Audit single client
-python3 capture_full.py <url> <client_label> <business_type>
+python3 -m growthcro.cli.capture_full <url> <client_label> <business_type>
 
-# Ou via skills
-python3 skills/site-capture/scripts/playwright_capture_v2.py
-python3 skills/site-capture/scripts/perception_v13.py --client <label>
+# Ou via modules canoniques
+python3 -m growthcro.capture.cli --url <url> --label <label> --page-type <pt>
+python3 -m growthcro.perception.cli --client <label>
 python3 skills/site-capture/scripts/batch_rescore.py --only <label>
-python3 skills/site-capture/scripts/reco_enricher_v13.py --client <label> --prepare
-python3 skills/site-capture/scripts/reco_enricher_v13_api.py --client <label>
+python3 -m growthcro.recos.cli prepare --client <label>
+python3 -m growthcro.recos.cli enrich --client <label>
 
 # Génération LP
 python3 -m moteur_gsg.orchestrator --mode complete --client weglot \

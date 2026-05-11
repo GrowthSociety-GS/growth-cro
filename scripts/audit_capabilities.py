@@ -55,6 +55,9 @@ SCAN_FOLDERS = [
     "moteur_gsg/modes",
     "moteur_multi_judge/orchestrator.py",
     "moteur_multi_judge/judges",
+    # Issue #10 — growthcro/ canonical package (Wave-2 splits) so its
+    # internal imports register against the rest of the tree.
+    "growthcro",
 ]
 
 # Folders ARCHIVE (à ignorer pour le registry actif)
@@ -187,6 +190,25 @@ def _extract_imports(filepath: pathlib.Path) -> list[str]:
             if last and last != mod.split(".")[0]:
                 imports.add(last)
 
+    # Issue #10 — also capture the *imported names* in `from X import a, b, c`
+    # because submodules imported as `from growthcro.recos import prompts` resolve
+    # to module ids that should count as consumers of `prompts.py`. Names that are
+    # symbols (not modules) get harmlessly added to the import set; the consumer
+    # graph only matches against actual file stems so non-module names don't
+    # collide.
+    for m in re.finditer(
+        r'^\s*from\s+[\w.]+\s+import\s+([^\n#]+)',
+        text,
+        re.MULTILINE,
+    ):
+        names_block = m.group(1)
+        # Strip trailing parens / backslashes / aliases (`as foo`)
+        names_block = names_block.replace("(", "").replace(")", "").replace("\\", "")
+        for raw in names_block.split(","):
+            name = raw.strip().split(" as ")[0].strip()
+            if name and re.fullmatch(r"[\w_]+", name) and name != "*":
+                imports.add(name)
+
     # V26.AD — string-based dynamic dispatch ("module.path:func_name")
     for m in re.finditer(r'["\']([\w_]+(?:\.[\w_]+)+):[\w_]+["\']', text):
         dotted = m.group(1)
@@ -223,6 +245,11 @@ def scan_python_files() -> list[dict]:
             if _is_archived(f):
                 continue
             rel = f.relative_to(ROOT)
+            try:
+                text = f.read_text(errors="ignore")
+            except Exception:
+                text = ""
+            is_cli = '__name__ == "__main__"' in text or "__name__ == '__main__'" in text
             results.append({
                 "id": f.stem,
                 "path": str(rel),
@@ -231,6 +258,7 @@ def scan_python_files() -> list[dict]:
                 "imports": _extract_imports(f),
                 "size_bytes": f.stat().st_size,
                 "mtime": time.strftime("%Y-%m-%d", time.localtime(f.stat().st_mtime)),
+                "is_cli_entrypoint": is_cli,
             })
     return results
 
@@ -263,20 +291,34 @@ def detect_data_artefacts(client_sample: str = "weglot") -> dict:
     return {k: sorted(v) for k, v in artefacts.items()}
 
 
-def determine_status(filename: str, path: str, consumed_by: list[str], imports: list[str]) -> tuple[str, str]:
+def determine_status(filename: str, path: str, consumed_by: list[str], imports: list[str], is_cli_entrypoint: bool = False) -> tuple[str, str]:
     """Détermine status (ACTIVE/ORPHANED/PARTIAL) + criticality.
 
     V26.AC Sprint H : check INDIRECTLY_WIRED_VIA_OUTPUT pour détecter les
     capacités consummées via leur output JSON (pas via import direct).
+    Issue #10 : `__init__.py` = package marker (toujours ACTIVE).
+    Issue #10 : fichiers avec ``if __name__ == "__main__"`` = CLI entrypoints
+    (invoqués depuis shell/agents/CI), pas orphelins.
     """
     expected = EXPECTED_GSG_CONSUMERS.get(filename)
     indirect_note = INDIRECTLY_WIRED_VIA_OUTPUT.get(filename)
+
+    # __init__.py is the package marker — it's "wired" by the package's existence
+    # (siblings rely on it being a package). It cannot be detected as a consumer
+    # target via the id-based graph (id=="__init__" collides across packages),
+    # so we hard-classify it as ACTIVE_PACKAGE_MARKER.
+    if filename == "__init__.py":
+        return ("ACTIVE_PACKAGE_MARKER", "low")
 
     if expected is None:
         if not consumed_by:
             # Pas d'imports directs MAIS peut-être consummé via output
             if indirect_note:
                 return ("ACTIVE_INDIRECT_VIA_OUTPUT", "low")
+            # CLI entrypoints (scripts/, smoke tests, runners) sont
+            # invoqués depuis shell/sub-agents — pas orphelins.
+            if is_cli_entrypoint:
+                return ("ACTIVE_CLI_ENTRYPOINT", "low")
             return ("POTENTIALLY_ORPHANED", "review_needed")
         return ("ACTIVE", "low")
 
@@ -304,7 +346,10 @@ def build_registry() -> dict:
     capabilities = []
     for f in files:
         cb = consumed_by.get(f["id"], [])
-        status, crit = determine_status(f["filename"], f["path"], cb, f["imports"])
+        status, crit = determine_status(
+            f["filename"], f["path"], cb, f["imports"],
+            is_cli_entrypoint=f.get("is_cli_entrypoint", False),
+        )
         cap = {
             **f,
             "consumed_by": cb,
@@ -322,6 +367,8 @@ def build_registry() -> dict:
         "total_files": len(capabilities),
         "active_wired": sum(1 for c in capabilities if c["status"] == "ACTIVE_WIRED_AS_EXPECTED"),
         "active_indirect": sum(1 for c in capabilities if c["status"] == "ACTIVE_INDIRECT_VIA_OUTPUT"),
+        "active_cli": sum(1 for c in capabilities if c["status"] == "ACTIVE_CLI_ENTRYPOINT"),
+        "active_package_marker": sum(1 for c in capabilities if c["status"] == "ACTIVE_PACKAGE_MARKER"),
         "active_misc": sum(1 for c in capabilities if c["status"] == "ACTIVE"),
         "orphaned_from_gsg_HIGH": sum(1 for c in capabilities if c["criticality"] == "HIGH"),
         "partial_wired": sum(1 for c in capabilities if "PARTIAL" in c["status"]),
@@ -430,6 +477,8 @@ def main():
     print(f"  Files scanned       : {registry['stats']['total_files']}")
     print(f"  Active wired direct : {registry['stats']['active_wired']}")
     print(f"  Active indirect via output : {registry['stats']['active_indirect']} ⭐ V26.AC")
+    print(f"  Active CLI entrypoints : {registry['stats'].get('active_cli', 0)} ⭐ Issue #10")
+    print(f"  Active package markers : {registry['stats'].get('active_package_marker', 0)} ⭐ Issue #10")
     print(f"  Active misc         : {registry['stats']['active_misc']}")
     print(f"  🔴 Orphans HIGH     : {registry['stats']['orphaned_from_gsg_HIGH']}")
     print(f"  ⚠️ Partial wired     : {registry['stats']['partial_wired']}")

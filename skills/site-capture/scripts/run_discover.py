@@ -23,9 +23,9 @@ import urllib.error
 from datetime import datetime
 from urllib.parse import urlparse
 import re
-
+from growthcro.config import config
 # ---------------------------------------------------------------------------
-TOKEN = os.environ.get("APIFY_TOKEN")
+TOKEN = config.apify_token()
 if not TOKEN:
     print("ERROR: APIFY_TOKEN env var missing", file=sys.stderr)
     sys.exit(1)

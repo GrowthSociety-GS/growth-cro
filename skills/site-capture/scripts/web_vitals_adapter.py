@@ -36,7 +36,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime
 from typing import Any
-
+from growthcro.config import config
 # Doctrine thresholds (A-10)
 LCP_THRESHOLD_MS = 2500
 CLS_THRESHOLD = 0.10
@@ -120,7 +120,7 @@ def _run_crux(url: str, api_key: str, timeout: int = 30) -> dict[str, Any]:
 
 def fetch_web_vitals(url: str, dom_hints: dict | None = None) -> dict[str, Any]:
     """Entrypoint adapter. Returns a uniform envelope regardless of provider."""
-    provider = os.environ.get("GROWTHCRO_WEB_VITALS_PROVIDER", "dom_hints").lower()
+    provider = config.web_vitals_provider("dom_hints").lower()
     now = datetime.utcnow().isoformat() + "Z"
     envelope: dict[str, Any] = {
         "provider": provider,
@@ -137,12 +137,12 @@ def fetch_web_vitals(url: str, dom_hints: dict | None = None) -> dict[str, Any]:
         if provider == "lighthouse":
             m = _run_lighthouse(url)
         elif provider == "psi":
-            key = os.environ.get("GROWTHCRO_PSI_KEY")
+            key = config.psi_key()
             if not key:
                 raise EnvironmentError("GROWTHCRO_PSI_KEY not set")
             m = _run_psi(url, key)
         elif provider == "crux":
-            key = os.environ.get("GROWTHCRO_CRUX_KEY")
+            key = config.crux_key()
             if not key:
                 raise EnvironmentError("GROWTHCRO_CRUX_KEY not set")
             m = _run_crux(url, key)
@@ -179,7 +179,7 @@ def main():
                    help="Force provider (overrides env). Options: lighthouse|psi|crux|dom_hints")
     args = p.parse_args()
     if args.provider:
-        os.environ["GROWTHCRO_WEB_VITALS_PROVIDER"] = args.provider
+        config.override_env("GROWTHCRO_WEB_VITALS_PROVIDER", args.provider)
     r = fetch_web_vitals(args.url)
     print(json.dumps(r, indent=2, ensure_ascii=False))
 
