@@ -2,9 +2,16 @@
 
 Every ``_format_*_block(...)`` helper takes structured data (brand_dna,
 AURA tokens, ClientContext, …) and returns a ready-to-concatenate
-markdown chunk. Each accepts a ``max_chars`` cap (LITE vs FULL paths)
-because the full prompt has to stay ≤ 8 192 chars under V26.AF doctrine
-(see ``prompt_assembly.build_persona_narrator_prompt``).
+markdown chunk. Each accepts a ``max_chars`` cap; the new V26.AG
+architecture (issue #13) splits content across cached system blocks
+(≤4K each, ≤8K total) and pre-filled user-turn dialogue (≤2K each),
+so callers pass small per-block budgets rather than the historical 4K+.
+
+The legacy ``_format_*_block`` (FULL) variants have been DELETED with
+issue #13: the empirical-regression artefact they preserved (anti-pattern
+#1, -28pts on persona_narrator) is now obsolete because the new
+architecture uses prompt caching + user-turn dialogue to deliver MORE
+context to Sonnet without ever exceeding 8K in the system prefix.
 
 Helpers exposed:
 
@@ -20,17 +27,14 @@ Helpers exposed:
                                         loader.
   * ``_format_v143_citations_block``  — founder bio / VoC / scarcity
                                         verified citations.
-  * ``_format_golden_techniques_block_LITE`` (default) — 3 refs, 1-line
-                                        each, full content via vision.
-  * ``_format_golden_techniques_block`` (FULL — debug) — Opus
-                                        css_approach injected.
-  * ``_format_layout_archetype_block_LITE`` (default) — top sections /
-                                        forbidden / examples.
-  * ``_format_layout_archetype_block`` (FULL — debug) — full archetype.
+  * ``_format_golden_techniques_block_LITE`` — 3 refs, 1-line each, full
+                                        content via vision input.
+  * ``_format_layout_archetype_block_LITE`` — top sections / forbidden
+                                        / examples.
   * ``_format_recos_hint_block``      — top-5 P0 recos from
                                         ``ctx.recos_final``.
   * ``_format_intent_for_page_type``  — page-type intent line for the
-                                        SYSTEM template's ``{format_intent}``.
+                                        FORMAT_DOCTRINE_TEMPLATE.
 """
 from __future__ import annotations
 
@@ -329,48 +333,6 @@ def _format_golden_techniques_block_LITE(
     return block[:max_chars] if len(block) > max_chars else block, philosophy_refs
 
 
-def _format_golden_techniques_block(
-    aura: Optional[dict],
-    page_type: str,
-    max_chars: int = 4000,
-) -> tuple[str, list[dict]]:
-    """Sprint AD-3 — Version FULL (debug/explicit, anti-pattern #1 si default).
-
-    Injecte philosophy refs + techniques par type avec css_approach Opus.
-    **NE PAS UTILISER en default** — passer par _format_golden_techniques_block_LITE.
-    """
-    target_vector = _extract_aesthetic_vector(aura)
-    if not target_vector:
-        return "", []
-
-    bridge = _get_golden_bridge()
-    if not bridge:
-        return "", []
-
-    try:
-        benchmark = bridge.get_design_benchmark(target_vector)
-    except Exception:
-        return "", []
-
-    prompt_block = benchmark.get("prompt_block", "")
-    philosophy_refs = benchmark.get("philosophy_refs", [])
-
-    # Add a stronger framing for persona_narrator context (vs raw bridge prompt)
-    framing = (
-        "\n## 🎨 SIGNATURE VISUELLE DE RÉFÉRENCE — TECHNIQUES PRESCRIPTIVES (Sprint AD-3)\n"
-        "\nVoici les sites dont l'ADN esthétique est PROCHE du tien (matching vector 8D), "
-        "et les meilleures techniques CSS à emprunter (croisement cross-catégorie). "
-        "**Tu DOIS produire un design au moins aussi mémorable que ces refs**, en empruntant "
-        "leurs TECHNIQUES (pas leurs styles) et en les fusionnant pour créer ta propre signature.\n"
-    )
-    full_block = framing + "\n" + prompt_block
-
-    if len(full_block) > max_chars:
-        full_block = full_block[:max_chars] + "\n[...] (block tronqué)"
-
-    return full_block, philosophy_refs
-
-
 # ─────────────────────────────────────────────────────────────────────
 # Layout archétype loader + formatter (Sprint AD-5) — LITE + FULL
 # ─────────────────────────────────────────────────────────────────────
@@ -420,83 +382,6 @@ def _format_layout_archetype_block_LITE(page_type: str, max_chars: int = 1200) -
     return block[:max_chars] if len(block) > max_chars else block
 
 
-def _format_layout_archetype_block(page_type: str, max_chars: int = 4500) -> str:
-    """Sprint AD-5 — Version FULL (debug/explicit, anti-pattern #1 si default).
-
-    Donne à Sonnet une PRESCRIPTION concrète (sections required, forbidden,
-    typography rules, decorative techniques) au lieu de le laisser improviser
-    le layout. **NE PAS UTILISER en default** — passer par _format_layout_archetype_block_LITE.
-    """
-    arch = _load_layout_archetype(page_type)
-    if not arch:
-        return ""
-
-    parts = [f"\n## 📐 ARCHÉTYPE DE STRUCTURE — {page_type.upper()} (FULL)"]
-    parts.append(f"\n*{arch.get('philosophy', '')}*\n")
-
-    # Sections required
-    sections = arch.get("structure_required", [])
-    if sections:
-        parts.append("### STRUCTURE OBLIGATOIRE (dans cet ordre) :")
-        for i, s in enumerate(sections, start=1):
-            parts.append(f"\n{i}. **{s.get('section', '?')}**")
-            if s.get("where"):
-                parts.append(f"   *où :* {s['where']}")
-            parts.append(f"   *quoi :* {s.get('what', '')}")
-            if s.get("why"):
-                parts.append(f"   *pourquoi :* {s['why']}")
-
-    # Sections forbidden
-    forbidden = arch.get("structure_forbidden", [])
-    if forbidden:
-        parts.append("\n\n### ⛔ STRUCTURE INTERDITE :")
-        for f in forbidden:
-            parts.append(f"  - {f}")
-
-    # Typography
-    typo = arch.get("typography_required", [])
-    if typo:
-        parts.append("\n\n### TYPOGRAPHIE OBLIGATOIRE :")
-        for t in typo:
-            parts.append(f"  - {t}")
-
-    # Decorative required
-    deco_req = arch.get("decorative_techniques_required", [])
-    if deco_req:
-        parts.append("\n\n### TECHNIQUES VISUELLES OBLIGATOIRES :")
-        for d in deco_req:
-            parts.append(f"  - {d}")
-
-    # Decorative forbidden
-    deco_forbid = arch.get("decorative_techniques_forbidden", [])
-    if deco_forbid:
-        parts.append("\n\n### ⛔ TECHNIQUES VISUELLES INTERDITES (anti-AI-slop) :")
-        for d in deco_forbid:
-            parts.append(f"  - {d}")
-
-    # Color strategy
-    color = arch.get("color_strategy")
-    if color:
-        parts.append(f"\n\n### STRATÉGIE COULEUR : {color}")
-
-    # Examples
-    examples = arch.get("examples_to_imitate", [])
-    anti_examples = arch.get("anti_examples", [])
-    if examples or anti_examples:
-        parts.append("\n\n### RÉFÉRENCES :")
-        if examples:
-            parts.append("**Imiter** :")
-            for e in examples[:5]:
-                parts.append(f"  - {e}")
-        if anti_examples:
-            parts.append("\n**Éviter** :")
-            for e in anti_examples[:3]:
-                parts.append(f"  - {e}")
-
-    block = "\n".join(parts)
-    return block[:max_chars] if len(block) > max_chars else block
-
-
 # ─────────────────────────────────────────────────────────────────────
 # Recos hint block (Mode 2 REPLACE refonte)
 # ─────────────────────────────────────────────────────────────────────
@@ -529,9 +414,7 @@ __all__ = [
     "_load_tokens_css",
     "_format_v143_citations_block",
     "_format_golden_techniques_block_LITE",
-    "_format_golden_techniques_block",
     "_load_layout_archetype",
     "_format_layout_archetype_block_LITE",
-    "_format_layout_archetype_block",
     "_format_recos_hint_block",
 ]

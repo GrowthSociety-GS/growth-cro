@@ -1,15 +1,17 @@
-"""Mode 1 PERSONA NARRATOR — split sub-package (issue #8).
+"""Mode 1 PERSONA NARRATOR — split sub-package (issue #8 + #13).
 
 Original ``mode_1_persona_narrator.py`` (1,448 LOC) decomposed into:
 
-    prompt_assembly.py     — SYSTEM_PROMPT_TEMPLATE, build_founder_persona,
-                             build_persona_narrator_prompt (with V26.AF
-                             8 192-char assert that quarantines the legacy
-                             ``prompt_mode='full'`` path).
-    prompt_blocks.py       — all _format_*_block helpers (brand voice /
+    prompt_assembly.py     — PERSONA_FRAME_TEMPLATE, FORMAT_DOCTRINE_TEMPLATE,
+                             build_founder_persona, build_persona_narrator_prompt
+                             (V26.AG architecture: returns
+                             (system_messages, user_turns_seq, philosophy_refs)
+                             with Anthropic SDK native prompt caching; the
+                             V26.AF 8K hard limit stays enforced defensively).
+    prompt_blocks.py       — _format_*_block helpers (brand voice /
                              visual / forbid, AURA tokens, v143 citations,
-                             golden techniques (LITE + FULL), layout
-                             archetype (LITE + FULL), recos hint).
+                             golden techniques LITE, layout archetype LITE,
+                             recos hint). FULL variants deleted (issue #13).
     philosophy_bridge.py   — _get_golden_bridge cached loader,
                              _extract_aesthetic_vector. Lives separately
                              to break the prompt_blocks ↔ vision_selection
@@ -41,8 +43,9 @@ from __future__ import annotations
 from .orchestrator import run_mode_1_persona_narrator
 from .output_parsing import extract_html
 from .prompt_assembly import (
+    FORMAT_DOCTRINE_TEMPLATE,
     KNOWN_FOUNDERS,
-    SYSTEM_PROMPT_TEMPLATE,
+    PERSONA_FRAME_TEMPLATE,
     build_founder_persona,
     build_persona_narrator_prompt,
     build_persona_prompt,  # legacy alias
@@ -54,6 +57,7 @@ __all__ = [
     "build_persona_prompt",
     "build_founder_persona",
     "KNOWN_FOUNDERS",
-    "SYSTEM_PROMPT_TEMPLATE",
+    "PERSONA_FRAME_TEMPLATE",
+    "FORMAT_DOCTRINE_TEMPLATE",
     "extract_html",
 ]
