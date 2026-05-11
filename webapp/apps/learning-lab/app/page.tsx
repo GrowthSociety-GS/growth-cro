@@ -1,62 +1,79 @@
+// Learning Lab — proposals index.
+// Lists all doctrine proposals (V29 audit-based + V30 data-driven) with
+// search, filter by track/status/type, click → detail.
 import { Card, Pill } from "@growthcro/ui";
+import {
+  listAllProposals,
+  listV29Proposals,
+  listV30Proposals,
+} from "../lib/proposals-fs";
+import { ProposalList } from "../components/ProposalList";
 
-const TRACKS = [
-  {
-    name: "V29 audit-based",
-    status: "active",
-    count: "69 proposals",
-    note: "Issue #18 doctrine V3.3 CRE fusion — pré-catégorisées par Codex, revue Mathis pending.",
-  },
-  {
-    name: "V30 data-driven Bayesian",
-    status: "pending",
-    count: "0 cycles",
-    note: "Reality Loop → 3 pilote clients → 5 A/B → posterior update doctrine. Task #23.",
-  },
-];
+export const dynamic = "force-dynamic";
 
-export default function LearningPage() {
+export default function LearningIndex() {
+  const v29 = listV29Proposals();
+  const v30 = listV30Proposals();
+  const all = listAllProposals();
+
+  const stats = {
+    v29: v29.length,
+    v30: v30.length,
+    pending: all.filter((p) => !p.review).length,
+    accepted: all.filter((p) => p.review?.decision === "accept").length,
+    rejected: all.filter((p) => p.review?.decision === "reject").length,
+    deferred: all.filter((p) => p.review?.decision === "defer").length,
+  };
+
   return (
     <main style={{ padding: 22 }}>
       <div className="gc-topbar">
         <div className="gc-title">
           <h1>Learning Lab</h1>
           <p>
-            Boucle d&apos;apprentissage doctrine — V29 audit-based déjà actif (69 propositions
-            pré-catégorisées) ; V30 Bayesian piloté par Reality Layer.
+            Doctrine update proposals from two tracks: V29 audit-based (69 from
+            Issue #18) + V30 data-driven (Bayesian update on V3.3, this sprint).
+            Mathis decides accept/reject/defer; doctrine merge is downstream.
           </p>
         </div>
         <div className="gc-toolbar">
-          <a href="/" className="gc-pill gc-pill--soft">← Shell</a>
+          <a href="/" className="gc-pill gc-pill--soft">
+            ← Shell
+          </a>
         </div>
       </div>
-      <Card title="Tracks" actions={<Pill tone="cyan">V28+V29+V30</Pill>}>
-        <div className="gc-stack">
-          {TRACKS.map((t) => (
-            <div
-              key={t.name}
-              style={{
-                padding: "12px 14px",
-                border: "1px solid var(--gc-line-soft)",
-                borderRadius: 6,
-                background: "#0f1520",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                <strong>{t.name}</strong>
-                <Pill tone={t.status === "active" ? "green" : "amber"}>{t.count}</Pill>
-              </div>
-              <p style={{ color: "var(--gc-muted)", fontSize: 13, margin: 0 }}>{t.note}</p>
-            </div>
-          ))}
+
+      <Card
+        title="Tracks"
+        actions={
+          <>
+            <Pill tone="gold">V29: {stats.v29}</Pill>{" "}
+            <Pill tone="cyan">V30: {stats.v30}</Pill>
+          </>
+        }
+      >
+        <div className="gc-kpi-row">
+          <div className="gc-kpi">
+            <span>Pending</span>
+            <b>{stats.pending}</b>
+            <small className="gc-kpi__hint">awaiting Mathis</small>
+          </div>
+          <div className="gc-kpi">
+            <span>Accepted</span>
+            <b>{stats.accepted}</b>
+          </div>
+          <div className="gc-kpi">
+            <span>Rejected</span>
+            <b>{stats.rejected}</b>
+          </div>
+          <div className="gc-kpi">
+            <span>Deferred</span>
+            <b>{stats.deferred}</b>
+          </div>
         </div>
       </Card>
-      <Card title="Doctrine proposals (V29)" actions={<Pill tone="gold">to wire</Pill>}>
-        <p style={{ color: "var(--gc-muted)" }}>
-          Cette section listera les propositions importées depuis{" "}
-          <code>data/learning/audit_based_proposals/</code> pour décision accept/reject/defer.
-        </p>
-      </Card>
+
+      <ProposalList proposals={all} />
     </main>
   );
 }
