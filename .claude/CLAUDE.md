@@ -33,6 +33,7 @@
 9. `os.environ` / `os.getenv` hors `growthcro/config.py` — toute lecture env passe par le module config
 10. Archive (`_archive*`, `_obsolete*`, `*deprecated*`, `*backup*`) à l'intérieur d'un path actif — déplacer sous `_archive/` racine
 11. Basename dupliqué dans des paths actifs (hors `__init__.py`, `cli.py`, et les noms canoniques AD-1 `base/orchestrator/persist/prompt_assembly`)
+12. Charger >8 skills simultanés OU skills à signaux contraires (ex: `Taste Skill` + `brand-guidelines` per-client, `lp-creator` + `moteur_gsg`, `theme-factory` + Brand DNA) → cacophonie + dépassement limite Claude Code. Respecter les combo packs par contexte définis dans [`docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md`](docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md) : Audit run (≤4) · GSG generation (≤4) · Webapp Next.js dev (≤4).
 
 ## Règles immuables
 
