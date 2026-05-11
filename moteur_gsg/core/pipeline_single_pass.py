@@ -171,6 +171,132 @@ def call_sonnet(
     }
 
 
+def call_sonnet_messages(
+    system_messages: list[dict],
+    user_turns_seq: list[dict],
+    image_paths: list[pathlib.Path] | None = None,
+    model: str = SONNET_MODEL,
+    max_tokens: int = 8000,
+    temperature: float = 0.7,
+    verbose: bool = True,
+) -> dict:
+    """Sonnet 4.5 call using the V26.AG dialogue architecture (issue #13).
+
+    Accepts the new shape produced by ``build_persona_narrator_prompt`` :
+
+      * ``system_messages`` — list of ``{type, text, cache_control}`` blocks.
+        Static blocks carry ``cache_control: ephemeral`` so the Anthropic
+        SDK writes/reads the prefix cache natively (1.25× on first call,
+        0.1× on subsequent identical-prefix calls).
+      * ``user_turns_seq`` — pre-filled dialogue
+        ``[{role, content}, ...]``. The LAST turn is the generation
+        kickoff (already built by ``build_persona_narrator_prompt`` —
+        the function injects the brief / mission as the final user turn).
+      * ``image_paths`` — optional list of PNG/JPG to attach to the LAST
+        user turn as base64 image content blocks (client screenshots +
+        golden refs for Sprint AD-4 multimodal vision).
+
+    The SDK handles the ``prompt-caching`` beta natively; no extra header
+    is required for ``cache_control`` on Sonnet 4.5.
+
+    Returns: dict {html, tokens_in, tokens_out, tokens_cached_read,
+                   tokens_cached_write, wall_seconds, model, n_images,
+                   raw_response_chars}.
+    """
+    import anthropic
+    import base64
+
+    api = anthropic.Anthropic()
+
+    # Build messages array: copy user_turns_seq, then attach images to the
+    # LAST user turn (vision context goes with the kickoff turn so the
+    # model sees the brief AND the screenshots together).
+    messages: list[dict] = []
+    images_loaded = 0
+    for i, turn in enumerate(user_turns_seq):
+        if (
+            i == len(user_turns_seq) - 1
+            and turn["role"] == "user"
+            and image_paths
+        ):
+            content_blocks: list[dict] = []
+            for img_path in image_paths:
+                if not img_path.exists():
+                    if verbose:
+                        print(f"  ⚠️  Image not found, skip: {img_path}", flush=True)
+                    continue
+                ext = img_path.suffix.lower().lstrip(".")
+                media_type = "image/png" if ext == "png" else f"image/{ext}"
+                with open(img_path, "rb") as f:
+                    img_b64 = base64.standard_b64encode(f.read()).decode("utf-8")
+                content_blocks.append({
+                    "type": "image",
+                    "source": {"type": "base64", "media_type": media_type, "data": img_b64},
+                })
+                images_loaded += 1
+            content_blocks.append({"type": "text", "text": turn["content"]})
+            messages.append({"role": "user", "content": content_blocks})
+        else:
+            messages.append({"role": turn["role"], "content": turn["content"]})
+
+    if verbose:
+        sys_chars = sum(len(b["text"]) for b in system_messages)
+        user_chars = sum(
+            len(t["content"]) if isinstance(t["content"], str) else 0
+            for t in user_turns_seq
+        )
+        cached_blocks = sum(1 for b in system_messages if "cache_control" in b)
+        print(
+            f"  → Sonnet messages (model={model}, system={sys_chars}c [{cached_blocks} cached], "
+            f"user_turns={len(user_turns_seq)} ({user_chars}c), images={images_loaded}, "
+            f"max_tokens={max_tokens}, T={temperature})...",
+            flush=True,
+        )
+
+    t0 = time.time()
+    msg = api.messages.create(
+        model=model,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        system=system_messages,
+        messages=messages,
+    )
+    dt = time.time() - t0
+
+    raw = msg.content[0].text
+    html = _strip_html_fences(raw)
+
+    usage = msg.usage
+    cache_read = getattr(usage, "cache_read_input_tokens", 0) or 0
+    cache_write = getattr(usage, "cache_creation_input_tokens", 0) or 0
+
+    if verbose:
+        cache_hint = ""
+        if cache_read or cache_write:
+            cache_hint = f" cache_read={cache_read} cache_write={cache_write}"
+        print(
+            f"  ← Sonnet : in={usage.input_tokens}{cache_hint} out={usage.output_tokens} "
+            f"({dt:.1f}s) html={len(html)} chars",
+            flush=True,
+        )
+
+    if not re.search(r"<!DOCTYPE\s+html>", html, re.IGNORECASE):
+        if verbose:
+            print(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
+
+    return {
+        "html": html,
+        "tokens_in": usage.input_tokens,
+        "tokens_out": usage.output_tokens,
+        "tokens_cached_read": cache_read,
+        "tokens_cached_write": cache_write,
+        "wall_seconds": round(dt, 1),
+        "model": model,
+        "n_images": images_loaded,
+        "raw_response_chars": len(raw),
+    }
+
+
 def apply_runtime_fixes(html: str, verbose: bool = True) -> tuple[str, dict]:
     """Patch les bugs runtime courants via the explicit legacy-lab adapter.
 

@@ -7,10 +7,13 @@ reality_layer + evidence). Plus jamais d'oubli.
 
 Stages:
   0. ROUTER RACINE — load all context.
-  1. ``build_persona_narrator_prompt`` — V26.AF 8K assert enforces
-     the LITE path; 'full' crashes here by design.
+  1. ``build_persona_narrator_prompt`` — V26.AG architecture (issue #13):
+     returns (system_messages, user_turns_seq, philosophy_refs) with
+     static system blocks cached via cache_control: ephemeral. The V26.AF
+     8K hard limit stays enforced defensively.
   2. ``_select_vision_screenshots`` — client + AD-4 golden inspirations.
-  3. ``call_sonnet_multimodal`` (or text-only fallback).
+  3. ``call_sonnet_messages`` — single Anthropic SDK call with native
+     prompt caching + multi-turn dialogue + optional vision images.
   4. ``apply_runtime_fixes`` (P0 rendering bugs).
   4a. ``_repair_ai_slop_fonts`` (Sprint AD-2 garde-fou).
   4a-bis. ``_check_ai_slop_visual_patterns`` (report-only by default V26.AG).
@@ -25,7 +28,7 @@ import time
 from typing import Optional
 
 from ...core.brand_intelligence import has_brand_dna, load_brand_dna  # noqa: F401  re-exported for back-compat
-from .api_call import apply_runtime_fixes, call_sonnet, call_sonnet_multimodal
+from .api_call import apply_runtime_fixes, call_sonnet_messages
 from .philosophy_bridge import ROOT
 from .prompt_assembly import KNOWN_FOUNDERS, build_persona_narrator_prompt
 from .runtime_fixes import (
@@ -45,7 +48,6 @@ def run_mode_1_persona_narrator(
     *,
     fallback_page_for_vision: Optional[str] = None,  # Sprint F V26.AC : fallback screenshots si page demandée non capturée
     forced_language: Optional[str] = None,  # Sprint F.fix V26.AC : "FR"/"EN"/etc — override vision bias
-    prompt_mode: str = "lite",  # V26.AE : "lite" (default ≤8K) | "full" (debug ≤17K)
     apply_fixes: bool = True,
     apply_post_gates: bool = True,  # Sprint F V26.AC : AURA font + design_grammar forbidden
     repair_visual_slop: bool = False,  # V26.AG rollback : visual gate report-only by default
@@ -91,18 +93,25 @@ def run_mode_1_persona_narrator(
             print(f"    Missing   : {', '.join(ctx.missing_artefacts[:6])}{' ...' if len(ctx.missing_artefacts) > 6 else ''}")
 
     # ── 1. Build prompt enrichi (router-aware + hard constraints + golden bridge AD-3) ──
-    system_prompt, user_message, philosophy_refs = build_persona_narrator_prompt(
+    # V26.AG (issue #13) — returns (system_messages, user_turns_seq, philosophy_refs).
+    system_messages, user_turns_seq, philosophy_refs = build_persona_narrator_prompt(
         client, page_type, brief, ctx.brand_dna, ctx=ctx,
-        forced_language=forced_language, prompt_mode=prompt_mode,
+        forced_language=forced_language,
     )
     if verbose:
-        sz = len(system_prompt) + len(user_message)
+        sys_chars = sum(len(b["text"]) for b in system_messages)
+        user_chars = sum(
+            len(t["content"]) if isinstance(t["content"], str) else 0
+            for t in user_turns_seq
+        )
+        cached_blocks = sum(1 for b in system_messages if "cache_control" in b)
         founder_used = client in KNOWN_FOUNDERS
-        print(f"  Prompt : system={len(system_prompt)} user={len(user_message)} TOTAL={sz} chars [mode={prompt_mode}]")
-        if sz > 8000 and prompt_mode == "lite":
-            print(f"  ⚠️  ANTI-PATTERN #1 ALERT : prompt {sz} > 8K chars en mode lite (régression empirique -28pts)")
-        elif sz > 12000:
-            print(f"  ⚠️  Prompt {sz} chars très long — mega-prompt risque, prompt_mode={prompt_mode}")
+        print(
+            f"  Prompt V26.AG : system={sys_chars}c ({len(system_messages)} blocks, "
+            f"{cached_blocks} cached) user_turns={len(user_turns_seq)} ({user_chars}c)"
+        )
+        if sys_chars > 8192:
+            print(f"  ⚠️  ANTI-PATTERN #1 ALERT : system {sys_chars} > 8K (régression -28pts)")
         print(f"  Founder persona : {'hardcoded ⭐' if founder_used else 'extracted from brand_dna'}")
         if philosophy_refs:
             ref_names = [f"{r['site']}/{r['page']}" for r in philosophy_refs[:3]]
@@ -119,19 +128,14 @@ def run_mode_1_persona_narrator(
         else:
             print(f"  Vision input : ❌ aucun screenshot disponible (Sonnet code à l'aveugle)")
 
-    # ── 3. Single-pass Sonnet MULTIMODAL ──
+    # ── 3. Single-pass Sonnet via V26.AG dialogue + caching (issue #13) ──
     if verbose:
-        print(f"\n→ Sonnet single_pass MULTIMODAL (T={temperature}, max_tokens={max_tokens})...")
-    if vision_images:
-        gen = call_sonnet_multimodal(
-            system_prompt, user_message, image_paths=vision_images,
-            max_tokens=max_tokens, temperature=temperature, verbose=verbose,
-        )
-    else:
-        gen = call_sonnet(
-            system_prompt, user_message,
-            max_tokens=max_tokens, temperature=temperature, verbose=verbose,
-        )
+        print(f"\n→ Sonnet call_sonnet_messages (T={temperature}, max_tokens={max_tokens})...")
+    gen = call_sonnet_messages(
+        system_messages, user_turns_seq,
+        image_paths=vision_images if vision_images else None,
+        max_tokens=max_tokens, temperature=temperature, verbose=verbose,
+    )
     html_raw = gen["html"]
 
     # ── 4. fix_html_runtime auto ──
