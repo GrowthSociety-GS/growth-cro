@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T13:40:00Z'
-  source_commit: e1fb98cd57565d4fd4b89b6e2ed4d29fbfab8f18
+  generated_at: '2026-05-11T14:03:08Z'
+  source_commit: 3a3911a194d5d928dbf85fc5a3ac4a8c2af6fde1
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -56,6 +56,28 @@ modules:
     doctrine_refs: []
     status: active
     lifecycle_phase: infrastructure
+  growthcro/api/audits:
+    path: growthcro/api/audits.py
+    purpose: 'Agency audit routes — POST /audit/gads + POST /audit/meta + GET /audit/list. Thin orchestration over audit_gads
+      / audit_meta modules (axis #4).'
+    inputs:
+    - HTTP POST AuditRequest (client_slug + csv_path | csv_text + period_label + business_category + notes + persist)
+    - HTTP GET platform filter (gads / meta / all)
+    outputs:
+    - AuditResponse JSON (platform + skill_name + bundle + markdown + notion_payload + artefact paths)
+    - data/audits/{gads,meta}/<client>/<period>/{bundle.json, notion.md, notion_payload.json}
+    depends_on:
+    - growthcro/audit_gads/notion_export
+    - growthcro/audit_gads/orchestrator
+    - growthcro/audit_meta/notion_export
+    - growthcro/audit_meta/orchestrator
+    imported_by:
+    - growthcro/api/server
+    doctrine_refs:
+    - FR-7 webapp-stratosphere PRD (US-5 agency products)
+    - webapp-stratosphere AD-7
+    status: active
+    lifecycle_phase: infrastructure
   growthcro/api/server:
     path: growthcro/api/server.py
     purpose: GrowthCRO FastAPI server — POST /capture, GET /captures, /audits, /clients. Exposed via Vercel edge functions
@@ -65,12 +87,147 @@ modules:
     outputs:
     - JSON responses + pipeline kicks
     depends_on:
+    - growthcro/api/audits
     - growthcro/config
     imported_by: []
     doctrine_refs:
     - FR-6 webapp-stratosphere PRD
     status: active
     lifecycle_phase: infrastructure
+  growthcro/audit_gads:
+    path: growthcro/audit_gads/__init__.py
+    purpose: Google Ads audit module — thin wrapper around the `anthropic-skills:gads-auditor` skill (combo agency_products).
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/audit_gads/notion_export
+    - growthcro/audit_gads/orchestrator
+    imported_by: []
+    doctrine_refs:
+    - webapp-stratosphere AD-7 (Anthropic skill + thin wrapper)
+    - FR-7 PRD US-5
+    status: active
+    lifecycle_phase: runtime
+  growthcro/audit_gads/cli:
+    path: growthcro/audit_gads/cli.py
+    purpose: 'Google Ads audit CLI — `python -m growthcro.audit_gads.cli --client <slug> --csv <path>` (axis #5).'
+    inputs:
+    - argv (client slug, CSV path, period, business category)
+    outputs:
+    - data/audits/gads/<client>/<period>/bundle.json
+    - data/audits/gads/<client>/<period>/notion.md
+    - data/audits/gads/<client>/<period>/notion_payload.json
+    depends_on:
+    - growthcro/audit_gads/notion_export
+    - growthcro/audit_gads/orchestrator
+    imported_by: []
+    doctrine_refs:
+    - 'CODE_DOCTRINE.md axis #5 CLI'
+    status: active
+    lifecycle_phase: runtime
+  growthcro/audit_gads/notion_export:
+    path: growthcro/audit_gads/notion_export.py
+    purpose: 'Notion-template renderer for Google Ads audits — dict→Markdown + dict→Notion-API payload (axis #8 I/O serialization).'
+    inputs:
+    - AuditBundle.as_dict() payload
+    outputs:
+    - Markdown string (Growth Society sections A-H)
+    - Notion API page payload (properties + children blocks)
+    depends_on: []
+    imported_by:
+    - growthcro/api/audits
+    - growthcro/audit_gads
+    - growthcro/audit_gads/cli
+    doctrine_refs:
+    - 'CODE_DOCTRINE.md axis #8 I/O serialization'
+    status: active
+    lifecycle_phase: runtime
+  growthcro/audit_gads/orchestrator:
+    path: growthcro/audit_gads/orchestrator.py
+    purpose: 'Google Ads audit orchestration — parse Reports CSV → KPIs roll-up → sections A-H with <<SKILL_FILLED>> slots
+      (axis #4).'
+    inputs:
+    - Google Ads Editor / Reports CSV (EN or FR columns)
+    - AuditInputs (client_slug, period_label, business_category, notes)
+    outputs:
+    - AuditBundle (platform=google_ads, skill_name=anthropic-skills:gads-auditor, sections A-H, KPIs, raw_rows)
+    depends_on: []
+    imported_by:
+    - growthcro/api/audits
+    - growthcro/audit_gads
+    - growthcro/audit_gads/cli
+    doctrine_refs:
+    - 'CODE_DOCTRINE.md axis #4 orchestration'
+    - webapp-stratosphere AD-7
+    status: active
+    lifecycle_phase: runtime
+  growthcro/audit_meta:
+    path: growthcro/audit_meta/__init__.py
+    purpose: Meta Ads audit module — thin wrapper around `anthropic-skills:meta-ads-auditor` (combo agency_products).
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/audit_meta/notion_export
+    - growthcro/audit_meta/orchestrator
+    imported_by: []
+    doctrine_refs:
+    - webapp-stratosphere AD-7 (Anthropic skill + thin wrapper)
+    - FR-7 PRD US-5
+    status: active
+    lifecycle_phase: runtime
+  growthcro/audit_meta/cli:
+    path: growthcro/audit_meta/cli.py
+    purpose: 'Meta Ads audit CLI — `python -m growthcro.audit_meta.cli --client <slug> --csv <path>` (axis #5).'
+    inputs:
+    - argv (client slug, CSV path, period, business category)
+    outputs:
+    - data/audits/meta/<client>/<period>/bundle.json
+    - data/audits/meta/<client>/<period>/notion.md
+    - data/audits/meta/<client>/<period>/notion_payload.json
+    depends_on:
+    - growthcro/audit_meta/notion_export
+    - growthcro/audit_meta/orchestrator
+    imported_by: []
+    doctrine_refs:
+    - 'CODE_DOCTRINE.md axis #5 CLI'
+    status: active
+    lifecycle_phase: runtime
+  growthcro/audit_meta/notion_export:
+    path: growthcro/audit_meta/notion_export.py
+    purpose: 'Notion-template renderer for Meta Ads audits — dict→Markdown + dict→Notion-API payload (axis #8 I/O serialization).'
+    inputs:
+    - AuditBundle.as_dict() payload
+    outputs:
+    - Markdown string (Growth Society sections A-H)
+    - Notion API page payload (properties + children blocks)
+    depends_on: []
+    imported_by:
+    - growthcro/api/audits
+    - growthcro/audit_meta
+    - growthcro/audit_meta/cli
+    doctrine_refs:
+    - 'CODE_DOCTRINE.md axis #8 I/O serialization'
+    status: active
+    lifecycle_phase: runtime
+  growthcro/audit_meta/orchestrator:
+    path: growthcro/audit_meta/orchestrator.py
+    purpose: 'Meta Ads audit orchestration — parse Ads Manager CSV → KPIs roll-up → sections A-H with <<SKILL_FILLED>> slots
+      (axis #4).'
+    inputs:
+    - Meta Ads Manager CSV (EN or FR columns)
+    - AuditInputs (client_slug, period_label, business_category, notes)
+    outputs:
+    - AuditBundle (platform=meta_ads, skill_name=anthropic-skills:meta-ads-auditor, sections A-H, KPIs, raw_rows)
+    depends_on: []
+    imported_by:
+    - growthcro/api/audits
+    - growthcro/audit_meta
+    - growthcro/audit_meta/cli
+    doctrine_refs:
+    - 'CODE_DOCTRINE.md axis #4 orchestration'
+    - webapp-stratosphere AD-7
+    status: active
+    lifecycle_phase: runtime
   growthcro/capture:
     path: growthcro/capture/__init__.py
     purpose: 'GrowthCRO capture package — single concern: collect raw page artifacts.'
@@ -2060,6 +2217,16 @@ modules:
     - skills/gsg/SKILL.md
     status: active
     lifecycle_phase: onboarding
+  scripts/test_agency_audits:
+    path: scripts/test_agency_audits.py
+    purpose: test_agency_audits.py — Smoke test for the audit_gads + audit_meta modules.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: infrastructure
   scripts/test_webapp_v27:
     path: scripts/test_webapp_v27.py
     purpose: test_webapp_v27.py — Playwright headless smoke test for V27 Command Center.
@@ -3144,6 +3311,36 @@ pipelines:
     - lifecycle (skills/site-capture/scripts/reco_lifecycle)
     entrypoint: python -m growthcro.cli.capture_full <url> <client>
     duration: < 5min per client (target)
+  audit_gads_pipeline:
+    description: Agency Google Ads audit (Issue
+    stages:
+    - parse_csv (growthcro/audit_gads/orchestrator.parse_gads_csv → canonical rows EN/FR)
+    - kpi_rollup (growthcro/audit_gads/orchestrator.compute_kpis → impressions, clicks, cost, conv, ROAS, CPA)
+    - section_assembly (growthcro/audit_gads/orchestrator._build_sections → sections A-H with <<SKILL_FILLED>> for C-G)
+    - skill_invocation_handoff (anthropic-skills:gads-auditor fills C-G narratives via Claude Code)
+    - notion_render (growthcro/audit_gads/notion_export → notion.md + notion_payload.json)
+    - persist (growthcro/audit_gads/cli → data/audits/gads/<client>/<period>/{bundle.json, notion.md, notion_payload.json})
+    entrypoint: python -m growthcro.audit_gads.cli --client <slug> --csv <path>
+    api_entrypoint: POST /audit/gads (growthcro/api/audits)
+    skill_combo: agency_products (claude-api + anthropic-skills:gads-auditor)
+    smoke_test: python3 scripts/test_agency_audits.py
+    fixtures: data/audits/_fixtures/gads_synthetic_30d.csv
+    status: V1 — Issue
+  audit_meta_pipeline:
+    description: Agency Meta Ads audit (Issue
+    stages:
+    - parse_csv (growthcro/audit_meta/orchestrator.parse_meta_csv → canonical rows EN/FR, ASC + Advantage+ + leads)
+    - kpi_rollup (growthcro/audit_meta/orchestrator.compute_kpis → impressions, reach, spend, purchases, leads, ROAS, CPA)
+    - section_assembly (growthcro/audit_meta/orchestrator._build_sections → sections A-H with <<SKILL_FILLED>> for C-G)
+    - skill_invocation_handoff (anthropic-skills:meta-ads-auditor fills C-G narratives via Claude Code)
+    - notion_render (growthcro/audit_meta/notion_export → notion.md + notion_payload.json)
+    - persist (growthcro/audit_meta/cli → data/audits/meta/<client>/<period>/{bundle.json, notion.md, notion_payload.json})
+    entrypoint: python -m growthcro.audit_meta.cli --client <slug> --csv <path>
+    api_entrypoint: POST /audit/meta (growthcro/api/audits)
+    skill_combo: agency_products (claude-api + anthropic-skills:meta-ads-auditor)
+    smoke_test: python3 scripts/test_agency_audits.py
+    fixtures: data/audits/_fixtures/meta_synthetic_30d.csv
+    status: V1 — Issue
   gsg_pipeline:
     stages:
     - intake_wizard (moteur_gsg/core/intake_wizard)
@@ -3320,6 +3517,29 @@ skills_integration:
       - webapp.stages_v28_nextjs_target
       rationale: frontend-design pour composants, web-artifacts-builder pour shadcn/Tailwind, vercel-microfrontends pour archi
         multi-zones, Figma si Mathis fournit un design.
+    agency_products:
+      skills:
+      - claude-api
+      - anthropic-skills:gads-auditor
+      - anthropic-skills:meta-ads-auditor
+      max_session: 3
+      activation: contextual (on /audit-gads or /audit-meta route, or via CLI growthcro.audit_{gads,meta}.cli)
+      modules_impacted:
+      - growthcro/audit_gads/orchestrator
+      - growthcro/audit_gads/notion_export
+      - growthcro/audit_gads/cli
+      - growthcro/audit_meta/orchestrator
+      - growthcro/audit_meta/notion_export
+      - growthcro/audit_meta/cli
+      - growthcro/api/audits
+      pipeline_stages:
+      - audit_gads_pipeline.skill_invocation_handoff
+      - audit_meta_pipeline.skill_invocation_handoff
+      rationale: Both audit skills are Anthropic-built skills (already available). We do NOT reinvent the ads audit logic.
+        Our thin wrappers parse CSV, roll up KPIs, and shape the Notion template (sections A-H). The skill fills the qualitative
+        slots C-G at invocation. Combo permanent = claude-api + at least one of the 2 audit skills selon contexte (cf SKILLS_INTEGRATION_BLUEPRINT.md).
+        Webapp-stratosphere AD-7.
+      task_ref: 'Issue #22 webapp-stratosphere'
   essentials:
   - name: frontend-design
     source: anthropic-builtin
@@ -3357,6 +3577,16 @@ skills_integration:
     source: figma (nocodefactory list)
     installed: true
     combo: webapp_nextjs
+  - name: anthropic-skills:gads-auditor
+    source: anthropic-builtin
+    installed: true
+    combo: agency_products
+    notes: Audit complet Google Ads (Search/Shopping/PMax/Demand Gen) — sections A-H.
+  - name: anthropic-skills:meta-ads-auditor
+    source: anthropic-builtin
+    installed: true
+    combo: agency_products
+    notes: Audit complet Meta Ads (FB+IG, ASC, Advantage+, DPA, retargeting) — sections A-H.
   on_demand:
   - name: page-cro
     source: coreyhaines31
