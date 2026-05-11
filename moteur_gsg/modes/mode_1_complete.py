@@ -48,6 +48,7 @@ import time
 from typing import Any
 
 from ..core.brand_intelligence import load_brand_dna, has_brand_dna, get_brand_summary
+from ..core.impeccable_qa import run_impeccable_qa
 from ..core.prompt_assembly import build_mode1_prompt
 from ..core.pipeline_single_pass import apply_runtime_fixes, single_pass
 from ..core.design_grammar_loader import load_design_grammar
@@ -461,6 +462,20 @@ def run_mode_1_complete(
         gen["html"] = html
         gen["minimal_gates"] = minimal_report
 
+    # ── 2c. Impeccable QA layer (V27.2-G+ issue #19) ──────────
+    # Post-render anti-pattern detection (deterministic, offline). Hard
+    # fail below MIN_PASSING_SCORE per task #19 spec.
+    impeccable_report = run_impeccable_qa(html)
+    gen["impeccable_qa"] = impeccable_report
+    if verbose:
+        ip_score = impeccable_report.get("score")
+        ip_passed = impeccable_report.get("passed")
+        ip_hits = len(impeccable_report.get("anti_patterns_detected") or [])
+        print(
+            f"  Impeccable QA   : score={ip_score}/100 "
+            f"{'PASS' if ip_passed else 'FAIL'} hits={ip_hits}"
+        )
+
     # ── 3. Save HTML ─────────────────────────────────────────
     if save_html_path:
         out_html = pathlib.Path(save_html_path)
@@ -502,6 +517,8 @@ def run_mode_1_complete(
         "tokens_out_total": total_tokens_out,
         "cost_estimate_usd": round(cost, 3),
         "minimal_gate_pass": (minimal_report.get("audit") or {}).get("pass") if minimal_report else None,
+        "impeccable_score": impeccable_report.get("score"),
+        "impeccable_pass": impeccable_report.get("passed"),
     }
     if verbose:
         print(f"\n══ Mode 1 COMPLETE — DONE ══")
@@ -520,6 +537,7 @@ def run_mode_1_complete(
         "prompt_meta": prompt_meta,
         "telemetry": telemetry,
         "minimal_gates": minimal_report,
+        "impeccable_qa": impeccable_report,
         "client": client,
         "page_type": page_type,
         "brief": brief,
