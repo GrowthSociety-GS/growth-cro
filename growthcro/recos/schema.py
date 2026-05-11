@@ -127,31 +127,70 @@ def find_style_templates(
 
 
 # ────────────────────────────────────────────────────────────────
-# Doctrine loading (bloc_*_v3.json + adjacent reference JSONs)
+# Doctrine loading (bloc_*_v3.json or bloc_*_v3-3.json + adjacent reference JSONs)
 # ────────────────────────────────────────────────────────────────
-def load_doctrine() -> dict:
-    if _doctrine_cache:
-        return _doctrine_cache
-    for f in PLAYBOOK_DIR.glob("bloc_*_v3.json"):
+def load_doctrine(doctrine_version: str = "3.2.1") -> dict:
+    """Load doctrine blocs + adjacent reference JSONs.
+
+    Default '3.2.1' loads bloc_*_v3.json (backward compatible — 56 clients existants).
+    Pass doctrine_version='3.3' to opt into bloc_*_v3-3.json + cre_oco_tables.json
+    + applicability_matrix_v2.json (CRE Fusion, Task #18).
+
+    Cache key is doctrine_version-scoped: caller can switch versions in the same process.
+    """
+    from growthcro.scoring.pillars import resolve_doctrine_paths
+
+    cache_key = f"_v{doctrine_version}"
+    if cache_key in _doctrine_cache:
+        return _doctrine_cache[cache_key]
+
+    paths = resolve_doctrine_paths(doctrine_version)
+    bundle: dict[str, Any] = {"doctrine_version": doctrine_version, "blocs": {}}
+
+    bloc_glob = paths["bloc_glob"]
+    for f in PLAYBOOK_DIR.glob(bloc_glob):
         try:
             d = json.load(open(f))
-            pillar = f.stem.replace("_v3", "")
-            _doctrine_cache.setdefault("blocs", {})[pillar] = d
+            # Strip suffix to get pillar key (bloc_1_hero_v3 → bloc_1_hero ; bloc_1_hero_v3-3 → bloc_1_hero)
+            pillar = f.stem.replace("_v3-3", "").replace("_v3", "")
+            bundle["blocs"][pillar] = d
         except Exception as e:
             print(f"cannot load {f}: {e}", file=sys.stderr)
+
     for name in ("anti_patterns", "guardrails", "prerequisites", "page_type_criteria", "ab_angles"):
         f = PLAYBOOK_DIR / f"{name}.json"
         if f.exists():
             try:
-                _doctrine_cache[name] = json.load(open(f))
+                bundle[name] = json.load(open(f))
             except Exception:
                 pass
-    return _doctrine_cache
+
+    # V3.3 — load cre_oco_tables.json + applicability_matrix_v2.json
+    if doctrine_version == "3.3":
+        oco_path = paths.get("oco_tables")
+        if oco_path and oco_path.exists():
+            try:
+                bundle["cre_oco_tables"] = json.load(open(oco_path))
+            except Exception as e:
+                print(f"cannot load {oco_path}: {e}", file=sys.stderr)
+        am2_path = paths.get("applicability_matrix")
+        if am2_path and am2_path.exists():
+            try:
+                bundle["applicability_matrix_v2"] = json.load(open(am2_path))
+            except Exception as e:
+                print(f"cannot load {am2_path}: {e}", file=sys.stderr)
+
+    _doctrine_cache[cache_key] = bundle
+    return bundle
 
 
-def get_criterion_doctrine(crit_id: str) -> dict | None:
-    """Find the doctrine entry (label, scoring, rules) for one criterion."""
-    doc = load_doctrine()
+def get_criterion_doctrine(crit_id: str, doctrine_version: str = "3.2.1") -> dict | None:
+    """Find the doctrine entry (label, scoring, rules) for one criterion.
+
+    Pass doctrine_version='3.3' to read enriched criterion (research_first + oco_refs +
+    ice_template + cre_alignment from bloc).
+    """
+    doc = load_doctrine(doctrine_version)
     for pillar_key, pillar_data in (doc.get("blocs") or {}).items():
         criteria = pillar_data.get("criteria") or pillar_data.get("criterions") or []
         for c in criteria:
@@ -159,8 +198,33 @@ def get_criterion_doctrine(crit_id: str) -> dict | None:
                 return {
                     "pillar": pillar_key,
                     "criterion": c,
+                    "cre_alignment": pillar_data.get("cre_alignment"),  # V3.3 only — None for V3.2.1
                 }
     return None
+
+
+def get_criterion_oco_refs(crit_id: str) -> list[str]:
+    """V3.3 — return oco_refs (list of objection IDs from cre_oco_tables) for a criterion.
+
+    Empty list when doctrine_version=3.3 not loaded or crit_id has no refs.
+    Used by reco enricher to attach oco_anchors downstream.
+    """
+    doc = load_doctrine("3.3")
+    for pillar_data in (doc.get("blocs") or {}).values():
+        for c in pillar_data.get("criteria") or []:
+            if c.get("id") == crit_id:
+                return list(c.get("oco_refs") or [])
+    return []
+
+
+def get_criterion_research_first(crit_id: str) -> bool:
+    """V3.3 — return True if criterion requires research_inputs to score correctly."""
+    doc = load_doctrine("3.3")
+    for pillar_data in (doc.get("blocs") or {}).values():
+        for c in pillar_data.get("criteria") or []:
+            if c.get("id") == crit_id:
+                return bool(c.get("research_first"))
+    return False
 
 
 def get_criterion_anti_patterns(crit_id: str) -> list[dict]:
@@ -301,8 +365,19 @@ def compute_ice_estimate(
     vision_lifted: bool,
     intelligence_lifted: bool,
     killer_violated: bool,
+    doctrine_version: str = "3.2.1",
+    research_inputs_available: bool = False,
+    voc_verbatims_available: bool = False,
 ) -> dict:
-    """V23 — Pre-compute ICE estimate suggested to Haiku as a doctrinal starting point."""
+    """V23 — Pre-compute ICE estimate suggested to Haiku as a doctrinal starting point.
+
+    V3.3 (Task #18) — when doctrine_version='3.3' and the criterion is research_dependent
+    (cf. applicability_matrix_v2.json), apply Confidence penalty/boost:
+    - penalty_if_no_research_inputs : -2 (rule_research_first_confidence_penalty)
+    - boost_if_voc_available : +2 (rule_voc_available_confidence_boost)
+
+    Default '3.2.1' behavior unchanged — backward compatible for 56 existing clients.
+    """
     th = load_thresholds().get("ice_framework", {})
     impact_lever_by_pillar = th.get("impact_lever_by_pillar", {})
     impact_modifier_by_criterion = th.get("impact_modifier_by_criterion", {})
@@ -319,6 +394,17 @@ def compute_ice_estimate(
         confidence = th.get("confidence_modifiers", {}).get("killer_violated", 9)
     elif vision_lifted or intelligence_lifted:
         confidence = th.get("confidence_modifiers", {}).get("vision_lifted", 8)
+
+    # V3.3 — research-first adjustment
+    if doctrine_version == "3.3":
+        doc = load_doctrine("3.3")
+        am2 = doc.get("applicability_matrix_v2") or {}
+        research_dep_map = am2.get("research_dependent_by_criterion") or {}
+        if research_dep_map.get(crit_id) is True:
+            if not research_inputs_available:
+                confidence = max(1, confidence - 2)
+            if voc_verbatims_available:
+                confidence = min(10, confidence + 2)
 
     pillar_to_ease_default = {
         "hero": 7,
@@ -339,6 +425,7 @@ def compute_ice_estimate(
         "priority_suggested": (
             "P0" if ice_score >= 30 else "P1" if ice_score >= 22 else "P2" if ice_score >= 14 else "P3"
         ),
+        "doctrine_version": doctrine_version,
     }
 
 

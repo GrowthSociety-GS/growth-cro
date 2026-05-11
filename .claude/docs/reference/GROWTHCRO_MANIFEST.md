@@ -431,6 +431,36 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 - Vraie exécution GSG mode depuis le browser (V27 statique ; V28 Epic #21 introduira server-driven mode runs)
 - Brief V2 wizard UI (réside dans `moteur_gsg/core/intake_wizard.py`, invoqué CLI)
 - Reality / Experiment / Learning panes (Epic #23)
+### 2026-05-11 — Doctrine V3.3 CRE Fusion v1 (#18)
+
+**Trigger** : Task #18 du programme `webapp-stratosphere`, PRD FR-3 (US-2). Fusion Conversion Rate Experts methodology (skill `cro-methodology`) avec doctrine V3.2.1 → V3.3 backward compatible. Foundation pour future qualité reco (axiomes O/CO + ICE + research-first) sans casser les 56 clients existants.
+
+**Livrables** :
+- `playbook/bloc_*_v3-3.json` × 7 (Hero, Persuasion, UX, Cohérence, Psycho, Tech, Utility — 54 criteria) avec enrichments par critère : `research_first` flag, `oco_refs` (refs vers cre_oco_tables), `ice_template` (per-pillar starting point), section bloc-level `cre_alignment` (9step_phase + principle + research_inputs_required). **Sémantique critère INCHANGÉE** (label/scoring/weight/pageTypes preserved : 54/54 unchanged).
+- `data/doctrine/cre_oco_tables.json` (NOUVEAU) : 17 universal objections + 39 page_type-specific objections (lp_listicle/lp_leadgen/pdp/lp_sales/pricing/home/advertorial) + 151 counter-objections. Cross-ref integrity 100%.
+- `data/doctrine/applicability_matrix_v2.json` (NOUVEAU) : V1 12 rules préservées + 5 nouvelles rules CRE (research_first_confidence_penalty -2, voc_available_confidence_boost +2, discovery_phase_priority cap, test_phase_95_confidence, oco_anchor_required). 54 criteria mappés sur cre_phase (discovery 13 / hypothesis 21 / test 13 / iterate 7) et research_dependent (27 true / 27 false).
+- `playbook/AXIOMES.md` (étendu) : 5 axiomes V3.3 ajoutés — (7) Don't guess, discover, (8) O/CO mapping prioritaire, (9) ICE scoring obligatoire, (10) 95% statistical confidence requirement, (11) Manipulation flag (urgency/scarcity ↔ VOC). Axiomes V1-V6 inchangés.
+- `growthcro/scoring/pillars.py` (+83 LOC) : `resolve_doctrine_paths(doctrine_version)` + `attach_oco_anchors_to_reco()`. DEFAULT_DOCTRINE_VERSION='3.2.1'.
+- `growthcro/recos/schema.py` (+87 LOC, total 685 LOC < 800 hard limit) : `load_doctrine(doctrine_version='3.2.1')` cache per-version + helpers `get_criterion_oco_refs()`, `get_criterion_research_first()` + `compute_ice_estimate(...,doctrine_version,research_inputs_available,voc_verbatims_available)`.
+- `SCHEMA/client_intent.schema.json` (NOUVEAU) : section optional `research_inputs` (visitor_surveys, voc_verbatims, support_tickets_themes, nps, chat_logs_summary, interview_transcripts, heatmaps_summary, session_recordings, ad_creative_audit, search_query_data, pagespeed_telemetry, RUM, uptime_logs, completeness_pct). Backward compat 100% : existing weglot client_intent passes.
+- `data/learning/audit_based_proposals/REVIEW_2026-05-11.md` : 69 doctrine_proposals pré-catégorisées (10 propose_accept / 28 propose_defer / 31 propose_reject). Heuristiques documentées. Mathis tranche via colonne Mathis_final.
+- `scripts/build_bloc_v3_3.py` + `scripts/precategorize_proposals.py` + `scripts/compare_doctrine_v3_v3_3.py` : tooling reproductible.
+
+**Backward compatibility** : V3.2.1 reste défaut pour 56 clients existants (`load_doctrine()` sans param → `doctrine_version='3.2.1'`). V3.3 sur opt-in via `doctrine_version='3.3'`. ZÉRO rescore forcé. Anti-pattern #3 (CLAUDE.md "Réinventer une grille V3.2.1") respecté : enrichissement seulement.
+
+**Simulation 3 audits V3.3** : weglot baseline archive disponible (130 criterion-page evaluations) — 26 priority shifts (P0→P1) sans research_inputs (recos honnêtes sur l'incertitude). japhy + stripe data absente du worktree fresh — Mathis exécutera live audit post-merge.
+
+**doctrine-keeper verdict** : ✅ approved. 5 cross-checks GREEN (doctrine↔scorer, V3.2.1 preserved, criteria semantic unchanged 54/54, V3.3 enrichments present 54/54, cre_oco_tables refs 100% resolvable). Pattern CRE intégré sans divergence.
+
+**Gates** : lint exit 0 (FAIL 0), audit_capabilities exit 0 (orphans HIGH = 0), SCHEMA/validate_all 15/15 ✓ (incl. 7 V3 + 7 V3-3 blocs + new client_intent.schema), agent_smoke_test 5/5 PASS, update_architecture_map idempotent. Parity `weglot` exit 1 — pre-existing drift (worktree fresh sans data/captures), identique à #16/#17.
+
+**Open for Mathis** :
+1. Review 69 proposals dans `REVIEW_2026-05-11.md` (~3-5h, pré-catégorisation appliquée).
+2. Run 3 audits live V3.3 (weglot/japhy/stripe) pour valider qualitativement "recos avant-garde, pas best-practices 2024".
+3. Décision : ajouter `--doctrine 3.3` flag CLI ou laisser Python API only ?
+4. Décision : quand promouvoir V3.3 comme défaut (probablement Sprint H ou I post-stabilisation) ?
+
+**Out of scope** : modification du scorer pillar (`growthcro/scoring/specific/*.py`) pour consommer `ice_template` directement (laissé au prompt builder Haiku via `get_criterion_doctrine`). Migration des 56 clients existants vers V3.3 (opt-in client-by-client par Mathis).
 
 ### 2026-05-11 — Skill Integration Blueprint v1 (#17)
 

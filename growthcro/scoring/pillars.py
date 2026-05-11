@@ -1,7 +1,90 @@
-"""Shared pillar dispatcher — pageType filtering, weight, caps, verdict (used by every bloc)."""
+"""Shared pillar dispatcher — pageType filtering, weight, caps, verdict (used by every bloc).
+
+V3.3 (CRE Fusion, 2026-05-11): adds doctrine_version='3.3' option to resolve_doctrine_paths()
+so callers (recos/schema.py, scoring/specific/*) can opt into V3.3 enrichments
+(bloc_*_v3-3.json + applicability_matrix_v2.json + cre_oco_tables.json). Default '3.2.1'
+preserves backward compatibility — 56 existing clients continue to score unchanged.
+"""
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Callable, Optional
+
+
+# ────────────────────────────────────────────────────────────────
+# V3.3 — doctrine version resolution (backward compatible default)
+# ────────────────────────────────────────────────────────────────
+DOCTRINE_VERSIONS = ("3.2.1", "3.3")
+DEFAULT_DOCTRINE_VERSION = "3.2.1"
+
+
+def resolve_doctrine_paths(
+    doctrine_version: str = DEFAULT_DOCTRINE_VERSION,
+    playbook_dir: Path | None = None,
+    doctrine_dir: Path | None = None,
+) -> dict[str, Path | str | bool]:
+    """Return doctrine artefact paths for the requested version.
+
+    V3.2.1 (default): bloc_*_v3.json + applicability_matrix_v1.json. oco_tables absent.
+    V3.3: bloc_*_v3-3.json + applicability_matrix_v2.json + cre_oco_tables.json.
+
+    Both versions share scope matrix V1 (ASSET vs ENSEMBLE classification is invariant).
+
+    Caller pattern (recos/schema.load_doctrine):
+        paths = resolve_doctrine_paths(doctrine_version='3.3')
+        for f in paths['playbook_dir'].glob(paths['bloc_glob']):
+            ...
+    """
+    if doctrine_version not in DOCTRINE_VERSIONS:
+        raise ValueError(
+            f"doctrine_version must be one of {DOCTRINE_VERSIONS}; got {doctrine_version!r}"
+        )
+
+    pb = playbook_dir or Path("playbook")
+    dd = doctrine_dir or Path("data/doctrine")
+
+    if doctrine_version == "3.3":
+        return {
+            "doctrine_version": "3.3",
+            "playbook_dir": pb,
+            "bloc_glob": "bloc_*_v3-3.json",
+            "applicability_matrix": dd / "applicability_matrix_v2.json",
+            "applicability_matrix_legacy": dd / "applicability_matrix_v1.json",
+            "scope_matrix": dd / "criteria_scope_matrix_v1.json",
+            "oco_tables": dd / "cre_oco_tables.json",
+            "has_oco_tables": True,
+            "has_research_first": True,
+        }
+    # 3.2.1 default — V3 files, V1 matrix, no oco_tables
+    return {
+        "doctrine_version": "3.2.1",
+        "playbook_dir": pb,
+        "bloc_glob": "bloc_*_v3.json",
+        "applicability_matrix": dd / "applicability_matrix_v1.json",
+        "applicability_matrix_legacy": dd / "applicability_matrix_v1.json",
+        "scope_matrix": dd / "criteria_scope_matrix_v1.json",
+        "oco_tables": None,
+        "has_oco_tables": False,
+        "has_research_first": False,
+    }
+
+
+def attach_oco_anchors_to_reco(
+    reco: dict,
+    criterion_oco_refs: list[str] | None,
+) -> dict:
+    """V3.3 — attach oco_anchors field to a reco from criterion.oco_refs.
+
+    Called by reco enricher when doctrine_version='3.3'. No-op when oco_refs empty/None,
+    which preserves V3.2.1 reco shape (oco_anchors absent → backward compatible).
+
+    The shape is intentionally minimal — just the IDs from cre_oco_tables.json. Downstream
+    consumers (dashboard, Notion sync) resolve full objection text by ID.
+    """
+    if not criterion_oco_refs:
+        return reco
+    reco["oco_anchors"] = list(criterion_oco_refs)
+    return reco
 
 
 def apply_pagetype_filter(

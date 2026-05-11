@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T11:17:03Z'
-  source_commit: 818d2c6d6febc7fb8699fa58ad3262071b778141
+  generated_at: '2026-05-11T11:32:20Z'
+  source_commit: 6149972eea18eec1ad56bab6b45f0f25fa041e30
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -597,7 +597,8 @@ modules:
     - validated reco dicts
     - ICE scores
     depends_on: []
-    imported_by: []
+    imported_by:
+    - scripts/compare_doctrine_v3_v3_3
     doctrine_refs:
     - SCHEMA/recos_enriched.schema.json
     status: active
@@ -1849,6 +1850,16 @@ modules:
     - 'CLAUDE.md init step #8'
     status: active
     lifecycle_phase: infrastructure
+  scripts/build_bloc_v3_3:
+    path: scripts/build_bloc_v3_3.py
+    purpose: Build playbook/bloc_*_v3-3.json from existing bloc_*_v3.json files.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: infrastructure
   scripts/check_gsg_canonical:
     path: scripts/check_gsg_canonical.py
     purpose: Validate the canonical GSG boundary without generating a landing page (smoke check for canonical_registry).
@@ -1937,6 +1948,17 @@ modules:
     - MANIFEST §12 V26.AC entry
     status: active
     lifecycle_phase: infrastructure
+  scripts/compare_doctrine_v3_v3_3:
+    path: scripts/compare_doctrine_v3_v3_3.py
+    purpose: Deterministic comparison V3.2.1 vs V3.3 doctrine on a per-criterion basis.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/recos/schema
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: infrastructure
   scripts/doctrine:
     path: scripts/doctrine.py
     purpose: GrowthCRO Doctrine Loader (V26.Z W4) — racine partagée Audit + GSG. Loads playbook/*.json + applies applicability
@@ -1966,6 +1988,16 @@ modules:
     doctrine_refs:
     - CLAUDE.md immuable rule code-hygiene gate
     - CODE_DOCTRINE.md
+    status: active
+    lifecycle_phase: infrastructure
+  scripts/precategorize_proposals:
+    path: scripts/precategorize_proposals.py
+    purpose: 'Pre-categorize 69 audit-based doctrine proposals for Mathis review (Task #18 DoD).'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
     status: active
     lifecycle_phase: infrastructure
   scripts/run_gsg_full_pipeline:

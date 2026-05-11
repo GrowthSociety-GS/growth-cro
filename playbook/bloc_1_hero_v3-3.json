@@ -1,0 +1,597 @@
+{
+  "block": "1",
+  "pillar": "hero",
+  "label": "Hero / Above The Fold",
+  "max": 18,
+  "description": "Impact du premier écran. 6 critères × 3 pts = 18 pts. Le Hero est le pilier le plus décisif : il filtre le visiteur en 5 secondes. Pondéré ×1.2 sur home / ×1.2 sur pdp / ×1.3 sur lp_leadgen / ×1.1 sur lp_sales.",
+  "version": "3.3.0-cre-fusion",
+  "status": "locked",
+  "updatedAt": "2026-04-13",
+  "amendedAt": "2026-05-11",
+  "validatedOn": [
+    {
+      "client": "japhy",
+      "url": "https://www.japhy.fr",
+      "visualBaseline": 15,
+      "autoScore": 16.5,
+      "note": "Dédup CTA par href révèle focus OK; distraction cookie banner Axeptio -1.5"
+    }
+  ],
+  "changelog": [
+    {
+      "version": "3.3.0-cre-fusion",
+      "date": "2026-05-11",
+      "trigger": "Task #18 webapp-stratosphere — fusion CRE methodology (skill cro-methodology) avec V3.2.1.",
+      "notes": [
+        "Backward compatible : V3.2.1 reste défaut pour 56 clients existants ; V3.3 sur opt-in via doctrine_version='3.3'.",
+        "Per-criterion enrichments : research_first flag, oco_refs (to cre_oco_tables.json), ice_template (per-pillar starting point).",
+        "Bloc-level cre_alignment section : 9step_phase / principle / research_inputs_required.",
+        "Criteria sémantique INCHANGÉE : label, scoring (top/ok/critical), examples, antiPatterns, killer flags, weight, pageTypes — tous préservés.",
+        "Anti-pattern #3 respecté : on enrichit, on ne réinvente pas la grille."
+      ]
+    },
+    {
+      "version": "3.2.1-draft",
+      "date": "2026-05-03",
+      "trigger": "Sprint 2 V26.AA gate failure — doctrine_judge.py V26.AA scorait Weglot listicle minimal v1 à 50% capé killer rule alors que humanlike = 88%. Faille = hero_03/hero_05 mal-fittés au format éditorial listicle.",
+      "notes": [
+        "hero_03.pageTypes : '*' → liste explicite ['home','pdp','lp_sales','collection','lp_leadgen','challenge','bundle_standalone','squeeze','webinar','pricing','comparison']. Exclus : listicle, advertorial, blog, vsl (CTA conditional reveal), thank_you_page, quiz_vsl. Listicles éditoriaux Weglot/Linear/Stripe blog n'ont jamais de CTA hero ATF — pattern documenté dans pageTypeNotes.listicle.",
+        "hero_05.pageTypes : idem. Format éditorial place la preuve sociale dans le contenu narratif, pas hero. Non-régression : pageTypeNotes.listicle disait déjà 'Pas de CTA hero primaire' + 'Preuve sociale = crédibilité auteur/source'.",
+        "Sémantique critères INCHANGÉE : label, scoring (top/ok/critical), examples, antiPatterns, killer flags, weight. Seul le filtre d'applicabilité change.",
+        "Rétrocompat critique : skills/site-capture/scripts/score_hero.py CRITERIA_PAGE_TYPES aligné dans le même commit (sinon dérive playbook ↔ scorer V13).",
+        "Validation : python3 scripts/doctrine.py smoke test → top_critical_for_page_type('listicle', 7) NE contient PLUS hero_03/05."
+      ]
+    },
+    {
+      "version": "3.2.0-draft",
+      "date": "2026-04-18",
+      "notes": [
+        "P0.1 fix: semantic_overlay (Haiku 4.5) now consumed by score_page_type.py for 18 creative criteria — was silently orphaned before.",
+        "P0.2 full rerun: 366 pages rescored with semantic overlay applied.",
+        "P0.3 cleanup: 71 stale golden/ score_page_type.json archived + stray fichet/ dir archived.",
+        "P1.A doctrine: new data/doctrine/criteria_scope_matrix_v1.json classifying 47 criteria as ASSET (22) vs ENSEMBLE (25) with 7 synergy groups.",
+        "P1.B runtime: new score_contextual_overlay.py applying synergy compensation rules (HERO_RESCUE, PROOF_RESCUE, FIVE_SEC_RESCUE, BENEFIT_FLOW_RESCUE, MANIPULATION_FLAG, UX_RHYTHM_RESCUE, COHERENCE_QUORUM). 25/287 pages rescued, +29.5 pts net.",
+        "P1.C applicability: new data/doctrine/applicability_matrix_v1.json with business_type axis (ecommerce/lead_gen/saas/content/app) and legacy `lp` pageType alias. 8 failures → 0. Full pipeline 366/366.",
+        "ASSET criteria (tech_*, psy_02, counts) are INVARIANT from contextual layer. Only ENSEMBLE criteria eligible for rescue."
+      ]
+    },
+    {
+      "version": "3.0.0",
+      "date": "2026-04-09",
+      "note": "Baseline Japhy — 6 critères × 3 pts, businessCategoryWeighting active, 1 killer (hero_06 test 5s)"
+    },
+    {
+      "version": "3.1.0",
+      "date": "2026-04-13",
+      "note": "Doctrine V12 : viewport_check ajouté sur les 6 critères (TOUS visuels). pageTypeNotes + hero_04.pageTypes étendus aux 9 nouveaux page types (listicle, advertorial, comparison, vsl, challenge, thank_you_page, bundle_standalone, squeeze, webinar). Aucun nouveau critère — Bloc 1 est déjà conforme doctrine."
+    }
+  ],
+  "automationNotes": {
+    "source": "skills/site-capture/scripts/score_hero.py",
+    "rules": [
+      "CTA primary: scoring multi-signaux (inFold+30, actionVerb+20, contrastText≥4.5+15, touchTarget≥44×44+10, actionHref+10). Regex actionVerb supporte apostrophes droites ET courbes (j' / j').",
+      "Dédup CTA par href avant check ratio 1:1 (évite faux conflit sticky-header vs hero pointant même URL).",
+      "contrastText (bouton vs son propre texte) = proxy fiable; contrastVsPage peu fiable quand wrappers transparents.",
+      "Cookie banner: fingerprinting CMP (Didomi, OneTrust, Cookiebot, Axeptio, Tarteaucitron, Osano, Quantcast, Iubenda, CookieYes) + walk-up depuis boutons accept vers ancêtre conteneur.",
+      "Cookie CNIL: flag 'no-reject-all-button' si pas de bouton refuser au même niveau qu'accepter.",
+      "hero_06 graduation: 1 distraction mineure → 1.5; 2+ ou <2 questions → 0; killer si <2 questions ET pas de focus → cap total /6."
+    ]
+  },
+  "sourcesConsolidated": [
+    "Notion Checklist CRO (pages Hero/CTA/Proposition de valeur)",
+    "skills/cro-auditor/references/audit_criteria.md Catégorie 2 (5 critères V1)",
+    "data/cro_criteria_v2.json pillar hero (6 critères V2)",
+    "skills/cro-auditor/references/cro_principles.md (test 5s, scent trail, ratio 1:1, ATF)"
+  ],
+  "criteria": [
+    {
+      "id": "hero_01",
+      "label": "H1 = promesse spécifique (bénéfice + cible + différenciateur)",
+      "pillar": "hero",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "H1 peut être tronqué / taille font réduite sur mobile, ou recouvert par sticky header. Lisibilité D vs M scorée séparément.",
+      "scoring": {
+        "top": "Le H1 contient EXPLICITEMENT au moins 2 des 3 éléments : [bénéfice utilisateur chiffré ou tangible] + [cible identifiable 'pour X'] + [différenciateur 'sans Y' / 'grâce à Z']. Longueur 6-12 mots. Répond aux 3 questions Quoi/Pour-qui/Pourquoi-maintenant sans lire la suite. Unique (pas recopiable tel quel par un concurrent).",
+        "ok": "Le H1 contient 1 des 3 éléments (typiquement un bénéfice) mais reste générique. Répond à 2 questions sur 3. Lisible mais remplaçable par le H1 d'un concurrent de la même catégorie.",
+        "critical": "H1 vague ('Bienvenue', 'Solution complète', nom de marque seul), ou slogan sans bénéfice, ou tagline créative sans information, ou absent, ou répond à 0-1 question sur 3. Recopiable par n'importe quel concurrent."
+      },
+      "examples": {
+        "top": [
+          "'La seule croquette sur-mesure recommandée par l'équipe Esprit Dog — recalculée au gramme près pour votre chien' (Japhy après rewrite)",
+          "'The AI code editor — Write code with the speed and quality of the best engineers' (Cursor)"
+        ],
+        "ok": [
+          "'L'alimentation sur-mesure pour chiens et chats' (Japhy actuel — bénéfice oui, mais pas de cible ni différenciateur)"
+        ],
+        "critical": [
+          "'Bienvenue sur notre site'",
+          "'Solution innovante de demain'",
+          "'Votre partenaire de croissance'"
+        ]
+      },
+      "antiPatterns": [
+        "Tagline poétique sans info ('Rêver plus grand')",
+        "Nom de marque + baseline vague",
+        "H1 recouvert par l'image hero ou par le menu sticky",
+        "H1 < 32px sur mobile (contrast/readability fail)",
+        "Plusieurs H1 sur la page (H1 doit être unique)"
+      ],
+      "killer": false,
+      "notionRefId": "3207148e-95a5-81ac-a349-d87342dec780",
+      "principleRefs": [
+        "scent_trail",
+        "test_5_sec",
+        "proposition_de_valeur"
+      ],
+      "v1Mapping": [
+        "2.1 Promesse claire visible immédiatement"
+      ],
+      "v2Mapping": [
+        "hero_01 H1 bénéfice + spécificité"
+      ],
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_value_unclear",
+        "*:obj_not_for_me"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — hero is the 5-second filter; fixes here move CVR most reliably",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_killer_violated": 9,
+          "boost_if_vision_lifted": 8,
+          "penalty_if_no_research_inputs": -2
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "copy_plus_visual": 6,
+          "structural_redesign": 4
+        }
+      }
+    },
+    {
+      "id": "hero_02",
+      "label": "Sous-titre explicite qui complète le H1 (pour qui / comment / résultat)",
+      "pillar": "hero",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "textual",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Le subtitle peut être masqué sur mobile (responsive cache), ou devenir illisible (<14px), ou repoussé sous le fold. Scoring séparé D/M.",
+      "scoring": {
+        "top": "Sous-titre présent, < 25 mots, qui AJOUTE une information au H1 sans la répéter. Précise au moins l'un de : méthode ('en 3 minutes par jour'), cible précise ('pour les freelances B2B'), résultat mesurable ('+30% de conversion en 14 jours'), ou différenciateur ('sans code, sans agence').",
+        "ok": "Sous-titre présent mais reformule le H1 au lieu de l'enrichir, OU trop long (> 25 mots), OU trop vague ('la meilleure expérience pour vous').",
+        "critical": "Pas de sous-titre, ou sous-titre qui contredit le H1, ou copie marketing générique sans info ('la solution qu'il vous faut')."
+      },
+      "examples": {
+        "top": [
+          "'Recalculé au gramme près selon l'âge, le poids, l'activité et les sensibilités de votre chien — livré chez vous chaque mois'",
+          "'Le nouveau standard des éditeurs de code. Un Copilot integré qui comprend votre base de code'"
+        ],
+        "critical": [
+          "Absent",
+          "'Votre meilleure solution'"
+        ]
+      },
+      "antiPatterns": [
+        "Reformulation du H1 en plus long",
+        "Liste de features au lieu d'un bénéfice",
+        "Buzzwords creux ('révolutionnaire', 'innovant', 'disruptif')"
+      ],
+      "killer": false,
+      "principleRefs": [
+        "test_5_sec",
+        "benefit_laddering"
+      ],
+      "v1Mapping": [
+        "2.1 Promesse claire (composant subheading)"
+      ],
+      "v2Mapping": [
+        "hero_02 Sous-titre explicite"
+      ],
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_value_unclear",
+        "*:obj_not_for_me"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — hero is the 5-second filter; fixes here move CVR most reliably",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_killer_violated": 9,
+          "boost_if_vision_lifted": 8,
+          "penalty_if_no_research_inputs": -2
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "copy_plus_visual": 6,
+          "structural_redesign": 4
+        }
+      }
+    },
+    {
+      "id": "hero_03",
+      "label": "CTA principal visible ATF — action précise + bénéfice orienté client",
+      "pillar": "hero",
+      "weight": 3,
+      "pageTypes": [
+        "home",
+        "pdp",
+        "lp_sales",
+        "collection",
+        "lp_leadgen",
+        "challenge",
+        "bundle_standalone",
+        "squeeze",
+        "webinar",
+        "pricing",
+        "comparison"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "visual",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "CRITICAL dual-viewport : CTA peut être ATF desktop mais below fold mobile (375×812). Touch target 44×44 specifiquement mobile. Killer si CTA <ATF sur MOBILE.",
+      "scoring": {
+        "top": "CTA visible sans scroll sur 375px mobile ET 1440px desktop. Taille ≥ 44×44px (touch target). Contraste ≥ 4.5:1 avec son fond. Texte orienté bénéfice client ('Recevoir mon audit', 'Essayer 7 jours gratuits', 'Commencer maintenant'), 2-4 mots, verbe actif. Visuellement démarqué du reste (couleur accent du design system, pas un bouton gris neutre).",
+        "ok": "CTA visible ATF mais : texte trop générique ('Continuer', 'En savoir plus'), OU contraste faible, OU taille limite (< 44px), OU visible seulement sur l'un des deux viewports (soit desktop soit mobile, pas les deux).",
+        "critical": "CTA absent du premier écran ET pas de sticky alternative. OU texte creux ('Envoyer', 'Valider', 'Cliquer ici', 'OK', 'Submit'). OU bouton gris invisible. OU > 5 mots."
+      },
+      "examples": {
+        "top": [
+          "'Commencer le diagnostic' (bouton accent, 3 mots, bénéfice explicite)",
+          "'Essayer gratuitement 14 jours'"
+        ],
+        "ok": [
+          "'En savoir plus' (trop générique)",
+          "'Continuer' (pas de bénéfice)"
+        ],
+        "critical": [
+          "'Submit' / 'Envoyer'",
+          "'Cliquez ici'",
+          "CTA masqué sous la ligne de flottaison mobile"
+        ]
+      },
+      "antiPatterns": [
+        "CTA gris identique au reste du design",
+        "CTA de 8 mots qui casse la lecture",
+        "Plus d'un CTA primaire dans le hero (confusion)",
+        "CTA secondaire aussi visible que le primaire"
+      ],
+      "killer": false,
+      "notionRefId": "3207148e-95a5-817a-9297-dabc2c576942",
+      "principleRefs": [
+        "ratio_1_1",
+        "frictions",
+        "CTA_beneficiel"
+      ],
+      "v1Mapping": [
+        "2.2 CTA visible above the fold",
+        "3.7 CTA orientés bénéfice"
+      ],
+      "v2Mapping": [
+        "hero_04 CTA primaire visible sans scroll"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_what_next",
+        "*:obj_friction_high"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — hero is the 5-second filter; fixes here move CVR most reliably",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_killer_violated": 9,
+          "boost_if_vision_lifted": 8,
+          "penalty_if_no_research_inputs": -2
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "copy_plus_visual": 6,
+          "structural_redesign": 4
+        }
+      }
+    },
+    {
+      "id": "hero_04",
+      "label": "Visuel hero cohérent : produit en usage ou résultat en contexte",
+      "pillar": "hero",
+      "weight": 3,
+      "pageTypes": [
+        "home",
+        "pdp",
+        "lp_sales",
+        "collection",
+        "lp_leadgen",
+        "advertorial",
+        "listicle",
+        "comparison",
+        "vsl",
+        "challenge",
+        "bundle_standalone",
+        "squeeze",
+        "webinar"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "visual",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Visuel hero doit être adapté au mobile (crop/art direction spécifique). Souvent dégradé : desktop paysage → mobile cropped portrait, CTA poussé hors ATF. Scoring dual critique.",
+      "scoring": {
+        "top": "Visuel de haute qualité montrant le produit EN USAGE ou LE RÉSULTAT TANGIBLE (ex : screenshot d'interface pour un SaaS, texture produit + main pour une beauty, plat servi pour un food). Renforce le H1 (message-visuel fit). Adapté au mobile (ne pousse pas le CTA hors ATF). Pas de stock photo générique.",
+        "ok": "Visuel présent et propre mais statique (produit isolé sur fond neutre au lieu de 'en action'), OU légèrement déconnecté du H1, OU trop lourd sur mobile (pousse CTA), OU ratio texte/image déséquilibré.",
+        "critical": "Pas de visuel, OU logo géant seul, OU stock photo générique sans rapport, OU visuel flou/pixelisé, OU visuel qui contredit le H1, OU image qui écrase totalement le H1."
+      },
+      "examples": {
+        "top": [
+          "Cursor : screenshot de l'éditeur en action avec suggestion IA visible",
+          "Typology : texture sérum + main, lumière naturelle, 0 artifice",
+          "Oatly : pack + verre + lait qui coule, ambiance breakfast réelle"
+        ],
+        "critical": [
+          "Logo corporate sur fond gradient",
+          "Stock photo 'équipe en meeting souriant' pour un SaaS B2B",
+          "Photo produit coupée par le bord de l'écran mobile"
+        ]
+      },
+      "antiPatterns": [
+        "AI slop (image générée visiblement IA : mains déformées, typographie illisible)",
+        "Image > 800KB non optimisée",
+        "Ratio texte/image 10/90 (le visuel mange toute l'ATF)",
+        "Autoplay video avec son"
+      ],
+      "killer": false,
+      "principleRefs": [
+        "demo_visuelle",
+        "scent_trail"
+      ],
+      "v1Mapping": [
+        "2.3 Visuel produit/usage dans le premier écran"
+      ],
+      "v2Mapping": [
+        "hero_03 Visuel hero = produit/résultat en contexte"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_value_unclear",
+        "*:obj_credibility_low"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — hero is the 5-second filter; fixes here move CVR most reliably",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_killer_violated": 9,
+          "boost_if_vision_lifted": 8,
+          "penalty_if_no_research_inputs": -2
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "copy_plus_visual": 6,
+          "structural_redesign": 4
+        }
+      }
+    },
+    {
+      "id": "hero_05",
+      "label": "Preuve sociale ou micro-réassurance présente dans le fold 1",
+      "pillar": "hero",
+      "weight": 3,
+      "pageTypes": [
+        "home",
+        "pdp",
+        "lp_sales",
+        "collection",
+        "lp_leadgen",
+        "challenge",
+        "bundle_standalone",
+        "squeeze",
+        "webinar",
+        "pricing",
+        "comparison"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "visual",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Barre de logos presse/certifs peut disparaître sous le fold mobile (fold = 812px vs 900px desktop). Note chiffrée visible D mais cachée M = score différencié.",
+      "scoring": {
+        "top": "Au moins 1 élément de preuve crédible visible ATF : note client chiffrée ('4.8/5 — 2,347 avis'), logos presse/clients connus, nombre d'utilisateurs sourcé ('100k+ entrepreneurs'), ou garantie spécifique ('garanti 30 jours ou remboursé'). Spécifique, vérifiable, placé sous le CTA ou en ceinture basse du hero (pas dominant).",
+        "ok": "Élément présent mais vague ('des milliers de clients satisfaits'), OU peu crédible (note 5/5 avec 3 avis), OU overload (5+ badges qui se marchent dessus).",
+        "critical": "Aucune preuve dans le hero, OU 'meilleur du marché' sans source, OU logos clients inventés/peu reconnaissables, OU garantie vague ('garanti' sans condition)."
+      },
+      "examples": {
+        "top": [
+          "'4.9/5 ★ — 12,384 avis Trustpilot' visible sous le CTA",
+          "Ligne de 6 logos clients reconnus (Airbnb, Stripe, Revolut…)",
+          "'Garanti 30 jours ou remboursé' en micro sous le CTA"
+        ],
+        "ok": [
+          "'Nos clients nous adorent' sans chiffre",
+          "Note 5/5 avec 2 avis affichés"
+        ],
+        "critical": [
+          "Aucune preuve sociale dans le hero",
+          "'Le meilleur [produit] du marché' sans source",
+          "Badges '#1' auto-décernés"
+        ]
+      },
+      "antiPatterns": [
+        "Trust badges génériques (SSL, VISA, MasterCard — attendus en checkout, inutiles en hero)",
+        "Notes avec dénominateur trop faible (< 20 avis)",
+        "Preuve qui prend plus de place visuelle que le H1"
+      ],
+      "killer": false,
+      "principleRefs": [
+        "preuve_sociale",
+        "reduction_objection"
+      ],
+      "v1Mapping": [
+        "2.4 Micro-réassurance dans le hero"
+      ],
+      "v2Mapping": [
+        "hero_05 Preuve sociale présente dans le fold 1"
+      ],
+      "research_first": false,
+      "oco_refs": [
+        "*:obj_credibility_low",
+        "*:obj_risk_high"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — hero is the 5-second filter; fixes here move CVR most reliably",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_killer_violated": 9,
+          "boost_if_vision_lifted": 8,
+          "penalty_if_no_research_inputs": -2
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "copy_plus_visual": 6,
+          "structural_redesign": 4
+        }
+      }
+    },
+    {
+      "id": "hero_06",
+      "label": "Test des 5 secondes réussi + ratio 1:1 (un seul focus)",
+      "pillar": "hero",
+      "weight": 3,
+      "pageTypes": [
+        "*"
+      ],
+      "businessCategories": [
+        "*"
+      ],
+      "checkMethod": "heuristic",
+      "viewport_check": "desktop_and_mobile",
+      "viewport_rationale": "Ratio 1:1 et focus peuvent être cassés différemment D vs M (hamburger mobile cache 8 liens, cookie banner plus dominant en % de viewport sur mobile). Test 5s dual.",
+      "scoring": {
+        "top": "Un visiteur qui dispose de 5 secondes SANS scroll peut répondre aux 3 questions : Quoi ? Pour qui ? Quoi faire ? ET le hero ne contient QU'UN SEUL objectif principal (un CTA primaire, un message dominant). Ratio 1:1 respecté : 1 message / 1 action. Pas de concurrence entre CTA, bannière cookies, pop-up, timer, bandeau promo, menu surchargé.",
+        "ok": "2 des 3 questions clairement répondues en 5s. OU 1 CTA primaire mais parasité par 1-2 distractions mineures (bannière cookies standard, menu normal).",
+        "critical": "< 2 questions répondues en 5s. OU plusieurs CTA primaires en concurrence ('Acheter maintenant' + 'S'inscrire newsletter' + 'Demander démo' dans le même fold). OU pop-up qui masque le hero dès l'arrivée. OU bandeau promo qui occupe plus de place que le H1."
+      },
+      "examples": {
+        "top": [
+          "Linear : H1 + subtitle + 1 CTA 'Start building' + preview produit. 0 parasite.",
+          "Japhy après rewrite : H1 clair + sous-titre + 1 CTA + photo chien avec gamelle"
+        ],
+        "critical": [
+          "Home e-com avec pop-up -10%, bandeau livraison, menu à 8 entrées, 2 CTA contradictoires, et bannière cookies non acceptée → 6 éléments en concurrence",
+          "Hero vide de texte avec 3 boutons de valeur égale"
+        ]
+      },
+      "antiPatterns": [
+        "Plusieurs CTA primaires (deux boutons de même poids visuel)",
+        "Pop-up intrusif dès l'arrivée",
+        "Auto-play carrousel hero qui change toutes les 3s (tue le test 5s)",
+        "Bannière promo plus haute que le H1"
+      ],
+      "killer": true,
+      "killerReason": "Si le test 5s échoue ET le ratio 1:1 est cassé simultanément, le pilier Hero est plafonné à 6/18 quoi que valent les autres critères — parce qu'un visiteur ne restera pas assez longtemps pour que les autres critères comptent.",
+      "principleRefs": [
+        "test_5_sec",
+        "ratio_1_1",
+        "frictions"
+      ],
+      "v1Mapping": [
+        "2.5 Test des 5 secondes théorique"
+      ],
+      "v2Mapping": [
+        "hero_06 Aucune friction cognitive (pas > 1 action hero)"
+      ],
+      "research_first": true,
+      "oco_refs": [
+        "*:obj_attention_lost",
+        "*:obj_value_unclear"
+      ],
+      "ice_template": {
+        "impact_estimator": "high — hero is the 5-second filter; fixes here move CVR most reliably",
+        "confidence_factors": {
+          "base": 7,
+          "boost_if_killer_violated": 9,
+          "boost_if_vision_lifted": 8,
+          "penalty_if_no_research_inputs": -2
+        },
+        "ease_factors": {
+          "base": 7,
+          "copy_only": 8,
+          "copy_plus_visual": 6,
+          "structural_redesign": 4
+        }
+      }
+    }
+  ],
+  "pageTypeNotes": {
+    "home": "Hero ×1.2. Le H1 doit parler à la BASE DE L'AUDIENCE (pas juste à un segment). Preuve sociale cruciale. CTA primaire = action d'entrée de funnel (diagnostic, catalogue, démo).",
+    "pdp": "Hero ×1.2. Le H1 doit déjà contenir le NOM DU PRODUIT + son bénéfice clé. Visuel = produit en usage réel obligatoire. Preuve sociale = note + nombre d'avis. CTA = 'Ajouter au panier' ou équivalent.",
+    "lp_leadgen": "Hero ×1.3 (le plus pondéré). Pas de menu. H1 = promesse lead magnet ultra-spécifique. CTA = action de capture ('Recevoir mon audit gratuit'). Preuve = témoignage nommé ou nombre de leads générés.",
+    "lp_sales": "Hero ×1.1. H1 = angle éditorial fort (pas corporate). Sous-titre = promesse de transformation. Visuel optionnel (parfois mieux sans). Preuve sociale forte obligatoire.",
+    "checkout": "Hero ×0.7 (dépondéré). Le Hero n'est pas le sujet — c'est l'UX qui prime. Seuls hero_03 (CTA) et hero_06 (test 5s = focus unique sans distraction) comptent vraiment.",
+    "blog": "Hero ×0.8 (dépondéré). Le H1 = titre article. Le CTA peut être absent (l'objectif est la lecture). Hero_04 remplacé par image d'illustration article.",
+    "listicle": "Hero ×0.9. H1 = titre éditorial 'Les X raisons / méthodes / outils'. Pas de CTA hero primaire (CTAs in-line dans les sections). Preuve sociale = crédibilité auteur/source.",
+    "advertorial": "Hero ×1.1. Style éditorial/presse (pas sales pitch). H1 = hook éditorial sans marque en avant. Preuve = logo média fictif 'comme vu dans' + photo auteur/journaliste. Pas de CTA visible hero — CTA soft after intro.",
+    "comparison": "Hero ×1.0. H1 'X vs Y : lequel pour qui ?'. Hero souvent absent au profit d'un tableau de comparaison directement. Preuve = review source/auteur/date.",
+    "vsl": "Hero ×1.3. Vidéo dominante above fold. H1 court (hook). CTA ne s'affiche qu'après minute X (conditional reveal). Pas de distractions — focus TOTAL sur la lecture vidéo. Killer si autoplay avec son.",
+    "challenge": "Hero ×1.2. H1 = promesse transformation chiffrée 'X jours pour Y'. CTA = 'Rejoindre le challenge gratuit'. Preuve = nombre de participants + témoignages transformation avant/après. Urgence dosée (cohorte limitée).",
+    "thank_you_page": "Hero ×0.6 (dépondéré). Objectif post-conversion : confirmer action + cross-sell/upsell/referral. H1 = confirmation ('C'est parti !'). CTA secondaire = 'Télécharger', 'Partager', 'Upsell'. Pas de preuve sociale hero.",
+    "bundle_standalone": "Hero ×1.2. H1 = bundle name + bénéfice groupé. Visuel = flat lay des produits du bundle. Preuve = économie chiffrée 'vs achat séparé -X€'. CTA = 'Commander le pack'.",
+    "squeeze": "Hero ×1.3 (minimal). Objectif = collecter email. H1 = promesse lead magnet ultra-spécifique. Pas de menu, pas de footer visible. CTA = 1 seul, input email. Preuve = teasing lead magnet (preview cover/TOC).",
+    "webinar": "Hero ×1.2. H1 = titre webinar + date/heure. Sous-titre = bénéfice learn + intervenant credibility. CTA = 'Réserver ma place gratuite'. Preuve = crédibilité speaker + nombre d'inscrits."
+  },
+  "businessCategoryWeighting": {
+    "dtc_beauty": 1.2,
+    "dtc_food": 1.1,
+    "saas_b2b": 1.0,
+    "saas_b2c": 1.1,
+    "fintech": 1.0,
+    "formation": 1.2,
+    "subscription": 1.1,
+    "marketplace": 1.0,
+    "luxe": 0.9,
+    "health": 1.1,
+    "_notes": {
+      "luxe": "Le Hero luxe est contre-intuitif : 0.9 car un hero TROP informatif détruit la marque. Silence visuel = vente. H1 peut être minimal, CTA discret, preuve sociale jamais en chiffres bruts.",
+      "dtc_beauty": "1.2 car le Hero est QUASI la vente entière en DTC beauty : texture, couleur, résultat avant/après, note. Tout se joue au-dessus de la ligne.",
+      "formation": "1.2 car la transformation doit être promise ET prouvée dès le hero (témoignage nommé avec résultat chiffré)."
+    }
+  },
+  "doctrineReferences": {
+    "scope_matrix": "data/doctrine/criteria_scope_matrix_v1.json",
+    "applicability_matrix": "data/doctrine/applicability_matrix_v1.json",
+    "note": "v3.2 adds ENSEMBLE-aware scoring via score_contextual_overlay.py. ASSET criteria unaffected."
+  },
+  "cre_alignment": {
+    "9step_phase": "discovery",
+    "principle": "Don't guess, discover — Hero must be tested against visitor research, not designer taste.",
+    "research_inputs_required": [
+      "visitor_surveys",
+      "support_tickets",
+      "chat_logs"
+    ],
+    "notes": [
+      "Hero ATF is where 5-second test plays out. Without research, you guess the promise visitors care about.",
+      "O/CO mapping: hero must address top-3 objections explicitly (H1/sub/proof)."
+    ]
+  }
+}
