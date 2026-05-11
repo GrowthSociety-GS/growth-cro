@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T09:45:02",
+  "generated_at": "2026-05-11T10:54:54",
   "stats": {
     "total_files": 213,
     "active_wired": 4,
@@ -96,7 +96,7 @@
       "id": "__init__",
       "path": "moteur_gsg/modes/mode_1/__init__.py",
       "filename": "__init__.py",
-      "what": "Mode 1 PERSONA NARRATOR — split sub-package (issue #8).",
+      "what": "Mode 1 PERSONA NARRATOR — split sub-package (issue #8 + #13).",
       "imports": [
         "",
         "__future__",
@@ -107,7 +107,7 @@
         "prompt_assembly",
         "run_mode_1_persona_narrator"
       ],
-      "size_bytes": 2822,
+      "size_bytes": 3075,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -357,7 +357,7 @@
         "moteur_gsg",
         "orchestrator"
       ],
-      "size_bytes": 7106,
+      "size_bytes": 7286,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
@@ -418,7 +418,8 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/cli/enrich_client.py",
-        "growthcro/recos/client.py"
+        "growthcro/recos/client.py",
+        "moteur_gsg/core/copy_writer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -434,7 +435,7 @@
         "annotations",
         "pipeline_single_pass"
       ],
-      "size_bytes": 1015,
+      "size_bytes": 1492,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -1064,8 +1065,8 @@
         "visual_system",
         "visual_system_status"
       ],
-      "size_bytes": 17981,
-      "mtime": "2026-05-07",
+      "size_bytes": 18002,
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "scripts/check_gsg_canonical.py"
@@ -1226,7 +1227,7 @@
         "orchestrator"
       ],
       "size_bytes": 3131,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1267,7 +1268,7 @@
         "subprocess"
       ],
       "size_bytes": 5064,
-      "mtime": "2026-05-07",
+      "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -1761,8 +1762,8 @@
         "GSGPagePlan",
         "SONNET_MODEL",
         "__future__",
-        "_ensure_api_key",
         "annotations",
+        "anthropic_client",
         "brand_intelligence",
         "context_pack",
         "doctrine_planner",
@@ -1773,13 +1774,15 @@
         "format_pattern_pack_for_prompt",
         "format_plan_for_prompt",
         "format_visual_pack_for_prompt",
+        "get_anthropic_client",
+        "growthcro",
         "minimal_guards",
         "pattern_library",
         "pipeline_single_pass",
         "planner",
         "visual_intelligence"
       ],
-      "size_bytes": 16013,
+      "size_bytes": 16039,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -2940,7 +2943,7 @@
         "prompt_assembly",
         "subprocess"
       ],
-      "size_bytes": 15626,
+      "size_bytes": 16028,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [],
@@ -3369,8 +3372,7 @@
         "audit_lp_doctrine",
         "brand_intelligence",
         "build_persona_narrator_prompt",
-        "call_sonnet",
-        "call_sonnet_multimodal",
+        "call_sonnet_messages",
         "doctrine_judge",
         "has_brand_dna",
         "load_brand_dna",
@@ -3382,7 +3384,7 @@
         "vision_selection",
         "visual_gates"
       ],
-      "size_bytes": 13298,
+      "size_bytes": 13490,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -3987,9 +3989,10 @@
         "__future__",
         "annotations",
         "apply_fix_html_runtime",
+        "base64",
         "legacy_lab_adapters"
       ],
-      "size_bytes": 8683,
+      "size_bytes": 13633,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
@@ -4195,7 +4198,7 @@
         "runtime_fixes",
         "vision_selection"
       ],
-      "size_bytes": 17388,
+      "size_bytes": 25455,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -4224,7 +4227,7 @@
         "runtime_fixes",
         "vision_selection"
       ],
-      "size_bytes": 25164,
+      "size_bytes": 20899,
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
