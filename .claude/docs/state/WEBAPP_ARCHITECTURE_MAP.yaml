@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T10:33:19Z'
-  source_commit: 12d672be09deb9d013684d95d87b6145b4ac27f9
+  generated_at: '2026-05-11T11:06:14Z'
+  source_commit: de8ba52323ca001eecbc29ffca0ef13a88fa91ef
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -2120,6 +2120,96 @@ modules:
     doctrine_refs: []
     status: legacy
     lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py
+    purpose: apify_enrich.py — Enrichit un capture.json natif avec les données visuelles Apify.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12.py
+    purpose: build_dashboard_v12.py — Consolidate every client/page audit into a single JSON
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector.py
+    purpose: 'component_detector.py — GrowthCRO V12 Phase 5.2 : Component Detector multi-signal.'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception.py
+    purpose: 'component_perception.py — Oracle V11 : Perception Sémantique & Spatiale'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator.py
+    purpose: 'component_validator.py — GrowthCRO V12 Phase 5.4 : Critic/Validator.'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py
+    purpose: 'perception_pipeline.py — GrowthCRO V12 Phase 5 : Orchestrateur Layer 2 Perception.'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py
+    purpose: 'reco_enricher.py — GrowthCRO V12 Phase 4.5 : enrichit les recommandations.'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site.py
+    purpose: score_site.py — Agrégateur multi-pages GrowthCRO.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring:
+    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py
+    purpose: spatial_scoring.py — Spatial enrichment layer for GrowthCRO V9
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
   skills/site-capture/scripts/analyze_capture:
     path: skills/site-capture/scripts/analyze_capture.py
     purpose: Helpers pour lire un SiteCapture et servir de base au scoring V3.
@@ -3170,22 +3260,22 @@ skills_integration:
   - name: vercel-microfrontends
     source: skills.sh/vercel/microfrontends/vercel-microfrontends
     install_cmd: npx skills add https://github.com/vercel/microfrontends --skill vercel-microfrontends
-    installed: false
+    installed: true
     combo: webapp_nextjs
   - name: cro-methodology
     source: skills.sh/wondelai/skills/cro-methodology
     install_cmd: npx skills add https://github.com/wondelai/skills --skill cro-methodology
-    installed: false
+    installed: true
     combo: audit_run
   - name: Emil Kowalski Design Skill
     source: emilkowal.ski/skill
     install_cmd: npx skills add emilkowalski/skill
-    installed: false
+    installed: true
     combo: gsg_generation
   - name: Impeccable
     source: impeccable.style
     install_cmd: npx skills add pbakaus/impeccable
-    installed: false
+    installed: true
     combo: gsg_generation
   - name: Figma Implement Design
     source: figma (nocodefactory list)
