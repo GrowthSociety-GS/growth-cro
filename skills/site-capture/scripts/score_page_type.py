@@ -41,8 +41,33 @@ from page_type_filter import (
     get_specific_criteria,
     list_page_types,
 )
-import score_specific_criteria as ssc
+# Canonical post-#11 — score_specific_criteria.py shim removed; pull from
+# growthcro.scoring.{persist,specific}. _load_capture (legacy private helper)
+# is replaced by growthcro.scoring.persist.load_capture (label, page_type, root).
+from growthcro.scoring.persist import (
+    load_capture as _scoring_load_capture,
+    score_page_type_specific as _scoring_score_page_type_specific,
+)
 import score_universal_extensions as sue
+
+
+class _SsCompat:
+    """Back-compat shim for the legacy `import score_specific_criteria as ssc` API.
+
+    Pre-#11, score_page_type called ssc._load_capture(label, page_type) returning
+    (cap, page_html, capture_dir). The canonical helper now lives in
+    growthcro.scoring.persist.load_capture(label, page_type, root). Same return
+    shape, with `root` injected from this script's resolved ROOT.
+    """
+
+    @staticmethod
+    def _load_capture(label, page_type):
+        return _scoring_load_capture(label, page_type, ROOT)
+
+    score_page_type_specific = staticmethod(_scoring_score_page_type_specific)
+
+
+ssc = _SsCompat()
 
 # V23.D — Page types qui ont un parcours funnel à scorer (intro statique + flow interactif)
 FUNNEL_PAGE_TYPES = {"quiz_vsl", "lp_sales", "lp_leadgen", "signup", "lead_gen_simple"}
@@ -132,12 +157,19 @@ def _run_bloc_scorer(pillar: str, label: str, page_type: str, capture_dir: pathl
         except Exception:
             pass  # fallthrough to re-run
 
-    script = SCRIPTS / SCORER_MODULES[pillar]
-    if not script.exists():
-        return {"error": f"scorer script missing: {script.name}"}
+    # Post-#11: score_ux.py shim removed → invoke canonical module via -m.
+    # Other pillar scorers (hero/persuasion/coherence/psycho/tech) are still
+    # real scripts under skills/site-capture/scripts/.
+    if pillar == "ux":
+        cmd = [sys.executable, "-m", "growthcro.scoring.cli", "ux", label, page_type]
+    else:
+        script = SCRIPTS / SCORER_MODULES[pillar]
+        if not script.exists():
+            return {"error": f"scorer script missing: {script.name}"}
+        cmd = [sys.executable, str(script), label, page_type]
     try:
         r = subprocess.run(
-            [sys.executable, str(script), label, page_type],
+            cmd,
             capture_output=True, text=True, timeout=120,
         )
         if r.returncode != 0:

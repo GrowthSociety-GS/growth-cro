@@ -3,4 +3,4 @@
 # Pre-#9, this script cd'd into a stale iCloud path; updated for the cleanup epic.
 set -euo pipefail
 cd "$(dirname "$0")"
-python3 scripts/reco_enricher_v13_api.py "$@"
+python3 -m growthcro.recos.cli enrich "$@"

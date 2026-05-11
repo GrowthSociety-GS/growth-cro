@@ -51,13 +51,23 @@ from moteur_gsg.core.brief_v2_validator import (
 from moteur_gsg.core.brief_v2_prefiller import (
     prefill_brief_v2_from_client, format_brief_for_mathis_review,
 )
-from moteur_gsg.modes.mode_1_persona_narrator import (
-    build_founder_persona, _format_intent_for_page_type,
-    _format_aura_tokens_block, _load_tokens_css, _format_layout_archetype_block_LITE,
+from moteur_gsg.modes.mode_1.prompt_assembly import build_founder_persona
+from moteur_gsg.modes.mode_1.prompt_blocks import (
+    _format_intent_for_page_type,
+    _format_aura_tokens_block,
+    _load_tokens_css,
+    _format_layout_archetype_block_LITE,
     _format_golden_techniques_block_LITE,
-    _select_vision_screenshots, _check_aura_font_violations,
-    _repair_ai_slop_fonts, _check_ai_slop_visual_patterns,
-    _repair_ai_slop_visual_patterns, _check_design_grammar_violations,
+)
+from moteur_gsg.modes.mode_1.vision_selection import _select_vision_screenshots
+from moteur_gsg.modes.mode_1.visual_gates import (
+    _check_ai_slop_visual_patterns,
+    _repair_ai_slop_visual_patterns,
+)
+from moteur_gsg.modes.mode_1.runtime_fixes import (
+    _check_aura_font_violations,
+    _repair_ai_slop_fonts,
+    _check_design_grammar_violations,
     _extract_brand_font_family,
 )
 
