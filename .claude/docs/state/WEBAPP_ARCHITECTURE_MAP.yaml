@@ -1,10 +1,10 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T09:43:22Z'
-  source_commit: 0bf4611b30431f4e464cc84257114f8129c48580
+  generated_at: '2026-05-11T10:33:19Z'
+  source_commit: 12d672be09deb9d013684d95d87b6145b4ac27f9
   generated_by: scripts/update_architecture_map.py
-  notes: Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
-    are human-curated and preserved across regens.
+  notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
+    are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
 modules:
   SCHEMA/validate:
     path: SCHEMA/validate.py
@@ -3088,3 +3088,155 @@ pipelines:
     - '5 microfrontends: audit-app, reco-app, gsg-studio, reality-monitor, learning-lab'
     - Supabase EU region (auth + tables clients/audits/recos/runs + realtime)
     status: 'V27 HTML active (12MB growth_audit_data.js, 56 clients, 185 pages); V28 Next.js 0% — Epic #6'
+skills_integration:
+  meta:
+    blueprint_doc: .claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md
+    version: '1.0'
+    last_updated: '2026-05-11'
+    task_ref: 'Issue #17 webapp-stratosphere'
+    note: Human-curated section. Preserved across scripts/update_architecture_map.py regens.
+  combo_packs:
+    audit_run:
+      skills:
+      - claude-api
+      - cro-methodology
+      on_demand:
+      - form-cro
+      - page-cro
+      - signup-flow-cro
+      - onboarding-cro
+      - paywall-upgrade-cro
+      - popup-cro
+      max_session: 4
+      activation: auto on python -m growthcro.cli.capture_full <url> <client>
+      modules_impacted:
+      - growthcro/recos/orchestrator
+      - growthcro/recos/prompts
+      - growthcro/scoring/cli
+      pipeline_stage: audit_pipeline.recos
+      rationale: 'Notre doctrine V3.2.1 (-> V3.3 post #18) reste UPSTREAM. cro-methodology enrichit en aval (POST-PROCESS).
+        On-demand declenches selon page_type.'
+    gsg_generation:
+      skills:
+      - frontend-design
+      - brand-guidelines
+      - Emil Kowalski Design Skill
+      - Impeccable
+      max_session: 4
+      activation: auto on python -m moteur_gsg.orchestrator --mode <complete|replace|extend|elevate|genesis>
+      modules_impacted:
+      - moteur_gsg/core/visual_system
+      - moteur_gsg/core/page_renderer_orchestrator
+      - moteur_gsg/core/brand_intelligence
+      - moteur_gsg/core/design_grammar_loader
+      - moteur_gsg/modes/mode_1/visual_gates
+      - moteur_gsg/modes/mode_1/runtime_fixes
+      - moteur_gsg/core/minimal_guards
+      pipeline_stages:
+      - gsg_pipeline.visual_system
+      - gsg_pipeline.controlled_renderer
+      - gsg_pipeline.qa_runtime
+      - gsg_pipeline.minimal_gates
+      rationale: 4 skills = direction artistique x couleur/typo per-client x motion x QA polish. Cones d action distincts
+        -> pas de signaux contraires.
+      anti_regression: 'Hard assert prompt persona_narrator <=8K chars reste actif (cf anti-pattern #1 CLAUDE.md).'
+    webapp_nextjs:
+      skills:
+      - frontend-design
+      - web-artifacts-builder
+      - vercel-microfrontends
+      - Figma Implement Design
+      max_session: 4
+      activation: 'manual at start of sprint webapp V28 (Epic #21)'
+      modules_impacted:
+      - growthcro/api/server
+      pipeline_stages:
+      - webapp.stages_v28_nextjs_target
+      rationale: frontend-design pour composants, web-artifacts-builder pour shadcn/Tailwind, vercel-microfrontends pour archi
+        multi-zones, Figma si Mathis fournit un design.
+  essentials:
+  - name: frontend-design
+    source: anthropic-builtin
+    installed: true
+    combo: gsg_generation + webapp_nextjs
+  - name: brand-guidelines
+    source: anthropic-builtin
+    installed: true
+    combo: gsg_generation
+  - name: web-artifacts-builder
+    source: anthropic-builtin
+    installed: true
+    combo: webapp_nextjs
+  - name: vercel-microfrontends
+    source: skills.sh/vercel/microfrontends/vercel-microfrontends
+    install_cmd: npx skills add https://github.com/vercel/microfrontends --skill vercel-microfrontends
+    installed: false
+    combo: webapp_nextjs
+  - name: cro-methodology
+    source: skills.sh/wondelai/skills/cro-methodology
+    install_cmd: npx skills add https://github.com/wondelai/skills --skill cro-methodology
+    installed: false
+    combo: audit_run
+  - name: Emil Kowalski Design Skill
+    source: emilkowal.ski/skill
+    install_cmd: npx skills add emilkowalski/skill
+    installed: false
+    combo: gsg_generation
+  - name: Impeccable
+    source: impeccable.style
+    install_cmd: npx skills add pbakaus/impeccable
+    installed: false
+    combo: gsg_generation
+  - name: Figma Implement Design
+    source: figma (nocodefactory list)
+    installed: true
+    combo: webapp_nextjs
+  on_demand:
+  - name: page-cro
+    source: coreyhaines31
+    trigger: /page-cro on any audited page
+    page_types:
+    - home
+    - pdp
+    - landing
+    - all
+  - name: form-cro
+    source: coreyhaines31
+    trigger: /form-cro when page_type=lp_leadgen|signup|pricing-with-form
+  - name: signup-flow-cro
+    source: coreyhaines31
+    trigger: /signup-flow-cro for SaaS B2B with multi-step signup
+  - name: onboarding-cro
+    source: coreyhaines31
+    trigger: /onboarding-cro when page_type=onboarding
+  - name: paywall-upgrade-cro
+    source: coreyhaines31
+    trigger: /paywall-upgrade-cro for SaaS freemium pricing/paywall
+  - name: popup-cro
+    source: coreyhaines31
+    trigger: /popup-cro when audit detects popups (capture.json has_popup=true)
+  excluded:
+  - name: lp-creator
+    source: anthropic-builtin
+    rationale: Notre moteur_gsg/orchestrator est plus evolue (12 stages vs 30 critiques auto-eval). Out-of-band autorise.
+  - name: lp-front
+    source: anthropic-builtin
+    rationale: Notre moteur_gsg/core/visual_system V27.2-G + page_renderer_orchestrator produisent le front avec plus de couches.
+  - name: theme-factory
+    source: anthropic-builtin
+    rationale: 10 themes pre-set imposent une grille -> conflit avec Brand DNA per-client.
+  - name: Taste Skill
+    source: third-party
+    rationale: Impose un parti pris visuel dark/premium -> conflit Brand DNA per-client. Signaux contraires empiriques.
+  - name: Canvas Design
+    source: anthropic-builtin
+    rationale: Hors scope CRO core (visuels statiques marketing).
+  anti_cacophonie_rules:
+  - '1 parti pris visuel par projet: ne JAMAIS activer Taste Skill + brand-guidelines simultanement.'
+  - Skills design en /nom ponctuel, pas auto-load permanent hors combo pack.
+  - Limite Claude Code = 8 skills max session, donc combos disjoints (audit/GSG/webapp).
+  - 'Skills CRO methodo en POST-PROCESS, jamais pre-prompt mega-system (anti-pattern #1 V26.AF).'
+  - Notre doctrine V3.2.1 -> V3.3 reste UPSTREAM. Skills externes en aval, jamais remplacer source.
+  - lp-creator + lp-front exclus -> ne pas charger pour generer une LP. Utiliser moteur_gsg/orchestrator.
+  - theme-factory exclu -> ne pas appliquer un theme. Utiliser brand-guidelines + design_grammar_loader.
+  - Canvas Design exclu -> pas pour GSG. Utiliser visual_system V27.2-G.

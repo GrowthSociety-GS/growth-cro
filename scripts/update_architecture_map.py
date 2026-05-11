@@ -540,7 +540,12 @@ def _assemble_yaml(
     existing_pipelines = existing.get("pipelines")
     pipelines = existing_pipelines if isinstance(existing_pipelines, dict) else _default_pipelines()
 
-    return {
+    # skills_integration: 100% human-curated. Preserved verbatim if present.
+    # Seeded by Issue #17 (SKILLS_INTEGRATION_BLUEPRINT.md). Never auto-generated.
+    existing_skills = existing.get("skills_integration")
+    skills_integration = existing_skills if isinstance(existing_skills, dict) else None
+
+    payload: dict[str, Any] = {
         "meta": {
             "version": "1.0.0",
             "generated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
@@ -549,13 +554,17 @@ def _assemble_yaml(
             "notes": (
                 "Modules section auto-refreshed (path, depends_on, imported_by). "
                 "purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase are "
-                "human-curated and preserved across regens."
+                "human-curated and preserved across regens. "
+                "skills_integration section (Issue #17) is 100% human-curated."
             ),
         },
         "modules": modules,
         "data_artefacts": data_artefacts,
         "pipelines": pipelines,
     }
+    if skills_integration is not None:
+        payload["skills_integration"] = skills_integration
+    return payload
 
 
 # ────────────────────────────────────────────────────────────────────────────
