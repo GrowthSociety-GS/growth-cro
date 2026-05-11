@@ -1,7 +1,8 @@
 """Test FINAL Weglot listicle V26.AE — pipeline propre depuis le départ.
 
-V26.AE post-cleanup : prompt_mode="lite" (≤8K cible) pour fight l'anti-pattern #1.
-Compare à V26.AD+ qui était à 17K.
+V26.AG post-cleanup (issue #13) : prompt_mode parameter deleted; new
+architecture caches static system blocks + uses user-turn dialogue.
+The V26.AF 8K hard limit stays enforced defensively by the assembler.
 """
 from __future__ import annotations
 
@@ -53,7 +54,7 @@ WEGLOT_BRIEF_V2 = {
 
 
 def main():
-    print("══ Test FINAL Weglot listicle V26.AE — pipeline propre prompt_mode=lite ══\n")
+    print("══ Test FINAL Weglot listicle V26.AG — issue #13 prompt arch ══\n")
 
     print("→ 1. Parse + valide BriefV2 §4 framework cadrage...")
     brief = parse_brief_v2_from_dict(WEGLOT_BRIEF_V2)
@@ -64,7 +65,7 @@ def main():
 
     legacy_brief = brief.to_legacy_brief()
 
-    print(f"\n→ 2. Call orchestrator.generate_lp(mode='complete', prompt_mode='lite')")
+    print(f"\n→ 2. Call orchestrator.generate_lp(mode='complete') — V26.AG prompt arch (issue #13)")
 
     out_html = ROOT / "deliverables" / "weglot-listicle-V26AE-FINAL.html"
     log_path = ROOT / "data" / "_test_listicle_V26AE_log.txt"
@@ -78,7 +79,8 @@ def main():
         brief=legacy_brief,
         fallback_page_for_vision="home",
         forced_language=brief.target_language,
-        prompt_mode="lite",  # V26.AE : default lite
+        # V26.AG (issue #13) — prompt_mode parameter deleted; the new
+        # architecture caches static blocks and uses user-turn dialogue.
         save_html_path=str(out_html),
         skip_judges=True,
         verbose=True,
