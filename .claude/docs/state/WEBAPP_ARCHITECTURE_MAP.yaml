@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T11:32:20Z'
-  source_commit: 6149972eea18eec1ad56bab6b45f0f25fa041e30
+  generated_at: '2026-05-11T13:25:03Z'
+  source_commit: a00ee7dd8923aec59be914db25f76f2bbd14757a
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -856,6 +856,18 @@ modules:
     doctrine_refs: []
     status: active
     lifecycle_phase: runtime
+  moteur_gsg/core/animations:
+    path: moteur_gsg/core/animations.py
+    purpose: Emil Kowalski motion layer for the controlled GSG renderer (V27.2-G+).
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - moteur_gsg/core/page_renderer_orchestrator
+    - moteur_gsg/core/section_renderer
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
   moteur_gsg/core/asset_resolver:
     path: moteur_gsg/core/asset_resolver.py
     purpose: Visual-asset key resolution for the controlled renderer — maps logical asset keys to actual URLs/paths from plan
@@ -1229,6 +1241,17 @@ modules:
     doctrine_refs: []
     status: active
     lifecycle_phase: runtime
+  moteur_gsg/core/impeccable_qa:
+    path: moteur_gsg/core/impeccable_qa.py
+    purpose: Impeccable post-render QA layer for the controlled GSG renderer.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - moteur_gsg/modes/mode_1_complete
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
   moteur_gsg/core/intake_wizard:
     path: moteur_gsg/core/intake_wizard.py
     purpose: Deterministic GSG intake/wizard contract — turns a rough user request into a complete BriefV2 (V27.2-E).
@@ -1289,6 +1312,7 @@ modules:
     outputs:
     - LP HTML string
     depends_on:
+    - moteur_gsg/core/animations
     - moteur_gsg/core/component_renderer
     - moteur_gsg/core/css
     - moteur_gsg/core/fact_assembler
@@ -1403,6 +1427,7 @@ modules:
     outputs:
     - section HTML
     depends_on:
+    - moteur_gsg/core/animations
     - moteur_gsg/core/component_renderer
     - moteur_gsg/core/css
     - moteur_gsg/core/fact_assembler
@@ -1644,6 +1669,7 @@ modules:
     - moteur_gsg/core/design_grammar_loader
     - moteur_gsg/core/design_tokens
     - moteur_gsg/core/doctrine_planner
+    - moteur_gsg/core/impeccable_qa
     - moteur_gsg/core/legacy_lab_adapters
     - moteur_gsg/core/minimal_guards
     - moteur_gsg/core/page_renderer_orchestrator
@@ -3074,6 +3100,24 @@ data_artefacts:
     - audit (P0/P1/Evidence KPIs + priority/effort/lift filters)
     - gsg (5 modes selector — complete/replace/extend/elevate/genesis + deterministic brief)
     - demo (end-to-end Weglot showcase)
+  deliverables/gsg_stratosphere/<client>-<page_type>-v27_2_g.html:
+    producer: moteur_gsg/orchestrator (Mode 1 controlled + Emil Kowalski + Impeccable QA)
+    consumers:
+    - browser (file://)
+    - scripts/test_gsg_regression.sh
+    - Mathis visual validation
+    cardinality: 3 (japhy-pdp, stripe-pricing, linear-leadgen)
+    status: active
+    last_regen: '2026-05-11 (Issue #19 — scaffold copy_fallback_only; live-run pending)'
+    notes: 'Each LP carries V27.2-G+ pipeline: deterministic planner, controlled renderer, minimal_guards (CTA/font/lang/proof),
+      Emil Kowalski animations with prefers-reduced-motion opt-out, Impeccable QA post-render gate.'
+  data/_pipeline_runs/_regression_19/_summary.json:
+    producer: scripts/test_gsg_regression.sh
+    consumers:
+    - Mathis CI gate
+    schema: implicit — baseline / budget / per-LP runs / fail_count / pass_count
+    cardinality: 1 (overwritten each run)
+    status: active
   data/learning/audit_based_proposals/*.json:
     producer: skills/site-capture/scripts/learning_layer_v29_audit_based
     consumers:
@@ -3115,14 +3159,17 @@ pipelines:
     - visual_intelligence (moteur_gsg/core/visual_intelligence)
     - creative_route_selector V27.2-F (moteur_gsg/core/creative_route_selector)
     - visual_system V27.2-G (moteur_gsg/core/visual_system)
+    - animations_layer V27.2-G+ (moteur_gsg/core/animations — Emil Kowalski CSS, issue 19)
     - page_plan (moteur_gsg/core/planner + component_library)
     - copy_llm (moteur_gsg/core/copy_writer — JSON slots only)
     - controlled_renderer (moteur_gsg/core/page_renderer_orchestrator)
     - qa_runtime (moteur_gsg/core/minimal_guards)
     - minimal_gates (moteur_gsg/modes/mode_1/visual_gates + runtime_fixes)
+    - impeccable_qa V27.2-G+ (moteur_gsg/core/impeccable_qa — post-render anti-pattern gate, issue 19)
     - multi_judge_optional (moteur_multi_judge/orchestrator)
     entrypoint: python -m moteur_gsg.orchestrator --mode <complete|replace|extend|elevate|genesis>
     duration: < 3min lite, < 8min with multi-judge
+    regression_gate: scripts/test_gsg_regression.sh (issue 19 — Weglot 70.9% baseline + 3 LP 5pt budget)
   multi_judge:
     stages:
     - doctrine_judge V3.2.1 (moteur_multi_judge/judges/doctrine_judge)
