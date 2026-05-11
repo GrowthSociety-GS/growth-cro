@@ -1,11 +1,11 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T13:33:24",
+  "generated_at": "2026-05-11T15:25:41",
   "stats": {
-    "total_files": 218,
+    "total_files": 219,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 46,
+    "active_cli": 47,
     "active_package_marker": 17,
     "active_misc": 141,
     "orphaned_from_gsg_HIGH": 0,
@@ -1717,6 +1717,7 @@
         "growthcro/cli/enrich_client.py",
         "growthcro/config.py",
         "growthcro/lib/anthropic_client.py",
+        "scripts/migrate_v27_to_supabase.py",
         "skills/growth-site-generator/scripts/aura_extract.py",
         "skills/site-capture/scripts/batch_site.py",
         "skills/site-capture/scripts/capture_site.py",
@@ -3089,6 +3090,29 @@
         "skills/site-capture/scripts/reality_layer/orchestrator.py"
       ],
       "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "migrate_v27_to_supabase",
+      "path": "scripts/migrate_v27_to_supabase.py",
+      "filename": "migrate_v27_to_supabase.py",
+      "what": "Migrate V27 static dataset to Supabase V28.",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations",
+        "config",
+        "error",
+        "growthcro",
+        "request",
+        "urllib"
+      ],
+      "size_bytes": 12087,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {

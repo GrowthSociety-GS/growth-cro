@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": false,
+    "incremental": true,
+    "paths": {
+      "@growthcro/ui": ["./packages/ui/src"],
+      "@growthcro/ui/*": ["./packages/ui/src/*"],
+      "@growthcro/data": ["./packages/data/src"],
+      "@growthcro/data/*": ["./packages/data/src/*"],
+      "@growthcro/config": ["./packages/config/src"]
+    }
+  }
+}

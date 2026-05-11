@@ -1,0 +1,33 @@
+.gc-reco-shell {
+  padding: 22px;
+  min-height: 100vh;
+}
+
+.gc-reco-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.gc-reco-toolbar select,
+.gc-reco-toolbar input {
+  background: #0b1018;
+  border: 1px solid var(--gc-line);
+  color: var(--gc-text);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.gc-reco-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 960px) {
+  .gc-reco-grid {
+    grid-template-columns: 1fr;
+  }
+}
