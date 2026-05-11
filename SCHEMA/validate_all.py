@@ -30,7 +30,9 @@ PAIRS = [
     ("data/captures/*/*/perception_v13.json", "perception_v13.schema.json"),
     ("data/captures/*/*/recos_enriched.json", "recos_enriched.schema.json"),
     ("playbook/bloc_*_v3.json", "bloc_v3.schema.json"),
+    ("playbook/bloc_*_v3-3.json", "bloc_v3.schema.json"),
     ("data/clients_database.json", "clients_database.schema.json"),
+    ("data/captures/*/client_intent.json", "client_intent.schema.json"),
     ("deliverables/growthcro_data_v17.json", "dashboard_v17_data.schema.json"),
 ]
 

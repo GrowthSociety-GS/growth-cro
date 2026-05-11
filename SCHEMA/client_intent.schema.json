@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growthcro.internal/schemas/client_intent.json",
+  "title": "Client intent (v13.1+ with V3.3 research_inputs extension)",
+  "description": "Per-client funnel intent + research_inputs (CRE Fusion, Task #18). Backward compatible: research_inputs section is OPTIONAL. Clients audités en V3.2.1 n'ont pas cette section; clients V3.3 l'enrichissent au fil des audits.",
+  "type": "object",
+  "required": ["client", "primary_intent"],
+  "properties": {
+    "client": { "type": "string", "description": "Client label (URL slug)." },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "version": { "type": "string", "description": "Intent extraction version (e.g. v13.1.0-intent)." },
+    "primary_intent": {
+      "type": "string",
+      "enum": ["signup_commit", "contact_lead", "purchase", "content_consume", "discovery_quiz"]
+    },
+    "secondary_intent": {
+      "type": ["string", "null"],
+      "enum": ["signup_commit", "contact_lead", "purchase", "content_consume", "discovery_quiz", null]
+    },
+    "intent_scores": { "type": "object" },
+    "intent_votes": { "type": "object" },
+    "intent_source": { "type": "string" },
+    "is_multi_intent": { "type": "boolean" },
+    "max_cta_signal": { "type": "number" },
+    "page_types_available": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "pages": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "role_presence": { "type": "object" },
+    "funnel_chain": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "vocabulary": {
+      "type": "object",
+      "properties": {
+        "avoid_words": { "type": "array", "items": { "type": "string" } },
+        "use_words": { "type": "array", "items": { "type": "string" } },
+        "cta_tone": { "type": "string" },
+        "proof_priority": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "research_inputs": {
+      "type": "object",
+      "description": "V3.3 CRE Fusion (Task #18) — research-first inputs collected from the client. Optional. When present, doctrine V3.3 scorer applies +2 Confidence boost on research_dependent criteria; when absent, applies -2 Confidence penalty.",
+      "properties": {
+        "visitor_surveys": {
+          "type": "array",
+          "description": "Findings from on-site visitor surveys (e.g. Hotjar, Typeform). Each entry is a quote, statistic, or theme.",
+          "items": { "type": "string" }
+        },
+        "chat_logs_summary": {
+          "type": "string",
+          "description": "Aggregated themes/quotes from chat support logs (Intercom, Crisp, Zendesk)."
+        },
+        "support_tickets_themes": {
+          "type": "array",
+          "description": "Top recurring themes/objections from support tickets.",
+          "items": { "type": "string" }
+        },
+        "nps_responses_summary": {
+          "type": "string",
+          "description": "Aggregated NPS detractor/passive feedback. Promoter verbatims optional."
+        },
+        "voc_verbatims": {
+          "type": "array",
+          "description": "Raw Voice-of-Customer quotes (interviews, reviews, survey open-ended). Used by psy_08 + tone matching across all critères research_dependent.",
+          "items": {
+            "type": "object",
+            "required": ["quote"],
+            "properties": {
+              "quote": { "type": "string" },
+              "source": { "type": "string", "description": "interview | review | survey | support_ticket | chat" },
+              "persona": { "type": "string", "description": "Persona label (optional)." },
+              "page_type_context": { "type": "string" }
+            }
+          }
+        },
+        "interview_transcripts": {
+          "type": "array",
+          "description": "URLs or paths to interview transcripts (5-10 customer interviews minimum recommandé par CRE).",
+          "items": { "type": "string" }
+        },
+        "heatmaps_summary": {
+          "type": "string",
+          "description": "Aggregated heatmap findings (scroll depth, click maps, attention zones)."
+        },
+        "session_recordings": {
+          "type": "array",
+          "description": "URLs/IDs of representative session recordings + 1-line annotation per recording.",
+          "items": { "type": "string" }
+        },
+        "ad_creative_audit": {
+          "type": "string",
+          "description": "Summary of paid ad creative audit (top 5 ads × their LP landing point). Used by coh_03 (scent matching)."
+        },
+        "search_query_data": {
+          "type": "string",
+          "description": "Top search queries triggering ad impressions (Google Ads search terms report)."
+        },
+        "pagespeed_telemetry": {
+          "type": "string",
+          "description": "Real User Monitoring (CrUX, GA4 web vitals) summary."
+        },
+        "real_user_monitoring": {
+          "type": "string",
+          "description": "Aggregated RUM data (Sentry, Datadog, LogRocket)."
+        },
+        "uptime_logs": {
+          "type": "string",
+          "description": "Reliability metrics (uptime, error rates) — relevant for tech criteria."
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO date of last research_inputs refresh."
+        },
+        "completeness_pct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Pct of research_inputs fields populated. Below 30% → research-first criteria ne peuvent pas être Top."
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "examples": [
+    {
+      "client": "weglot",
+      "confidence": 0.928,
+      "primary_intent": "signup_commit",
+      "version": "v13.1.0-intent",
+      "research_inputs": {
+        "visitor_surveys": [
+          "70% des prospects sont des web devs SaaS B2B intégrant Weglot dans <30min",
+          "Top objection : 'is the translation quality good enough for our brand?'"
+        ],
+        "voc_verbatims": [
+          {"quote": "I needed something faster than Crowdin", "source": "review", "persona": "dev_lead"},
+          {"quote": "Setup took 10 minutes, not 10 hours", "source": "survey", "persona": "founder"}
+        ],
+        "support_tickets_themes": ["language detection edge cases", "pricing for enterprise", "SEO impact"],
+        "last_updated": "2026-05-11",
+        "completeness_pct": 40
+      }
+    }
+  ]
+}
