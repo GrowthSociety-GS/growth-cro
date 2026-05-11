@@ -1,0 +1,17 @@
+
+══ AUDIT CAPABILITIES — auto-discovery V26.AC ══
+
+  Files scanned       : 238
+  Active wired direct : 4
+  Active indirect via output : 10 ⭐ V26.AC
+  Active CLI entrypoints : 47 ⭐ Issue #10
+  Active package markers : 22 ⭐ Issue #10
+  Active misc         : 155
+  🔴 Orphans HIGH     : 0
+  ⚠️ Partial wired     : 0
+  Potentially orph    : 0
+
+  ✓ Saved : CAPABILITIES_REGISTRY.json
+  ✓ Saved : .claude/docs/state/CAPABILITIES_SUMMARY.md
+
+  → Read .claude/docs/state/CAPABILITIES_SUMMARY.md to see what's orphaned + what should be wired.

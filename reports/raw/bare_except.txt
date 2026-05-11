@@ -1,0 +1,4 @@
+skills/growth-site-generator/scripts/aura_extract.py:597:        except:
+skills/growth-site-generator/scripts/aura_extract.py:702:            except:
+skills/site-capture/scripts/batch_site.py:113:        except:
+skills/site-capture/scripts/discover_pages_v25.py:648:            except: pass

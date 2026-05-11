@@ -1,0 +1,2 @@
+scripts/lint_code_hygiene.py:177:        return True  # syntax err in a non-config file with os.environ string → flag
+scripts/lint_code_hygiene.py:336:            fails.append(f"{rel}: os.environ/getenv outside {CONFIG_FILE}")

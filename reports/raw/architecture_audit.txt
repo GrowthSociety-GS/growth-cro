@@ -1,0 +1,115 @@
+REAL ORPHANS (not entry, no imports): 88
+  - growthcro/capture/scorer.py  (runtime)
+  - growthcro/cli/add_client.py  (onboarding)
+  - growthcro/cli/capture_full.py  (onboarding)
+  - growthcro/recos/client.py  (runtime)
+  - growthcro/recos/prompts.py  (runtime)
+  - growthcro/scoring/specific/home_leadgen.py  (runtime)
+  - growthcro/scoring/specific/listicle.py  (runtime)
+  - growthcro/scoring/specific/sales.py  (runtime)
+  - moteur_gsg/core/css/base.py  (runtime)
+  - moteur_gsg/core/css/components.py  (runtime)
+  - moteur_gsg/core/css/responsive.py  (runtime)
+  - moteur_gsg/modes/mode_1/output_parsing.py  (runtime)
+  - moteur_gsg/modes/mode_2_replace.py  (runtime)
+  - moteur_gsg/modes/mode_3_extend.py  (runtime)
+  - moteur_gsg/modes/mode_4_elevate.py  (runtime)
+  - moteur_gsg/modes/mode_5_genesis.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site.py  (runtime)
+  - skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py  (runtime)
+  - skills/site-capture/scripts/analyze_capture.py  (runtime)
+  - skills/site-capture/scripts/audit_fleet_health.py  (runtime)
+  - skills/site-capture/scripts/audit_funnel_steps.py  (runtime)
+  - skills/site-capture/scripts/batch_rescore.py  (runtime)
+  - skills/site-capture/scripts/batch_site.py  (runtime)
+  - skills/site-capture/scripts/brand_dna_diff_extractor.py  (runtime)
+  - skills/site-capture/scripts/brand_dna_extractor.py  (runtime)
+  - skills/site-capture/scripts/build_growth_audit_data.py  (runtime)
+  - skills/site-capture/scripts/capture_site.py  (runtime)
+  - skills/site-capture/scripts/compress_flow_steps.py  (runtime)
+  - skills/site-capture/scripts/criterion_crops_v2.py  (runtime)
+  - skills/site-capture/scripts/design_grammar.py  (runtime)
+  - skills/site-capture/scripts/detect_canonical_tunnel.py  (runtime)
+  - skills/site-capture/scripts/discover_pages_v25.py  (onboarding)
+  - skills/site-capture/scripts/dom_vision_reconciler.py  (runtime)
+  - skills/site-capture/scripts/eclaireur_llm.py  (runtime)
+  - skills/site-capture/scripts/enrich_scores_with_evidence.py  (runtime)
+  - skills/site-capture/scripts/evidence_ledger.py  (runtime)
+  - skills/site-capture/scripts/experiment_engine.py  (learning)
+  - skills/site-capture/scripts/geo_audit.py  (runtime)
+  - skills/site-capture/scripts/geo_readiness_monitor.py  (runtime)
+  - skills/site-capture/scripts/golden_bridge.py  (runtime)
+  - skills/site-capture/scripts/golden_calibration_check.py  (runtime)
+  - skills/site-capture/scripts/golden_differential.py  (runtime)
+  - skills/site-capture/scripts/golden_percentiles.py  (runtime)
+  - skills/site-capture/scripts/intent_detector_v13.py  (runtime)
+  - skills/site-capture/scripts/learning_layer_v29_audit_based.py  (learning)
+  - skills/site-capture/scripts/overlay_burn.py  (runtime)
+  - skills/site-capture/scripts/overlay_renderer.py  (runtime)
+  - skills/site-capture/scripts/page_cleaner.py  (runtime)
+  - skills/site-capture/scripts/page_context.py  (runtime)
+  - skills/site-capture/scripts/page_type_filter.py  (runtime)
+  - skills/site-capture/scripts/perception_bridge.py  (runtime)
+  - skills/site-capture/scripts/perception_inject.py  (runtime)
+  - skills/site-capture/scripts/pick_diverse_pages.py  (runtime)
+  - skills/site-capture/scripts/playwright_capture_v2.py  (runtime)
+  - skills/site-capture/scripts/reco_lifecycle.py  (runtime)
+  - skills/site-capture/scripts/reco_quality_audit.py  (runtime)
+  - skills/site-capture/scripts/recos_dedup.py  (runtime)
+  - skills/site-capture/scripts/recos_rewrite_fr.py  (runtime)
+  - skills/site-capture/scripts/run_capture.py  (runtime)
+  - skills/site-capture/scripts/run_discover.py  (runtime)
+  - skills/site-capture/scripts/run_spatial_capture.py  (runtime)
+  - skills/site-capture/scripts/scent_trail_analyzer.py  (runtime)
+  - skills/site-capture/scripts/schwartz_detector.py  (runtime)
+  - skills/site-capture/scripts/score_applicability_overlay.py  (runtime)
+  - skills/site-capture/scripts/score_coherence.py  (runtime)
+  - skills/site-capture/scripts/score_contextual_overlay.py  (runtime)
+  - skills/site-capture/scripts/score_funnel.py  (runtime)
+  - skills/site-capture/scripts/score_hero.py  (runtime)
+  - skills/site-capture/scripts/score_page_type.py  (runtime)
+  - skills/site-capture/scripts/score_persuasion.py  (runtime)
+  - skills/site-capture/scripts/score_psycho.py  (runtime)
+  - skills/site-capture/scripts/score_site.py  (runtime)
+  - skills/site-capture/scripts/score_tech.py  (runtime)
+  - skills/site-capture/scripts/score_universal_extensions.py  (runtime)
+  - skills/site-capture/scripts/score_utility_banner.py  (runtime)
+  - skills/site-capture/scripts/spatial_bridge.py  (runtime)
+  - skills/site-capture/scripts/spatial_enrich.py  (runtime)
+  - skills/site-capture/scripts/usp_detector.py  (runtime)
+  - skills/site-capture/scripts/validate_utility_banner.py  (runtime)
+  - skills/site-capture/scripts/vision_spatial.py  (runtime)
+  - skills/site-capture/scripts/web_vitals_adapter.py  (runtime)
+
+ENTRY-POINT ORPHANS (CLIs/scripts/orchestrators): 51
+
+=== TOP HIGH-COUPLING ===
+    9 deps : growthcro/reality
+    8 deps : growthcro/reality/orchestrator
+    9 deps : moteur_gsg/core/copy_writer
+    5 deps : moteur_gsg/core/hero_renderer
+    9 deps : moteur_gsg/core/page_renderer_orchestrator
+    8 deps : moteur_gsg/core/section_renderer
+    7 deps : moteur_gsg/modes/mode_1/orchestrator
+   15 deps : moteur_gsg/modes/mode_1_complete
+    8 deps : scripts/run_gsg_full_pipeline
+    6 deps : skills/site-capture/scripts/reality_layer/orchestrator
+
+=== LEGACY STILL IMPORTED ===
+  - growthcro/gsg_lp/brand_blocks  (imported by 1: ['growthcro/gsg_lp/mega_prompt_builder'])
+  - growthcro/gsg_lp/data_loaders  (imported by 3: ['growthcro/gsg_lp/lp_orchestrator', 'growthcro/gsg_lp/mega_prompt_builder', 'growthcro/gsg_lp/repair_loop'])
+  - growthcro/gsg_lp/mega_prompt_builder  (imported by 1: ['growthcro/gsg_lp/lp_orchestrator'])
+  - growthcro/gsg_lp/repair_loop  (imported by 1: ['growthcro/gsg_lp/lp_orchestrator'])
+  - moteur_gsg/core/brief_v15_builder  (imported by 1: ['moteur_gsg/modes/mode_2_replace'])
+
+=== EMPTY-STAGE PIPELINES ===
+  - webapp
+  - webapp_v27
+  - webapp_v28
