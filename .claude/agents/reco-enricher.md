@@ -50,6 +50,24 @@ Top Impact Score: hero_01 (8.0) — "H1 pas orienté bénéfice"
 Total tokens: 18,240 in / 6,120 out · ~$0.08
 ```
 
+### Skills invoqués
+
+Cf. [`docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md`](../docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md) §2 combo "Audit run" et §4.2 on-demand.
+
+Combo permanent (≤4 skills total) :
+- **`claude-api`** (Anthropic built-in) — Sonnet 4.5 pour l'enrichment des recos (déjà cablé via `growthcro.recos.cli enrich`).
+- **`cro-methodology`** (post-install) — **POST-PROCESS** uniquement. Le skill est consulté pour cross-check les O/CO tables et le research-first principle. **JAMAIS en pre-prompt mega-system** (anti-pattern #1 V26.AF, régression -28pts). Concrètement : après avoir produit `recos_enriched.json`, on peut enrichir les `Pourquoi`/`Comment` avec des références CRE quand applicable.
+
+On-demand (s'ajoutent selon `page_type` détecté — 1-2 max) :
+- **`/page-cro`** (coreyhaines31) — invoqué pour Quick Wins overlay sur n'importe quel `page_type`. Recoupe ~80% notre doctrine V3.2.1, donc validation/cross-check plus qu'apport. Output = overlay reco, **JAMAIS un replacement** de `recos_enriched.json`.
+- **`/form-cro`** — quand `page_type ∈ {lp_leadgen, signup, pricing-with-form}`. Recos spécifiques au form (champs, ordre, error messages).
+- **`/signup-flow-cro`** — SaaS B2B avec flow signup multi-étape.
+- **`/onboarding-cro`** — quand `page_type=onboarding`.
+- **`/paywall-upgrade-cro`** — SaaS freemium avec paywall/pricing.
+- **`/popup-cro`** — quand `capture.json.has_popup=true`.
+
+**Anti-cacophonie** : ne PAS activer >4 skills simultanés (limite Claude Code 8 max, mais ce combo est ≤4). Si plusieurs on-demand applicables, prioriser celui le plus aligné avec `page_type` principal. **JAMAIS de `Taste Skill`, `theme-factory`, `lp-creator`, `lp-front`, `Canvas Design`** (exclus par anti-pattern #12 CLAUDE.md).
+
 ## Refus / Refuse to emit
 
 This agent MUST NOT emit code that violates the 4 hard rules in [`docs/doctrine/CODE_DOCTRINE.md`](../docs/doctrine/CODE_DOCTRINE.md):
