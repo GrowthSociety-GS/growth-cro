@@ -403,7 +403,6 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
-<<<<<<< HEAD
 ### 2026-05-11 — Webapp V28 Next.js Migration v1 (#21)
 
 **Trigger** : Task #21 du programme `webapp-stratosphere`, PRD FR-6 (US-4). Migrer la webapp V27 HTML statique vers Next.js 14 + Supabase EU + Vercel microfrontends. Scale agence Growth Society 100+ clients. AD-6 du epic master : V27 fini (✅ #20) AVANT V28 démarré.
@@ -465,7 +464,6 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 2. Supabase project EU — crée projet eu-central-1, partage env via `.env.local` (jamais en clair commit).
 3. Fly.io OU Railway pour backend FastAPI ?
 4. Test consultant agence — invite user pour valider RLS policies réelles.
-=======
 ### 2026-05-11 — GSG Stratosphere — structural lands + 3 LP scaffolds (#19)
 
 **Trigger** : Task #19 du programme `webapp-stratosphere`, PRD FR-4 (US-3). Premier vrai run hors-SaaS-listicle : 3 LPs sur 3 page_types non-couverts (e-com PDP, SaaS B2B pricing comparison, B2B leadgen). Combo "GSG generation" du blueprint (frontend-design + brand-guidelines + Emil Kowalski + Impeccable, max 4 skills). AD-5 du epic master : "stratosphère atteinte" prouvée par 3 LPs multi-judge ≥ 70 + 0 régression > 5pt vs Weglot V27.2-D 70.9% baseline.
@@ -514,7 +512,6 @@ Ni `animations.py` ni `impeccable_qa.py` ne touche au persona prompt assembly. L
 - Mathis visual validation des 3 LPs (post live-run)
 - Re-screenshot post live-run pour remplacer les placeholders fallback_copy par le copy Sonnet
 - Follow-up sub-epic #19b pour les 4 page_types restants (advertorial, lp_sales, home, lp_listicle non-SaaS) — créé après #19 PASS
->>>>>>> task/19-gsg-stratosphere
 
 ### 2026-05-11 — Webapp V27 Completion (#20)
 
