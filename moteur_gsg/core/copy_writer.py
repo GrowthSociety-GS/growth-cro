@@ -16,7 +16,8 @@ from .doctrine_planner import format_doctrine_pack_for_prompt
 from .minimal_guards import format_minimal_constraints_block
 from .pattern_library import format_pattern_pack_for_prompt
 from .planner import GSGPagePlan, format_plan_for_prompt
-from .pipeline_single_pass import SONNET_MODEL, _ensure_api_key
+from growthcro.lib.anthropic_client import get_anthropic_client
+from .pipeline_single_pass import SONNET_MODEL
 from .visual_intelligence import format_visual_pack_for_prompt
 
 
@@ -258,15 +259,13 @@ def call_copy_llm(
     verbose: bool = True,
 ) -> dict[str, Any]:
     """Generate bounded copy JSON from the deterministic page plan."""
-    import anthropic
-
     prompt = build_copy_prompt(plan=plan, brand_dna=brand_dna)
     if len(prompt) > COPY_PROMPT_MAX_CHARS:
         raise ValueError(
             f"copy prompt too large ({len(prompt)} chars > {COPY_PROMPT_MAX_CHARS}). "
             "Compact upstream context instead of running a mega-prompt."
         )
-    api = anthropic.Anthropic()
+    api = get_anthropic_client()
     if verbose:
         print(f"  -> Sonnet copy slots (prompt={len(prompt)} chars, max_tokens={max_tokens}, T={temperature})...", flush=True)
 
