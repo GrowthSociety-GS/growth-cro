@@ -403,6 +403,26 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-11 — Skill Integration Blueprint v1 (#17)
+
+**Trigger** : Task #17 du programme `webapp-stratosphere`, PRD FR-2. Définit où/comment les 16 skills de l'écosystème (8 essentiels + 6 on-demand + 5 exclus) s'intègrent au workflow GrowthCRO sans cacophonie. Foundation pour #18 (doctrine fusion CRE via `cro-methodology`), #19 (GSG stratosphère avec Emil Kowalski + Impeccable), #21 (webapp V28 avec `vercel-microfrontends`).
+
+**Livrable** : `.claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md` (440 LOC, 6 sections + 2 annexes) + section `skills_integration` dans `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` (combo_packs / essentials / on_demand / excluded / anti_cacophonie_rules) + anti-pattern #12 dans `.claude/CLAUDE.md` + sub-agents `doctrine-keeper` + `reco-enricher` étendus avec section "Skills invoqués".
+
+- **3 combo packs disjoints** ≤ 4 skills chacun :
+  - Audit run : `claude-api` + `cro-methodology` (POST-PROCESS) + 1-2 on-demand selon page_type. Auto-load au lancement `python -m growthcro.cli.capture_full`.
+  - GSG generation : `frontend-design` + `brand-guidelines` + Emil Kowalski + Impeccable. Auto-load au lancement `python -m moteur_gsg.orchestrator`.
+  - Webapp Next.js dev : `frontend-design` + `web-artifacts-builder` + `vercel-microfrontends` + Figma. Manuel début sprint #21.
+- **Anti-cacophonie rules** (8 hard rules) : 1 parti pris visuel par projet (jamais Taste Skill + brand-guidelines simultanés), doctrine V3.2.1+ UPSTREAM, skills CRO en POST-PROCESS (jamais pre-prompt mega-system — anti-pattern #1 V26.AF, -28pts).
+- **Installation status** : 4/8 essentiels installés (built-ins Anthropic + Figma nocodefactory). 4/8 à installer par Mathis (≤ 5 min via `npx skills add`) : `vercel-microfrontends`, `cro-methodology`, `Emil Kowalski`, `Impeccable`. Commandes exactes documentées dans Blueprint §5. Sandbox security a bloqué l'install programmatique (Untrusted Code Integration), normal et attendu.
+- **Sub-agents mis à jour** : `doctrine-keeper.md` (invoke `cro-methodology` pour reviews V3.3 #18) + `reco-enricher.md` (combo permanent + 6 on-demand triggers). `scorer`, `capture-worker`, `capabilities-keeper` inchangés (scope sans skills externes).
+- **Anti-pattern #12** : "Charger >8 skills simultanés OU skills à signaux contraires → cacophonie + dépassement limite Claude Code. Respecter les combo packs par contexte."
+- **`scripts/update_architecture_map.py`** : étendu pour préserver la section `skills_integration` à travers les regens (idempotent vérifié 2 runs consécutifs — diff = timestamps + commit hash uniquement).
+
+**Gates** : lint exit 0 (FAIL 0, WARN 10, INFO 84+1 single-concern affirmed, DEBT 5 pre-existing), audit_capabilities 0 orphans HIGH, SCHEMA/validate_all 8/8, agent_smoke_test 5/5 PASS, update_architecture_map idempotent. Parity `weglot` exit 1 — pre-existing drift identique à #16 (worktree fresh sans data/captures).
+
+**Out of scope** : install réel des 4 skills externes (Mathis side, ≤ 5 min). Smoke test invocation des combo packs (nécessite session active avec skills installés). Validation visuelle GSG run avec Emil Kowalski (Epic #19 territoire).
+
 ### 2026-05-11 — Webapp Architecture Map v1 (#16)
 
 **Trigger** : foundation deliverable of the `webapp-stratosphere` programme (Task #16, PRD FR-1, US-1). Every future Claude/Codex session must start from the same machine-readable architectural snapshot — no more re-discovering the tree each conversation.
