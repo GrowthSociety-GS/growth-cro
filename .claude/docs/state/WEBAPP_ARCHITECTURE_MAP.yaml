@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T13:25:41Z'
-  source_commit: a723409c8cedfa09c06b23ca438b0a22264441c0
+  generated_at: '2026-05-11T13:40:37Z'
+  source_commit: 9f33665eadb1c501e0a60390487bd0cc803da910
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -857,6 +857,18 @@ modules:
     doctrine_refs: []
     status: active
     lifecycle_phase: runtime
+  moteur_gsg/core/animations:
+    path: moteur_gsg/core/animations.py
+    purpose: Emil Kowalski motion layer for the controlled GSG renderer (V27.2-G+).
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - moteur_gsg/core/page_renderer_orchestrator
+    - moteur_gsg/core/section_renderer
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
   moteur_gsg/core/asset_resolver:
     path: moteur_gsg/core/asset_resolver.py
     purpose: Visual-asset key resolution for the controlled renderer — maps logical asset keys to actual URLs/paths from plan
@@ -1230,6 +1242,17 @@ modules:
     doctrine_refs: []
     status: active
     lifecycle_phase: runtime
+  moteur_gsg/core/impeccable_qa:
+    path: moteur_gsg/core/impeccable_qa.py
+    purpose: Impeccable post-render QA layer for the controlled GSG renderer.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - moteur_gsg/modes/mode_1_complete
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
   moteur_gsg/core/intake_wizard:
     path: moteur_gsg/core/intake_wizard.py
     purpose: Deterministic GSG intake/wizard contract — turns a rough user request into a complete BriefV2 (V27.2-E).
@@ -1290,6 +1313,7 @@ modules:
     outputs:
     - LP HTML string
     depends_on:
+    - moteur_gsg/core/animations
     - moteur_gsg/core/component_renderer
     - moteur_gsg/core/css
     - moteur_gsg/core/fact_assembler
@@ -1404,6 +1428,7 @@ modules:
     outputs:
     - section HTML
     depends_on:
+    - moteur_gsg/core/animations
     - moteur_gsg/core/component_renderer
     - moteur_gsg/core/css
     - moteur_gsg/core/fact_assembler
@@ -1645,6 +1670,7 @@ modules:
     - moteur_gsg/core/design_grammar_loader
     - moteur_gsg/core/design_tokens
     - moteur_gsg/core/doctrine_planner
+    - moteur_gsg/core/impeccable_qa
     - moteur_gsg/core/legacy_lab_adapters
     - moteur_gsg/core/minimal_guards
     - moteur_gsg/core/page_renderer_orchestrator

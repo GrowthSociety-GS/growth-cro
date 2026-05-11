@@ -2,8 +2,8 @@
 name: webapp-stratosphere
 status: in_progress
 created: 2026-05-11T09:21:13Z
-updated: 2026-05-11T11:36:46Z
-progress: 50%
+updated: 2026-05-11T13:26:36Z
+progress: 62%
 prd: .claude/prds/webapp-stratosphere.md
 github: https://github.com/GrowthSociety-GS/growth-cro/issues/14
 ---
@@ -172,7 +172,7 @@ Total : 8 tasks. Parallel possible : #1 → #2 (en partie), #4 ↔ #5, #7 ↔ #8
 - [x] #18 — Doctrine V3.3 CRE Fusion — M/4-5j (parallel: false, deps: #16, #17)
 - [ ] #19 — GSG Stratosphere (3 LPs non-SaaS-listicle ≥70) — L/7-10j (parallel: false, deps: #17, #18)
 - [x] #20 — Webapp V27 Completion (HTML refresh + 56 clients live) — M/4-5j (parallel: true with #19, deps: #16)
-- [ ] #21 — Webapp V28 Next.js Migration — XL/3-4 semaines (parallel: false, deps: #17, #20)
+- [x] #21 — Webapp V28 Next.js Migration — XL/3-4 semaines (parallel: false, deps: #17, #20)
 - [ ] #22 — Agency Products Extension (Google + Meta Ads) — M/3-4j (parallel: true with #23, deps: #21)
 - [ ] #23 — Reality / Experiment / Learning Loop — XL/3 semaines étalable (parallel: true with #22, deps: #18, #21)
 

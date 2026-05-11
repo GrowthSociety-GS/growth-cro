@@ -1,0 +1,102 @@
+{
+  "checked_at": "2026-05-11T13:26:35.349Z",
+  "html": "/Users/mathisfronty/Developer/task-19-gsg-stratosphere/deliverables/gsg_stratosphere/stripe-pricing-v27_2_g.html",
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 1200
+    },
+    "title": "stripe — pricing",
+    "htmlLang": "fr",
+    "h1": 1,
+    "h1Text": "stripe: une page pricing plus claire",
+    "h1Box": {
+      "left": 160,
+      "right": 726,
+      "top": 233,
+      "bottom": 432,
+      "width": 566,
+      "height": 199
+    },
+    "heroVisual": true,
+    "heroVisualBox": {
+      "left": 822,
+      "right": 1280,
+      "top": 286,
+      "bottom": 710,
+      "width": 458,
+      "height": 424
+    },
+    "h1OverlapsHeroVisual": false,
+    "visualSystem": "gsg-visual-system-v27.2-g",
+    "pageType": "pricing",
+    "visualKinds": [
+      "pricing_matrix",
+      "tier_logic",
+      "purchase_trust",
+      "objection_stack"
+    ],
+    "visualKindCount": 9,
+    "componentSections": 4,
+    "reasons": 0,
+    "proofStripItems": 3,
+    "cta": true,
+    "images": [],
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 3038,
+    "errors": [],
+    "screenshot": "/Users/mathisfronty/Developer/task-19-gsg-stratosphere/deliverables/gsg_stratosphere/screenshots/stripe-pricing-desktop.png"
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 1200
+    },
+    "title": "stripe — pricing",
+    "htmlLang": "fr",
+    "h1": 1,
+    "h1Text": "stripe: une page pricing plus claire",
+    "h1Box": {
+      "left": 20,
+      "right": 370,
+      "top": 211,
+      "bottom": 324,
+      "width": 350,
+      "height": 113
+    },
+    "heroVisual": true,
+    "heroVisualBox": {
+      "left": 20,
+      "right": 370,
+      "top": 736,
+      "bottom": 1359,
+      "width": 350,
+      "height": 623
+    },
+    "h1OverlapsHeroVisual": false,
+    "visualSystem": "gsg-visual-system-v27.2-g",
+    "pageType": "pricing",
+    "visualKinds": [
+      "pricing_matrix",
+      "tier_logic",
+      "purchase_trust",
+      "objection_stack"
+    ],
+    "visualKindCount": 9,
+    "componentSections": 4,
+    "reasons": 0,
+    "proofStripItems": 3,
+    "cta": true,
+    "images": [],
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "overflowEls": [],
+    "bodyChars": 3038,
+    "errors": [],
+    "screenshot": "/Users/mathisfronty/Developer/task-19-gsg-stratosphere/deliverables/gsg_stratosphere/screenshots/stripe-pricing-mobile.png"
+  }
+}
