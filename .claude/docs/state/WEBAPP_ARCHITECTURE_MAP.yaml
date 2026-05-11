@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T13:40:00Z'
-  source_commit: e1fb98cd57565d4fd4b89b6e2ed4d29fbfab8f18
+  generated_at: '2026-05-11T14:12:24Z'
+  source_commit: f092a9067724717055de8828296733f15d3b7fb7
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -285,6 +285,14 @@ modules:
     - growthcro/cli/capture_full
     - growthcro/cli/enrich_client
     - growthcro/lib/anthropic_client
+    - growthcro/reality/base
+    - growthcro/reality/catchr
+    - growthcro/reality/clarity
+    - growthcro/reality/credentials
+    - growthcro/reality/ga4
+    - growthcro/reality/google_ads
+    - growthcro/reality/meta_ads
+    - growthcro/reality/shopify
     - skills/growth-site-generator/scripts/aura_extract
     - skills/site-capture/scripts/batch_site
     - skills/site-capture/scripts/capture_site
@@ -309,6 +317,60 @@ modules:
     - FR-3 codebase-cleanup PRD
     status: active
     lifecycle_phase: infrastructure
+  growthcro/experiment:
+    path: growthcro/experiment/__init__.py
+    purpose: GrowthCRO Experiment Engine — V27 promoted to growthcro/.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/experiment/engine
+    - growthcro/experiment/recorder
+    - growthcro/experiment/runner
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/experiment/engine:
+    path: growthcro/experiment/engine.py
+    purpose: Experiment Engine — sample-size calculator + spec builder.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - growthcro/experiment
+    - growthcro/experiment/runner
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/experiment/recorder:
+    path: growthcro/experiment/recorder.py
+    purpose: Experiment Engine recorder — index + outcome import.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - growthcro/experiment
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/experiment/runner:
+    path: growthcro/experiment/runner.py
+    purpose: Experiment Engine runner — emit experiment PROPOSALS, zero auto-trigger (Issue
+    inputs:
+    - client_slug
+    - page_slug
+    - reality_snapshot dict
+    - recos list
+    outputs:
+    - data/experiments/<client>/<exp_id>.json (status="proposed")
+    depends_on:
+    - growthcro/experiment/engine
+    imported_by:
+    - growthcro/experiment
+    doctrine_refs:
+    - FR-8 webapp-stratosphere PRD (US-6)
+    status: active
+    lifecycle_phase: runtime
   growthcro/gsg_lp:
     path: growthcro/gsg_lp/__init__.py
     purpose: Growth Site Generator — landing-page mega-prompt orchestrator.
@@ -394,6 +456,36 @@ modules:
     doctrine_refs: []
     status: legacy
     lifecycle_phase: qa
+  growthcro/learning:
+    path: growthcro/learning/__init__.py
+    purpose: GrowthCRO Learning Layer.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/learning/v30_data_driven
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/learning/v30_data_driven:
+    path: growthcro/learning/v30_data_driven.py
+    purpose: Learning V30 — data-driven Bayesian update on doctrine V3.3 (Issue
+    inputs:
+    - data/experiments/<client>/<exp_id>.json with outcome != null
+    - data/reality/<client>/<page_slug>/<iso_date>/reality_snapshot.json
+    - playbook/bloc_*_v3-3.json (criterion metadata)
+    outputs:
+    - data/learning/data_driven_proposals/<iso_date>/<proposal_id>.json
+    - data/learning/data_driven_stats.json
+    - data/learning/data_driven_summary.md
+    depends_on: []
+    imported_by:
+    - growthcro/learning
+    doctrine_refs:
+    - FR-8 webapp-stratosphere PRD (US-6)
+    - 'playbook/bloc_*_v3-3.json (Issue #18)'
+    status: active
+    lifecycle_phase: runtime
   growthcro/lib:
     path: growthcro/lib/__init__.py
     purpose: Shared infrastructure utilities for GrowthCRO modules.
@@ -511,6 +603,171 @@ modules:
     imported_by:
     - growthcro/perception
     - growthcro/perception/persist
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality:
+    path: growthcro/reality/__init__.py
+    purpose: GrowthCRO Reality Layer — V26.C / V26.AI promoted to growthcro/.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/reality/base
+    - growthcro/reality/catchr
+    - growthcro/reality/clarity
+    - growthcro/reality/credentials
+    - growthcro/reality/ga4
+    - growthcro/reality/google_ads
+    - growthcro/reality/meta_ads
+    - growthcro/reality/orchestrator
+    - growthcro/reality/shopify
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/base:
+    path: growthcro/reality/base.py
+    purpose: Reality Layer base interface (promoted from skills/site-capture).
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/config
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/catchr
+    - growthcro/reality/clarity
+    - growthcro/reality/ga4
+    - growthcro/reality/google_ads
+    - growthcro/reality/meta_ads
+    - growthcro/reality/orchestrator
+    - growthcro/reality/shopify
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/catchr:
+    path: growthcro/reality/catchr.py
+    purpose: Catchr connector — Growth Society internal GA4+ aggregator.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/config
+    - growthcro/reality/base
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/orchestrator
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/clarity:
+    path: growthcro/reality/clarity.py
+    purpose: Microsoft Clarity Data Export connector — heatmaps + rage clicks + scroll depth.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/config
+    - growthcro/reality/base
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/orchestrator
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/credentials:
+    path: growthcro/reality/credentials.py
+    purpose: 'Reality Layer credentials inspector — Issue #23. For a given client_slug, reports which connectors have credentials
+      configured and which are missing. Never logs values.'
+    inputs:
+    - client_slug
+    outputs:
+    - report dict (connectors map → configured/missing/resolved_count)
+    depends_on:
+    - growthcro/config
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/orchestrator
+    doctrine_refs:
+    - FR-8 webapp-stratosphere PRD (US-6)
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/ga4:
+    path: growthcro/reality/ga4.py
+    purpose: Native Google Analytics 4 Data API v1 connector.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/config
+    - growthcro/reality/base
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/orchestrator
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/google_ads:
+    path: growthcro/reality/google_ads.py
+    purpose: Google Ads API connector — campaign metrics per landing page.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/config
+    - growthcro/reality/base
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/orchestrator
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/meta_ads:
+    path: growthcro/reality/meta_ads.py
+    purpose: Meta Marketing API connector — ad_spend + ROAS + CTR per landing page.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/config
+    - growthcro/reality/base
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/orchestrator
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/orchestrator:
+    path: growthcro/reality/orchestrator.py
+    purpose: Reality Layer orchestrator — multi-connector aggregator (Issue
+    inputs:
+    - client_slug
+    - page_url
+    - page_slug
+    - period_days
+    outputs:
+    - data/reality/<client>/<page_slug>/<iso_date>/reality_snapshot.json
+    - data/captures/<client>/<page_slug>/reality_layer.json (legacy mirror)
+    depends_on:
+    - growthcro/reality/base
+    - growthcro/reality/catchr
+    - growthcro/reality/clarity
+    - growthcro/reality/credentials
+    - growthcro/reality/ga4
+    - growthcro/reality/google_ads
+    - growthcro/reality/meta_ads
+    - growthcro/reality/shopify
+    imported_by:
+    - growthcro/reality
+    doctrine_refs:
+    - FR-8 webapp-stratosphere PRD (US-6)
+    status: active
+    lifecycle_phase: runtime
+  growthcro/reality/shopify:
+    path: growthcro/reality/shopify.py
+    purpose: Shopify Admin GraphQL API connector — orders + revenue + funnel per landing page.
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/config
+    - growthcro/reality/base
+    imported_by:
+    - growthcro/reality
+    - growthcro/reality/orchestrator
     doctrine_refs: []
     status: active
     lifecycle_phase: runtime
@@ -3170,11 +3427,34 @@ pipelines:
     weighting: 70% doctrine / 30% humanlike (V26.AA Sprint 3)
   reality_loop:
     stages:
-    - reality_layer collect (credentials GA4/Meta/Google/Shopify/Clarity — pending)
-    - experiment_engine A/B (skills/site-capture/scripts/experiment_engine)
-    - learning_v29_audit_based (skills/site-capture/scripts/learning_layer_v29_audit_based — 69 proposals)
-    - learning_v30_data_driven (pending — Bayesian update from reality)
-    status: partially active — V29 audit-based YES, Reality+Experiment+V30 PENDING credentials + 3 pilot clients
+    - reality_collect (growthcro/reality/orchestrator — 6 connectors GA4/Catchr/Meta/Google/Shopify/Clarity, per-client credentials
+      via growthcro.config.reality_client_env)
+    - experiment_propose (growthcro/experiment/runner — 5 AB types, ZERO auto-trigger, status="proposed")
+    - experiment_record (growthcro/experiment/recorder — atomic spec persistence + index)
+    - experiment_measure_outcomes (growthcro/experiment/recorder.import_outcome — Mathis triggers post live A/B)
+    - learning_v29_audit_based (skills/site-capture/scripts/learning_layer_v29_audit_based — 69 proposals from 56 curated
+      V26 clients)
+    - learning_v30_data_driven (growthcro/learning/v30_data_driven — Beta-Binomial Bayesian update on V3.3, fed by reality
+      snapshots + experiment outcomes)
+    pilote_clients_proposed:
+    - weglot (SaaS, ref Weglot V27.2-D listicle baseline)
+    - japhy (DTC e-com, ref AD-5 page-types non-SaaS-listicle)
+    - <agency_client_TBD> (1 active Growth Society client — Mathis picks at sprint start OR documented procedure)
+    output_paths:
+    - data/reality/<client>/<page_slug>/<iso_date>/reality_snapshot.json
+    - data/captures/<client>/<page>/reality_layer.json (legacy mirror for V27 dashboards)
+    - data/experiments/<client>/<exp_id>.json
+    - data/experiments/_index/experiments_index.json (regen-able)
+    - data/learning/data_driven_proposals/<iso_date>/<proposal_id>.json
+    - data/learning/data_driven_stats.json
+    - data/learning/data_driven_summary.md
+    webapp_v28_apps:
+    - webapp/apps/reality-monitor (lists pilote clients, credentials grid per client, snapshot KPIs, realtime runs)
+    - webapp/apps/learning-lab (V29+V30 proposals listing, filter by track/status/type, accept/reject/defer with .review.json
+      sidecar)
+    status: V30 structurally READY — connectors + orchestrator + experiment engine + Bayesian learning all in place. Live
+      runs PENDING per-client credentials in .env (Mathis collect, ~1.5h for 3 clients).
+    issue: '#23 (epic webapp-stratosphere)'
   webapp:
     stages_v27_html:
     - growthcro/cli/capture_full per-client run
