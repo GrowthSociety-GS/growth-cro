@@ -403,6 +403,35 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-11 — Webapp V27 Completion (#20)
+
+**Trigger** : Task #20 du programme `webapp-stratosphere`, PRD FR-5. Finir le V27 Command Center HTML statique comme MVP honnête (3 panes accessibles, 56 clients live, page load < 3s) avant que la migration Next.js V28 (Epic #21) ne démarre. AD-6 du epic master : V27 fini AVANT V28 lancé.
+
+**Livrables** :
+- `deliverables/growth_audit_data.js` regénéré post-cleanup : 11.73 MB, 56 clients × 185 pages × 3045 LP-level recos (P0=932 / P1=1115 / P2=50 / P3=948) + 170 step-level recos × 13 pages + 8347 evidence items. Generated at 2026-05-11T11:10:06Z. Version `v27.0.0-panel-roles` inchangée.
+- `deliverables/GrowthCRO-V27-CommandCenter.html` : audit pane complété avec filtres priority / effort / lift + reset button et compteur live. GSG pane complété avec sélecteur 5 modes (complete / replace / extend / elevate / genesis) — chaque mode update le brief meta + JSON (`gsg_mode.{id, label, intent}`) pour que le downstream `python -m moteur_gsg.orchestrator --mode <X>` route correctement. Pas de nouvelle feature : juste complétion des panes existantes pour matcher l'AC.
+- `scripts/test_webapp_v27.py` (188 LOC ≤ 200, mono-concern) : Playwright headless smoke 28 checks (load < 3s, 56 clients DATA, 4 views switch, 4 audit filter widgets, 5 GSG modes, 3 client clicks aléatoires, 0 pageerror, 0 console.error). Exit 0 = PASS.
+- `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` : data_artefacts enrichi (consumers + size_mb + status + last_regen + contents + views), nouvelle pipeline `webapp_v27` (flow build script → JS → HTML, smoke test, panes inventory). 16 → 17 artefact patterns. 5 → 6 pipelines. Idempotency vérifiée : 2 runs consécutifs ne diffèrent que sur `meta.generated_at`.
+
+**Path migration check** : `skills/site-capture/scripts/build_growth_audit_data.py` (803 LOC, KNOWN_DEBT) n'a AUCUN import `skills.site-capture.*` ni `growthcro.*` — pur JSON IO sur `data/captures/*` + `data/clients_database.json` + `data/curated_clients_v27.json`. Donc pas de migration de paths nécessaire post-cleanup (vs l'hypothèse initiale du task spec). Le script a juste été re-run. KNOWN_DEBT 803 LOC reste tracé par le linter — split reporté hors scope V27 completion.
+
+**Performance** : page load mesurée 0.61s en `file://` (cible < 3s — 5× sous le budget). 11.73 MB upfront load acceptable. Lazy-load par client non implémenté (inutile à ce volume — décision documentée dans stream-A).
+
+**Architecture preserved** :
+- `growthcro/*` non touché (audit pipeline = source, V27 consomme).
+- `playbook/*.json` non touché.
+- `data/clients_database.json` non touché.
+- `moteur_gsg/modes/*` non touché (les 5 modes existent déjà sur disque, V27 les expose en UI informationnel seulement).
+
+**Gates** : lint exit 0 (WARN 10 pré-existants, build_growth_audit_data.py = tracked DEBT 803 LOC), audit_capabilities 0 orphans HIGH, SCHEMA/validate_all 3325 files PASS, agent_smoke_test 5/5 PASS, parity `weglot` 108 files match baseline (PASS — captures symlink depuis main repo restauré), update_architecture_map idempotent, test_webapp_v27.py 28/28 checks PASS.
+
+**Out of scope** :
+- Lazy-load split per-client JSON (page load 0.61s rend l'optim inutile)
+- `build_growth_audit_data.py` 803-LOC split (KNOWN_DEBT, sprint dédié)
+- Vraie exécution GSG mode depuis le browser (V27 statique ; V28 Epic #21 introduira server-driven mode runs)
+- Brief V2 wizard UI (réside dans `moteur_gsg/core/intake_wizard.py`, invoqué CLI)
+- Reality / Experiment / Learning panes (Epic #23)
+
 ### 2026-05-11 — Skill Integration Blueprint v1 (#17)
 
 **Trigger** : Task #17 du programme `webapp-stratosphere`, PRD FR-2. Définit où/comment les 16 skills de l'écosystème (8 essentiels + 6 on-demand + 5 exclus) s'intègrent au workflow GrowthCRO sans cacophonie. Foundation pour #18 (doctrine fusion CRE via `cro-methodology`), #19 (GSG stratosphère avec Emil Kowalski + Impeccable), #21 (webapp V28 avec `vercel-microfrontends`).

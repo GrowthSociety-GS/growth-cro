@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-11T11:06:14Z'
-  source_commit: de8ba52323ca001eecbc29ffca0ef13a88fa91ef
+  generated_at: '2026-05-11T11:23:46Z'
+  source_commit: 46d59ce857ea23f6cf379509fbe01f9e8cee5234
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -1990,6 +1990,16 @@ modules:
     - skills/gsg/SKILL.md
     status: active
     lifecycle_phase: onboarding
+  scripts/test_webapp_v27:
+    path: scripts/test_webapp_v27.py
+    purpose: test_webapp_v27.py — Playwright headless smoke test for V27 Command Center.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: infrastructure
   scripts/update_architecture_map:
     path: scripts/update_architecture_map.py
     purpose: AST scan generator for WEBAPP_ARCHITECTURE_MAP.yaml — preserves human-curated fields between regens.
