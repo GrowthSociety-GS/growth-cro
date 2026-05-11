@@ -15,8 +15,9 @@
 7. `python3 state.py` — état disque pipeline
 8. `python3 scripts/audit_capabilities.py` + lire [`docs/state/CAPABILITIES_SUMMARY.md`](docs/state/CAPABILITIES_SUMMARY.md)
 9. Skim [`memory/MEMORY.md`](memory/MEMORY.md) + [`docs/reference/GROWTHCRO_MANIFEST.md`](docs/reference/GROWTHCRO_MANIFEST.md) §12 changelog
+10. Lire [`docs/doctrine/CODE_DOCTRINE.md`](docs/doctrine/CODE_DOCTRINE.md) — doctrine code projet (mono-concern, 8 axes, hard rules)
 
-**Ne jamais coder/scorer/auditer sans ces 9 étapes ET consigne explicite Mathis.**
+**Ne jamais coder/scorer/auditer sans ces 10 étapes ET consigne explicite Mathis.**
 
 ## Anti-patterns prouvés (à NE PLUS reproduire)
 
@@ -27,6 +28,10 @@
 5. Coder avant design doc validé
 6. Audit sans Notion fetch
 7. Industrialiser avant validation unitaire (Mathis veut perfection 1er run)
+8. Fichier multi-concern (mélange prompt + API + persistence + orchestration) — split en modules mono-concern (8 axes, cf. `docs/doctrine/CODE_DOCTRINE.md`)
+9. `os.environ` / `os.getenv` hors `growthcro/config.py` — toute lecture env passe par le module config
+10. Archive (`_archive*`, `_obsolete*`, `*deprecated*`, `*backup*`) à l'intérieur d'un path actif — déplacer sous `_archive/` racine
+11. Basename dupliqué dans des paths actifs (hors `__init__.py`, `cli.py`, et les noms canoniques AD-1 `base/orchestrator/persist/prompt_assembly`)
 
 ## Règles immuables
 
@@ -37,6 +42,7 @@
 - Git discipline : 1 commit isolé par changement doctrine/scorer/reco, `git status` propre avant batch
 - **Pas de `git reset --hard`, `push --force`, `clean -fd`, `branch -D`, `checkout -- <file>` sans accord explicite Mathis** (perte irréversible). Préférer `git stash`, `git restore --staged`, `git reset` (mixed)
 - Schemas guard-rails : `python3 SCHEMA/validate_all.py` avant/après modifs structurelles
+- **Code hygiene gate** : avant tout `git add` d'un fichier source, `python3 scripts/lint_code_hygiene.py --staged` doit exit 0. Doctrine complète : [`docs/doctrine/CODE_DOCTRINE.md`](docs/doctrine/CODE_DOCTRINE.md)
 - Notion = source produit (conflit code vs Notion → demander clarification, pas drift)
 - Hard limit prompt persona_narrator ≤8K chars
 - Pas de modif Notion sans demande explicite Mathis
