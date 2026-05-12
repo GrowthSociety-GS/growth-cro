@@ -65,7 +65,6 @@ ROOT_LIFECYCLE: dict[str, str] = {
     "growthcro/scoring": "runtime",
     "growthcro/recos": "runtime",
     "growthcro/research": "onboarding",
-    "growthcro/gsg_lp": "runtime",
     "moteur_gsg": "runtime",
     "moteur_multi_judge": "qa",
     "skills/site-capture": "runtime",
