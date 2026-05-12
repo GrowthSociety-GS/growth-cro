@@ -408,6 +408,27 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 =======
 =======
 >>>>>>> epic/webapp-stratosphere
+### 2026-05-12 — MCPs Production setup (#27)
+
+**Trigger**: Task #27 du programme `hardening-and-skills-uplift`, PRD FR-3. Setup 4 MCPs production (Supabase + Sentry + Meta Ads officiel + Shopify) pour débloquer deploy V28 (Epic #6 prerequisite) + augmenter Epic #7 agency products.
+
+**Livrables** :
+- `.claude/docs/reference/MCPS_INSTALL_PROCEDURE_2026-05-12.md` (NEW) — 4 procédures détaillées Mathis manual install (commande, OAuth scope, transport, smoke test, revoke par MCP).
+- `.claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md` v1.2 — section §4bis "MCPs server-level" enrichie (4 sous-sections 4bis.2.1 à 4bis.2.4) + nouveau combo §2 "Production observability" (Supabase MCP + Sentry MCP + Context7 ambient).
+- `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` — `skills_integration.mcps_server_level.installed` enrichi (4 entries `supabase_dev`, `sentry`, `meta_ads_official`, `shopify` avec install_cmd, transport, oauth_scope, smoke_test) + `combos.production_observability`.
+
+**Pending Mathis** (4 OAuth flows ~20min total — l'agent Claude Code ne dispose pas de la CLI `claude` dans le sandbox) :
+1. `claude mcp add --transport http supabase https://mcp.supabase.com/mcp` + OAuth (DEV project only — anti-pattern AD-5).
+2. `claude mcp add --transport http sentry https://mcp.sentry.dev/mcp` + OAuth.
+3. `claude mcp add --transport http meta-ads https://mcp.facebook.com/ads` + OAuth + select ad accounts test.
+4. `claude mcp add shopify` + OAuth (dev store recommandé).
+
+**Anti-pattern explicite documenté** : Supabase MCP **DEV ONLY** (jamais prod). Cf §4bis.3 BLUEPRINT + §1.5 procédure install. Mesures de défense en profondeur : sélection OAuth dev only + révocation explicite côté Supabase dashboard pour switch.
+
+**Combo associé** : "Production observability" (MCPs only, 0 skills actifs → cumulable avec tout combo skills sans toucher cap 8).
+
+**Architecture preserved** : doctrine intact, V26.AF immutable, aucun module code touché (docs + YAML only).
+
 ### 2026-05-12 — Skills Stratosphère S1 Install (#26)
 
 **Trigger** : Task #26 du programme `hardening-and-skills-uplift`, PRD FR-2. Install Top-6 must-install skills (ICE 720-900) from SKILLS_STRATOSPHERE_DISCOVERY_2026-05-11. Formalize `skill-creator` (déjà actif via `anthropic-skills:skill-creator`). Démoter `Figma Implement Design` en on-demand pour libérer un slot dans le combo Webapp Next.js dev.
