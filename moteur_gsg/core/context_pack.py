@@ -4,19 +4,30 @@ The client context router already knows how to load GrowthCRO artefacts. This
 module turns that rich, heterogeneous state into a compact contract for GSG
 planning: what we know, what we can prove, what assets exist, and where the
 current generation mode is allowed to depend on Audit/Reco.
+
+Typed contract (V26.AH+): the public output is
+``growthcro.models.context_models.ContextPackOutput`` (Pydantic v2,
+``extra='forbid'``, ``frozen=True``). The legacy dataclass identifier
+``GenerationContextPack`` is preserved as an alias for backwards
+compatibility (re-exported below).
 """
 from __future__ import annotations
 
 import pathlib
 import re
 import sys
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from client_context import ClientContext, load_client_context  # noqa: E402
+
+from growthcro.models.context_models import (  # noqa: E402
+    ContextPackOutput,
+    EvidenceFactModel,
+)
 
 
 MODE_AUDIT_DEPENDENCY = {
@@ -30,32 +41,20 @@ MODE_AUDIT_DEPENDENCY = {
 
 @dataclass
 class EvidenceFact:
+    """Legacy dataclass — kept for the internal helpers below.
+
+    Converted to ``EvidenceFactModel`` (Pydantic) at output assembly time.
+    """
+
     label: str
     value: str
     source: str
     context: str = ""
 
 
-@dataclass
-class GenerationContextPack:
-    version: str
-    mode: str
-    client: str
-    page_type: str
-    target_language: str
-    audit_dependency_policy: str
-    artefacts: dict[str, Any]
-    brand: dict[str, Any]
-    business: dict[str, Any]
-    audience: dict[str, Any]
-    proof_inventory: list[EvidenceFact] = field(default_factory=list)
-    scent_contract: dict[str, Any] = field(default_factory=dict)
-    visual_assets: dict[str, str] = field(default_factory=dict)
-    design_sources: dict[str, Any] = field(default_factory=dict)
-    risk_flags: list[str] = field(default_factory=list)
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+# Public typed alias — the dataclass form has been replaced by the
+# Pydantic ContextPackOutput. Existing imports keep working.
+GenerationContextPack = ContextPackOutput
 
 
 def _compact_text(value: Any, max_chars: int = 240) -> str:
@@ -269,8 +268,15 @@ def build_generation_context_pack(
     mode: str = "complete",
     target_language: str = "FR",
     ctx: ClientContext | None = None,
-) -> tuple[GenerationContextPack, ClientContext]:
-    """Build the read-only context contract for GSG planning."""
+) -> tuple[ContextPackOutput, ClientContext]:
+    """Build the read-only context contract for GSG planning.
+
+    Returns a typed ``ContextPackOutput`` (Pydantic v2,
+    ``extra='forbid'``, ``frozen=True``) instead of the prior
+    ``dict[str, Any] | None`` drift. Backwards compatible: callers
+    still use attribute access (``.version``, ``.artefacts``,
+    ``.risk_flags``, ``.audit_dependency_policy``) and ``.to_dict()``.
+    """
     ctx = ctx or load_client_context(client, page_type)
     business_category = infer_business_category_from_context(ctx, brief)
     proof_inventory = _proof_inventory(ctx, brief)
@@ -284,7 +290,7 @@ def build_generation_context_pack(
         scent_contract=scent,
         visual_assets=visual_assets,
     )
-    pack = GenerationContextPack(
+    pack = ContextPackOutput(
         version="gsg-generation-context-v27.2",
         mode=mode,
         client=client,
@@ -304,7 +310,15 @@ def build_generation_context_pack(
             "mode_policy": MODE_AUDIT_DEPENDENCY.get(mode, "unknown"),
         },
         audience=_audience_summary(ctx, brief),
-        proof_inventory=proof_inventory,
+        proof_inventory=[
+            EvidenceFactModel(
+                label=fact.label,
+                value=fact.value,
+                source=fact.source,
+                context=fact.context,
+            )
+            for fact in proof_inventory
+        ],
         scent_contract=scent,
         visual_assets=visual_assets,
         design_sources={
@@ -318,6 +332,31 @@ def build_generation_context_pack(
         risk_flags=risk_flags,
     )
     return pack, ctx
+
+
+def build_context_pack(
+    *,
+    client: str,
+    page_type: str,
+    brief: dict[str, Any],
+    mode: str = "complete",
+    target_language: str = "FR",
+    ctx: ClientContext | None = None,
+) -> ContextPackOutput:
+    """Public typed entrypoint — returns ``ContextPackOutput`` only.
+
+    Thin wrapper over :func:`build_generation_context_pack` for callsites
+    that do not also need the ``ClientContext`` handle. See issue #31.
+    """
+    pack, _ctx = build_generation_context_pack(
+        client=client,
+        page_type=page_type,
+        brief=brief,
+        mode=mode,
+        target_language=target_language,
+        ctx=ctx,
+    )
+    return pack
 
 
 def format_context_pack_for_prompt(pack: dict[str, Any]) -> str:
