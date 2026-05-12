@@ -38,6 +38,10 @@ from .signals import (
     extract_ux_signals,
 )
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
@@ -56,7 +60,7 @@ def main(argv: list | None = None) -> int:
         args.pop(i)
 
     if len(args) < 3:
-        print("Usage: native_capture.py <url> <label> <pageType> [--html <path>]", file=sys.stderr)
+        logger.info("Usage: native_capture.py <url> <label> <pageType> [--html <path>]", file=sys.stderr)
         return 1
 
     url = args[0]
@@ -72,18 +76,18 @@ def main(argv: list | None = None) -> int:
     if html_from_file:
         src = pathlib.Path(html_from_file)
         if not src.exists():
-            print(f"❌ --html file missing: {src}", file=sys.stderr)
+            logger.info(f"❌ --html file missing: {src}", file=sys.stderr)
             return 3
         t0 = time.time()
         html = src.read_text(encoding="utf-8", errors="ignore")
         fetch_time = round(time.time() - t0, 2)
         final_url = url
         http_status = 200
-        print(f"✅ Loaded {len(html)} bytes from {src.name} in {fetch_time}s (rendered DOM)")
+        logger.info(f"✅ Loaded {len(html)} bytes from {src.name} in {fetch_time}s (rendered DOM)")
         if src.resolve() != html_file.resolve():
             html_file.write_text(html, encoding="utf-8")
     else:
-        print(f"⏳ Fetching {url} ...")
+        logger.info(f"⏳ Fetching {url} ...")
         t0 = time.time()
         ctx = ssl.create_default_context()
         try:
@@ -97,10 +101,10 @@ def main(argv: list | None = None) -> int:
             final_url = resp.url
             http_status = resp.status
         except Exception as e:
-            print(f"❌ Fetch failed: {e}", file=sys.stderr)
+            logger.info(f"❌ Fetch failed: {e}", file=sys.stderr)
             return 3
         fetch_time = round(time.time() - t0, 2)
-        print(f"✅ Fetched {len(html)} bytes in {fetch_time}s (status {http_status})")
+        logger.info(f"✅ Fetched {len(html)} bytes in {fetch_time}s (status {http_status})")
         html_file.write_text(html, encoding="utf-8")
 
     capture = build_capture(
@@ -131,7 +135,7 @@ def build_capture(*, url: str, label: str, page_type: str, html: str,
     is_spa = body_words < 50 or dom_nodes < 80
     confidence = "low" if is_spa else "high"
     if is_spa:
-        print(f"⚠️  SPA détecté ({body_words} mots, {dom_nodes} nodes) — capture low_confidence")
+        logger.info(f"⚠️  SPA détecté ({body_words} mots, {dom_nodes} nodes) — capture low_confidence")
 
     # ── Metas ──
     metas = _extract_metas(html)
@@ -359,8 +363,8 @@ def _detect_hero(heading_raw: list, body_tags: str, title: str) -> dict:
 
     parasitic_count = len(all_h1s_raw) - len(valid_h1s)
     if parasitic_count > 0 or hero_source != "h1":
-        print(f"🔍 Hero detection: {len(all_h1s_raw)} H1s found, {parasitic_count} filtered as parasitic")
-        print(f"   Hero source: {hero_source} → \"{h1_text[:80]}\"")
+        logger.info(f"🔍 Hero detection: {len(all_h1s_raw)} H1s found, {parasitic_count} filtered as parasitic")
+        logger.info(f"   Hero source: {hero_source} → \"{h1_text[:80]}\"")
 
     return {
         "h1_text": h1_text, "hero_source": hero_source, "pos": pos,
@@ -428,23 +432,23 @@ def _print_summary(capture: dict, cap_file: pathlib.Path, html_file: pathlib.Pat
     total_images = tech["images_total"]
     lazy_images = ux["lazy_images"]
 
-    print("\n📊 Extraction Summary:")
-    print(f"  H1: {h1_text[:60] or '(none)'}")
-    print(f"  Subtitle: {subtitle[:60] or '(none)'}")
-    print(f"  Headings: {len(headings)} (H1={len(h1s)}, H2={len([h for h in headings if h['level']==2])})")
-    print(f"  CTAs: {len(ctas)} (primary: {primary_cta['label'][:40] if primary_cta else 'none'})")
-    print(f"  Forms: {len(forms)} ({sum(f['fields'] for f in forms)} fields total)")
-    print(f"  Images: {total_images} ({lazy_images} lazy)")
-    print(f"  Trust: {len(trust_widgets)} widgets, {len(testimonials)} testimonials")
-    print(f"  Schema.org: {len(schemas)} ({[s.get('@type') for s in schemas]})")
-    print(f"  Chat widgets: {len(chat_widgets)}")
-    print(f"  Psycho signals: urgency={psycho['urgency_words']}, scarcity={psycho['scarcity_words']}")
-    print(f"  Tech: {tech['external_scripts_count']} scripts, {tech['external_css_count']} CSS, {tech['images_without_alt']} imgs sans alt")
-    print(f"  Page-specific ({page_type}): {len(page_specific)} fields")
-    print(f"  DOM: ~{dom_nodes} nodes, {body_words} words")
-    print(f"  Confidence: {confidence} {'⚠️ SPA' if is_spa else ''}")
-    print(f"\n✅ Saved: {cap_file}")
-    print(f"✅ Saved: {html_file}")
+    logger.info("\n📊 Extraction Summary:")
+    logger.info(f"  H1: {h1_text[:60] or '(none)'}")
+    logger.info(f"  Subtitle: {subtitle[:60] or '(none)'}")
+    logger.info(f"  Headings: {len(headings)} (H1={len(h1s)}, H2={len([h for h in headings if h['level']==2])})")
+    logger.info(f"  CTAs: {len(ctas)} (primary: {primary_cta['label'][:40] if primary_cta else 'none'})")
+    logger.info(f"  Forms: {len(forms)} ({sum(f['fields'] for f in forms)} fields total)")
+    logger.info(f"  Images: {total_images} ({lazy_images} lazy)")
+    logger.info(f"  Trust: {len(trust_widgets)} widgets, {len(testimonials)} testimonials")
+    logger.info(f"  Schema.org: {len(schemas)} ({[s.get('@type') for s in schemas]})")
+    logger.info(f"  Chat widgets: {len(chat_widgets)}")
+    logger.info(f"  Psycho signals: urgency={psycho['urgency_words']}, scarcity={psycho['scarcity_words']}")
+    logger.info(f"  Tech: {tech['external_scripts_count']} scripts, {tech['external_css_count']} CSS, {tech['images_without_alt']} imgs sans alt")
+    logger.info(f"  Page-specific ({page_type}): {len(page_specific)} fields")
+    logger.info(f"  DOM: ~{dom_nodes} nodes, {body_words} words")
+    logger.info(f"  Confidence: {confidence} {'⚠️ SPA' if is_spa else ''}")
+    logger.info(f"\n✅ Saved: {cap_file}")
+    logger.info(f"✅ Saved: {html_file}")
 
 
 if __name__ == "__main__":

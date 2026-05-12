@@ -403,6 +403,36 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-12 — Observability Migration (#28)
+
+**Trigger** : Task #28 du programme `hardening-and-skills-uplift`, PRD FR-4. Migrer top-10 pipelines `print()` → logger structuré JSON-line (Logfire/Axiom/Sentry compatible).
+
+**Livrables** :
+
+- `growthcro/observability/__init__.py` + `logger.py` (131 LOC, ≤200 cap, stdlib only).
+- API publique : `get_logger(__name__)`, `set_correlation_id()`, `set_pipeline_name()`, `clear_context()`.
+- `growthcro/config.py` étendu : `log_level()` accessor (lit `GROWTHCRO_LOG_LEVEL` env, défaut `INFO`). `.env.example` régénéré.
+- **Top-10 pipelines migrés** (290 prints → `logger.info`, 10 commits granulaires) :
+  - `growthcro/capture/orchestrator.py` (34 prints → 33, 1 marker `__GHOST_RESULT__` préservé pour subprocess parser)
+  - `growthcro/capture/scorer.py` (26)
+  - `growthcro/cli/capture_full.py` (75)
+  - `growthcro/cli/enrich_client.py` (17)
+  - `growthcro/gsg_lp/lp_orchestrator.py` (33)
+  - `moteur_gsg/modes/mode_1/orchestrator.py` (33)
+  - `moteur_gsg/modes/mode_1_complete.py` (20)
+  - `moteur_gsg/core/pipeline_sequential.py` (19)
+  - `moteur_gsg/core/pipeline_single_pass.py` (17)
+  - `moteur_multi_judge/orchestrator.py` (16)
+- `scripts/lint_code_hygiene.py` : règle `print-in-pipeline` promue INFO → WARN. Re-baseline : 27 fichiers WARN restants (utilitaires low-call, follow-up).
+- `CODE_DOCTRINE.md` §LOG ajouté (pattern, API, exceptions CLIs/scripts/tests/subprocess markers, anti-pattern).
+- `WEBAPP_ARCHITECTURE_MAP.yaml` : modules `growthcro/observability` + `growthcro/observability/logger` enrichis (lifecycle_phase: infrastructure, doctrine_refs §LOG).
+
+**Result** : foundation prête pour POC Logfire/Axiom/Sentry futur. Format JSON-line stdout préserve subprocess parsing downstream (parity weglot ✓ OK 108/108 après chaque commit).
+
+**Out of scope** : intégration backend (Logfire/Axiom/Sentry SDK) → POC séparé futur.
+
+---
+
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======

@@ -76,6 +76,10 @@ import time
 
 from growthcro.config import config
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 # After relocation under growthcro/cli/, climb 2 levels to repo root.
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SCRIPTS = ROOT / "skills" / "site-capture" / "scripts"
@@ -100,22 +104,22 @@ def preflight_liveness(url: str) -> int:
     Diag humain imprimé directement dans la console.
     """
     if not _LIVENESS_AVAILABLE:
-        print(f"\n⚠️  Pre-flight skipped (enrich_client import failed: {_LIVENESS_IMPORT_ERR})")
+        logger.info(f"\n⚠️  Pre-flight skipped (enrich_client import failed: {_LIVENESS_IMPORT_ERR})")
         return 0
-    print(f"\n[0/4 pre-flight] Liveness check {url}…")
+    logger.info(f"\n[0/4 pre-flight] Liveness check {url}…")
     live = _check_liveness(url, timeout=10)
     status = live.get("status", 0)
     if live["ok"]:
-        print(f"[0/4 pre-flight] ✅ status={status} · final_url={live['final_url']}")
+        logger.info(f"[0/4 pre-flight] ✅ status={status} · final_url={live['final_url']}")
         return 0
     # Cas clairs de mort côté HTTP (404/410/5xx)
     if status in (404, 410):
-        print(f"[0/4 pre-flight] ❌ URL retourne {status} — page introuvable.")
-        print("    Vérifie l'URL, ou corrige dans clients_database.json.")
+        logger.info(f"[0/4 pre-flight] ❌ URL retourne {status} — page introuvable.")
+        logger.info("    Vérifie l'URL, ou corrige dans clients_database.json.")
         return 2
     if 500 <= status < 600:
-        print(f"[0/4 pre-flight] ❌ URL retourne {status} — serveur KO.")
-        print("    Retry plus tard ou vérifie l'état du site.")
+        logger.info(f"[0/4 pre-flight] ❌ URL retourne {status} — serveur KO.")
+        logger.info("    Retry plus tard ou vérifie l'état du site.")
         return 2
     # status=0 → introspection du message d'erreur pour distinguer DNS mort
     # (fatal) vs. TLS fingerprint rejeté (bot-block → on passe à Playwright).
@@ -126,21 +130,25 @@ def preflight_liveness(url: str) -> int:
         "name resolution",
     ]
     if any(m in err for m in dns_markers):
-        print(f"[0/4 pre-flight] ❌ DNS ne résout pas `{url}`.")
-        print("    Le domaine n'existe pas (ou plus). Corrige l'URL.")
-        print(f"    Diag : {live.get('error', '?')}")
+        logger.info(f"[0/4 pre-flight] ❌ DNS ne résout pas `{url}`.")
+        logger.info("    Le domaine n'existe pas (ou plus). Corrige l'URL.")
+        logger.info(f"    Diag : {live.get('error', '?')}")
         return 2
     # Bot-block signatures (403/406/429/503 ou TLS handshake rejeté, timeout CDN)
     if status in (403, 406, 429, 503):
-        print(f"[0/4 pre-flight] 🛡️  urllib bloqué (status={status}) — "
-              f"bot-protection CDN probable. Laisse passer à Playwright.")
+        logger.info(
+            f"[0/4 pre-flight] 🛡️  urllib bloqué (status={status}) — "
+            f"bot-protection CDN probable. Laisse passer à Playwright."
+        )
         return 1
     if status == 0:
-        print(f"[0/4 pre-flight] 🛡️  urllib bloqué (status=0, err={live.get('error', '?')[:80]}) — "
-              f"probable TLS fingerprint CDN. Laisse passer à Playwright.")
+        logger.info(
+            f"[0/4 pre-flight] 🛡️  urllib bloqué (status=0, err={live.get('error', '?')[:80]}) — "
+            f"probable TLS fingerprint CDN. Laisse passer à Playwright."
+        )
         return 1
     # Inconnu — soft-pass vers Playwright
-    print(f"[0/4 pre-flight] ⚠️  status={status} ambigu — on laisse Playwright trancher.")
+    logger.info(f"[0/4 pre-flight] ⚠️  status={status} ambigu — on laisse Playwright trancher.")
     return 1
 
 
@@ -232,7 +240,7 @@ PYTHON_BIN = resolve_binary("python3", [
 
 def run(cmd, label, cwd=None):
     """Exécute une commande, imprime le temps et le code de sortie, retourne True si OK."""
-    print(f"\n[{label}] $ {' '.join(cmd)}")
+    logger.info(f"\n[{label}] $ {' '.join(cmd)}")
     t0 = time.time()
     try:
         # Enrichit PATH pour les subprocesses (node/python peuvent appeler d'autres binaires)
@@ -244,22 +252,22 @@ def run(cmd, label, cwd=None):
         r = subprocess.run(cmd, cwd=cwd, env=env)
         rc = r.returncode
     except FileNotFoundError as e:
-        print(f"[{label}] ❌ binaire introuvable : {e}")
-        print(f"    NODE_BIN   = {NODE_BIN}")
-        print(f"    PYTHON_BIN = {PYTHON_BIN}")
-        print(f"    PATH       = {config.system_env("PATH", "")[:200]}…")
+        logger.info(f"[{label}] ❌ binaire introuvable : {e}")
+        logger.info(f"    NODE_BIN   = {NODE_BIN}")
+        logger.info(f"    PYTHON_BIN = {PYTHON_BIN}")
+        logger.info(f"    PATH       = {config.system_env("PATH", "")[:200]}…")
         return False
     except Exception as e:
-        print(f"[{label}] ❌ exception: {e}")
+        logger.info(f"[{label}] ❌ exception: {e}")
         return False
     dt = time.time() - t0
-    print(f"[{label}] {'✅' if rc == 0 else '❌'} exit={rc} in {dt:.1f}s")
+    logger.info(f"[{label}] {'✅' if rc == 0 else '❌'} exit={rc} in {dt:.1f}s")
     return rc == 0
 
 
 def check(path, label):
     ok = path.exists() and path.stat().st_size > 0
-    print(f"  {'✅' if ok else '❌'} {label}: {path}")
+    logger.info(f"  {'✅' if ok else '❌'} {label}: {path}")
     return ok
 
 
@@ -308,15 +316,15 @@ def main():
     else:
         capture_mode = "LOCAL (Python Playwright → Chromium local)"
 
-    print("═" * 64)
-    print(f" capture_full.py v3 — {args.label} / {page} ({args.biz_category})")
-    print(f" URL    : {args.url}")
-    print(f" OUT    : {page_dir}")
-    print(f" Mode   : {capture_mode}")
+    logger.info("═" * 64)
+    logger.info(f" capture_full.py v3 — {args.label} / {page} ({args.biz_category})")
+    logger.info(f" URL    : {args.url}")
+    logger.info(f" OUT    : {page_dir}")
+    logger.info(f" Mode   : {capture_mode}")
     if args.legacy_node:
-        print(f" node   : {NODE_BIN or '❌ introuvable'}")
-    print(f" python : {PYTHON_BIN}")
-    print("═" * 64)
+        logger.info(f" node   : {NODE_BIN or '❌ introuvable'}")
+    logger.info(f" python : {PYTHON_BIN}")
+    logger.info("═" * 64)
 
     # ── Stage 0 : pre-flight liveness (fail-fast sur DNS mort / 404 / 5xx) ──
     # But : éviter le crash Playwright cryptique `ERR_NAME_NOT_RESOLVED` et
@@ -325,32 +333,32 @@ def main():
     if not args.skip_ghost:
         preflight_rc = preflight_liveness(args.url)
         if preflight_rc == 2:
-            print("\n❌ Pre-flight FAIL — URL morte, on s'arrête avant de lancer Playwright.")
+            logger.info("\n❌ Pre-flight FAIL — URL morte, on s'arrête avant de lancer Playwright.")
             return 1
 
     # ═════════════════════════════════════════════════════════════
     # MODE LEGACY : urllib (ancien chemin, fragile vs CDN modernes)
     # ═════════════════════════════════════════════════════════════
     if args.legacy_urllib:
-        print("\n⚠️  MODE LEGACY urllib — TLS fingerprint détecté par Cloudflare/Shopify.")
-        print("    Utilisé uniquement si on veut 'fast mode' sur site simple.")
+        logger.info("\n⚠️  MODE LEGACY urllib — TLS fingerprint détecté par Cloudflare/Shopify.")
+        logger.info("    Utilisé uniquement si on veut 'fast mode' sur site simple.")
         # Stage 1 legacy : capture_site.py (urllib natif → capture.json)
         if args.skip_capture and cap_json.exists():
-            print("\n[1/4 capture_site LEGACY] SKIPPED (capture.json présent)")
+            logger.info("\n[1/4 capture_site LEGACY] SKIPPED (capture.json présent)")
         else:
             run([PYTHON_BIN, str(SCRIPTS / "capture_site.py"),
                  args.url, args.label, args.biz_category],
                 "1/4 capture_site LEGACY", cwd=str(ROOT))
         if not cap_json.exists():
-            print("\n❌ LEGACY urllib FAILED — bascule sur le mode ghost-first par défaut.")
-            print("    (Relance sans --legacy-urllib)")
+            logger.info("\n❌ LEGACY urllib FAILED — bascule sur le mode ghost-first par défaut.")
+            logger.info("    (Relance sans --legacy-urllib)")
             return 1
         # Stage 2 legacy : ghost pour spatial/screenshots seulement
         if args.skip_ghost and spatial_json.exists():
-            print("\n[2/4 ghost_capture LEGACY] SKIPPED (spatial_v9.json présent)")
+            logger.info("\n[2/4 ghost_capture LEGACY] SKIPPED (spatial_v9.json présent)")
         else:
             if not NODE_BIN:
-                print("❌ node introuvable — installe Node.js (brew install node) puis relance.")
+                logger.info("❌ node introuvable — installe Node.js (brew install node) puis relance.")
                 return 1
             run([NODE_BIN, str(SCRIPTS / "ghost_capture.js"),
                  "--url", args.url, "--label", args.label,
@@ -361,16 +369,16 @@ def main():
     # MODE LEGACY NODE (deprecated — ghost_capture.js)
     # ═════════════════════════════════════════════════════════════
     elif args.legacy_node:
-        print("\n⚠️  MODE LEGACY NODE — Utilise ghost_capture.js (Node.js requis)")
-        print("    Préférez le mode par défaut (Python Playwright) ou --cloud.")
+        logger.info("\n⚠️  MODE LEGACY NODE — Utilise ghost_capture.js (Node.js requis)")
+        logger.info("    Préférez le mode par défaut (Python Playwright) ou --cloud.")
         need_ghost = not (args.skip_ghost and spatial_json.exists() and page_html.exists())
         if not need_ghost:
-            print("\n[1/4 ghost_capture.js] SKIPPED (spatial_v9 + page.html présents)")
+            logger.info("\n[1/4 ghost_capture.js] SKIPPED (spatial_v9 + page.html présents)")
         else:
             if not NODE_BIN:
-                print("\n❌ STAGE 1 — `node` introuvable dans le PATH.")
-                print("   Installe Node (brew install node) ou utilise le mode Python :")
-                print("   python3 capture_full.py <url> <label> <biz>  (sans --legacy-node)")
+                logger.info("\n❌ STAGE 1 — `node` introuvable dans le PATH.")
+                logger.info("   Installe Node (brew install node) ou utilise le mode Python :")
+                logger.info("   python3 capture_full.py <url> <label> <biz>  (sans --legacy-node)")
                 return 1
             run([NODE_BIN, str(SCRIPTS / "ghost_capture.js"),
                  "--url", args.url, "--label", args.label,
@@ -379,18 +387,18 @@ def main():
 
         # Gate, derive, same as before
         if not page_html.exists():
-            print(f"\n❌ STAGE 1 FAILED — page.html absent à {page_html}")
+            logger.info(f"\n❌ STAGE 1 FAILED — page.html absent à {page_html}")
             return 1
 
         if args.skip_capture and cap_json.exists():
-            print("\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
+            logger.info("\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
         else:
             run([PYTHON_BIN, "-m", "growthcro.capture.scorer",
                  args.url, args.label, page, "--html", str(page_html)],
                 "2/4 native_capture (--html)", cwd=str(ROOT))
 
         if not cap_json.exists():
-            print("\n❌ STAGE 2 FAILED — capture.json absent")
+            logger.info("\n❌ STAGE 2 FAILED — capture.json absent")
             return 1
 
     # ═════════════════════════════════════════════════════════════
@@ -401,7 +409,7 @@ def main():
         #             → page.html + spatial_v9.json + screenshots
         need_ghost = not (args.skip_ghost and spatial_json.exists() and page_html.exists())
         if not need_ghost:
-            print("\n[1/4 ghost_capture_cloud.py] SKIPPED (spatial_v9 + page.html présents)")
+            logger.info("\n[1/4 ghost_capture_cloud.py] SKIPPED (spatial_v9 + page.html présents)")
         else:
             ghost_cmd = [
                 PYTHON_BIN, "-m", "growthcro.capture.cli",
@@ -417,31 +425,31 @@ def main():
         # Gate dur : stage 1 est le SEUL vrai point de friction web.
         # Si on n'a pas le HTML rendered, tout le reste est impossible.
         if not page_html.exists():
-            print(f"\n❌ STAGE 1 FAILED — page.html absent à {page_html}")
-            print("   Causes possibles :")
-            print("   - Site derrière Cloudflare Turnstile très agressif (1% des cas)")
-            print("   - Site down / timeout réseau")
-            print("   - URL invalide")
-            print("   Pistes :")
-            print("   - Retry (souvent transitoire)")
-            print("   - Vérifier l'URL dans un vrai browser")
-            print("   - Ajouter proxy résidentiel (future feature)")
+            logger.info(f"\n❌ STAGE 1 FAILED — page.html absent à {page_html}")
+            logger.info("   Causes possibles :")
+            logger.info("   - Site derrière Cloudflare Turnstile très agressif (1% des cas)")
+            logger.info("   - Site down / timeout réseau")
+            logger.info("   - URL invalide")
+            logger.info("   Pistes :")
+            logger.info("   - Retry (souvent transitoire)")
+            logger.info("   - Vérifier l'URL dans un vrai browser")
+            logger.info("   - Ajouter proxy résidentiel (future feature)")
             return 1
         if not spatial_json.exists():
-            print("\n⚠️  spatial_v9.json manquant — perception échouera, scoring visuel dégradé")
+            logger.info("\n⚠️  spatial_v9.json manquant — perception échouera, scoring visuel dégradé")
 
         # ── Stage 2 : native_capture.py --html (parse le DOM rendered → capture.json)
         # Ré-utilise 100% du parser existant, juste la source diffère.
         if args.skip_capture and cap_json.exists():
-            print("\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
+            logger.info("\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
         else:
             run([PYTHON_BIN, "-m", "growthcro.capture.scorer",
                  args.url, args.label, page, "--html", str(page_html)],
                 "2/4 native_capture (--html)", cwd=str(ROOT))
 
         if not cap_json.exists():
-            print("\n❌ STAGE 2 FAILED — capture.json absent (parser a planté sur le DOM rendered)")
-            print(f"    Inspecte {page_html} manuellement pour voir ce qui cloche.")
+            logger.info("\n❌ STAGE 2 FAILED — capture.json absent (parser a planté sur le DOM rendered)")
+            logger.info(f"    Inspecte {page_html} manuellement pour voir ce qui cloche.")
             return 1
 
     # ═════════════════════════════════════════════════════════════
@@ -454,20 +462,20 @@ def main():
              "--client", args.label, "--page", page],
             "3/4 perception_v13", cwd=str(ROOT))
     else:
-        print("\n[3/4 perception_v13] ⏭️  SKIPPED (spatial_v9.json manquant)")
+        logger.info("\n[3/4 perception_v13] ⏭️  SKIPPED (spatial_v9.json manquant)")
 
     # ── Stage 4 : intent_detector_v13 (par client) ────────────────
     if args.no_intent:
-        print("\n[4/4 intent_detector_v13] SKIPPED (--no-intent)")
+        logger.info("\n[4/4 intent_detector_v13] SKIPPED (--no-intent)")
     else:
         run([PYTHON_BIN, str(SCRIPTS / "intent_detector_v13.py"),
              "--client", args.label],
             "4/4 intent_detector_v13", cwd=str(ROOT))
 
     # ── Récap ────────────────────────────────────────────────────
-    print("\n" + "═" * 64)
-    print(f" RÉCAP : {args.label} / {page}")
-    print("─" * 64)
+    logger.info("\n" + "═" * 64)
+    logger.info(f" RÉCAP : {args.label} / {page}")
+    logger.info("─" * 64)
     ok_html = check(page_html, "page.html           (DOM rendered par Playwright)")
     ok_cap = check(cap_json, "capture.json        (6 piliers — dérivés du DOM)")
     ok_spa = check(spatial_json, "spatial_v9.json     (bbox clusters)")
@@ -476,29 +484,29 @@ def main():
     shots = page_dir / "screenshots"
     if shots.exists():
         n = sum(1 for _ in shots.glob("*.png"))
-        print(f"  📸 screenshots/ : {n} PNG")
-    print("═" * 64)
+        logger.info(f"  📸 screenshots/ : {n} PNG")
+    logger.info("═" * 64)
 
     # captureSource meta (pour traçabilité)
     try:
         import json
         with open(cap_json) as f:
             meta = json.load(f).get("meta", {})
-        print(f"  ℹ️  capturedBy     : {meta.get('capturedBy', '?')}")
-        print(f"  ℹ️  captureSource  : {meta.get('captureSource', '?')}")
+        logger.info(f"  ℹ️  capturedBy     : {meta.get('capturedBy', '?')}")
+        logger.info(f"  ℹ️  captureSource  : {meta.get('captureSource', '?')}")
     except Exception:
         pass
 
     full_ok = ok_cap and ok_spa and ok_per
     if full_ok:
-        print("\n✅ Pipeline NATIF complet OK. Next :")
-        print(f"   python3 skills/site-capture/scripts/batch_rescore.py --only {args.label}")
-        print(f"   python3 skills/site-capture/scripts/reco_enricher.py {args.label} {page}")
-        print(f"   python3 skills/site-capture/scripts/reco_enricher_v13.py --client {args.label} --page {page} --prepare")
-        print(f"   python3 skills/site-capture/scripts/reco_enricher_v13_api.py --client {args.label} --page {page} --model claude-sonnet-4-6 --max-concurrent 5")
+        logger.info("\n✅ Pipeline NATIF complet OK. Next :")
+        logger.info(f"   python3 skills/site-capture/scripts/batch_rescore.py --only {args.label}")
+        logger.info(f"   python3 skills/site-capture/scripts/reco_enricher.py {args.label} {page}")
+        logger.info(f"   python3 skills/site-capture/scripts/reco_enricher_v13.py --client {args.label} --page {page} --prepare")
+        logger.info(f"   python3 skills/site-capture/scripts/reco_enricher_v13_api.py --client {args.label} --page {page} --model claude-sonnet-4-6 --max-concurrent 5")
         return 0
     else:
-        print("\n⚠️  Pipeline partiel — corriger les artifacts manquants avant scoring.")
+        logger.info("\n⚠️  Pipeline partiel — corriger les artifacts manquants avant scoring.")
         return 2
 
 
