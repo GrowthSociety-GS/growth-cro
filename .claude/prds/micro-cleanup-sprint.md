@@ -4,7 +4,7 @@ description: 3 micro-actions XS-cleanup pour clôturer la dette résiduelle Wave
 status: active
 created: 2026-05-12T13:30:00Z
 parent_prd: post-stratosphere-roadmap
-github_epic: (will be set on sync)
+github_epic: https://github.com/GrowthSociety-GS/growth-cro/issues/35
 wave: A
 epic_index: 2
 ice_score: 324

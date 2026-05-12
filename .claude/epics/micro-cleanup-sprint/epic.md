@@ -2,10 +2,10 @@
 name: micro-cleanup-sprint
 status: backlog
 created: 2026-05-12T13:30:00Z
-updated: 2026-05-12T13:30:00Z
+updated: 2026-05-12T13:31:53Z
 progress: 0%
 prd: .claude/prds/micro-cleanup-sprint.md
-github: (will be set on sync)
+github: https://github.com/GrowthSociety-GS/growth-cro/issues/35
 parent_prd: post-stratosphere-roadmap
 wave: A
 epic_index: 2
@@ -146,9 +146,9 @@ Tous **parallel: true**, file scopes disjoints. Effort total cumul ~3.5h, critic
 **Mathis bandwidth** : pas requis pendant exécution. Review final merge uniquement.
 
 ## Tasks Created
-- [ ] 001.md - Split copy_writer.py mono-concern (parallel: true)
-- [ ] 002.md - Archive growthcro/gsg_lp/ legacy island (parallel: true)
-- [ ] 003.md - Relocate _archive_deprecated + .gitignore pattern (parallel: true)
+- [ ] #36 - Split copy_writer.py mono-concern (parallel: true)
+- [ ] #37 - Archive growthcro/gsg_lp/ legacy island (parallel: true)
+- [ ] #38 - Relocate _archive_deprecated + .gitignore pattern (parallel: true)
 
 Total tasks: 3
 Parallel tasks: 3 (all)
