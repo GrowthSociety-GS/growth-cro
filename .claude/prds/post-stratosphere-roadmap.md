@@ -153,17 +153,30 @@ Le programme stratosphère a livré structurellement à 100%. Mais :
 - **Skills combo** : "GSG generation" (frontend-design + brand-guidelines + Emil Kowalski + Impeccable)
 - **Dépendance** : Mathis live-run #19 (3 LPs originales validées) + skill `cro-methodology` actif
 
-### FR-4 — Epic 4 — Production Deploy V28 (Wave B)
-- **Effort** : XL, 1-2 semaines
-- **Actions** :
-  - Vercel project + 6 microfrontends deployés
-  - Supabase EU project + migrations SQL appliquées
-  - Fly.io OR Railway pour FastAPI backend
-  - `scripts/migrate_v27_to_supabase.py` exécuté live (56 clients × 185 audits × 3045 recos)
-  - Auth Supabase live (Mathis + 1 consultant agence test)
-  - Playwright E2E tests verts sur prod
-  - URL prod documentée + procédure invitation consultants
-- **Dépendance** : Mathis actions 1+2+5 (Context7 install + 4 OAuth + Vercel/Supabase projets créés)
+### FR-4 — Epic 4 — Production Deploy V28 (Wave B) 🟡 PARTIAL COMPLETED 2026-05-12
+- **Effort initial** : XL, 1-2 semaines
+- **Status** : **shell-only deploy** livré (1 microfrontend) + Supabase EU + intégrations. FastAPI backend déféré pending validation read-only.
+- **Sub-PRD validation** : [`webapp-shell-validation.md`](webapp-shell-validation.md) — décision gate ship/defer FastAPI à l'issue
+- **Livré 2026-05-12** :
+  - ✅ **Vercel project** `growth-cro` (`prj_4l9eRL5kJjEkWQvnZI3BN2yVQXzB`) production live https://growth-cro.vercel.app — auto-deploy GitHub branche `main` + Root Directory `webapp/` + monorepo workspaces build
+  - ✅ **Supabase project EU** `xyazvwwjckhdmxnohadc` (Frankfurt eu-central-1) — 4 migrations + seed.sql appliqués, 8 tables (organizations, org_members, clients, audits, recos, runs + 2 views clients_with_stats/recos_with_audit) + 2 RPCs (is_org_admin, is_org_member)
+  - ✅ **Triple integration** Vercel ↔ Supabase ↔ GitHub : env vars POSTGRES_* + SUPABASE_* + NEXT_PUBLIC_* auto-synced, GitHub repo lié aux deux services
+  - ✅ **HTTP 200** sur `/login` (Supabase auth middleware fonctionnel)
+  - ✅ Working directory `webapp/` → Root Directory `webapp` confirmé end-to-end
+  - ✅ `webapp/vercel.json` monorepo build config committed
+  - ✅ `supabase/` migrations déplacées au repo root (alignement Supabase GitHub integration)
+- **Déféré** (par décision rationnelle, pas par blocker tech) :
+  - ⏳ **FastAPI backend** (Fly.io/Railway deploy) — decision gate ouverte. Analyse révèle pas critique court-terme : webapp peut fonctionner read-only via Supabase REST direct. Sub-PRD `fastapi-backend-deploy` sera créé SI verdict validation = SHIP.
+  - ⏳ **6 microfrontends** (audit-app, reco-app, gsg-studio, reality-monitor, learning-lab) — seul `shell` deployed. Les 5 autres sont scaffold + microfrontends.json a un fallback runtime. À ajouter quand besoin business concret.
+  - ⏳ **scripts/migrate_v27_to_supabase.py** (push 56 clients × 185 audits × 3045 recos) — pas exécuté. Pour validation initiale, seed script léger (2 clients fictifs) via webapp-shell-validation US-2.
+  - ⏳ **Playwright E2E tests prod** — manual UX checklist d'abord (webapp-shell-validation US-3).
+- **Dépendance** : Mathis actions humaines complétées partiellement :
+  - ✅ Vercel/Supabase projects créés
+  - ✅ Vercel ↔ Supabase ↔ GitHub OAuth flows complétés
+  - ❌ **Context7 MCP** (action #1) : still pending
+  - ❌ **4 OAuth MCPs** server-level (Supabase MCP DEV ONLY + Sentry + Meta Ads + Shopify) (action #2) : still pending
+- **Drifts surfacés à traiter** :
+  - **Security** : service_role JWT Supabase partagé dans chat 2026-05-12 — à rotater dans 24h via Supabase Dashboard → Settings → API → Reset (puis update Vercel env var)
 
 ### FR-5 — Epic 5 — POCs Skills "Interesting to Test" (Wave A partiel, autonome)
 - **Effort** : M étalable 2-3 semaines (5 POCs séquentiels chacun ~1 sprint)
@@ -217,6 +230,7 @@ Le programme stratosphère a livré structurellement à 100%. Mais :
 ### Programme entier (cible aspirational si tous epics livrés)
 - [x] Epic 1 livré 2026-05-12 : mypy strict scope 13→0 (top-3 + growthcro.models.*) · global avec config + follow_imports=silent : 1 error/603 budget · sub-PRD [`typing-strict-rollout`](typing-strict-rollout.md) completed
 - [x] Epic 2 livré 2026-05-12 : copy_writer 376 LOC → sub-package mono-concern (3 modules ≤200 LOC) · growthcro/gsg_lp/ archivé · `.gitignore` wildcard guard · 0 anti-pattern #8/#10 git-tracked · sub-PRD [`micro-cleanup-sprint`](micro-cleanup-sprint.md) completed
+- [🟡] Epic 4 PARTIAL livré 2026-05-12 : shell-only Vercel deploy + Supabase EU + intégrations triple · FastAPI backend déféré · sub-PRD [`webapp-shell-validation`](webapp-shell-validation.md) en cours pour decision gate ship/defer
 - [ ] Epic 2 livré : lint FAIL = 0 absolu
 - [ ] Epic 3 livré : 7/7 page_types GSG validés stratosphère
 - [ ] Epic 4 livré : V28 prod déployé + 56 clients live + auth
