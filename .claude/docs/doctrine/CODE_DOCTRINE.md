@@ -119,6 +119,52 @@ Fix : `logger = get_logger(__name__)` + remplacer `print(x)` par `logger.info(x)
 (290 prints → logger.info), 1 commit par fichier. Parity check `weglot` OK
 sur tous les commits (108/108).
 
+## §TYPING — Modèles Pydantic à frontière inter-module (depuis 2026-05-12)
+
+**Règle** : tout fichier dont la sortie publique est consommée par ≥2 modules différents DOIT exposer cette sortie via un modèle Pydantic v2 (`pydantic.BaseModel`).
+
+**Pourquoi** :
+1. Validation runtime à la frontière catche les schema drifts comme `ValidationError` explicites au lieu de `KeyError` propagés 3 fichiers plus loin.
+2. `model_json_schema()` permet l'interop TypeScript pour la webapp V28 (Next.js) via `quicktype` ou `pydantic-to-typescript`.
+3. Typage strict mypy actif sur les fichiers à blast radius élevé.
+4. Évite l'anti-pattern #8 (fichier multi-concern dict-typed difficile à raisonner sur).
+
+**Comment** :
+- Modèles dans `growthcro/models/<topic>_models.py` (mono-concern, ≤200 LOC).
+- `model_config = ConfigDict(extra='forbid', frozen=True)` par défaut. `frozen=False` exceptionnel + justification commentaire.
+- `dict[str, Any]` interdit en signature publique. Toléré en escape-hatch interne (dict intermédiaire avant assemblage Pydantic) uniquement, et à typer dans un sprint follow-up dédié.
+- Invariants métier (ex : V26.A non-empty `evidence_ids`) enforced via `Field(..., min_length=1)` ou validators Pydantic.
+
+**Gate** : `bash scripts/typecheck.sh` doit exit 0. Le script vérifie :
+1. `mypy --strict` sur top-3 + `growthcro.models.*` (zero error)
+2. `mypy` global sous le budget calibré (régression-proof)
+
+Le budget global est sous-calibré : il diminue à chaque epic qui Pydantic-ise des fichiers supplémentaires. Tightening graduel.
+
+**Config** (`pyproject.toml`) :
+
+```toml
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+follow_imports = "silent"
+warn_unused_configs = true
+strict = false
+
+[[tool.mypy.overrides]]
+module = ["moteur_gsg.core.visual_intelligence", "moteur_gsg.core.context_pack", "growthcro.recos.orchestrator", "growthcro.models.visual_models", "growthcro.models.context_models", "growthcro.models.recos_models"]
+strict = true
+```
+
+**Scope initial (typing-strict-rollout, 2026-05-12)** :
+- `moteur_gsg/core/visual_intelligence.py` → `growthcro/models/visual_models.py` (4 models : VisualBlock, VisualHierarchy, VisualScore, VisualReport)
+- `moteur_gsg/core/context_pack.py` → `growthcro/models/context_models.py` (5 models : PageContext, ClientContext, ContextPackInput, ContextPackOutput, EvidenceFactModel)
+- `growthcro/recos/orchestrator.py` → `growthcro/models/recos_models.py` (4 models : RecoInput, RecoEnriched, RecoBatch, EvidenceLedgerEntry — V26.A invariant enforced)
+
+**Extension future** : top 5 suivants par coupling (capture/orchestrator, mode_1/orchestrator, multi_judge/orchestrator, gsg_lp/lp_orchestrator, scorer) — sprints follow-up dédiés. Chacun fait baisser le budget global.
+
+**Anti-pattern explicite** : ne JAMAIS introduire de `# type: ignore` pour silencer une erreur mypy strict sur le scope. Fixer la cause racine (narrowing, validators, Optional explicite).
+
 ## Cross-references
 
 - CLAUDE.md "Init obligatoire" step #10 — doctrine is mandatory init reading.
