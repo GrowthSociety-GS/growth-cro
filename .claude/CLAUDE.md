@@ -17,8 +17,9 @@
 9. Skim [`memory/MEMORY.md`](memory/MEMORY.md) + [`docs/reference/GROWTHCRO_MANIFEST.md`](docs/reference/GROWTHCRO_MANIFEST.md) §12 changelog
 10. Lire [`docs/doctrine/CODE_DOCTRINE.md`](docs/doctrine/CODE_DOCTRINE.md) — doctrine code projet (mono-concern, 8 axes, hard rules)
 11. Lire [`docs/state/WEBAPP_ARCHITECTURE_MAP.yaml`](docs/state/WEBAPP_ARCHITECTURE_MAP.yaml) — source-of-truth machine-readable de l'architecture webapp post-cleanup (modules + data_artefacts + pipelines). Vue humaine Mermaid : [`docs/state/WEBAPP_ARCHITECTURE_MAP.md`](docs/state/WEBAPP_ARCHITECTURE_MAP.md). Mis à jour automatiquement à chaque epic terminé via `scripts/update_architecture_map.py` (idempotent, préserve les champs human-curated).
+12. **Point d'entrée prochaine session** : Lire [`docs/state/CONTINUATION_PLAN_2026-05-12.md`](docs/state/CONTINUATION_PLAN_2026-05-12.md) + PRD master actif [`.claude/prds/post-stratosphere-roadmap.md`](../prds/post-stratosphere-roadmap.md) — 3 PRDs précédents 100% livrés, 6 epics candidates en 3 Waves (autonome / post-Mathis-actions / post-live-validation). Identifier la Wave activable selon état Mathis actions humaines pendantes, puis créer sub-PRD détaillé via `/ccpm`.
 
-**Ne jamais coder/scorer/auditer sans ces 11 étapes ET consigne explicite Mathis.**
+**Ne jamais coder/scorer/auditer sans ces 12 étapes ET consigne explicite Mathis.**
 
 ## Anti-patterns prouvés (à NE PLUS reproduire)
 
