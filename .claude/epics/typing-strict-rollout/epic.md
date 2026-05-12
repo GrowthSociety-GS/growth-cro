@@ -2,10 +2,10 @@
 name: typing-strict-rollout
 status: backlog
 created: 2026-05-12T10:11:22Z
-updated: 2026-05-12T10:11:22Z
+updated: 2026-05-12T11:28:55Z
 progress: 0%
 prd: .claude/prds/typing-strict-rollout.md
-github: (will be set on sync)
+github: https://github.com/GrowthSociety-GS/growth-cro/issues/29
 parent_prd: post-stratosphere-roadmap
 wave: A
 ice_score: 360
@@ -158,11 +158,11 @@ Les 3 premières sont **parallel: true** (file scopes disjoints, peuvent tourner
 **Mathis bandwidth** : pas requis pour gates / OAuth / credentials. Review final PR uniquement.
 
 ## Tasks Created
-- [ ] 001.md - Pydantic-ize visual_intelligence (parallel: true)
-- [ ] 002.md - Pydantic-ize context_pack (parallel: true)
-- [ ] 003.md - Pydantic-ize recos/orchestrator (parallel: true)
-- [ ] 004.md - Mypy strict gate (parallel: false, depends_on [001, 002, 003])
-- [ ] 005.md - Doctrine TYPING + Manifest + Architecture map regen (parallel: false, depends_on [004])
+- [ ] #30 - Pydantic-ize visual_intelligence (parallel: true)
+- [ ] #31 - Pydantic-ize context_pack (parallel: true)
+- [ ] #32 - Pydantic-ize recos/orchestrator (parallel: true)
+- [ ] #33 - Mypy strict gate (parallel: false, depends_on [#30, #31, #32])
+- [ ] #34 - Doctrine TYPING + Manifest + Architecture map regen (parallel: false, depends_on [#33])
 
 Total tasks: 5
 Parallel tasks: 3 (001, 002, 003 — file-disjoint, worktrees concurrents)

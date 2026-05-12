@@ -4,6 +4,7 @@ description: Pydantic-iser les 3 fichiers top-coupling (visual_intelligence + co
 status: active
 created: 2026-05-12T10:00:00Z
 parent_prd: post-stratosphere-roadmap
+github_epic: https://github.com/GrowthSociety-GS/growth-cro/issues/29
 wave: A
 epic_index: 1
 ice_score: 360
