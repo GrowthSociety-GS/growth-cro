@@ -53,7 +53,7 @@ from ..core.prompt_assembly import build_mode1_prompt
 from ..core.pipeline_single_pass import apply_runtime_fixes, single_pass
 from ..core.design_grammar_loader import load_design_grammar
 from ..core.minimal_guards import build_minimal_constraints, apply_minimal_postprocess
-from ..core.context_pack import build_generation_context_pack
+from ..core.context_pack import ContextPackOutput, build_generation_context_pack
 from ..core.creative_route_selector import build_structured_creative_route_contract
 from ..core.design_tokens import build_design_tokens, load_aura_tokens
 from ..core.doctrine_planner import build_doctrine_pack
@@ -253,6 +253,7 @@ def run_mode_1_complete(
         logger.info(f"  Brief : objectif='{brief.get('objectif','?')[:60]}...' audience='{brief.get('audience','?')[:60]}...'")
 
     grand_t0 = time.time()
+    context_pack: ContextPackOutput
     context_pack, client_ctx = build_generation_context_pack(
         client=client,
         page_type=page_type,
