@@ -68,6 +68,10 @@ from ..core.legacy_lab_adapters import (
     select_creative_route,
 )
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CAPTURES = ROOT / "data" / "captures"
 
@@ -142,7 +146,7 @@ def _generate_and_select_creative_route(
     business_context = json.dumps({"brief": brief, "page_type": page_type}, ensure_ascii=False)[:2000]
 
     if verbose:
-        print(f"\n→ Creative Director (mode={mode})...")
+        logger.info(f"\n→ Creative Director (mode={mode})...")
 
     try:
         routes_data = generate_creative_routes(
@@ -167,15 +171,15 @@ def _generate_and_select_creative_route(
         if verbose:
             route_name = (selected.get("route") or selected).get("name", "?")
             risk = (selected.get("route") or selected).get("risk_level", "?")
-            print(f"  ✓ Creative route selected: « {route_name} » ({risk})")
+            logger.info(f"  ✓ Creative route selected: « {route_name} » ({risk})")
         return block, selected
     except LegacyLabUnavailable as e:
         if verbose:
-            print(f"  ⚠️  creative_director unavailable: {e}")
+            logger.info(f"  ⚠️  creative_director unavailable: {e}")
         return "", {}
     except Exception as e:
         if verbose:
-            print(f"  ⚠️  creative_director failed: {e}")
+            logger.info(f"  ⚠️  creative_director failed: {e}")
         return "", {}
 
 
@@ -242,11 +246,11 @@ def run_mode_1_complete(
         )
 
     if verbose:
-        print(f"\n══ Mode 1 COMPLETE — {client} / {page_type} ══")
+        logger.info(f"\n══ Mode 1 COMPLETE — {client} / {page_type} ══")
         summary = get_brand_summary(client)
-        print(f"  Brand : {summary.get('signature_phrase', '?')}")
-        print(f"  Tone  : {summary.get('tone', '?')}")
-        print(f"  Brief : objectif='{brief.get('objectif','?')[:60]}...' audience='{brief.get('audience','?')[:60]}...'")
+        logger.info(f"  Brand : {summary.get('signature_phrase', '?')}")
+        logger.info(f"  Tone  : {summary.get('tone', '?')}")
+        logger.info(f"  Brief : objectif='{brief.get('objectif','?')[:60]}...' audience='{brief.get('audience','?')[:60]}...'")
 
     grand_t0 = time.time()
     context_pack, client_ctx = build_generation_context_pack(
@@ -328,7 +332,7 @@ def run_mode_1_complete(
             target_language=target_language,
         )
         if verbose:
-            print(
+            logger.info(
                 f"\n→ Controlled planner : layout={plan.layout_name} "
                 f"sections={len(plan.sections)} doctrine={len(doctrine_pack.criteria)} "
                 f"category={doctrine_pack.business_category} visual={visual_pack.visual_role}"
@@ -448,11 +452,11 @@ def run_mode_1_complete(
             "allowed_number_tokens": minimal_constraints.get("allowed_number_tokens"),
         }
         if verbose:
-            print(f"\n→ Prompt assembly : system={prompt_meta['system_chars']} user={prompt_meta['user_chars']} chars (total={prompt_meta['total_chars']})")
+            logger.info(f"\n→ Prompt assembly : system={prompt_meta['system_chars']} user={prompt_meta['user_chars']} chars (total={prompt_meta['total_chars']})")
 
         # ── 2. Single-pass generation ───────────────────────────
         if verbose:
-            print(f"\n→ Single-pass generation (Sonnet 4.5, T={generation_temperature})...")
+            logger.info(f"\n→ Single-pass generation (Sonnet 4.5, T={generation_temperature})...")
         gen = single_pass(
             system_prompt, user_message,
             max_tokens=generation_max_tokens, temperature=generation_temperature, apply_fixes=apply_fixes,
@@ -480,7 +484,7 @@ def run_mode_1_complete(
         ip_score = impeccable_report.get("score")
         ip_passed = impeccable_report.get("passed")
         ip_hits = len(impeccable_report.get("anti_patterns_detected") or [])
-        print(
+        logger.info(
             f"  Impeccable QA   : score={ip_score}/100 "
             f"{'PASS' if ip_passed else 'FAIL'} hits={ip_hits}"
         )
@@ -491,13 +495,13 @@ def run_mode_1_complete(
         out_html.parent.mkdir(parents=True, exist_ok=True)
         out_html.write_text(html)
         if verbose:
-            print(f"  ✓ HTML saved : {out_html.relative_to(ROOT) if out_html.is_relative_to(ROOT) else out_html}")
+            logger.info(f"  ✓ HTML saved : {out_html.relative_to(ROOT) if out_html.is_relative_to(ROOT) else out_html}")
 
     # ── 4. Multi-judge ──────────────────────────────────────
     audit: dict = {}
     if not skip_judges:
         if verbose:
-            print("\n→ Multi-judge (doctrine + humanlike + impl_check)...")
+            logger.info("\n→ Multi-judge (doctrine + humanlike + impl_check)...")
         from moteur_multi_judge.orchestrator import run_multi_judge
         audit = run_multi_judge(
             html=html, client=client, page_type=page_type, verbose=verbose,
@@ -507,7 +511,7 @@ def run_mode_1_complete(
             out_audit.parent.mkdir(parents=True, exist_ok=True)
             out_audit.write_text(json.dumps(audit, ensure_ascii=False, indent=2))
             if verbose:
-                print(f"  ✓ Audit saved : {out_audit.relative_to(ROOT) if out_audit.is_relative_to(ROOT) else out_audit}")
+                logger.info(f"  ✓ Audit saved : {out_audit.relative_to(ROOT) if out_audit.is_relative_to(ROOT) else out_audit}")
 
     grand_dt = time.time() - grand_t0
 
@@ -530,14 +534,14 @@ def run_mode_1_complete(
         "impeccable_pass": impeccable_report.get("passed"),
     }
     if verbose:
-        print("\n══ Mode 1 COMPLETE — DONE ══")
-        print(f"  Wall total      : {telemetry['wall_seconds_total']}s")
-        print(f"  Coût estimé     : ${telemetry['cost_estimate_usd']}")
+        logger.info("\n══ Mode 1 COMPLETE — DONE ══")
+        logger.info(f"  Wall total      : {telemetry['wall_seconds_total']}s")
+        logger.info(f"  Coût estimé     : ${telemetry['cost_estimate_usd']}")
         if minimal_report:
-            print(f"  Minimal gates   : {'PASS' if telemetry['minimal_gate_pass'] else 'FAIL'}")
+            logger.info(f"  Minimal gates   : {'PASS' if telemetry['minimal_gate_pass'] else 'FAIL'}")
         if audit:
             t = audit.get("final", {})
-            print(f"  Final score     : {t.get('final_score_pct', '?')}% — {t.get('verdict', '?')}")
+            logger.info(f"  Final score     : {t.get('final_score_pct', '?')}% — {t.get('verdict', '?')}")
 
     return {
         "html": html,
