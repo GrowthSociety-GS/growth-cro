@@ -42,7 +42,7 @@ class PageStats(TypedDict):
 # Optional imports — kept lazy + tolerant of missing repos
 # ────────────────────────────────────────────────────────────────
 try:
-    from golden_bridge import GoldenBridge  # type: ignore
+    from golden_bridge import GoldenBridge
     _golden_bridge = GoldenBridge(".")
     _GOLDEN_AVAILABLE = True
 except ImportError:
@@ -50,7 +50,7 @@ except ImportError:
     _GOLDEN_AVAILABLE = False
 
 try:
-    from golden_differential import compute_differential_block as _golden_diff_block  # type: ignore
+    from golden_differential import compute_differential_block as _golden_diff_block
     _GOLDEN_DIFF_AVAILABLE = True
 except ImportError:
     _golden_diff_block = None
