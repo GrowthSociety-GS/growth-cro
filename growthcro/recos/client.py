@@ -8,6 +8,7 @@ orchestration, no I/O beyond stdout error reporting.
 from __future__ import annotations
 
 import asyncio
+from typing import Any
 
 from growthcro.lib.anthropic_client import get_anthropic_client
 from growthcro.recos import schema as _schema
@@ -27,8 +28,14 @@ MIN_GROUNDING_SCORE = 1
 # ────────────────────────────────────────────────────────────────
 # Client factory (re-exported for callers; lazy SDK init in lib)
 # ────────────────────────────────────────────────────────────────
-def make_client():
-    """Return an Anthropic SDK client, validating the key via growthcro.config."""
+def make_client() -> Any:
+    """Return an Anthropic SDK client, validating the key via growthcro.config.
+
+    Return type is ``Any`` because the underlying ``anthropic.Anthropic``
+    class is imported lazily inside ``get_anthropic_client`` (so the SDK
+    is optional at import time). Callers use duck typing on
+    ``client.messages.create``.
+    """
     return get_anthropic_client()
 
 

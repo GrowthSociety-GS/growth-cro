@@ -434,7 +434,11 @@ async def process_page(
             if r.get("_skipped"):
                 reason = r.get("_skipped_reason", "unknown")
                 skipped_reasons[reason] = skipped_reasons.get(reason, 0) + 1
-        grounded = [r.get("_grounding_score") for r in recos_list if r.get("_grounding_score") is not None]
+        grounded: list[float] = [
+            float(score)
+            for r in recos_list
+            if (score := r.get("_grounding_score")) is not None
+        ]
         grounding_avg = round(sum(grounded) / len(grounded), 2) if grounded else None
         grounding_retried = sum(1 for r in recos_list if r.get("_grounding_retried"))
         out = {
