@@ -17,7 +17,10 @@ GRID pointait sur bloc_1_hero_DRAFT.json (v3.0.0) jusqu'à 2026-05-04 — bug
 silencieux découvert lors du cleanup V26.AA Phase B + corrigé en pointant
 sur bloc_1_hero_v3.json (v3.2.1).
 """
-import json, sys, re, pathlib
+import json
+import sys
+import re
+import pathlib
 try:
     from spatial_bridge import load_spatial, get_spatial_evidence
     _HAS_SPATIAL = True
@@ -199,7 +202,7 @@ elif signals >= 1:
     rationale = f"H1 contient {signals}/3 éléments (target={has_target}, benefit={has_benefit}, diff={has_diff}). Générique, remplaçable."
 else:
     pts, verdict = 0, "critical"
-    rationale = f"H1 vague, 0 élément détecté. Répond à 0-1 question sur 3."
+    rationale = "H1 vague, 0 élément détecté. Répond à 0-1 question sur 3."
 
 results.append(score_entry("hero_01", "H1 = promesse spécifique", pts, verdict,
     {"h1": h1, "h1Count": h1_count, "wordCount": wc, "signals": signals,

@@ -35,7 +35,6 @@ import argparse
 import asyncio
 import base64
 import json
-import os
 import pathlib
 import sys
 import time

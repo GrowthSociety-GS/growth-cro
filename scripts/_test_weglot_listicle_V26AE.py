@@ -6,8 +6,6 @@ The V26.AF 8K hard limit stays enforced defensively by the assembler.
 """
 from __future__ import annotations
 
-import json
-import os
 import pathlib
 import sys
 import time
@@ -15,7 +13,6 @@ import time
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from moteur_gsg.core.brief_v2 import BriefV2
 from moteur_gsg.core.brief_v2_validator import (
     parse_brief_v2_from_dict, validate_or_raise, archive_brief_v2,
 )
@@ -59,13 +56,13 @@ def main():
     print("→ 1. Parse + valide BriefV2 §4 framework cadrage...")
     brief = parse_brief_v2_from_dict(WEGLOT_BRIEF_V2)
     validate_or_raise(brief)
-    print(f"  ✓ BriefV2 valide (3 sourced_numbers, 5 forbidden_patterns)")
+    print("  ✓ BriefV2 valide (3 sourced_numbers, 5 forbidden_patterns)")
     archive_path = archive_brief_v2(brief, label="V26AE_test_final")
     print(f"  ✓ Brief archivé : {archive_path.relative_to(ROOT)}")
 
     legacy_brief = brief.to_legacy_brief()
 
-    print(f"\n→ 2. Call orchestrator.generate_lp(mode='complete') — V26.AG prompt arch (issue #13)")
+    print("\n→ 2. Call orchestrator.generate_lp(mode='complete') — V26.AG prompt arch (issue #13)")
 
     out_html = ROOT / "deliverables" / "weglot-listicle-V26AE-FINAL.html"
     log_path = ROOT / "data" / "_test_listicle_V26AE_log.txt"
@@ -109,7 +106,7 @@ def main():
     cost = telemetry.get("cost_estimate_usd", "?")
     wall_total = telemetry.get("wall_seconds_total", "?")
 
-    print(f"\n══ RÉSULTAT V26.AE ══")
+    print("\n══ RÉSULTAT V26.AE ══")
     print(f"  HTML chars             : {len(html):,}")
     print(f"  var(--) occurrences    : {n_var}")
     print(f"  Ppneuemontreal présent : {'✓' if has_pneue else '❌'}")
@@ -126,9 +123,9 @@ def main():
     print(f"  Wall total             : {wall_total}s")
     print(f"\n  HTML saved → {out_html.relative_to(ROOT)}")
 
-    print(f"\n══ COMPARAISON ══")
-    print(f"  V26.AC v4 ref      : prompt 8.7K / var=109 / 0 violations / $0.141 / 133s")
-    print(f"  V26.AD+ FULL-STACK : prompt 17K / var=104 / 0 violations / $0.158 / 143s")
+    print("\n══ COMPARAISON ══")
+    print("  V26.AC v4 ref      : prompt 8.7K / var=109 / 0 violations / $0.141 / 133s")
+    print("  V26.AD+ FULL-STACK : prompt 17K / var=104 / 0 violations / $0.158 / 143s")
     print(f"  V26.AE LITE      : prompt ?    / var={n_var} / aura={len(aura_v)} grammar={len(grammar_v)} slop={len(visual_slop_v)} / ${cost} / {wall_total}s")
 
     log_path.write_text(

@@ -38,7 +38,6 @@ from page_type_filter import (
     get_page_type_multipliers,
     get_exclusion_reasons,
     get_max_for_page_type,
-    get_specific_criteria,
     list_page_types,
 )
 # Canonical post-#11 — score_specific_criteria.py shim removed; pull from
@@ -684,7 +683,7 @@ def main():
         print(f"   Funnel   : intro={intro_only}/100 + flow={fnl['score100']}/100 → aware={agg['score100']}/100 "
               f"(weights {FUNNEL_WEIGHT_INTRO:.0%}/{FUNNEL_WEIGHT_FLOW:.0%})")
     elif fnl.get("applicable"):
-        print(f"   Funnel   : applicable mais score_funnel.json absent — run capture_funnel_pipeline.py + score_funnel.py")
+        print("   Funnel   : applicable mais score_funnel.json absent — run capture_funnel_pipeline.py + score_funnel.py")
     print(f"   → {out_file}")
 
 

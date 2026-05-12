@@ -167,5 +167,5 @@ if __name__ == "__main__":
     brief = build_brief_v15(args.client, args.page_type, target_score_pct=args.target_score)
     out = save_brief_v15(brief, pathlib.Path(args.output) if args.output else None)
     print(f"\n✓ Brief V15 saved: {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}")
-    print(f"  Sections: §1-§8")
-    print(f"  Status: SKELETON (Sprint B). Full impl Sprint C.")
+    print("  Sections: §1-§8")
+    print("  Status: SKELETON (Sprint B). Full impl Sprint C.")

@@ -28,9 +28,7 @@ import hashlib
 import json
 import pathlib
 import re
-import subprocess
-import sys
-from collections import Counter, OrderedDict
+from collections import Counter
 from datetime import datetime
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -884,7 +882,7 @@ def main():
 
     print(f"✅ Snapshot v{VERSION} @ {NOW}")
     print(f"   STATE.md          ({len(state_md)} chars)")
-    print(f"   ARCHITECTURE.md")
+    print("   ARCHITECTURE.md")
     print(f"   BACKLOG.md        ({len(backlog_md)} chars)")
     print(f"   {json_path.relative_to(ROOT)}")
     if note:

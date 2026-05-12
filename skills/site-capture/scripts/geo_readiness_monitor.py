@@ -39,11 +39,8 @@ import argparse
 import asyncio
 import hashlib
 import json
-import os
 import pathlib
-import sys
 import time
-from typing import Any, Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 from growthcro.config import config

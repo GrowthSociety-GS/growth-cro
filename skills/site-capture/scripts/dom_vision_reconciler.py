@@ -501,7 +501,7 @@ def process_page(client: str, page: str, viewport: str, force: bool = False) -> 
 
     spatial = load_spatial(page_dir, viewport)
     if not spatial:
-        print(f"❌ spatial_v10 / spatial_v9 absent", file=sys.stderr)
+        print("❌ spatial_v10 / spatial_v9 absent", file=sys.stderr)
         return None
 
     dom_elements = collect_dom_elements(spatial)

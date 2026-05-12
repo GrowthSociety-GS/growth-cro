@@ -112,7 +112,7 @@ def main():
     # Render markdown
     md = ["# Doctrine Proposals Review — 2026-05-11 (Task #18 V3.3 CRE Fusion)\n"]
     md.append(f"**Total proposals**: {len(rows)}")
-    md.append(f"**Pré-verdicts distribution**:")
+    md.append("**Pré-verdicts distribution**:")
     md.append(f"- `propose_accept`: {verdict_counts['propose_accept']}")
     md.append(f"- `propose_defer`: {verdict_counts['propose_defer']}")
     md.append(f"- `propose_reject`: {verdict_counts['propose_reject']}\n")

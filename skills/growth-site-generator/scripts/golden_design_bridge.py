@@ -23,8 +23,6 @@ Output: benchmark context + injectable prompt block.
 import argparse
 import json
 import math
-import os
-import sys
 from pathlib import Path
 
 
@@ -118,7 +116,7 @@ class GoldenDesignBridge:
                     }
                     self.technique_library.append(tech_entry)
                     
-            except Exception as e:
+            except Exception:
                 continue
         
         print(f"Loaded {len(self.profiles)} golden design profiles, {len(self.technique_library)} techniques")
@@ -321,17 +319,17 @@ def main():
     
     if args.stats:
         print(f"\n{'='*60}")
-        print(f"Golden Design Intelligence — Statistics")
+        print("Golden Design Intelligence — Statistics")
         print(f"{'='*60}")
         print(f"Profiles loaded: {len(bridge.profiles)}")
         print(f"Techniques catalogued: {len(bridge.technique_library)}")
-        print(f"\nBy category:")
+        print("\nBy category:")
         cats = {}
         for p in bridge.profiles:
             cats[p["category"]] = cats.get(p["category"], 0) + 1
         for cat, cnt in sorted(cats.items(), key=lambda x: -x[1]):
             print(f"  {cat}: {cnt} pages")
-        print(f"\nBy technique type:")
+        print("\nBy technique type:")
         tech_types = {}
         for t in bridge.technique_library:
             tt = t.get("type", "unknown")
@@ -340,7 +338,7 @@ def main():
             print(f"  {tt}: {cnt} techniques")
         
         # Average vectors per category
-        print(f"\nAverage aesthetic vectors:")
+        print("\nAverage aesthetic vectors:")
         cat_vectors = {}
         for p in bridge.profiles:
             cat = p["category"]

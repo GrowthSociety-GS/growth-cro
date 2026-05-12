@@ -12,7 +12,10 @@ en lisant capture.json (structured) + page.html (regex fallback).
 
 Cohérent avec le baseline manuel data/bloc_2_baseline_japhy_v3.json (15.5/24).
 """
-import json, sys, re, pathlib
+import json
+import sys
+import re
+import pathlib
 from datetime import datetime, timezone
 try:
     from spatial_bridge import load_spatial, get_spatial_evidence

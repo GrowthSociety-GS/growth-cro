@@ -23,10 +23,7 @@ Output: design_dna.json in the page directory.
 
 import argparse
 import json
-import os
 import re
-import sys
-import math
 from pathlib import Path
 from collections import Counter
 from growthcro.config import config

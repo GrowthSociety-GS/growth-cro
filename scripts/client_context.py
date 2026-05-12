@@ -47,7 +47,7 @@ from __future__ import annotations
 import json
 import pathlib
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CAPTURES = ROOT / "data" / "captures"
@@ -378,21 +378,21 @@ def availability_report(client: str, page_type: Optional[str] = None) -> str:
     ctx = load_client_context(client, page_type)
     lines = [
         f"# Client Context Availability — {client} / {page_type or '(globals only)'}",
-        f"",
+        "",
         f"**Completeness** : {ctx.completeness_pct}%",
         f"**Has brand_dna** : {ctx.has_brand_dna}",
         f"**Has visual inputs (screenshots + brand)** : {ctx.has_visual_inputs}",
         f"**Has audit complete** : {ctx.has_audit_complete}",
         f"**Has v143 enrichment** : {ctx.has_v143_enrichment}",
         f"**Has reality layer** : {ctx.has_reality_layer}",
-        f"",
+        "",
         f"## ✅ Available ({len(ctx.available_artefacts)})",
         *[f"- {a}" for a in ctx.available_artefacts],
-        f"",
+        "",
         f"## ❌ Missing ({len(ctx.missing_artefacts)})",
         *[f"- {a}" for a in ctx.missing_artefacts],
-        f"",
-        f"## Screenshots détaillés",
+        "",
+        "## Screenshots détaillés",
         *[f"  - {name} : {path.name}" for name, path in ctx.screenshots.items()],
     ]
     return "\n".join(lines)
@@ -403,7 +403,8 @@ def availability_report(client: str, page_type: Optional[str] = None) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    import argparse, sys
+    import argparse
+    import sys
     ap = argparse.ArgumentParser()
     ap.add_argument("client", nargs="?")
     ap.add_argument("page_type", nargs="?", default=None)
@@ -413,9 +414,9 @@ if __name__ == "__main__":
     if args.availability_report_all:
         # Iterate sur les 56 curatés
         curated = json.load(open(ROOT / "data" / "curated_clients_v26.json"))
-        print(f"# Availability Report — 56 clients curatés V26\n")
-        print(f"| Client | Brand DNA | AURA | Visual | Audit Page | V143 | Reality |")
-        print(f"|---|---|---|---|---|---|---|")
+        print("# Availability Report — 56 clients curatés V26\n")
+        print("| Client | Brand DNA | AURA | Visual | Audit Page | V143 | Reality |")
+        print("|---|---|---|---|---|---|---|")
         for c in curated["clients"]:
             slug = c["id"]
             page = c["page_types"][0] if c["page_types"] else None

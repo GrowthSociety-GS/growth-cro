@@ -18,7 +18,7 @@ Coût attendu : ~$0.15-0.20 single_pass multimodal (vs $0.40-0.50 V26.AA legacy)
 """
 from __future__ import annotations
 
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 from ..core.brief_v2 import BriefV2
 

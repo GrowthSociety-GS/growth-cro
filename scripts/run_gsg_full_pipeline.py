@@ -35,7 +35,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import pathlib
 import sys
 import time
@@ -44,9 +43,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 # Load .env
-from moteur_gsg.core.brief_v2 import BriefV2
 from moteur_gsg.core.brief_v2_validator import (
-    parse_brief_v2_from_dict, validate_or_raise, archive_brief_v2,
+    parse_brief_v2_from_dict, archive_brief_v2,
 )
 from moteur_gsg.core.brief_v2_prefiller import (
     prefill_brief_v2_from_client, format_brief_for_mathis_review,
@@ -121,7 +119,7 @@ def main():
         ctx = load_client_context(slug, brief.page_type)
         sources = {k: "user-provided JSON" for k in ["mode", "page_type", "client_url", "target_language", "objective", "audience", "angle"]}
     elif args.request:
-        print(f"→ Étape 1 : parse demande brute via GSG intake wizard...")
+        print("→ Étape 1 : parse demande brute via GSG intake wizard...")
         print(f"  Request      : {args.request}")
         print()
         from moteur_gsg.core.intake_wizard import (
@@ -168,7 +166,7 @@ def main():
             print("❌ --url required (ou --brief ou --request)")
             return 1
 
-        print(f"→ Étape 1 : pré-fill BriefV2 depuis client context...")
+        print("→ Étape 1 : pré-fill BriefV2 depuis client context...")
         print(f"  URL          : {args.url}")
         requested_page_type = args.page_type or "lp_listicle"
         requested_lang = args.lang or "FR"
@@ -220,7 +218,7 @@ def main():
     # Re-validate
     errors = brief.validate()
     if errors:
-        print(f"\n❌ BriefV2 toujours invalide :")
+        print("\n❌ BriefV2 toujours invalide :")
         for err in errors:
             print(f"   - {err}")
         return 2
@@ -236,7 +234,7 @@ def main():
 
     # ─── Étape 4A : chemin canonique minimal ────────────────────────────────
     if args.generation_path == "minimal":
-        print(f"\n→ Étape 4 : chemin canonique minimal via moteur_gsg.orchestrator.generate_lp()...")
+        print("\n→ Étape 4 : chemin canonique minimal via moteur_gsg.orchestrator.generate_lp()...")
         from moteur_gsg.orchestrator import generate_lp
 
         if args.save_html:
@@ -294,15 +292,15 @@ def main():
         summary_path = save_dir / "canonical_run_summary.json"
         summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2))
 
-        print(f"\n══ DONE ══")
-        print(f"  Generation path  : canonical minimal")
+        print("\n══ DONE ══")
+        print("  Generation path  : canonical minimal")
         print(f"  HTML saved       : {out_path.relative_to(ROOT) if out_path.is_relative_to(ROOT) else out_path}")
         print(f"  Summary saved    : {summary_path.relative_to(ROOT)}")
         print(f"  BriefV2 archive  : {archive_path.relative_to(ROOT)}")
         return 0
 
     # ─── Étape 4 : Charge contexte enrichi pour pipeline ────────────────────
-    print(f"\n→ Étape 4 : prepare context pour pipeline 4 stages (forensic)...")
+    print("\n→ Étape 4 : prepare context pour pipeline 4 stages (forensic)...")
 
     founder_persona = build_founder_persona(ctx.client, ctx.brand_dna or {})
     archetype_summary = _format_layout_archetype_block_LITE(brief.page_type)
@@ -336,7 +334,7 @@ def main():
     print(f"  Forced font     : {forced_font}")
 
     # ─── Étape 5 : Lance pipeline 4 stages ──────────────────────────────────
-    print(f"\n→ Étape 5 : lance pipeline_sequential 4 stages...")
+    print("\n→ Étape 5 : lance pipeline_sequential 4 stages...")
     print(f"  Save dir : {save_dir.relative_to(ROOT) if save_dir.is_relative_to(ROOT) else save_dir}\n")
 
     from moteur_gsg.core.pipeline_sequential import run_pipeline_sequential_4_stages
@@ -362,7 +360,7 @@ def main():
     html_final = result["html_final"]
 
     # ─── Étape 6 : Post-process gates ────────────────────────────────────────
-    print(f"\n→ Étape 6 : post-process gates...")
+    print("\n→ Étape 6 : post-process gates...")
 
     # AD-2 fonts
     html_final, font_repairs = _repair_ai_slop_fonts(
@@ -411,7 +409,7 @@ def main():
     # ─── Étape 8 : Multi-judge — note réelle (V26.AF FIX 2) ──────────────────
     judge_note = None
     if not args.skip_judges:
-        print(f"\n→ Étape 8 : multi-judge (doctrine V3.2.1 + humanlike + impl_check)...")
+        print("\n→ Étape 8 : multi-judge (doctrine V3.2.1 + humanlike + impl_check)...")
         try:
             from moteur_multi_judge.orchestrator import run_multi_judge
             judge_audit = run_multi_judge(
@@ -432,7 +430,7 @@ def main():
             audit_path = save_dir / "audit_multi_judge.json"
             audit_path.write_text(json.dumps(judge_audit, ensure_ascii=False, indent=2))
 
-            print(f"\n  📊 NOTE FINALE V26.AF :")
+            print("\n  📊 NOTE FINALE V26.AF :")
             print(f"     Doctrine V3.2.1 : {doctrine_pct}% / Humanlike : {humanlike_pct}% / Final 70-30 : {final_pct}% — {verdict}")
             print(f"     Audit saved : {audit_path.relative_to(ROOT)}")
         except Exception as e:
@@ -440,7 +438,7 @@ def main():
             import traceback
             traceback.print_exc()
 
-    print(f"\n══ DONE ══")
+    print("\n══ DONE ══")
     print(f"  Cost total       : ${result['total_cost_usd']}")
     print(f"  Wall total       : {result['total_wall_seconds']}s")
     print(f"  HTML size        : {len(html_final):,} chars")

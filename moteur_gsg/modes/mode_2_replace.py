@@ -26,7 +26,7 @@ from __future__ import annotations
 import json
 import pathlib
 import time
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 from ..core.brand_intelligence import has_brand_dna
 from ..core.brief_v15_builder import build_brief_v15, save_brief_v15
@@ -174,13 +174,13 @@ def run_mode_2_replace(
     delta = (after_score_pct - before_score_pct) if (after_score_pct is not None and before_score_pct is not None) else None
 
     if verbose:
-        print(f"\n══ Mode 2 REPLACE — DELTA AUDIT ══")
+        print("\n══ Mode 2 REPLACE — DELTA AUDIT ══")
         print(f"  Score AVANT (page existante) : {before_score_pct}%")
         print(f"  Score APRÈS (refonte V26.AD) : {after_score_pct}%" if after_score_pct is not None else "  Score APRÈS : (skip_judges=True, audit non calculé)")
         if delta is not None:
             print(f"  DELTA : {delta:+.1f}pp")
             if delta < 0:
-                print(f"  ⚠️ Régression — la refonte score MOINS que l'original. À investiguer.")
+                print("  ⚠️ Régression — la refonte score MOINS que l'original. À investiguer.")
             elif after_score_pct < target_score_pct:
                 print(f"  ⚠️ Sous la cible {target_score_pct}% — pipeline sequential_4_stages recommandé (Sprint J+).")
 

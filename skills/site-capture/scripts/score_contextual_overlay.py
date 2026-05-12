@@ -49,7 +49,6 @@ import json
 import pathlib
 import math
 from datetime import datetime
-from typing import Any
 
 # Try to locate doctrine matrix on import
 _DEFAULT_MATRIX = None

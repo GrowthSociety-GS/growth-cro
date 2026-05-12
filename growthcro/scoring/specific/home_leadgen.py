@@ -231,7 +231,7 @@ def d_source_citation(cap: dict, html: str, crit: dict) -> dict:
     if len(hits) >= 2:
         return _mk("top", f"Sources citées ({len(hits)} signaux)", signals=hits)
     if hits:
-        return _mk("ok", f"1 signal source", signals=hits)
+        return _mk("ok", "1 signal source", signals=hits)
     return _mk("critical", "Aucune source citée")
 
 

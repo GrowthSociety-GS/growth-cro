@@ -22,7 +22,10 @@ Consomme principalement capture.json.psychoSignals (extrait par native_capture.p
 
 v1.0 — 2026-04-10
 """
-import json, sys, re, pathlib
+import json
+import sys
+import re
+import pathlib
 try:
     from spatial_bridge import load_spatial, get_spatial_evidence
     _HAS_SPATIAL = True
@@ -198,7 +201,7 @@ elif total_urgency_scarcity >= 1:
 else:
     # Absence = OK (opportunité manquée, pas un défaut)
     pts, verdict = 1.5, "ok"
-    rationale = f"Pas d'urgence/rareté détectée. Opportunité manquée mais pas un défaut."
+    rationale = "Pas d'urgence/rareté détectée. Opportunité manquée mais pas un défaut."
 
 results.append(score_entry("psy_01", "Urgence & Rareté — crédibilité", pts, verdict,
     {"urgency_words": urgency_words, "has_countdown": has_countdown, "has_deadline": has_deadline,

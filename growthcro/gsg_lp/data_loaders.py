@@ -69,7 +69,7 @@ def auto_fix_runtime(html: str, label: str = "", verbose: bool = True) -> tuple[
             if report.get("fixed_reveal_pairs"):
                 print(f"    fixed reveal pairs: {report['fixed_reveal_pairs']}", flush=True)
             if report.get("injected_js"):
-                print(f"    injected runtime JS fallback (counter + reveal)", flush=True)
+                print("    injected runtime JS fallback (counter + reveal)", flush=True)
         else:
             print(f"  [P0 auto-fix{f' {label}' if label else ''}] no rendering bugs detected", flush=True)
     return fixed_html, report

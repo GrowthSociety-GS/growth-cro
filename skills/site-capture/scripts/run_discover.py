@@ -13,7 +13,6 @@ Output :
     data/captures/<client_id>/pages_discovered.json
 """
 
-import os
 import sys
 import json
 import time

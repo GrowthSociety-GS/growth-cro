@@ -40,7 +40,7 @@ import json
 import pathlib
 import sys
 from collections import Counter
-from typing import Any, Optional
+from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
@@ -572,10 +572,10 @@ def extract_brand_dna(client: str, anthropic_client=None,
         try:
             typo = asyncio.run(extract_typo_from_url(home_url))
             out["visual_tokens"]["typography"] = typo
-            print(f"  ✓ typography extracted")
+            print("  ✓ typography extracted")
             visual = asyncio.run(extract_visual_tokens(home_url))
             out["visual_tokens"].update(visual)
-            print(f"  ✓ visual tokens extracted (spacing/shape/depth/motion)")
+            print("  ✓ visual tokens extracted (spacing/shape/depth/motion)")
         except Exception as e:
             out["visual_tokens"]["error"] = f"{type(e).__name__}:{str(e)[:120]}"
 
@@ -618,7 +618,7 @@ def extract_brand_dna(client: str, anthropic_client=None,
                     out.get("voice_tokens", {}), fold_screenshots[:2]
                 )
             )
-            print(f"  ✓ asset_rules extracted (LLM Vision)")
+            print("  ✓ asset_rules extracted (LLM Vision)")
         else:
             out["image_direction"] = {"error": "no_fold_screenshots"}
             out["asset_rules"] = {"error": "no_fold_screenshots"}
@@ -641,7 +641,7 @@ def main():
         # Import lazily
         sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
         try:
-            from reco_enricher_v13_api import _load_dotenv_if_needed, _get_api_client
+            from reco_enricher_v13_api import _get_api_client
             anthropic_client = _get_api_client()
         except Exception as e:
             print(f"⚠️ LLM disabled: {e}")

@@ -88,7 +88,7 @@ def run_intelligence(base_url: str, client_id: str, max_pages: int = 25, verbose
     fetch_count = 0
 
     if verbose:
-        print(f"   → Fetching: / (homepage)")
+        print("   → Fetching: / (homepage)")
     text, ok = fetch_page_text(base_url, tmp_dir)
     if ok:
         pages_fetched["homepage"] = extract_structured_content(text, "homepage", base_url)
@@ -119,13 +119,13 @@ def run_intelligence(base_url: str, client_id: str, max_pages: int = 25, verbose
                 fetch_count += 1
             else:
                 if verbose:
-                    print(f"     ✗ Failed or empty")
+                    print("     ✗ Failed or empty")
 
             time.sleep(0.5)
 
     # ── Step 4: Extract Brand Identity ──
     if verbose:
-        print(f"\n🎨 Step 4: Extracting brand identity (colors, fonts, style)...")
+        print("\n🎨 Step 4: Extracting brand identity (colors, fonts, style)...")
 
     brand_identity: dict = {}
     homepage_html = ""

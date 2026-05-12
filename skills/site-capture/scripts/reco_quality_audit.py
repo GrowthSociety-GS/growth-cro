@@ -22,8 +22,7 @@ import argparse
 import json
 import pathlib
 import re
-from collections import Counter, defaultdict
-from typing import Any
+from collections import Counter
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
@@ -282,10 +281,10 @@ def main():
                 for w in res["weak_recos"][:3]:
                     print(f"    - {w['criterion_id']:8} score={w['score']} issues={w['issues'][:2]}")
 
-    print(f"\n=== QUALITY AUDIT SUMMARY ===")
+    print("\n=== QUALITY AUDIT SUMMARY ===")
     print(f"Total recos audited : {total_recos}")
     print(f"Avg fleet score     : {round(sum(avg_scores) / len(avg_scores), 2) if avg_scores else 0}/10")
-    print(f"Distribution par score :")
+    print("Distribution par score :")
     for s in range(11):
         n = by_score.get(s, 0)
         bar = "█" * max(1, n // 20) if n else ""

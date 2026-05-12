@@ -40,10 +40,10 @@ async def get_browser(pw, cloud: bool, ws_endpoint: Optional[str] = None,
             print("   export BRIGHTDATA_AUTH='brd-customer-XXXXX-zone-scraping_browser:PASSWORD'")
             print("   Ou : export BRIGHTDATA_WSS='wss://brd-customer-XXXXX-zone-scraping_browser:PWD@brd.superproxy.io:9222'")
             sys.exit(1)
-        print(f"  🔶 Connexion Bright Data Scraping Browser...")
+        print("  🔶 Connexion Bright Data Scraping Browser...")
         print(f"      Endpoint: {bd_endpoint[:70]}...")
         browser = await pw.chromium.connect_over_cdp(bd_endpoint)
-        print(f"  🔶 Connecté à Bright Data! (anti-bot + IPs résidentielles)")
+        print("  🔶 Connecté à Bright Data! (anti-bot + IPs résidentielles)")
         return browser
 
     # ── Cloud standard (Browserless, Steel, etc.) ──
@@ -54,14 +54,14 @@ async def get_browser(pw, cloud: bool, ws_endpoint: Optional[str] = None,
             print("   Exemple : export BROWSER_WS_ENDPOINT='wss://chrome.browserless.io?token=YOUR_TOKEN'")
             print("   Services compatibles : Browserless.io, Steel.dev, BrowserBase.com")
             sys.exit(1)
-        print(f"  ☁️  Connexion au navigateur distant...")
+        print("  ☁️  Connexion au navigateur distant...")
         print(f"      Endpoint: {endpoint[:60]}...")
         try:
             browser = await pw.chromium.connect_over_cdp(endpoint)
         except Exception as e:
             print(f"  ⚠️  connect_over_cdp échoué ({e}), tentative connect()...")
             browser = await pw.chromium.connect(endpoint)
-        print(f"  ☁️  Connecté!")
+        print("  ☁️  Connecté!")
         return browser
 
     # ── Local (headed ou headless) ──
@@ -88,7 +88,7 @@ async def get_browser(pw, cloud: bool, ws_endpoint: Optional[str] = None,
             "--lang=fr-FR,fr",
         ],
     )
-    print(f"  💻 Chromium lancé (local, stealth v2)")
+    print("  💻 Chromium lancé (local, stealth v2)")
     return browser
 
 

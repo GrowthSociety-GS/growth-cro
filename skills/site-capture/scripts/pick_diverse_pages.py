@@ -18,7 +18,6 @@ import json
 import pathlib
 import random
 from collections import defaultdict
-from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"

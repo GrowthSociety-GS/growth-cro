@@ -28,7 +28,6 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-import os
 import pathlib
 import re
 import sys
@@ -395,7 +394,7 @@ def generate_recos(client_slug: str, url: str, schema_audit: dict, llm_audit: di
         recos.append({
             "id": "geo_02",
             "priority": "P2",
-            "before": f"Pas de FAQPage Schema déclaré. Les LLMs adorent extraire des Q&A structurées pour répondre aux requêtes 'qu'est-ce que X' / 'comment faire Y' avec citation.",
+            "before": "Pas de FAQPage Schema déclaré. Les LLMs adorent extraire des Q&A structurées pour répondre aux requêtes 'qu'est-ce que X' / 'comment faire Y' avec citation.",
             "after": "Identifier 5-10 questions fréquentes clients, ajouter un bloc FAQ visible sur la home (ou page dédiée /faq) ET le baliser en JSON-LD type=FAQPage avec entité Question/Answer pour chaque.",
             "why": "Les FAQPage sont la source #1 que ChatGPT/Perplexity citent pour répondre aux requêtes informationnelles. Sans elles, tes réponses concurrentes apparaissent à ta place.",
             "expected_lift_pct": 6,

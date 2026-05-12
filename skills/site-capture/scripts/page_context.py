@@ -33,14 +33,13 @@ from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Optional
 
 try:
     from pydantic import BaseModel, Field
     _HAS_PYDANTIC = True
 except ImportError:
     # Fallback graceful si pydantic pas installé (dev)
-    from dataclasses import dataclass, field
 
     _HAS_PYDANTIC = False
 

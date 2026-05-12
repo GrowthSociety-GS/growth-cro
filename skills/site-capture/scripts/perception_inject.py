@@ -14,7 +14,9 @@ Usage:
   python perception_inject.py --batch
 """
 
-import json, sys, pathlib, copy
+import json
+import sys
+import pathlib
 from urllib.parse import urlparse
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -85,7 +87,7 @@ def inject_page(label, page_type):
         if old_sub != new_sub:
             hero["subtitle"] = new_sub
             hero["subtitle_source"] = "perception_inject"
-            changes.append(f"Subtitle patched")
+            changes.append("Subtitle patched")
 
     # Primary CTA
     if hero_p.get("primary_cta"):

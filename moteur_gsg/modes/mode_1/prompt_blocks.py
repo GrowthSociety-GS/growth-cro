@@ -228,8 +228,8 @@ def _format_aura_tokens_block(aura: Optional[dict], tokens_css: Optional[str] = 
                         parts.append(f"  - ⚠️ AURA assigne body='{body}' (AI-slop blacklist) — SUBSTITUE par 'IBM Plex Sans' OU 'DM Sans' OU 'Spectral' (non-AI-slop, dispos Google Fonts).")
                     else:
                         parts.append(f"  - **body, p, li, span** : `font-family: '{body}', system-ui, sans-serif;`")
-                parts.append(f"  - INTERDIT body en Inter/Roboto/Arial/Open Sans/Lato/Montserrat/Poppins/Nunito/Helvetica.")
-                parts.append(f"  - Charge les fonts via `<link href=\"https://fonts.googleapis.com/css2?family=...\">` dans `<head>`.")
+                parts.append("  - INTERDIT body en Inter/Roboto/Arial/Open Sans/Lato/Montserrat/Poppins/Nunito/Helvetica.")
+                parts.append("  - Charge les fonts via `<link href=\"https://fonts.googleapis.com/css2?family=...\">` dans `<head>`.")
 
     block = "\n".join(parts)
     return block[:max_chars] if len(block) > max_chars else block
@@ -259,13 +259,13 @@ def _format_v143_citations_block(ctx: ClientContext, max_chars: int = 1500) -> s
         f = ctx.v143_founder
         bio = f.get("bio") or f.get("about") or ""
         if bio:
-            parts.append(f"\n### Founder bio (extrait About + LinkedIn vérifié)")
+            parts.append("\n### Founder bio (extrait About + LinkedIn vérifié)")
             parts.append(f"  {str(bio)[:300]}")
     if ctx.v143_voc:
         v = ctx.v143_voc
         verbatims = v.get("verbatims") or v.get("reviews") or []
         if verbatims:
-            parts.append(f"\n### Voice of Customer (Trustpilot/G2 verbatims réels)")
+            parts.append("\n### Voice of Customer (Trustpilot/G2 verbatims réels)")
             for q in verbatims[:3]:
                 if isinstance(q, dict):
                     txt = q.get("text") or q.get("quote", "")
@@ -276,7 +276,7 @@ def _format_v143_citations_block(ctx: ClientContext, max_chars: int = 1500) -> s
     if ctx.v143_scarcity:
         s = ctx.v143_scarcity
         if s:
-            parts.append(f"\n### Scarcity réelle (anti-fake)")
+            parts.append("\n### Scarcity réelle (anti-fake)")
             for k, v in (s.items() if isinstance(s, dict) else []):
                 parts.append(f"  - {k}: {v}")
     block = "\n".join(parts)
@@ -393,7 +393,7 @@ def _format_recos_hint_block(ctx: ClientContext, max_chars: int = 1000) -> str:
     recos = ctx.recos_final.get("recos") or ctx.recos_final.get("recommendations") or []
     if not recos:
         return ""
-    parts = [f"\n## GAPS AUDIT IDENTIFIÉS pour cette page (top 5 — à corriger en priorité)"]
+    parts = ["\n## GAPS AUDIT IDENTIFIÉS pour cette page (top 5 — à corriger en priorité)"]
     p0_recos = [r for r in recos if (r.get("priority") == "P0" or r.get("priority_level") == "P0")]
     top = p0_recos[:5] if p0_recos else recos[:5]
     for r in top:

@@ -1,5 +1,6 @@
 """Helpers pour lire un SiteCapture et servir de base au scoring V3."""
-import json, pathlib
+import json
+import pathlib
 
 def load(label):
     p = pathlib.Path(__file__).resolve().parents[3] / "data" / "captures" / label / "capture.json"

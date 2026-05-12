@@ -497,7 +497,7 @@ def run_mode_1_complete(
     audit: dict = {}
     if not skip_judges:
         if verbose:
-            print(f"\n→ Multi-judge (doctrine + humanlike + impl_check)...")
+            print("\n→ Multi-judge (doctrine + humanlike + impl_check)...")
         from moteur_multi_judge.orchestrator import run_multi_judge
         audit = run_multi_judge(
             html=html, client=client, page_type=page_type, verbose=verbose,
@@ -530,7 +530,7 @@ def run_mode_1_complete(
         "impeccable_pass": impeccable_report.get("passed"),
     }
     if verbose:
-        print(f"\n══ Mode 1 COMPLETE — DONE ══")
+        print("\n══ Mode 1 COMPLETE — DONE ══")
         print(f"  Wall total      : {telemetry['wall_seconds_total']}s")
         print(f"  Coût estimé     : ${telemetry['cost_estimate_usd']}")
         if minimal_report:

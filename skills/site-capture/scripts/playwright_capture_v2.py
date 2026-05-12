@@ -40,10 +40,8 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-import os
 import pathlib
 import re
-import sys
 import time
 from typing import Optional
 
@@ -779,7 +777,7 @@ async def _batch_runner(entries: list, viewports: list, max_concurrent: int, ski
     tasks = [asyncio.create_task(_process(i, e)) for i, e in enumerate(entries)]
     await asyncio.gather(*tasks, return_exceptions=True)
 
-    print(f"\n═══ Batch summary ═══")
+    print("\n═══ Batch summary ═══")
     print(f"  Total      : {total}")
     print(f"  Skipped    : {skipped_count}")
     print(f"  Captured   : {total - skipped_count - failed_count}")

@@ -17,11 +17,9 @@ Wall : ~30-90s.
 """
 from __future__ import annotations
 
-import os
 import pathlib
 import re
 import time
-from typing import Any
 
 from .legacy_lab_adapters import LegacyLabUnavailable, apply_fix_html_runtime
 
@@ -62,7 +60,8 @@ def call_sonnet_multimodal(
 
     Returns: dict {html, tokens_in, tokens_out, wall_seconds, model, n_images}
     """
-    import anthropic, base64
+    import anthropic
+    import base64
     api = anthropic.Anthropic()
 
     # Build multimodal content

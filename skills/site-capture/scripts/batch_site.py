@@ -16,7 +16,11 @@ Usage :
 v1.0 — 2026-04-10
 """
 
-import json, sys, os, time, pathlib, subprocess
+import json
+import sys
+import time
+import pathlib
+import subprocess
 from datetime import datetime, timezone
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -203,7 +207,7 @@ if all_scored:
     print(f"     Best:   {scores[0]:.1f}/100")
     print(f"     Worst:  {scores[-1]:.1f}/100")
 
-    print(f"\n  🏆 Classement:")
+    print("\n  🏆 Classement:")
     all_scored.sort(key=lambda r: r.get("score", 0) or 0, reverse=True)
     for i, r in enumerate(all_scored):
         s = r.get("score", 0) or 0
