@@ -23,6 +23,10 @@ import time
 
 from .legacy_lab_adapters import LegacyLabUnavailable, apply_fix_html_runtime
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SONNET_MODEL = "claude-sonnet-4-5-20250929"
 
@@ -71,7 +75,7 @@ def call_sonnet_multimodal(
         for img_path in image_paths:
             if not img_path.exists():
                 if verbose:
-                    print(f"  ⚠️  Image not found, skip: {img_path}", flush=True)
+                    logger.info(f"  ⚠️  Image not found, skip: {img_path}", flush=True)
                 continue
             ext = img_path.suffix.lower().lstrip(".")
             media_type = "image/png" if ext == "png" else f"image/{ext}"
@@ -87,7 +91,7 @@ def call_sonnet_multimodal(
 
     if verbose:
         sz = len(system_prompt) + len(user_message)
-        print(f"  → Sonnet MULTIMODAL (model={model}, prompt={sz} chars, images={images_loaded}, max_tokens={max_tokens}, T={temperature})...", flush=True)
+        logger.info(f"  → Sonnet MULTIMODAL (model={model}, prompt={sz} chars, images={images_loaded}, max_tokens={max_tokens}, T={temperature})...", flush=True)
 
     t0 = time.time()
     msg = api.messages.create(
@@ -103,11 +107,11 @@ def call_sonnet_multimodal(
     html = _strip_html_fences(raw)
 
     if verbose:
-        print(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars", flush=True)
+        logger.info(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars", flush=True)
 
     if not re.search(r"<!DOCTYPE\s+html>", html, re.IGNORECASE):
         if verbose:
-            print(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
+            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
 
     return {
         "html": html,
@@ -137,7 +141,7 @@ def call_sonnet(
 
     if verbose:
         sz = len(system_prompt) + len(user_message)
-        print(f"  → Sonnet single_pass (model={model}, prompt={sz} chars, max_tokens={max_tokens}, T={temperature})...", flush=True)
+        logger.info(f"  → Sonnet single_pass (model={model}, prompt={sz} chars, max_tokens={max_tokens}, T={temperature})...", flush=True)
 
     t0 = time.time()
     msg = api.messages.create(
@@ -153,12 +157,12 @@ def call_sonnet(
     html = _strip_html_fences(raw)
 
     if verbose:
-        print(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars", flush=True)
+        logger.info(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars", flush=True)
 
     # Sanity check : doit ressembler à du HTML
     if not re.search(r"<!DOCTYPE\s+html>", html, re.IGNORECASE):
         if verbose:
-            print(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
+            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
 
     return {
         "html": html,
@@ -222,7 +226,7 @@ def call_sonnet_messages(
             for img_path in image_paths:
                 if not img_path.exists():
                     if verbose:
-                        print(f"  ⚠️  Image not found, skip: {img_path}", flush=True)
+                        logger.info(f"  ⚠️  Image not found, skip: {img_path}", flush=True)
                     continue
                 ext = img_path.suffix.lower().lstrip(".")
                 media_type = "image/png" if ext == "png" else f"image/{ext}"
@@ -245,11 +249,10 @@ def call_sonnet_messages(
             for t in user_turns_seq
         )
         cached_blocks = sum(1 for b in system_messages if "cache_control" in b)
-        print(
+        logger.info(
             f"  → Sonnet messages (model={model}, system={sys_chars}c [{cached_blocks} cached], "
             f"user_turns={len(user_turns_seq)} ({user_chars}c), images={images_loaded}, "
-            f"max_tokens={max_tokens}, T={temperature})...",
-            flush=True,
+            f"max_tokens={max_tokens}, T={temperature})..."
         )
 
     t0 = time.time()
@@ -273,15 +276,14 @@ def call_sonnet_messages(
         cache_hint = ""
         if cache_read or cache_write:
             cache_hint = f" cache_read={cache_read} cache_write={cache_write}"
-        print(
+        logger.info(
             f"  ← Sonnet : in={usage.input_tokens}{cache_hint} out={usage.output_tokens} "
-            f"({dt:.1f}s) html={len(html)} chars",
-            flush=True,
+            f"({dt:.1f}s) html={len(html)} chars"
         )
 
     if not re.search(r"<!DOCTYPE\s+html>", html, re.IGNORECASE):
         if verbose:
-            print(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
+            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
 
     return {
         "html": html,
@@ -310,12 +312,12 @@ def apply_runtime_fixes(html: str, verbose: bool = True) -> tuple[str, dict]:
         fixed, info = apply_fix_html_runtime(html, inject_js=False)
     except LegacyLabUnavailable as exc:
         if verbose:
-            print(f"  ⚠️  fix_html_runtime unavailable, skip post-process: {exc}", flush=True)
+            logger.info(f"  ⚠️  fix_html_runtime unavailable, skip post-process: {exc}", flush=True)
         return html, {"applied": False, "reason": str(exc)}
     if verbose:
         n_fixes = len(info.get("fixes_applied", []))
         n_warnings = len(info.get("warnings", []))
-        print(f"  ✓ fix_html_runtime adapter: {n_fixes} fixes, {n_warnings} warnings", flush=True)
+        logger.info(f"  ✓ fix_html_runtime adapter: {n_fixes} fixes, {n_warnings} warnings", flush=True)
     return fixed, {"applied": True, **info}
 
 
@@ -370,7 +372,7 @@ if __name__ == "__main__":
     args = ap.parse_args()
     out = single_pass(args.system, args.user, max_tokens=2000)
     pathlib.Path(args.out).write_text(out["html"])
-    print(f"\n✓ HTML saved : {args.out}")
-    print(f"  Tokens : in={out['tokens_in']} out={out['tokens_out']}")
-    print(f"  Wall   : {out['wall_seconds']}s")
-    print(f"  Fixes  : {out['fixes']}")
+    logger.info(f"\n✓ HTML saved : {args.out}")
+    logger.info(f"  Tokens : in={out['tokens_in']} out={out['tokens_out']}")
+    logger.info(f"  Wall   : {out['wall_seconds']}s")
+    logger.info(f"  Fixes  : {out['fixes']}")

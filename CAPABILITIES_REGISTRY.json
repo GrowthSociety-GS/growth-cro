@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-12T09:52:33",
+  "generated_at": "2026-05-12T10:24:14",
   "stats": {
-    "total_files": 231,
+    "total_files": 233,
     "active_wired": 4,
     "active_indirect": 10,
     "active_cli": 48,
-    "active_package_marker": 21,
-    "active_misc": 148,
+    "active_package_marker": 22,
+    "active_misc": 149,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 0
@@ -287,6 +287,24 @@
       "what": "Shared infrastructure utilities for GrowthCRO modules.",
       "imports": [],
       "size_bytes": 61,
+      "mtime": "2026-05-12",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/observability/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO observability — structured logging foundation.",
+      "imports": [
+        "growthcro",
+        "logger"
+      ],
+      "size_bytes": 495,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -1218,12 +1236,14 @@
         "check_liveness",
         "config",
         "enrich_client",
+        "get_logger",
         "growthcro",
         "intent_detector_v13",
+        "logger",
         "shutil",
         "subprocess"
       ],
-      "size_bytes": 24456,
+      "size_bytes": 25032,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [],
@@ -1805,7 +1825,7 @@
         "growthcro",
         "lru_cache"
       ],
-      "size_bytes": 15160,
+      "size_bytes": 15873,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [
@@ -1815,6 +1835,7 @@
         "growthcro/cli/capture_full.py",
         "growthcro/config.py",
         "growthcro/lib/anthropic_client.py",
+        "growthcro/observability/logger.py",
         "growthcro/reality/base.py",
         "growthcro/reality/catchr.py",
         "growthcro/reality/clarity.py",
@@ -2382,8 +2403,10 @@
         "enrich_client",
         "error",
         "get_anthropic_client",
+        "get_logger",
         "growthcro",
         "html",
+        "logger",
         "parse",
         "parser",
         "request",
@@ -2396,7 +2419,7 @@
         "urlopen",
         "urlparse"
       ],
-      "size_bytes": 25001,
+      "size_bytes": 25209,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [
@@ -3168,7 +3191,7 @@
         "prompt_assembly",
         "subprocess"
       ],
-      "size_bytes": 16028,
+      "size_bytes": 16391,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [],
@@ -3200,6 +3223,44 @@
       "criticality": "low"
     },
     {
+      "id": "logger",
+      "path": "growthcro/observability/logger.py",
+      "filename": "logger.py",
+      "what": "Structured JSON logging foundation for GrowthCRO pipelines.",
+      "imports": [
+        "Any",
+        "ContextVar",
+        "Optional",
+        "__future__",
+        "annotations",
+        "config",
+        "contextvars",
+        "growthcro",
+        "logger",
+        "logging",
+        "uuid"
+      ],
+      "size_bytes": 4501,
+      "mtime": "2026-05-12",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/orchestrator.py",
+        "growthcro/capture/scorer.py",
+        "growthcro/cli/capture_full.py",
+        "growthcro/cli/enrich_client.py",
+        "growthcro/gsg_lp/lp_orchestrator.py",
+        "growthcro/observability/__init__.py",
+        "growthcro/observability/logger.py",
+        "moteur_gsg/core/pipeline_sequential.py",
+        "moteur_gsg/core/pipeline_single_pass.py",
+        "moteur_gsg/modes/mode_1/orchestrator.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_multi_judge/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "lp_orchestrator",
       "path": "growthcro/gsg_lp/lp_orchestrator.py",
       "filename": "lp_orchestrator.py",
@@ -3209,13 +3270,16 @@
         "__future__",
         "annotations",
         "data_loaders",
+        "get_logger",
+        "growthcro",
         "gsg_pipeline_sequential",
+        "logger",
         "mega_prompt_builder",
         "repair_loop",
         "run_repair_loop",
         "run_sequential_pipeline"
       ],
-      "size_bytes": 14693,
+      "size_bytes": 14985,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [
@@ -3353,12 +3417,15 @@
         "doctrine_planner",
         "fallback_copy_from_plan",
         "get_brand_summary",
+        "get_logger",
+        "growthcro",
         "has_brand_dna",
         "impeccable_qa",
         "legacy_lab_adapters",
         "load_aura_tokens",
         "load_brand_dna",
         "load_design_grammar",
+        "logger",
         "minimal_guards",
         "moteur_multi_judge",
         "orchestrator",
@@ -3372,7 +3439,7 @@
         "single_pass",
         "visual_intelligence"
       ],
-      "size_bytes": 25787,
+      "size_bytes": 25993,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -3618,9 +3685,12 @@
         "build_persona_narrator_prompt",
         "call_sonnet_messages",
         "doctrine_judge",
+        "get_logger",
+        "growthcro",
         "has_brand_dna",
         "load_brand_dna",
         "load_client_context",
+        "logger",
         "moteur_multi_judge",
         "philosophy_bridge",
         "prompt_assembly",
@@ -3628,7 +3698,7 @@
         "vision_selection",
         "visual_gates"
       ],
-      "size_bytes": 13483,
+      "size_bytes": 13767,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -3667,11 +3737,14 @@
         "doctrine_judge",
         "fix_html_runtime",
         "fix_html_runtime_v26z",
+        "get_logger",
+        "growthcro",
         "gsg_humanlike_audit",
         "gsg_humanlike_audit_v26z",
+        "logger",
         "moteur_multi_judge"
       ],
-      "size_bytes": 10172,
+      "size_bytes": 10354,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [
@@ -3807,8 +3880,11 @@
         "dom",
         "get_brightdata_endpoint",
         "get_browser",
+        "get_logger",
+        "growthcro",
         "handle_cookies",
         "load_extraction_js",
+        "logger",
         "new_stealth_context",
         "persist",
         "playwright",
@@ -3816,7 +3892,7 @@
         "write_html",
         "write_spatial_v9"
       ],
-      "size_bytes": 18136,
+      "size_bytes": 18468,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -4349,9 +4425,12 @@
         "call_sonnet_multimodal",
         "client_context",
         "doctrine",
+        "get_logger",
+        "growthcro",
+        "logger",
         "pipeline_single_pass"
       ],
-      "size_bytes": 25686,
+      "size_bytes": 25886,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -4372,9 +4451,12 @@
         "annotations",
         "apply_fix_html_runtime",
         "base64",
-        "legacy_lab_adapters"
+        "get_logger",
+        "growthcro",
+        "legacy_lab_adapters",
+        "logger"
       ],
-      "size_bytes": 13610,
+      "size_bytes": 13748,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [
@@ -5329,6 +5411,9 @@
         "annotations",
         "datetime",
         "dom",
+        "get_logger",
+        "growthcro",
+        "logger",
         "persist",
         "request",
         "signals",
@@ -5338,7 +5423,7 @@
         "urlopen",
         "write_capture_json"
       ],
-      "size_bytes": 18787,
+      "size_bytes": 19029,
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [],

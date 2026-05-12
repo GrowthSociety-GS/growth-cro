@@ -1,15 +1,15 @@
-# Capabilities Summary — 2026-05-12T09:52:33
+# Capabilities Summary — 2026-05-12T10:24:14
 
 **Source de vérité** : `CAPABILITIES_REGISTRY.json` (auto-généré par `scripts/audit_capabilities.py`).
 
 ## Stats globales
 
-- **total_files** : 231
+- **total_files** : 233
 - **active_wired** : 4
 - **active_indirect** : 10
 - **active_cli** : 48
-- **active_package_marker** : 21
-- **active_misc** : 148
+- **active_package_marker** : 22
+- **active_misc** : 149
 - **orphaned_from_gsg_HIGH** : 0
 - **partial_wired** : 0
 - **potentially_orphaned** : 0

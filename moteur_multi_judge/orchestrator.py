@@ -30,6 +30,10 @@ from moteur_multi_judge.judges.doctrine_judge import audit_lp_doctrine
 sys.path.insert(0, str(ROOT / "skills" / "growth-site-generator" / "scripts"))
 import importlib.util
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 def _load_humanlike_module():
     """Charge gsg_humanlike_audit.py V26.Z dynamiquement (pas encore migré)."""
@@ -124,14 +128,14 @@ def run_multi_judge(
       - totals_meta : tokens / wall / cost aggregates
     """
     if verbose:
-        print(f"\n══ Multi-Judge V26.AA — {client} / {page_type} ══")
+        logger.info(f"\n══ Multi-Judge V26.AA — {client} / {page_type} ══")
 
     grand_t0 = time.time()
     audit: dict = {"client": client, "page_type": page_type, "audit_version": "V26.AA.multi_judge"}
 
     # ── 1. Doctrine V3.2 (Sprint 2) ─────────────────────────
     if verbose:
-        print("\n→ Juge 1/3 : Doctrine V3.2 (54 critères, paralllélisé par pilier)...")
+        logger.info("\n→ Juge 1/3 : Doctrine V3.2 (54 critères, paralllélisé par pilier)...")
     doctrine_audit = audit_lp_doctrine(html, client, page_type, verbose=verbose, parallel=True)
     audit["doctrine"] = doctrine_audit
 
@@ -139,14 +143,14 @@ def run_multi_judge(
     humanlike_audit = {}
     if not skip_humanlike:
         if verbose:
-            print("\n→ Juge 2/3 : Humanlike (8 dim sensorielles, persona DA senior)...")
+            logger.info("\n→ Juge 2/3 : Humanlike (8 dim sensorielles, persona DA senior)...")
         hl_mod = _load_humanlike_module()
         if hl_mod and hasattr(hl_mod, "audit_lp_humanlike"):
             try:
                 humanlike_audit = hl_mod.audit_lp_humanlike(html, client, verbose=verbose)
             except Exception as e:
                 if verbose:
-                    print(f"  ⚠️  humanlike judge failed: {e}", flush=True)
+                    logger.info(f"  ⚠️  humanlike judge failed: {e}", flush=True)
                 humanlike_audit = {"error": str(e)}
         else:
             humanlike_audit = {"error": "humanlike module not loadable"}
@@ -156,14 +160,14 @@ def run_multi_judge(
     impl_report = {}
     if not skip_implementation:
         if verbose:
-            print("\n→ Juge 3/3 : Implementation Check (counter, reveal, opacity bugs)...")
+            logger.info("\n→ Juge 3/3 : Implementation Check (counter, reveal, opacity bugs)...")
         impl_mod = _load_implementation_module()
         if impl_mod and hasattr(impl_mod, "detect_runtime_bugs"):
             try:
                 impl_report = impl_mod.detect_runtime_bugs(html)
             except Exception as e:
                 if verbose:
-                    print(f"  ⚠️  impl check failed: {e}", flush=True)
+                    logger.info(f"  ⚠️  impl check failed: {e}", flush=True)
                 impl_report = {"error": str(e)}
         else:
             impl_report = {"error": "implementation module not loadable"}
@@ -215,19 +219,19 @@ def run_multi_judge(
     }
 
     if verbose:
-        print("\n══ Multi-Judge — DONE ══")
-        print(f"  Doctrine V3.2  : {doctrine_pct}% ({_verdict_tier(doctrine_pct)})")
+        logger.info("\n══ Multi-Judge — DONE ══")
+        logger.info(f"  Doctrine V3.2  : {doctrine_pct}% ({_verdict_tier(doctrine_pct)})")
         if humanlike_pct is not None:
-            print(f"  Humanlike      : {humanlike_pct}% ({_verdict_tier(humanlike_pct)})")
+            logger.info(f"  Humanlike      : {humanlike_pct}% ({_verdict_tier(humanlike_pct)})")
         else:
-            print("  Humanlike      : ⚠️ failed")
+            logger.info("  Humanlike      : ⚠️ failed")
         if impl_pen:
-            print(f"  Impl penalty   : -{impl_pen:.1f}pp")
-        print("  ═════════════════════════════════════")
-        print(f"  FINAL SCORE    : {final_pct}% — {_verdict_tier(final_pct)}")
-        print(f"  Coût total     : ${audit['totals_meta']['cost_estimate_usd']} | Wall : {grand_dt:.1f}s")
+            logger.info(f"  Impl penalty   : -{impl_pen:.1f}pp")
+        logger.info("  ═════════════════════════════════════")
+        logger.info(f"  FINAL SCORE    : {final_pct}% — {_verdict_tier(final_pct)}")
+        logger.info(f"  Coût total     : ${audit['totals_meta']['cost_estimate_usd']} | Wall : {grand_dt:.1f}s")
         if audit["final"]["killer_rules_violated"]:
-            print(f"  ⛔ KILLER RULES VIOLATED ({len(audit['final']['killer_violations'])})")
+            logger.info(f"  ⛔ KILLER RULES VIOLATED ({len(audit['final']['killer_violations'])})")
 
     return audit
 
@@ -249,4 +253,4 @@ if __name__ == "__main__":
     out = pathlib.Path(args.output or (ROOT / "data" / f"_multi_judge_{args.client}.json"))
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(audit, ensure_ascii=False, indent=2))
-    print(f"\n✓ Audit saved : {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}")
+    logger.info(f"\n✓ Audit saved : {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}")

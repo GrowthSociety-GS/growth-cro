@@ -37,7 +37,7 @@ If a file mixes two axes, split it. If you can't name the axis, the file is the 
   - imports drawn from ≥3 concern-bundles: `{requests, httpx, urllib}`, `{sqlite3, sqlalchemy, json+pathlib}`, `{jinja2, markdown}`, `{argparse, click}`, `{anthropic, openai}`, `{playwright, selenium}`,
   - ≥2 top-level classes that don't reference each other (per AST).
 - **INFO — single-concern affirmation**: file >300 LOC — reviewer must affirm "still single concern" at PR time.
-- **INFO — `print()` in pipeline modules** (added 2026-05-11 via auto-update loop): files under `growthcro/`, `moteur_gsg/`, `moteur_multi_judge/` that are ≥100 LOC and not a CLI entrypoint should use a proper logger, not `print()`. Long-running pipelines need structured logs (levels, timestamps, redirectability). 31 files currently hit; top offenders: `growthcro/capture/orchestrator.py` (34 prints), `growthcro/gsg_lp/lp_orchestrator.py` (33), `growthcro/capture/scorer.py` (26). Tier: `info` initially — promote to `warn` once a logger pattern is canonized.
+- **WARN — `print()` in pipeline modules** (promoted from INFO 2026-05-12 via Task #28 observability migration): files under `growthcro/`, `moteur_gsg/`, `moteur_multi_judge/` ≥100 LOC and not a CLI entrypoint must use `growthcro.observability.logger.get_logger(__name__)`, not `print()`. After top-10 migration (300 prints → logger), 27 files remain WARN — low-call-count utilities scheduled for follow-up. See §LOG below for pattern + exceptions.
 
 False positives in the WARN tier are acceptable. Hard FAILs aren't.
 
@@ -78,6 +78,46 @@ No tool auto-edits the doctrine. The auto-update loop is a *social contract* —
 - `2` — internal error (file walk crashed).
 
 Flags: `--quiet` (FAIL only), `--json` (machine output), `--staged` (only files in `git diff --staged --name-only`). The `--staged` mode is the pre-commit gate — **immuable rule** in CLAUDE.md: before any `git add` of source files, the linter must exit 0 on the staged set.
+
+## §LOG — Structured logging (V26.AH+, post Task #28)
+
+**Rule**: dans `growthcro/*`, `moteur_gsg/*`, `moteur_multi_judge/*`
+(orchestrators / pipelines), utiliser
+`growthcro.observability.logger.get_logger(__name__)` au lieu de `print()`.
+Le linter `print-in-pipeline` est WARN (promu de INFO le 2026-05-12).
+
+**API publique** (foundation Logfire/Axiom/Sentry future) :
+
+```python
+from growthcro.observability.logger import (
+    get_logger, set_correlation_id, set_pipeline_name, clear_context,
+)
+
+logger = get_logger(__name__)
+set_correlation_id()                 # auto uuid12 if no arg
+set_pipeline_name("audit_pipeline")
+logger.info("Starting capture", extra={"client": "weglot", "page_type": "lp_listicle"})
+```
+
+**Format output** : JSON-line stdout. Le formatter émet
+`{ts, level, logger, msg, correlation_id?, pipeline?, ...extra}` —
+drop-in compatible avec les ingestion SDK Logfire/Axiom/Sentry.
+
+**Log level** : `GROWTHCRO_LOG_LEVEL` (`DEBUG|INFO|WARNING|ERROR`),
+défaut `INFO`. Lu via `growthcro.config.config.log_level()`.
+
+**Exceptions OK** (pas de WARN levé) :
+- CLIs (`growthcro/cli/*`) — la règle linter exempt déjà ce dossier ; en pratique on migre quand même pour uniformité, sauf si la sortie est consommée par un parser humain interactif.
+- Scripts utilitaires (`scripts/*`) — `print()` reste autorisé.
+- Tests (`tests/*`) — `print()` reste autorisé.
+- Subprocess markers (`__GHOST_RESULT__`, etc.) — **doivent rester `print()`** pour préserver le parsing downstream. Le pattern `__[A-Z_]+_RESULT__` est sanctuarisé.
+
+**Anti-pattern** : `print()` dans un orchestrator post-Task #28 → WARN.
+Fix : `logger = get_logger(__name__)` + remplacer `print(x)` par `logger.info(x)`.
+
+**Migration historique (Task #28, 2026-05-12)** : top-10 pipelines migrés
+(290 prints → logger.info), 1 commit par fichier. Parity check `weglot` OK
+sur tous les commits (108/108).
 
 ## Cross-references
 

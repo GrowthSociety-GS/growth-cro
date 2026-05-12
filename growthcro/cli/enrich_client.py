@@ -53,6 +53,10 @@ from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
 from growthcro.lib.anthropic_client import get_anthropic_client
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 # ----------------------------------------------------------------------
 # CONFIG
 # ----------------------------------------------------------------------
@@ -105,7 +109,7 @@ def resolve_node() -> str:
 
 def log(stage: str, msg: str, kind: str = "info") -> None:
     icons = {"info": "ℹ️ ", "ok": "✅", "warn": "⚠️ ", "err": "❌", "stage": "▶️ "}
-    print(f"{icons.get(kind, '·')} [{stage}] {msg}", flush=True)
+    logger.info(f"{icons.get(kind, '·')} [{stage}] {msg}", flush=True)
 
 
 def parse_json_from_text(text: str) -> dict:
@@ -437,7 +441,7 @@ def write_db(entry: dict, dry_run: bool = True) -> None:
         return
     if dry_run:
         log("stage 7", "DRY-RUN — entry non persistée. Preview :", "info")
-        print(json.dumps(entry, indent=2, ensure_ascii=False)[:2000])
+        logger.info(json.dumps(entry, indent=2, ensure_ascii=False)[:2000])
         return
     db.setdefault("clients", []).append(entry)
     backup = DB_PATH.with_suffix(f".json.bak_{int(time.time())}")
@@ -472,13 +476,13 @@ def main():
     brand = args.brand.strip()
     client_id = args.client_id or slugify(brand)
 
-    print()
-    print("═" * 72)
-    print(f"  enrich_client.py — {brand} (id={client_id})")
-    print(f"  business_type : {args.business_type} · country : {args.country}")
-    print(f"  Mode          : {'APPLY (writes DB)' if args.apply else 'DRY-RUN'}")
-    print("═" * 72)
-    print()
+    logger.info()
+    logger.info("═" * 72)
+    logger.info(f"  enrich_client.py — {brand} (id={client_id})")
+    logger.info(f"  business_type : {args.business_type} · country : {args.country}")
+    logger.info(f"  Mode          : {'APPLY (writes DB)' if args.apply else 'DRY-RUN'}")
+    logger.info("═" * 72)
+    logger.info()
 
     client = get_anthropic_client()
 
@@ -578,8 +582,10 @@ def main():
         validated.append({**p_, "status": r["status"],
                           "validated": ok, "liveness_state": state})
         emoji = "✅" if r["ok"] else ("🛡️" if page_bot_blocked else "❌")
-        print(f"    {emoji} [{p_.get('type', '?'):<12}] imp={p_.get('importance', '?')} · "
-              f"{url}  (status={r['status']}, state={state})")
+        logger.info(
+            f"    {emoji} [{p_.get('type', '?'):<12}] imp={p_.get('importance', '?')} · "
+            f"{url}  (status={r['status']}, state={state})"
+        )
 
     # --- Stage 7 : build + write entry ---
     entry = make_client_entry(
@@ -590,14 +596,14 @@ def main():
     )
     write_db(entry, dry_run=not args.apply)
 
-    print()
-    print("═" * 72)
+    logger.info()
+    logger.info("═" * 72)
     nb_valid = sum(1 for p in validated if p["validated"])
-    print(f"  RÉCAP — {brand}")
-    print(f"    URL officielle  : {final_url}")
-    print(f"    Pages validées  : {nb_valid}/{len(validated)}")
-    print(f"    DB status       : {'APPLIED' if args.apply else 'DRY-RUN (re-run avec --apply pour persister)'}")
-    print("═" * 72)
+    logger.info(f"  RÉCAP — {brand}")
+    logger.info(f"    URL officielle  : {final_url}")
+    logger.info(f"    Pages validées  : {nb_valid}/{len(validated)}")
+    logger.info(f"    DB status       : {'APPLIED' if args.apply else 'DRY-RUN (re-run avec --apply pour persister)'}")
+    logger.info("═" * 72)
 
 
 if __name__ == "__main__":
