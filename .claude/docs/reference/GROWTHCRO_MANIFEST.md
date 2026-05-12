@@ -403,6 +403,49 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-12 — Typing Strict Rollout (Epic #29)
+
+**Epic** : [`typing-strict-rollout`](../../prds/typing-strict-rollout.md) — Wave A du PRD master [`post-stratosphere-roadmap`](../../prds/post-stratosphere-roadmap.md) (FR-1 Epic 1). 5 tasks (#30, #31, #32, #33, #34), 16+ commits, 0 régression doctrine.
+
+**Livré** :
+- **3 modules Pydantic v2 mono-concern** dans `growthcro/models/` :
+  - `visual_models.py` (181 LOC) : VisualBlock, VisualHierarchy, VisualScore, VisualReport
+  - `context_models.py` (155 LOC) : PageContext, ClientContext, ContextPackInput, ContextPackOutput, EvidenceFactModel
+  - `recos_models.py` (177 LOC) : RecoInput, RecoEnriched, RecoBatch, EvidenceLedgerEntry (V26.A invariant `evidence_ids min_length=1`)
+- **3 fichiers top-coupling refactorisés** :
+  - `moteur_gsg/core/visual_intelligence.py` (308 → 312 LOC) : signature publique typée VisualReport
+  - `moteur_gsg/core/context_pack.py` (341 → 380 LOC) : returns ContextPackOutput, `_as_dict()` helper centralise narrowing
+  - `growthcro/recos/orchestrator.py` (610 → 680 LOC, sous ceiling 800) : typed `orchestrate_recos(input: RecoInput) -> RecoBatch`
+- **Callsites mis à jour** : `growthcro/capture/scorer.py`, `moteur_gsg/modes/mode_1_complete.py`, `growthcro/recos/cli.py` (new `view` subcommand), `growthcro/recos/client.py`
+- **Config mypy** : `pyproject.toml` `[tool.mypy]` + overrides strict sur top-3 + 3 modules models. `follow_imports = "silent"` anti-cascade.
+- **Gate** : `scripts/typecheck.sh` (59 LOC) two-stage : strict scope (zero error obligatoire) + global budget (régression-proof à 603).
+- **Doctrine** : nouveau §TYPING dans `CODE_DOCTRINE.md` (règle Pydantic à frontière inter-module, anti-pattern `# type: ignore`).
+
+**Métriques mesurées** :
+- mypy strict scope : **13 errors → 0** (100% absorbed)
+- mypy global (epic branch) : **624 → 598** (-26, -4% side-benefit)
+- 0 régression V26.AF (préservation vacuous — persona_narrator.py n'existe plus, drift documenté ci-dessous)
+- 0 régression V3.2.1 / V3.3 (playbooks intacts)
+- 0 régression parity weglot (108 files baseline)
+- 0 régression SCHEMA (3439 files)
+- 0 nouveau `# type: ignore` introduit
+- Gates 6/6 GSG : 5 PASS + 1 FAIL `creative_route_selector` (Golden refs manquantes, pré-existant baseline, non-régression)
+
+**Découvertes / drifts identifiés** (à traiter en sprints follow-up dédiés, hors scope #34) :
+- **`moteur_gsg/core/persona_narrator.py` n'existe plus** : module retiré dans un cleanup antérieur (codebase-cleanup ou webapp-stratosphere). Anti-pattern #1 de CLAUDE.md ("Mega-prompt persona_narrator >8K chars") et règle immuable "Hard limit prompt persona_narrator ≤8K chars" sont des références stale. À déprécier dans un commit doctrine séparé sous validation Mathis.
+- **Imports cassés sur `mode_1_persona_narrator`** dans `moteur_gsg/modes/mode_3_extend.py:90` et `moteur_gsg/modes/mode_4_elevate.py:108` (module supprimé, imports non-nettoyés). 2 mypy errors `import-not-found`. À fixer en sprint cleanup follow-up.
+- **PRD baseline 88 errors stale** : mesurée avec older mypy + flags différents. Real baseline avec mypy 2.1.0 default = 624. Contrat de scope réécrit : "13 strict → 0" + "no global regression" plutôt que cible numérique magique.
+
+**Note V26.A** : invariant evidence_ids non-empty enforced niveau Pydantic via `Field(..., min_length=1)`. Round-trip validé sur `data/captures/doctolib/home/recos_v13_final.json` (27 recos, tous evidence_ids non-empty).
+
+**Next sprint candidates** :
+- Pydantic-iser top 5 suivants (capture/orchestrator, mode_1/orchestrator, multi_judge/orchestrator, gsg_lp/lp_orchestrator, scorer) → tightening progressif du global budget
+- Cleanup imports persona_narrator dans mode_3_extend + mode_4_elevate
+- Déprécier références V26.AF doctrine post-validation Mathis
+- Export JSON Schema → TS pour webapp V28 (Epic 4 Wave B)
+
+---
+
 ### 2026-05-12 — Observability Migration (#28)
 
 **Trigger** : Task #28 du programme `hardening-and-skills-uplift`, PRD FR-4. Migrer top-10 pipelines `print()` → logger structuré JSON-line (Logfire/Axiom/Sentry compatible).
