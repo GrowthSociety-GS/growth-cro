@@ -279,7 +279,8 @@ def analyze_response(answer: str, brand_name: str, citations: list | None = None
 # ────────────────────────────────────────────────────────────────
 
 def _cache_key(query: str, engine_name: str) -> str:
-    h = hashlib.md5()
+    # MD5 used purely as a content-addressed cache key (not for crypto/auth).
+    h = hashlib.md5(usedforsecurity=False)
     h.update((query + "|" + engine_name).encode())
     return h.hexdigest()
 

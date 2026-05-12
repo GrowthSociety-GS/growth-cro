@@ -281,7 +281,8 @@ def _file_info(p: pathlib.Path) -> dict:
         "exists": True,
         "lines": txt.count("\n") + 1,
         "size_bytes": p.stat().st_size,
-        "sha1": hashlib.sha1(txt.encode("utf-8")).hexdigest()[:10],
+        # SHA1 used as a 10-char file-content fingerprint for snapshots (not for crypto/auth).
+        "sha1": hashlib.sha1(txt.encode("utf-8"), usedforsecurity=False).hexdigest()[:10],
         "first_docstring": _extract_docstring(txt),
     }
 

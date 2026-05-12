@@ -167,7 +167,8 @@ def _section_signature(sec: dict) -> str:
     key = f"{bb.get('x',0)}-{bb.get('y',0)}-{bb.get('w',0)}-{bb.get('h',0)}"
     elts = sec.get("elements", [])
     sigs = sorted([_element_signature(e) for e in elts if isinstance(e, dict)])
-    digest = hashlib.sha1("|".join(sigs).encode("utf-8")).hexdigest()[:10]
+    # SHA1 used as a 10-char layout deduplication fingerprint (not for crypto/auth).
+    digest = hashlib.sha1("|".join(sigs).encode("utf-8"), usedforsecurity=False).hexdigest()[:10]
     return f"{key}|{digest}"
 
 
