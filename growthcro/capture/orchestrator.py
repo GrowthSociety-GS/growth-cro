@@ -18,6 +18,10 @@ from .cloud import get_brightdata_endpoint
 from .dom import ANNOTATE_JS, REMOVE_ANNOTATIONS_JS, load_extraction_js
 from .persist import assemble_spatial_v9, write_html, write_spatial_v9
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 # ══════════════════════════════════════════════════════════════
 # SINGLE PAGE CAPTURE
@@ -60,7 +64,7 @@ async def capture_page(
 
     try:
         # ── Navigate ──
-        print(f"  ⏳ Navigation vers {url}...")
+        logger.info(f"  ⏳ Navigation vers {url}...")
         await page.goto(url, wait_until="domcontentloaded", timeout=min(timeout, 60000))
         # Wait for lazy-loaded content
         await page.wait_for_timeout(3000)
@@ -101,9 +105,9 @@ async def capture_page(
                 await page.wait_for_timeout(2000)
                 await page.evaluate("() => { window.scrollTo(0, 300); window.scrollTo(0, 0); }")
         if nodes <= 50 and text_len <= 500:
-            print(f"  ⚠️  SPA lent : {nodes} nodes, {text_len} chars après {(attempt+1)*2}s d'attente")
+            logger.info(f"  ⚠️  SPA lent : {nodes} nodes, {text_len} chars après {(attempt+1)*2}s d'attente")
         else:
-            print(f"  ✅ Contenu rendu : {nodes} nodes, {text_len} chars")
+            logger.info(f"  ✅ Contenu rendu : {nodes} nodes, {text_len} chars")
         stages.append("settle")
 
         # ── 403 / Bot-block Detection + Bright Data Auto-Retry ──
@@ -120,17 +124,17 @@ async def capture_page(
             if block_check.get("blocked"):
                 bd_endpoint = get_brightdata_endpoint()
                 if bd_endpoint:
-                    print(f"  🚫 BLOQUÉ (403) — H1: \"{block_check.get('h1', '')}\"")
-                    print("  🔶 Retry automatique via Bright Data Scraping Browser...")
+                    logger.info(f"  🚫 BLOQUÉ (403) — H1: \"{block_check.get('h1', '')}\"")
+                    logger.info("  🔶 Retry automatique via Bright Data Scraping Browser...")
                     await context.close()
                     result = await retry_with_fallback(
                         url, label, page_type, out_dir, timeout, extraction_js,
                     )
                     return result
                 else:
-                    print(f"  🚫 BLOQUÉ (403) — H1: \"{block_check.get('h1', '')}\"")
-                    print("  ⚠️  Pas de Bright Data configuré. Pour activer le fallback automatique :")
-                    print("      export BRIGHTDATA_AUTH='brd-customer-XXX-zone-scraping_browser:PASSWORD'")
+                    logger.info(f"  🚫 BLOQUÉ (403) — H1: \"{block_check.get('h1', '')}\"")
+                    logger.info("  ⚠️  Pas de Bright Data configuré. Pour activer le fallback automatique :")
+                    logger.info("      export BRIGHTDATA_AUTH='brd-customer-XXX-zone-scraping_browser:PASSWORD'")
 
         # ── Stage 2: Fold desktop screenshot ──
         try:
@@ -164,7 +168,7 @@ async def capture_page(
             await page.wait_for_timeout(800)
             stages.append("cookie_dismiss")
             if cookie_method != "none":
-                print(f"  🍪 Cookie banner handled ({cookie_method})")
+                logger.info(f"  🍪 Cookie banner handled ({cookie_method})")
         except Exception as e:
             errors.append({"stage": "cookie_dismiss", "msg": str(e)[:200]})
 
@@ -185,7 +189,7 @@ async def capture_page(
             await page.wait_for_timeout(800)
             final_h = await page.evaluate("() => document.body.scrollHeight")
             final_nodes = await page.evaluate("() => document.body.querySelectorAll('*').length")
-            print(f"  📜 Deep scroll: {scroll_passes} steps, {total_h}→{final_h}px, {final_nodes} nodes")
+            logger.info(f"  📜 Deep scroll: {scroll_passes} steps, {total_h}→{final_h}px, {final_nodes} nodes")
             stages.append("deep_scroll")
         except Exception as e:
             errors.append({"stage": "deep_scroll", "msg": str(e)[:200]})
@@ -199,9 +203,9 @@ async def capture_page(
                 stages.append("extract")
             except Exception as e:
                 errors.append({"stage": "extract", "msg": str(e)[:400]})
-                print(f"  ⚠️  Extract error: {str(e)[:200]}")
+                logger.info(f"  ⚠️  Extract error: {str(e)[:200]}")
         else:
-            print("  ⚠️  Extraction JS non chargé — spatial_v9 sera vide")
+            logger.info("  ⚠️  Extraction JS non chargé — spatial_v9 sera vide")
 
         # ── Stage 5: Full page screenshot (clean) ──
         try:
@@ -222,7 +226,7 @@ async def capture_page(
             rendered_html = await page.content()
             write_html(out_dir, rendered_html)
             html_kb = len(rendered_html) / 1024
-            print(f"  💾 page.html dumped ({html_kb:.1f} KB rendered DOM)")
+            logger.info(f"  💾 page.html dumped ({html_kb:.1f} KB rendered DOM)")
             stages.append("dump_html")
         except Exception as e:
             errors.append({"stage": "dump_html", "msg": str(e)[:200]})
@@ -305,12 +309,12 @@ async def run_batch(pw, batch_file: str, cloud: bool, ws_endpoint: Optional[str]
     tasks = json.loads(pathlib.Path(batch_file).read_text())
     extraction_js = load_extraction_js()
 
-    print(f"\n{'='*60}")
-    print("GHOST CAPTURE CLOUD — BATCH MODE")
-    print(f"  Tasks: {len(tasks)}")
-    print(f"  Mode: {'CLOUD' if cloud else 'LOCAL'}")
-    print(f"  Concurrency: {concurrency}")
-    print(f"{'='*60}\n")
+    logger.info(f"\n{'='*60}")
+    logger.info("GHOST CAPTURE CLOUD — BATCH MODE")
+    logger.info(f"  Tasks: {len(tasks)}")
+    logger.info(f"  Mode: {'CLOUD' if cloud else 'LOCAL'}")
+    logger.info(f"  Concurrency: {concurrency}")
+    logger.info(f"{'='*60}\n")
 
     browser = await get_browser(pw, cloud, ws_endpoint)
     RESTART_EVERY = 10
@@ -325,7 +329,7 @@ async def run_batch(pw, batch_file: str, cloud: bool, ws_endpoint: Optional[str]
                 await browser.close()
             except Exception:
                 pass
-            print(f"  [browser] relancement après {chunk_counter} chunks")
+            logger.info(f"  [browser] relancement après {chunk_counter} chunks")
             browser = await get_browser(pw, cloud, ws_endpoint)
 
         chunk = tasks[i : i + concurrency]
@@ -340,12 +344,14 @@ async def run_batch(pw, batch_file: str, cloud: bool, ws_endpoint: Optional[str]
                 )
                 completed += 1
                 status = "✅" if result["ok"] else "❌"
-                print(f"  [{completed}/{len(tasks)}] {status} {task['label']}/{task['pageType']}: "
-                      f"{result['sections']} sections ({result['elapsed']}s)")
+                logger.info(
+                    f"  [{completed}/{len(tasks)}] {status} {task['label']}/{task['pageType']}: "
+                    f"{result['sections']} sections ({result['elapsed']}s)"
+                )
                 return result
             except Exception as e:
                 completed += 1
-                print(f"  [{completed}/{len(tasks)}] ❌ {task['label']}/{task['pageType']}: {str(e)[:100]}")
+                logger.info(f"  [{completed}/{len(tasks)}] ❌ {task['label']}/{task['pageType']}: {str(e)[:100]}")
                 return {"ok": False, "label": task["label"], "pageType": task["pageType"], "error": str(e)[:200]}
 
         chunk_results = await asyncio.gather(*[process_task(t) for t in chunk])
@@ -361,9 +367,9 @@ async def run_batch(pw, batch_file: str, cloud: bool, ws_endpoint: Optional[str]
         pass
 
     ok_count = sum(1 for r in results if r.get("ok"))
-    print(f"\n{'='*60}")
-    print(f"BATCH COMPLETE — {ok_count}/{len(results)} OK")
-    print(f"{'='*60}\n")
+    logger.info(f"\n{'='*60}")
+    logger.info(f"BATCH COMPLETE — {ok_count}/{len(results)} OK")
+    logger.info(f"{'='*60}\n")
     return results
 
 
@@ -385,23 +391,25 @@ async def run_single(pw, url: str, label: str, page_type: str, out_dir: str,
         bd_available = get_brightdata_endpoint() is not None
         mode_str = "LOCAL" + (" + Bright Data fallback" if bd_available else "")
 
-    print(f"\n{'='*60}")
-    print(f"GHOST CAPTURE CLOUD — {label}/{page_type}")
-    print(f"  URL:    {url}")
-    print(f"  Mode:   {mode_str}")
-    print(f"  Output: {out_path}")
-    print(f"{'='*60}\n")
+    logger.info(f"\n{'='*60}")
+    logger.info(f"GHOST CAPTURE CLOUD — {label}/{page_type}")
+    logger.info(f"  URL:    {url}")
+    logger.info(f"  Mode:   {mode_str}")
+    logger.info(f"  Output: {out_path}")
+    logger.info(f"{'='*60}\n")
 
     browser = await get_browser(pw, cloud, ws_endpoint, force_brightdata=force_brightdata)
     result = await capture_page(browser, url, label, page_type, out_path, timeout, extraction_js)
     await browser.close()
 
     status = "✅" if result["ok"] else "❌"
-    print(f"\n{status} {result['label']}/{result['pageType']}: "
-          f"{result['sections']} sections, completeness={result['completeness']} ({result['elapsed']}s)")
+    logger.info(
+        f"\n{status} {result['label']}/{result['pageType']}: "
+        f"{result['sections']} sections, completeness={result['completeness']} ({result['elapsed']}s)"
+    )
     if result["errors"]:
         err_parts = [f"{e['stage']}: {e['msg'][:80]}" for e in result["errors"]]
-        print(f"  Errors: {'; '.join(err_parts)}")
+        logger.info(f"  Errors: {'; '.join(err_parts)}")
 
     # Output JSON result to stdout for Python bridge (same as ghost_capture.js)
     print(f"\n__GHOST_RESULT__{json.dumps(result)}")
