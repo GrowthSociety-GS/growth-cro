@@ -115,9 +115,18 @@ any future drift if a similar dir is ever recreated in an active path.
 
 Commits in this branch (Issue #38):
 - `5742ea6` Issue #38: add .gitignore guard **/_archive_deprecated_*/ pattern
-- `<next>` Issue #38: completion signal
+- `787f7a3` (carried) progress.md status sync via #36 commit (concurrent sweep)
+- this commit: Issue #38: completion signal
 
-Final gate snapshot:
+Final gate snapshot (post all #36/#37/#38 commits on branch):
 - lint FAIL=0 / WARN=39 / INFO=91 / DEBT=5
 - mypy 582 errors (budget 603), typecheck.sh exit 0
 - parity weglot exit 0 / SCHEMA exit 0 / Orphans HIGH=0
+
+## Coordination note
+
+A concurrent worktree process (Issue #36 agent) auto-included this file's
+"Status" block update inside commit `787f7a3` ("feat(cleanup): split
+copy_writer.py..."). This is harmless — the progress.md content is correct,
+just sequenced inside another commit. The completion signal below is the
+explicit closure marker for #38.
