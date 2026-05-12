@@ -2,6 +2,15 @@
 
 Single concern: orchestrate the read-from-disk → call-prompts/client →
 write-to-disk dance. No prompt strings, no API transport, no argparse.
+
+Two public entry points exist:
+
+* Legacy (async): ``prepare_prompts`` + ``process_page`` + ``run_async`` —
+  drive the async LLM batch loop consumed by ``growthcro/recos/cli.py``.
+* Typed (Issue #32): ``orchestrate_recos(input: RecoInput) -> RecoBatch`` —
+  reads the post-pipeline artifact ``recos_v13_final.json`` from disk and
+  returns a typed Pydantic batch. V26.A invariant enforced by ``RecoBatch``
+  (every reco carries non-empty ``evidence_ids``).
 """
 from __future__ import annotations
 
@@ -10,17 +19,30 @@ import json
 import sys
 import time
 from pathlib import Path
+from typing import Any, Optional, TypedDict
 
+from growthcro.models.recos_models import RecoBatch, RecoInput
 from growthcro.recos import client as _client
 from growthcro.recos import prompts as _prompts
 from growthcro.recos import schema as _schema
+
+
+class PageStats(TypedDict):
+    """Per-page enrichment stats returned by ``process_page``."""
+    client: str
+    page: str
+    n_ok: int
+    n_fallback: int
+    n_skipped: int
+    tokens: int
+    n_retries: int
 
 
 # ────────────────────────────────────────────────────────────────
 # Optional imports — kept lazy + tolerant of missing repos
 # ────────────────────────────────────────────────────────────────
 try:
-    from golden_bridge import GoldenBridge  # type: ignore
+    from golden_bridge import GoldenBridge
     _golden_bridge = GoldenBridge(".")
     _GOLDEN_AVAILABLE = True
 except ImportError:
@@ -28,7 +50,7 @@ except ImportError:
     _GOLDEN_AVAILABLE = False
 
 try:
-    from golden_differential import compute_differential_block as _golden_diff_block  # type: ignore
+    from golden_differential import compute_differential_block as _golden_diff_block
     _GOLDEN_DIFF_AVAILABLE = True
 except ImportError:
     _golden_diff_block = None
@@ -38,7 +60,13 @@ except ImportError:
 # ────────────────────────────────────────────────────────────────
 # prepare_prompts — page-level prompt assembly + JSON write
 # ────────────────────────────────────────────────────────────────
-def prepare_prompts(client: str, page: str, top: int, data_dir: Path, strict: bool = True) -> Path | None:
+def prepare_prompts(
+    client: str,
+    page: str,
+    top: int,
+    data_dir: Path,
+    strict: bool = True,
+) -> Optional[Path]:
     page_dir = data_dir / client / page
     if not page_dir.exists():
         msg = f"{page_dir} n'existe pas"
@@ -105,7 +133,7 @@ def prepare_prompts(client: str, page: str, top: int, data_dir: Path, strict: bo
             pass
 
     # V21.F.2 — existing scores for "what_works" + current_score gating
-    client_scores: dict[str, dict] = {}
+    client_scores: dict[str, dict[str, Any]] = {}
     for score_file in page_dir.glob("score_*.json"):
         try:
             d = json.load(open(score_file))
@@ -131,7 +159,7 @@ def prepare_prompts(client: str, page: str, top: int, data_dir: Path, strict: bo
             pass
 
     # V21.B — Vision signals (ground truth)
-    vision_signals: dict[str, dict] = {"desktop": {}, "mobile": {}}
+    vision_signals: dict[str, dict[str, Any]] = {"desktop": {}, "mobile": {}}
     for vp in ("desktop", "mobile"):
         vp_path = page_dir / f"vision_{vp}.json"
         if vp_path.exists():
@@ -198,8 +226,9 @@ def prepare_prompts(client: str, page: str, top: int, data_dir: Path, strict: bo
         "funnel": funnel_data,
     }
 
-    def reco_rank(r: dict) -> float:
-        priority_weight = {"P0": 4, "P1": 3, "P2": 2, "P3": 1}.get(r.get("priority"), 1)
+    def reco_rank(r: dict[str, Any]) -> float:
+        prio_key = r.get("priority")
+        priority_weight = {"P0": 4, "P1": 3, "P2": 2, "P3": 1}.get(prio_key or "", 1)
         ap_weight = len(r.get("anti_patterns", []) or []) * 0.5
         ice = r.get("ice_score") or 0
         return priority_weight + ap_weight + (ice / 100)
@@ -207,7 +236,7 @@ def prepare_prompts(client: str, page: str, top: int, data_dir: Path, strict: bo
     ranked = sorted(recos_v12, key=reco_rank, reverse=True)
     selected = ranked if top <= 0 else ranked[:top]
 
-    prompts_out: list[dict] = []
+    prompts_out: list[dict[str, Any]] = []
     for r in selected:
         crit_id = r.get("criterion_id")
         if not crit_id:
@@ -251,7 +280,7 @@ def prepare_prompts(client: str, page: str, top: int, data_dir: Path, strict: bo
             page_type=page,
             intent_slug=intent_data.get("primary_intent", ""),
             business_category=client_cat,
-            score_band=priority_to_band.get(r.get("priority"), "critical"),
+            score_band=priority_to_band.get(r.get("priority") or "", "critical"),
             limit=2,
         )
 
@@ -367,20 +396,20 @@ def prepare_prompts(client: str, page: str, top: int, data_dir: Path, strict: bo
 # process_page — per-page LLM batch (called from CLI enrich subcommand)
 # ────────────────────────────────────────────────────────────────
 async def process_page(
-    client_api,
+    client_api: Any,
     prompts_file: Path,
     out_file: Path,
     model: str,
     semaphore: asyncio.Semaphore,
     force: bool = False,
-) -> dict:
+) -> PageStats:
     """{client, page, n_ok, n_fallback, n_skipped, tokens, n_retries}."""
     data = json.load(open(prompts_file))
-    client = data.get("client")
-    page = data.get("page")
-    prompts = data.get("prompts", [])
+    client = data.get("client") or ""
+    page = data.get("page") or ""
+    prompts: list[dict[str, Any]] = data.get("prompts", [])
 
-    existing: dict[str, dict] = {}
+    existing: dict[str, dict[str, Any]] = {}
     if out_file.exists() and not force:
         prev = json.load(open(out_file))
         for r in prev.get("recos", []):
@@ -388,7 +417,7 @@ async def process_page(
 
     write_lock = asyncio.Lock()
 
-    def _snapshot_file(recos_dict: dict[str, dict], n_prompts: int) -> None:
+    def _snapshot_file(recos_dict: dict[str, dict[str, Any]], n_prompts: int) -> None:
         recos_list = list(recos_dict.values())
         n_skipped = sum(1 for r in recos_list if r.get("_skipped"))
         n_fallback = sum(1 for r in recos_list if r.get("_fallback"))
@@ -405,7 +434,11 @@ async def process_page(
             if r.get("_skipped"):
                 reason = r.get("_skipped_reason", "unknown")
                 skipped_reasons[reason] = skipped_reasons.get(reason, 0) + 1
-        grounded = [r.get("_grounding_score") for r in recos_list if r.get("_grounding_score") is not None]
+        grounded: list[float] = [
+            float(score)
+            for r in recos_list
+            if (score := r.get("_grounding_score")) is not None
+        ]
         grounding_avg = round(sum(grounded) / len(grounded), 2) if grounded else None
         grounding_retried = sum(1 for r in recos_list if r.get("_grounding_retried"))
         out = {
@@ -431,7 +464,7 @@ async def process_page(
         tmp.write_text(json.dumps(out, ensure_ascii=False, indent=2))
         tmp.replace(out_file)
 
-    async def _one(p: dict) -> dict | None:
+    async def _one(p: dict[str, Any]) -> Optional[dict[str, Any]]:
         crit_id = p.get("criterion_id")
         if not crit_id:
             return None
@@ -534,8 +567,8 @@ async def process_page(
             _snapshot_file(existing, len(prompts))
         return reco
 
-    results = await asyncio.gather(*[_one(p) for p in prompts])
-    results = [r for r in results if r is not None]
+    raw_results: list[Optional[dict[str, Any]]] = await asyncio.gather(*[_one(p) for p in prompts])
+    results: list[dict[str, Any]] = [r for r in raw_results if r is not None]
 
     n_skipped = sum(1 for r in results if r.get("_skipped"))
     n_fallback = sum(1 for r in results if r.get("_fallback"))
@@ -558,20 +591,27 @@ async def process_page(
 # ────────────────────────────────────────────────────────────────
 # Batch driver (used by CLI enrich subcommand)
 # ────────────────────────────────────────────────────────────────
-async def run_async(prompt_files: list[Path], out_files: list[Path], model: str, max_concurrent: int, force: bool):
+async def run_async(
+    prompt_files: list[Path],
+    out_files: list[Path],
+    model: str,
+    max_concurrent: int,
+    force: bool,
+) -> list[PageStats]:
     client_api = _client.make_client()
     sem = asyncio.Semaphore(max_concurrent)
     tasks = [process_page(client_api, pf, of, model, sem, force) for pf, of in zip(prompt_files, out_files)]
-    results = await asyncio.gather(*tasks)
+    results: list[PageStats] = await asyncio.gather(*tasks)
     total_ok = sum(r["n_ok"] for r in results)
     total_fb = sum(r["n_fallback"] for r in results)
-    total_skipped = sum(r.get("n_skipped", 0) for r in results)
+    total_skipped = sum(r["n_skipped"] for r in results)
     total_tokens = sum(r["tokens"] for r in results)
-    total_retries = sum(r.get("n_retries", 0) for r in results)
+    total_retries = sum(r["n_retries"] for r in results)
     retry_note = f" · {total_retries} retries" if total_retries else ""
     fb_note = f" · {total_fb} fallback" + (" ⚠️ VISIBLE" if total_fb else "")
     skip_note = f" · {total_skipped} skipped (cluster missing)" if total_skipped else ""
     print(f"\n✓ {len(results)} pages · {total_ok} OK{fb_note}{skip_note} · {total_tokens:,} tokens{retry_note}")
+    return results
 
 
 # ────────────────────────────────────────────────────────────────
@@ -608,3 +648,37 @@ def dry_run(data_dir: Path) -> None:
     print(f"Tokens estimés: ~{int(tokens_in):,} in + ~{int(tokens_out):,} out")
     print(f"Coût estimé Sonnet 4.6 : ${cost_sonnet:.2f}")
     print(f"Coût estimé Haiku 4.5  : ${cost_haiku:.2f}")
+
+
+# ────────────────────────────────────────────────────────────────
+# Typed public entry point (Issue #32)
+# ────────────────────────────────────────────────────────────────
+def orchestrate_recos(input: RecoInput) -> RecoBatch:
+    """Read the post-pipeline ``recos_v13_final.json`` artifact and return a typed batch.
+
+    This is the typing-strict public boundary (Issue #32). It does *not* call
+    the LLM — the legacy async pipeline (``prepare_prompts`` → ``run_async``)
+    plus the downstream evidence-linking step
+    (``skills/site-capture/scripts/enrich_scores_with_evidence.py``) must have
+    run first. The returned ``RecoBatch`` enforces the V26.A invariant via
+    ``RecoEnriched.evidence_ids`` — a non-empty list is required per reco.
+
+    Raises:
+        FileNotFoundError: if ``recos_v13_final.json`` is absent (pipeline
+            did not run for this slug/page_type).
+        pydantic.ValidationError: if any reco fails the V26.A invariant
+            (empty ``evidence_ids``) or other Pydantic constraints.
+    """
+    page_dir = Path(input.data_dir) / input.slug / input.page_type
+    final_path = page_dir / "recos_v13_final.json"
+    if not final_path.exists():
+        raise FileNotFoundError(
+            f"{final_path} not found — run `python3 -m growthcro.recos enrich "
+            f"--client {input.slug} --page {input.page_type}` first."
+        )
+    raw: dict[str, Any] = json.load(open(final_path))
+    return RecoBatch.from_legacy_dict(
+        slug=input.slug,
+        page_type=input.page_type,
+        raw=raw,
+    )

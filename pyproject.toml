@@ -32,3 +32,60 @@ dependencies = []
 [tool.setuptools.packages.find]
 include = ["growthcro*"]
 exclude = ["_archive*", "tests*", "deliverables*", "data*"]
+
+# ──────────────────────────────────────────────────────────────────
+# Mypy — progressive strict adoption (Task #33)
+#
+# Strategy: global mypy stays loose (no --strict by default) so the
+# 219-source-file tree can be absorbed gradually under a regression
+# budget (see scripts/typecheck.sh). The Pydantic-ized "top-3"
+# (visual_intelligence, context_pack, recos.orchestrator) + the
+# canonical models package opt in to ``strict = true`` via the
+# per-module override below.
+#
+# ``follow_imports = "silent"`` is critical: it prevents strict mode
+# from cascading to transitive imports (which would catch issues
+# outside our scope and block the gate). Strict applies ONLY to the
+# listed modules.
+#
+# ``mypy_path = "scripts"`` lets mypy resolve ``from client_context
+# import ...`` which is the runtime ``sys.path.insert`` pattern used
+# by moteur_gsg.core.context_pack. Same effect as the runtime hack,
+# but visible to the type checker.
+# ──────────────────────────────────────────────────────────────────
+[tool.mypy]
+python_version = "3.13"
+mypy_path = "scripts"
+ignore_missing_imports = true
+warn_unused_configs = true
+follow_imports = "silent"  # don't cascade per-module strict to transitive deps
+# Global mypy stays loose (no ``strict`` flag) for progressive absorption.
+# Strict opt-in is per-module via the override block below (Task #33).
+
+[[tool.mypy.overrides]]
+module = [
+  "moteur_gsg.core.visual_intelligence",
+  "moteur_gsg.core.context_pack",
+  "growthcro.recos.orchestrator",
+  "growthcro.models",
+  "growthcro.models.visual_models",
+  "growthcro.models.context_models",
+  "growthcro.models.recos_models",
+]
+# Strict flag set, listed explicitly. Per mypy docs, a few strict
+# subflags (``warn_redundant_casts``, ``warn_unused_ignores``,
+# ``strict_equality``) are GLOBAL-only — they're applied via the
+# ``[tool.mypy]`` block above. The flags below are the per-module
+# subset that mypy accepts in an override and are scoped to these
+# modules only.
+disallow_any_generics = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+warn_return_any = true
+no_implicit_reexport = true
+extra_checks = true
+disable_error_code = ["import-untyped"]

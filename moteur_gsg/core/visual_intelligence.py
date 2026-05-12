@@ -3,60 +3,35 @@
 AURA should not operate as an isolated source of taste. This module translates
 GrowthCRO strategy + client context + doctrine into a compact visual language
 contract that can feed AURA, Creative Director, Golden Bridge and the renderer.
+
+Issue #30 — Pydantic-ize visual_intelligence (typing-strict-rollout):
+The historical dataclasses ``VisualIntelligencePack`` and ``CreativeRouteContract``
+are re-exposed here as thin re-exports of Pydantic v2 models living in
+``growthcro/models/visual_models.py`` (``VisualReport``, ``CreativeRouteReport``).
+The legacy names are kept as aliases for backward compatibility with existing
+consumers (mode_1_complete, creative_route_selector, visual_system) that
+import them by name. ``.to_dict()`` is preserved on the Pydantic models so
+no downstream callsite changes are required.
+
+The 13 union-attr mypy errors in the legacy implementation came from
+``Optional[X].attr`` accesses on dict-returning helpers; the Pydantic boundary
+guarantees presence of required fields and makes optionals explicit, absorbing
+them at the public API frontier.
 """
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
 from typing import Any
 
+from growthcro.models.visual_models import CreativeRouteReport, VisualReport
 
-@dataclass
-class VisualIntelligencePack:
-    version: str
-    page_type: str
-    business_category: str
-    visual_role: str
-    density: str
-    warmth: str
-    energy: str
-    editoriality: str
-    product_visibility: str
-    proof_visibility: str
-    motion_profile: str
-    image_direction: list[str] = field(default_factory=list)
-    composition_directives: list[str] = field(default_factory=list)
-    aura_input_contract: dict[str, Any] = field(default_factory=dict)
-    creative_director_seed: dict[str, Any] = field(default_factory=dict)
-    golden_bridge_query: dict[str, Any] = field(default_factory=dict)
-    risk_flags: list[str] = field(default_factory=list)
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+# ─────────────────────────────────────────────────────────────────────────────
+# Backward-compat aliases — external code imports these names.
+# ─────────────────────────────────────────────────────────────────────────────
+VisualIntelligencePack = VisualReport
+CreativeRouteContract = CreativeRouteReport
 
 
-@dataclass
-class CreativeRouteContract:
-    version: str
-    route_name: str
-    risk_level: str
-    aesthetic_thesis: str
-    typography_thesis: str
-    color_thesis: str
-    motion_thesis: str
-    section_rhythm: str
-    component_emphasis: list[str] = field(default_factory=list)
-    must_not_do: list[str] = field(default_factory=list)
-    golden_references: list[dict[str, Any]] = field(default_factory=list)
-    technique_references: list[dict[str, Any]] = field(default_factory=list)
-    route_decisions: dict[str, Any] = field(default_factory=dict)
-    renderer_overrides: dict[str, Any] = field(default_factory=dict)
-    source: str = "deterministic_visual_intelligence"
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
-
-
-PAGE_VISUAL_ROLES = {
+PAGE_VISUAL_ROLES: dict[str, str] = {
     "lp_listicle": "premium_editorial_argument",
     "listicle": "premium_editorial_argument",
     "advertorial": "native_editorial_persuasion",
@@ -144,7 +119,7 @@ def _image_direction(page_type: str, business_category: str, context_pack: dict[
 
 
 def _composition_directives(page_type: str, business_category: str, proof_visibility: str) -> list[str]:
-    directives = []
+    directives: list[str] = []
     if page_type in {"lp_listicle", "listicle"}:
         directives.extend([
             "single strong reading column with controlled interruptions",
@@ -181,11 +156,17 @@ def build_visual_intelligence_pack(
     context_pack: dict[str, Any],
     doctrine_pack: dict[str, Any],
     brief: dict[str, Any],
-) -> VisualIntelligencePack:
-    """Build the strategy-aware visual contract that feeds AURA and routing."""
+) -> VisualReport:
+    """Build the strategy-aware visual contract that feeds AURA and routing.
+
+    Returns ``VisualReport`` (Pydantic v2). The legacy name
+    ``VisualIntelligencePack`` is aliased to the same type for backward compat.
+    """
     page_type = context_pack.get("page_type") or doctrine_pack.get("page_type") or "unknown"
     business = context_pack.get("business") or {}
-    business_category = business.get("category") or doctrine_pack.get("business_category") or "generic_cro"
+    business_category = (
+        business.get("category") or doctrine_pack.get("business_category") or "generic_cro"
+    )
     traffic_sources = _traffic_sources(context_pack)
     proof_visibility = _proof_visibility(context_pack, doctrine_pack)
     density = _density(page_type, business_category, context_pack)
@@ -208,7 +189,8 @@ def build_visual_intelligence_pack(
     elif business_category == "luxury":
         motion_profile = "minimal_tactile"
 
-    aura_input = {
+    audience = context_pack.get("audience") or {}
+    aura_input: dict[str, Any] = {
         "page_type": page_type,
         "business_category": business_category,
         "visual_role": visual_role,
@@ -221,12 +203,13 @@ def build_visual_intelligence_pack(
         "brand_palette": brand.get("palette") or [],
         "brand_display_font": brand.get("display_font"),
         "brand_body_font": brand.get("body_font"),
-        "objective": (context_pack.get("audience") or {}).get("objective"),
+        "objective": audience.get("objective"),
         "angle": brief.get("angle"),
     }
 
-    return VisualIntelligencePack(
+    return VisualReport(
         version="gsg-visual-intelligence-v27.2",
+        slug=str(context_pack.get("slug") or brief.get("slug") or ""),
         page_type=page_type,
         business_category=business_category,
         visual_role=visual_role,
@@ -264,23 +247,34 @@ def build_creative_route_contract(
     *,
     visual_pack: dict[str, Any],
     selected_route: dict[str, Any] | None = None,
-) -> CreativeRouteContract:
-    """Build a deterministic route contract, optionally enriched by Creative Director."""
+) -> CreativeRouteReport:
+    """Build a deterministic route contract, optionally enriched by Creative Director.
+
+    Returns ``CreativeRouteReport`` (Pydantic v2). The legacy name
+    ``CreativeRouteContract`` is aliased to the same type for backward compat.
+    """
     route = selected_route or {}
-    route_body = route.get("route") if isinstance(route.get("route"), dict) else route
+    nested = route.get("route")
+    route_body: dict[str, Any] = nested if isinstance(nested, dict) else route
     visual_role = visual_pack.get("visual_role") or "contextual_conversion_page"
-    risk_level = route_body.get("risk_level") or (visual_pack.get("creative_director_seed") or {}).get("risk_default") or "premium"
+    seed = visual_pack.get("creative_director_seed") or {}
+    risk_level = route_body.get("risk_level") or seed.get("risk_default") or "premium"
     name = route_body.get("name") or f"{visual_role.replace('_', ' ').title()} Route"
 
-    return CreativeRouteContract(
+    return CreativeRouteReport(
         version="gsg-creative-route-contract-v27.2",
         route_name=name,
         risk_level=risk_level,
-        aesthetic_thesis=route_body.get("aesthetic_philosophy") or f"Make the page feel like a {visual_role}, not a generic landing page.",
-        typography_thesis=route_body.get("typography_thesis") or "Use brand typography as hierarchy system; no negative letter spacing.",
-        color_thesis=route_body.get("color_thesis") or "Respect brand palette, use accent with restraint, avoid one-note monochrome.",
-        motion_thesis=route_body.get("motion_thesis") or f"Motion profile: {visual_pack.get('motion_profile', 'subtle_stateful')}.",
-        section_rhythm=route_body.get("layout_concept") or f"Density: {visual_pack.get('density')}; energy: {visual_pack.get('energy')}.",
+        aesthetic_thesis=route_body.get("aesthetic_philosophy")
+            or f"Make the page feel like a {visual_role}, not a generic landing page.",
+        typography_thesis=route_body.get("typography_thesis")
+            or "Use brand typography as hierarchy system; no negative letter spacing.",
+        color_thesis=route_body.get("color_thesis")
+            or "Respect brand palette, use accent with restraint, avoid one-note monochrome.",
+        motion_thesis=route_body.get("motion_thesis")
+            or f"Motion profile: {visual_pack.get('motion_profile', 'subtle_stateful')}.",
+        section_rhythm=route_body.get("layout_concept")
+            or f"Density: {visual_pack.get('density')}; energy: {visual_pack.get('energy')}.",
         component_emphasis=list(visual_pack.get("composition_directives") or []),
         must_not_do=list(route_body.get("must_not_do") or visual_pack.get("risk_flags") or []),
         golden_references=list(route_body.get("golden_references") or []),
@@ -306,3 +300,13 @@ def format_visual_pack_for_prompt(pack: dict[str, Any]) -> str:
     for directive in (pack.get("composition_directives") or [])[:4]:
         lines.append(f"- Composition: {directive}")
     return "\n".join(lines)
+
+
+__all__ = [
+    "PAGE_VISUAL_ROLES",
+    "VisualIntelligencePack",
+    "CreativeRouteContract",
+    "build_visual_intelligence_pack",
+    "build_creative_route_contract",
+    "format_visual_pack_for_prompt",
+]

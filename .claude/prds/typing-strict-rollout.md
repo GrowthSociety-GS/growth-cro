@@ -1,8 +1,9 @@
 ---
 name: typing-strict-rollout
 description: Pydantic-iser les 3 fichiers top-coupling (visual_intelligence + context_pack + recos/orchestrator) pour absorber 37% des mypy errors (88 → ≤55) AVANT scale 100 clients. Sub-PRD Epic 1 du master post-stratosphere-roadmap. Wave A autonome, scope file-disjoint, 4-5j.
-status: active
+status: completed
 created: 2026-05-12T10:00:00Z
+updated: 2026-05-12T12:10:05Z
 parent_prd: post-stratosphere-roadmap
 github_epic: https://github.com/GrowthSociety-GS/growth-cro/issues/29
 wave: A

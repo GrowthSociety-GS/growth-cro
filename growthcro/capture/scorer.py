@@ -38,12 +38,87 @@ from .signals import (
     extract_ux_signals,
 )
 
+from growthcro.models.visual_models import (
+    VisualBlock,
+    VisualBlockRole,
+    VisualHierarchy,
+    VisualReport,
+)
 from growthcro.observability.logger import get_logger
 
 logger = get_logger(__name__)
 
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Issue #30 — typed visual boundary
+# ─────────────────────────────────────────────────────────────────────────────
+_PERCEPTION_ROLE_MAP: dict[str, VisualBlockRole] = {
+    "NAV": "nav",
+    "HERO": "hero",
+    "CONTENT": "feature",
+    "VALUE_PROPS": "feature",
+    "SOCIAL_PROOF": "social_proof",
+    "FINAL_CTA": "cta",
+    "FOOTER": "footer",
+}
+
+
+def perception_to_visual_report(
+    *,
+    perception: dict,
+    slug: str,
+    page_type: str,
+    business_category: str = "generic_cro",
+) -> VisualReport:
+    """Adapt a legacy perception_v13.json payload into a typed ``VisualReport``.
+
+    Consumed via attribute access (``report.hierarchy.blocks[0].role``), this is
+    the typed callsite required by Issue #30 — replaces dict["scores"]["hero"]
+    style indexing with a Pydantic-validated boundary.
+
+    Note: ``perception_v13.json`` is the spatial-clusters output; this adapter
+    feeds the strategy-level ``VisualReport`` with the perception subset.
+    """
+    blocks: list[VisualBlock] = []
+    for cluster in perception.get("clusters", []) or []:
+        bbox = cluster.get("bbox") or {}
+        confidence_raw = cluster.get("confidence")
+        confidence = float(confidence_raw) / 100.0 if confidence_raw is not None else 0.0
+        blocks.append(VisualBlock(
+            block_id=f"c{cluster.get('cluster_id', len(blocks))}",
+            role=_PERCEPTION_ROLE_MAP.get(str(cluster.get("role", "")), "other"),
+            bbox=(int(bbox.get("x", 0)), int(bbox.get("y", 0)),
+                  int(bbox.get("w", 0)), int(bbox.get("h", 0))),
+            text_content=cluster.get("text") or None,
+            confidence=confidence,
+        ))
+
+    primary_id = blocks[0].block_id if blocks else "none"
+    hierarchy = VisualHierarchy(
+        blocks=blocks,
+        primary_block_id=primary_id,
+        reading_order=[b.block_id for b in blocks],
+    )
+    meta = perception.get("meta") or {}
+    return VisualReport(
+        version=str(perception.get("version") or "perception-v13"),
+        slug=slug,
+        page_type=str(meta.get("page_type") or page_type),
+        business_category=business_category,
+        visual_role="contextual_conversion_page",
+        density="medium",
+        warmth="brand_derived",
+        energy="controlled_momentum",
+        editoriality="medium",
+        product_visibility="contextual",
+        proof_visibility="moderate_contextual",
+        motion_profile="subtle_stateful",
+        hierarchy=hierarchy,
+        metadata={"perception_stats": perception.get("stats") or {}},
+    )
 
 
 # ══════════════════════════════════════════════════════════════

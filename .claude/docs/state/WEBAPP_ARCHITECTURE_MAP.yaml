@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-12T08:24:13Z'
-  source_commit: a5d914ea16712c89c9c4c0ec6d5132d046d50127
+  generated_at: '2026-05-12T12:09:25Z'
+  source_commit: 28fad612719ede7b9a0f272badc9168bd48a5555
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -314,6 +314,7 @@ modules:
     - growthcro/capture/dom
     - growthcro/capture/persist
     - growthcro/capture/signals
+    - growthcro/models/visual_models
     - growthcro/observability/logger
     imported_by: []
     doctrine_refs:
@@ -628,6 +629,51 @@ modules:
     - FR-6 codebase-cleanup PRD
     status: active
     lifecycle_phase: infrastructure
+  growthcro/models:
+    path: growthcro/models/__init__.py
+    purpose: TBD — fill purpose
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/models/context_models:
+    path: growthcro/models/context_models.py
+    purpose: Pydantic v2 models for the GSG generation context contract.
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - moteur_gsg/core/context_pack
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/models/recos_models:
+    path: growthcro/models/recos_models.py
+    purpose: 'Pydantic v2 models for the recos pipeline (Issue #32).'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - growthcro/recos/cli
+    - growthcro/recos/orchestrator
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
+  growthcro/models/visual_models:
+    path: growthcro/models/visual_models.py
+    purpose: 'Pydantic v2 models for the visual_intelligence frontier (Issue #30).'
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by:
+    - growthcro/capture/scorer
+    - moteur_gsg/core/visual_intelligence
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: runtime
   growthcro/observability:
     path: growthcro/observability/__init__.py
     purpose: GrowthCRO observability — structured logging foundation.
@@ -940,6 +986,7 @@ modules:
     outputs:
     - orchestrator invocations
     depends_on:
+    - growthcro/models/recos_models
     - growthcro/recos
     imported_by: []
     doctrine_refs: []
@@ -972,6 +1019,7 @@ modules:
     outputs:
     - data/captures/<client>/<page>/recos_enriched.json
     depends_on:
+    - growthcro/models/recos_models
     - growthcro/recos
     imported_by: []
     doctrine_refs:
@@ -1436,7 +1484,8 @@ modules:
     - client_context router
     outputs:
     - GenerationContextPack
-    depends_on: []
+    depends_on:
+    - growthcro/models/context_models
     imported_by:
     - moteur_gsg/core/copy_writer
     - moteur_gsg/modes/mode_1_complete
@@ -1854,7 +1903,8 @@ modules:
     - DoctrineCreationContract
     outputs:
     - VisualIntelligencePack
-    depends_on: []
+    depends_on:
+    - growthcro/models/visual_models
     imported_by:
     - moteur_gsg/core/copy_writer
     - moteur_gsg/core/creative_route_selector
