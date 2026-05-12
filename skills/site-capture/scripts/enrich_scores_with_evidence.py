@@ -30,7 +30,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from evidence_ledger import EvidenceLedger, compute_capture_hash, attach_evidence_to_score, attach_evidence_to_reco
+from evidence_ledger import EvidenceLedger, compute_capture_hash
 
 PILLAR_FILES = [
     "score_hero.json", "score_persuasion.json", "score_ux.json",

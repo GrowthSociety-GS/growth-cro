@@ -35,7 +35,7 @@ import json
 import math
 import pathlib
 import time
-from typing import Any, Optional
+from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
@@ -136,7 +136,7 @@ def estimate_duration_days(sample_size_total: int, daily_traffic: int) -> dict:
         "duration_days": max(raw_days, min_days),
         "rationale": (
             "Min 14j to cover weekly seasonal cycles" if raw_days < min_days
-            else f"Sample size requirement"
+            else "Sample size requirement"
         ),
     }
 

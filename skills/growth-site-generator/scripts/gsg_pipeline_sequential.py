@@ -83,10 +83,8 @@ Usage module :
 from __future__ import annotations
 
 import json
-import os
 import pathlib
 import re
-import sys
 from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -539,7 +537,7 @@ def run_sequential_pipeline(client: str, brand_dna: dict, design_grammar: dict,
 
     # Stage 1
     if verbose:
-        print(f"\n[Stage 1/4] Strategy & Wireframe Narratif")
+        print("\n[Stage 1/4] Strategy & Wireframe Narratif")
     strategy, t1 = stage1_strategy_wireframe(
         brand_dna, design_grammar, creative_route or {},
         business_context, page_type, client, verbose=verbose,
@@ -553,7 +551,7 @@ def run_sequential_pipeline(client: str, brand_dna: dict, design_grammar: dict,
 
     # Stage 2
     if verbose:
-        print(f"\n[Stage 2/4] Copy Writer")
+        print("\n[Stage 2/4] Copy Writer")
     copy_data, t2 = stage2_copy(
         strategy, brand_dna, creative_route or {},
         business_context, copy_hints, verbose=verbose,
@@ -569,7 +567,7 @@ def run_sequential_pipeline(client: str, brand_dna: dict, design_grammar: dict,
 
     # Stage 3
     if verbose:
-        print(f"\n[Stage 3/4] HTML Composer")
+        print("\n[Stage 3/4] HTML Composer")
     html_composer, t3 = stage3_composer(
         strategy, copy_data, brand_dna, aura, design_grammar,
         target_url=target_url, verbose=verbose,
@@ -582,7 +580,7 @@ def run_sequential_pipeline(client: str, brand_dna: dict, design_grammar: dict,
 
     # Stage 4
     if verbose:
-        print(f"\n[Stage 4/4] HTML Polish (creative_route signature_elements)")
+        print("\n[Stage 4/4] HTML Polish (creative_route signature_elements)")
     html_final, t4 = stage4_polish(html_composer, creative_route, verbose=verbose)
     s4_fp = ROOT / "data" / f"_pipeline_{client}_stage4_final.html"
     s4_fp.write_text(html_final)

@@ -27,10 +27,8 @@ import json
 import math
 import pathlib
 import re
-import sys
 from collections import defaultdict
 from datetime import datetime
-from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 GOLDEN_DIR = ROOT / "data" / "golden"

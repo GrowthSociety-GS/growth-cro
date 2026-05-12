@@ -31,7 +31,6 @@ import base64
 import hashlib
 import io
 import json
-import os
 import pathlib
 import sys
 import time
@@ -228,7 +227,8 @@ def recursively_scale_bboxes(obj, factor: float):
 def _vision_cache_key(image_b64: str, viewport: str, img_w: int, img_h: int) -> str:
     """Stable key over (image content, prompt template, viewport+dims, model)."""
     user_prompt = VISION_USER_TMPL.format(viewport=viewport, w=img_w, h=img_h)
-    h = hashlib.md5()
+    # MD5 used purely as an image-content + prompt cache key (not for crypto/auth).
+    h = hashlib.md5(usedforsecurity=False)
     h.update(image_b64.encode())
     h.update(b"|")
     h.update(VISION_SYSTEM.encode())

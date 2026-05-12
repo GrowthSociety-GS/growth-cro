@@ -20,7 +20,6 @@ from __future__ import annotations
 import pathlib
 import sys
 import time
-from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -132,7 +131,7 @@ def run_multi_judge(
 
     # ── 1. Doctrine V3.2 (Sprint 2) ─────────────────────────
     if verbose:
-        print(f"\n→ Juge 1/3 : Doctrine V3.2 (54 critères, paralllélisé par pilier)...")
+        print("\n→ Juge 1/3 : Doctrine V3.2 (54 critères, paralllélisé par pilier)...")
     doctrine_audit = audit_lp_doctrine(html, client, page_type, verbose=verbose, parallel=True)
     audit["doctrine"] = doctrine_audit
 
@@ -140,7 +139,7 @@ def run_multi_judge(
     humanlike_audit = {}
     if not skip_humanlike:
         if verbose:
-            print(f"\n→ Juge 2/3 : Humanlike (8 dim sensorielles, persona DA senior)...")
+            print("\n→ Juge 2/3 : Humanlike (8 dim sensorielles, persona DA senior)...")
         hl_mod = _load_humanlike_module()
         if hl_mod and hasattr(hl_mod, "audit_lp_humanlike"):
             try:
@@ -157,7 +156,7 @@ def run_multi_judge(
     impl_report = {}
     if not skip_implementation:
         if verbose:
-            print(f"\n→ Juge 3/3 : Implementation Check (counter, reveal, opacity bugs)...")
+            print("\n→ Juge 3/3 : Implementation Check (counter, reveal, opacity bugs)...")
         impl_mod = _load_implementation_module()
         if impl_mod and hasattr(impl_mod, "detect_runtime_bugs"):
             try:
@@ -216,15 +215,15 @@ def run_multi_judge(
     }
 
     if verbose:
-        print(f"\n══ Multi-Judge — DONE ══")
+        print("\n══ Multi-Judge — DONE ══")
         print(f"  Doctrine V3.2  : {doctrine_pct}% ({_verdict_tier(doctrine_pct)})")
         if humanlike_pct is not None:
             print(f"  Humanlike      : {humanlike_pct}% ({_verdict_tier(humanlike_pct)})")
         else:
-            print(f"  Humanlike      : ⚠️ failed")
+            print("  Humanlike      : ⚠️ failed")
         if impl_pen:
             print(f"  Impl penalty   : -{impl_pen:.1f}pp")
-        print(f"  ═════════════════════════════════════")
+        print("  ═════════════════════════════════════")
         print(f"  FINAL SCORE    : {final_pct}% — {_verdict_tier(final_pct)}")
         print(f"  Coût total     : ${audit['totals_meta']['cost_estimate_usd']} | Wall : {grand_dt:.1f}s")
         if audit["final"]["killer_rules_violated"]:

@@ -17,7 +17,12 @@ Output :
 
 v2.0 — 2026-04-13 — Ghost engine (local Playwright) par défaut
 """
-import os, sys, json, time, pathlib, subprocess, shutil
+import sys
+import json
+import time
+import pathlib
+import subprocess
+import shutil
 from growthcro.config import config
 # ──────────────────────────────────────────────
 # PARSE ARGS
@@ -64,7 +69,7 @@ def run_ghost():
     import tempfile
     tmp_dir = pathlib.Path(tempfile.mkdtemp(prefix="ghost_"))
 
-    print(f"[spatial-v9] engine=GHOST (local Playwright)")
+    print("[spatial-v9] engine=GHOST (local Playwright)")
     print(f"[spatial-v9] Capturing {URL} → {OUT}")
 
     t0 = time.time()
@@ -96,7 +101,7 @@ def run_ghost():
     # Check spatial_v9.json exists
     spatial_json = tmp_dir / "spatial_v9.json"
     if not spatial_json.exists():
-        print(f"ERROR: ghost produced no spatial_v9.json", file=sys.stderr)
+        print("ERROR: ghost produced no spatial_v9.json", file=sys.stderr)
         sys.exit(3)
 
     # Load and enrich with metadata
@@ -143,7 +148,8 @@ def run_ghost():
 # APIFY ENGINE (CLOUD FALLBACK)
 # ──────────────────────────────────────────────
 def run_apify():
-    import urllib.request, urllib.error
+    import urllib.request
+    import urllib.error
 
     TOKEN = config.apify_token()
     if not TOKEN:

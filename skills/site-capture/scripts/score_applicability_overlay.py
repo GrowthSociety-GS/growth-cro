@@ -32,7 +32,6 @@ import json
 import pathlib
 from functools import lru_cache
 from datetime import datetime
-from typing import Any
 
 # Locate project root
 def _find_root() -> pathlib.Path:

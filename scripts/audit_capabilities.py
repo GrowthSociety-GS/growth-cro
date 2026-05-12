@@ -32,7 +32,6 @@ import pathlib
 import re
 import time
 from collections import defaultdict
-from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REGISTRY_PATH = ROOT / "CAPABILITIES_REGISTRY.json"
@@ -483,9 +482,9 @@ def main():
     print(f"  🔴 Orphans HIGH     : {registry['stats']['orphaned_from_gsg_HIGH']}")
     print(f"  ⚠️ Partial wired     : {registry['stats']['partial_wired']}")
     print(f"  Potentially orph    : {registry['stats']['potentially_orphaned']}")
-    print(f"\n  ✓ Saved : CAPABILITIES_REGISTRY.json")
-    print(f"  ✓ Saved : .claude/docs/state/CAPABILITIES_SUMMARY.md")
-    print(f"\n  → Read .claude/docs/state/CAPABILITIES_SUMMARY.md to see what's orphaned + what should be wired.")
+    print("\n  ✓ Saved : CAPABILITIES_REGISTRY.json")
+    print("  ✓ Saved : .claude/docs/state/CAPABILITIES_SUMMARY.md")
+    print("\n  → Read .claude/docs/state/CAPABILITIES_SUMMARY.md to see what's orphaned + what should be wired.")
 
 
 if __name__ == "__main__":

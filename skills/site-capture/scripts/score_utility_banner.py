@@ -27,7 +27,6 @@ import json
 import re
 import sys
 import pathlib
-from typing import Any
 
 # ────────────────────────────────────────────────────────────────
 # CLI + PATHS

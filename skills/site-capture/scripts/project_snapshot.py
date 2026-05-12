@@ -28,9 +28,7 @@ import hashlib
 import json
 import pathlib
 import re
-import subprocess
-import sys
-from collections import Counter, OrderedDict
+from collections import Counter
 from datetime import datetime
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -283,7 +281,8 @@ def _file_info(p: pathlib.Path) -> dict:
         "exists": True,
         "lines": txt.count("\n") + 1,
         "size_bytes": p.stat().st_size,
-        "sha1": hashlib.sha1(txt.encode("utf-8")).hexdigest()[:10],
+        # SHA1 used as a 10-char file-content fingerprint for snapshots (not for crypto/auth).
+        "sha1": hashlib.sha1(txt.encode("utf-8"), usedforsecurity=False).hexdigest()[:10],
         "first_docstring": _extract_docstring(txt),
     }
 
@@ -884,7 +883,7 @@ def main():
 
     print(f"✅ Snapshot v{VERSION} @ {NOW}")
     print(f"   STATE.md          ({len(state_md)} chars)")
-    print(f"   ARCHITECTURE.md")
+    print("   ARCHITECTURE.md")
     print(f"   BACKLOG.md        ({len(backlog_md)} chars)")
     print(f"   {json_path.relative_to(ROOT)}")
     if note:

@@ -8,7 +8,7 @@ preserves backward compatibility — 56 existing clients continue to score uncha
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable
 
 
 # ────────────────────────────────────────────────────────────────

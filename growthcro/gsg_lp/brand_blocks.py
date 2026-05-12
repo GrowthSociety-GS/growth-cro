@@ -232,27 +232,27 @@ def render_aura_block(aura: dict) -> str:
     """Format AURA tokens pour prompt LLM."""
     block = "## AURA COMPUTED TOKENS (V16) — utiliser tels quels en CSS\n\n"
     p = aura.get("palette") or {}
-    block += f"### Palette (mathématiquement dérivée du brand DNA)\n"
+    block += "### Palette (mathématiquement dérivée du brand DNA)\n"
     for k, v in p.items():
         if k.endswith("_rgb") or k == "is_dark_mode":
             continue
         block += f"  --color-{k.replace('_', '-')}: {v};\n"
     t = aura.get("typography") or {}
-    block += f"\n### Typography\n"
+    block += "\n### Typography\n"
     block += f"  --ff-display: '{t.get('display')}';\n"
     block += f"  --ff-body: '{t.get('body')}';\n"
     block += f"  --ff-accent: '{t.get('accent')}';\n"
     ts = aura.get("type_scale") or {}
-    block += f"\n### Type scale (φ-derived)\n"
+    block += "\n### Type scale (φ-derived)\n"
     for k, v in ts.items():
         block += f"  --fs-{k}: {v};\n"
     m = aura.get("motion") or {}
-    block += f"\n### Motion (vector-derived)\n"
+    block += "\n### Motion (vector-derived)\n"
     block += f"  curve: {m.get('curve')}  ({m.get('name')})\n"
     block += f"  duration_base: {m.get('duration_base')}\n"
     block += f"  hover_scale: {m.get('hover_scale')}\n"
     d = aura.get("depth") or {}
-    block += f"\n### Depth (shadows + radius vector-derived)\n"
+    block += "\n### Depth (shadows + radius vector-derived)\n"
     block += f"  glass enabled: {d.get('glass_enabled')} blur={d.get('glass_blur')} sat={d.get('glass_saturation')}\n"
     block += f"  noise_opacity: {d.get('noise_opacity')}\n"
     return block

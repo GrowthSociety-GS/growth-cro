@@ -32,15 +32,15 @@ from __future__ import annotations
 import argparse
 import asyncio
 import base64
-import hashlib
 import json
-import os
 import pathlib
 import re
 import sys
 import time
-import xml.etree.ElementTree as ET
-from typing import Any, Optional
+# B314 defense: sitemap XML comes from arbitrary external sites; defusedxml
+# prevents entity expansion / external entity / DTD-based attacks.
+import defusedxml.ElementTree as ET  # noqa: N814
+from typing import Optional
 from urllib.parse import urljoin, urlparse, urldefrag
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -644,8 +644,10 @@ def _parse_json(text: str) -> Optional[dict]:
     except json.JSONDecodeError:
         m = re.search(r"\{[\s\S]*\}", text)
         if m:
-            try: return json.loads(m.group(0))
-            except: pass
+            try:
+                return json.loads(m.group(0))
+            except Exception:
+                pass
     return None
 
 
@@ -773,7 +775,7 @@ async def discover_client(client_slug: str, root_url: str, max_candidates: int =
     print(f"→ V25 discovery {client_slug} ({root_url})")
 
     # 1. Sitemap (allowed_hosts may grow when sitemapindex points at sister domain)
-    print(f"  [1/6] Sitemap fetch …")
+    print("  [1/6] Sitemap fetch …")
     headers = {"User-Agent": "Mozilla/5.0 GrowthCRO-discovery/1.0"}
     async with httpx.AsyncClient(headers=headers) as http:
         sitemap_urls, allowed_hosts = await _discover_via_sitemap(http, root_url)
@@ -783,7 +785,7 @@ async def discover_client(client_slug: str, root_url: str, max_candidates: int =
     crawl_urls: list[str] = []
     cta_seed_urls: list[str] = []
     if len(sitemap_urls) < 10:
-        print(f"  [2/6] Sitemap maigre, crawl Playwright BFS depth=3 + hover + CTA …")
+        print("  [2/6] Sitemap maigre, crawl Playwright BFS depth=3 + hover + CTA …")
         crawl_urls, cta_seed_urls = await _crawl_fallback(root_url, allowed_hosts=allowed_hosts, max_pages=60, max_depth=3)
         print(f"        crawl → {len(crawl_urls)} URLs ({len(cta_seed_urls)} CTA seeds)")
     else:
@@ -791,7 +793,7 @@ async def discover_client(client_slug: str, root_url: str, max_candidates: int =
         # (quizzes, /profile-builder, signup pages often absent from sitemap.xml).
         # We follow CTA-keyword links 1 level deeper to catch funnel entry points
         # behind a pre-selection page (e.g. Japhy home → /accueil-chien → /profile-builder).
-        print(f"  [2/6] Sitemap suffisant — quick CTA-seed crawl (depth=2, 5 pages)")
+        print("  [2/6] Sitemap suffisant — quick CTA-seed crawl (depth=2, 5 pages)")
         _, cta_seed_urls = await _crawl_fallback(root_url, allowed_hosts=allowed_hosts, max_pages=5, max_depth=2)
         print(f"        crawl CTA seeds → {len(cta_seed_urls)} URLs")
 
@@ -850,7 +852,7 @@ async def discover_client(client_slug: str, root_url: str, max_candidates: int =
     print(f"        alive {len(alive)}/{len(candidates)}")
     # If httpx returns 0 alive (anti-bot likely), retry top-30 via stealth Playwright
     if len(alive) == 0 and len(candidates) > 0:
-        print(f"        ⚠️  httpx 0 alive — fallback Playwright stealth (anti-bot bypass)")
+        print("        ⚠️  httpx 0 alive — fallback Playwright stealth (anti-bot bypass)")
         ph_health = await _health_via_playwright(candidates[:30], concurrency=4)
         ph_alive = [h for h in ph_health if h.get("alive")]
         print(f"        playwright alive {len(ph_alive)}/{len(ph_health)}")
@@ -884,7 +886,7 @@ async def discover_client(client_slug: str, root_url: str, max_candidates: int =
     print(f"        {len(valid_samples)} valid samples")
 
     # 5. Classify
-    print(f"  [6/6] LLM classify (Haiku) …")
+    print("  [6/6] LLM classify (Haiku) …")
     classified = await _classify_sync(valid_samples, anthropic_client)
     tokens_total = sum(s.get("classification_tokens", 0) for s in classified)
 

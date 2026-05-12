@@ -23,10 +23,7 @@ Output: design_dna.json in the page directory.
 
 import argparse
 import json
-import os
 import re
-import sys
-import math
 from pathlib import Path
 from collections import Counter
 from growthcro.config import config
@@ -594,7 +591,7 @@ def extract_design_dna(page_dir: str) -> dict:
                 "title": cap.get("meta", {}).get("title", ""),
                 "label": cap.get("meta", {}).get("label", page_dir.parent.name),
             }
-        except:
+        except Exception:
             pass
     
     # Build design_dna
@@ -699,7 +696,7 @@ def main():
                 reg_data = json.load(open(reg_path))
                 for site in reg_data.get("sites", []):
                     registry[site["label"]] = site
-            except:
+            except Exception:
                 pass
         
         done = 0

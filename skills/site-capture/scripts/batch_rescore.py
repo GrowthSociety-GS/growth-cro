@@ -8,7 +8,11 @@ puis score_site.py pour chaque client.
 Usage :
     python batch_rescore.py [--only label1,label2]
 """
-import json, sys, os, time, pathlib, subprocess
+import json
+import sys
+import time
+import pathlib
+import subprocess
 from collections import defaultdict
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -50,7 +54,7 @@ for d in sorted(CAPTURES_DIR.iterdir()):
 
 total_pages = sum(len(pages) for _, pages in client_dirs)
 print(f"{'=' * 65}")
-print(f"BATCH RE-SCORE (avec données spatiales V9)")
+print("BATCH RE-SCORE (avec données spatiales V9)")
 print(f"{'=' * 65}")
 print(f"  Clients: {len(client_dirs)}")
 print(f"  Pages: {total_pages}")

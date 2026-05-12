@@ -339,7 +339,7 @@ def main() -> None:
                     partial += 1
                 else:
                     broken += 1
-        print(f"\n=== FLEET SCENT TRAIL ===")
+        print("\n=== FLEET SCENT TRAIL ===")
         print(f"Total analysés : {total}")
         print(f"Strong : {strong}  Partial : {partial}  Broken : {broken}")
         return

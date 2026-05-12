@@ -55,7 +55,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import pathlib
 import re
 import sys
@@ -257,7 +256,7 @@ Produis maintenant les 3 routes créatives Safe/Premium/Bold pour cette LP. Tran
     # Retry if JSON tronqué (stop=max_tokens)
     if result is None:
         if verbose:
-            print(f"  ⚠️  JSON parse failed (likely max_tokens hit), retrying with concise reminder...", flush=True)
+            print("  ⚠️  JSON parse failed (likely max_tokens hit), retrying with concise reminder...", flush=True)
         retry_user = user_msg + "\n\n## RAPPEL CRITIQUE : Le JSON DOIT être COMPLET et VALIDE. 3 routes max, sois CONCIS sur les descriptions (3-5 mots max par signature_element, must_not_do en 5-10 mots). Ferme TOUS les crochets et accolades."
         msg2 = client_api.messages.create(
             model=model,
@@ -485,7 +484,7 @@ def render_creative_route_block(route: dict, selection_meta: dict | None = None)
     for el in sig_elements:
         block += f"  - {el}\n"
 
-    block += f"""
+    block += """
 ### Must not do (interdit pour CETTE route — même si d'autres routes l'autorisent)
 """
     for item in must_not:
@@ -544,10 +543,10 @@ def main():
             business_context = cf.read_text()
 
     print(f"\n══ Creative Director — {args.client} / {args.page_type} ══\n")
-    print(f"[1/2] Generate 3 routes (Safe + Premium + Bold)...")
+    print("[1/2] Generate 3 routes (Safe + Premium + Bold)...")
     routes_data = generate_routes(brand_dna, design_grammar, business_context,
                                    args.page_type, args.client, args.target_url)
-    print(f"\n  → 3 routes generated:")
+    print("\n  → 3 routes generated:")
     for r in routes_data.get("routes", []):
         print(f"    [{r.get('risk_level', '?'):8s}] {r.get('name', '?')}")
         print(f"             {r.get('aesthetic_philosophy', '?')[:100]}...")
@@ -563,7 +562,7 @@ def main():
     selection = select_route(routes_data, brand_dna, business_context,
                               mode=args.mode, custom_route_path=custom_path)
 
-    print(f"\n══ SELECTED ROUTE ══")
+    print("\n══ SELECTED ROUTE ══")
     r = selection["route"]
     sm = selection["selection_meta"]
     print(f"  Name : {r.get('name')}")

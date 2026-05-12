@@ -121,7 +121,7 @@ async def capture_page(
                 bd_endpoint = get_brightdata_endpoint()
                 if bd_endpoint:
                     print(f"  🚫 BLOQUÉ (403) — H1: \"{block_check.get('h1', '')}\"")
-                    print(f"  🔶 Retry automatique via Bright Data Scraping Browser...")
+                    print("  🔶 Retry automatique via Bright Data Scraping Browser...")
                     await context.close()
                     result = await retry_with_fallback(
                         url, label, page_type, out_dir, timeout, extraction_js,
@@ -129,8 +129,8 @@ async def capture_page(
                     return result
                 else:
                     print(f"  🚫 BLOQUÉ (403) — H1: \"{block_check.get('h1', '')}\"")
-                    print(f"  ⚠️  Pas de Bright Data configuré. Pour activer le fallback automatique :")
-                    print(f"      export BRIGHTDATA_AUTH='brd-customer-XXX-zone-scraping_browser:PASSWORD'")
+                    print("  ⚠️  Pas de Bright Data configuré. Pour activer le fallback automatique :")
+                    print("      export BRIGHTDATA_AUTH='brd-customer-XXX-zone-scraping_browser:PASSWORD'")
 
         # ── Stage 2: Fold desktop screenshot ──
         try:
@@ -201,7 +201,7 @@ async def capture_page(
                 errors.append({"stage": "extract", "msg": str(e)[:400]})
                 print(f"  ⚠️  Extract error: {str(e)[:200]}")
         else:
-            print(f"  ⚠️  Extraction JS non chargé — spatial_v9 sera vide")
+            print("  ⚠️  Extraction JS non chargé — spatial_v9 sera vide")
 
         # ── Stage 5: Full page screenshot (clean) ──
         try:
@@ -306,7 +306,7 @@ async def run_batch(pw, batch_file: str, cloud: bool, ws_endpoint: Optional[str]
     extraction_js = load_extraction_js()
 
     print(f"\n{'='*60}")
-    print(f"GHOST CAPTURE CLOUD — BATCH MODE")
+    print("GHOST CAPTURE CLOUD — BATCH MODE")
     print(f"  Tasks: {len(tasks)}")
     print(f"  Mode: {'CLOUD' if cloud else 'LOCAL'}")
     print(f"  Concurrency: {concurrency}")

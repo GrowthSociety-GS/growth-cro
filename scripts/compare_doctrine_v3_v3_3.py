@@ -19,7 +19,6 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
-from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -182,7 +181,7 @@ def main():
         # Show sample top-3 priority shifts
         shifted = [r for r in rows if r["priority_shifted"]]
         if shifted:
-            print(f"  Sample priority shifts (first 3):")
+            print("  Sample priority shifts (first 3):")
             for r in shifted[:3]:
                 print(f"    {r['page_type']}/{r['crit_id']}: {r['ice_v3_priority']} → {r['ice_v3_3_priority']} (conf {r['ice_v3_confidence']}→{r['ice_v3_3_confidence']})")
 

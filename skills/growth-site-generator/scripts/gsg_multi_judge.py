@@ -53,7 +53,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import pathlib
 import sys
 import time
@@ -453,10 +452,10 @@ def run_multi_judge(html_path: pathlib.Path, client: str,
     needs_arb = agreement["overall"] < threshold
 
     if verbose:
-        print(f"\n══ AGREEMENT ANALYSIS ══")
+        print("\n══ AGREEMENT ANALYSIS ══")
         print(f"  Overall agreement : {agreement['overall']}  (threshold={threshold})")
         print(f"  Spread pct        : {agreement['spread_pct']}%")
-        print(f"  Per judge :")
+        print("  Per judge :")
         for label, j in agreement["judges_pct"].items():
             print(f"    {label:10s}: {j['score']}/{j['max']} ({j['pct']}%)")
         print(f"  Needs arbitrage   : {needs_arb}")
@@ -478,7 +477,7 @@ def run_multi_judge(html_path: pathlib.Path, client: str,
         arbitrage = call_arbitrage_sonnet(html, defender, skeptic, agreement,
                                            humanlike=humanlike, verbose=verbose)
         if verbose and arbitrage and "arbitrated_total_score_pct" in arbitrage:
-            print(f"\n══ ARBITRAGE VERDICT ══")
+            print("\n══ ARBITRAGE VERDICT ══")
             print(f"  Final pct      : {arbitrage.get('arbitrated_total_score_pct')}%")
             print(f"  Winner overall : {arbitrage.get('winner_overall')}")
             print(f"  Confidence     : {arbitrage.get('confidence')}")
@@ -583,7 +582,7 @@ def main():
     out_fp.parent.mkdir(parents=True, exist_ok=True)
     out_fp.write_text(json.dumps(result, ensure_ascii=False, indent=2))
 
-    print(f"\n══ FINAL ══")
+    print("\n══ FINAL ══")
     print(f"  Final pct      : {result['final_score_pct']}%  (source: {result['final_score_source']})")
     for label, j in result["agreement"]["judges_pct"].items():
         print(f"  {label.capitalize():10s}: {j['score']}/{j['max']} ({j['pct']}%)")

@@ -10,7 +10,6 @@ Provides benchmark context from golden (best-in-class) sites to:
 
 import json
 from pathlib import Path
-from typing import Optional
 
 # Category similarity: golden_category -> compatible client categories
 CATEGORY_MAP = {

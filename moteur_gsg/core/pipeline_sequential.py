@@ -33,10 +33,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from client_context import ClientContext  # noqa: E402
 from doctrine import (  # noqa: E402 — V26.AF FIX 1 : brancher doctrine V3.2.1 racine partagée
-    top_critical_for_page_type,
     killer_rules_for_page_type,
     render_doctrine_for_gsg,
-    criterion_to_gsg_principle,
 )
 
 from .brief_v2 import BriefV2
@@ -660,7 +658,7 @@ def run_pipeline_sequential_4_stages(
     total_cost = (total_in / 1e6 * 3) + (total_out / 1e6 * 15)
 
     if verbose:
-        print(f"\n══ Pipeline 4 stages DONE ══")
+        print("\n══ Pipeline 4 stages DONE ══")
         print(f"  Total wall : {grand_dt:.1f}s")
         print(f"  Total tokens : in={total_in} out={total_out}")
         print(f"  Total cost : ${total_cost:.3f}")

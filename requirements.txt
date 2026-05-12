@@ -32,6 +32,13 @@ python-multipart>=0.0.7    # File upload endpoints
 pydantic>=2.5.0            # Models FastAPI (BaseModel, HttpUrl)
 
 # ══════════════════════════════════════════════════════
+# SECURITY — Safe XML parsing
+# ══════════════════════════════════════════════════════
+# Bandit B314: sitemap XML parsing of untrusted external sites must use
+# defusedxml to prevent XXE / billion-laughs / quadratic-blowup attacks.
+defusedxml>=0.7.1
+
+# ══════════════════════════════════════════════════════
 # DEV — Tests & verification
 # ══════════════════════════════════════════════════════
 # Uncomment si tu ajoutes les tests pytest dans Claude Code

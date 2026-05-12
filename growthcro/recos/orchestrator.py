@@ -481,7 +481,7 @@ async def process_page(
                         p["user_prompt"]
                         + "\n\n⚠️ RETRY GROUNDING: ta reco précédente était trop générique.\n"
                         + f"Issues: {', '.join(grounding_issues)}.\n"
-                        + f"Tu DOIS OBLIGATOIREMENT :\n"
+                        + "Tu DOIS OBLIGATOIREMENT :\n"
                         + f"  - Mentionner '{hints.get('client_name', '')}' par son nom dans 'before' OU 'why'.\n"
                     )
                     if hints.get("h1_text"):
@@ -602,7 +602,7 @@ def dry_run(data_dir: Path) -> None:
     tokens_out = total_prompts * 400
     cost_sonnet = (tokens_in / 1_000_000) * 3 + (tokens_out / 1_000_000) * 15
     cost_haiku = (tokens_in / 1_000_000) * 1 + (tokens_out / 1_000_000) * 5
-    print(f"\n=== DRY RUN SUMMARY ===")
+    print("\n=== DRY RUN SUMMARY ===")
     print(f"Pages prêtes: {pages}")
     print(f"Prompts total: {total_prompts}")
     print(f"Tokens estimés: ~{int(tokens_in):,} in + ~{int(tokens_out):,} out")

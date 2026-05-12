@@ -21,7 +21,10 @@ Consomme capture.json.techSignals (extrait par native_capture.py).
 
 v1.0 — 2026-04-10
 """
-import json, sys, re, pathlib
+import json
+import sys
+import re
+import pathlib
 from urllib.parse import urlparse
 try:
     from spatial_bridge import load_spatial, get_spatial_evidence

@@ -39,7 +39,6 @@ Dépendances :
 
 import argparse
 import json
-import os
 import re
 import shutil
 import subprocess
@@ -52,7 +51,6 @@ from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
-from growthcro.config import config
 from growthcro.lib.anthropic_client import get_anthropic_client
 
 # ----------------------------------------------------------------------

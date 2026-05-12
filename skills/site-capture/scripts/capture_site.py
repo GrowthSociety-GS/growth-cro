@@ -29,7 +29,11 @@ Exemples :
 v1.0 — 2026-04-10
 """
 
-import json, sys, os, re, time, pathlib, subprocess
+import json
+import sys
+import time
+import pathlib
+import subprocess
 from datetime import datetime, timezone
 from growthcro.config import config
 # ── Args ──────────────────────────────────────────────────────
@@ -132,7 +136,7 @@ if DISCOVER_FILE.exists():
 
 if not discovered or len(discovered.get("selectedPages", discovered.get("pages", []))) < 2:
     # Auto-discover : on lance discover_pages.py qui parse le HTML home existant
-    print(f"\n🔍 Auto-discover des pages...")
+    print("\n🔍 Auto-discover des pages...")
 
     # Map businessType to discover_pages categories
     BIZ_DISCOVER_MAP = {
@@ -157,7 +161,7 @@ if not discovered or len(discovered.get("selectedPages", discovered.get("pages",
         n_pages = len(discovered.get("selectedPages", []))
         print(f"  ✅ Discover OK : {n_pages} pages trouvées")
     else:
-        print(f"  ⚠️  Discover failed — home only")
+        print("  ⚠️  Discover failed — home only")
         if result.stderr:
             print(f"     {result.stderr[:150]}")
         discovered = {"selectedPages": [], "source": "fallback"}
@@ -365,7 +369,7 @@ if USE_APIFY:
         print(f"\n  📊 Apify enrichissement: {apify_ok}/{len(apify_results)} OK")
 
         # Re-score ALL pages with enriched data
-        print(f"\n  🔄 Re-scoring avec données enrichies...")
+        print("\n  🔄 Re-scoring avec données enrichies...")
         for page in pages_to_capture:
             pt = page["pageType"]
             nr = native_results.get(pt, {})
@@ -394,11 +398,11 @@ if USE_APIFY:
 
             scoring_results[pt] = page_scores
 else:
-    print(f"\n  ℹ️  Mode natif seulement (pas de --apify)")
-    print(f"  → 24/28 critères scorés à 100% de précision")
-    print(f"  → 4 critères visuels en mode estimation (hero_03 taille, hero_04 visuel, hero_06 focus, ux_05 touch)")
-    print(f"  → Pas de screenshots")
-    print(f"  → Pour le mode complet: ajoutez --apify")
+    print("\n  ℹ️  Mode natif seulement (pas de --apify)")
+    print("  → 24/28 critères scorés à 100% de précision")
+    print("  → 4 critères visuels en mode estimation (hero_03 taille, hero_04 visuel, hero_06 focus, ux_05 touch)")
+    print("  → Pas de screenshots")
+    print("  → Pour le mode complet: ajoutez --apify")
 
 # ══════════════════════════════════════════════════════════════
 # PHASE 4b : SPATIAL V9 CAPTURE (optionnel — Perception Tree + screenshots)
@@ -451,7 +455,7 @@ if USE_SPATIAL:
 
         # Re-score with spatial data now available
         if sp_ok > 0:
-            print(f"\n  🔄 Re-scoring avec données spatiales V9...")
+            print("\n  🔄 Re-scoring avec données spatiales V9...")
             for page in pages_to_capture:
                 pt = page["pageType"]
                 nr = native_results.get(pt, {})

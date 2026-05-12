@@ -9,7 +9,10 @@ Writes: data/captures/<label>/<pageType>/score_coherence.json
 
 Applique les 6 critères coh_01→coh_06 de playbook/bloc_4_coherence_v3.json.
 """
-import json, sys, re, pathlib
+import json
+import sys
+import re
+import pathlib
 from collections import Counter
 from datetime import datetime, timezone
 try:
