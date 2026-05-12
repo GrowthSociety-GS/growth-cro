@@ -103,15 +103,25 @@ Le programme stratosphère a livré structurellement à 100%. Mais :
 
 ## Functional Requirements (6 epics ICE/dependency-ranked)
 
-### FR-1 — Epic 1 — Typing Strict Rollout (Wave A, autonome)
-- **Effort** : M, 4-5j
+### FR-1 — Epic 1 — Typing Strict Rollout (Wave A, autonome) ✅ COMPLETED 2026-05-12
+- **Effort** : M, 4-5j → réalisé en ~1 jour (4 background agents, ~50 min wall-clock cumulé)
 - **ICE** : 360 (impact 9 × confidence 8 × ease 5)
-- **Cible** : Pydantic-iser 3 fichiers top-coupling (CODE_AUDIT §1.2)
-  - `moteur_gsg/core/visual_intelligence.py` (-13 mypy union-attr)
-  - `moteur_gsg/core/context_pack.py` (-10 mypy)
-  - `growthcro/recos/orchestrator.py` (-10 mypy)
-- **Outputs** : models Pydantic + 88 → ≤55 mypy errors (37% absorbés) · `mypy --strict` actif sur top 3 fichiers
-- **Dépendance** : aucune (autonome)
+- **Sub-PRD** : [`typing-strict-rollout.md`](typing-strict-rollout.md) (5 tasks #30-#34, epic #29)
+- **Livré** :
+  - 3 modules Pydantic v2 mono-concern : `growthcro/models/{visual,context,recos}_models.py` (181+155+177 LOC)
+  - 3 fichiers top-coupling refactorisés : visual_intelligence (308→312), context_pack (341→380), recos/orchestrator (610→680)
+  - `pyproject.toml` [tool.mypy] + overrides strict + `follow_imports=silent` anti-cascade
+  - `scripts/typecheck.sh` two-stage gate (strict zero + global budget 603)
+  - CODE_DOCTRINE §TYPING + GROWTHCRO_MANIFEST §12 changelog
+- **Métriques réelles** :
+  - mypy strict scope (7 source files) : 13 errors → **0** ✓
+  - mypy global avec config : 1 error / budget 603 (le 1 = duplicate module `score_site` dans `_archive_deprecated_2026-04-19` local junk)
+  - 0 régression V3.2.1/V3.3 · 0 régression V26.AF (vacuous, persona_narrator.py n'existe plus)
+- **Drifts surfacés** (follow-up dédié) :
+  - persona_narrator.py removed mais doctrine CLAUDE.md §Anti-pattern #1 stale
+  - imports cassés `mode_1_persona_narrator` dans mode_3_extend + mode_4_elevate
+  - PRD baseline 88 stale (real avec mypy 2.1.0 = 624 default, 1 avec config)
+  - 4 zones merge-conflict pré-existantes dans MANIFEST (lignes 479-483, 627, 690, 694-695) héritées de webapp-stratosphere + task/23-reality-loop
 
 ### FR-2 — Epic 2 — Micro-Cleanup Sprint (Wave A, autonome)
 - **Effort** : XS, 4-6h total (4 micro-actions)
@@ -192,7 +202,7 @@ Le programme stratosphère a livré structurellement à 100%. Mais :
 ## Success Criteria
 
 ### Programme entier (cible aspirational si tous epics livrés)
-- [ ] Epic 1 livré : mypy 88 → ≤ 55
+- [x] Epic 1 livré 2026-05-12 : mypy strict scope 13→0 (top-3 + growthcro.models.*) · global avec config + follow_imports=silent : 1 error/603 budget · sub-PRD [`typing-strict-rollout`](typing-strict-rollout.md) completed
 - [ ] Epic 2 livré : lint FAIL = 0 absolu
 - [ ] Epic 3 livré : 7/7 page_types GSG validés stratosphère
 - [ ] Epic 4 livré : V28 prod déployé + 56 clients live + auth
