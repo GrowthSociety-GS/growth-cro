@@ -1,8 +1,14 @@
 # Skills Integration Blueprint — GrowthCRO
 
-**Version**: 1.1 (Task #26 — Stratosphère S1 install, 2026-05-12)
+**Version**: 1.2 (Task #27 — MCPs Production setup, 2026-05-12)
 **Status**: Active
 **Update policy**: Mis à jour à chaque ajout/retrait de skill OU à chaque epic terminé qui change l'écosystème.
+
+**Changelog v1.2 (2026-05-12)** :
+- Section §4bis enrichie : 4 MCPs production documentés (Supabase + Sentry + Meta Ads officiel + Shopify) — install pending Mathis manual.
+- NEW combo §2 "Production observability" (Supabase MCP + Sentry MCP, post-deploy V28).
+- Procédures d'install détaillées : [`MCPS_INSTALL_PROCEDURE_2026-05-12.md`](MCPS_INSTALL_PROCEDURE_2026-05-12.md) (4 OAuth flows ~20min Mathis).
+- Anti-pattern Supabase MCP **DEV ONLY** explicité (§4bis.2.1).
 
 **Changelog v1.1 (2026-05-12)** :
 - Ajout 6 skills stratosphère installés via `npx skills add` (Vercel labs/agent-skills bundle + Trail of Bits + Anthropic webapp-testing) — cf reports/SKILLS_STRATOSPHERE_DISCOVERY_2026-05-11.md
@@ -208,6 +214,36 @@ Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite s
 - `webapp/apps/audit-app`, `reco-app`, `gsg-studio`, `reality-monitor`, `learning-lab`
 
 **Combos compatibles** : peut tourner en parallèle avec Webapp Next.js dev (5 skills) → total 7 skills, sous limite 8. Recommandé pour sprint QA final pré-deploy.
+
+---
+
+### Combo "Production observability" (NEW — MCPs only, post-deploy V28)
+
+**Skills actifs**: (none — MCPs only)
+
+**MCPs server-level**:
+- `Supabase MCP` (dev project) — schema management, dev SQL, branches
+- `Sentry MCP` — read issues, stack traces, group by frequency
+- `Context7 MCP` (ambient — universel, déjà actif si Task #26 install effectué)
+
+**Limite**: 0 skills/session (le combo est 100% MCPs ; cumulable avec n'importe quel autre combo skills sans toucher le cap 8 — MCPs ≠ Skills, cf §4bis).
+
+**Activation**: **Post-deploy V28 webapp** (Epic #6 hardening-and-skills-uplift suite). En continu une fois la webapp en prod, sessions debugging / hotfix.
+
+**Rationale**:
+- Debug prod en live depuis Claude Code : remontée Sentry → repro sur projet Supabase dev → fix.
+- `Supabase MCP` (dev only — anti-pattern §4bis.2.1) permet à Claude d'inspecter le schema et reproduire des queries sur le projet dev.
+- `Sentry MCP` expose issues / stack traces / fréquence → Claude priorise et propose fixes.
+- `Context7 MCP` reste ambient (anti-hallucination version-specific Supabase v2 / Next.js 14 / FastAPI etc.).
+
+**Modules impactés** (`WEBAPP_ARCHITECTURE_MAP.yaml`):
+- `growthcro/api/server` (FastAPI, exposed Vercel edge functions)
+- `webapp/apps/*` (5 microfrontends, post Epic #6)
+- pipelines: `webapp.stages_v28_nextjs_target` (deploy + observability)
+
+**Anti-cacophonie**: aucune (0 skill actifs → pas de conflit possible avec combos skills). Cumulable avec :
+- Combo "Audit run" pendant audits clients (MCPs Meta Ads / Shopify peuvent alors aussi être consultés).
+- Combo "Webapp Next.js dev" pendant hotfix code (MCPs Supabase dev pour debug query).
 
 ---
 
@@ -443,22 +479,72 @@ Conséquence : on peut avoir 8 skills actifs + N MCPs server-level sans dépasse
   Si Claude mentionne Next.js 12 / Supabase v1 → Context7 pas actif. Si Claude utilise correctement `server actions`, `cookies()`, `createServerClient` v2 → Context7 actif.
 - **ICE score** : 9 × 10 × 9 = **810** (cf SKILLS_STRATOSPHERE_DISCOVERY §1.6).
 
-### 4bis.2 — MCPs production (Task #27 — futur sprint)
+### 4bis.2 — MCPs production (Task #27 — installation pending Mathis)
 
-Ces MCPs sont identifiés mais **non installés dans Task #26** (Task #27 = Phase 2 Equipment du programme hardening-and-skills-uplift) :
+Ces 4 MCPs sont documentés dans [`MCPS_INSTALL_PROCEDURE_2026-05-12.md`](MCPS_INSTALL_PROCEDURE_2026-05-12.md) (procédure détaillée par MCP : scope OAuth, transport, smoke test, revoke). **L'agent Claude Code ne peut pas exécuter `claude mcp add ...` (sandbox sans CLI claude)** → Mathis manual install ~20min total.
 
-| MCP | Install (futur) | Why | ICE |
-|---|---|---|---:|
-| **Supabase MCP** | `claude mcp add --transport http supabase https://mcp.supabase.com/mcp` + OAuth | Epic #6 webapp V28 prerequisite — SQL, schemas, edge functions, branches. **Strict dev project only — never prod (anti-pattern AD-5).** | 810 |
-| **Sentry MCP** | `claude mcp add --transport http sentry https://mcp.sentry.dev/mcp` + OAuth | Issues + stack traces + group by frequency post-deploy V28 | 576 |
-| **Meta Ads MCP** | `claude mcp add --transport http meta-ads https://mcp.facebook.com/ads` + OAuth | Augmente skill `meta-ads-auditor` — exploration live data client agence pendant audit | 640 |
-| **Shopify MCP** | `claude mcp add shopify` | ~30% des clients agence Shopify (e-commerce DTC) — audit live boutique | 504 |
+#### 4bis.2.1 — Supabase MCP officiel (ICE 810)
 
-**Combo associé futur (Task #27)** : "Production observability" — Supabase MCP + Sentry MCP + Context7 MCP + (skills selon contexte). MCPs cumulables sans toucher le cap 8 skills.
+- **Source** : Supabase official — https://supabase.com/blog/supabase-is-now-an-official-claude-connector (since 2026-02-03, official Anthropic connector)
+- **Install command** : `claude mcp add --transport http supabase https://mcp.supabase.com/mcp`
+- **Transport** : HTTP (remote MCP server hébergé `mcp.supabase.com`)
+- **Auth** : OAuth 2.0 + PAT chiffré dans `~/.claude/mcp/credentials.json`
+- **OAuth scope** : `read:projects` · `write:projects` · `read:schemas` · `write:schemas` · `execute:sql` · `manage:branches` · `manage:edge-functions`
+- **Status** : `installed: false` — pending Mathis OAuth (~3min)
+- **Use case** : Epic #6 webapp V28 prerequisite — schema management, dev SQL, edge functions deploy, branches management
+- **32 tools exposés** (cf docs Supabase official)
+- **Smoke test post-install** : `list_schemas` ou `SELECT 1` sur projet dev
+- **CRITICAL anti-pattern — DEV ONLY, NEVER PRODUCTION** (cf §4bis.3) :
+  > Si Claude exécute `DROP TABLE` / `DELETE WHERE …` / `ALTER TABLE` via MCP → doit toucher **uniquement** projet dev. Sélection OAuth doit cocher uniquement le projet dev/staging. Le projet prod V28 ne doit JAMAIS être lié au MCP.
+
+#### 4bis.2.2 — Sentry MCP (ICE 576)
+
+- **Source** : Sentry official — https://docs.sentry.io/product/sentry-mcp/ (remote server since April 2026, endpoint `mcp.sentry.dev/mcp`)
+- **Install command** : `claude mcp add --transport http sentry https://mcp.sentry.dev/mcp`
+- **Transport** : HTTP + SSE (Server-Sent Events pour streaming issues)
+- **Auth** : OAuth 2.0
+- **OAuth scope** : `org:read` · `project:read` · `event:read` · `member:read` (keep read-only — pas `event:write`)
+- **Status** : `installed: false` — pending Mathis OAuth (~3min)
+- **Use case** : Epic #6 post-deploy V28 observability — read issues, stack traces, group by frequency, error status, sans quitter Claude Code
+- **Smoke test post-install** : `list_issues` sur projet dev (peut être vide → réponse `[]` valide)
+- **Combo associé** : "Production observability" (§2)
+
+#### 4bis.2.3 — Meta Ads MCP officiel (ICE 640)
+
+- **Source** : Meta Business official — https://pasqualepillitteri.it/en/news/1707/official-meta-ads-mcp-claude-29-tools-2026 (since 2026-04-29, endpoint `mcp.facebook.com/ads`)
+- **Install command** : `claude mcp add --transport http meta-ads https://mcp.facebook.com/ads`
+- **Transport** : HTTP + OAuth Meta Business long-lived token (60j, refresh auto)
+- **Auth** : OAuth 2.0 Meta Business
+- **OAuth scope** : `ads_read` · `ads_management` · `business_management` · (optionnel `pages_read_engagement`)
+- **Status** : `installed: false` — pending Mathis OAuth (~5min — plus long car sélection Ad Accounts)
+- **Use case** : augmente skill `meta-ads-auditor` — exploration live data client agence pendant audit interactif. 29 tools exposés : campaigns, ad sets, ads, audiences, creatives, insights, Pixel/CAPI diagnostics
+- **Sélection critique OAuth** : cocher uniquement comptes test agence + clients explicitement autorisés. NE PAS tout cocher par défaut.
+- **Smoke test post-install** : `list_ad_accounts` (vue compte test Growth Society)
+
+#### 4bis.2.4 — Shopify MCP (ICE 504)
+
+- **Source** : Shopify official — https://askphill.com/blogs/blog/shopify-just-released-an-ai-toolkit-for-claude-heres-what-it-actually-does (open-sourced April 2026 via Shopify CLI plugin)
+- **Install command** : `claude mcp add shopify` (Shopify CLI plugin) — fallback HTTP transport si plugin pas dispo
+- **Transport** : CLI plugin (stdio JSON-RPC) ou HTTP fallback
+- **Auth** : OAuth 2.0 Shopify Admin API
+- **OAuth scope** : `read_products` · `read_orders` · `read_customers` · `read_inventory` · `read_collections` (keep read-only au smoke initial — pas `write_products`)
+- **Status** : `installed: false` — pending Mathis OAuth (~5min)
+- **Use case** : ~30% clients agence Shopify (e-commerce DTC) — audit live boutique pendant sprint CRO. Admin API + GraphQL schemas — products, orders, collections, dynamic pricing
+- **Smoke test post-install** : `list_products` (dev store recommandé ; si pas de shop dispo → `pending live shop` dans stream report)
+
+#### 4bis.2.5 — Combo associé
+
+**Combo "Production observability"** (§2) — actif post-deploy V28 :
+- Supabase MCP (dev) + Sentry MCP + Context7 MCP (ambient)
+- 0 skill actif → cumulable avec n'importe quel combo skills (Audit run, Webapp Next.js dev, etc.) sans toucher le cap 8.
 
 ### 4bis.3 — Note de sécurité Supabase MCP (anti-pattern AD-5)
 
-> **Supabase MCP = dev only, NEVER prod.** Documenté explicitement par Supabase. Si Mathis ajoute Supabase MCP en Task #27, créer un projet Supabase dev dédié (séparé du projet prod V28). Si Claude exécute `DROP TABLE` ou `DELETE WHERE ...` via MCP, ça doit toucher uniquement la base dev. Cf [Supabase blog official connector](https://supabase.com/blog/supabase-is-now-an-official-claude-connector).
+> **Supabase MCP = dev only, NEVER prod.** Documenté explicitement par Supabase. Mesures de défense en profondeur :
+> 1. Au consent OAuth, sélectionner **uniquement le projet dev/staging** (jamais prod V28).
+> 2. Pour basculer dev projects → `claude mcp remove supabase` + révoquer PAT côté Supabase dashboard + ré-install.
+> 3. Le projet prod V28 reste **hors scope MCP**. Opérations prod = SQL manuel via dashboard + review humain Mathis.
+> 4. Cf [Supabase blog official connector](https://supabase.com/blog/supabase-is-now-an-official-claude-connector).
 
 ---
 

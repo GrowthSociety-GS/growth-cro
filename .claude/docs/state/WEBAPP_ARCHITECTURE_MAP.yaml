@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-12T07:52:33Z'
-  source_commit: 9c70e9ef4be6537455547784f80a179f67c950ca
+  generated_at: '2026-05-12T07:59:57Z'
+  source_commit: ccb3b001345d70dbbb968077656dc5f4894876b1
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -3832,41 +3832,82 @@ skills_integration:
   - MCPs server-level (Context7, futurs Supabase/Sentry/Meta/Shopify) hors compte 8 skills/session (JSON-RPC servers).
   mcps_server_level:
     meta:
-      note: 'Task #26 — MCPs != Skills (AD-4). MCPs tournent en serveurs JSON-RPC au niveau Claude Code config, hors compte
-        cap 8 skills/session.'
-      future_task_ref: 'Task #27 — Phase 2 Equipment (Supabase + Sentry + Meta Ads + Shopify MCPs)'
+      note: 'Task #26 + #27 — MCPs != Skills (AD-4). MCPs tournent en serveurs JSON-RPC au niveau Claude Code config, hors
+        compte cap 8 skills/session.'
+      install_procedure_ref: .claude/docs/reference/MCPS_INSTALL_PROCEDURE_2026-05-12.md
+      install_status_note: Tous les MCPs sont pending Mathis manual install — agent sandbox lacks claude CLI for mcp add.
+        Procedure detaillee + smoke tests + revoke documentes dans MCPS_INSTALL_PROCEDURE_2026-05-12.md.
     installed:
     - name: context7
-      source: github.com/upstash/context7
+      source: upstash/context7
+      transport: stdio
       install_cmd: claude mcp add context7 -- npx -y @upstash/context7-mcp
-      install_status: 'TO INSTALL BY MATHIS (Task #26 — agent sandbox lacks claude CLI for MCP add)'
+      installed: false
       ice_score: 810
+      oauth_required: false
       activation: universel — toutes sessions Claude Code
-      what: Injecte doc a jour version-specifique libs utilisees (FastAPI, Next.js 14, Supabase, Anthropic SDK). Resout hallucinations
-        API obsoletes.
+      use: universal anti-hallucination — injects up-to-date version-specific lib docs (FastAPI, Next.js 14, Supabase, Anthropic
+        SDK)
       overhead: ~200ms sync fetch per prompt — acceptable
       smoke_test: Generate Next.js 14 App Router server actions + Supabase v2 auth. Si Claude mentionne Next.js 12 / Supabase
         v1 -> Context7 pas actif. Si correct -> actif.
-      oauth_required: false
-    pending_task_27:
-    - name: supabase
+      task_ref: '#26'
+    - name: supabase_dev
+      source: supabase_official
+      transport: http
       install_cmd: claude mcp add --transport http supabase https://mcp.supabase.com/mcp
+      installed: false
       ice_score: 810
       oauth_required: true
-      anti_pattern: AD-5 — strict dev project only, NEVER prod. Documente par Supabase.
-      why: 'Epic #6 webapp V28 prerequisite — SQL, schemas, edge functions, branches'
+      oauth_scope: read:projects · write:projects · read:schemas · write:schemas · execute:sql · manage:branches · manage:edge-functions
+      anti_pattern: NEVER_PROD
+      use: schema_management
+      smoke_test: list_schemas OR SELECT 1 sur projet dev
+      combo: production_observability
+      task_ref: '#27'
     - name: sentry
+      source: sentry_official
+      transport: http
       install_cmd: claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
+      installed: false
       ice_score: 576
       oauth_required: true
-      why: Issues + stack traces + frequency post-deploy V28 observability
-    - name: meta-ads
+      oauth_scope: org:read · project:read · event:read · member:read
+      use: error_observability
+      smoke_test: list_issues sur projet dev (peut etre vide, OK)
+      combo: production_observability
+      task_ref: '#27'
+    - name: meta_ads_official
+      source: meta_business_official
+      transport: http
       install_cmd: claude mcp add --transport http meta-ads https://mcp.facebook.com/ads
+      installed: false
       ice_score: 640
       oauth_required: true
-      why: Augmente skill meta-ads-auditor — exploration live data client agence pendant audit
+      oauth_scope: ads_read · ads_management · business_management · (optionnel pages_read_engagement)
+      oauth_token_ttl: 60_days_long_lived_with_auto_refresh
+      use: marketing_api_29_tools
+      smoke_test: list_ad_accounts (compte test Growth Society)
+      augments_skill: meta-ads-auditor
+      task_ref: '#27'
     - name: shopify
+      source: shopify_official
+      transport: cli_plugin
       install_cmd: claude mcp add shopify
+      installed: false
       ice_score: 504
       oauth_required: true
-      why: ~30% clients agence Shopify (e-commerce DTC) — audit live boutique
+      oauth_scope: read_products · read_orders · read_customers · read_inventory · read_collections
+      use: admin_api_graphql
+      smoke_test: list_products (dev store recommande ; sinon document pending live shop)
+      task_ref: '#27'
+    combos:
+    - name: production_observability
+      mcps:
+      - supabase_dev
+      - sentry
+      - context7
+      skills: []
+      activation: post_deploy_v28_webapp
+      rationale: debug prod en live depuis Claude Code (Sentry issues -> Supabase dev repro -> fix)
+      task_ref: '#27'
