@@ -111,4 +111,13 @@ any future drift if a similar dir is ever recreated in an active path.
 
 ## Status
 
-**COMPLETE** — `.gitignore` upgraded, all gates green, AC met for worktree.
+**COMPLETE — 100%** — `.gitignore` upgraded, all gates green, AC met for worktree.
+
+Commits in this branch (Issue #38):
+- `5742ea6` Issue #38: add .gitignore guard **/_archive_deprecated_*/ pattern
+- `<next>` Issue #38: completion signal
+
+Final gate snapshot:
+- lint FAIL=0 / WARN=39 / INFO=91 / DEBT=5
+- mypy 582 errors (budget 603), typecheck.sh exit 0
+- parity weglot exit 0 / SCHEMA exit 0 / Orphans HIGH=0
