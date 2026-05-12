@@ -22,10 +22,49 @@ Cost = micros / 1_000_000.
 """
 from __future__ import annotations
 
+import re
+from datetime import date as _date_cls
 from typing import Any
 
 from growthcro.config import config
 from growthcro.reality.base import Connector, ConnectorError, NotConfiguredError
+
+# ISO-8601 date (YYYY-MM-DD) — strict Pydantic-style validator
+_ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# Whitelist landing-page URLs to defang any GAQL injection via final_urls CONTAINS ANY
+_PAGE_URL_RE = re.compile(r"^https?://[\w\-\.]+(:\d+)?(/[\w\-\./%~?&=#:+,]*)?$")
+
+
+def _validate_iso_date(value: str, field: str) -> str:
+    """Strict YYYY-MM-DD validator. Raises ConnectorError on invalid input.
+
+    Defends growthcro/reality/google_ads.py GAQL builder against B608
+    SQL-injection via the BETWEEN clause (bandit MEDIUM B608).
+    """
+    if not isinstance(value, str) or not _ISO_DATE_RE.match(value):
+        raise ConnectorError(
+            f"{field} must be ISO-8601 YYYY-MM-DD, got {value!r}"
+        )
+    # Re-parse to catch impossible dates (e.g. 2026-02-30)
+    try:
+        _date_cls.fromisoformat(value)
+    except ValueError as exc:
+        raise ConnectorError(f"{field} invalid calendar date: {value!r}") from exc
+    return value
+
+
+def _validate_page_url(url: str) -> str:
+    """Whitelist landing-page URLs against ^https?://[\\w\\-\\.]+/.*$.
+
+    Defends the `CONTAINS ANY ('<page_url>')` GAQL clause against B608
+    injection by rejecting any URL containing quotes, control chars,
+    GAQL keywords, or other unexpected punctuation.
+    """
+    if not isinstance(url, str) or not _PAGE_URL_RE.match(url):
+        raise ConnectorError(f"page_url failed whitelist regex: {url!r}")
+    if "'" in url or '"' in url or "\\" in url:
+        raise ConnectorError(f"page_url contains disallowed quote/escape: {url!r}")
+    return url
 
 
 class GoogleAdsConnector(Connector):
@@ -41,6 +80,13 @@ class GoogleAdsConnector(Connector):
     def fetch(self, page_url: str, period_start: str, period_end: str) -> dict[str, Any]:
         if not self.is_configured():
             raise NotConfiguredError(f"Google Ads not configured for client={self.client_slug}")
+
+        # B608 defense: validate all values interpolated into the GAQL string.
+        # We cannot use prepared-statement binds (GAQL builder is f-string-only);
+        # so we enforce strict whitelists at the boundary instead.
+        page_url = _validate_page_url(page_url)
+        period_start = _validate_iso_date(period_start, "period_start")
+        period_end = _validate_iso_date(period_end, "period_end")
 
         try:
             from google.ads.googleads.client import GoogleAdsClient
@@ -67,12 +113,17 @@ class GoogleAdsConnector(Connector):
         try:
             client = GoogleAdsClient.load_from_dict(cfg)
             ga_service = client.get_service("GoogleAdsService")
+            # B608 defense: `period_start`, `period_end` constrained to YYYY-MM-DD,
+            # `page_url` constrained to ^https?://[\w\-\.]+/.*$ by the validators
+            # above; GAQL has no bind-parameter API in the official SDK.
+            _gaql_select = (
+                "SELECT metrics.cost_micros, metrics.clicks, metrics.impressions, "
+                "metrics.conversions, metrics.conversions_value, metrics.ctr, "
+                "metrics.average_cpc FROM ad_group_ad WHERE segments.date BETWEEN "
+            )
             query = (
-                f"SELECT metrics.cost_micros, metrics.clicks, metrics.impressions, "
-                f"metrics.conversions, metrics.conversions_value, metrics.ctr, "
-                f"metrics.average_cpc FROM ad_group_ad WHERE segments.date BETWEEN "
-                f"'{period_start}' AND '{period_end}' AND ad_group_ad.ad.final_urls "
-                f"CONTAINS ANY ('{page_url}')"
+                f"{_gaql_select}'{period_start}' AND '{period_end}' "  # nosec B608
+                f"AND ad_group_ad.ad.final_urls CONTAINS ANY ('{page_url}')"
             )
             stream = ga_service.search_stream(customer_id=customer_id, query=query)
             spend_micros = 0
