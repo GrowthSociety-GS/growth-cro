@@ -114,7 +114,7 @@ for idx, client in enumerate(clients):
                 results.append({"label": label, "status": "existing", "score": score, "pillars": pillars})
                 skipped += 1
                 continue
-        except:
+        except Exception:
             pass
 
     print(f"\n{'─' * 60}")

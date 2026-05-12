@@ -642,8 +642,10 @@ def _parse_json(text: str) -> Optional[dict]:
     except json.JSONDecodeError:
         m = re.search(r"\{[\s\S]*\}", text)
         if m:
-            try: return json.loads(m.group(0))
-            except: pass
+            try:
+                return json.loads(m.group(0))
+            except Exception:
+                pass
     return None
 
 
