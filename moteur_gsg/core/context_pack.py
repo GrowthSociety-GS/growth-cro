@@ -64,6 +64,17 @@ def _compact_text(value: Any, max_chars: int = 240) -> str:
     return text[:max_chars]
 
 
+def _as_dict(value: Any) -> dict[str, Any]:
+    """Coerce an arbitrary value into a typed dict (empty if not a dict).
+
+    Centralises the ``isinstance(x, dict)`` narrowing pattern so that downstream
+    ``.get(...)`` calls have a non-``None`` receiver under mypy strict mode.
+    """
+    if isinstance(value, dict):
+        return value
+    return {}
+
+
 def _brief_text(brief: dict[str, Any]) -> str:
     return " ".join(
         str(v)
@@ -95,12 +106,14 @@ def infer_business_category_from_context(ctx: ClientContext, brief: dict[str, An
 
 
 def _brand_summary(ctx: ClientContext) -> dict[str, Any]:
-    brand = ctx.brand_dna or {}
-    diff = brand.get("diff") if isinstance(brand.get("diff"), dict) else {}
-    visual = brand.get("visual_tokens") if isinstance(brand.get("visual_tokens"), dict) else {}
-    voice = brand.get("voice_tokens") if isinstance(brand.get("voice_tokens"), dict) else {}
-    colors = visual.get("colors") if isinstance(visual.get("colors"), dict) else {}
-    typography = visual.get("typography") if isinstance(visual.get("typography"), dict) else {}
+    brand = _as_dict(ctx.brand_dna)
+    diff = _as_dict(brand.get("diff"))
+    visual = _as_dict(brand.get("visual_tokens"))
+    voice = _as_dict(brand.get("voice_tokens"))
+    colors = _as_dict(visual.get("colors"))
+    typography = _as_dict(visual.get("typography"))
+    h1 = _as_dict(typography.get("h1"))
+    body = _as_dict(typography.get("body"))
 
     return {
         "client_name": brand.get("client") or diff.get("client") or ctx.client,
@@ -119,8 +132,8 @@ def _brand_summary(ctx: ClientContext) -> dict[str, Any]:
             for item in (colors.get("palette_full") or [])
             if isinstance(item, dict) and item.get("hex")
         ][:8],
-        "display_font": ((typography.get("h1") or {}).get("family") if isinstance(typography, dict) else None),
-        "body_font": ((typography.get("body") or {}).get("family") if isinstance(typography, dict) else None),
+        "display_font": h1.get("family"),
+        "body_font": body.get("family"),
     }
 
 
