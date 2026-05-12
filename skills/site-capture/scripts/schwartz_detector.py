@@ -24,7 +24,6 @@ Usage CLI :
 """
 from __future__ import annotations
 
-import sys
 from typing import Literal
 
 AwarenessLevel = Literal["unaware", "problem_aware", "solution_aware", "product_aware", "most_aware"]

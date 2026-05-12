@@ -26,17 +26,15 @@ v1.0 — 2026-04-17
 
 import asyncio
 import json
-import os
 import pathlib
-import subprocess
 import sys
 import time
 from typing import Optional
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
-from pydantic import BaseModel, HttpUrl
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
 
 from growthcro.api.audits import router as audits_router
 from growthcro.config import config
@@ -309,7 +307,7 @@ if __name__ == "__main__":
 
     port = config.port(default=8000)
     print(f"\n{'='*60}")
-    print(f"GrowthCRO API Server v1.0")
+    print("GrowthCRO API Server v1.0")
     print(f"  Port: {port}")
     print(f"  Cloud browser: {'✅' if config.browser_ws_endpoint() else '❌ non configuré'}")
     print(f"  Anthropic API: {'✅' if config.anthropic_api_key() else '❌ non configuré'}")

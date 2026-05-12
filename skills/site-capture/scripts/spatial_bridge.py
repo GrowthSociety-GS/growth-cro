@@ -18,7 +18,8 @@ Si spatial_v9.json n'existe pas, toutes les fonctions retournent des dicts/valeu
 v1.0 — 2026-04-12
 """
 
-import json, pathlib
+import json
+import pathlib
 from typing import Dict, Any, Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]

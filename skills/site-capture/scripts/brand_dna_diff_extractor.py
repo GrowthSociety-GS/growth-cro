@@ -44,11 +44,9 @@ from __future__ import annotations
 import argparse
 import base64
 import json
-import os
 import pathlib
 import re
 import sys
-from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
@@ -303,7 +301,7 @@ def print_diff_summary(diff: dict) -> None:
     print(f"\n══ BRAND DNA DIFF — {diff.get('client', '?').upper()} ══")
     summary = diff.get("summary", "")
     if summary:
-        print(f"\n  Summary :")
+        print("\n  Summary :")
         print(f"  {summary}")
 
     for cat, label, sym in [

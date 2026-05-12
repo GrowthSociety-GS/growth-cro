@@ -183,7 +183,7 @@ def _repair_ai_slop_visual_patterns(html: str, violations: list[dict]) -> tuple[
             )
             if new_out != out:
                 out = new_out
-                repairs.append(f"border_left_callout: replaced colored border-left by padding-left")
+                repairs.append("border_left_callout: replaced colored border-left by padding-left")
 
     return out, repairs
 

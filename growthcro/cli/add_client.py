@@ -42,7 +42,6 @@ Options :
 import argparse
 import re
 import sys
-from pathlib import Path
 from urllib.parse import urlparse
 
 # Reuse everything factored in enrich_client.py

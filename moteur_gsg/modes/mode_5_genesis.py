@@ -24,7 +24,7 @@ from __future__ import annotations
 
 import json
 import pathlib
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 from ..core.brief_v2 import BriefV2
 

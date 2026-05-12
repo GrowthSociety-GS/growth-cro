@@ -38,7 +38,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
 import sys
 from pathlib import Path
@@ -265,7 +264,7 @@ def discover(url: str, out_path: Optional[Path] = None) -> dict:
     meta = extract_links_and_meta(html, final_url)
     print(f"  → extracted: {len(meta['links'])} links, title={meta['title'][:60]!r}")
 
-    print(f"→ Calling Haiku for classification…")
+    print("→ Calling Haiku for classification…")
     result = call_haiku(final_url, meta)
     print(f"  → business_type={result.get('business_type')}, category={result.get('category')}, confidence={result.get('confidence')}")
     print(f"  → {len(result.get('archetype_pages', {}))} archetype pages detected")

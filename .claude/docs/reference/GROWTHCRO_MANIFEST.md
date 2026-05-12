@@ -408,6 +408,58 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 =======
 =======
 >>>>>>> epic/webapp-stratosphere
+### 2026-05-12 — Skills Stratosphère S1 Install (#26)
+
+**Trigger** : Task #26 du programme `hardening-and-skills-uplift`, PRD FR-2. Install Top-6 must-install skills (ICE 720-900) from SKILLS_STRATOSPHERE_DISCOVERY_2026-05-11. Formalize `skill-creator` (déjà actif via `anthropic-skills:skill-creator`). Démoter `Figma Implement Design` en on-demand pour libérer un slot dans le combo Webapp Next.js dev.
+
+**Livrables shipped** :
+
+- **Vercel `vercel-labs/agent-skills` bundle** (`npx --yes skills add vercel-labs/agent-skills`) — 7 skills installés, 4 essentiels actifs : `vercel-react-best-practices` (ICE 900), `web-design-guidelines` (ICE 720), `vercel-composition-patterns`, `vercel-react-view-transitions`. 3 disponibles on-demand : `deploy-to-vercel`, `vercel-cli-with-tokens`, `vercel-react-native-skills`.
+- **Trail of Bits `trailofbits/skills`** (`npx --yes skills add trailofbits/skills`) — 74 skills installés, 4 essentiels actifs combo Security audit : `codeql` (ICE 720), `semgrep`, `variant-analysis`, `supply-chain-risk-auditor`. 70 autres disponibles on-demand.
+- **Anthropic `webapp-testing`** (`npx --yes skills add anthropics/skills/skills/webapp-testing`) — Playwright official, combo QA + a11y.
+- **`skill-creator`** formalisé "MÉTA universel on-demand" dans BLUEPRINT.md ligne 17 — déjà actif via `anthropic-skills:skill-creator` (use case stratégique : packager modules GrowthCRO en skills externalisables).
+- **Context7 MCP** : à installer manuellement par Mathis (`claude mcp add context7 -- npx -y @upstash/context7-mcp`) — agent sandbox n'a pas la CLI `claude`. Aucun OAuth requis.
+
+**Install status (programmatique vs manuel)** :
+- Vercel bundle : **PASS programmatique** ✓
+- Trail of Bits bundle : **PASS programmatique** ✓
+- Anthropic webapp-testing : **PASS programmatique** ✓
+- skill-creator : **PASS pre-existing** ✓
+- Context7 MCP : **TO INSTALL BY MATHIS** (commande documentée, no OAuth)
+
+**BLUEPRINT.md updates** (v1.0 → v1.1) :
+- Section 1 table : 6 nouvelles entries skills (lignes 8-16) + 1 méta (skill-creator ligne 17) + démotion Figma (ligne 18).
+- Section 2 combo packs : `Webapp Next.js dev` étendu 4 → 5 skills (Figma → on-demand) ; **NEW** `Security audit` (4 skills, pre-merge/quarterly) ; **NEW** `QA + a11y` (2 skills, sprint pre-deploy V28).
+- Section 4bis **NEW** "MCPs server-level" : AD-4 (MCPs ≠ Skills) + Context7 + MCPs Task #27 futurs (Supabase/Sentry/Meta/Shopify).
+- Section 5 install procedure restructurée en 3 tiers.
+
+**CLAUDE.md anti-pattern #12 updated** :
+- Combo packs étendus : Audit run (≤4) · GSG generation (≤4) · Webapp Next.js dev (≤5) · Security audit (≤4 NEW) · QA + a11y (≤2 NEW).
+- Clarification explicite : **MCPs server-level hors compte 8 skills/session**.
+
+**WEBAPP_ARCHITECTURE_MAP.yaml updates** (skills_integration v1.0 → v1.1) :
+- 9 nouvelles entries `essentials` (installed: true, installed_date: 2026-05-12).
+- 2 nouveaux combos (`security_audit`, `qa_a11y`) + extension `webapp_nextjs`.
+- NEW section `mcps_server_level` (Context7 installed pending Mathis + 4 MCPs Task #27 pending).
+- Idempotency vérifiée : `python3 scripts/update_architecture_map.py` exit 0, section human-curated préservée.
+
+**.gitignore** : ajout `.claude/skills/` + `skills-lock.json` (artefacts d'install local, per-machine).
+
+**Gates verts** :
+- `lint_code_hygiene.py` : FAIL 0, WARN 12 (legacy mixed-concern, hors-scope).
+- `audit_capabilities.py` : 231 files, orphans HIGH 0.
+- `SCHEMA/validate_all.py` : 15 files validated.
+- `parity_check.sh weglot` : EXIT 0.
+- `agent_smoke_test.sh` : EXIT 0.
+- `update_architecture_map.py` : EXIT 0 idempotent.
+
+**Architecture preserved** : doctrine V3.2.1 + V3.3 intactes, V26.AF immutable, aucun module `growthcro/*` / `moteur_gsg/*` modifié, prompt persona_narrator ≤ 8K chars enforced.
+
+**Pending Mathis actions** :
+1. Install Context7 MCP (1 commande, no OAuth, ~30sec).
+2. Smoke test post-install (1 prompt Next.js 14 + Supabase v2).
+3. Task #27 futur — Supabase + Sentry + Meta Ads + Shopify MCPs (~30min OAuth flows).
+
 ### 2026-05-11 — Agency Products Extension v1 (#22)
 
 **Trigger** : Task #22 du programme `webapp-stratosphere`, PRD FR-7 (US-5). Activer les skills Anthropic `gads-auditor` + `meta-ads-auditor` comme produits parallèles Growth Society. Permet à l'agence de vendre **3 audits** (CRO + Google Ads + Meta Ads) depuis la même webapp V28. AD-7 du epic master : skill Anthropic + module *thin wrapper* qui pipe les outputs vers le template Notion agence — **aucune réinvention** de l'audit Ads.
@@ -2800,3 +2852,19 @@ GrowthCRO ROOT
 - `python3 scripts/check_gsg_intake_wizard.py` PASS.
 
 **Honnêteté** : V27.2-F transforme enfin Golden/Creative en décision système réelle. Ce n'est toujours pas le GSG "stratosphérique" final : il manque assets/motion/textures/modules premium plus ambitieux et un second vrai run hors Weglot listicle avec copy Sonnet + QA + multi-judge.
+
+### 2026-05-12 — Hygiene Quick-Wins (#25)
+
+**Trigger** : Task #25 du programme `hardening-and-skills-uplift`, PRD FR-1. Absorb ICE 800/630/500/490 quick-wins from CODE_AUDIT_2026-05-11.
+
+**Livrables** :
+- `ruff check --fix` on Python tree → 333 mechanical fixes absorbed (F541 f-strings, F401 unused-imports, E401 multi-import lines, etc.) across 107 .py files.
+- 2 SQL injection B608 fixed (`growthcro/reality/google_ads.py` : Pydantic-style ISO-date validation + `^https?://[\w\-\.]+/.*$` page_url whitelist, GAQL has no bind-param API).
+- 4 HIGH bandit weak-hash findings tagged `usedforsecurity=False` in `skills/site-capture/scripts/` (cache keys + layout fingerprints, non-crypto).
+- 4 bare `except:` → `except Exception:` (`aura_extract.py` ×2, `batch_site.py`, `discover_pages_v25.py`).
+- defusedxml migration for sitemap XML parsing (`discover_pages_v25.py` B314, requirements.txt +`defusedxml>=0.7.1`).
+- Action 6 (move stale `skills/site-capture/scripts/_archive_deprecated_2026-04-19/` to `_archive/` root) marked **SKIP** — already relocated by prior cleanup epic; FAIL count was already 0 at baseline.
+
+**Result** : `lint_code_hygiene.py` FAIL = 0, bandit HIGH = 0, bandit MEDIUM B608 = 0, bandit MEDIUM B314 = 0. 6/6 GSG checks PASS (canonical, controlled_renderer, creative_route_selector, visual_renderer, intake_wizard, component_planner). Parity weglot ✓ 108 files match baseline. Schemas ✓ 3439 files. Capabilities ✓ 0 orphans.
+
+**Architecture preserved** : doctrine V3.2.1/V3.3 intact, V26.AF immutable intact, audit pipeline byte-equal (parity ✓).

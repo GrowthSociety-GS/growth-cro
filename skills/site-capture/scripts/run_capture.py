@@ -16,7 +16,12 @@ Niveaux (cascade documentée dans references/backend_cascade.md) :
 Lance l'actor correspondant, télécharge capture.json + 6 PNG + html dans data/captures/<label>/.
 Tag `capturedBy` + `confidence` dans capture.json pour traçabilité.
 """
-import os, sys, json, time, pathlib, urllib.request, urllib.error
+import sys
+import json
+import time
+import pathlib
+import urllib.request
+import urllib.error
 from growthcro.config import config
 TOKEN = config.apify_token()
 if not TOKEN:

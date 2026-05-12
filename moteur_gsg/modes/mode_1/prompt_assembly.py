@@ -143,10 +143,10 @@ def build_founder_persona(client: str, brand_dna: dict) -> str:
     if archetype:
         persona += f"Archetype de marque : {archetype}. "
     persona += (
-        f"Tu connais ton produit jusque dans la moelle parce que tu l'as conçu "
-        f"pour résoudre une frustration que tu vivais toi-même. Tu écris cette "
-        f"page comme un manifeste personnel sur ce que tu construis et pourquoi "
-        f"ça compte."
+        "Tu connais ton produit jusque dans la moelle parce que tu l'as conçu "
+        "pour résoudre une frustration que tu vivais toi-même. Tu écris cette "
+        "page comme un manifeste personnel sur ce que tu construis et pourquoi "
+        "ça compte."
     )
     return persona
 

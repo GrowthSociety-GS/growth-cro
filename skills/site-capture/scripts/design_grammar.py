@@ -26,7 +26,6 @@ import argparse
 import json
 import pathlib
 import sys
-from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"

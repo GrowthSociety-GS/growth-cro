@@ -237,7 +237,6 @@ def estimate_prompt_size(client: str, page_type: str, brief: dict, brand_dna: di
 
 if __name__ == "__main__":
     # Smoke test : Weglot listicle
-    import json
     from .brand_intelligence import load_brand_dna
 
     client = "weglot"
@@ -255,7 +254,7 @@ if __name__ == "__main__":
     print(f"  System : {sizes['system_chars']} chars / {sizes['system_lines']} lines")
     print(f"  User   : {sizes['user_chars']} chars / {sizes['user_lines']} lines")
     print(f"  TOTAL  : {sizes['total_chars']} chars (gate ≤10000 user)")
-    print(f"\n--- USER MESSAGE PREVIEW (first 3000) ---\n")
+    print("\n--- USER MESSAGE PREVIEW (first 3000) ---\n")
     print(user[:3000])
-    print(f"\n--- USER MESSAGE PREVIEW (last 1500) ---\n")
+    print("\n--- USER MESSAGE PREVIEW (last 1500) ---\n")
     print(user[-1500:])

@@ -19,7 +19,11 @@ Usage :
   python spatial_enrich.py --batch  # enrichit TOUS les clients/pages
 """
 
-import json, sys, pathlib, re, html as html_lib
+import json
+import sys
+import pathlib
+import re
+import html as html_lib
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
@@ -323,7 +327,7 @@ def main():
                     print(f"  🔧 {label}/{pt}: {' | '.join(changes)}")
 
         print(f"\n{'='*60}")
-        print(f"✅ Spatial enrichment complete")
+        print("✅ Spatial enrichment complete")
         print(f"   Enriched: {total_enriched} pages")
         print(f"   Changed: {total_changed} pages")
         print(f"{'='*60}")

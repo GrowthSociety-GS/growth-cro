@@ -151,7 +151,7 @@ def main():
         print(f"⚠️  No design_grammar/ found for {args.client} — degraded mode (brand_dna only)")
 
     aura = compute_aura_tokens(args.client, args.energy, args.tonality, args.business, args.registre)
-    print(f"✓ AURA computed (vector + palette + typo + motion)")
+    print("✓ AURA computed (vector + palette + typo + motion)")
 
     golden = golden_bridge_prompt(aura["vector"], top=5)
     print(f"✓ Golden Design Bridge ({len(golden)} chars)")
@@ -224,7 +224,7 @@ def main():
             from gsg_pipeline_sequential import run_sequential_pipeline  # type: ignore
         except ImportError as e:
             sys.exit(f"❌ --sequential requires gsg_pipeline_sequential.py : {e}")
-        print(f"\n══ Sequential pipeline (P1, 4 stages) ══")
+        print("\n══ Sequential pipeline (P1, 4 stages) ══")
         seq_result = run_sequential_pipeline(
             client=args.client, brand_dna=brand_dna, design_grammar=design_grammar,
             aura=aura, creative_route=creative_route,
@@ -281,7 +281,7 @@ def main():
             "final_iter": len(iter_log) - 1,
             "threshold": args.repair_threshold,
         }, ensure_ascii=False, indent=2))
-        print(f"\n══ Repair loop summary ══")
+        print("\n══ Repair loop summary ══")
         for entry in iter_log:
             mark = "✓" if entry["score_pct"] >= args.repair_threshold else "✗"
             print(f"  {mark} iter {entry['iter']}: {entry['score_pct']}% ({entry['html_size']} chars, {entry['tokens']} tokens)")

@@ -64,7 +64,7 @@ from __future__ import annotations
 import json
 import pathlib
 import time
-from typing import Any, Optional
+from typing import Optional
 
 # State machine — allowed transitions
 TRANSITIONS = {

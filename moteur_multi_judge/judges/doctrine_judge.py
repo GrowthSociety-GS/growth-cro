@@ -32,7 +32,6 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import json
-import os
 import pathlib
 import re
 import sys
@@ -424,7 +423,7 @@ def print_doctrine_summary(audit: dict, label: str = "DOCTRINE V3.2") -> None:
         if audit.get("cap_note"):
             print(f"     {audit.get('cap_note')}")
 
-    print(f"\n  Per pillar :")
+    print("\n  Per pillar :")
     for p in PILLARS:
         if p not in pillars:
             continue

@@ -39,11 +39,8 @@ import argparse
 import asyncio
 import hashlib
 import json
-import os
 import pathlib
-import sys
 import time
-from typing import Any, Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 from growthcro.config import config
@@ -282,7 +279,8 @@ def analyze_response(answer: str, brand_name: str, citations: list | None = None
 # ────────────────────────────────────────────────────────────────
 
 def _cache_key(query: str, engine_name: str) -> str:
-    h = hashlib.md5()
+    # MD5 used purely as a content-addressed cache key (not for crypto/auth).
+    h = hashlib.md5(usedforsecurity=False)
     h.update((query + "|" + engine_name).encode())
     return h.hexdigest()
 

@@ -42,7 +42,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import pathlib
 import sys
 import time
@@ -56,10 +55,10 @@ SCRIPTS = ROOT / "skills" / "growth-site-generator" / "scripts"
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
 
-from creative_director import generate_routes, render_creative_route_block  # noqa: E402
+from creative_director import generate_routes  # noqa: E402
 from gsg_pipeline_sequential import run_sequential_pipeline  # noqa: E402
 from gsg_multi_judge import run_multi_judge  # noqa: E402
-from fix_html_runtime import fix_html_runtime, detect_runtime_bugs  # noqa: E402
+from fix_html_runtime import fix_html_runtime  # noqa: E402
 
 
 def load_brand_dna(client: str) -> dict:
@@ -138,10 +137,10 @@ def run_best_of_n(client: str, page_type: str = "listicle",
     routes_filter = routes_filter or ["safe", "premium", "bold"]
 
     if verbose:
-        print(f"\n══════════════════════════════════════════════════════════")
+        print("\n══════════════════════════════════════════════════════════")
         print(f"  GSG Best-of-N V26.Z P2 — {client} / {page_type}")
         print(f"  Routes to test : {', '.join(routes_filter)}")
-        print(f"══════════════════════════════════════════════════════════\n")
+        print("══════════════════════════════════════════════════════════\n")
 
     # Load static inputs
     brand_dna = load_brand_dna(client)
@@ -152,7 +151,7 @@ def run_best_of_n(client: str, page_type: str = "listicle",
 
     # Generate 3 routes (1 call Sonnet)
     if verbose:
-        print(f"\n[Routes generation] 1 call Sonnet → 3 routes...")
+        print("\n[Routes generation] 1 call Sonnet → 3 routes...")
     routes_data = generate_routes(
         brand_dna, design_grammar, business_context, page_type,
         client, target_url, verbose=verbose,
@@ -178,9 +177,9 @@ def run_best_of_n(client: str, page_type: str = "listicle",
         slug = "".join(c if c.isalnum() else "_" for c in route_name.lower())[:40]
 
         if verbose:
-            print(f"\n══════════════════════════════════════════════════════════")
+            print("\n══════════════════════════════════════════════════════════")
             print(f"  ROUTE [{risk_level.upper()}] : \"{route_name}\"")
-            print(f"══════════════════════════════════════════════════════════")
+            print("══════════════════════════════════════════════════════════")
 
         # Stage : sequential pipeline with this specific route
         try:
@@ -256,9 +255,9 @@ def run_best_of_n(client: str, page_type: str = "listicle",
     best = sorted_results[0] if sorted_results else None
 
     if verbose:
-        print(f"\n══════════════════════════════════════════════════════════")
-        print(f"  BEST-OF-N COMPARISON")
-        print(f"══════════════════════════════════════════════════════════")
+        print("\n══════════════════════════════════════════════════════════")
+        print("  BEST-OF-N COMPARISON")
+        print("══════════════════════════════════════════════════════════")
         print(f"\n  {'Route':40s} {'Final pct':>10s} {'Humanlike':>10s} {'Impl':>10s}")
         print(f"  {'-'*40} {'-'*10} {'-'*10} {'-'*10}")
         for r in all_results:
@@ -338,11 +337,11 @@ def main():
     report_lite = {k: v for k, v in result.items() if k != "best_html"}
     report_fp.write_text(json.dumps(report_lite, ensure_ascii=False, indent=2))
 
-    print(f"\n══════════════════════════════════════════════════════════")
+    print("\n══════════════════════════════════════════════════════════")
     print(f"  Winner HTML saved : {out_fp}")
     print(f"  Full report saved : {report_fp.relative_to(ROOT)}")
     print(f"  Tokens total       : {result['tokens_total']} (~${result['tokens_total'] * 3 / 1e6:.3f})")
-    print(f"══════════════════════════════════════════════════════════")
+    print("══════════════════════════════════════════════════════════")
 
 
 if __name__ == "__main__":

@@ -265,7 +265,7 @@ def build_thresholds_block(crit_id: str, pillar: str) -> str:
     if pillar == "hero" or crit_id.startswith("hero_") or crit_id.startswith("coh_"):
         h = th.get("hero", {})
         if h:
-            relevant.append(f"  - hero.5s_test : test 5 secondes obligatoire (killer hero_06)")
+            relevant.append("  - hero.5s_test : test 5 secondes obligatoire (killer hero_06)")
             relevant.append(f"  - hero.h1_words_max : {h.get('h1_words_max_optimal', {}).get('value', 12)} mots optimal")
             relevant.append(f"  - hero.cta_distinct_atf_max : {h.get('cta_distinct_atf_max', {}).get('value', 1)} (ratio 1:1, killer)")
             relevant.append(f"  - hero.subtitle_chars_max : {h.get('subtitle_chars_max', {}).get('value', 140)} chars")
@@ -504,7 +504,7 @@ def build_vision_block(capture_context: dict) -> str:
             sp_type = sp.get("type", "?")
             lines.append(f"- Preuve sociale visible dans le fold : **PRÉSENTE** (type={sp_type}, texte: \"{snippet}\")")
         else:
-            lines.append(f"- Preuve sociale visible dans le fold : ABSENTE")
+            lines.append("- Preuve sociale visible dans le fold : ABSENTE")
 
         ub = vp_data.get("utility_banner") or {}
         if ub.get("present"):

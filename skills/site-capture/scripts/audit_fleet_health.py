@@ -277,17 +277,17 @@ def main():
     out_path.write_text(json.dumps(out_full, ensure_ascii=False, indent=2))
 
     # Console summary
-    print(f"\n══ FLEET HEALTH ══")
+    print("\n══ FLEET HEALTH ══")
     print(f"  Total pages : {summary['total_pages']}")
     print(f"  By health   : {summary['by_health']}")
     print(f"  Dead URLs   : {summary['n_dead']}")
     print(f"  Redirected  : {summary['n_redirected']}")
     print(f"  Label drift : {summary['n_drift_suspects']}")
-    print(f"\n  By page_type :")
+    print("\n  By page_type :")
     for pt, s in sorted(summary["by_page_type"].items(), key=lambda x: -x[1]["dead"]-x[1]["drift"]):
         if s["dead"] + s["drift"] + s["redirect"] > 0:
             print(f"    {pt:14s} total={s['total']:3d} dead={s['dead']:3d} drift={s['drift']:3d} redir={s['redirect']:3d}")
-    print(f"\n  Top problematic clients (dead+drift) :")
+    print("\n  Top problematic clients (dead+drift) :")
     for c in summary["top_problematic_clients"][:10]:
         print(f"    {c['client']:20s} alive={c['alive']:2d} dead={c['dead']:2d} redir={c['redirect']:2d} drift={c['drift']:2d}")
     print(f"\n→ Full report : {out_path}")

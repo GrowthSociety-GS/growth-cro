@@ -118,7 +118,7 @@ def _hero_visual(plan: GSGPagePlan, visual_system: dict[str, Any] | None = None)
 </div>"""
 
     if variant == "sales_argument":
-        return f"""
+        return """
 <div class="hero-visual hero-visual-sales" aria-hidden="true" data-visual-kind="sales_argument">
   <div class="argument-line"><span>Problem</span><i></i><b>New way</b></div>
   <div class="argument-panel strong"><b>01</b><span>Mechanism</span></div>

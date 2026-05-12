@@ -42,7 +42,6 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
-import sys
 import time
 from collections import defaultdict
 from typing import Optional
@@ -255,8 +254,8 @@ def generate_proposals(stats: list[dict], min_pages: int = 5) -> list[dict]:
                     f"Score moyen : {s['avg_score_pct']:.0f}%."
                 ),
                 "risk": (
-                    f"Si le pattern est légitime (vraie faiblesse marché), assouplir "
-                    f"masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon."
+                    "Si le pattern est légitime (vraie faiblesse marché), assouplir "
+                    "masquerait un signal CRO réel. Vérifier sur 3-5 pages échantillon."
                 ),
                 "requires_human_approval": True,
                 "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -368,7 +367,7 @@ def run(min_pages: int = 5) -> dict:
     LEARNING_DIR.mkdir(parents=True, exist_ok=True)
     PROPOSALS_DIR.mkdir(parents=True, exist_ok=True)
 
-    print(f"\n══ Learning Layer V29 Audit-Based — Sprint B V26.AA ══\n")
+    print("\n══ Learning Layer V29 Audit-Based — Sprint B V26.AA ══\n")
     scores = collect_curated_scores()
     print(f"  ✓ Loaded {len(scores)} score_page_type.json (56 clients curatés)")
 
@@ -401,10 +400,10 @@ def run(min_pages: int = 5) -> dict:
     summary_md = render_summary_md(stats, proposals, len(scores))
     (LEARNING_DIR / "audit_based_summary.md").write_text(summary_md)
 
-    print(f"\n  ✓ Outputs saved:")
+    print("\n  ✓ Outputs saved:")
     print(f"    data/learning/audit_based_stats.json ({len(stats)} segments)")
     print(f"    data/learning/audit_based_proposals/ ({len(proposals)} proposals)")
-    print(f"    data/learning/audit_based_summary.md (Mathis review)")
+    print("    data/learning/audit_based_summary.md (Mathis review)")
 
     return {
         "n_pages_analyzed": len(scores),

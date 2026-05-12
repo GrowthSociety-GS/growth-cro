@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import json
 import pathlib
-from typing import Any, Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 

@@ -428,7 +428,7 @@ def _print_summary(capture: dict, cap_file: pathlib.Path, html_file: pathlib.Pat
     total_images = tech["images_total"]
     lazy_images = ux["lazy_images"]
 
-    print(f"\n📊 Extraction Summary:")
+    print("\n📊 Extraction Summary:")
     print(f"  H1: {h1_text[:60] or '(none)'}")
     print(f"  Subtitle: {subtitle[:60] or '(none)'}")
     print(f"  Headings: {len(headings)} (H1={len(h1s)}, H2={len([h for h in headings if h['level']==2])})")

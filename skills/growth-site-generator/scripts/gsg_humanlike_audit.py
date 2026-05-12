@@ -40,7 +40,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import pathlib
 import re
 import sys
@@ -219,7 +218,7 @@ def print_humanlike_summary(audit: dict, label: str = "HUMANLIKE") -> None:
     print(f"  Persona : {audit.get('persona','?')}")
     print(f"  TOTAL   : {t.get('total','?')}/{t.get('total_max','?')} — {t.get('tier','?')}")
 
-    print(f"\n  Per dimension (0-10) :")
+    print("\n  Per dimension (0-10) :")
     block = (audit.get("scores") or {}).get("humanlike", {})
     for cat_name, criteria in block.items():
         if criteria and isinstance(criteria, list):
@@ -238,15 +237,15 @@ def print_humanlike_summary(audit: dict, label: str = "HUMANLIKE") -> None:
         for p in patterns:
             print(f"    • {p}")
 
-    print(f"\n  Strengths :")
+    print("\n  Strengths :")
     for s in audit.get("humanlike_strengths", []):
         print(f"    + {s}")
 
-    print(f"\n  Weaknesses :")
+    print("\n  Weaknesses :")
     for w in audit.get("humanlike_weaknesses", []):
         print(f"    - {w}")
 
-    print(f"\n  Verdict DA senior :")
+    print("\n  Verdict DA senior :")
     print(f"  {audit.get('verdict_paragraph', '?')}")
 
 

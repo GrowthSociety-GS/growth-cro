@@ -48,10 +48,9 @@ Storage : data/captures/<client>/<page>/disagreement_log.json
 from __future__ import annotations
 
 import json
-import os
 import pathlib
 import time
-from typing import Any, Optional
+from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
@@ -206,7 +205,7 @@ if __name__ == "__main__":
     print(f"Agreement score: {agreement}")
     print(f"Needs arbitrage: {needs_arbitrage(judges)}")
     if needs_arbitrage(judges):
-        print(f"  → trigger Sonnet arbitrage")
+        print("  → trigger Sonnet arbitrage")
     log_disagreement("kaiju", "home", "hero_01", judges, winner="rules",
                      evidence_ids=["ev_kaiju_home_hero_01_001"])
     print("✓ Logged to data/captures/kaiju/home/disagreement_log.json")

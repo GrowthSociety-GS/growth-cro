@@ -21,7 +21,7 @@ Coût attendu : ~$0.15-0.20 single_pass V1 (V26.AD) / ~$1.50-2.00 best_of_n V2 (
 """
 from __future__ import annotations
 
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 from ..core.brief_v2 import BriefV2
 

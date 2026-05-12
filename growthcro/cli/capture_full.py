@@ -111,11 +111,11 @@ def preflight_liveness(url: str) -> int:
     # Cas clairs de mort côté HTTP (404/410/5xx)
     if status in (404, 410):
         print(f"[0/4 pre-flight] ❌ URL retourne {status} — page introuvable.")
-        print(f"    Vérifie l'URL, ou corrige dans clients_database.json.")
+        print("    Vérifie l'URL, ou corrige dans clients_database.json.")
         return 2
     if 500 <= status < 600:
         print(f"[0/4 pre-flight] ❌ URL retourne {status} — serveur KO.")
-        print(f"    Retry plus tard ou vérifie l'état du site.")
+        print("    Retry plus tard ou vérifie l'état du site.")
         return 2
     # status=0 → introspection du message d'erreur pour distinguer DNS mort
     # (fatal) vs. TLS fingerprint rejeté (bot-block → on passe à Playwright).
@@ -127,7 +127,7 @@ def preflight_liveness(url: str) -> int:
     ]
     if any(m in err for m in dns_markers):
         print(f"[0/4 pre-flight] ❌ DNS ne résout pas `{url}`.")
-        print(f"    Le domaine n'existe pas (ou plus). Corrige l'URL.")
+        print("    Le domaine n'existe pas (ou plus). Corrige l'URL.")
         print(f"    Diag : {live.get('error', '?')}")
         return 2
     # Bot-block signatures (403/406/429/503 ou TLS handshake rejeté, timeout CDN)
@@ -342,7 +342,7 @@ def main():
                  args.url, args.label, args.biz_category],
                 "1/4 capture_site LEGACY", cwd=str(ROOT))
         if not cap_json.exists():
-            print(f"\n❌ LEGACY urllib FAILED — bascule sur le mode ghost-first par défaut.")
+            print("\n❌ LEGACY urllib FAILED — bascule sur le mode ghost-first par défaut.")
             print("    (Relance sans --legacy-urllib)")
             return 1
         # Stage 2 legacy : ghost pour spatial/screenshots seulement
@@ -365,7 +365,7 @@ def main():
         print("    Préférez le mode par défaut (Python Playwright) ou --cloud.")
         need_ghost = not (args.skip_ghost and spatial_json.exists() and page_html.exists())
         if not need_ghost:
-            print(f"\n[1/4 ghost_capture.js] SKIPPED (spatial_v9 + page.html présents)")
+            print("\n[1/4 ghost_capture.js] SKIPPED (spatial_v9 + page.html présents)")
         else:
             if not NODE_BIN:
                 print("\n❌ STAGE 1 — `node` introuvable dans le PATH.")
@@ -383,14 +383,14 @@ def main():
             return 1
 
         if args.skip_capture and cap_json.exists():
-            print(f"\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
+            print("\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
         else:
             run([PYTHON_BIN, "-m", "growthcro.capture.scorer",
                  args.url, args.label, page, "--html", str(page_html)],
                 "2/4 native_capture (--html)", cwd=str(ROOT))
 
         if not cap_json.exists():
-            print(f"\n❌ STAGE 2 FAILED — capture.json absent")
+            print("\n❌ STAGE 2 FAILED — capture.json absent")
             return 1
 
     # ═════════════════════════════════════════════════════════════
@@ -401,7 +401,7 @@ def main():
         #             → page.html + spatial_v9.json + screenshots
         need_ghost = not (args.skip_ghost and spatial_json.exists() and page_html.exists())
         if not need_ghost:
-            print(f"\n[1/4 ghost_capture_cloud.py] SKIPPED (spatial_v9 + page.html présents)")
+            print("\n[1/4 ghost_capture_cloud.py] SKIPPED (spatial_v9 + page.html présents)")
         else:
             ghost_cmd = [
                 PYTHON_BIN, "-m", "growthcro.capture.cli",
@@ -428,19 +428,19 @@ def main():
             print("   - Ajouter proxy résidentiel (future feature)")
             return 1
         if not spatial_json.exists():
-            print(f"\n⚠️  spatial_v9.json manquant — perception échouera, scoring visuel dégradé")
+            print("\n⚠️  spatial_v9.json manquant — perception échouera, scoring visuel dégradé")
 
         # ── Stage 2 : native_capture.py --html (parse le DOM rendered → capture.json)
         # Ré-utilise 100% du parser existant, juste la source diffère.
         if args.skip_capture and cap_json.exists():
-            print(f"\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
+            print("\n[2/4 native_capture (--html)] SKIPPED (capture.json présent)")
         else:
             run([PYTHON_BIN, "-m", "growthcro.capture.scorer",
                  args.url, args.label, page, "--html", str(page_html)],
                 "2/4 native_capture (--html)", cwd=str(ROOT))
 
         if not cap_json.exists():
-            print(f"\n❌ STAGE 2 FAILED — capture.json absent (parser a planté sur le DOM rendered)")
+            print("\n❌ STAGE 2 FAILED — capture.json absent (parser a planté sur le DOM rendered)")
             print(f"    Inspecte {page_html} manuellement pour voir ce qui cloche.")
             return 1
 
@@ -454,11 +454,11 @@ def main():
              "--client", args.label, "--page", page],
             "3/4 perception_v13", cwd=str(ROOT))
     else:
-        print(f"\n[3/4 perception_v13] ⏭️  SKIPPED (spatial_v9.json manquant)")
+        print("\n[3/4 perception_v13] ⏭️  SKIPPED (spatial_v9.json manquant)")
 
     # ── Stage 4 : intent_detector_v13 (par client) ────────────────
     if args.no_intent:
-        print(f"\n[4/4 intent_detector_v13] SKIPPED (--no-intent)")
+        print("\n[4/4 intent_detector_v13] SKIPPED (--no-intent)")
     else:
         run([PYTHON_BIN, str(SCRIPTS / "intent_detector_v13.py"),
              "--client", args.label],

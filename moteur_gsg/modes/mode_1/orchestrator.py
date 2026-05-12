@@ -126,7 +126,7 @@ def run_mode_1_persona_narrator(
         if vision_images:
             print(f"  Vision input : {len(vision_images)} screenshots — {[p.name for p in vision_images]}")
         else:
-            print(f"  Vision input : ❌ aucun screenshot disponible (Sonnet code à l'aveugle)")
+            print("  Vision input : ❌ aucun screenshot disponible (Sonnet code à l'aveugle)")
 
     # ── 3. Single-pass Sonnet via V26.AG dialogue + caching (issue #13) ──
     if verbose:
@@ -163,7 +163,7 @@ def run_mode_1_persona_narrator(
                 for r in repairs_applied[:5]:
                     print(f"     - {r}")
             else:
-                print(f"  ✓ AUTO-REPAIR fonts : 0 substitution nécessaire")
+                print("  ✓ AUTO-REPAIR fonts : 0 substitution nécessaire")
 
     # ── 4a-bis. SPRINT AD-6 — Anti-AI-slop visuel patterns ──
     # V26.AG rollback: report-only by default. The V26.AF aggressive repair path
@@ -193,7 +193,7 @@ def run_mode_1_persona_narrator(
                 print("  ↳ report-only (repair_visual_slop=True pour l'ancien repair agressif)")
         else:
             if verbose:
-                print(f"  ✓ AI-slop visual patterns : 0 détection")
+                print("  ✓ AI-slop visual patterns : 0 détection")
 
     # ── 4b. POST-GATES (AURA font blacklist + design_grammar forbidden) ──
     post_gate_violations = {"aura_font": [], "design_grammar": [], "ai_slop_visual": visual_slop_violations}
@@ -206,11 +206,11 @@ def run_mode_1_persona_narrator(
             if post_gate_violations["aura_font"]:
                 print(f"  ⚠️ AURA font blacklist VIOLATIONS post-repair : {post_gate_violations['aura_font']}")
             else:
-                print(f"  ✓ AURA font blacklist : OK (post-repair)")
+                print("  ✓ AURA font blacklist : OK (post-repair)")
             if post_gate_violations["design_grammar"]:
                 print(f"  ⚠️ design_grammar VIOLATIONS : {post_gate_violations['design_grammar']}")
             else:
-                print(f"  ✓ design_grammar forbidden patterns : OK")
+                print("  ✓ design_grammar forbidden patterns : OK")
 
     # ── 4. Save HTML ──
     if save_html_path:
@@ -224,7 +224,7 @@ def run_mode_1_persona_narrator(
     audit: dict = {}
     if not skip_judges:
         if verbose:
-            print(f"\n→ doctrine_judge V3.2.1 GATE (info only, NE bloque PAS la livraison)...")
+            print("\n→ doctrine_judge V3.2.1 GATE (info only, NE bloque PAS la livraison)...")
         from moteur_multi_judge.judges.doctrine_judge import audit_lp_doctrine
         audit = audit_lp_doctrine(html_fixed, client, page_type, verbose=verbose, parallel=True)
         if save_audit_path:
@@ -243,7 +243,7 @@ def run_mode_1_persona_narrator(
     }
 
     if verbose:
-        print(f"\n══ Mode 1 PERSONA NARRATOR — DONE ══")
+        print("\n══ Mode 1 PERSONA NARRATOR — DONE ══")
         print(f"  Wall total      : {telemetry['wall_seconds_total']}s")
         print(f"  Coût estimé     : ${telemetry['cost_estimate_usd']}")
         print(f"  HTML chars      : {len(html_fixed)}")

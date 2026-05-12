@@ -75,7 +75,7 @@ def main() -> int:
         visual_system = html.count("data-visual-system")
         visual_kinds = html.count("data-visual-kind")
         component_visuals = html.count("visual-module")
-        page_shell = f"visual-shell-" in html
+        page_shell = "visual-shell-" in html
         prompt_meta = result.get("prompt_meta") or {}
         visual_meta = prompt_meta.get("visual_intelligence") or {}
         route_meta = prompt_meta.get("creative_route_contract") or {}

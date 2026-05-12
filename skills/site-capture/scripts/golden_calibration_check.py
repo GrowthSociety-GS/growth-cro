@@ -23,7 +23,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from collections import defaultdict
 from pathlib import Path
 from statistics import mean, stdev
@@ -306,15 +305,15 @@ def main():
         print(f"  Fleet avg     : {s['fleet_avg_score']}%")
         print(f"  Range         : {s['fleet_min_score']}% – {s['fleet_max_score']}%")
 
-        print(f"\n═══ Pillar Calibration ═══")
+        print("\n═══ Pillar Calibration ═══")
         for pillar, p in report["pillar_calibration"].items():
             print(f"  {pillar:12s} avg={p['golden_avg']:5.1f}%  gap={p['gap_to_target']:+6.1f}  → {p['calibration_action']}")
 
-        print(f"\n═══ TOP 15 critères les plus en écart (priorité recalibration) ═══")
+        print("\n═══ TOP 15 critères les plus en écart (priorité recalibration) ═══")
         for c in report["criterion_calibration"][:15]:
             print(f"  {c['criterion_id']:12s} avg={c['golden_avg']:5.1f}%  gap={c['gap_to_target']:+6.1f}  n={c['n_observations']}  → {c['calibration_action']}")
 
-        print(f"\n═══ TOP 5 goldens les plus faibles ═══")
+        print("\n═══ TOP 5 goldens les plus faibles ═══")
         for site in report["per_site"][:5]:
             if site.get("avg_score"):
                 weakest = ", ".join(f"{p['pillar']}({p['avg']}%)" for p in site.get("weakest_pillars", [])[:3])

@@ -7,7 +7,6 @@ from pathlib import Path
 
 from growthcro.perception.heuristics import (
     FOLD_Y,
-    NOISE_KEYWORDS,
     VIEWPORT_W,
     bbox_area,
     bbox_center,

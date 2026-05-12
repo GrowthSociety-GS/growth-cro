@@ -27,7 +27,6 @@ import argparse
 import json
 import pathlib
 import re
-import sys
 from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]

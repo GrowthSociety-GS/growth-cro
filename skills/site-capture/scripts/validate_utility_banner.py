@@ -97,27 +97,27 @@ def validate_case(case: str, label: str, page: str, expected: str) -> dict:
     verdict = []
     if case == "A":  # japhy home : no cluster
         if has_ub:
-            verdict.append(f"❌ UTILITY_BANNER détecté (ne devrait pas)")
+            verdict.append("❌ UTILITY_BANNER détecté (ne devrait pas)")
         else:
-            verdict.append(f"✓ Pas de UTILITY_BANNER")
+            verdict.append("✓ Pas de UTILITY_BANNER")
         if applicable is False:
-            verdict.append(f"✓ scorer skip propre (applicable=False)")
+            verdict.append("✓ scorer skip propre (applicable=False)")
         else:
             verdict.append(f"❌ scorer applicable={applicable}, attendu False")
     elif case == "B":  # seoni home : should be MODAL not UTILITY_BANNER
         if has_ub and not has_modal:
-            verdict.append(f"❌ UTILITY_BANNER présent, height-gate n'a pas switché vers MODAL")
+            verdict.append("❌ UTILITY_BANNER présent, height-gate n'a pas switché vers MODAL")
         elif has_modal:
-            verdict.append(f"✓ MODAL détecté (fix height-gate appliqué)")
+            verdict.append("✓ MODAL détecté (fix height-gate appliqué)")
         elif not has_ub:
-            verdict.append(f"✓ Plus de UTILITY_BANNER (reclassé autre chose)")
+            verdict.append("✓ Plus de UTILITY_BANNER (reclassé autre chose)")
     elif case == "C":  # promo client
         if not has_ub:
-            verdict.append(f"⚠️ UTILITY_BANNER pas détecté — vérifier si le client a vraiment un banner")
+            verdict.append("⚠️ UTILITY_BANNER pas détecté — vérifier si le client a vraiment un banner")
         else:
-            verdict.append(f"✓ UTILITY_BANNER détecté")
+            verdict.append("✓ UTILITY_BANNER détecté")
             if variant == "PROMO":
-                verdict.append(f"✓ variant=PROMO")
+                verdict.append("✓ variant=PROMO")
             else:
                 verdict.append(f"⚠️ variant={variant}, attendu PROMO")
             if total_21 is not None:

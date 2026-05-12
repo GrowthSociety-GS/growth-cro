@@ -41,7 +41,6 @@ V27 canonical (2026-05-05) :
 """
 from __future__ import annotations
 
-from typing import Any
 
 
 # Modes registry V26.AE — 5 modes type business
@@ -101,7 +100,7 @@ def list_supported_modes() -> list[str]:
 
 
 if __name__ == "__main__":
-    import argparse, json
+    import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", default="complete")
     ap.add_argument("--client", required=True)

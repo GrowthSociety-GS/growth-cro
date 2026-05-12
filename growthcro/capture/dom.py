@@ -30,7 +30,7 @@ def load_extraction_js() -> str:
     """
     if not SPATIAL_V9_JS.exists():
         print(f"  ⚠️  spatial_capture_v9.js introuvable à {SPATIAL_V9_JS}")
-        print(f"      La capture spatiale sera dégradée (pas de perception tree)")
+        print("      La capture spatiale sera dégradée (pas de perception tree)")
         return ""
 
     code = SPATIAL_V9_JS.read_text(encoding="utf-8")

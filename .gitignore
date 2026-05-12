@@ -86,6 +86,10 @@ data/audits/meta/
 # Seuls les fichiers locaux/perso sont ignorés.
 .claude/settings.local.json
 .claude/worktrees/
+# Skills installed via `npx skills add ...` (local-only — per-machine, not source).
+# Cf .claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md §5 Installation procedure.
+.claude/skills/
+skills-lock.json
 
 
 # ─── Codex / OpenAI agent runner artefacts ────────────

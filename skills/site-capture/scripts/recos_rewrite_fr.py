@@ -20,11 +20,9 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-import os
 import pathlib
 import re
 import sys
-import time
 from typing import Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -287,7 +285,7 @@ async def rewrite_page(client_api, client: str, page: str, force: bool = False, 
                                     skipped_count += 1
                                     errors.append(f"no_match:{rid}")
                     else:
-                        errors.append(f"individual:parse_failed")
+                        errors.append("individual:parse_failed")
                     tokens_in += getattr(resp.usage, "input_tokens", 0)
                     tokens_out += getattr(resp.usage, "output_tokens", 0)
                     tokens_cached_read += getattr(resp.usage, "cache_read_input_tokens", 0) or 0
@@ -430,7 +428,7 @@ async def main_async(targets: list, max_concurrent: int, force: bool, dry_run: b
     if dry_run:
         # Estimate: input × $1/M + output × $5/M
         cost = total_in * 1 / 1_000_000 + total_out * 5 / 1_000_000
-        print(f"\n══ DRY RUN ══")
+        print("\n══ DRY RUN ══")
         print(f"Pages : {len(results)}")
         print(f"Rewrites estimés : ~{total_in*4//150} recos (basé sur tokens input)")
         print(f"Input tokens estimés : {total_in:,}")
@@ -444,7 +442,7 @@ async def main_async(targets: list, max_concurrent: int, force: bool, dry_run: b
             + total_cr * 0.1 / 1_000_000           # cache read
             + total_out * 5 / 1_000_000            # output
         )
-        print(f"\n══ Rewrite complete ══")
+        print("\n══ Rewrite complete ══")
         print(f"Pages : {len(results)}")
         print(f"Recos rewritten : {total_rw}")
         print(f"Tokens : {total_in:,} in / {total_out:,} out (cache: read={total_cr:,}, write={total_cw:,})")

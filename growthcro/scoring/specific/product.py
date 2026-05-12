@@ -26,7 +26,7 @@ def d_variants_selector(cap: dict, html: str, crit: dict) -> dict:
     if len(hits) >= 2:
         return _mk("top", f"Variants selectors multiples ({len(hits)})", signals=hits)
     if hits:
-        return _mk("ok", f"1 type de variant selector", signals=hits)
+        return _mk("ok", "1 type de variant selector", signals=hits)
     return _mk("critical", "Aucun variants selector — PDP monoline ?")
 
 
