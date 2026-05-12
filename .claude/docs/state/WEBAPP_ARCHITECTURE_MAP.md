@@ -263,7 +263,7 @@ flowchart TD
     Aggregator --> FinalReport[("data/_pipeline_runs/&lt;run&gt;/multi_judge.json<br/>final_score_pct + breakdown")]
     FinalReport --> Decision{{"final_score_pct ≥ 70<br/>+ killers = 0?"}}
     Decision -->|YES| Ship([Ship — Weglot V27.2-D baseline: 70.9])
-    Decision -->|NO| Repair["growthcro/gsg_lp/repair_loop<br/>(legacy lab)"]
+    Decision -->|NO| Repair["_archive/growthcro_gsg_lp_2026-05-12_legacy_island/repair_loop<br/>(archived legacy lab)"]
     Repair -.iterate.-> LP
 
     classDef artefact fill:#e8f4ff,stroke:#3a73b0,color:#0c2a4c;
@@ -280,10 +280,10 @@ scripts kept in production because they work; refactoring them into
 
 **When it runs.** Multi-judge is *post-render QA*, not a blocking generation
 gate. The GSG can ship without it (lite mode); enabling it adds ~5 minutes
-per LP. The legacy `growthcro/gsg_lp/repair_loop.py` iterates the multi-judge
-output back into the renderer; in the canonical V27.2-G path the loop is
-replaced by `moteur_gsg/core/minimal_guards.py` which is deterministic and
-non-iterative.
+per LP. The legacy `_archive/growthcro_gsg_lp_2026-05-12_legacy_island/repair_loop.py`
+(archived 2026-05-12 — Issue #37) iterated the multi-judge output back into
+the renderer; in the canonical V27.2-G path the loop is replaced by
+`moteur_gsg/core/minimal_guards.py` which is deterministic and non-iterative.
 
 ---
 

@@ -134,6 +134,11 @@ test_stealth/
 # !memory/snapshots/ → implicit keep (pas listé dans ignore)
 
 # ─── Archives locales (_archive_deprecated_*, archive/) ─
+# Anti-pattern #10 prevention (CLAUDE.md) — _archive_deprecated_* doit vivre
+# sous _archive/ racine, jamais dans un active path. Linter custom (Rule 3 de
+# scripts/lint_code_hygiene.py) flagge ce drift en FAIL. Wildcard pattern
+# **/_archive_deprecated_*/ empêche la réintroduction n'importe où dans l'arbre.
+**/_archive_deprecated_*/
 _archive_deprecated_*/
 _archive/*
 archive/
