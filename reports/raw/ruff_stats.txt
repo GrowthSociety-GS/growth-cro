@@ -1,0 +1,14 @@
+warning: Invalid `# noqa` directive on skills/growth-site-generator/scripts/gsg_multi_judge.py:71: expected code to consist of uppercase letters followed by digits only (e.g. `F401`)
+202	F541	[*] f-string-missing-placeholders
+133	F401	[-] unused-import
+107	E701	[ ] multiple-statements-on-one-line-colon
+ 93	E702	[ ] multiple-statements-on-one-line-semicolon
+ 43	E402	[ ] module-import-not-at-top-of-file
+ 31	F841	[-] unused-variable
+ 22	E741	[ ] ambiguous-variable-name
+ 18	E401	[*] multiple-imports-on-one-line
+  4	E722	[ ] bare-except
+  1	    	[ ] invalid-syntax
+  1	F811	[ ] redefined-while-unused
+Found 655 errors.
+[*] 339 fixable with the `--fix` option (30 hidden fixes can be enabled with the `--unsafe-fixes` option).

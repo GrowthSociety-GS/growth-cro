@@ -1,0 +1,658 @@
+warning: Invalid `# noqa` directive on skills/growth-site-generator/scripts/gsg_multi_judge.py:71: expected code to consist of uppercase letters followed by digits only (e.g. `F401`)
+growthcro/api/server.py:29:8: F401 [*] `os` imported but unused
+growthcro/api/server.py:31:8: F401 [*] `subprocess` imported but unused
+growthcro/api/server.py:38:45: F401 [*] `fastapi.responses.JSONResponse` imported but unused
+growthcro/api/server.py:39:33: F401 [*] `pydantic.HttpUrl` imported but unused
+growthcro/api/server.py:312:11: F541 [*] f-string without any placeholders
+growthcro/capture/browser.py:43:15: F541 [*] f-string without any placeholders
+growthcro/capture/browser.py:46:15: F541 [*] f-string without any placeholders
+growthcro/capture/browser.py:57:15: F541 [*] f-string without any placeholders
+growthcro/capture/browser.py:64:15: F541 [*] f-string without any placeholders
+growthcro/capture/browser.py:91:11: F541 [*] f-string without any placeholders
+growthcro/capture/dom.py:33:15: F541 [*] f-string without any placeholders
+growthcro/capture/orchestrator.py:124:27: F541 [*] f-string without any placeholders
+growthcro/capture/orchestrator.py:132:27: F541 [*] f-string without any placeholders
+growthcro/capture/orchestrator.py:133:27: F541 [*] f-string without any placeholders
+growthcro/capture/orchestrator.py:204:19: F541 [*] f-string without any placeholders
+growthcro/capture/orchestrator.py:309:11: F541 [*] f-string without any placeholders
+growthcro/capture/scorer.py:431:11: F541 [*] f-string without any placeholders
+growthcro/capture/signals.py:48:27: E701 Multiple statements on one line (colon)
+growthcro/capture/signals.py:48:40: E702 Multiple statements on one line (semicolon)
+growthcro/capture/signals.py:49:26: E701 Multiple statements on one line (colon)
+growthcro/capture/signals.py:49:39: E702 Multiple statements on one line (semicolon)
+growthcro/capture/signals.py:50:25: E701 Multiple statements on one line (colon)
+growthcro/capture/signals.py:50:38: E702 Multiple statements on one line (semicolon)
+growthcro/capture/signals.py:51:28: E701 Multiple statements on one line (colon)
+growthcro/capture/signals.py:51:41: E702 Multiple statements on one line (semicolon)
+growthcro/capture/signals.py:53:28: E702 Multiple statements on one line (semicolon)
+growthcro/cli/add_client.py:45:21: F401 [*] `pathlib.Path` imported but unused
+growthcro/cli/capture_full.py:114:15: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:118:15: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:130:15: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:250:53: invalid-syntax: Cannot reuse outer quote character in f-strings on Python 3.11 (syntax was added in Python 3.12)
+growthcro/cli/capture_full.py:345:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:368:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:386:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:393:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:404:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:431:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:436:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:443:19: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:457:15: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:461:15: F541 [*] f-string without any placeholders
+growthcro/cli/capture_full.py:471:5: F841 Local variable `ok_html` is assigned to but never used
+growthcro/cli/capture_full.py:475:5: F841 Local variable `ok_int` is assigned to but never used
+growthcro/cli/enrich_client.py:42:8: F401 [*] `os` imported but unused
+growthcro/cli/enrich_client.py:55:30: F401 [*] `growthcro.config.config` imported but unused
+growthcro/gsg_lp/brand_blocks.py:235:14: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/brand_blocks.py:241:14: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/brand_blocks.py:246:14: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/brand_blocks.py:250:14: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/brand_blocks.py:255:14: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/data_loaders.py:72:23: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/data_loaders.py:145:28: E741 Ambiguous variable name: `l`
+growthcro/gsg_lp/lp_orchestrator.py:154:11: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/lp_orchestrator.py:227:15: F541 [*] f-string without any placeholders
+growthcro/gsg_lp/lp_orchestrator.py:284:15: F541 [*] f-string without any placeholders
+growthcro/learning/v30_data_driven.py:410:9: F841 Local variable `ev` is assigned to but never used
+growthcro/perception/intent.py:29:5: F841 Local variable `y_mean` is assigned to but never used
+growthcro/perception/intent.py:48:5: F841 Local variable `has_form` is assigned to but never used
+growthcro/perception/persist.py:10:5: F401 [*] `growthcro.perception.heuristics.NOISE_KEYWORDS` imported but unused
+growthcro/perception/persist.py:123:38: E741 Ambiguous variable name: `l`
+growthcro/perception/vision.py:107:33: E741 Ambiguous variable name: `l`
+growthcro/perception/vision.py:111:29: E741 Ambiguous variable name: `l`
+growthcro/recos/orchestrator.py:484:27: F541 [*] f-string without any placeholders
+growthcro/recos/orchestrator.py:605:11: F541 [*] f-string without any placeholders
+growthcro/recos/prompts.py:268:29: F541 [*] f-string without any placeholders
+growthcro/recos/prompts.py:507:26: F541 [*] f-string without any placeholders
+growthcro/research/cli.py:91:15: F541 [*] f-string without any placeholders
+growthcro/research/cli.py:122:27: F541 [*] f-string without any placeholders
+growthcro/research/cli.py:128:15: F541 [*] f-string without any placeholders
+growthcro/scoring/pillars.py:11:30: F401 [*] `typing.Optional` imported but unused
+growthcro/scoring/specific/__init__.py:63:1: E402 Module level import not at top of file
+growthcro/scoring/specific/__init__.py:64:1: E402 Module level import not at top of file
+growthcro/scoring/specific/__init__.py:65:1: E402 Module level import not at top of file
+growthcro/scoring/specific/__init__.py:66:1: E402 Module level import not at top of file
+growthcro/scoring/specific/home_leadgen.py:234:26: F541 [*] f-string without any placeholders
+growthcro/scoring/specific/home_leadgen.py:261:1: E402 Module level import not at top of file
+growthcro/scoring/specific/listicle.py:80:23: E741 Ambiguous variable name: `l`
+growthcro/scoring/specific/product.py:29:26: F541 [*] f-string without any placeholders
+growthcro/scoring/specific/sales.py:95:26: E741 Ambiguous variable name: `l`
+growthcro/scoring/specific/sales.py:351:1: E402 Module level import not at top of file
+moteur_gsg/core/animations.py:80:5: F841 Local variable `anim` is assigned to but never used
+moteur_gsg/core/brand_intelligence.py:22:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/core/brief_v15_builder.py:67:5: F841 Local variable `recos` is assigned to but never used
+moteur_gsg/core/brief_v15_builder.py:170:11: F541 [*] f-string without any placeholders
+moteur_gsg/core/brief_v15_builder.py:171:11: F541 [*] f-string without any placeholders
+moteur_gsg/core/brief_v2_validator.py:18:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/core/design_grammar_loader.py:15:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/core/design_grammar_loader.py:15:25: F401 [*] `typing.Optional` imported but unused
+moteur_gsg/core/design_grammar_loader.py:132:31: E701 Multiple statements on one line (colon)
+moteur_gsg/core/design_grammar_loader.py:133:38: E701 Multiple statements on one line (colon)
+moteur_gsg/core/hero_renderer.py:121:16: F541 [*] f-string without any placeholders
+moteur_gsg/core/pipeline_sequential.py:36:5: F401 [*] `doctrine.top_critical_for_page_type` imported but unused
+moteur_gsg/core/pipeline_sequential.py:39:5: F401 [*] `doctrine.criterion_to_gsg_principle` imported but unused
+moteur_gsg/core/pipeline_sequential.py:42:1: E402 Module level import not at top of file
+moteur_gsg/core/pipeline_sequential.py:43:1: E402 Module level import not at top of file
+moteur_gsg/core/pipeline_sequential.py:663:15: F541 [*] f-string without any placeholders
+moteur_gsg/core/pipeline_single_pass.py:20:8: F401 [*] `os` imported but unused
+moteur_gsg/core/pipeline_single_pass.py:24:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/core/pipeline_single_pass.py:65:5: E401 [*] Multiple imports on one line
+moteur_gsg/core/prompt_assembly.py:240:12: F401 [*] `json` imported but unused
+moteur_gsg/core/prompt_assembly.py:258:11: F541 [*] f-string without any placeholders
+moteur_gsg/core/prompt_assembly.py:260:11: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/orchestrator.py:129:19: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/orchestrator.py:166:23: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/orchestrator.py:196:23: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/orchestrator.py:209:23: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/orchestrator.py:213:23: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/orchestrator.py:227:19: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/orchestrator.py:246:15: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_assembly.py:146:9: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_assembly.py:147:9: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_assembly.py:148:9: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_assembly.py:149:9: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_blocks.py:231:30: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_blocks.py:232:30: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_blocks.py:262:26: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_blocks.py:268:26: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_blocks.py:279:26: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/prompt_blocks.py:396:14: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1/visual_gates.py:186:32: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1_complete.py:500:19: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_1_complete.py:533:15: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_2_replace.py:29:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/modes/mode_2_replace.py:143:48: E741 Ambiguous variable name: `l`
+moteur_gsg/modes/mode_2_replace.py:177:15: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_2_replace.py:183:23: F541 [*] f-string without any placeholders
+moteur_gsg/modes/mode_2_replace.py:229:17: E701 Multiple statements on one line (colon)
+moteur_gsg/modes/mode_2_replace.py:230:17: E701 Multiple statements on one line (colon)
+moteur_gsg/modes/mode_2_replace.py:231:17: E701 Multiple statements on one line (colon)
+moteur_gsg/modes/mode_3_extend.py:21:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/modes/mode_4_elevate.py:24:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/modes/mode_5_genesis.py:27:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/orchestrator.py:44:20: F401 [*] `typing.Any` imported but unused
+moteur_gsg/orchestrator.py:104:5: E401 [*] Multiple imports on one line
+moteur_gsg/orchestrator.py:104:22: F401 [*] `json` imported but unused
+moteur_multi_judge/judges/doctrine_judge.py:35:8: F401 [*] `os` imported but unused
+moteur_multi_judge/judges/doctrine_judge.py:273:17: E701 Multiple statements on one line (colon)
+moteur_multi_judge/judges/doctrine_judge.py:274:17: E701 Multiple statements on one line (colon)
+moteur_multi_judge/judges/doctrine_judge.py:275:17: E701 Multiple statements on one line (colon)
+moteur_multi_judge/judges/doctrine_judge.py:343:32: E701 Multiple statements on one line (colon)
+moteur_multi_judge/judges/doctrine_judge.py:344:33: E701 Multiple statements on one line (colon)
+moteur_multi_judge/judges/doctrine_judge.py:345:39: E701 Multiple statements on one line (colon)
+moteur_multi_judge/judges/doctrine_judge.py:427:11: F541 [*] f-string without any placeholders
+moteur_multi_judge/orchestrator.py:23:20: F401 [*] `typing.Any` imported but unused
+moteur_multi_judge/orchestrator.py:28:1: E402 Module level import not at top of file
+moteur_multi_judge/orchestrator.py:32:1: E402 Module level import not at top of file
+moteur_multi_judge/orchestrator.py:94:17: E701 Multiple statements on one line (colon)
+moteur_multi_judge/orchestrator.py:95:17: E701 Multiple statements on one line (colon)
+moteur_multi_judge/orchestrator.py:96:17: E701 Multiple statements on one line (colon)
+moteur_multi_judge/orchestrator.py:97:17: E701 Multiple statements on one line (colon)
+moteur_multi_judge/orchestrator.py:135:15: F541 [*] f-string without any placeholders
+moteur_multi_judge/orchestrator.py:143:19: F541 [*] f-string without any placeholders
+moteur_multi_judge/orchestrator.py:160:19: F541 [*] f-string without any placeholders
+moteur_multi_judge/orchestrator.py:219:15: F541 [*] f-string without any placeholders
+moteur_multi_judge/orchestrator.py:224:19: F541 [*] f-string without any placeholders
+moteur_multi_judge/orchestrator.py:227:15: F541 [*] f-string without any placeholders
+scripts/_test_weglot_listicle_V26AE.py:9:8: F401 [*] `json` imported but unused
+scripts/_test_weglot_listicle_V26AE.py:10:8: F401 [*] `os` imported but unused
+scripts/_test_weglot_listicle_V26AE.py:18:1: E402 Module level import not at top of file
+scripts/_test_weglot_listicle_V26AE.py:18:38: F401 [*] `moteur_gsg.core.brief_v2.BriefV2` imported but unused
+scripts/_test_weglot_listicle_V26AE.py:19:1: E402 Module level import not at top of file
+scripts/_test_weglot_listicle_V26AE.py:22:1: E402 Module level import not at top of file
+scripts/_test_weglot_listicle_V26AE.py:62:11: F541 [*] f-string without any placeholders
+scripts/_test_weglot_listicle_V26AE.py:68:11: F541 [*] f-string without any placeholders
+scripts/_test_weglot_listicle_V26AE.py:88:5: F841 Local variable `wall` is assigned to but never used
+scripts/_test_weglot_listicle_V26AE.py:112:11: F541 [*] f-string without any placeholders
+scripts/_test_weglot_listicle_V26AE.py:129:11: F541 [*] f-string without any placeholders
+scripts/_test_weglot_listicle_V26AE.py:130:11: F541 [*] f-string without any placeholders
+scripts/_test_weglot_listicle_V26AE.py:131:11: F541 [*] f-string without any placeholders
+scripts/audit_capabilities.py:35:20: F401 [*] `typing.Optional` imported but unused
+scripts/audit_capabilities.py:469:5: F841 Local variable `args` is assigned to but never used
+scripts/audit_capabilities.py:486:11: F541 [*] f-string without any placeholders
+scripts/audit_capabilities.py:487:11: F541 [*] f-string without any placeholders
+scripts/audit_capabilities.py:488:11: F541 [*] f-string without any placeholders
+scripts/check_gsg_canonical.py:11:1: E402 Module level import not at top of file
+scripts/check_gsg_component_planner.py:11:1: E402 Module level import not at top of file
+scripts/check_gsg_controlled_renderer.py:11:1: E402 Module level import not at top of file
+scripts/check_gsg_creative_route_selector.py:12:1: E402 Module level import not at top of file
+scripts/check_gsg_intake_wizard.py:12:1: E402 Module level import not at top of file
+scripts/check_gsg_intake_wizard.py:13:1: E402 Module level import not at top of file
+scripts/check_gsg_visual_renderer.py:13:1: E402 Module level import not at top of file
+scripts/check_gsg_visual_renderer.py:78:22: F541 [*] f-string without any placeholders
+scripts/client_context.py:50:20: F401 [*] `typing.Any` imported but unused
+scripts/client_context.py:381:9: F541 [*] f-string without any placeholders
+scripts/client_context.py:388:9: F541 [*] f-string without any placeholders
+scripts/client_context.py:391:9: F541 [*] f-string without any placeholders
+scripts/client_context.py:394:9: F541 [*] f-string without any placeholders
+scripts/client_context.py:395:9: F541 [*] f-string without any placeholders
+scripts/client_context.py:406:5: E401 [*] Multiple imports on one line
+scripts/client_context.py:416:15: F541 [*] f-string without any placeholders
+scripts/client_context.py:417:15: F541 [*] f-string without any placeholders
+scripts/client_context.py:418:15: F541 [*] f-string without any placeholders
+scripts/compare_doctrine_v3_v3_3.py:22:20: F401 [*] `typing.Any` imported but unused
+scripts/compare_doctrine_v3_v3_3.py:27:1: E402 Module level import not at top of file
+scripts/compare_doctrine_v3_v3_3.py:185:19: F541 [*] f-string without any placeholders
+scripts/precategorize_proposals.py:115:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:38:8: F401 [*] `os` imported but unused
+scripts/run_gsg_full_pipeline.py:47:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:47:38: F401 [*] `moteur_gsg.core.brief_v2.BriefV2` imported but unused
+scripts/run_gsg_full_pipeline.py:48:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:49:31: F401 [*] `moteur_gsg.core.brief_v2_validator.validate_or_raise` imported but unused
+scripts/run_gsg_full_pipeline.py:51:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:54:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:55:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:62:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:63:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:67:1: E402 Module level import not at top of file
+scripts/run_gsg_full_pipeline.py:124:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:171:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:223:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:239:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:297:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:298:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:305:11: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:339:11: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:365:11: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:414:15: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:435:19: F541 [*] f-string without any placeholders
+scripts/run_gsg_full_pipeline.py:443:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/aura_compute.py:26:8: F401 [*] `math` imported but unused
+skills/growth-site-generator/scripts/aura_compute.py:27:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/aura_compute.py:29:8: F401 [*] `sys` imported but unused
+skills/growth-site-generator/scripts/aura_compute.py:30:21: F401 [*] `pathlib.Path` imported but unused
+skills/growth-site-generator/scripts/aura_compute.py:159:5: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_compute.py:165:19: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:166:21: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:167:13: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:172:32: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_compute.py:173:11: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_compute.py:178:21: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:179:21: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:180:23: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:181:23: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:182:23: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_compute.py:192:36: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_compute.py:257:11: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_compute.py:582:15: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_extract.py:26:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/aura_extract.py:28:8: F401 [*] `sys` imported but unused
+skills/growth-site-generator/scripts/aura_extract.py:29:8: F401 [*] `math` imported but unused
+skills/growth-site-generator/scripts/aura_extract.py:75:15: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_extract.py:86:15: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_extract.py:447:5: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_extract.py:465:32: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_extract.py:467:11: E741 Ambiguous variable name: `l`
+skills/growth-site-generator/scripts/aura_extract.py:473:21: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:474:21: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:475:23: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:476:23: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:477:23: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:495:5: F841 Local variable `fonts` is assigned to but never used
+skills/growth-site-generator/scripts/aura_extract.py:528:41: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:529:33: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:530:37: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:539:41: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/aura_extract.py:597:9: E722 Do not use bare `except`
+skills/growth-site-generator/scripts/aura_extract.py:702:13: E722 Do not use bare `except`
+skills/growth-site-generator/scripts/creative_director.py:58:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/creative_director.py:260:19: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/creative_director.py:488:14: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/creative_director.py:547:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/creative_director.py:550:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/creative_director.py:566:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/golden_design_bridge.py:26:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/golden_design_bridge.py:27:8: F401 [*] `sys` imported but unused
+skills/growth-site-generator/scripts/golden_design_bridge.py:121:33: F841 [*] Local variable `e` is assigned to but never used
+skills/growth-site-generator/scripts/golden_design_bridge.py:324:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/golden_design_bridge.py:328:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/golden_design_bridge.py:334:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/golden_design_bridge.py:343:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:45:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/gsg_best_of_n.py:59:48: F401 [*] `creative_director.render_creative_route_block` imported but unused
+skills/growth-site-generator/scripts/gsg_best_of_n.py:62:48: F401 [*] `fix_html_runtime.detect_runtime_bugs` imported but unused
+skills/growth-site-generator/scripts/gsg_best_of_n.py:141:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:144:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:155:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:181:19: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:183:19: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:259:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:260:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:261:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:341:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_best_of_n.py:345:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_humanlike_audit.py:43:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/gsg_humanlike_audit.py:222:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_humanlike_audit.py:241:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_humanlike_audit.py:245:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_humanlike_audit.py:249:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_multi_judge.py:56:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/gsg_multi_judge.py:456:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_multi_judge.py:459:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_multi_judge.py:481:19: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_multi_judge.py:586:11: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_pipeline_sequential.py:86:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/gsg_pipeline_sequential.py:89:8: F401 [*] `sys` imported but unused
+skills/growth-site-generator/scripts/gsg_pipeline_sequential.py:196:5: F841 Local variable `vt` is assigned to but never used
+skills/growth-site-generator/scripts/gsg_pipeline_sequential.py:542:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_pipeline_sequential.py:556:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_pipeline_sequential.py:572:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/gsg_pipeline_sequential.py:585:15: F541 [*] f-string without any placeholders
+skills/growth-site-generator/scripts/scrap_inspiration.py:26:8: F401 [*] `os` imported but unused
+skills/growth-site-generator/scripts/scrap_inspiration.py:105:36: E701 Multiple statements on one line (colon)
+skills/growth-site-generator/scripts/scrap_inspiration.py:106:31: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/analyze_capture.py:2:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/audit_fleet_health.py:76:13: F841 Local variable `title` is assigned to but never used
+skills/site-capture/scripts/audit_fleet_health.py:259:56: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/audit_fleet_health.py:280:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/audit_fleet_health.py:286:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/audit_fleet_health.py:290:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/audit_funnel_steps.py:38:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/audit_funnel_steps.py:63:42: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/audit_funnel_steps.py:64:41: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/audit_funnel_steps.py:65:42: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/audit_funnel_steps.py:66:43: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/audit_funnel_steps.py:69:40: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/audit_funnel_steps.py:70:41: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/audit_funnel_steps.py:194:23: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/audit_funnel_steps.py:215:38: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/batch_rescore.py:11:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/batch_rescore.py:11:19: F401 [*] `os` imported but unused
+skills/site-capture/scripts/batch_rescore.py:53:7: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/batch_site.py:19:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/batch_site.py:19:19: F401 [*] `os` imported but unused
+skills/site-capture/scripts/batch_site.py:23:1: E402 Module level import not at top of file
+skills/site-capture/scripts/batch_site.py:45:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/batch_site.py:52:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/batch_site.py:74:29: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/batch_site.py:75:15: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/batch_site.py:76:17: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/batch_site.py:113:9: E722 Do not use bare `except`
+skills/site-capture/scripts/batch_site.py:206:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/brand_dna_diff_extractor.py:47:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/brand_dna_diff_extractor.py:51:20: F401 [*] `typing.Optional` imported but unused
+skills/site-capture/scripts/brand_dna_diff_extractor.py:260:9: F841 Local variable `total_chars` is assigned to but never used
+skills/site-capture/scripts/brand_dna_diff_extractor.py:306:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/brand_dna_extractor.py:43:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/brand_dna_extractor.py:388:41: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/brand_dna_extractor.py:389:36: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/brand_dna_extractor.py:433:41: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/brand_dna_extractor.py:434:36: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/brand_dna_extractor.py:463:41: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/brand_dna_extractor.py:464:36: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/brand_dna_extractor.py:575:19: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/brand_dna_extractor.py:578:19: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/brand_dna_extractor.py:621:19: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/brand_dna_extractor.py:644:47: F401 [*] `reco_enricher_v13_api._load_dotenv_if_needed` imported but unused
+skills/site-capture/scripts/capture_site.py:32:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/capture_site.py:32:19: F401 [*] `os` imported but unused
+skills/site-capture/scripts/capture_site.py:32:23: F401 [*] `re` imported but unused
+skills/site-capture/scripts/capture_site.py:50:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/capture_site.py:108:1: F811 Redefinition of unused `config` from line 34: `config` redefined here
+skills/site-capture/scripts/capture_site.py:118:29: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/capture_site.py:119:15: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/capture_site.py:120:17: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/capture_site.py:135:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:160:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:368:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:397:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:398:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:399:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:400:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:401:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:454:19: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/capture_site.py:519:29: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/capture_site.py:520:15: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/capture_site.py:521:17: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/design_grammar.py:29:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/design_grammar.py:47:5: F841 Local variable `motion` is assigned to but never used
+skills/site-capture/scripts/design_grammar.py:147:5: F841 Local variable `radius_dom` is assigned to but never used
+skills/site-capture/scripts/discover_pages_v25.py:35:8: F401 [*] `hashlib` imported but unused
+skills/site-capture/scripts/discover_pages_v25.py:37:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/discover_pages_v25.py:43:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/discover_pages_v25.py:47:1: E402 Module level import not at top of file
+skills/site-capture/scripts/discover_pages_v25.py:639:37: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/discover_pages_v25.py:640:32: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/discover_pages_v25.py:647:16: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/discover_pages_v25.py:648:13: E722 Do not use bare `except`
+skills/site-capture/scripts/discover_pages_v25.py:648:19: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/discover_pages_v25.py:676:34: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/discover_pages_v25.py:776:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/discover_pages_v25.py:786:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/discover_pages_v25.py:794:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/discover_pages_v25.py:853:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/discover_pages_v25.py:887:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/discover_pages_v25.py:961:58: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/dom_vision_reconciler.py:301:9: F841 Local variable `score` is assigned to but never used
+skills/site-capture/scripts/dom_vision_reconciler.py:504:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/eclaireur_llm.py:41:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/eclaireur_llm.py:188:44: E741 Ambiguous variable name: `l`
+skills/site-capture/scripts/eclaireur_llm.py:268:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/enrich_scores_with_evidence.py:33:1: E402 Module level import not at top of file
+skills/site-capture/scripts/enrich_scores_with_evidence.py:33:67: F401 [*] `evidence_ledger.attach_evidence_to_score` imported but unused
+skills/site-capture/scripts/enrich_scores_with_evidence.py:33:93: F401 [*] `evidence_ledger.attach_evidence_to_reco` imported but unused
+skills/site-capture/scripts/experiment_engine.py:38:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/experiment_engine.py:106:26: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/experiment_engine.py:107:26: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/experiment_engine.py:108:26: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/experiment_engine.py:109:27: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/experiment_engine.py:110:26: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/experiment_engine.py:111:27: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/experiment_engine.py:139:18: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/geo_audit.py:31:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/geo_audit.py:39:1: E402 Module level import not at top of file
+skills/site-capture/scripts/geo_audit.py:214:23: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:215:9: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:216:29: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:217:9: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:218:23: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:219:9: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:225:22: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:226:48: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:227:23: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:322:41: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:323:36: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/geo_audit.py:376:5: F841 Local variable `types_str` is assigned to but never used
+skills/site-capture/scripts/geo_audit.py:398:23: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/geo_audit.py:545:58: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/geo_audit.py:548:61: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/geo_audit.py:571:63: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/geo_readiness_monitor.py:42:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/geo_readiness_monitor.py:44:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/geo_readiness_monitor.py:46:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/geo_readiness_monitor.py:46:25: F401 [*] `typing.Optional` imported but unused
+skills/site-capture/scripts/geo_readiness_monitor.py:49:1: E402 Module level import not at top of file
+skills/site-capture/scripts/golden_bridge.py:13:20: F401 [*] `typing.Optional` imported but unused
+skills/site-capture/scripts/golden_calibration_check.py:26:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/golden_calibration_check.py:309:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/golden_calibration_check.py:313:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/golden_calibration_check.py:317:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/golden_differential.py:23:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/golden_percentiles.py:30:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/golden_percentiles.py:33:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/intent_detector_v13.py:47:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/learning_layer_v29_audit_based.py:45:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/learning_layer_v29_audit_based.py:258:21: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/learning_layer_v29_audit_based.py:259:21: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/learning_layer_v29_audit_based.py:339:13: F841 Local variable `ev` is assigned to but never used
+skills/site-capture/scripts/learning_layer_v29_audit_based.py:371:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/learning_layer_v29_audit_based.py:404:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/learning_layer_v29_audit_based.py:407:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/multi_judge.py:51:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/multi_judge.py:54:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/multi_judge.py:154:41: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/multi_judge.py:155:36: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/multi_judge.py:209:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/page_cleaner.py:32:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/page_cleaner.py:215:5: F841 Local variable `w` is assigned to but never used
+skills/site-capture/scripts/page_context.py:36:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/page_context.py:43:29: F401 [*] `dataclasses.dataclass` imported but unused
+skills/site-capture/scripts/page_context.py:43:40: F401 [*] `dataclasses.field` imported but unused
+skills/site-capture/scripts/perception_inject.py:17:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/perception_inject.py:17:28: F401 [*] `copy` imported but unused
+skills/site-capture/scripts/perception_inject.py:27:16: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/perception_inject.py:58:5: F841 Local variable `nav` is assigned to but never used
+skills/site-capture/scripts/perception_inject.py:88:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/perception_inject.py:121:5: F841 Local variable `primary_norm` is assigned to but never used
+skills/site-capture/scripts/perception_inject.py:161:21: F841 Local variable `h` is assigned to but never used
+skills/site-capture/scripts/pick_diverse_pages.py:21:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/playwright_capture_v2.py:43:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/playwright_capture_v2.py:46:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/playwright_capture_v2.py:51:1: E402 Module level import not at top of file
+skills/site-capture/scripts/playwright_capture_v2.py:782:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/project_snapshot.py:31:8: F401 [*] `subprocess` imported but unused
+skills/site-capture/scripts/project_snapshot.py:32:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/project_snapshot.py:33:34: F401 [*] `collections.OrderedDict` imported but unused
+skills/site-capture/scripts/project_snapshot.py:887:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/reality_layer/base.py:4:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/reality_layer/base.py:7:25: F401 [*] `typing.Optional` imported but unused
+skills/site-capture/scripts/reality_layer/catchr.py:22:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/reality_layer/clarity.py:20:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/reality_layer/google_ads.py:27:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/reality_layer/meta_ads.py:14:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/reality_layer/orchestrator.py:29:1: E402 Module level import not at top of file
+skills/site-capture/scripts/reality_layer/orchestrator.py:30:1: E402 Module level import not at top of file
+skills/site-capture/scripts/reality_layer/orchestrator.py:31:1: E402 Module level import not at top of file
+skills/site-capture/scripts/reality_layer/orchestrator.py:32:1: E402 Module level import not at top of file
+skills/site-capture/scripts/reality_layer/orchestrator.py:33:1: E402 Module level import not at top of file
+skills/site-capture/scripts/reality_layer/orchestrator.py:34:1: E402 Module level import not at top of file
+skills/site-capture/scripts/reality_layer/shopify.py:22:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/reco_lifecycle.py:67:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/reco_quality_audit.py:25:34: F401 [*] `collections.defaultdict` imported but unused
+skills/site-capture/scripts/reco_quality_audit.py:26:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/reco_quality_audit.py:285:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/reco_quality_audit.py:288:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/recos_dedup.py:30:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/recos_rewrite_fr.py:23:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/recos_rewrite_fr.py:27:8: F401 [*] `time` imported but unused
+skills/site-capture/scripts/recos_rewrite_fr.py:290:39: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/recos_rewrite_fr.py:433:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/recos_rewrite_fr.py:447:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/run_capture.py:19:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/run_capture.py:19:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/run_capture.py:23:65: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_capture.py:31:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_capture.py:34:108: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_capture.py:129:61: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_capture.py:131:19: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_capture.py:147:44: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_capture.py:152:16: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/run_capture.py:157:71: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_capture.py:163:11: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/run_discover.py:16:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/run_discover.py:39:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_spatial_capture.py:20:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/run_spatial_capture.py:20:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/run_spatial_capture.py:32:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_spatial_capture.py:37:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/run_spatial_capture.py:67:11: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/run_spatial_capture.py:99:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/run_spatial_capture.py:146:5: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/scent_trail_analyzer.py:91:5: F841 Local variable `social` is assigned to but never used
+skills/site-capture/scripts/scent_trail_analyzer.py:92:5: F841 Local variable `overlays` is assigned to but never used
+skills/site-capture/scripts/scent_trail_analyzer.py:342:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/schwartz_detector.py:27:8: F401 [*] `sys` imported but unused
+skills/site-capture/scripts/score_applicability_overlay.py:35:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/score_coherence.py:12:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/score_coherence.py:22:26: F401 `perception_bridge.has_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_coherence.py:22:41: F401 `perception_bridge.count_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_coherence.py:23:9: F401 `perception_bridge.get_verdict` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_coherence.py:30:75: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:46:59: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:116:16: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_coherence.py:168:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:171:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:174:14: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:177:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:216:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:219:14: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:222:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:256:24: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_coherence.py:257:23: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_coherence.py:258:36: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_coherence.py:259:27: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_coherence.py:262:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:265:14: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:268:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:307:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:310:14: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:313:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:351:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:354:14: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:357:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:371:16: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_coherence.py:413:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:416:14: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_coherence.py:419:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_contextual_overlay.py:52:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/score_hero.py:20:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/score_hero.py:28:26: F401 `perception_bridge.has_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_hero.py:28:41: F401 `perception_bridge.count_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_hero.py:29:9: F401 `perception_bridge.get_verdict` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_hero.py:36:90: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_hero.py:202:17: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/score_hero.py:228:29: E741 Ambiguous variable name: `l`
+skills/site-capture/scripts/score_hero.py:232:33: E741 Ambiguous variable name: `l`
+skills/site-capture/scripts/score_hero.py:233:55: E741 Ambiguous variable name: `l`
+skills/site-capture/scripts/score_hero.py:535:22: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_hero.py:537:22: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_hero.py:539:22: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_hero.py:546:26: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_page_type.py:41:5: F401 [*] `page_type_filter.get_specific_criteria` imported but unused
+skills/site-capture/scripts/score_page_type.py:481:13: F841 Local variable `r` is assigned to but never used
+skills/site-capture/scripts/score_page_type.py:687:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/score_persuasion.py:15:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/score_persuasion.py:24:26: F401 `perception_bridge.has_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_persuasion.py:25:9: F401 `perception_bridge.get_verdict` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_persuasion.py:32:76: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:49:59: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:170:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:172:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:174:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:179:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:181:16: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:213:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:215:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:217:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:220:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:253:13: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:257:21: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:261:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:263:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:265:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:267:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:288:25: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_persuasion.py:289:20: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_persuasion.py:290:23: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_persuasion.py:291:21: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_persuasion.py:292:27: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_persuasion.py:293:20: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_persuasion.py:296:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:298:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:300:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:302:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:334:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:336:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:338:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:340:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:376:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:378:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:380:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:382:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:409:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:411:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:413:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:415:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:448:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:450:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:452:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_persuasion.py:454:12: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_psycho.py:25:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/score_psycho.py:33:26: F401 `perception_bridge.has_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_psycho.py:33:41: F401 `perception_bridge.count_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_psycho.py:34:9: F401 `perception_bridge.get_verdict` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_psycho.py:201:17: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/score_tech.py:24:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/score_tech.py:33:26: F401 `perception_bridge.has_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_tech.py:33:41: F401 `perception_bridge.count_component` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_tech.py:34:9: F401 `perception_bridge.get_verdict` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/score_tech.py:98:13: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_tech.py:100:13: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_tech.py:229:42: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_tech.py:230:19: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_tech.py:231:19: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_tech.py:232:28: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_tech.py:233:19: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_utility_banner.py:30:20: F401 [*] `typing.Any` imported but unused
+skills/site-capture/scripts/score_utility_banner.py:254:5: F841 Local variable `elem_ids` is assigned to but never used
+skills/site-capture/scripts/score_utility_banner.py:304:5: F841 Local variable `is_top` is assigned to but never used
+skills/site-capture/scripts/score_utility_banner.py:380:41: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_utility_banner.py:382:9: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_utility_banner.py:383:38: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_utility_banner.py:385:9: E701 Multiple statements on one line (colon)
+skills/site-capture/scripts/score_utility_banner.py:386:38: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_utility_banner.py:387:38: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/score_utility_banner.py:388:57: E702 Multiple statements on one line (semicolon)
+skills/site-capture/scripts/spatial_bridge.py:21:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/spatial_bridge.py:28:1: E402 Module level import not at top of file
+skills/site-capture/scripts/spatial_bridge.py:32:9: F401 `spatial_scoring.is_v9_capture` imported but unused; consider using `importlib.util.find_spec` to test for availability
+skills/site-capture/scripts/spatial_enrich.py:22:1: E401 [*] Multiple imports on one line
+skills/site-capture/scripts/spatial_enrich.py:302:9: F841 Local variable `total_errors` is assigned to but never used
+skills/site-capture/scripts/spatial_enrich.py:326:15: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/usp_detector.py:262:5: F841 Local variable `perception` is assigned to but never used
+skills/site-capture/scripts/usp_detector.py:267:5: F841 Local variable `mobile_hero` is assigned to but never used
+skills/site-capture/scripts/validate_utility_banner.py:100:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:102:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:104:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:109:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:111:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:113:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:116:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:118:28: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/validate_utility_banner.py:120:32: F541 [*] f-string without any placeholders
+skills/site-capture/scripts/vision_spatial.py:34:8: F401 [*] `os` imported but unused
+skills/site-capture/scripts/vision_spatial.py:41:1: E402 Module level import not at top of file
+skills/site-capture/scripts/web_vitals_adapter.py:33:8: F401 [*] `os` imported but unused
+Found 655 errors.
+[*] 339 fixable with the `--fix` option (30 hidden fixes can be enabled with the `--unsafe-fixes` option).

@@ -1,0 +1,5 @@
+growthcro/recos/orchestrator.py:544: error: Item "None" of "dict[Any, Any] | None" has no attribute "get"  [union-attr]
+moteur_gsg/modes/mode_1_complete.py:358: error: Argument "copy_doc" to "render_controlled_page" has incompatible type "object"; expected "dict[str, Any]"  [arg-type]
+moteur_gsg/modes/mode_1_complete.py:461: error: Incompatible types in assignment (expression has type "object", variable has type "str")  [assignment]
+moteur_gsg/modes/mode_1_complete.py:522: error: Unsupported operand types for - ("float" and "object")  [operator]
+Found 88 errors in 25 files (checked 138 source files)

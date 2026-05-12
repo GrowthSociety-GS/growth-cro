@@ -1,0 +1,226 @@
+Run started:2026-05-11 17:23:48.435137+00:00
+
+Test results:
+>> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-605 (https://cwe.mitre.org/data/definitions/605.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b104_hardcoded_bind_all_interfaces.html
+   Location: growthcro/api/server.py:319:26
+318	
+319	    uvicorn.run(app, host="0.0.0.0", port=port)
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: growthcro/capture/scorer.py:95:19
+94	            })
+95	            resp = urlopen(req, context=ctx, timeout=20)
+96	            html = resp.read().decode("utf-8", errors="ignore")
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: growthcro/cli/enrich_client.py:198:17
+197	            req = Request(url, method=method, headers=browser_headers)
+198	            with urlopen(req, timeout=timeout) as r:
+199	                final_url = r.url
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: growthcro/reality/google_ads.py:71:18
+70	            query = (
+71	                f"SELECT metrics.cost_micros, metrics.clicks, metrics.impressions, "
+72	                f"metrics.conversions, metrics.conversions_value, metrics.ctr, "
+73	                f"metrics.average_cpc FROM ad_group_ad WHERE segments.date BETWEEN "
+74	                f"'{period_start}' AND '{period_end}' AND ad_group_ad.ad.final_urls "
+75	                f"CONTAINS ANY ('{page_url}')"
+76	            )
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b108_hardcoded_tmp_directory.html
+   Location: growthcro/research/cli.py:34:19
+33	    output_dir.mkdir(parents=True, exist_ok=True)
+34	    tmp_dir = Path("/tmp") / f"site_intel_{client_id}"
+35	    tmp_dir.mkdir(parents=True, exist_ok=True)
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b108_hardcoded_tmp_directory.html
+   Location: moteur_gsg/core/pipeline_single_pass.py:370:37
+369	    ap.add_argument("--user", default="Crée une page hello world avec un H1 et un paragraphe.")
+370	    ap.add_argument("--out", default="/tmp/single_pass_test.html")
+371	    args = ap.parse_args()
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: scripts/migrate_v27_to_supabase.py:174:13
+173	    try:
+174	        with urlrequest.urlopen(req, timeout=60) as resp:
+175	            raw = resp.read().decode("utf-8")
+
+--------------------------------------------------
+>> Issue: [B314:blacklist] Using xml.etree.ElementTree.fromstring to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree.fromstring with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called
+   Severity: Medium   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b313-b320-xml-bad-elementtree
+   Location: skills/site-capture/scripts/discover_pages_v25.py:125:15
+124	        xml_no_ns = re.sub(r'xmlns="[^"]+"', "", xml_text, count=1)
+125	        root = ET.fromstring(xml_no_ns)
+126	    except Exception:
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: skills/site-capture/scripts/eclaireur_llm.py:84:13
+83	    try:
+84	        with urllib.request.urlopen(req, timeout=timeout) as resp:
+85	            html = resp.read().decode("utf-8", errors="ignore")
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: skills/site-capture/scripts/geo_readiness_monitor.py:285:8
+284	def _cache_key(query: str, engine_name: str) -> str:
+285	    h = hashlib.md5()
+286	    h.update((query + "|" + engine_name).encode())
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak SHA1 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: skills/site-capture/scripts/page_cleaner.py:171:13
+170	    sigs = sorted([_element_signature(e) for e in elts if isinstance(e, dict)])
+171	    digest = hashlib.sha1("|".join(sigs).encode("utf-8")).hexdigest()[:10]
+172	    return f"{key}|{digest}"
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak SHA1 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: skills/site-capture/scripts/project_snapshot.py:286:16
+285	        "size_bytes": p.stat().st_size,
+286	        "sha1": hashlib.sha1(txt.encode("utf-8")).hexdigest()[:10],
+287	        "first_docstring": _extract_docstring(txt),
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: skills/site-capture/scripts/reality_layer/google_ads.py:70:24
+69	            ga_service = client.get_service("GoogleAdsService")
+70	            query = f"""
+71	                SELECT
+72	                    metrics.cost_micros,
+73	                    metrics.clicks,
+74	                    metrics.impressions,
+75	                    metrics.conversions,
+76	                    metrics.conversions_value,
+77	                    metrics.ctr,
+78	                    metrics.average_cpc
+79	                FROM ad_group_ad
+80	                WHERE segments.date BETWEEN '{period_start}' AND '{period_end}'
+81	                  AND ad_group_ad.ad.final_urls CONTAINS ANY ('{page_url}')
+82	            """
+83	            stream = ga_service.search_stream(customer_id=customer_id, query=query)
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: skills/site-capture/scripts/run_capture.py:94:13
+93	    try:
+94	        with urllib.request.urlopen(req, timeout=120) as r:
+95	            return r.status, r.read(), dict(r.headers)
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: skills/site-capture/scripts/run_discover.py:150:9
+149	                                 headers={"Content-Type": "application/json"} if data else {})
+150	    with urllib.request.urlopen(req, timeout=120) as resp:
+151	        return json.loads(resp.read())
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: skills/site-capture/scripts/run_spatial_capture.py:176:17
+175	        try:
+176	            with urllib.request.urlopen(req, timeout=180) as r:
+177	                return r.status, r.read(), dict(r.headers)
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: skills/site-capture/scripts/vision_spatial.py:231:8
+230	    user_prompt = VISION_USER_TMPL.format(viewport=viewport, w=img_w, h=img_h)
+231	    h = hashlib.md5()
+232	    h.update(image_b64.encode())
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: skills/site-capture/scripts/web_vitals_adapter.py:90:9
+89	    api = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?{qs}"
+90	    with urllib.request.urlopen(api, timeout=timeout) as resp:
+91	        payload = json.loads(resp.read().decode("utf-8"))
+
+--------------------------------------------------
+>> Issue: [B310:blacklist] Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
+   Severity: Medium   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen
+   Location: skills/site-capture/scripts/web_vitals_adapter.py:105:9
+104	    req = urllib.request.Request(api, data=body, headers={"Content-Type": "application/json"})
+105	    with urllib.request.urlopen(req, timeout=timeout) as resp:
+106	        payload = json.loads(resp.read().decode("utf-8"))
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 54849
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 173
+		Medium: 15
+		High: 4
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 2
+		Medium: 4
+		High: 186
+Files skipped (0):

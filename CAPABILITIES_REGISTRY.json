@@ -1,11 +1,11 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-11T19:26:47",
+  "generated_at": "2026-05-12T08:20:54",
   "stats": {
-    "total_files": 239,
+    "total_files": 240,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 48,
+    "active_cli": 49,
     "active_package_marker": 21,
     "active_misc": 156,
     "orphaned_from_gsg_HIGH": 0,
@@ -1143,6 +1143,23 @@
         "growthcro/capture/orchestrator.py"
       ],
       "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "build_architecture_explorer",
+      "path": "scripts/build_architecture_explorer.py",
+      "filename": "build_architecture_explorer.py",
+      "what": "Architecture Explorer data extractor — single concern: YAML → JS bake.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "yaml"
+      ],
+      "size_bytes": 7833,
+      "mtime": "2026-05-11",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {

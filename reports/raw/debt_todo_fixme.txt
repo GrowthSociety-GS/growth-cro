@@ -1,0 +1,16 @@
+growthcro/capture/cloud.py:19:      1. BRIGHTDATA_WSS=wss://brd-customer-XXX-zone-scraping_browser:PWD@brd.superproxy.io:9222
+growthcro/capture/cloud.py:21:      2. BRIGHTDATA_AUTH=brd-customer-XXX-zone-scraping_browser:PWD
+growthcro/capture/browser.py:40:            print("   export BRIGHTDATA_AUTH='brd-customer-XXXXX-zone-scraping_browser:PASSWORD'")
+growthcro/capture/browser.py:41:            print("   Ou : export BRIGHTDATA_WSS='wss://brd-customer-XXXXX-zone-scraping_browser:PWD@brd.superproxy.io:9222'")
+growthcro/capture/orchestrator.py:133:                    print(f"      export BRIGHTDATA_AUTH='brd-customer-XXX-zone-scraping_browser:PASSWORD'")
+growthcro/cli/capture_full.py:39:    BROWSER_WS_ENDPOINT="wss://chrome.browserless.io?token=XXX" \\
+moteur_gsg/core/brief_v15_builder.py:86:            "_TODO_sprint_c": "fully populate identity from brand_dna + clients_database",
+moteur_gsg/core/brief_v15_builder.py:94:            "_TODO_sprint_c": "extract by_pillar + top_critical_recos with evidence_ids",
+moteur_gsg/core/brief_v15_builder.py:102:            "_TODO_sprint_c": "structure persona detailed + triggers_buy",
+moteur_gsg/core/brief_v15_builder.py:107:            "_TODO_sprint_c": "6 blocs canoniques (hero/body/social_proof/faq/cta_final/footer) avec overrides depuis recos audit",
+moteur_gsg/core/brief_v15_builder.py:123:            "_TODO_sprint_c": "extract faits_vérifiés from brand_dna for use as claims",
+moteur_gsg/core/brief_v15_builder.py:139:            "_TODO_sprint_c": "extract gaps audit comme contraintes constructives explicites",
+moteur_gsg/modes/mode_1/api_call.py:17:**TODO (depends on issue #6 merging into the epic)**: route through
+skills/site-capture/scripts/build_growth_audit_data.py:306:        "capture_confidence": 1.0,  # TODO : from ocr_diff.json when available
+skills/site-capture/scripts/build_growth_audit_data.py:307:        "phantom_filtered_count": 0,  # TODO : from spatial phantom_filter_stats
+skills/site-capture/scripts/page_context.py:178:    TODO P11.9 : migrer ghost_capture_cloud.py vers cette abstraction.

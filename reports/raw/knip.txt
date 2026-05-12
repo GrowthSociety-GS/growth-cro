@@ -1,0 +1,28 @@
+Unused files (1)
+apps/learning-lab/lib/supabase-server.ts
+Unused dependencies (12)
+@supabase/ssr          apps/audit-app/package.json:16:6      
+@supabase/supabase-js  apps/audit-app/package.json:17:6      
+@supabase/ssr          apps/gsg-studio/package.json:16:6     
+@supabase/supabase-js  apps/gsg-studio/package.json:17:6     
+@growthcro/config      apps/learning-lab/package.json:13:6   
+@growthcro/data        apps/learning-lab/package.json:14:6   
+@supabase/ssr          apps/learning-lab/package.json:16:6   
+@supabase/supabase-js  apps/learning-lab/package.json:17:6   
+@supabase/ssr          apps/reality-monitor/package.json:16:6
+@supabase/supabase-js  apps/reality-monitor/package.json:17:6
+@supabase/ssr          apps/reco-app/package.json:16:6       
+@supabase/supabase-js  apps/reco-app/package.json:17:6       
+Unused devDependencies (4)
+@types/react-dom    package.json:27:6
+eslint              package.json:28:6
+eslint-config-next  package.json:29:6
+prettier            package.json:30:6
+Unused exports (3)
+proposalFilterDomains  function  apps/learning-lab/lib/proposals-fs.ts:105:17 
+listAllSnapshots       function  apps/reality-monitor/lib/reality-fs.ts:143:17
+snapshotsByClient      function  apps/reality-monitor/lib/reality-fs.ts:151:17
+Unused exported types (3)
+ConnectorStatusView  type  apps/reality-monitor/components/CredentialsGrid.tsx:5:13
+ConnectorStatus      type  apps/reality-monitor/lib/reality-fs.ts:56:13            
+Tokens               type  packages/ui/src/tokens.ts:27:13                         
