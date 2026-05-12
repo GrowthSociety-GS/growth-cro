@@ -42,6 +42,10 @@ from .mega_prompt_builder import (
 )
 from .repair_loop import run_repair_loop
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 SONNET_MODEL = "claude-sonnet-4-5-20250929"
 
@@ -50,7 +54,7 @@ def call_sonnet(prompt: str, max_tokens: int = 16000) -> str:
     """Appelle Sonnet pour générer le HTML. Streaming si max_tokens > 16K."""
     import anthropic
     client = anthropic.Anthropic()
-    print(f"  → Sonnet call (max_tokens={max_tokens}, prompt={len(prompt)} chars, streaming={max_tokens > 16000}) ...", flush=True)
+    logger.info(f"  → Sonnet call (max_tokens={max_tokens}, prompt={len(prompt)} chars, streaming={max_tokens > 16000}) ...", flush=True)
     if max_tokens > 16000:
         # Streaming mandatory pour > 16K tokens
         text_chunks = []
@@ -69,7 +73,7 @@ def call_sonnet(prompt: str, max_tokens: int = 16000) -> str:
             out_tokens = final.usage.output_tokens
             stop_reason = final.stop_reason
         raw = "".join(text_chunks)
-        print(f"  ← Sonnet streaming: in={in_tokens} out={out_tokens} stop_reason={stop_reason}", flush=True)
+        logger.info(f"  ← Sonnet streaming: in={in_tokens} out={out_tokens} stop_reason={stop_reason}", flush=True)
     else:
         msg = client.messages.create(
             model=SONNET_MODEL,
@@ -78,8 +82,10 @@ def call_sonnet(prompt: str, max_tokens: int = 16000) -> str:
             messages=[{"role": "user", "content": prompt}],
         )
         raw = msg.content[0].text
-        print(f"  ← Sonnet response: in={msg.usage.input_tokens} out={msg.usage.output_tokens}"
-              f" stop_reason={msg.stop_reason}", flush=True)
+        logger.info(
+            f"  ← Sonnet response: in={msg.usage.input_tokens} out={msg.usage.output_tokens}"
+            f" stop_reason={msg.stop_reason}"
+        )
     # Strip markdown fences if any
     text = raw.strip()
     if text.startswith("```"):
@@ -140,21 +146,21 @@ def main():
             "For forensic reproduction only, re-run with `--allow-legacy-lab`."
         )
 
-    print(f"\n══ GSG Generate LP — {args.client} / {args.page_type} ══\n")
+    logger.info(f"\n══ GSG Generate LP — {args.client} / {args.page_type} ══\n")
     brand_dna = load_brand_dna(args.client)
-    print("✓ Brand DNA loaded")
+    logger.info("✓ Brand DNA loaded")
 
     design_grammar = load_design_grammar(args.client)
     if design_grammar:
-        print(f"✓ Design Grammar V30 loaded ({len(design_grammar)} prescriptive files: {', '.join(design_grammar.keys())})")
+        logger.info(f"✓ Design Grammar V30 loaded ({len(design_grammar)} prescriptive files: {', '.join(design_grammar.keys())})")
     else:
-        print(f"⚠️  No design_grammar/ found for {args.client} — degraded mode (brand_dna only)")
+        logger.info(f"⚠️  No design_grammar/ found for {args.client} — degraded mode (brand_dna only)")
 
     aura = compute_aura_tokens(args.client, args.energy, args.tonality, args.business, args.registre)
-    print("✓ AURA computed (vector + palette + typo + motion)")
+    logger.info("✓ AURA computed (vector + palette + typo + motion)")
 
     golden = golden_bridge_prompt(aura["vector"], top=5)
-    print(f"✓ Golden Design Bridge ({len(golden)} chars)")
+    logger.info(f"✓ Golden Design Bridge ({len(golden)} chars)")
 
     business_context = ""
     if args.context_file and pathlib.Path(args.context_file).exists():
@@ -165,16 +171,16 @@ def main():
     reference_html = ""
     if args.reference_html and pathlib.Path(args.reference_html).exists():
         reference_html = pathlib.Path(args.reference_html).read_text()
-        print(f"✓ Reference HTML loaded ({len(reference_html)} chars) — Sonnet doit le surpasser")
+        logger.info(f"✓ Reference HTML loaded ({len(reference_html)} chars) — Sonnet doit le surpasser")
 
     # V26.Z E2 : Creative Director — génère 3 routes nommées + sélectionne
     creative_route = None
     route_selection_meta = None
     if args.creative_mode != "off":
         if not _CREATIVE_DIRECTOR_AVAILABLE:
-            print("⚠️  --creative-mode demandé mais creative_director.py introuvable — skipping")
+            logger.info("⚠️  --creative-mode demandé mais creative_director.py introuvable — skipping")
         else:
-            print(f"\n══ Creative Director (mode={args.creative_mode}) ══")
+            logger.info(f"\n══ Creative Director (mode={args.creative_mode}) ══")
             if args.creative_mode == "custom":
                 custom_path = pathlib.Path(args.custom_route_file) if args.custom_route_file else None
                 if not custom_path or not custom_path.exists():
@@ -186,22 +192,22 @@ def main():
                     "reason": f"Custom route loaded from {custom_path.name}",
                     "warning": None,
                 }
-                print(f"✓ Custom route loaded: {creative_route.get('name', '?')}")
+                logger.info(f"✓ Custom route loaded: {creative_route.get('name', '?')}")
             else:
                 # Generate 3 routes (Safe + Premium + Bold)
-                print("[1/2] Generate 3 routes...")
+                logger.info("[1/2] Generate 3 routes...")
                 routes_data = cd_generate_routes(
                     brand_dna, design_grammar, business_context,
                     args.page_type, args.client, args.target_url
                 )
                 routes_fp = ROOT / "data" / f"_routes_{args.client}.json"
                 routes_fp.write_text(json.dumps(routes_data, ensure_ascii=False, indent=2))
-                print(f"  ✓ 3 routes generated, saved to {routes_fp.relative_to(ROOT)}")
+                logger.info(f"  ✓ 3 routes generated, saved to {routes_fp.relative_to(ROOT)}")
                 for r in routes_data.get("routes", []):
-                    print(f"    [{r.get('risk_level', '?'):8s}] {r.get('name', '?')}")
+                    logger.info(f"    [{r.get('risk_level', '?'):8s}] {r.get('name', '?')}")
 
                 # Select route (auto Sonnet, ou explicit safe/premium/bold)
-                print(f"\n[2/2] Select route (mode={args.creative_mode})...")
+                logger.info(f"\n[2/2] Select route (mode={args.creative_mode})...")
                 selection = cd_select_route(
                     routes_data, brand_dna, business_context,
                     mode=args.creative_mode,
@@ -210,11 +216,11 @@ def main():
                 route_selection_meta = selection["selection_meta"]
                 sel_fp = ROOT / "data" / f"_route_selected_{args.client}.json"
                 sel_fp.write_text(json.dumps(selection, ensure_ascii=False, indent=2))
-                print(f"  ✓ Selected: \"{creative_route.get('name')}\" (risk={creative_route.get('risk_level')})")
-                print(f"    Confidence: {route_selection_meta.get('confidence')}")
-                print(f"    Reason: {route_selection_meta.get('reason')[:200]}")
+                logger.info(f"  ✓ Selected: \"{creative_route.get('name')}\" (risk={creative_route.get('risk_level')})")
+                logger.info(f"    Confidence: {route_selection_meta.get('confidence')}")
+                logger.info(f"    Reason: {route_selection_meta.get('reason')[:200]}")
                 if route_selection_meta.get("warning"):
-                    print(f"    ⚠️  {route_selection_meta['warning']}")
+                    logger.info(f"    ⚠️  {route_selection_meta['warning']}")
 
     # V26.Z P1 — Sequential pipeline (option) vs mega-prompt one-shot (legacy)
     if args.sequential:
@@ -224,7 +230,7 @@ def main():
             from gsg_pipeline_sequential import run_sequential_pipeline  # type: ignore
         except ImportError as e:
             sys.exit(f"❌ --sequential requires gsg_pipeline_sequential.py : {e}")
-        print("\n══ Sequential pipeline (P1, 4 stages) ══")
+        logger.info("\n══ Sequential pipeline (P1, 4 stages) ══")
         seq_result = run_sequential_pipeline(
             client=args.client, brand_dna=brand_dna, design_grammar=design_grammar,
             aura=aura, creative_route=creative_route,
@@ -236,8 +242,8 @@ def main():
         # Save telemetry
         telem_fp = ROOT / "data" / f"_pipeline_{args.client}_telemetry.json"
         telem_fp.write_text(json.dumps(seq_result["telemetry"], ensure_ascii=False, indent=2))
-        print(f"\n✓ Sequential pipeline complete : tokens_total={seq_result['telemetry']['tokens_total']}")
-        print(f"  → telemetry saved : {telem_fp.relative_to(ROOT)}")
+        logger.info(f"\n✓ Sequential pipeline complete : tokens_total={seq_result['telemetry']['tokens_total']}")
+        logger.info(f"  → telemetry saved : {telem_fp.relative_to(ROOT)}")
     else:
         # Mega-prompt one-shot (legacy)
         prompt = build_mega_prompt(
@@ -249,15 +255,15 @@ def main():
             creative_route=creative_route,
             route_selection_meta=route_selection_meta,
         )
-        print(f"✓ Mega-prompt assembled ({len(prompt)} chars)")
+        logger.info(f"✓ Mega-prompt assembled ({len(prompt)} chars)")
         # Save prompt for debug
         debug_fp = ROOT / "data" / f"_gsg_prompt_{args.client}.md"
         debug_fp.write_text(prompt)
-        print(f"  → debug prompt saved : {debug_fp.relative_to(ROOT)}")
+        logger.info(f"  → debug prompt saved : {debug_fp.relative_to(ROOT)}")
 
         html = call_sonnet(prompt, max_tokens=args.max_tokens)
 
-    print(f"✓ HTML generated ({len(html)} chars · {html.count(chr(10))+1} lines)")
+    logger.info(f"✓ HTML generated ({len(html)} chars · {html.count(chr(10))+1} lines)")
 
     # V26.Z P0 : post-process auto rendering bugs (counter à 0, reveal-class, opacity 0)
     # → garantit un rendu visible peu importe ce que Sonnet a généré.
@@ -268,7 +274,7 @@ def main():
 
     # V26.Z W3 : si --auto-repair, on entre dans la boucle multi_judge → repair → ...
     if args.auto_repair:
-        print(f"\n══ Auto-repair activé (threshold={args.repair_threshold}%, max_repairs={args.max_repairs}) ══")
+        logger.info(f"\n══ Auto-repair activé (threshold={args.repair_threshold}%, max_repairs={args.max_repairs}) ══")
         final_html, iter_log = run_repair_loop(html, args, brand_dna, design_grammar, out)
         out.write_text(final_html)
         # Save iterations log
@@ -281,16 +287,16 @@ def main():
             "final_iter": len(iter_log) - 1,
             "threshold": args.repair_threshold,
         }, ensure_ascii=False, indent=2))
-        print("\n══ Repair loop summary ══")
+        logger.info("\n══ Repair loop summary ══")
         for entry in iter_log:
             mark = "✓" if entry["score_pct"] >= args.repair_threshold else "✗"
-            print(f"  {mark} iter {entry['iter']}: {entry['score_pct']}% ({entry['html_size']} chars, {entry['tokens']} tokens)")
-        print(f"\n  Iter log saved: {log_fp.relative_to(ROOT)}")
+            logger.info(f"  {mark} iter {entry['iter']}: {entry['score_pct']}% ({entry['html_size']} chars, {entry['tokens']} tokens)")
+        logger.info(f"\n  Iter log saved: {log_fp.relative_to(ROOT)}")
     else:
         out.write_text(html)
 
-    print(f"\n✓ Saved : {out}")
-    print(f"  Open : open {out}")
+    logger.info(f"\n✓ Saved : {out}")
+    logger.info(f"  Open : open {out}")
 
 
 __all__ = ["call_sonnet", "main", "SONNET_MODEL"]
