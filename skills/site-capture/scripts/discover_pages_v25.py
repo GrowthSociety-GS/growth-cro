@@ -37,7 +37,9 @@ import pathlib
 import re
 import sys
 import time
-import xml.etree.ElementTree as ET
+# B314 defense: sitemap XML comes from arbitrary external sites; defusedxml
+# prevents entity expansion / external entity / DTD-based attacks.
+import defusedxml.ElementTree as ET  # noqa: N814
 from typing import Optional
 from urllib.parse import urljoin, urlparse, urldefrag
 
