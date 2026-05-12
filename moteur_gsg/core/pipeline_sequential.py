@@ -40,6 +40,10 @@ from doctrine import (  # noqa: E402 — V26.AF FIX 1 : brancher doctrine V3.2.1
 from .brief_v2 import BriefV2
 from .pipeline_single_pass import call_sonnet, call_sonnet_multimodal, apply_runtime_fixes
 
+from growthcro.observability.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 def _format_doctrine_block(page_type: str, n_critical: int = 7, max_chars: int = 2500) -> str:
     """V26.AF FIX 1 — Charge doctrine V3.2.1 (top critères + killer rules) pour ce page_type.
@@ -173,7 +177,7 @@ def stage_1_strategy(
     )
 
     if verbose:
-        print(f"\n→ Stage 1 STRATEGY (T={temperature}, prompt={len(prompt)} chars)...")
+        logger.info(f"\n→ Stage 1 STRATEGY (T={temperature}, prompt={len(prompt)} chars)...")
 
     user_msg = "Produis le JSON strategy maintenant. Pas d'autre texte."
 
@@ -184,21 +188,21 @@ def stage_1_strategy(
     m = re.search(r"\{.*\}", raw_text, re.DOTALL)
     if not m:
         if verbose:
-            print(f"  ⚠️ No JSON found in Stage 1 output. Raw[:200]: {raw_text[:200]}")
+            logger.info(f"  ⚠️ No JSON found in Stage 1 output. Raw[:200]: {raw_text[:200]}")
         return {}, gen
 
     try:
         strategy = json.loads(m.group(0))
     except Exception as e:
         if verbose:
-            print(f"  ⚠️ JSON parse failed: {e}. Raw[:200]: {m.group(0)[:200]}")
+            logger.info(f"  ⚠️ JSON parse failed: {e}. Raw[:200]: {m.group(0)[:200]}")
         return {}, gen
 
     if verbose:
         n_sections = len(strategy.get("sections", []))
         n_proofs = len(strategy.get("key_proofs_to_use", []))
-        print(f"  ✓ Stage 1 done — {n_sections} sections planned, {n_proofs} key proofs")
-        print(f"  Hook : « {strategy.get('hook_concept', '?')[:120]} »")
+        logger.info(f"  ✓ Stage 1 done — {n_sections} sections planned, {n_proofs} key proofs")
+        logger.info(f"  Hook : « {strategy.get('hook_concept', '?')[:120]} »")
 
     return strategy, gen
 
@@ -316,7 +320,7 @@ def stage_2_copy(
     )
 
     if verbose:
-        print(f"\n→ Stage 2 COPY (T={temperature}, prompt={len(prompt)} chars)...")
+        logger.info(f"\n→ Stage 2 COPY (T={temperature}, prompt={len(prompt)} chars)...")
 
     user_msg = f"Écris le copy en {brief.target_language}, JSON strict, suis le strategy ci-dessus."
 
@@ -326,21 +330,21 @@ def stage_2_copy(
     m = re.search(r"\{.*\}", raw_text, re.DOTALL)
     if not m:
         if verbose:
-            print(f"  ⚠️ No JSON in Stage 2. Raw[:200]: {raw_text[:200]}")
+            logger.info(f"  ⚠️ No JSON in Stage 2. Raw[:200]: {raw_text[:200]}")
         return {}, gen
 
     try:
         copy = json.loads(m.group(0))
     except Exception as e:
         if verbose:
-            print(f"  ⚠️ JSON parse failed: {e}")
+            logger.info(f"  ⚠️ JSON parse failed: {e}")
         return {}, gen
 
     if verbose:
         n_reasons = len(copy.get("reasons", []))
         n_pull = len(copy.get("pull_quotes", []))
         n_stats = len(copy.get("stat_callouts", []))
-        print(f"  ✓ Stage 2 done — h1='{copy.get('h1', '?')[:60]}...', {n_reasons} reasons, {n_pull} pull_quotes, {n_stats} stat_callouts")
+        logger.info(f"  ✓ Stage 2 done — h1='{copy.get('h1', '?')[:60]}...', {n_reasons} reasons, {n_pull} pull_quotes, {n_stats} stat_callouts")
 
     return copy, gen
 
@@ -436,7 +440,7 @@ def stage_3_composer(
 
     if verbose:
         sz = len(prompt)
-        print(f"\n→ Stage 3 COMPOSER (T={temperature}, prompt={sz} chars, vision_images={len(vision_images) if vision_images else 0})...")
+        logger.info(f"\n→ Stage 3 COMPOSER (T={temperature}, prompt={sz} chars, vision_images={len(vision_images) if vision_images else 0})...")
 
     user_msg = "Compose le HTML maintenant. Sortie : HTML pur, commence par <!DOCTYPE html>."
 
@@ -451,7 +455,7 @@ def stage_3_composer(
     html = gen.get("html", "")
 
     if verbose:
-        print(f"  ✓ Stage 3 done — HTML {len(html)} chars")
+        logger.info(f"  ✓ Stage 3 done — HTML {len(html)} chars")
 
     return html, gen
 
@@ -504,7 +508,7 @@ def stage_4_polish(
     )
 
     if verbose:
-        print(f"\n→ Stage 4 POLISH (T={temperature}, html_in={len(html_in)} chars)...")
+        logger.info(f"\n→ Stage 4 POLISH (T={temperature}, html_in={len(html_in)} chars)...")
 
     user_msg = f"HTML à raffiner (édite, ne réécris pas) :\n\n{html_in}"
 
@@ -512,7 +516,7 @@ def stage_4_polish(
     html_out = gen.get("html", "")
 
     if verbose:
-        print(f"  ✓ Stage 4 done — HTML {len(html_out)} chars")
+        logger.info(f"  ✓ Stage 4 done — HTML {len(html_out)} chars")
 
     return html_out, gen
 
@@ -642,7 +646,7 @@ def run_pipeline_sequential_4_stages(
 
     if polish_fallback_reason:
         if verbose:
-            print(f"  ⚠️ Stage 4 fallback → using Stage 3 HTML ({polish_fallback_reason})")
+            logger.info(f"  ⚠️ Stage 4 fallback → using Stage 3 HTML ({polish_fallback_reason})")
         html_polished = html_composed
         stages_meta[-1]["fallback_to_stage3"] = polish_fallback_reason
 
@@ -658,11 +662,11 @@ def run_pipeline_sequential_4_stages(
     total_cost = (total_in / 1e6 * 3) + (total_out / 1e6 * 15)
 
     if verbose:
-        print("\n══ Pipeline 4 stages DONE ══")
-        print(f"  Total wall : {grand_dt:.1f}s")
-        print(f"  Total tokens : in={total_in} out={total_out}")
-        print(f"  Total cost : ${total_cost:.3f}")
-        print(f"  Final HTML : {len(html_final)} chars")
+        logger.info("\n══ Pipeline 4 stages DONE ══")
+        logger.info(f"  Total wall : {grand_dt:.1f}s")
+        logger.info(f"  Total tokens : in={total_in} out={total_out}")
+        logger.info(f"  Total cost : ${total_cost:.3f}")
+        logger.info(f"  Final HTML : {len(html_final)} chars")
 
     return {
         "html_final": html_final,
