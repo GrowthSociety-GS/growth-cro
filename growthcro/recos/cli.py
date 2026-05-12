@@ -17,6 +17,7 @@ import json
 import sys
 from pathlib import Path
 
+from growthcro.models.recos_models import RecoInput
 from growthcro.recos import client as _client
 from growthcro.recos import orchestrator as _orch
 
@@ -185,6 +186,32 @@ def _run_enrich(args: argparse.Namespace) -> None:
 
 
 # ────────────────────────────────────────────────────────────────
+# `view` subcommand — typed read of the post-pipeline RecoBatch (Issue #32)
+# ────────────────────────────────────────────────────────────────
+def _add_view_args(p: argparse.ArgumentParser) -> None:
+    p.add_argument("--client", required=True, help="Client slug (e.g. weglot)")
+    p.add_argument("--page", required=True, help="Page type (e.g. home, lp_listicle)")
+    p.add_argument("--data-dir", default="data/captures")
+
+
+def _run_view(args: argparse.Namespace) -> None:
+    """Read recos_v13_final.json via the typed RecoBatch boundary (V26.A enforced)."""
+    ri = RecoInput(slug=args.client, page_type=args.page, data_dir=args.data_dir)
+    try:
+        batch = _orch.orchestrate_recos(ri)
+    except FileNotFoundError as e:
+        print(str(e), file=sys.stderr)
+        sys.exit(3)
+
+    n_fb = sum(1 for r in batch.recos if r.is_fallback)
+    n_ok = len(batch.recos) - n_fb
+    print(f"{batch.slug}/{batch.page_type}: {len(batch.recos)} recos ({n_ok} OK, {n_fb} fallback)")
+    for r in batch.recos:
+        flag = "FB" if r.is_fallback else "OK"
+        print(f"  [{flag}] {r.criterion_id} {r.priority} ev={len(r.evidence_ids)} — {r.before[:80]}")
+
+
+# ────────────────────────────────────────────────────────────────
 # Legacy flag-style invocation (back-compat for the 4 shimmed scripts)
 # ────────────────────────────────────────────────────────────────
 def _looks_like_legacy_invocation(argv: list[str]) -> str | None:
@@ -196,7 +223,7 @@ def _looks_like_legacy_invocation(argv: list[str]) -> str | None:
     """
     if not argv:
         return None
-    if argv[0] in {"prepare", "enrich"}:
+    if argv[0] in {"prepare", "enrich", "view"}:
         return None  # already a subcommand, not legacy
     if "--prepare" in argv:
         return "prepare"
@@ -223,6 +250,12 @@ def _build_parser() -> argparse.ArgumentParser:
     enr = sub.add_parser("enrich", help="Call Claude on prepared prompts → final reco JSON")
     _add_enrich_args(enr)
 
+    view = sub.add_parser(
+        "view",
+        help="Read recos_v13_final.json via the typed RecoBatch boundary (Issue #32, V26.A enforced)",
+    )
+    _add_view_args(view)
+
     return parser
 
 
@@ -245,6 +278,8 @@ def main(argv: list[str] | None = None) -> None:
         _run_prepare(args)
     elif args.cmd == "enrich":
         _run_enrich(args)
+    elif args.cmd == "view":
+        _run_view(args)
     else:
         parser.print_help(sys.stderr)
         sys.exit(2)
