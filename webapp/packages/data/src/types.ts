@@ -1,4 +1,4 @@
-// Typed entities — mirror webapp/supabase/migrations schema.
+// Typed entities — mirror supabase/migrations schema.
 // Keep in sync; SQL is source of truth, this file is the TS contract.
 
 export type UUID = string;
