@@ -1,6 +1,12 @@
 // @growthcro/config — single source of truth for environment-derived config.
 // Mirrors the doctrine of `growthcro/config.py` on the Python side: never read
 // env vars directly in app code; always pull from this module.
+//
+// IMPORTANT (Next.js NEXT_PUBLIC_*): static `process.env.NEXT_PUBLIC_*` access
+// is REQUIRED for webpack to inline the value into the client bundle. Dynamic
+// `process.env[key]` is NOT inlined and resolves to undefined client-side.
+// We therefore inline each NEXT_PUBLIC_* var statically below, then let the
+// readEnv() abstraction wrap the resolved value for fallback/error behaviour.
 
 export type AppConfig = {
   supabaseUrl: string;
@@ -10,8 +16,19 @@ export type AppConfig = {
   isProduction: boolean;
 };
 
+// Static NEXT_PUBLIC_* access — webpack inlines these at build time so the
+// values land in the client bundle. Add new NEXT_PUBLIC_* vars here when needed.
+const PUBLIC_ENV: Record<string, string | undefined> = {
+  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
+};
+
 function readEnv(key: string, fallback?: string): string {
-  const value = process.env[key];
+  // Prefer the statically-inlined map (client + server) then fall back to
+  // dynamic process.env for server-only vars not declared in PUBLIC_ENV.
+  const value = PUBLIC_ENV[key] ?? process.env[key];
   if (value && value.length > 0) return value;
   if (fallback !== undefined) return fallback;
   if (typeof window === "undefined") {
