@@ -71,7 +71,9 @@ CONCERN_BUNDLES = [
     {"playwright", "selenium"},
 ]
 
-# print()-in-pipeline pattern — INFO rule (auto-update loop demo, see commit 6)
+# print()-in-pipeline pattern — WARN rule (promoted from INFO in Task #28,
+# post observability migration of top-10 pipelines).
+# See docs/doctrine/CODE_DOCTRINE.md §LOG.
 PIPELINE_DIRS = ("growthcro/", "moteur_gsg/", "moteur_multi_judge/")
 
 
@@ -259,10 +261,13 @@ def warn_mixed_concern(p: Path, loc: int) -> tuple[bool, str]:
 
 
 def check_print_in_pipeline(p: Path, loc: int) -> int:
-    """INFO: count print() calls in long-running pipeline modules.
+    """WARN: count print() calls in long-running pipeline modules.
 
-    Doctrine soft-rule (commit 6 demo). pipeline modules (growthcro/, moteur_*/)
-    >100 LOC with print() are flagged for review — should be using logger.
+    Promoted from INFO → WARN in Task #28 (observability migration). Pipeline
+    modules (growthcro/, moteur_*/) >100 LOC with print() should use
+    `growthcro.observability.logger.get_logger(__name__)` instead.
+
+    See `docs/doctrine/CODE_DOCTRINE.md` §LOG. CLIs (`/cli/`) are exempt.
     """
     rel = str(p.relative_to(ROOT))
     if not any(rel.startswith(d) for d in PIPELINE_DIRS):
@@ -340,10 +345,11 @@ def run(staged: bool = False) -> dict:
         if triggered:
             warns.append(f"{rel}: {loc} LOC + mixed-concern signal ({signal})")
 
-        # INFO — print() in pipeline (auto-update loop demo)
+        # WARN[print-in-pipeline] — promoted from INFO in Task #28
         n_prints = check_print_in_pipeline(p, loc)
         if n_prints > 0:
             print_infos.append(f"{rel}: {n_prints} print() calls (should use logger)")
+            warns.append(f"{rel}: {n_prints} print() calls — use growthcro.observability.logger (§LOG)")
 
     return {
         "date": date.today().isoformat(),
@@ -387,7 +393,7 @@ def render(result: dict, quiet: bool) -> None:
     for line in debts:
         print(f"  {line}")
     if print_infos:
-        print(f"INFO[print-in-pipeline] {len(print_infos)} files (auto-update demo rule):")
+        print(f"WARN[print-in-pipeline] {len(print_infos)} files (use growthcro.observability.logger — §LOG):")
         for line in print_infos[:10]:
             print(f"  {line}")
         if len(print_infos) > 10:
