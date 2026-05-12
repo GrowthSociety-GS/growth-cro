@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-12T07:52:33Z'
-  source_commit: 9c70e9ef4be6537455547784f80a179f67c950ca
+  generated_at: '2026-05-12T08:13:51Z'
+  source_commit: 78cb152b5925af970449de3929dd66a508c78334
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -279,6 +279,7 @@ modules:
     - growthcro/capture/cloud
     - growthcro/capture/dom
     - growthcro/capture/persist
+    - growthcro/observability/logger
     imported_by:
     - growthcro/capture/cli
     doctrine_refs:
@@ -313,6 +314,7 @@ modules:
     - growthcro/capture/dom
     - growthcro/capture/persist
     - growthcro/capture/signals
+    - growthcro/observability/logger
     imported_by: []
     doctrine_refs:
     - 'CODE_DOCTRINE.md axis #8 I/O serialization'
@@ -365,6 +367,7 @@ modules:
     - complete data/captures/<client>/<page>/* tree
     depends_on:
     - growthcro/config
+    - growthcro/observability/logger
     imported_by: []
     doctrine_refs: []
     status: active
@@ -378,6 +381,7 @@ modules:
     - data/captures/<client>/discovered_pages_v25.json
     depends_on:
     - growthcro/lib/anthropic_client
+    - growthcro/observability/logger
     imported_by:
     - growthcro/cli/add_client
     doctrine_refs: []
@@ -399,6 +403,7 @@ modules:
     - growthcro/capture/cloud
     - growthcro/cli/capture_full
     - growthcro/lib/anthropic_client
+    - growthcro/observability/logger
     - growthcro/reality/base
     - growthcro/reality/catchr
     - growthcro/reality/clarity
@@ -530,6 +535,7 @@ modules:
     - growthcro/gsg_lp/data_loaders
     - growthcro/gsg_lp/mega_prompt_builder
     - growthcro/gsg_lp/repair_loop
+    - growthcro/observability/logger
     imported_by: []
     doctrine_refs: []
     status: legacy
@@ -620,6 +626,45 @@ modules:
     doctrine_refs:
     - 'CODE_DOCTRINE.md axis #2 API client'
     - FR-6 codebase-cleanup PRD
+    status: active
+    lifecycle_phase: infrastructure
+  growthcro/observability:
+    path: growthcro/observability/__init__.py
+    purpose: GrowthCRO observability package — re-exports logger public API (get_logger, set_correlation_id, set_pipeline_name,
+      clear_context).
+    inputs: []
+    outputs: []
+    depends_on:
+    - growthcro/observability/logger
+    imported_by: []
+    doctrine_refs:
+    - CODE_DOCTRINE.md §LOG
+    status: active
+    lifecycle_phase: infrastructure
+  growthcro/observability/logger:
+    path: growthcro/observability/logger.py
+    purpose: Structured JSON logging foundation — logger factory + correlation_id context + JSON-line formatter (Logfire/Axiom/Sentry
+      compatible).
+    inputs:
+    - GROWTHCRO_LOG_LEVEL env (via growthcro/config)
+    outputs:
+    - structured stdout JSON-line logs
+    depends_on:
+    - growthcro/config
+    imported_by:
+    - growthcro/capture/orchestrator
+    - growthcro/capture/scorer
+    - growthcro/cli/capture_full
+    - growthcro/cli/enrich_client
+    - growthcro/gsg_lp/lp_orchestrator
+    - growthcro/observability
+    - moteur_gsg/core/pipeline_sequential
+    - moteur_gsg/core/pipeline_single_pass
+    - moteur_gsg/modes/mode_1/orchestrator
+    - moteur_gsg/modes/mode_1_complete
+    - moteur_multi_judge/orchestrator
+    doctrine_refs:
+    - CODE_DOCTRINE.md §LOG
     status: active
     lifecycle_phase: infrastructure
   growthcro/perception:
@@ -1714,6 +1759,7 @@ modules:
     outputs:
     - HTML string
     depends_on:
+    - growthcro/observability/logger
     - moteur_gsg/core/brief_v2
     - moteur_gsg/core/pipeline_single_pass
     imported_by: []
@@ -1730,6 +1776,7 @@ modules:
     outputs:
     - HTML string
     depends_on:
+    - growthcro/observability/logger
     - moteur_gsg/core/legacy_lab_adapters
     imported_by:
     - moteur_gsg/core/copy_writer
@@ -1890,6 +1937,7 @@ modules:
     outputs:
     - LP HTML
     depends_on:
+    - growthcro/observability/logger
     - moteur_gsg/core/brand_intelligence
     - moteur_gsg/modes/mode_1/api_call
     - moteur_gsg/modes/mode_1/philosophy_bridge
@@ -2026,6 +2074,7 @@ modules:
     outputs:
     - LP HTML
     depends_on:
+    - growthcro/observability/logger
     - moteur_gsg/core/brand_intelligence
     - moteur_gsg/core/context_pack
     - moteur_gsg/core/copy_writer
@@ -2204,6 +2253,7 @@ modules:
     outputs:
     - data/_pipeline_runs/<run>/multi_judge.json
     depends_on:
+    - growthcro/observability/logger
     - moteur_multi_judge/judges/doctrine_judge
     imported_by: []
     doctrine_refs:
