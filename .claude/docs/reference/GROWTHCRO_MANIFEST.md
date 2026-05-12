@@ -2800,3 +2800,19 @@ GrowthCRO ROOT
 - `python3 scripts/check_gsg_intake_wizard.py` PASS.
 
 **Honnêteté** : V27.2-F transforme enfin Golden/Creative en décision système réelle. Ce n'est toujours pas le GSG "stratosphérique" final : il manque assets/motion/textures/modules premium plus ambitieux et un second vrai run hors Weglot listicle avec copy Sonnet + QA + multi-judge.
+
+### 2026-05-12 — Hygiene Quick-Wins (#25)
+
+**Trigger** : Task #25 du programme `hardening-and-skills-uplift`, PRD FR-1. Absorb ICE 800/630/500/490 quick-wins from CODE_AUDIT_2026-05-11.
+
+**Livrables** :
+- `ruff check --fix` on Python tree → 333 mechanical fixes absorbed (F541 f-strings, F401 unused-imports, E401 multi-import lines, etc.) across 107 .py files.
+- 2 SQL injection B608 fixed (`growthcro/reality/google_ads.py` : Pydantic-style ISO-date validation + `^https?://[\w\-\.]+/.*$` page_url whitelist, GAQL has no bind-param API).
+- 4 HIGH bandit weak-hash findings tagged `usedforsecurity=False` in `skills/site-capture/scripts/` (cache keys + layout fingerprints, non-crypto).
+- 4 bare `except:` → `except Exception:` (`aura_extract.py` ×2, `batch_site.py`, `discover_pages_v25.py`).
+- defusedxml migration for sitemap XML parsing (`discover_pages_v25.py` B314, requirements.txt +`defusedxml>=0.7.1`).
+- Action 6 (move stale `skills/site-capture/scripts/_archive_deprecated_2026-04-19/` to `_archive/` root) marked **SKIP** — already relocated by prior cleanup epic; FAIL count was already 0 at baseline.
+
+**Result** : `lint_code_hygiene.py` FAIL = 0, bandit HIGH = 0, bandit MEDIUM B608 = 0, bandit MEDIUM B314 = 0. 6/6 GSG checks PASS (canonical, controlled_renderer, creative_route_selector, visual_renderer, intake_wizard, component_planner). Parity weglot ✓ 108 files match baseline. Schemas ✓ 3439 files. Capabilities ✓ 0 orphans.
+
+**Architecture preserved** : doctrine V3.2.1/V3.3 intact, V26.AF immutable intact, audit pipeline byte-equal (parity ✓).
