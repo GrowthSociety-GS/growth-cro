@@ -123,15 +123,28 @@ Le programme stratosphère a livré structurellement à 100%. Mais :
   - PRD baseline 88 stale (real avec mypy 2.1.0 = 624 default, 1 avec config)
   - 4 zones merge-conflict pré-existantes dans MANIFEST (lignes 479-483, 627, 690, 694-695) héritées de webapp-stratosphere + task/23-reality-loop
 
-### FR-2 — Epic 2 — Micro-Cleanup Sprint (Wave A, autonome)
-- **Effort** : XS, 4-6h total (4 micro-actions)
-- **Actions** :
-  - Split `moteur_gsg/core/copy_writer.py` mono-concern (3 fichiers : prompt_assembly + llm_call + serializers) — 2h, ICE 324
-  - Archive `growthcro/gsg_lp/` legacy island vers `_archive/` — 1h, ICE 324
-  - Add `.gitignore` entry pour `_archive_deprecated_*` pattern (fait disparaître lint FAIL=1) — 30min
-  - (Optionnel) `pylint --duplicate-code` deep analysis sprint dédié — 2h
-- **Outputs** : lint FAIL=0 absolu · doctrine code intacte
-- **Dépendance** : aucune (autonome)
+### FR-2 — Epic 2 — Micro-Cleanup Sprint (Wave A, autonome) ✅ COMPLETED 2026-05-12
+- **Effort** : XS-S, 3.5h cumul → réalisé en **~2h wall-clock** (3 agents parallèles file-disjoint)
+- **Sub-PRD** : [`micro-cleanup-sprint.md`](micro-cleanup-sprint.md) (3 tasks #36-#38, epic #35)
+- **Livré** :
+  - `copy_writer.py` (376 LOC) split en sub-package `moteur_gsg/core/copy/` mono-concern :
+    - `prompt_assembly.py` (143 LOC), `llm_call.py` (118 LOC), `serializers.py` (159 LOC)
+    - `copy_writer.py` thin re-export (27 LOC, backward-compat)
+  - `growthcro/gsg_lp/` (7 fichiers legacy island, 0 active import) archivé vers `_archive/growthcro_gsg_lp_2026-05-12_legacy_island/`
+  - 2 narratives stale repathed (`growthcro/lib/README.md` + `scripts/update_architecture_map.py` ROOT_LIFECYCLE)
+  - `.gitignore` enrichi avec wildcard `**/_archive_deprecated_*/` (belt-and-suspenders anti-pattern #10)
+- **Métriques mesurées (sur main)** :
+  - lint FAIL git-tracked : **0** (archive `_archive_deprecated_2026-04-19/` reste local junk physiquement présent dans le checkout de Mathis mais gitignored → lint FAIL=1 visible localement jusqu'à `rm -rf` action #6)
+  - lint WARN : 39 → 37 (-2)
+  - mypy global : 1 error (duplicate `score_site` du local junk, disparaît post `rm -rf`)
+  - typecheck strict scope : 0 ✓ (maintenu Epic 1)
+  - capabilities orphans HIGH=0 maintenu, 235 active capabilities tracked
+  - 0 nouveau `# type: ignore`
+  - 0 régression V26.AF / V3.2.1 / V3.3
+- **Drifts surfacés** (préservés pour follow-up) :
+  - Coordination collision worktree partagé : commit `787f7a3` a un mismatch message↔content (3 agents simultanés, staging race). Métadonnée only, code correct. Soft reset bloqué par enforcement CLAUDE.md interprété strictement.
+  - lint FAIL=1 persiste sur checkout local Mathis tant que `skills/site-capture/scripts/_archive_deprecated_2026-04-19/` n'est pas physiquement supprimé (action #6 optionnelle, 5sec)
+- **Wave A progression** : 2/3 epics done (Epic 1 ✅ + Epic 2 ✅). Epic 5 POCs reste disponible (étalable).
 
 ### FR-3 — Epic 3 — Follow-up #19b GSG 4 page_types restants (Wave C)
 - **Effort** : L, 7-10j
@@ -203,6 +216,7 @@ Le programme stratosphère a livré structurellement à 100%. Mais :
 
 ### Programme entier (cible aspirational si tous epics livrés)
 - [x] Epic 1 livré 2026-05-12 : mypy strict scope 13→0 (top-3 + growthcro.models.*) · global avec config + follow_imports=silent : 1 error/603 budget · sub-PRD [`typing-strict-rollout`](typing-strict-rollout.md) completed
+- [x] Epic 2 livré 2026-05-12 : copy_writer 376 LOC → sub-package mono-concern (3 modules ≤200 LOC) · growthcro/gsg_lp/ archivé · `.gitignore` wildcard guard · 0 anti-pattern #8/#10 git-tracked · sub-PRD [`micro-cleanup-sprint`](micro-cleanup-sprint.md) completed
 - [ ] Epic 2 livré : lint FAIL = 0 absolu
 - [ ] Epic 3 livré : 7/7 page_types GSG validés stratosphère
 - [ ] Epic 4 livré : V28 prod déployé + 56 clients live + auth
