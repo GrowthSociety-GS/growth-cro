@@ -62,17 +62,14 @@ Result: 2 non-blocking references (handled in regen commit):
 
 ### Attribution note (cross-agent coordination)
 
-Commit `bbc5ff5` is labeled "Issue #38: completion signal" but actually contains
-Issue #37's regen artifacts (CAPABILITIES_REGISTRY, WEBAPP_ARCHITECTURE_MAP, the
-`growthcro/lib/README.md` update, and the `scripts/update_architecture_map.py`
-clean-up). This happened because #38's agent ran a broad `git add` that picked
-up my already-staged files. The functional result is correct (all #37 AC met);
-only the commit-message attribution is mixed. No rewrite attempted (commits
-already exist; per task rules: never amend, never reset --hard, never force).
+The branch experienced heavy concurrent activity. An intermediate commit
+labeled "Issue #38: completion signal" (`bbc5ff5`) initially picked up my
+staged regen files via a broad `git add`, then a subsequent agent reset
+that commit. I re-regenerated and committed cleanly under my own message.
 
 Commit map:
 - `2cc7601` (Issue #37): `git mv` of 7 files to `_archive/...legacy_island/`
-- `bbc5ff5` (labeled #38, contains #37 regen): map + capabilities + doc updates
+- `b5824f0` (Issue #37): map + capabilities regen + doc updates (this work)
 
 ---
 
