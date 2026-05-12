@@ -1,14 +1,21 @@
 # Skills Integration Blueprint — GrowthCRO
 
-**Version**: 1.0 (Task #17, 2026-05-11)
+**Version**: 1.1 (Task #26 — Stratosphère S1 install, 2026-05-12)
 **Status**: Active
 **Update policy**: Mis à jour à chaque ajout/retrait de skill OU à chaque epic terminé qui change l'écosystème.
+
+**Changelog v1.1 (2026-05-12)** :
+- Ajout 6 skills stratosphère installés via `npx skills add` (Vercel labs/agent-skills bundle + Trail of Bits + Anthropic webapp-testing) — cf reports/SKILLS_STRATOSPHERE_DISCOVERY_2026-05-11.md
+- 3 nouveaux combo packs : `webapp_nextjs` étendu, `security_audit` (NEW), `qa_a11y` (NEW)
+- `Figma Implement Design` démoté en on-demand (slash `/figma-implement` ponctuel)
+- NEW section 4bis "MCPs server-level" (Context7 + futurs MCPs Task #27)
+- `skill-creator` formalisé (déjà actif via `anthropic-skills:skill-creator`) — verdict "MÉTA universel on-demand"
 
 ---
 
 ## 1. Vue d'ensemble
 
-Cet écosystème est composé de **16 skills audités** (8 essentiels + 6 on-demand + 5 exclus + skills internes Claude Code). Le blueprint définit *où chaque skill se branche dans le workflow*, *avec quels autres il forme un combo cohérent*, et *quelles combinaisons sont à éviter* (anti-cacophonie).
+Cet écosystème est composé de **22+ skills audités** (14 essentiels + 6 on-demand + 5 exclus + 1 méta universel + skills internes Claude Code) + **MCPs server-level hors compte 8 skills/session**. Le blueprint définit *où chaque skill se branche dans le workflow*, *avec quels autres il forme un combo cohérent*, et *quelles combinaisons sont à éviter* (anti-cacophonie).
 
 ### Table récapitulative
 
@@ -21,20 +28,38 @@ Cet écosystème est composé de **16 skills audités** (8 essentiels + 6 on-dem
 | 5 | `cro-methodology` | Conversion Rate Experts / wondelai | ESSENTIEL (À INSTALLER) | Méthodologie CRE en POST-PROCESS, alimente la fusion V3.3 (#18) |
 | 6 | `Emil Kowalski Design Skill` | emilkowal.ski | ESSENTIEL (À INSTALLER) | Animations premium pour le GSG stratosphère (#19) |
 | 7 | `Impeccable` | pbakaus / impeccable.style | ESSENTIEL (À INSTALLER) | 200 anti-patterns, QA polish post-render GSG |
-| 8 | `Figma Implement Design` | Figma (nocodefactory list) | ESSENTIEL | Figma→code quand Mathis amène un design Figma |
-| 9 | `page-cro` | coreyhaines31 | ON-DEMAND | Overlay Quick Wins, recoupe ~80% notre doctrine |
-| 10 | `form-cro` | coreyhaines31 | ON-DEMAND | Page_type = lp_leadgen / signup |
-| 11 | `signup-flow-cro` | coreyhaines31 | ON-DEMAND | Audits SaaS B2B avec signup flow |
-| 12 | `onboarding-cro` | coreyhaines31 | ON-DEMAND | GSG Mode 1 page_type = onboarding |
-| 13 | `paywall-upgrade-cro` | coreyhaines31 | ON-DEMAND | SaaS freemium avec paywall/pricing |
-| 14 | `popup-cro` | coreyhaines31 | ON-DEMAND | Quand audit détecte des popups |
-| 15 | `lp-creator` | Anthropic | EXCLU | Notre GSG est plus évolué (intake_wizard + brief_v2 + multi-judge) |
-| 16 | `lp-front` | Anthropic | EXCLU | Idem — notre GSG produit le front via visual_system V27.2-G |
-| 17 | `theme-factory` | Anthropic | EXCLU | Conflit avec Brand DNA per-client (10 thèmes pré-set imposent une grille) |
-| 18 | `Taste Skill` | tiers (third-party) | EXCLU | Impose un parti pris dark/premium → conflit Brand DNA per-client |
-| 19 | `Canvas Design` | Anthropic | EXCLU | Hors-scope CRO core (visuels statiques marketing) |
+| 8 | `vercel-react-best-practices` | vercel-labs/agent-skills | ESSENTIEL (installed 2026-05-12) | 70 règles React/Next.js perf — combo Webapp Next.js dev |
+| 9 | `web-design-guidelines` | vercel-labs/agent-skills | ESSENTIEL (installed 2026-05-12) | 100+ règles a11y+perf+UX — combo Webapp Next.js dev + QA+a11y |
+| 10 | `vercel-composition-patterns` | vercel-labs/agent-skills | ESSENTIEL (installed 2026-05-12) | Bundle Vercel — composition patterns React/Next.js |
+| 11 | `vercel-react-view-transitions` | vercel-labs/agent-skills | ESSENTIEL (installed 2026-05-12) | Bundle Vercel — View Transitions API |
+| 12 | `codeql` (Trail of Bits suite) | trailofbits/skills | ESSENTIEL (installed 2026-05-12) | Static analysis CodeQL — combo Security audit (pre-merge / quarterly) |
+| 13 | `semgrep` (Trail of Bits suite) | trailofbits/skills | ESSENTIEL (installed 2026-05-12) | Static analysis Semgrep — combo Security audit |
+| 14 | `variant-analysis` | trailofbits/skills | ESSENTIEL (installed 2026-05-12) | Cross-file taint / variants pattern — combo Security audit |
+| 15 | `supply-chain-risk-auditor` | trailofbits/skills | ESSENTIEL (installed 2026-05-12) | Supply chain risk Python+TS deps — combo Security audit |
+| 16 | `webapp-testing` | anthropic-skills | ESSENTIEL (installed 2026-05-12) | Playwright official Anthropic — combo QA + a11y |
+| 17 | `skill-creator` | anthropic-skills | MÉTA — universel on-demand | Déjà actif (`anthropic-skills:skill-creator`). Use case stratégique : packager modules GrowthCRO en skills externalisables |
+| 18 | `Figma Implement Design` | Figma (nocodefactory list) | ON-DEMAND (démoté 2026-05-12) | Figma→code ponctuel via `/figma-implement` quand Mathis amène un design. Retiré du combo permanent webapp_nextjs |
+| 19 | `page-cro` | coreyhaines31 | ON-DEMAND | Overlay Quick Wins, recoupe ~80% notre doctrine |
+| 20 | `form-cro` | coreyhaines31 | ON-DEMAND | Page_type = lp_leadgen / signup |
+| 21 | `signup-flow-cro` | coreyhaines31 | ON-DEMAND | Audits SaaS B2B avec signup flow |
+| 22 | `onboarding-cro` | coreyhaines31 | ON-DEMAND | GSG Mode 1 page_type = onboarding |
+| 23 | `paywall-upgrade-cro` | coreyhaines31 | ON-DEMAND | SaaS freemium avec paywall/pricing |
+| 24 | `popup-cro` | coreyhaines31 | ON-DEMAND | Quand audit détecte des popups |
+| 25 | `lp-creator` | Anthropic | EXCLU | Notre GSG est plus évolué (intake_wizard + brief_v2 + multi-judge) |
+| 26 | `lp-front` | Anthropic | EXCLU | Idem — notre GSG produit le front via visual_system V27.2-G |
+| 27 | `theme-factory` | Anthropic | EXCLU | Conflit avec Brand DNA per-client (10 thèmes pré-set imposent une grille) |
+| 28 | `Taste Skill` | tiers (third-party) | EXCLU | Impose un parti pris dark/premium → conflit Brand DNA per-client |
+| 29 | `Canvas Design` | Anthropic | EXCLU | Hors-scope CRO core (visuels statiques marketing) |
 
-> **Note** : la liste contient 5 "exclus" effectivement (15–19). Skills internes Anthropic Code (claude-api, ccpm, audit-client, score-page, doctrine-diff, full-audit, pipeline-status) ne sont pas dans l'audit — ils sont meta-tooling déjà cablés.
+> **Note** : la liste contient 5 "exclus" effectivement (25–29). Skills internes Anthropic Code (claude-api, ccpm, audit-client, score-page, doctrine-diff, full-audit, pipeline-status, skill-creator) ne sont pas dans l'audit "actif/passif" — ils sont meta-tooling déjà câblés.
+
+### Bundle Vercel — note d'install
+
+Le install `npx skills add vercel-labs/agent-skills` apporte **7 skills** (au-delà des 4 ciblés) : on garde les 4 essentiels (table ligne 8-11) + on flag `deploy-to-vercel`, `vercel-cli-with-tokens`, `vercel-react-native-skills` comme **disponibles on-demand** mais hors combos permanents (deploy = sprint deploy V28 ; cli-with-tokens = quand Mathis crée des projets Vercel ; react-native = hors-scope).
+
+### Bundle Trail of Bits — note d'install
+
+Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite security complète). On en active **4 essentiels** dans le combo Security audit (lignes 12-15) : `codeql` + `semgrep` + `variant-analysis` + `supply-chain-risk-auditor`. Les 70 autres restent disponibles on-demand (notamment `semgrep-rule-creator`, `differential-review`, `insecure-defaults`, `fp-check`, `sarif-parsing`, `modern-python`). Activation : pre-merge majeur OR trimestriel.
 
 ---
 
@@ -95,29 +120,94 @@ Cet écosystème est composé de **16 skills audités** (8 essentiels + 6 on-dem
 
 ---
 
-### Combo "Webapp Next.js dev" (4 skills max)
+### Combo "Webapp Next.js dev" (étendu — 5 skills max, exception documentée)
 
-**Skills actifs**:
+**Skills actifs** (post Task #26 Stratosphère S1 install):
 - `frontend-design` (composants visuels)
 - `web-artifacts-builder` (shadcn/Tailwind/state-mgmt)
 - `vercel-microfrontends` (archi multi-zones)
-- `Figma Implement Design` (si Mathis amène un design Figma — sinon optionnel)
+- `vercel-react-best-practices` (70 règles React/Next.js perf — Vercel)
+- `web-design-guidelines` (100+ règles a11y+perf+UX — Vercel)
 
-**Limite**: 4 skills/session
+**Limite**: 5 skills/session (one-off exception documentée — sweet spot historique 4, mais ce combo cumule design + archi + 2 layers Vercel best-practices critiques pour Epic #6 webapp V28 perf budget <2s).
 
-**Activation**: Manuelle au début d'un sprint webapp V28 (Epic #21). Pas d'auto-load (la webapp n'a pas encore d'orchestrator côté Claude — c'est un sprint Mathis-driven).
+**Trade-off décidé (2026-05-12)** : on garde 5 skills permanents. `Figma Implement Design` démoté en **on-demand** (slash `/figma-implement` invoqué ponctuellement quand Mathis colle un lien Figma). Rationale :
+- Les 2 Vercel skills sont permanents car ils auto-appliquent fixes pendant gen (zero effort post-install).
+- `Figma Implement Design` n'est utile que les sessions où un Figma file existe.
+- Le combo reste anti-cacophonie (cones d'action disjoints : composant × stack × archi × perf × a11y).
 
-**Rationale**:
+**Activation**: Manuelle au début d'un sprint webapp V28 (Epic #6 / #21).
+
+**Rationale détaillée**:
 - `frontend-design` produit les composants UI
 - `web-artifacts-builder` fournit la stack (shadcn/Tailwind + React state)
 - `vercel-microfrontends` cadre l'archi : 5 microfrontends (audit-app / reco-app / gsg-studio / reality-monitor / learning-lab — cf `epic.md` AD-1)
-- `Figma Implement Design` invoqué quand Mathis colle un lien Figma
+- `vercel-react-best-practices` (Vercel — 70 règles perf) : empêche async/await waterfalls, barrel imports lourds, re-renders inutiles
+- `web-design-guidelines` (Vercel — 100+ règles a11y+perf+UX) : WCAG 2.1 AA, forms patterns, animations, semantic HTML
 
 **Modules impactés** (`WEBAPP_ARCHITECTURE_MAP.yaml`):
 - `growthcro/api/server` (FastAPI exposée via Vercel edge functions)
+- `webapp/apps/audit-app`, `reco-app`, `gsg-studio`, `reality-monitor`, `learning-lab` (post Epic #6)
 - pipelines: `webapp` stages `stages_v28_nextjs_target`
 
-**Note de phasing**: ce combo n'est PAS activé avant Epic #21 (webapp V28 migration). En attendant, V27 HTML reste live.
+**Note de phasing**: ce combo n'est PAS activé en permanence avant Epic #6 deploy (webapp V28 migration). En attendant, V27 HTML reste live.
+
+---
+
+### Combo "Security audit" (NEW — 4 skills max — pre-merge / quarterly)
+
+**Skills actifs**:
+- `codeql` (Trail of Bits — CodeQL static analysis)
+- `semgrep` (Trail of Bits — Semgrep rules)
+- `variant-analysis` (Trail of Bits — cross-file taint, variants pattern)
+- `supply-chain-risk-auditor` (Trail of Bits — Python+TS deps risk)
+
+**Limite**: 4 skills/session
+
+**Activation**: **NON permanent**. Activation explicite :
+- Pre-merge d'un epic majeur (avant Mathis approve PR) — gate qualité
+- Trimestriel — audit complet du tree Python + TS webapp
+- Sur demande Mathis (post-incident sécurité)
+
+**Rationale**:
+- Notre `bandit` a flag 192 issues dont 2 vrais MEDIUM SQL injection (`growthcro/reality/google_ads.py:71` + archive). Trail of Bits CodeQL+Semgrep trouve les variantes cross-file que bandit rate.
+- `variant-analysis` : trouve patterns vulnérables identiques sur tout le codebase → utile pour absorber les 2 instances SQL injection google_ads en une passe.
+- `supply-chain-risk-auditor` : critique pour deps Supabase/Vercel/Anthropic Python SDK + 73 TS files webapp/.
+- Possible 5e skill `Impeccable` si audit visuel/code post-merge demandé (sweet spot 4 maintenu par défaut).
+
+**Coût / latence**:
+- CodeQL build DB : 5-15min selon taille codebase (trop lourd pour pre-commit, OK pre-merge/quarterly).
+- Semgrep : <2min sur tout le tree.
+
+**Modules impactés** (`WEBAPP_ARCHITECTURE_MAP.yaml`):
+- Tout le tree Python `growthcro/`, `moteur_gsg/`, `moteur_multi_judge/`, `skills/`, `scripts/`
+- Tout le tree TS `webapp/apps/*`, `webapp/packages/*`
+
+**Anti-cacophonie**: 4 skills sécurité orthogonaux (CodeQL vs Semgrep vs variant vs supply chain). Pas de conflit avec design/perf combos (Security audit ne tourne JAMAIS en même temps que GSG generation ou Audit run).
+
+---
+
+### Combo "QA + a11y" (NEW — 2 skills max — optionnel, Epic #6)
+
+**Skills actifs**:
+- `webapp-testing` (Anthropic — Playwright official)
+- `web-design-guidelines` (Vercel — 100+ règles a11y+perf+UX)
+
+**Limite**: 2 skills/session (peut être pairé avec combo Webapp Next.js dev pour un total de 5+2=7 ≤8 hard limit, **uniquement si nécessaire**)
+
+**Activation**: Sprint QA E2E webapp V28 (Epic #6 / #21) — après scaffold microfrontends, avant deploy prod.
+
+**Rationale**:
+- Webapp V28 a 5 microfrontends Next.js — besoin urgent tests E2E systématiques (Playwright config existe déjà dans `webapp/playwright.config.ts` mais aucun test E2E écrit).
+- `webapp-testing` Anthropic maintained, drop-in pour notre stack.
+- `web-design-guidelines` (Vercel) couvre a11y WCAG 2.1 AA + perf + UX — gate qualité avant deploy.
+- Dual-viewport obligatoire (CLAUDE.md règle immuable) + screenshots proof — `webapp-testing` est l'outil naturel.
+
+**Modules impactés**:
+- `webapp/tests/e2e/` (Playwright config existing — tests à écrire dans ce sprint)
+- `webapp/apps/audit-app`, `reco-app`, `gsg-studio`, `reality-monitor`, `learning-lab`
+
+**Combos compatibles** : peut tourner en parallèle avec Webapp Next.js dev (5 skills) → total 7 skills, sous limite 8. Recommandé pour sprint QA final pré-deploy.
 
 ---
 
@@ -329,6 +419,49 @@ Cet écosystème est composé de **16 skills audités** (8 essentiels + 6 on-dem
 
 ---
 
+## 4bis. MCPs server-level (hors compte 8 skills/session)
+
+**Décision architecturale (Task #26 — AD-4)** : MCPs ≠ Skills.
+- **Skills** sont des playbooks/instructions invoqués par Claude (8 max simultanés en session active per anti-pattern #12).
+- **MCPs** sont des back-ends data via JSON-RPC (Model Context Protocol). Ils exposent des **tools** à Claude (read SQL, list issues, fetch docs, etc.). Ils tournent en **serveurs** au niveau Claude Code config — **hors compte session**.
+
+Conséquence : on peut avoir 8 skills actifs + N MCPs server-level sans dépasser la limite.
+
+### 4bis.1 — Context7 MCP (universel, anti-hallucination)
+
+- **Source** : `https://github.com/upstash/context7` · open-source, Upstash-maintained
+- **Statut** : **À INSTALLER MANUELLEMENT par Mathis** (commande ci-dessous — sandbox programmatique a installé les skills via `npx skills add`, mais l'install MCP `claude mcp add` nécessite la CLI Claude Code côté Mathis)
+- **Install command** :
+  ```bash
+  claude mcp add context7 -- npx -y @upstash/context7-mcp
+  ```
+- **Pas d'OAuth requis** (open-source, no key)
+- **What it does** : injecte automatiquement la doc à jour version-spécifique des libs utilisées (FastAPI, Next.js 14, Supabase, Anthropic SDK) dans le contexte. Résout les hallucinations API obsolètes.
+- **Activation** : **toutes les sessions** Claude Code (universel). Aucun overhead par-prompt notable (~200ms sync fetch).
+- **Smoke test** (post-install Mathis) :
+  > "Génère un composant Next.js 14 App Router avec server actions et Supabase v2 auth."
+  Si Claude mentionne Next.js 12 / Supabase v1 → Context7 pas actif. Si Claude utilise correctement `server actions`, `cookies()`, `createServerClient` v2 → Context7 actif.
+- **ICE score** : 9 × 10 × 9 = **810** (cf SKILLS_STRATOSPHERE_DISCOVERY §1.6).
+
+### 4bis.2 — MCPs production (Task #27 — futur sprint)
+
+Ces MCPs sont identifiés mais **non installés dans Task #26** (Task #27 = Phase 2 Equipment du programme hardening-and-skills-uplift) :
+
+| MCP | Install (futur) | Why | ICE |
+|---|---|---|---:|
+| **Supabase MCP** | `claude mcp add --transport http supabase https://mcp.supabase.com/mcp` + OAuth | Epic #6 webapp V28 prerequisite — SQL, schemas, edge functions, branches. **Strict dev project only — never prod (anti-pattern AD-5).** | 810 |
+| **Sentry MCP** | `claude mcp add --transport http sentry https://mcp.sentry.dev/mcp` + OAuth | Issues + stack traces + group by frequency post-deploy V28 | 576 |
+| **Meta Ads MCP** | `claude mcp add --transport http meta-ads https://mcp.facebook.com/ads` + OAuth | Augmente skill `meta-ads-auditor` — exploration live data client agence pendant audit | 640 |
+| **Shopify MCP** | `claude mcp add shopify` | ~30% des clients agence Shopify (e-commerce DTC) — audit live boutique | 504 |
+
+**Combo associé futur (Task #27)** : "Production observability" — Supabase MCP + Sentry MCP + Context7 MCP + (skills selon contexte). MCPs cumulables sans toucher le cap 8 skills.
+
+### 4bis.3 — Note de sécurité Supabase MCP (anti-pattern AD-5)
+
+> **Supabase MCP = dev only, NEVER prod.** Documenté explicitement par Supabase. Si Mathis ajoute Supabase MCP en Task #27, créer un projet Supabase dev dédié (séparé du projet prod V28). Si Claude exécute `DROP TABLE` ou `DELETE WHERE ...` via MCP, ça doit toucher uniquement la base dev. Cf [Supabase blog official connector](https://supabase.com/blog/supabase-is-now-an-official-claude-connector).
+
+---
+
 ## 5. Installation procedure (ordre + commandes exactes)
 
 Cette procédure est à exécuter par **Mathis** côté machine (l'agent Claude n'a pas accès à `npx` contre des repos GitHub externes — sandbox security). L'ordre n'est pas strict, mais on suggère :
@@ -340,7 +473,33 @@ which npx          # doit pointer vers /opt/homebrew/bin/npx (macOS) ou équival
 ls ~/.claude/skills/   # liste actuelle (devrait afficher ccpm a minima)
 ```
 
-### Étape 2 — Installer les 4 skills externes (ordre suggéré)
+### Étape 2 — Installer les skills externes (ordre suggéré)
+
+**Tier 1 — Stratosphère S1 (Task #26 — installés 2026-05-12 via Claude agent)** :
+
+```bash
+# Vercel bundle — apporte 7 skills (dont les 4 essentiels)
+npx --yes skills add vercel-labs/agent-skills
+# Skills essentiels actifs après install :
+#   - vercel-react-best-practices (combo Webapp Next.js dev)
+#   - web-design-guidelines (combo Webapp Next.js dev + QA + a11y)
+#   - vercel-composition-patterns
+#   - vercel-react-view-transitions
+# Skills bundle on-demand (disponibles mais hors combo permanent) :
+#   - deploy-to-vercel · vercel-cli-with-tokens · vercel-react-native-skills
+
+# Trail of Bits — apporte 74 skills (dont les 4 essentiels security)
+npx --yes skills add trailofbits/skills
+# Skills essentiels actifs (combo Security audit) :
+#   - codeql · semgrep · variant-analysis · supply-chain-risk-auditor
+# Skills bundle on-demand : 70 autres (semgrep-rule-creator, differential-review,
+#   insecure-defaults, fp-check, sarif-parsing, modern-python, etc.)
+
+# Anthropic webapp-testing (Playwright official)
+npx --yes skills add anthropics/skills/skills/webapp-testing
+```
+
+**Tier 2 — Original essentiels (à installer si pas déjà faits)** :
 
 ```bash
 # 1. vercel-microfrontends (pour Epic #21 webapp V28)
@@ -357,6 +516,24 @@ npx skills add pbakaus/impeccable
 # Optionnel: installer aussi la CLI Impeccable pour audits locaux post-run
 # npx impeccable detect <path>  # one-shot, pas une install permanente
 ```
+
+**Tier 3 — MCPs Server-level (Task #26 partial → Task #27 complet)** :
+
+```bash
+# Context7 MCP — universel anti-hallucination (Task #26 — à installer côté Mathis)
+claude mcp add context7 -- npx -y @upstash/context7-mcp
+
+# Tâche #27 (futur) — MCPs production (OAuth flows Mathis ~5min chacun) :
+# claude mcp add --transport http supabase https://mcp.supabase.com/mcp
+# claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
+# claude mcp add --transport http meta-ads https://mcp.facebook.com/ads
+# claude mcp add shopify
+```
+
+**Notes critiques** :
+- Skills installs créent `.claude/skills/` (symlinks) + `skills-lock.json` (hashes) à la racine du projet. **Les deux sont gitignored** (per-machine, pas source-of-truth). Le source-of-truth = ce blueprint + `WEBAPP_ARCHITECTURE_MAP.yaml > skills_integration`.
+- `.agents/skills/` (Codex mirror) également gitignored.
+- Reinstall sur nouvelle machine : exécuter Étape 2 (Tier 1 + Tier 2) + Étape 3 + Étape 4 (Tier 3 MCPs).
 
 ### Étape 3 — Vérifier l'installation
 
