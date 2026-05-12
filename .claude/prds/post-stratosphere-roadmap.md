@@ -231,6 +231,7 @@ Le programme stratosphère a livré structurellement à 100%. Mais :
 - [x] Epic 1 livré 2026-05-12 : mypy strict scope 13→0 (top-3 + growthcro.models.*) · global avec config + follow_imports=silent : 1 error/603 budget · sub-PRD [`typing-strict-rollout`](typing-strict-rollout.md) completed
 - [x] Epic 2 livré 2026-05-12 : copy_writer 376 LOC → sub-package mono-concern (3 modules ≤200 LOC) · growthcro/gsg_lp/ archivé · `.gitignore` wildcard guard · 0 anti-pattern #8/#10 git-tracked · sub-PRD [`micro-cleanup-sprint`](micro-cleanup-sprint.md) completed
 - [🟡] Epic 4 PARTIAL livré 2026-05-12 : shell-only Vercel deploy + Supabase EU + intégrations triple · FastAPI backend déféré · sub-PRD [`webapp-shell-validation`](webapp-shell-validation.md) en cours pour decision gate ship/defer
+- [🚧] Epic 4 EXTENDED 2026-05-12 : Mathis loggé in + seed test data (3 clients/30 recos) · master sub-PRD [`webapp-full-buildout`](webapp-full-buildout.md) actif (6 sub-PRDs FR-1..FR-6, critical path ~4-5j) pour consolidation 6 microfrontends → shell + wiring complet
 - [ ] Epic 2 livré : lint FAIL = 0 absolu
 - [ ] Epic 3 livré : 7/7 page_types GSG validés stratosphère
 - [ ] Epic 4 livré : V28 prod déployé + 56 clients live + auth
