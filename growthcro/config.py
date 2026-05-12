@@ -93,6 +93,7 @@ _KNOWN_VARS: tuple[tuple[str, bool, str, str], ...] = (
     ("GHOST_HEADED",                 False, "0",       "'1' to run ghost_capture in headed mode for debugging."),
     ("AGGRESSIVE_CMP",               False, "0",       "'1' to enable aggressive CMP (cookie banner) handling."),
     ("PORT",                         False, "8000",    "FastAPI server port."),
+    ("GROWTHCRO_LOG_LEVEL",          False, "INFO",    "Observability log level (DEBUG|INFO|WARNING|ERROR). Default INFO. See growthcro/observability/logger.py."),
     # ── Reality Layer V26.C — per-client credentials (Issue #23) ──────────────
     # Per-client convention: append `_<CLIENT_SLUG_UPPERCASE>` (e.g. `META_ACCESS_TOKEN_WEGLOT`).
     # The bare var name (no suffix) is a global fallback used by tooling tests only.
@@ -196,6 +197,16 @@ class _Config:
 
     def web_vitals_provider(self, default: str = "none") -> str:
         return os.environ.get("GROWTHCRO_WEB_VITALS_PROVIDER", default)
+
+    # ── Observability ────────────────────────────────────────────────
+    def log_level(self, default: str = "INFO") -> str:
+        """Observability log level read from `GROWTHCRO_LOG_LEVEL`.
+
+        Returns the env value (uppercased) or `default` if unset. Consumed by
+        `growthcro/observability/logger.py` at root-logger setup.
+        """
+        v = os.environ.get("GROWTHCRO_LOG_LEVEL")
+        return (v or default).strip().upper()
 
     # ── Behavioral toggles ───────────────────────────────────────────
     def is_aggressive_cmp(self) -> bool:
