@@ -197,3 +197,4 @@ data/.vision_cache/
 # ─── Docker / container builds ─────────────────────────
 .docker/
 deliverables/clients/
+.vercel
