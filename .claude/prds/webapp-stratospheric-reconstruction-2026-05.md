@@ -1,7 +1,7 @@
 ---
 name: webapp-stratospheric-reconstruction-2026-05
 description: MEGA-PRD post-audit 3-agent cross-validated — reconstruction systémique de la webapp Next.js pour atteindre la vision canonique architecturée par Mathis (5-microfrontend Mission Control + FastAPI Fly.io + closed-loop 6 stages) tout en restaurant le visual DNA V22 Stratospheric Observatory perdu lors du port V26 HTML → Next.js. 4 tiers, 16 sub-PRDs, ~25-34 jours solo dev.
-status: pending-decisions
+status: active
 created: 2026-05-14T16:00:00Z
 parent_prd: post-stratosphere-roadmap
 supersedes: webapp-v26-parity-and-beyond
