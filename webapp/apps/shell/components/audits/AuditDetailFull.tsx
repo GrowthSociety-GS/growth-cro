@@ -79,7 +79,6 @@ function RecosCard({
   audit,
   recos,
   clientName,
-  clientSlug,
   editable,
 }: {
   audit: Audit;
@@ -96,16 +95,14 @@ function RecosCard({
     <Card
       title={`Recos prioritaires · ${sorted.length}`}
       actions={
-        <a
-          href={`/audits/${clientSlug}/${audit.id}/export`}
+        <span
           className="gc-pill gc-pill--soft"
           aria-disabled="true"
-          onClick={(e) => e.preventDefault()}
           title="Export PDF — V2"
           style={{ opacity: 0.5, cursor: "not-allowed" }}
         >
           Export PDF
-        </a>
+        </span>
       }
     >
       {sorted.length === 0 ? (
