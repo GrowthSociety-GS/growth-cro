@@ -1,6 +1,6 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-13T11:58:28",
+  "generated_at": "2026-05-13T12:35:03",
   "stats": {
     "total_files": 245,
     "active_wired": 4,
@@ -3398,8 +3398,8 @@
         "request",
         "urllib"
       ],
-      "size_bytes": 12087,
-      "mtime": "2026-05-11",
+      "size_bytes": 12630,
+      "mtime": "2026-05-13",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
