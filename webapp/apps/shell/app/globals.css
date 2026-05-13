@@ -1675,3 +1675,26 @@ button:focus-visible {
   }
 }
 
+
+
+/* Wave C.3 (audit A.12 P0.2): responsive filter row for ProposalList.
+   1fr search + 3 selects on desktop; selects wrap below 720px; everything
+   stacks below 480px (mobile). */
+.gc-proposal-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 720px) {
+  .gc-proposal-filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .gc-proposal-filters {
+    grid-template-columns: 1fr;
+  }
+}

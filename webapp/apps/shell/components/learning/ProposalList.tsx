@@ -75,14 +75,11 @@ export function ProposalList({ proposals, activeId }: Props) {
         </>
       }
     >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto auto auto",
-          gap: 8,
-          marginBottom: 12,
-        }}
-      >
+      {/* Wave C.3 (audit A.12 P0.2): wrap on mobile instead of forcing 4-col
+          grid that overflows at 360px (~480px required). */}
+      <div className="gc-proposal-filters">
+        {/* Inline fallback for SSR; CSS-driven responsive layout lives in
+            globals.css (.gc-proposal-filters). */}
         <input
           className="gc-input"
           placeholder="Search criterion id, content…"

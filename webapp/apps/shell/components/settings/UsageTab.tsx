@@ -21,7 +21,10 @@ export function UsageTab({ counts, errors = [] }: Props) {
         <p className="gc-settings__hint" style={{ margin: "0 0 12px" }}>
           Agrégats lecture seule sur l&apos;org en cours.
         </p>
-        <div className="gc-grid-kpi" style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}>
+        {/* Wave C.3 (audit A.12 P0.1): use the CSS default `gc-grid-kpi`
+            responsive auto-fit grid instead of forcing 4 cols inline. The base
+            CSS already handles 1180/980/720/480 breakpoints. */}
+        <div className="gc-grid-kpi">
           <KpiCard label="Clients" value={counts.clients} hint="total tracked" />
           <KpiCard label="Audits" value={counts.audits} hint="all time" />
           <KpiCard label="Recos" value={counts.recos} hint="all time" />
