@@ -135,25 +135,28 @@ Ce master PRD encadre le **buildout complet** : consolider les 6 microfrontends 
 - 1 commit isolé, gate-vert (lint + parity + schemas + build local)
 - **Blocking** : tous les sub-PRDs suivants en dépendent
 
-### FR-2 — Sub-PRD `webapp-clients-audits-recos` (US-2 + US-3)
-- **Effort** : M, 1-2j
-- **Cible** :
-  - `/clients` : liste paginée + filtres + search
-  - `/clients/[slug]` : détail client + ses audits + brand DNA
-  - `/audits/[id]` : détail audit + scores par pilier + 5 recos
-  - `/recos` : aggregator cross-clients filtrable
-- Data : déjà queries dispo (listClientsWithStats, listAuditsForClient, listRecosForAudit)
-- UI : reuse `@growthcro/ui` Card + KpiCard + Sidebar
-- AC : routes 200, data displayed, filtres URL-state
+### FR-2 — Sub-PRD `webapp-clients-audits-recos` ✅ COMPLETED 2026-05-13
+- **Effort** : M, 1-2j → réalisé en **~3h wall-clock** (1 agent background, 4 tasks file-disjoint)
+- **Sub-PRD** : [`webapp-clients-audits-recos.md`](webapp-clients-audits-recos.md)
+- **Livré** : 11 components + 3 pages NEW (`/clients`, `/clients/[slug]`, `/audits/[clientSlug]/[auditId]`), `/recos` aggregator wired
+  - SVG radial chart 6 piliers (no charting lib dep)
+  - URL-state filters/search/sort/pagination
+  - `listRecosAggregate()` NEW query in @growthcro/data
+  - Decision: nested `[clientSlug]/[auditId]` route (vs flat `/audits/[id]`) for breadcrumb hierarchy
+- **Build** : `/clients` 1.84 KB · `/clients/[slug]` 880 B · `/audits/[..]/[..]` ~88 KB · `/recos` 1.73 KB
+- **Commit** : `6d69953` → merged `a980eab`
 
-### FR-3 — Sub-PRD `webapp-gsg-studio` (US-4)
-- **Effort** : S-M, 0.5-1j
-- **Cible** : `/gsg` page listant les LPs GSG :
-  - Read depuis `deliverables/gsg_demo/*.html` (via Next.js API route qui sert le HTML)
-  - Cards : 1 par LP (Weglot advertorial, Weglot listicle, Japhy PDP, Stripe pricing)
-  - Each card : iframe preview + métadonnées (page_type, doctrine_version, multi-judge score si dispo)
-  - CTA "Open in new tab" pour view full
-- AC : 4 LPs visibles avec preview iframe fonctionnel
+### FR-3 — Sub-PRD `webapp-gsg-studio` ✅ COMPLETED 2026-05-13
+- **Effort** : S-M, 0.5-1j → réalisé en **~1.5h wall-clock**
+- **Sub-PRD** : [`webapp-gsg-studio.md`](webapp-gsg-studio.md)
+- **Livré** :
+  - `lib/gsg-fs.ts` auto-discover `deliverables/gsg_demo/*.html` + parse filename + sidecar JSON
+  - API route `/api/gsg/[slug]/html` (whitelist + XFO + CSP + 5min cache)
+  - Page `/gsg` Server Component grid 2 cards/row + GsgLpCard component
+  - 5 LPs detected: Japhy PDP, Stripe pricing, Weglot advertorial/home/listicle
+  - Path traversal blocked (tested `/api/gsg/..%2F..%2Fetc%2Fpasswd/html` → 404)
+- **Build** : `/gsg` 624 B / 87.9 KB First Load
+- **Commit** : `ee34483` → merged `a97999f`
 
 ### FR-4 — Sub-PRD `webapp-learning-lab` (US-7)
 - **Effort** : S-M, 1j
@@ -163,10 +166,18 @@ Ce master PRD encadre le **buildout complet** : consolider les 6 microfrontends 
 - Persist via service_role REST upsert
 - AC : si Mathis action #3 review 69 proposals fait, les données apparaissent
 
-### FR-5 — Sub-PRD `webapp-settings-admin` (US-6)
-- **Effort** : S, 0.5j
-- **Cible** : `/settings` 4 onglets
-- AC : password change UI + API key display + invite team UI + basic usage display
+### FR-5 — Sub-PRD `webapp-settings-admin` ✅ COMPLETED 2026-05-13
+- **Effort** : S, 0.5j → réalisé en **~2h wall-clock**
+- **Sub-PRD** : [`webapp-settings-admin.md`](webapp-settings-admin.md)
+- **Livré** :
+  - `/settings` page Server Component + SettingsTabs client component (URL hash routing)
+  - 4 tabs : AccountTab (password change), TeamTab (members + invite form), UsageTab (4 KpiCard), ApiTab (read-only public metadata + copy buttons)
+  - API route `/api/team/invite` (service_role server-only, admin check + idempotent upsert)
+  - 2 NEW @growthcro/data query modules : `org-members.ts`, `usage.ts`
+  - Sidebar.tsx adds Settings link
+  - Security verified: service_role JWT never in client bundle (grep on .next/static)
+- **Build** : `/settings` 5.25 KB / 155 KB First Load · `/api/team/invite` route registered
+- **Commit** : `48a4527` → merged `e72a104`
 
 ### FR-6 — Sub-PRD `webapp-polish-validation` (US-2/3/4 polish + UX validation)
 - **Effort** : S, 0.5-1j
@@ -203,7 +214,10 @@ Ce master PRD encadre le **buildout complet** : consolider les 6 microfrontends 
 ## Success Criteria
 
 ### Globaux V1 (cible aspirational)
-- [x] FR-1 done 2026-05-13 : 5 microfrontends consolidés dans shell, 1 deploy ✅ — see `webapp-consolidate-architecture.md` for full report
+- [x] FR-1 done 2026-05-13 : 5 microfrontends consolidés dans shell, 1 deploy ✅ — see `webapp-consolidate-architecture.md`
+- [x] FR-2 done 2026-05-13 : 4 routes core data wired Supabase ✅ — see `webapp-clients-audits-recos.md`
+- [x] FR-3 done 2026-05-13 : `/gsg` iframe preview 5 LPs ✅ — see `webapp-gsg-studio.md`
+- [x] FR-5 done 2026-05-13 : `/settings` 4 tabs ✅ — see `webapp-settings-admin.md`
 - [ ] FR-2 done : 4 routes wired Supabase (/clients, /clients/[slug], /audits/[id], /recos)
 - [ ] FR-3 done : /gsg avec 4 LPs preview iframe
 - [ ] FR-4 done : /learning si Mathis action #3 review proposals fait
