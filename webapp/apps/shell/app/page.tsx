@@ -57,7 +57,7 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="gc-toolbar">
-            <a href="/audit" className="gc-btn">Audit</a>
+            <a href="/audits" className="gc-btn">Audits</a>
             <a href="/gsg" className="gc-btn gc-btn--primary">Nouveau brief GSG</a>
           </div>
         </div>
@@ -74,7 +74,7 @@ export default async function HomePage() {
           <Card title="Runs live" actions={<a href="/reality" className="gc-pill gc-pill--cyan">Realtime</a>}>
             <RunsLiveFeed />
           </Card>
-          <Card title="Top clients" actions={<a href="/audit" className="gc-pill gc-pill--soft">Tout voir</a>}>
+          <Card title="Top clients" actions={<a href="/audits" className="gc-pill gc-pill--soft">Tout voir</a>}>
             <div className="gc-stack">
               {clients.length === 0 ? (
                 <p style={{ color: "var(--gc-muted)", fontSize: 13 }}>
@@ -84,7 +84,7 @@ export default async function HomePage() {
                 clients.slice(0, 6).map((c) => (
                   <a
                     key={c.id}
-                    href={`/audit/${c.slug}`}
+                    href={`/audits/${c.slug}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <div className="gc-client-row">

@@ -403,6 +403,42 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-13 — Webapp Consolidate Architecture (FR-1 sub-PRD)
+
+**Sub-PRD** : [`webapp-consolidate-architecture`](../../prds/webapp-consolidate-architecture.md) — FR-1 du master [`webapp-full-buildout`](../../prds/webapp-full-buildout.md). Foundation blocking pour FR-2/3/5/6 (clients/audits/recos, GSG studio, settings, polish + validation).
+
+**Livré** :
+- **5 microfrontends scaffold consolidés** dans `webapp/apps/shell/` single Next.js app :
+  - `apps/audit-app/` → `apps/shell/app/audits/` (page.tsx + [clientSlug]/page.tsx) + `components/audits/{AuditDetail,ClientPicker}.tsx`
+  - `apps/reco-app/` → `apps/shell/app/recos/` + `components/recos/RecoList.tsx`
+  - `apps/gsg-studio/` → `apps/shell/app/gsg/` + `components/gsg/{BriefWizard,LpPreview,Studio}.tsx` + `lib/gsg-api.ts`
+  - `apps/reality-monitor/` → `apps/shell/app/reality/` (2 pages) + `components/reality/{CredentialsGrid,RecentRunsTracker,SnapshotMetricsCard}.tsx` + `lib/reality-fs.ts`
+  - `apps/learning-lab/` → `apps/shell/app/learning/` (2 pages) + `components/learning/{ProposalList,ProposalDetail}.tsx` + `lib/proposals-fs.ts` + API route `app/api/learning/proposals/review/route.ts`
+- **5 dirs source archivés** via `git mv` sous `_archive/webapp_microfrontends_2026-05-12/` (history préservée, README explicatif + mapping + restore-procedure).
+- **Routing pluriel REST** : `/audit` → `/audits`, `/reco` → `/recos`. Sidebar.tsx + Home page liens cross-feature updated.
+- **API route shell-scoped** : `/learning/api/proposals/review` → `/api/learning/proposals/review`. `ProposalDetail.tsx` fetch URL updated.
+- **Cleanup config** : `webapp/microfrontends.json` supprimé, `webapp/apps/shell/next.config.js` rewrites localhost retiré, `webapp/package.json` scripts `dev:audit/reco/gsg/reality/learning` retirés.
+- **Globals CSS feature concaténés** dans `webapp/apps/shell/app/globals.css` (.gc-audit-shell, .gc-reco-shell, .gc-gsg-shell + descendants).
+- **package-lock.json regen** : extraneous entries supprimées post-archive.
+- **gitignore whitelist** : `!_archive/webapp_microfrontends_2026-05-12/**` (history audit purpose).
+
+**Décision architecture** : pour 1 dev solo + ~100 clients, 6 projets Vercel séparés = overkill. 1 deploy Vercel + 1 typecheck + 1 build au lieu de 6. `vercel.json` inchangé (déjà `apps/shell`).
+
+**Métriques mesurées** :
+- Build shell : **17 routes générées**, 87.3 KB shared first load, middleware 78.5 KB
+- 0 régression doctrine V3.2.1 / V3.3 (playbooks intacts)
+- 0 régression parity weglot (108 files baseline)
+- 0 régression SCHEMA (3439 files)
+- 0 nouveau FAIL lint_code_hygiene (1 FAIL pré-existant baseline scripts/seed_supabase_test_data.py préservé, ≤ 2 baseline)
+- 0 nouvel orphan HIGH `audit_capabilities.py`
+- typecheck shell : `tsc --noEmit` exit 0
+
+**Architecture map regen** : `scripts/update_architecture_map.py` — 5 modules `webapp_microfrontend_*` retirés, paths `apps/shell/app/{audits,recos,gsg,reality,learning}` ajoutés.
+
+**Effort** : 1 session agent (~45-60 min), 4 tasks séquentielles dans worktree solo `epic-webapp-consolidate-architecture/`.
+
+**Note FR-1 next** : Sub-PRDs FR-2 (clients/audits/recos wiring data), FR-3 (gsg-studio LPs preview), FR-5 (settings admin) parallélisables après merge. FR-4 (learning lab) + FR-6 (polish validation) post-FR-2.
+
 ### 2026-05-12 — Typing Strict Rollout (Epic #29)
 
 **Epic** : [`typing-strict-rollout`](../../prds/typing-strict-rollout.md) — Wave A du PRD master [`post-stratosphere-roadmap`](../../prds/post-stratosphere-roadmap.md) (FR-1 Epic 1). 5 tasks (#30, #31, #32, #33, #34), 16+ commits, 0 régression doctrine.

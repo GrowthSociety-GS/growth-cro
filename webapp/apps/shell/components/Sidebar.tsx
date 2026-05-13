@@ -5,8 +5,8 @@ import { NavItem } from "@growthcro/ui";
 
 const ITEMS: { label: string; href: string; hint: string }[] = [
   { label: "Overview", href: "/", hint: "Pipeline" },
-  { label: "Audit", href: "/audit", hint: "185 pages" },
-  { label: "Recos", href: "/reco", hint: "3045 items" },
+  { label: "Audits", href: "/audits", hint: "185 pages" },
+  { label: "Recos", href: "/recos", hint: "3045 items" },
   { label: "GSG Studio", href: "/gsg", hint: "Brief + LP" },
   { label: "Audit Google Ads", href: "/audit-gads", hint: "Agency" },
   { label: "Audit Meta Ads", href: "/audit-meta", hint: "Agency" },

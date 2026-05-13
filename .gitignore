@@ -156,6 +156,11 @@ archive/
 # with deprecation README. Kept tracked so the move is auditable.
 !_archive/scripts/
 !_archive/scripts/**
+# FR-1 webapp-consolidate-architecture 2026-05-13 — 5 microfrontends scaffold
+# archived via git mv. Kept tracked so the restore procedure (README) +
+# original scaffold files are auditable.
+!_archive/webapp_microfrontends_2026-05-12/
+!_archive/webapp_microfrontends_2026-05-12/**
 
 # ─── Logs ─────────────────────────────────────────────
 *.log

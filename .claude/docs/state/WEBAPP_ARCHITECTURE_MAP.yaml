@@ -1,7 +1,7 @@
 meta:
   version: 1.0.0
-  generated_at: '2026-05-12T13:46:28Z'
-  source_commit: fcf3bbd8b8ca2446ad2c24f36ad136b55b6ff784
+  generated_at: '2026-05-13T08:07:22Z'
+  source_commit: 871fb6c9e0a6ac1878e8595fb2aa14beaf7583af
   generated_by: scripts/update_architecture_map.py
   notes: 'Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase
     are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.'
@@ -2493,6 +2493,16 @@ modules:
     - skills/gsg/SKILL.md
     status: active
     lifecycle_phase: onboarding
+  scripts/seed_supabase_test_data:
+    path: scripts/seed_supabase_test_data.py
+    purpose: Seed Supabase with realistic test data (3 clients + audits + recos + runs).
+    inputs: []
+    outputs: []
+    depends_on: []
+    imported_by: []
+    doctrine_refs: []
+    status: active
+    lifecycle_phase: infrastructure
   scripts/test_agency_audits:
     path: scripts/test_agency_audits.py
     purpose: test_agency_audits.py — Smoke test for the audit_gads + audit_meta modules.
@@ -2642,96 +2652,6 @@ modules:
     imported_by: []
     doctrine_refs: []
     status: legacy
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/apify_enrich.py
-    purpose: apify_enrich.py — Enrichit un capture.json natif avec les données visuelles Apify.
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/build_dashboard_v12.py
-    purpose: build_dashboard_v12.py — Consolidate every client/page audit into a single JSON
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_detector.py
-    purpose: 'component_detector.py — GrowthCRO V12 Phase 5.2 : Component Detector multi-signal.'
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_perception.py
-    purpose: 'component_perception.py — Oracle V11 : Perception Sémantique & Spatiale'
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/component_validator.py
-    purpose: 'component_validator.py — GrowthCRO V12 Phase 5.4 : Critic/Validator.'
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/perception_pipeline.py
-    purpose: 'perception_pipeline.py — GrowthCRO V12 Phase 5 : Orchestrateur Layer 2 Perception.'
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/reco_enricher.py
-    purpose: 'reco_enricher.py — GrowthCRO V12 Phase 4.5 : enrichit les recommandations.'
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/score_site.py
-    purpose: score_site.py — Agrégateur multi-pages GrowthCRO.
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
-    lifecycle_phase: runtime
-  skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring:
-    path: skills/site-capture/scripts/_archive_deprecated_2026-04-19/spatial_scoring.py
-    purpose: spatial_scoring.py — Spatial enrichment layer for GrowthCRO V9
-    inputs: []
-    outputs: []
-    depends_on: []
-    imported_by: []
-    doctrine_refs: []
-    status: active
     lifecycle_phase: runtime
   skills/site-capture/scripts/analyze_capture:
     path: skills/site-capture/scripts/analyze_capture.py
