@@ -113,12 +113,22 @@ def normalize_recos(audit_uuid: str, page: dict[str, Any]) -> list[dict[str, Any
         priority = (reco.get("priority") or "P3").upper()
         if priority not in {"P0", "P1", "P2", "P3"}:
             priority = "P3"
-        effort = (reco.get("effort") or None)
-        if isinstance(effort, str):
-            effort = effort.upper()[:1] if effort.upper()[:1] in {"S", "M", "L"} else None
-        lift = reco.get("lift") or reco.get("impact") or None
-        if isinstance(lift, str):
-            lift = lift.upper()[:1] if lift.upper()[:1] in {"S", "M", "L"} else None
+        effort_raw = reco.get("effort")
+        if isinstance(effort_raw, str):
+            effort = effort_raw.upper()[:1] if effort_raw.upper()[:1] in {"S", "M", "L"} else None
+        elif isinstance(effort_raw, (int, float)) and effort_raw > 0:
+            # V27 bundle uses integer effort_days; bucket into S/M/L per RecoEffort schema.
+            effort = "S" if effort_raw <= 3 else ("M" if effort_raw <= 7 else "L")
+        else:
+            effort = None
+        lift_raw = reco.get("lift") or reco.get("impact")
+        if isinstance(lift_raw, str):
+            lift = lift_raw.upper()[:1] if lift_raw.upper()[:1] in {"S", "M", "L"} else None
+        elif isinstance(lift_raw, (int, float)) and lift_raw > 0:
+            # Bucket lift impact score (0–100) into S/M/L.
+            lift = "S" if lift_raw <= 33 else ("M" if lift_raw <= 66 else "L")
+        else:
+            lift = None
         title = (
             reco.get("title")
             or reco.get("name")
