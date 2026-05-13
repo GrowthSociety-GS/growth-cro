@@ -149,11 +149,27 @@ def load_clients_db() -> dict[str, dict[str, Any]]:
     return {}
 
 
-def discover_clients() -> list[str]:
-    """Walk data/captures/ and return list of client slugs (dirs with content)."""
+def discover_clients(panel: dict[str, dict[str, Any]] | None = None, include_non_curated: bool = False) -> list[str]:
+    """Walk data/captures/ and return list of client slugs.
+
+    Default behavior (Wave C.1-bis, per `PANEL_CANONIQUE_V27_PROPOSAL_2026-05-05.md`):
+    restricts to the 56-client curated panel defined in
+    `data/curated_clients_v27.json`. The on-disk `data/captures/` tree contains
+    107 client dirs — the extras are historical scrapes never officially
+    panel-locked. Per the panel doc, only `business_client_candidate`,
+    `golden_reference`, `benchmark`, `mathis_pick`, and `diversity_supplement`
+    roles should appear in the webapp observatory.
+
+    Args:
+        panel: result of ``load_panel()``. If None, no filter applied.
+        include_non_curated: CLI escape hatch ``--include-non-curated`` to walk
+            the full 107 (debug / one-off backfill).
+    """
     if not CAPTURES_DIR.is_dir():
         return []
+    panel_slugs = set(panel.keys()) if panel else set()
     out: list[str] = []
+    skipped_not_curated: list[str] = []
     for entry in sorted(CAPTURES_DIR.iterdir()):
         if not entry.is_dir() or entry.name.startswith("_") or entry.name.startswith("."):
             continue
@@ -164,8 +180,18 @@ def discover_clients() -> list[str]:
             for sub in entry.iterdir()
             if sub.is_dir()
         )
-        if has_recos or (entry / BRAND_DNA_FILE).exists():
-            out.append(entry.name)
+        if not (has_recos or (entry / BRAND_DNA_FILE).exists()):
+            continue
+        if panel_slugs and not include_non_curated and entry.name not in panel_slugs:
+            skipped_not_curated.append(entry.name)
+            continue
+        out.append(entry.name)
+    if skipped_not_curated:
+        print(
+            f"[migrate] panel filter: skipped {len(skipped_not_curated)} non-curated clients "
+            f"(use --include-non-curated to include). Sample: {skipped_not_curated[:5]}",
+            file=sys.stderr,
+        )
     return out
 
 
@@ -534,6 +560,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--only", help="single client slug to migrate (debug)")
     p.add_argument("--audits-only", action="store_true", help="skip clients table upsert")
     p.add_argument("--dry-run", action="store_true", help="force dry-run even with creds set")
+    p.add_argument(
+        "--include-non-curated",
+        action="store_true",
+        help="walk the full 107 captures (default: filter to 56 panel-curated)",
+    )
     return p.parse_args(argv)
 
 
@@ -618,9 +649,11 @@ def main() -> int:
     args = parse_args()
     panel = load_panel()
     clients_db = load_clients_db()
-    all_slugs = discover_clients()
+    all_slugs = discover_clients(panel=panel, include_non_curated=args.include_non_curated)
     if args.only:
-        slugs = [args.only] if args.only in all_slugs else []
+        # --only bypasses panel filter (debug always allowed for any disk slug).
+        bypass = discover_clients(panel=None, include_non_curated=True)
+        slugs = [args.only] if args.only in bypass else []
         if not slugs:
             print(f"[migrate] client '{args.only}' not found under data/captures/", file=sys.stderr)
             return 2
