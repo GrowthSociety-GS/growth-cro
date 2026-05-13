@@ -1,5 +1,6 @@
-// Pagination control — URL-state via Next router (FR-2 T001/T004).
-// Mono-concern: render prev/next links that preserve existing searchParams
+// Pagination — URL-state via Next router (SP-8 elevation from
+// components/clients/Pagination.tsx).
+// Mono-concern : render prev/next links that preserve existing searchParams
 // + bump the `page` index. Reused by /clients and /recos.
 "use client";
 

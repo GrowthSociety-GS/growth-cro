@@ -1,21 +1,34 @@
 // /recos — cross-client recos aggregator with filters + sort + pagination (FR-2 T004).
-// Server Component, reads URL searchParams, applies filter/sort/paginate
-// in-memory over RecoWithClient[]. Per-client deep-dive remains at /recos/[clientSlug].
+// Refactored SP-8 : filters/sort/pagination drived by common useUrlState-based
+// components (<FiltersBar />, <SortDropdown />, <Pagination />).
 import { Card, KpiCard, Pill } from "@growthcro/ui";
 import { listRecosAggregate } from "@growthcro/data";
 import type { RecoWithClient } from "@growthcro/data";
 import { createServerSupabase } from "@/lib/supabase-server";
-import {
-  RecoAggregatorFilters,
-  type RecoAggregatorSortKey,
-} from "@/components/recos/RecoAggregatorFilters";
 import { RecoAggregatorList } from "@/components/recos/RecoAggregatorList";
-import { Pagination } from "@/components/clients/Pagination";
+import { FiltersBar, type FilterDef } from "@/components/common/FiltersBar";
+import { SortDropdown } from "@/components/common/SortDropdown";
+import { Pagination } from "@/components/common/Pagination";
 import { extractRecoContent } from "@/components/clients/score-utils";
 
 export const dynamic = "force-dynamic";
 
 const PER_PAGE = 50;
+
+export type RecoAggregatorSortKey = "lift_desc" | "priority_asc";
+
+const SORT_OPTIONS = [
+  { value: "lift_desc", label: "Lift attendu ↓" },
+  { value: "priority_asc", label: "Priorité ↑ (P0 first)" },
+];
+
+const PRIORITY_OPTIONS = [
+  { value: "all", label: "Toutes priorités" },
+  { value: "P0", label: "P0" },
+  { value: "P1", label: "P1" },
+  { value: "P2", label: "P2" },
+  { value: "P3", label: "P3" },
+];
 
 type SearchParams = {
   priority?: string;
@@ -91,6 +104,33 @@ export default async function RecosAggregator({
   };
   const distinctClients = new Set(allRecos.map((r) => r.client_id)).size;
 
+  const filterDefs: FilterDef[] = [
+    {
+      key: "priority",
+      label: "Priorité",
+      type: "select",
+      options: PRIORITY_OPTIONS,
+    },
+    {
+      key: "criterion",
+      label: "Critère doctrine",
+      type: "select",
+      options: [
+        { value: "all", label: "Tous critères" },
+        ...criteria.map((c) => ({ value: c, label: c })),
+      ],
+    },
+    {
+      key: "category",
+      label: "Business category",
+      type: "select",
+      options: [
+        { value: "all", label: "Toutes catégories" },
+        ...categories.map((c) => ({ value: c, label: c })),
+      ],
+    },
+  ];
+
   return (
     <main className="gc-recos-aggregator">
       <div className="gc-topbar">
@@ -132,7 +172,14 @@ export default async function RecosAggregator({
       </div>
 
       <Card title={`Aggregator · ${filtered.length}`}>
-        <RecoAggregatorFilters criteria={criteria} categories={categories} />
+        <div className="gc-filters-row">
+          <FiltersBar filters={filterDefs} />
+          <SortDropdown
+            options={SORT_OPTIONS}
+            defaultValue="lift_desc"
+            ariaLabel="Tri"
+          />
+        </div>
         <div style={{ marginTop: 12 }}>
           <RecoAggregatorList recos={pageRows} />
         </div>

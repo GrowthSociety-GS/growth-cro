@@ -673,15 +673,18 @@
  * /clients listing + /clients/[slug] detail.
  * ───────────────────────────────────────────────────────────────────────── */
 
-.gc-clients-filters {
+/* SP-8 generic filters layout — used by FiltersBar + SortDropdown common
+ * components. Page-level wrappers may override grid-template-columns. */
+.gc-filters-bar {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr;
   gap: 8px;
   margin-bottom: 4px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
-.gc-clients-filters input,
-.gc-clients-filters select {
+.gc-filters-bar input,
+.gc-filters-bar select,
+.gc-filters-bar button {
   width: 100%;
   background: #0b1018;
   border: 1px solid var(--gc-line);
@@ -692,9 +695,33 @@
   min-width: 0;
 }
 
-@media (max-width: 960px) {
-  .gc-clients-filters {
-    grid-template-columns: 1fr 1fr;
+.gc-filters-bar button.gc-pill {
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Row containing FiltersBar + SortDropdown side-by-side. Pages use
+ * .gc-filters-row to wrap the two sibling controls. */
+.gc-filters-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-bottom: 4px;
+  align-items: stretch;
+}
+
+.gc-filters-row > select {
+  background: #0b1018;
+  border: 1px solid var(--gc-line);
+  color: var(--gc-text);
+  border-radius: 6px;
+  padding: 9px 10px;
+  font: inherit;
+}
+
+@media (max-width: 720px) {
+  .gc-filters-row {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -914,28 +941,6 @@
   min-height: 100vh;
 }
 
-.gc-recos-aggregator__filters {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.gc-recos-aggregator__filters select {
-  width: 100%;
-  background: #0b1018;
-  border: 1px solid var(--gc-line);
-  color: var(--gc-text);
-  border-radius: 6px;
-  padding: 9px 10px;
-  font: inherit;
-}
-
-@media (max-width: 720px) {
-  .gc-recos-aggregator__filters {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
 .gc-recos-aggregator__card {
   border: 1px solid var(--gc-line);
