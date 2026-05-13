@@ -1,40 +1,158 @@
-/* Shared base styles for @growthcro/ui — imported once at the root of each app. */
+/* Shared base styles for @growthcro/ui — imported once at the root of each app.
+ *
+ * V22 Stratospheric Observatory Design System (restored 2026-05-14, task 001).
+ * Source canonique : deliverables/GrowthCRO-V26-WebApp.html L17-119.
+ * "Alaska Boreal Night · Multi-layer parallax starfield · Sunset gold accents"
+ */
 
 :root {
-  --gc-bg: #0c1018;
-  --gc-panel: #121823;
-  --gc-panel-2: #171f2d;
-  --gc-line: #273246;
-  --gc-line-soft: #1e2839;
-  --gc-text: #f4f1e8;
-  /* Wave C.3 (audit A.6 P0.1): bumped from #98a2b3 (4.13:1 on --gc-bg) to
-     #b6bfd0 (~5.4:1) to clear WCAG 2.1 AA 4.5:1 minimum on body text. */
-  --gc-muted: #b6bfd0;
-  --gc-soft: #c8cfda;
-  --gc-gold: #d7b46a;
-  --gc-cyan: #65d6cf;
-  --gc-green: #80d48b;
-  --gc-red: #f07178;
-  --gc-amber: #f3c76b;
-  --gc-blue: #7ba7ff;
-  --gc-ink: #080b10;
+  /* ─── V22 SPACING — Golden ratio φ≈1.618 modular scale ───────────────── */
+  --sp-0: 0.236rem;
+  --sp-1: 0.382rem;
+  --sp-2: 0.618rem;
+  --sp-3: 1rem;
+  --sp-4: 1.618rem;
+  --sp-5: 2.618rem;
+  --sp-6: 4.236rem;
+  --sp-7: 6.854rem;
+
+  /* ─── V22 PALETTE — Alaska Boreal Night ──────────────────────────────── */
+  /* Near-black cosmic depth (sky far from urban lights) */
+  --night-abyss: #000207;
+  --night-deep: #020510;
+  --night-mid: #050c22;
+  --night-elev: #0b1634;
+  --night-glow: #122a5a;
+
+  /* Aurora / Northern lights (secondary blue-violet) */
+  --aurora: #4d8fff;
+  --aurora-glow: rgba(77, 143, 255, 0.28);
+  --aurora-violet: #8c7ef1;
+  --aurora-cyan: #6ee0df;
+
+  /* Sunset Gold — V22 signature for key info */
+  --gold-sunset: #e8c872;
+  --gold: #d4a945;
+  --gold-deep: #b8863a;
+  --gold-glow: rgba(232, 200, 114, 0.35);
+  --gold-dim: rgba(232, 200, 114, 0.08);
+  --bronze: #a67b3e;
+
+  /* Stars — 4 tiers of luminance (warm-tinted) */
+  --star: #fbfaf5;
+  --star-warm: #f6eed6;
+  --star-dim: rgba(251, 250, 245, 0.62);
+  --star-faint: rgba(251, 250, 245, 0.18);
+
+  /* Glass / glassmorphism with gold-tinted borders */
+  --glass: rgba(20, 30, 65, 0.35);
+  --glass-border: rgba(232, 200, 114, 0.12);
+  --glass-border-strong: rgba(232, 200, 114, 0.28);
+  --glass-hover: rgba(30, 45, 90, 0.5);
+  --glass-elev: rgba(15, 28, 64, 0.55);
+
+  /* CRO semantic (continuous red→green gradient, less garish) */
+  --ok: #6bc58a;
+  --ok-soft: rgba(107, 197, 138, 0.15);
+  --ok-glow: rgba(107, 197, 138, 0.32);
+  --warn: #e8c872;
+  --warn-soft: rgba(232, 200, 114, 0.15);
+  --bad: #e87555;
+  --bad-soft: rgba(232, 117, 85, 0.16);
+  --bad-glow: rgba(232, 117, 85, 0.3);
+  --indigo: #a69cff;
+  --indigo-soft: rgba(166, 156, 255, 0.14);
+
+  /* ─── V22 TYPOGRAPHY — 4 typefaces ───────────────────────────────────── */
+  /* Loaded via next/font/google in app/layout.tsx as CSS variables. */
+  --ff-display: var(--gc-font-display), "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --ff-body: var(--gc-font-sans), Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --ff-mono: var(--gc-font-mono), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ─── V22 MOTION — Cubic-bezier elegance ─────────────────────────────── */
+  --ease-aura: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-inertia: cubic-bezier(0.19, 1, 0.22, 1);
+  --dur-fast: 0.2s;
+  --dur: 0.45s;
+  --dur-slow: 0.85s;
+
+  /* ─── V22 LAYOUT ─────────────────────────────────────────────────────── */
+  --sidebar-w: 240px;
+  --header-h: 68px;
+
+  /* ─── Backward-compat aliases (--gc-* → V22 tokens) ──────────────────── *
+   * Existing components reference --gc-* names. They map to V22 tokens here
+   * so the visual DNA updates automatically. Aliases removed in task 015
+   * once all call sites migrated to V22 names directly. */
+  --gc-bg: var(--night-abyss);
+  --gc-panel: var(--night-elev);
+  --gc-panel-2: var(--night-mid);
+  --gc-line: var(--night-glow);
+  --gc-line-soft: var(--glass-border);
+  --gc-text: var(--star);
+  --gc-muted: var(--star-dim);
+  --gc-soft: var(--star-warm);
+  --gc-gold: var(--gold-sunset);
+  --gc-cyan: var(--aurora-cyan);
+  --gc-green: var(--ok);
+  --gc-red: var(--bad);
+  --gc-amber: var(--warn);
+  --gc-blue: var(--aurora);
+  --gc-ink: var(--night-abyss);
   --gc-radius: 8px;
-  --gc-shadow: 0 18px 54px rgba(0, 0, 0, 0.28);
+  --gc-shadow: 0 18px 54px rgba(0, 0, 0, 0.42);
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+ * V22.v5 — Alaska Boreal Night SKY (4-layer parallax background)
+ * Body::before = base + horizon pollution hint
+ * Body::after = soft vignette
+ * <StarfieldBackground /> canvas component = layer 3 (parallax stars)
+ * .gc-grain = layer 4 (existing, fixed overlay)
+ * Source: V26 HTML L104-119
+ * ────────────────────────────────────────────────────────────────────── */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  pointer-events: none;
+  background:
+    /* Subtle horizon light pollution (real-photo reference) */
+    radial-gradient(ellipse 80% 20% at 50% 110%, rgba(80, 35, 75, 0.10), transparent 70%),
+    /* Faint night-blue hint */
+    radial-gradient(ellipse 120% 60% at 50% 30%, rgba(10, 15, 35, 0.3), transparent 80%),
+    /* Deep cosmic base — never lighter than #080a18 */
+    linear-gradient(180deg, #020308 0%, #030510 40%, #050815 80%, #080a18 100%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  background: radial-gradient(ellipse 140% 120% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
+}
+
 html,
 body {
   margin: 0;
-  background: var(--gc-bg);
-  color: var(--gc-text);
-  /* Wave C.3 (audit A.5 P0.2): use --gc-font-sans (next/font Inter, set on
-     <html> in app/layout.tsx) with system fallbacks for the SSR flash. */
-  font-family: var(--gc-font-sans), Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.45;
+  background: transparent;
+  color: var(--star);
+  font-family: var(--ff-body);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  min-height: 100vh;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
@@ -115,11 +233,23 @@ a:hover {
   min-height: 96px;
 }
 
+/* V22 (task 001) : KPI values get the editorial italic gold-gradient
+ * treatment (Cormorant Garamond italic 500 + 3-stop gradient + gold glow).
+ * Every <b> inside .gc-kpi automatically inherits the V22 signature. */
 .gc-kpi b {
   display: block;
-  font-size: 25px;
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 28px;
   line-height: 1.05;
   margin-top: 5px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #fbfaf5 0%, #e8c872 55%, #d4a945 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(232, 200, 114, 0.15));
 }
 
 .gc-kpi span {
@@ -1067,4 +1197,106 @@ a.gc-e2e__detail:hover {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * V22 Stratospheric Observatory — opt-in utility classes (task 001).
+ * Source : deliverables/GrowthCRO-V26-WebApp.html L17-100.
+ * ─────────────────────────────────────────────────────────────────────── */
+
+/* Display headers — Cormorant Garamond italic for editorial prestige.
+ * Use on hero h1/h2 in landing sections. Inherits gradient when paired
+ * with .gc-display--gradient. */
+.gc-display {
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.gc-display--gradient {
+  background: linear-gradient(135deg, #fbfaf5 0%, #e8c872 55%, #d4a945 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(232, 200, 114, 0.15));
+}
+
+/* KPI value gradient — standalone utility for any numeric KPI display
+ * outside of .gc-kpi wrapper. */
+.gc-kpi-value {
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #fbfaf5 0%, #e8c872 55%, #d4a945 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(232, 200, 114, 0.15));
+}
+
+/* Mono metrics — JetBrains Mono for numeric/code displays. */
+.gc-mono-metric {
+  font-family: var(--ff-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Glass card — V22 glassmorphism with gold-tinted border + backdrop blur.
+ * Replaces flat panel background for premium emphasis. Use sparingly. */
+.gc-glass-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--gc-radius);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(232, 200, 114, 0.06);
+  transition: background var(--dur) var(--ease-aura), border-color var(--dur) var(--ease-aura);
+}
+
+.gc-glass-card:hover {
+  background: var(--glass-hover);
+  border-color: var(--glass-border-strong);
+}
+
+.gc-glass-card--elev {
+  background: var(--glass-elev);
+}
+
+/* Aura pulse animation — for P0 dots, status pills, attention markers.
+ * Uses --ease-aura for buttery smooth easing. */
+@keyframes gc-pulse-aura {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--gold-glow);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(232, 200, 114, 0);
+  }
+}
+
+.gc-pulse-aura {
+  animation: gc-pulse-aura 2.4s var(--ease-aura) infinite;
+}
+
+@keyframes gc-pulse-bad {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--bad-glow);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(232, 117, 85, 0);
+  }
+}
+
+.gc-pulse-bad {
+  animation: gc-pulse-bad 1.6s var(--ease-aura) infinite;
+}
+
+/* Honor prefers-reduced-motion (a11y / WCAG 2.3.3). */
+@media (prefers-reduced-motion: reduce) {
+  .gc-pulse-aura,
+  .gc-pulse-bad {
+    animation: none;
+  }
 }
