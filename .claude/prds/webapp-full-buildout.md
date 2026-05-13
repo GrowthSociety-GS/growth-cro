@@ -191,7 +191,7 @@ Ce master PRD encadre le **buildout complet** : consolider les 6 microfrontends 
 
 ### Sécurité
 - Service_role JWT à rotater (déjà flaggé, action Mathis dans 24h)
-- Password Mathis temp `iXIz8Ea47IWgiKt1` à changer après login (déjà flaggé)
+- Password Mathis temp `<REDACTED>` à changer après login (déjà flaggé) — voir doc locale ou Supabase Dashboard pour recovery
 - RLS policies actives (déjà testé : Mathis voit son org, pas autres)
 - Pas de service_role exposé côté client (server-only via Next.js Route Handlers)
 
