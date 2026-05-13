@@ -1,16 +1,26 @@
 // /clients — paginated, filterable, searchable, sortable client list (FR-2 T001).
-// Server Component reads searchParams + delegates filter UI to a client island.
+// Refactored SP-8 : filters/sort/pagination drived by common useUrlState-based
+// components (<FiltersBar />, <SortDropdown />, <Pagination />).
 import { Card, KpiCard } from "@growthcro/ui";
 import { listClientsWithStats } from "@growthcro/data";
 import type { ClientWithStats } from "@growthcro/data";
 import { createServerSupabase } from "@/lib/supabase-server";
-import { ClientFilters, type ClientsSortKey } from "@/components/clients/ClientFilters";
 import { ClientList } from "@/components/clients/ClientList";
-import { Pagination } from "@/components/clients/Pagination";
+import { FiltersBar, type FilterDef } from "@/components/common/FiltersBar";
+import { SortDropdown } from "@/components/common/SortDropdown";
+import { Pagination } from "@/components/common/Pagination";
 
 export const dynamic = "force-dynamic";
 
 const PER_PAGE = 25;
+
+export type ClientsSortKey = "name_asc" | "score_desc" | "last_audit_desc";
+
+const SORT_OPTIONS = [
+  { value: "name_asc", label: "Nom ↑" },
+  { value: "score_desc", label: "Score ↓" },
+  { value: "last_audit_desc", label: "Audit récent ↓" },
+];
 
 type SearchParams = {
   q?: string;
@@ -83,6 +93,40 @@ export default async function ClientsIndex({
   const totalAudits = allClients.reduce((acc, c) => acc + c.audits_count, 0);
   const totalRecos = allClients.reduce((acc, c) => acc + c.recos_count, 0);
 
+  const filterDefs: FilterDef[] = [
+    {
+      key: "q",
+      label: "Rechercher un client",
+      type: "search",
+      placeholder: "Rechercher un client (name, slug)…",
+    },
+    {
+      key: "category",
+      label: "Catégorie business",
+      type: "select",
+      options: [
+        { value: "all", label: "Toutes catégories" },
+        ...categories.map((c) => ({ value: c, label: c })),
+      ],
+    },
+    {
+      key: "score_min",
+      label: "Score minimum",
+      type: "number",
+      placeholder: "Score min",
+      min: 0,
+      max: 100,
+    },
+    {
+      key: "score_max",
+      label: "Score maximum",
+      type: "number",
+      placeholder: "Score max",
+      min: 0,
+      max: 100,
+    },
+  ];
+
   return (
     <main className="gc-reco-shell">
       <div className="gc-topbar">
@@ -120,7 +164,14 @@ export default async function ClientsIndex({
       </div>
 
       <Card title={`Portefeuille · ${filtered.length}`}>
-        <ClientFilters categories={categories} />
+        <div className="gc-filters-row">
+          <FiltersBar filters={filterDefs} />
+          <SortDropdown
+            options={SORT_OPTIONS}
+            defaultValue="name_asc"
+            ariaLabel="Tri"
+          />
+        </div>
         <div style={{ marginTop: 12 }}>
           <ClientList clients={pageRows} />
         </div>
