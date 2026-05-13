@@ -1,11 +1,18 @@
-// /audits/[clientSlug]/[auditId] — single-audit detail (FR-2 T003).
-// Server Component, parallel-fetches the client, the audit, and its recos.
+// /audits/[clientSlug]/[auditId] — single-audit detail (FR-2 T003 + SP-4).
+// Server Component, parallel-fetches the client, the audit, recos, and the
+// sibling audits of the same client to compute converged-page-type signals.
 // Nested under the existing /audits/[clientSlug] route (FR-1 pattern).
 import { Pill } from "@growthcro/ui";
-import { getAudit, getClientBySlug, listRecosForAudit } from "@growthcro/data";
+import {
+  getAudit,
+  getClientBySlug,
+  listAuditsForClient,
+  listRecosForAudit,
+} from "@growthcro/data";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { notFound } from "next/navigation";
 import { AuditDetailFull } from "@/components/audits/AuditDetailFull";
+import { ConvergedNotice } from "@/components/audits/ConvergedNotice";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +28,14 @@ export default async function SingleAuditDetail({
   ]);
   if (!client) notFound();
   if (!audit || audit.client_id !== client.id) notFound();
-  const recos = await listRecosForAudit(supabase, audit.id).catch(() => []);
+  const [recos, siblings] = await Promise.all([
+    listRecosForAudit(supabase, audit.id).catch(() => []),
+    listAuditsForClient(supabase, client.id).catch(() => []),
+  ]);
+  const sameTypeAudits = siblings.filter(
+    (a) => a.page_type === audit.page_type
+  );
+  const convergedCount = sameTypeAudits.length;
 
   return (
     <main className="gc-audit-detail">
@@ -67,6 +81,17 @@ export default async function SingleAuditDetail({
           </a>
         </div>
       </div>
+
+      {convergedCount > 1 ? (
+        <ConvergedNotice
+          count={convergedCount}
+          pageType={audit.page_type}
+          clientSlug={client.slug}
+        >
+          Cet audit fait partie de {convergedCount} audits qui couvrent la même
+          page-type chez ce client.
+        </ConvergedNotice>
+      ) : null}
 
       <AuditDetailFull
         audit={audit}

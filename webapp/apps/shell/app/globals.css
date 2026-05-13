@@ -1161,3 +1161,119 @@
 .gc-audit-screens__list a:hover {
   color: var(--gc-cyan);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * SP-4 — Audit pillars rich view (V26 parity).
+ *
+ *   .gc-pillars-grid      vertical stack of pillar rows, gap 6px
+ *   .gc-pillar-row        grid label | track | val (V26 .pillar-bar-row L779)
+ *   .gc-pillar-row__track .pillar-bar (V26 L780)
+ *   .gc-pillar-row__fill  .pillar-bar__fill (V26 L788) — width + bg from JS
+ *   .gc-pillar-row__val   mono right-aligned score/max (V26 L794)
+ *   .gc-converged-notice  page-tab--converged-notice (V26 L364)
+ *   .gc-audit-quality     inline badge cluster for AuditQualityIndicator
+ *   .gc-audit-card__body  spacing for nested pillars + recos block
+ * ───────────────────────────────────────────────────────────────────────── */
+
+.gc-pillars-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gc-pillar-row {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr) 70px;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.gc-pillar-row__label {
+  color: var(--gc-soft);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.gc-pillar-row__track {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--gc-line-soft);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gc-pillar-row__fill {
+  height: 100%;
+  background: var(--gc-green);
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gc-pillar-row__val {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  text-align: right;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .gc-pillar-row {
+    grid-template-columns: 100px minmax(0, 1fr) 56px;
+    gap: 6px;
+    font-size: 12px;
+  }
+}
+
+.gc-converged-notice {
+  padding: 12px 14px;
+  margin: 10px 0 14px;
+  border-radius: 8px;
+  background: rgba(215, 180, 106, 0.08);
+  border-left: 3px solid var(--gc-gold);
+  font-size: 13px;
+  color: var(--gc-soft);
+  line-height: 1.5;
+}
+
+.gc-converged-notice code {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.gc-converged-notice__link {
+  color: var(--gc-cyan);
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.gc-converged-notice__link:hover {
+  text-decoration: underline;
+}
+
+.gc-audit-quality {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gc-audit-quality__meta {
+  font-size: 11px;
+  color: var(--gc-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.gc-audit-card__body {
+  display: flex;
+  flex-direction: column;
+}
