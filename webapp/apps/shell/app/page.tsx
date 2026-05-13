@@ -82,7 +82,7 @@ export default async function HomePage({
   return (
     <div className="gc-app">
       <Sidebar email={user?.email} />
-      <main className="gc-main">
+      <main className="gc-main" id="gc-main" tabIndex={-1}>
         <CommandCenterTopbar />
 
         <CommandCenterKpis
