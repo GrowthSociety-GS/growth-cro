@@ -197,12 +197,18 @@ export function screenshotPublicUrl(
   if (!isSafeFilename(filename)) return null;
   const { supabaseUrl } = getAppConfig();
   if (!supabaseUrl || supabaseUrl.length === 0) return null;
+  // Swap extension : the upload script converts PNG → WebP (5-10x smaller,
+  // visually lossless at quality 85). The webapp keeps the `.png` filename
+  // convention for filesystem dev fallback, but the Storage object is `.webp`.
+  const webpFilename = filename.toLowerCase().endsWith(".png")
+    ? filename.slice(0, -4) + ".webp"
+    : filename;
   // Use encodeURIComponent on each segment — even though the regex already
   // rejects unsafe chars, the encoding is the canonical way to build the
   // URL and protects against future regex loosening.
   const c = encodeURIComponent(clientSlug);
   const p = encodeURIComponent(pageSlug);
-  const f = encodeURIComponent(filename);
+  const f = encodeURIComponent(webpFilename);
   return `${supabaseUrl.replace(/\/$/, "")}/storage/v1/object/public/${STORAGE_BUCKET}/${c}/${p}/${f}`;
 }
 
