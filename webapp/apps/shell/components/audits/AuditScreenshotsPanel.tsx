@@ -11,7 +11,7 @@
 
 import { Card } from "@growthcro/ui";
 import {
-  listScreenshotsForPage,
+  getScreenshotsForPageOrCanonical,
   pickFoldScreenshots,
 } from "@/lib/captures-fs";
 
@@ -56,7 +56,10 @@ function Thumbnail({
 }
 
 export function AuditScreenshotsPanel({ clientSlug, pageSlug }: Props) {
-  const filenames = listScreenshotsForPage(clientSlug, pageSlug);
+  // FS list when available (dev local), canonical 8 filenames as prod fallback
+  // (Supabase Storage backend). The /api/screenshots route 302-redirects to
+  // Supabase Storage URLs when configured; missing objects 404 gracefully.
+  const filenames = getScreenshotsForPageOrCanonical(clientSlug, pageSlug);
   const picks = pickFoldScreenshots(filenames);
 
   // Reorder so fold variants appear first, then the rest (deduped).
