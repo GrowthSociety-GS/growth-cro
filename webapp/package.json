@@ -2,7 +2,7 @@
   "name": "growthcro-webapp",
   "version": "0.28.0",
   "private": true,
-  "description": "GrowthCRO V28 — Next.js 14 + Supabase EU + Vercel microfrontends. Migration cible depuis V27 HTML statique.",
+  "description": "GrowthCRO V28 — Next.js 14 + Supabase EU. Single Next.js shell (consolidated from 6 microfrontends scaffold, FR-1 2026-05-13).",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -10,11 +10,6 @@
   "scripts": {
     "dev": "npm run dev --workspace=apps/shell",
     "dev:shell": "npm run dev --workspace=apps/shell",
-    "dev:audit": "npm run dev --workspace=apps/audit-app",
-    "dev:reco": "npm run dev --workspace=apps/reco-app",
-    "dev:gsg": "npm run dev --workspace=apps/gsg-studio",
-    "dev:reality": "npm run dev --workspace=apps/reality-monitor",
-    "dev:learning": "npm run dev --workspace=apps/learning-lab",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
