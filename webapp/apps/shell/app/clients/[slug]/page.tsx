@@ -59,6 +59,9 @@ export default async function ClientDetailPage({
           <a href={`/recos/${client.slug}`} className="gc-pill gc-pill--gold">
             Voir les recos
           </a>
+          <a href={`/clients/${client.slug}/dna`} className="gc-pill gc-pill--cyan">
+            Brand DNA
+          </a>
         </div>
       </div>
 
