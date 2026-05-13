@@ -17,7 +17,9 @@ const V29_DIR = path.join(LEARNING_DIR, "audit_based_proposals");
 const V30_DIR = path.join(LEARNING_DIR, "data_driven_proposals");
 
 export type ProposalReview = {
-  decision: "accept" | "reject" | "defer";
+  // SP-10: extends V29 (accept|reject|defer) with "refine" — request author
+  // to rewrite/clarify before re-vote. Persisted as `.review.json` sidecar.
+  decision: "accept" | "reject" | "defer" | "refine";
   reviewed_at: string;
   reviewed_by?: string;
   note?: string;

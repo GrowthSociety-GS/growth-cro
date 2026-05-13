@@ -83,6 +83,12 @@ export default async function SingleAuditDetail({
           <a href="/audits" className="gc-pill gc-pill--soft">
             Index audits
           </a>
+          <a
+            href={`/audits/${client.slug}/${audit.id}/judges`}
+            className="gc-pill gc-pill--cyan"
+          >
+            Multi-juges
+          </a>
           {isAdmin ? (
             <AuditEditTrigger
               audit={audit}

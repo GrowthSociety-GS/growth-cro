@@ -71,6 +71,9 @@ export default async function ClientDetailPage({
           <a href={`/clients/${client.slug}/dna`} className="gc-pill gc-pill--cyan">
             Brand DNA
           </a>
+          <a href={`/funnel/${client.slug}`} className="gc-pill gc-pill--cyan">
+            Funnel
+          </a>
           {isAdmin ? (
             <>
               <CreateAuditTrigger
