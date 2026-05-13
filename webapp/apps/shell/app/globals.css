@@ -432,3 +432,169 @@
   border-radius: 6px;
   font-weight: 800;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Settings section — 4 tabs (Account, Team, Usage, API).
+ * FR-5 webapp-settings-admin 2026-05-13.
+ * ───────────────────────────────────────────────────────────────────────── */
+
+.gc-settings {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.gc-settings__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-right: 1px solid var(--gc-line-soft);
+  padding-right: 14px;
+}
+
+.gc-settings__tab {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--gc-text);
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.gc-settings__tab:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.gc-settings__tab--active {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--gc-line);
+}
+
+.gc-settings__tab-label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.gc-settings__tab-hint {
+  font-size: 11px;
+  color: var(--gc-muted);
+}
+
+.gc-settings__panel {
+  min-width: 0;
+}
+
+.gc-settings__section {
+  background: var(--gc-panel);
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  padding: 18px;
+}
+
+.gc-settings__h2 {
+  font-size: 16px;
+  margin: 0 0 12px;
+  color: var(--gc-gold);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gc-settings__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--gc-line-soft);
+}
+
+.gc-settings__row:last-child {
+  border-bottom: 0;
+}
+
+.gc-settings__label {
+  font-size: 12px;
+  color: var(--gc-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  min-width: 140px;
+}
+
+.gc-settings__value {
+  font-size: 14px;
+  color: var(--gc-text);
+  word-break: break-all;
+}
+
+.gc-settings__hint {
+  font-size: 11px;
+  color: var(--gc-muted);
+}
+
+.gc-settings__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--gc-muted);
+}
+
+.gc-settings__field input,
+.gc-settings__field select {
+  margin-bottom: 0;
+}
+
+.gc-settings__code {
+  display: inline-block;
+  background: #0b1018;
+  border: 1px solid var(--gc-line);
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  color: var(--gc-text);
+  word-break: break-all;
+  max-width: 100%;
+}
+
+.gc-settings__api-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--gc-line-soft);
+}
+
+.gc-settings__api-row:last-child {
+  border-bottom: 0;
+}
+
+@media (max-width: 880px) {
+  .gc-settings {
+    grid-template-columns: 1fr;
+  }
+  .gc-settings__nav {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--gc-line-soft);
+    padding-right: 0;
+    padding-bottom: 10px;
+  }
+  .gc-settings__tab {
+    flex: 0 0 auto;
+  }
+  .gc-settings__api-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

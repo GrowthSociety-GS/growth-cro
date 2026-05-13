@@ -7,3 +7,5 @@ export * from "./queries/clients";
 export * from "./queries/audits";
 export * from "./queries/recos";
 export * from "./queries/runs";
+export * from "./queries/org-members";
+export * from "./queries/usage";
