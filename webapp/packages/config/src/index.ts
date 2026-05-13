@@ -18,8 +18,14 @@ export type AppConfig = {
 
 // Static NEXT_PUBLIC_* access — webpack inlines these at build time so the
 // values land in the client bundle. Add new NEXT_PUBLIC_* vars here when needed.
+//
+// Supabase 2026 key rotation: the legacy JWT format (NEXT_PUBLIC_SUPABASE_ANON_KEY,
+// eyJ...) is now disabled when the project moves to the new key format. The
+// replacement var is NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (sb_publishable_...).
+// We inline both — the publishable key wins when set; legacy is a fallback.
 const PUBLIC_ENV: Record<string, string | undefined> = {
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
   NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
   NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
@@ -39,9 +45,14 @@ function readEnv(key: string, fallback?: string): string {
 }
 
 export function getAppConfig(): AppConfig {
+  // Prefer the new Supabase publishable key; fall back to the legacy anon
+  // key for environments that haven't migrated yet. Both are pulled from the
+  // statically-inlined PUBLIC_ENV map above.
+  const publishable = readEnv("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY", "");
+  const legacyAnon = readEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "");
   return {
     supabaseUrl: readEnv("NEXT_PUBLIC_SUPABASE_URL", ""),
-    supabaseAnonKey: readEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", ""),
+    supabaseAnonKey: publishable || legacyAnon,
     apiBaseUrl: readEnv("NEXT_PUBLIC_API_BASE_URL", "http://localhost:8000"),
     appName: readEnv("NEXT_PUBLIC_APP_NAME", "GrowthCRO V28"),
     isProduction: process.env.NODE_ENV === "production",

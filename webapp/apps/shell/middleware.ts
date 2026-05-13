@@ -16,7 +16,13 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  // Supabase 2026 key rotation: prefer the new publishable key
+  // (sb_publishable_...); fall back to legacy anon key (eyJ...) for unmigrated
+  // envs. Without this, projects that rotated to the new format hit a hard
+  // "Legacy API keys are disabled" wall on the legacy anon key.
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   // If Supabase isn't configured (e.g. CI/build without env), skip auth gate.
   if (!url || !key) return res;
 
