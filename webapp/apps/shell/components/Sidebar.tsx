@@ -1,36 +1,84 @@
+// Sidebar — primary multi-view navigation for the shell.
+//
+// SP-6 webapp-navigation-multi-view 2026-05-13.
+// Refactor: groups the 9 nav items in 3 sections (Pipeline / Studio / Admin),
+// uses deep-match active state (pathname.startsWith) so nested routes keep
+// their parent highlighted, and exposes a Brand DNA & Doctrine entry per the
+// V26 parity master PRD.
+//
+// Mono-concern: this file only owns the sidebar markup + nav metadata.
+// Breadcrumbs + topbar live in their own components.
+
 "use client";
 
 import { usePathname } from "next/navigation";
 import { NavItem } from "@growthcro/ui";
 
-const ITEMS: { label: string; href: string; hint: string }[] = [
-  { label: "Overview", href: "/", hint: "Pipeline" },
-  { label: "Audits", href: "/audits", hint: "185 pages" },
-  { label: "Recos", href: "/recos", hint: "3045 items" },
-  { label: "GSG Studio", href: "/gsg", hint: "Brief + LP" },
-  { label: "Audit Google Ads", href: "/audit-gads", hint: "Agency" },
-  { label: "Audit Meta Ads", href: "/audit-meta", hint: "Agency" },
-  { label: "Reality", href: "/reality", hint: "Soon" },
-  { label: "Learning", href: "/learning", hint: "V29/V30" },
-  { label: "Settings", href: "/settings", hint: "Admin" },
+type NavGroup = {
+  label: string;
+  items: { label: string; href: string; hint: string }[];
+};
+
+const GROUPS: NavGroup[] = [
+  {
+    label: "Pipeline",
+    items: [
+      { label: "Overview", href: "/", hint: "Command" },
+      { label: "Clients", href: "/clients", hint: "Fleet" },
+      { label: "Audits", href: "/audits", hint: "V3.2.1" },
+      { label: "Recos", href: "/recos", hint: "Aggregator" },
+    ],
+  },
+  {
+    label: "Studio",
+    items: [
+      { label: "GSG Studio", href: "/gsg", hint: "Brief + LP" },
+      { label: "Doctrine", href: "/doctrine", hint: "V3.2.1" },
+      { label: "Reality", href: "/reality", hint: "Soon" },
+      { label: "Learning", href: "/learning", hint: "V29/V30" },
+    ],
+  },
+  {
+    label: "Agency Tools",
+    items: [
+      { label: "Audit Google Ads", href: "/audit-gads", hint: "Agency" },
+      { label: "Audit Meta Ads", href: "/audit-meta", hint: "Agency" },
+    ],
+  },
+  {
+    label: "Admin",
+    items: [{ label: "Settings", href: "/settings", hint: "Admin" }],
+  },
 ];
 
+// Deep-match: "/" is exact, anything else matches its prefix so that nested
+// routes (e.g. `/clients/aesop/dna`) keep `/clients` highlighted.
+function isActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Sidebar({ email }: { email?: string | null }) {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "/";
   return (
     <aside className="gc-side">
       <div className="gc-side-brand">GrowthCRO V28</div>
-      <nav className="gc-stack">
-        {ITEMS.map((it) => (
-          <NavItem
-            key={it.href}
-            label={it.label}
-            hint={it.hint}
-            href={it.href}
-            active={pathname === it.href || pathname.startsWith(`${it.href}/`)}
-          />
-        ))}
-      </nav>
+      {GROUPS.map((group) => (
+        <div className="gc-side-group" key={group.label}>
+          <div className="gc-side-group__label">{group.label}</div>
+          <nav className="gc-stack">
+            {group.items.map((it) => (
+              <NavItem
+                key={it.href}
+                label={it.label}
+                hint={it.hint}
+                href={it.href}
+                active={isActive(pathname, it.href)}
+              />
+            ))}
+          </nav>
+        </div>
+      ))}
       <div className="gc-side-block">
         <div className="gc-side-label">Session</div>
         <div style={{ fontSize: 12, color: "var(--gc-muted)", marginBottom: 8 }}>{email ?? "—"}</div>
