@@ -1,23 +1,35 @@
-// Captures filesystem reader (server-only).
+// Captures filesystem reader (server-only) + Supabase Storage URL builder.
 //
-// FR-2b (pivot 2026-05-13) of `webapp-rich-ux-and-screens`. Lists screenshots
-// produced by the capture pipeline under
-// `data/captures/<client>/<page>/screenshots/*.png` and exposes a strict
-// whitelist used by the `/api/screenshots/[client]/[page]/[filename]` route
-// to reject path-traversal attempts before any fs.readFile.
+// FR-2b (pivot 2026-05-13) of `webapp-rich-ux-and-screens` + SP-11 storage
+// migration (2026-05-13). Two responsibilities, both mono-concern:
+//   1. List screenshots produced by the capture pipeline under
+//      `data/captures/<client>/<page>/screenshots/*.png` and expose a strict
+//      whitelist used by the `/api/screenshots/...` route to reject
+//      path-traversal attempts before any fs read or Supabase redirect.
+//   2. Build the Supabase Storage public URL for a given (client, page,
+//      filename) triplet — used in prod where the 14 GB on-disk archive
+//      is not deployed to Vercel (~250 MB serverless limit).
 //
 // Pattern parallels `reality-fs.ts` + `proposals-fs.ts` + `gsg-fs.ts`
 // (server-only fs readers, never imported from client components).
 //
-// Why filesystem and not Supabase: the 4831 PNG screenshots are not mirrored
-// to storage yet — disk is the source of truth. A future sprint can move
-// them to Supabase Storage and turn this module into a thin adapter.
+// SP-11 deployment story:
+//   - Dev local without `NEXT_PUBLIC_SUPABASE_URL` → API route falls back to
+//     `fs.readFileSync(screenshotPath(...))` (existing behaviour preserved).
+//   - Prod with `NEXT_PUBLIC_SUPABASE_URL` set → API route 302-redirects to
+//     `screenshotPublicUrl(...)` and the browser fetches directly from the
+//     Supabase Storage CDN.
 
 import fs from "node:fs";
 import path from "node:path";
+import { getAppConfig } from "@growthcro/config";
 
 const REPO_ROOT = path.resolve(process.cwd(), "..", "..", "..");
 const CAPTURES_DIR = path.join(REPO_ROOT, "data", "captures");
+
+// Bucket name MUST match the one created by
+// `supabase/migrations/20260513_0005_screenshots_storage.sql`.
+const STORAGE_BUCKET = "screenshots";
 
 // Allowed slug shape for both clientSlug and pageSlug. Mirrors the
 // `clients.slug` convention used elsewhere in the codebase (lowercase
@@ -140,6 +152,61 @@ export function screenshotPath(
 }
 
 /**
+ * Pure shape check for a (client, page, filename) triplet — does NOT touch
+ * the filesystem and does NOT consult the Supabase whitelist. Used by the
+ * `/api/screenshots/...` route as a path-traversal gate before falling back
+ * to disk read when Storage is unconfigured. Returns `true` iff all three
+ * segments pass the strict slug/filename regex (no `..`, `/`, `\\`, etc.).
+ */
+export function isSafeScreenshotTriplet(
+  clientSlug: string,
+  pageSlug: string,
+  filename: string
+): boolean {
+  return (
+    isSafeSlug(clientSlug) &&
+    isSafeSlug(pageSlug) &&
+    isSafeFilename(filename)
+  );
+}
+
+/**
+ * Returns the Supabase Storage public URL for a screenshot, or `null` if
+ * either (a) the storage backend is not configured (`NEXT_PUBLIC_SUPABASE_URL`
+ * missing) or (b) the (client, page, filename) triplet fails the strict
+ * shape check (defence in depth — the route already validates before
+ * calling this).
+ *
+ * The bucket is declared `public = true` in
+ * `supabase/migrations/20260513_0005_screenshots_storage.sql`, so the
+ * `/storage/v1/object/public/<bucket>/<key>` endpoint serves objects via
+ * the Supabase CDN with cache headers and no signed-URL gymnastics.
+ *
+ * IMPORTANT — no fs check here. The whitelist is enforced by the caller
+ * (the route handler runs `screenshotPath()` first to gate path traversal;
+ * Supabase Storage only stores objects we explicitly uploaded). This keeps
+ * the function pure + callable from Edge runtimes / RSC if needed later.
+ */
+export function screenshotPublicUrl(
+  clientSlug: string,
+  pageSlug: string,
+  filename: string
+): string | null {
+  if (!isSafeSlug(clientSlug)) return null;
+  if (!isSafeSlug(pageSlug)) return null;
+  if (!isSafeFilename(filename)) return null;
+  const { supabaseUrl } = getAppConfig();
+  if (!supabaseUrl || supabaseUrl.length === 0) return null;
+  // Use encodeURIComponent on each segment — even though the regex already
+  // rejects unsafe chars, the encoding is the canonical way to build the
+  // URL and protects against future regex loosening.
+  const c = encodeURIComponent(clientSlug);
+  const p = encodeURIComponent(pageSlug);
+  const f = encodeURIComponent(filename);
+  return `${supabaseUrl.replace(/\/$/, "")}/storage/v1/object/public/${STORAGE_BUCKET}/${c}/${p}/${f}`;
+}
+
+/**
  * Convenience classifier used by the UI to pick which screenshot to render
  * as desktop/mobile thumbnail. Filenames follow the convention emitted by
  * `growthcro.capture.browser` — `desktop_*_fold.png`, `mobile_*_fold.png`,
@@ -163,4 +230,50 @@ export function pickFoldScreenshots(filenames: string[]): {
     desktopFull: find((n) => n.startsWith("desktop") && n.includes("full")),
     mobileFull: find((n) => n.startsWith("mobile") && n.includes("full")),
   };
+}
+
+/**
+ * Canonical 8 screenshot filenames uploaded to Supabase Storage by
+ * `scripts/upload_screenshots_to_supabase.py`. Used as a deterministic
+ * filename list in prod where `data/captures/` is absent and so
+ * `listScreenshotsForPage()` would return []. The /api/screenshots route
+ * will 302-redirect to Supabase Storage; missing objects 404 from CDN.
+ */
+export const CANONICAL_SCREENSHOT_FILENAMES = [
+  "desktop_asis_fold.png",
+  "desktop_asis_full.png",
+  "desktop_clean_fold.png",
+  "desktop_clean_full.png",
+  "mobile_asis_fold.png",
+  "mobile_asis_full.png",
+  "mobile_clean_fold.png",
+  "mobile_clean_full.png",
+] as const;
+
+/**
+ * Returns the list of screenshot filenames to render for a (client, page)
+ * pair, with prod fallback. If `data/captures/<client>/<page>/screenshots/`
+ * exists on disk (dev local or Vercel build that bundled captures), returns
+ * the actual filesystem listing — filtered to the 8 canonical names.
+ * Otherwise (prod Vercel, Supabase Storage backend), returns the canonical
+ * 8 filenames as a deterministic fallback (404s from CDN are gracefully
+ * handled by the browser as broken-image icons).
+ */
+export function getScreenshotsForPageOrCanonical(
+  clientSlug: string,
+  pageSlug: string
+): string[] {
+  if (!isSafeSlug(clientSlug) || !isSafeSlug(pageSlug)) return [];
+  const fsList = listScreenshotsForPage(clientSlug, pageSlug);
+  if (fsList.length > 0) {
+    // Filter the FS list to the canonical 8 (skip spatial_*.png etc.).
+    const canonical = new Set<string>(CANONICAL_SCREENSHOT_FILENAMES);
+    const filtered = fsList.filter((f) => canonical.has(f.toLowerCase()));
+    if (filtered.length > 0) return filtered;
+    // FS has files but none canonical — odd but possible (e.g. very old
+    // capture run). Fall through to canonical.
+  }
+  // Prod fallback : we know the upload script pushed the canonical 8 to
+  // Supabase Storage for every (client, page) pair that had screenshots.
+  return [...CANONICAL_SCREENSHOT_FILENAMES];
 }
