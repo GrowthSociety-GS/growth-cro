@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@growthcro/ui";
 import { useSupabase } from "@/lib/use-supabase";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 type Method = "password" | "magic";
 
@@ -19,7 +20,7 @@ function LoginForm() {
   const supabase = useSupabase();
   const router = useRouter();
   const search = useSearchParams();
-  const redirect = search.get("redirect") ?? "/";
+  const redirect = safeRedirectPath(search.get("redirect"));
 
   const [method, setMethod] = useState<Method>("password");
   const [email, setEmail] = useState("");
