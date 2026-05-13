@@ -1,0 +1,213 @@
+---
+name: webapp-screenshots-storage-migration
+description: Migrer 14 GB screenshots data/captures/ vers Supabase Storage pour fix le panel screenshots cassé en prod Vercel (14 GB filesystem non déployable serverless). Sub-PRD ad-hoc post-audit 2026-05-13.
+status: active
+created: 2026-05-13T13:01:46Z
+parent_prd: webapp-v26-parity-and-beyond
+wave: post-parity-fix
+fr_index: SP-11
+---
+
+# PRD: webapp-screenshots-storage-migration
+
+> Sub-PRD ad-hoc en réaction au diagnostic 2026-05-13 : le `/api/screenshots/[c]/[p]/[f]` retourne 404 en prod Vercel car `data/captures/` (14 GB) n'est pas dans le bundle serverless.
+>
+> Solution : migrer les 4831 PNG vers Supabase Storage + refactor le route handler pour fetch storage. Préserve filesystem fallback pour dev local.
+
+## Executive Summary
+
+**Le problème** : la rich UX recos (RichRecoCard + AuditScreenshotsPanel) est shipped sur Vercel mais le panel screenshots est **vide en prod** car les 14 GB de PNG ne sont pas déployables (Vercel serverless limit ~250 MB).
+
+**Le fix** : 
+1. Create Supabase Storage bucket `screenshots` (public read, admin write)
+2. Upload script Python migre `data/captures/<client>/<page>/screenshots/*.png` → bucket avec path identique
+3. Refactor `webapp/apps/shell/lib/captures-fs.ts` + `app/api/screenshots/.../route.ts` pour fetch Supabase Storage (au lieu de FS)
+4. Update `AuditScreenshotsPanel.tsx` (minimal — juste l'URL change)
+5. Verify : 4831 PNG accessibles via `/api/screenshots/...` en prod
+
+**Effort** : M, 1-2j wall-clock (upload script ~30 min compute + agent refactor ~1-2h + 30-60 min upload time).
+**Coût Supabase Storage** : 14 GB × $0.021/GB/mo = **~$0.30/mo**. Egress free tier 2 GB/mo suffit pour usage dev solo.
+**Débloque** : visualization screenshots en prod = parité V26 vraiment atteinte.
+
+## Problem Statement
+
+### Pourquoi maintenant
+
+Le diagnostic post-Wave-P0/P1/P2 (2026-05-13) confirme :
+- 85% de la webapp est réellement dynamique (Supabase queries OK)
+- Mais le **panel screenshots** est vide en prod → user perception "rien à voir avec V26"
+- Causa root : `data/captures/` = 14 GB, Vercel serverless max ~250 MB
+
+### Ce que SP-11 apporte
+
+- Screenshots prod accessibles via URL stable
+- Path scheme préservé (`/api/screenshots/[client]/[page]/[filename]`) — pas de change UI
+- Filesystem fallback dev local (pas obligé d'avoir Supabase Storage configuré pour dev)
+- Pattern réutilisable pour future migration filesystem → cloud (Reality snapshots, etc.)
+
+## User Stories
+
+### US-1 — Mathis (visualisation audits en prod)
+*Comme founder qui montre la webapp aux consultants Growth Society, je veux que le panel screenshots affiche les desktop+mobile fold de chaque page auditée, pour avoir le contexte visuel V26 retrouvé.*
+
+**Acceptance** :
+- ✓ Click un audit `/audits/aesop/<audit_id>` → panel screenshots à droite affiche thumbnails desktop + mobile
+- ✓ Click thumbnail → ouvre full PNG dans new tab
+- ✓ HTTP 200 sur 4831/4831 screenshots accessibles (sample-test 5-10)
+
+### US-2 — Mathis (dev local frictionless)
+*Comme dev qui travaille en local sans Supabase Storage configuré, je veux que les screenshots utilisent le filesystem comme avant.*
+
+**Acceptance** :
+- ✓ Si env var `SUPABASE_STORAGE_BUCKET` non set → API route lit `data/captures/` filesystem (current behavior)
+- ✓ Si set → API route proxy/redirect vers Supabase Storage URL
+- ✓ Pas de breaking change
+
+## Functional Requirements
+
+### Task Breakdown (3 tasks)
+
+#### T001 — Upload script Python `scripts/upload_screenshots_to_supabase.py`
+**Effort** : S, 30 min code + 30-60 min upload runtime
+**Cible** :
+- Stdlib + `urllib` (cf pattern `migrate_v27_to_supabase.py`) OR `requests`/`supabase-py` si déjà installed
+- Walk `data/captures/<client>/<page>/screenshots/*.png` (skip `_*` dirs)
+- For each PNG : upload to bucket `screenshots` at path `<client>/<page>/<filename>.png`
+- Idempotent : skip if file already exists (HEAD request first OR upsert mode)
+- DRY-RUN mode if `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` missing
+- Progress bar : log "(N/4831) <path>" every 50 files
+- Error handling : continue on individual failures, summary at end
+
+**Acceptance** :
+- [ ] Script DRY-RUN OK without creds
+- [ ] Script uploads 4831 PNG idempotently
+- [ ] Errors logged + count at end
+- [ ] Path mapping preserved : `<client>/<page>/<filename>` (no nesting changes)
+
+#### T002 — Supabase Storage bucket setup (SQL migration)
+**Effort** : XS, 10 min
+**Cible** :
+- New migration `supabase/migrations/20260513_0005_screenshots_storage.sql`
+- Create bucket `screenshots` (PUBLIC read OR private, decided below)
+- RLS policy : SELECT public, INSERT/UPDATE/DELETE for service_role only
+- Apply via Supabase GitHub integration auto OR manually
+
+**Decision pourquoi public vs private** :
+- **Public read** : pas de signed URL, simple `<img src="<storage_url>"/>` — but exposes all screenshots URLs
+- **Private + signed URLs** : 1h expiry signed URLs generated by route handler — more secure but +complexity
+- **Recommandation V1** : public read (les screenshots ne sont pas confidentiels, et c'est dev tool interne). Migrer en private V2 si besoin.
+
+**Acceptance** :
+- [ ] Bucket `screenshots` created (visible in Supabase Dashboard)
+- [ ] Public read policy active
+- [ ] Service_role INSERT/UPDATE/DELETE OK
+
+#### T003 — Refactor `captures-fs.ts` + API route + `AuditScreenshotsPanel.tsx`
+**Effort** : S-M, 1-2h
+**Files** :
+- Refactor `webapp/apps/shell/lib/captures-fs.ts` :
+  - Keep `listScreenshotsForPage()` (for dev FS) but ALSO add `screenshotUrl(client, page, filename)` returning Supabase Storage public URL OR FS path
+  - Env var `NEXT_PUBLIC_SUPABASE_STORAGE_PUBLIC_URL` (e.g., `https://xyazvwwjckhdmxnohadc.supabase.co/storage/v1/object/public/screenshots`)
+  - If env var set → return Supabase URL; else → FS path (dev local)
+- Refactor `webapp/apps/shell/app/api/screenshots/[client]/[page]/[filename]/route.ts` :
+  - If Supabase Storage configured → redirect 302 to public URL (efficient, no proxy)
+  - Else → existing FS read behavior
+  - Preserve path traversal protection (whitelist)
+- Update `webapp/apps/shell/components/audits/AuditScreenshotsPanel.tsx` :
+  - Maybe direct `<img src={screenshotUrl(...)} />` (bypass /api/screenshots if URL constructable client-side)
+  - OR keep `/api/screenshots/...` and let route handler redirect (cleaner)
+
+**Decision** : keep `/api/screenshots/` path (security headers + cache control preserved + future flexibility). Route handler does the redirect/proxy.
+
+**Acceptance** :
+- [ ] `/api/screenshots/aesop/home/desktop_asis_fold.png` returns 200 (or 302 redirect to Supabase URL)
+- [ ] Path traversal blocked (`/api/screenshots/..%2F..%2Fetc%2Fpasswd/x/y.png` → 404)
+- [ ] Dev local without Supabase env var falls back to FS (existing behavior)
+- [ ] AuditScreenshotsPanel renders thumbnails (verify in prod post-deploy)
+
+## Non-Functional Requirements
+
+### Doctrine
+- ≤ 800 LOC per fichier
+- Mono-concern (upload script = Python stdlib, lib = TS server-only, API route = redirect/proxy)
+- Pas de `process.env[key]` dynamic — utiliser `NEXT_PUBLIC_*` static
+- Path traversal blocked maintenu
+
+### Performance
+- 302 redirect to Supabase Storage : <50ms route handler latency (vs ~100ms FS read)
+- Browser caching : Supabase Storage CDN serves with cache headers
+- Bundle webapp : no change (lib + route unchanged size)
+
+### Sécurité
+- service_role JAMAIS exposé côté client
+- Path traversal blocked
+- Public bucket OK pour V1 (screenshots non-confidentiels)
+- RLS sur bucket : INSERT/UPDATE/DELETE service_role only
+
+### Documentation
+- MANIFEST §12 changelog
+- `.env.example` updated with `NEXT_PUBLIC_SUPABASE_STORAGE_PUBLIC_URL`
+- README upload script usage
+
+## Success Criteria
+
+### Migration
+- [ ] 4831 PNG uploaded to Supabase Storage bucket `screenshots`
+- [ ] Total storage usage ~14 GB confirmed via Supabase Dashboard
+- [ ] All paths preserved (`<client>/<page>/<filename>`)
+
+### Routes
+- [ ] `/api/screenshots/aesop/home/desktop_asis_fold.png` HTTP 200 (or 302) en prod
+- [ ] Path traversal blocked
+- [ ] Dev local fallback to FS OK
+
+### UX
+- [ ] AuditScreenshotsPanel renders thumbnails en prod
+- [ ] Click thumbnail → opens full PNG new tab
+- [ ] No 404 on screenshots panel for any audit
+
+### Cost
+- [ ] Supabase Storage cost confirmed ~$0.30/mo
+- [ ] No unexpected egress charges
+
+## Constraints & Assumptions
+
+### Constraints
+- Pas de Vercel Blob (préfère Supabase Storage déjà intégré)
+- Pas d'install nouvelle dep Node lourde (utiliser native fetch côté route OR existing @supabase/storage-js déjà via supabase-js)
+- Pas de break dev local (FS fallback preserved)
+
+### Assumptions
+- Supabase Storage Free tier : 1 GB included → $20/mo après. 14 GB = ~$0.30/mo (acceptable)
+- Bandwidth Egress : 2 GB/mo free → dev solo usage suffisant (test occasionnel)
+- service_role JWT disponible (Mathis exécute upload script)
+- 14 GB upload time : ~30-60 min selon bande passante
+
+## Out of Scope
+
+### V1
+- Crop/resize/optimize PNG (sert tel quel, browser scale via CSS)
+- Image format conversion (PNG only, pas de WebP/AVIF)
+- Signed URL avec expiry (V2 if confidentiality needed)
+- Multi-region storage replication
+- Backup strategy (Supabase handles)
+
+## Dependencies
+
+### Externes
+- Mathis ~5 min : exécuter upload script avec service_role
+- Supabase Storage bucket creation (via SQL migration OR Dashboard)
+
+### Internes
+- main HEAD `bfa9172` (Wave P2 merged)
+- `webapp/apps/shell/lib/captures-fs.ts` (existing)
+- `webapp/apps/shell/app/api/screenshots/.../route.ts` (existing)
+- `webapp/packages/config/src/index.ts` PUBLIC_ENV map (add SUPABASE_STORAGE_PUBLIC_URL)
+
+### Sequencing
+- T002 (bucket creation) → T001 (upload, requires bucket) → T003 (refactor, optional in parallel with T001)
+- T003 can ship without T001 done (graceful empty-state if file missing)
+
+---
+
+**Première action** : agent background pour T002 + T003 (code refactor) + T001 (upload script). Mathis exécute upload après merge.
