@@ -2,16 +2,37 @@
 
 > Validation des fixes Wave C avant deploy + manual Mathis.
 
+## D.0 — Live migration exécutée ✅ 2026-05-14
+
+**Run real avec creds rotated** (JWT rotation OK, new format `sb_secret_...` 41 chars) :
+
+```
+panel filter: skipped 57 non-curated clients
+mode=LIVE  clients=51 (panel filtered)
+org_id = 571e55b2-b499-4126-831a-86a1ffa8a03a
+upserting 51 clients ...
+51 clients mapped to uuid.
+deleting existing audits for these clients (re-run safe) ...
+DONE: 51 clients · 229 audits · 6524 recos.
+```
+
+**Sample verification** Supabase REST API direct:
+- weglot/home reco `coh_01` content_json a 38 fields incl. `reco_text` rempli (rich narratif April 18) + `before/after/why` (fresh May 4) + `anti_patterns` structurés (n=2) + `pillar='coherence'`
+- brand_dna_json présent (V29.E1.1 visual_tokens) sur 51/51 nouveau clients + 3 pré-existants seed
+- 5 panel_roles correctement taggés (`business_client_candidate`, `benchmark`, `golden_reference`, `mathis_pick`, `diversity_supplement`)
+- 229 audits avec total_score_pct calculé
+- 6524 recos priority distribution sane: P0=179, P1=202, P2=62, P3=557
+
 ## D.1 — Playwright E2E smoke (baseline prod) ✅
 
 Test file: [`webapp/tests/e2e/wave-a-2026-05-14.spec.ts`](../../../webapp/tests/e2e/wave-a-2026-05-14.spec.ts)
 
-**Résultats** :
+**Résultats (re-run post-deploy 2026-05-14, code Wave C deployed)** :
 | Project | Tests | Passed | Failed | Duration |
 |---|---|---|---|---|
-| `desktop-chrome` | 24 | **24** | 0 | 4.8s |
-| `mobile-chrome` (Pixel 7) | 24 | **24** | 0 | 2.7s |
-| **TOTAL** | **48** | **48** | **0** | **7.5s** |
+| `desktop-chrome` | 24 | **24** | 0 | ~5s |
+| `mobile-chrome` (Pixel 7) | 24 | **24** | 0 | ~5.7s |
+| **TOTAL** | **48** | **48** | **0** | ~11s |
 
 **Couverture** :
 - 14 routes protégées : redirect `/login` sans crash, sans `pageerror` JS, sans `console.error`
