@@ -10,9 +10,11 @@ import {
   listRecosForAudit,
 } from "@growthcro/data";
 import { createServerSupabase } from "@/lib/supabase-server";
+import { getCurrentRole } from "@/lib/auth-role";
 import { notFound } from "next/navigation";
 import { AuditDetailFull } from "@/components/audits/AuditDetailFull";
 import { ConvergedNotice } from "@/components/audits/ConvergedNotice";
+import { AuditEditTrigger } from "@/components/audits/AuditEditTrigger";
 
 export const dynamic = "force-dynamic";
 
@@ -28,14 +30,16 @@ export default async function SingleAuditDetail({
   ]);
   if (!client) notFound();
   if (!audit || audit.client_id !== client.id) notFound();
-  const [recos, siblings] = await Promise.all([
+  const [recos, siblings, role] = await Promise.all([
     listRecosForAudit(supabase, audit.id).catch(() => []),
     listAuditsForClient(supabase, client.id).catch(() => []),
+    getCurrentRole().catch(() => null),
   ]);
   const sameTypeAudits = siblings.filter(
     (a) => a.page_type === audit.page_type
   );
   const convergedCount = sameTypeAudits.length;
+  const isAdmin = role === "admin";
 
   return (
     <main className="gc-audit-detail">
@@ -79,6 +83,13 @@ export default async function SingleAuditDetail({
           <a href="/audits" className="gc-pill gc-pill--soft">
             Index audits
           </a>
+          {isAdmin ? (
+            <AuditEditTrigger
+              audit={audit}
+              clientSlug={client.slug}
+              clientName={client.name}
+            />
+          ) : null}
         </div>
       </div>
 
@@ -98,6 +109,7 @@ export default async function SingleAuditDetail({
         recos={recos}
         clientName={client.name}
         clientSlug={client.slug}
+        editable={isAdmin}
       />
     </main>
   );

@@ -24,6 +24,8 @@ type Props = {
   recos: Reco[];
   clientName: string;
   clientSlug: string;
+  /** When true, render Edit/Delete triggers on each RichRecoCard (admin views). */
+  editable?: boolean;
 };
 
 const TOP_RECOS_EXPANDED = 5;
@@ -78,11 +80,13 @@ function RecosCard({
   recos,
   clientName,
   clientSlug,
+  editable,
 }: {
   audit: Audit;
   recos: Reco[];
   clientName: string;
   clientSlug: string;
+  editable?: boolean;
 }) {
   const sorted = sortRecosByImpact(recos);
   const expanded = sorted.slice(0, TOP_RECOS_EXPANDED);
@@ -112,7 +116,7 @@ function RecosCard({
       ) : (
         <div className="gc-stack">
           {expanded.map((r) => (
-            <RichRecoCard key={r.id} reco={r} defaultOpen />
+            <RichRecoCard key={r.id} reco={r} defaultOpen editable={editable} />
           ))}
           {collapsed.length > 0 ? (
             <details className="gc-audit-recos__more">
@@ -123,7 +127,7 @@ function RecosCard({
               </summary>
               <div className="gc-stack" style={{ marginTop: 10 }}>
                 {collapsed.map((r) => (
-                  <RichRecoCard key={r.id} reco={r} />
+                  <RichRecoCard key={r.id} reco={r} editable={editable} />
                 ))}
               </div>
             </details>
@@ -144,6 +148,7 @@ export function AuditDetailFull({
   recos,
   clientName,
   clientSlug,
+  editable,
 }: Props) {
   return (
     <div className="gc-audit-detail__grid">
@@ -154,6 +159,7 @@ export function AuditDetailFull({
           recos={recos}
           clientName={clientName}
           clientSlug={clientSlug}
+          editable={editable}
         />
       </div>
 
