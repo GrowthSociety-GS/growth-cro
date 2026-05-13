@@ -6,10 +6,12 @@ import type { Proposal, ProposalReview } from "@/lib/proposals-fs";
 
 type Props = { proposal: Proposal };
 
-const DECISION_TONE: Record<string, "green" | "red" | "amber"> = {
+// SP-10 extends the decision palette with "refine" (cyan).
+const DECISION_TONE: Record<string, "green" | "red" | "amber" | "cyan"> = {
   accept: "green",
   reject: "red",
   defer: "amber",
+  refine: "cyan",
 };
 
 export function ProposalDetail({ proposal }: Props) {
@@ -129,6 +131,17 @@ export function ProposalDetail({ proposal }: Props) {
             }}
           >
             Reject
+          </button>
+          <button
+            disabled={submitting}
+            onClick={() => submit("refine")}
+            style={{
+              ...btnStyle,
+              background: "#0e2a3d",
+              border: "1px solid #1d4a6a",
+            }}
+          >
+            Refine
           </button>
           <button
             disabled={submitting}

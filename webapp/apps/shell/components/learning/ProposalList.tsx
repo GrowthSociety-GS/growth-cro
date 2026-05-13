@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { Card, Pill } from "@growthcro/ui";
 import type { Proposal } from "@/lib/proposals-fs";
 
-type StatusFilter = "all" | "pending" | "accept" | "reject" | "defer";
+// SP-10 adds "refine" as a 4th decision bucket (rework requested).
+type StatusFilter = "all" | "pending" | "accept" | "reject" | "defer" | "refine";
 type TrackFilter = "all" | "v29" | "v30";
 
 type Props = { proposals: Proposal[]; activeId?: string };
@@ -14,10 +15,11 @@ const TRACK_TONE: Record<string, "cyan" | "gold"> = {
   v30: "cyan",
 };
 
-const DECISION_TONE: Record<string, "green" | "red" | "amber"> = {
+const DECISION_TONE: Record<string, "green" | "red" | "amber" | "cyan"> = {
   accept: "green",
   reject: "red",
   defer: "amber",
+  refine: "cyan",
 };
 
 function decisionOf(p: Proposal): StatusFilter {
@@ -52,7 +54,7 @@ export function ProposalList({ proposals, activeId }: Props) {
   }, [proposals, query, track, status, type]);
 
   const counts = useMemo(() => {
-    const c = { pending: 0, accept: 0, reject: 0, defer: 0 };
+    const c = { pending: 0, accept: 0, reject: 0, defer: 0, refine: 0 };
     for (const p of proposals) {
       const d = decisionOf(p);
       if (d in c) c[d as keyof typeof c] += 1;
@@ -68,7 +70,8 @@ export function ProposalList({ proposals, activeId }: Props) {
           <Pill tone="amber">{counts.pending} pending</Pill>{" "}
           <Pill tone="green">{counts.accept} accepted</Pill>{" "}
           <Pill tone="red">{counts.reject} rejected</Pill>{" "}
-          <Pill tone="amber">{counts.defer} deferred</Pill>
+          <Pill tone="amber">{counts.defer} deferred</Pill>{" "}
+          <Pill tone="cyan">{counts.refine} refined</Pill>
         </>
       }
     >
@@ -112,6 +115,7 @@ export function ProposalList({ proposals, activeId }: Props) {
           <option value="accept">Accepted</option>
           <option value="reject">Rejected</option>
           <option value="defer">Deferred</option>
+          <option value="refine">Refined</option>
         </select>
         <select
           value={type}

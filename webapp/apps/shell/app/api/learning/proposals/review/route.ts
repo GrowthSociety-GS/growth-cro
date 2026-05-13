@@ -12,7 +12,9 @@ export const runtime = "nodejs";
 
 type Body = {
   proposal_id?: string;
-  decision?: "accept" | "reject" | "defer";
+  // SP-10: "refine" was added as a 4th vote action — caller requests author
+  // rework before re-vote. Persisted alongside the existing decisions.
+  decision?: "accept" | "reject" | "defer" | "refine";
   note?: string;
   reviewed_by?: string;
 };
@@ -31,7 +33,7 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
-  if (!["accept", "reject", "defer"].includes(body.decision)) {
+  if (!["accept", "reject", "defer", "refine"].includes(body.decision)) {
     return NextResponse.json(
       { ok: false, error: `invalid decision: ${body.decision}` },
       { status: 400 }

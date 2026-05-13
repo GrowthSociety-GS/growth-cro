@@ -1,9 +1,19 @@
-// Learning Lab — proposals index.
-// Lists all doctrine proposals (V29 audit-based + V30 data-driven) with
-// search, filter by track/status/type, click → detail.
+// Learning Lab — proposals index (SP-10 refactor, beyond-V26).
+//
+// Two surfaces:
+//   1. Vote queue (ProposalQueue) — 4-button vote (accept/reject/refine/defer)
+//      with optimistic UI. Default scoped to pending.
+//   2. Full browse list (ProposalList) — search/filter for archeology /
+//      audit-trail (kept from FR-3).
+//
+// KPI grid uses the new ProposalStats which counts the 5 buckets including
+// refined (the new bucket).
+
 import { Card, Pill } from "@growthcro/ui";
 import { listV29Proposals, listV30Proposals } from "@/lib/proposals-fs";
 import { ProposalList } from "@/components/learning/ProposalList";
+import { ProposalQueue } from "@/components/learning/ProposalQueue";
+import { ProposalStats } from "@/components/learning/ProposalStats";
 
 export const dynamic = "force-dynamic";
 
@@ -12,24 +22,15 @@ export default function LearningIndex() {
   const v30 = listV30Proposals();
   const all = [...v29, ...v30];
 
-  const stats = {
-    v29: v29.length,
-    v30: v30.length,
-    pending: all.filter((p) => !p.review).length,
-    accepted: all.filter((p) => p.review?.decision === "accept").length,
-    rejected: all.filter((p) => p.review?.decision === "reject").length,
-    deferred: all.filter((p) => p.review?.decision === "defer").length,
-  };
-
   return (
     <main style={{ padding: 22 }}>
       <div className="gc-topbar">
         <div className="gc-title">
           <h1>Learning Lab</h1>
           <p>
-            Doctrine update proposals from two tracks: V29 audit-based (69 from
-            Issue #18) + V30 data-driven (Bayesian update on V3.3, this sprint).
-            Mathis decides accept/reject/defer; doctrine merge is downstream.
+            Doctrine update proposals : V29 audit-based + V30 data-driven.
+            Vote en 1 clic (accept · reject · refine · defer). Merge doctrine
+            est downstream et manuel.
           </p>
         </div>
         <div className="gc-toolbar">
@@ -43,33 +44,30 @@ export default function LearningIndex() {
         title="Tracks"
         actions={
           <>
-            <Pill tone="gold">V29: {stats.v29}</Pill>{" "}
-            <Pill tone="cyan">V30: {stats.v30}</Pill>
+            <Pill tone="gold">V29: {v29.length}</Pill>{" "}
+            <Pill tone="cyan">V30: {v30.length}</Pill>{" "}
+            <Pill tone="soft">{all.length} total</Pill>
           </>
         }
       >
-        <div className="gc-kpi-row">
-          <div className="gc-kpi">
-            <span>Pending</span>
-            <b>{stats.pending}</b>
-            <small className="gc-kpi__hint">awaiting Mathis</small>
-          </div>
-          <div className="gc-kpi">
-            <span>Accepted</span>
-            <b>{stats.accepted}</b>
-          </div>
-          <div className="gc-kpi">
-            <span>Rejected</span>
-            <b>{stats.rejected}</b>
-          </div>
-          <div className="gc-kpi">
-            <span>Deferred</span>
-            <b>{stats.deferred}</b>
-          </div>
-        </div>
+        <ProposalStats proposals={all} />
       </Card>
 
-      <ProposalList proposals={all} />
+      <ProposalQueue proposals={all} />
+
+      <Card title="Browse history">
+        <p
+          style={{
+            color: "var(--gc-muted)",
+            fontSize: 12,
+            margin: "0 0 10px",
+          }}
+        >
+          Audit-trail complet (toutes décisions confondues). Pour voter,
+          remonte au panneau ci-dessus.
+        </p>
+        <ProposalList proposals={all} />
+      </Card>
     </main>
   );
 }
