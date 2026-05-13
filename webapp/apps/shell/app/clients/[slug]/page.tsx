@@ -2,7 +2,7 @@
 // Server Component fetches client + audits in parallel; tab content is server-
 // rendered HTML passed into a small client island that swaps panels locally.
 import { Card, KpiCard, Pill } from "@growthcro/ui";
-import { getClientBySlug, listAuditsForClient } from "@growthcro/data";
+import { getClientBySlug, listAuditsForClient, listClients } from "@growthcro/data";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { notFound } from "next/navigation";
 import { PillarRadialChart } from "@/components/clients/PillarRadialChart";
@@ -11,6 +11,9 @@ import { AuditsTabPanel } from "@/components/clients/AuditsTabPanel";
 import { BrandDNATabPanel } from "@/components/clients/BrandDNATabPanel";
 import { HistoryTabPanel } from "@/components/clients/HistoryTabPanel";
 import { avgPillarsAcrossAudits } from "@/components/clients/score-utils";
+import { CreateAuditTrigger } from "@/components/audits/CreateAuditTrigger";
+import { ClientDeleteTrigger } from "@/components/clients/ClientDeleteTrigger";
+import { getCurrentRole } from "@/lib/auth-role";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +25,13 @@ export default async function ClientDetailPage({
   const supabase = createServerSupabase();
   const client = await getClientBySlug(supabase, params.slug).catch(() => null);
   if (!client) notFound();
-  const audits = await listAuditsForClient(supabase, client.id).catch(() => []);
+  const [audits, allClients, role] = await Promise.all([
+    listAuditsForClient(supabase, client.id).catch(() => []),
+    listClients(supabase).catch(() => []),
+    getCurrentRole().catch(() => null),
+  ]);
+  const isAdmin = role === "admin";
+  const clientChoices = allClients.map((c) => ({ slug: c.slug, name: c.name }));
 
   const pillars = avgPillarsAcrossAudits(audits);
   const avgScore =
@@ -62,6 +71,18 @@ export default async function ClientDetailPage({
           <a href={`/clients/${client.slug}/dna`} className="gc-pill gc-pill--cyan">
             Brand DNA
           </a>
+          {isAdmin ? (
+            <>
+              <CreateAuditTrigger
+                clientChoices={clientChoices}
+                defaultClientSlug={client.slug}
+              />
+              <ClientDeleteTrigger
+                clientId={client.id}
+                clientName={client.name}
+              />
+            </>
+          ) : null}
         </div>
       </div>
 

@@ -19,10 +19,13 @@ import {
   extractRichReco,
   type AntiPattern,
 } from "@/components/clients/score-utils";
+import { RecoEditTrigger } from "@/components/audits/RecoEditTrigger";
 
 type Props = {
   reco: Reco;
   defaultOpen?: boolean;
+  /** Render the edit/delete trigger row. Server pages opt-in (admin views). */
+  editable?: boolean;
 };
 
 function priorityTone(priority: string): "red" | "amber" | "green" | "soft" {
@@ -77,7 +80,7 @@ function AntiPatternSection({ ap }: { ap: AntiPattern }) {
   );
 }
 
-export function RichRecoCard({ reco, defaultOpen = false }: Props) {
+export function RichRecoCard({ reco, defaultOpen = false, editable = false }: Props) {
   const [open, setOpen] = useState(defaultOpen);
   const [debugOpen, setDebugOpen] = useState(false);
   const rich = extractRichReco(reco.content_json);
@@ -100,15 +103,18 @@ export function RichRecoCard({ reco, defaultOpen = false }: Props) {
             <Pill tone="soft">{reco.criterion_id}</Pill>
           ) : null}
         </div>
-        <button
-          type="button"
-          className="gc-rich-reco__toggle"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls={`rich-reco-body-${reco.id}`}
-        >
-          {open ? "Réduire ↑" : "Détails ↓"}
-        </button>
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          {editable ? <RecoEditTrigger reco={reco} /> : null}
+          <button
+            type="button"
+            className="gc-rich-reco__toggle"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls={`rich-reco-body-${reco.id}`}
+          >
+            {open ? "Réduire ↑" : "Détails ↓"}
+          </button>
+        </div>
       </header>
 
       <h3 className="gc-rich-reco__title">{reco.title}</h3>
