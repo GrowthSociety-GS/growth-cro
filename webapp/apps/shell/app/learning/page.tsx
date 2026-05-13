@@ -2,11 +2,7 @@
 // Lists all doctrine proposals (V29 audit-based + V30 data-driven) with
 // search, filter by track/status/type, click → detail.
 import { Card, Pill } from "@growthcro/ui";
-import {
-  listAllProposals,
-  listV29Proposals,
-  listV30Proposals,
-} from "@/lib/proposals-fs";
+import { listV29Proposals, listV30Proposals } from "@/lib/proposals-fs";
 import { ProposalList } from "@/components/learning/ProposalList";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +10,7 @@ export const dynamic = "force-dynamic";
 export default function LearningIndex() {
   const v29 = listV29Proposals();
   const v30 = listV30Proposals();
-  const all = listAllProposals();
+  const all = [...v29, ...v30];
 
   const stats = {
     v29: v29.length,

@@ -15,15 +15,24 @@ export type GsgBrief = {
   target_audience?: string;
 };
 
+const GSG_API_TIMEOUT_MS = 10_000;
+
 export async function triggerGsgRun(brief: GsgBrief): Promise<{ run_id: string }> {
   const { apiBaseUrl } = getAppConfig();
-  const res = await fetch(`${apiBaseUrl}/gsg/run`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(brief),
-  });
-  if (!res.ok) {
-    throw new Error(`API error ${res.status}: ${await res.text()}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), GSG_API_TIMEOUT_MS);
+  try {
+    const res = await fetch(`${apiBaseUrl}/gsg/run`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(brief),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      throw new Error(`API error ${res.status}: ${await res.text()}`);
+    }
+    return (await res.json()) as { run_id: string };
+  } finally {
+    clearTimeout(timeout);
   }
-  return (await res.json()) as { run_id: string };
 }
