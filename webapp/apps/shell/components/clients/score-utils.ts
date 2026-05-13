@@ -92,3 +92,145 @@ export function extractRecoContent(content: Record<string, unknown> | null): {
     : [];
   return { summary, description, expectedLiftPct, evidenceIds };
 }
+
+// ---------------------------------------------------------------------------
+// Rich reco extraction (FR-2b 2026-05-13 pivot).
+// Parses the long-form `content_json` shape produced by
+// `growthcro.recos.orchestrator` enricher → `recos_enriched.json`.
+// Pure function, defensive: returns sensible defaults for every missing key
+// so the UI can render seed-data minimaliste WITHOUT throwing.
+// ---------------------------------------------------------------------------
+
+export type AntiPattern = {
+  pattern: string | null;
+  why_bad: string | null;
+  instead_do: string | null;
+  examples_good: string[];
+};
+
+export type RichRecoContent = {
+  recoText: string | null;
+  pillar: string | null;
+  severity: string | null;
+  enricherVersion: string | null;
+  effortDays: number | null;
+  iceScore: number | null;
+  expectedLiftPct: number | null;
+  antiPatterns: AntiPattern[];
+  examplesGood: string[];
+  evidenceIds: string[];
+};
+
+function asString(v: unknown): string | null {
+  return typeof v === "string" && v.length > 0 ? v : null;
+}
+
+function asNumber(v: unknown): number | null {
+  return typeof v === "number" && Number.isFinite(v) ? v : null;
+}
+
+function asStringArray(v: unknown): string[] {
+  if (!Array.isArray(v)) return [];
+  return v.filter((x): x is string => typeof x === "string" && x.length > 0);
+}
+
+function extractAntiPattern(raw: unknown): AntiPattern | null {
+  if (!raw || typeof raw !== "object") return null;
+  const ap = raw as Record<string, unknown>;
+  const pattern = asString(ap.pattern);
+  const why_bad = asString(ap.why_bad);
+  const instead_do = asString(ap.instead_do);
+  const examples_good = asStringArray(ap.examples_good);
+  if (
+    pattern === null &&
+    why_bad === null &&
+    instead_do === null &&
+    examples_good.length === 0
+  ) {
+    return null;
+  }
+  return { pattern, why_bad, instead_do, examples_good };
+}
+
+export function extractRichReco(
+  content: Record<string, unknown> | null
+): RichRecoContent {
+  const empty: RichRecoContent = {
+    recoText: null,
+    pillar: null,
+    severity: null,
+    enricherVersion: null,
+    effortDays: null,
+    iceScore: null,
+    expectedLiftPct: null,
+    antiPatterns: [],
+    examplesGood: [],
+    evidenceIds: [],
+  };
+  if (!content || typeof content !== "object") return empty;
+
+  // recoText prefers the long-form `reco_text` (V3.2.0 enricher) and falls
+  // back to `summary` / `description` for seed-data minimaliste.
+  const recoText =
+    asString(content.reco_text) ??
+    asString(content.summary) ??
+    asString(content.description);
+
+  const pillar = asString(content.pillar);
+  const severity = asString(content.severity);
+  const enricherVersion = asString(content.enricher_version);
+  const expectedLiftPct =
+    asNumber(content.expected_lift_pct) ??
+    asNumber((content as { expectedLiftPct?: unknown }).expectedLiftPct);
+
+  // `effort_days` may live at top level OR nested under `feasibility`.
+  let effortDays = asNumber(content.effort_days);
+  if (effortDays === null && typeof content.feasibility === "object") {
+    effortDays = asNumber(
+      (content.feasibility as { effort_days?: unknown }).effort_days
+    );
+  }
+
+  const iceScore = asNumber(content.ice_score);
+
+  const antiPatternsRaw = Array.isArray(content.anti_patterns)
+    ? content.anti_patterns
+    : [];
+  const antiPatterns = antiPatternsRaw
+    .map(extractAntiPattern)
+    .filter((x): x is AntiPattern => x !== null);
+
+  const examplesGood = asStringArray(content.examples_good);
+
+  const evidenceRaw = content.evidence_ids ?? content.evidenceIds;
+  const evidenceIds = asStringArray(evidenceRaw);
+
+  return {
+    recoText,
+    pillar,
+    severity,
+    enricherVersion,
+    effortDays,
+    iceScore,
+    expectedLiftPct,
+    antiPatterns,
+    examplesGood,
+    evidenceIds,
+  };
+}
+
+// Stable sort key for "top recos" : highest expected_lift_pct first, ties
+// broken by priority asc (P0 → P3). Used by `AuditDetailFull` to decide
+// which recos render expanded by default.
+const PRIORITY_RANK: Record<string, number> = { P0: 0, P1: 1, P2: 2, P3: 3 };
+
+export function rankRecoImpact(
+  priority: string,
+  expectedLiftPct: number | null
+): number {
+  const lift = expectedLiftPct ?? -1;
+  const pri = PRIORITY_RANK[priority] ?? 9;
+  // Negative lift so JS default sort (ascending) yields high-lift first;
+  // priority adds a small tiebreaker.
+  return -lift * 10 + pri;
+}
