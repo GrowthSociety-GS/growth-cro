@@ -104,7 +104,24 @@ Ce master PRD encadre le **buildout complet** : consolider les 6 microfrontends 
 
 ## Functional Requirements (6 sub-PRDs)
 
-### FR-1 — Sub-PRD `webapp-consolidate-architecture` (foundation, blocking)
+### FR-1 — Sub-PRD `webapp-consolidate-architecture` (foundation, blocking) ✅ COMPLETED 2026-05-13
+- **Effort** : M, 1-1.5j → réalisé en **~1h wall-clock** (1 agent background séquentiel T001→T004 + gate-vert)
+- **Sub-PRD** : [`webapp-consolidate-architecture.md`](webapp-consolidate-architecture.md) (4 tasks file-disjoint)
+- **Livré** :
+  - 5 microfrontends archivés `_archive/webapp_microfrontends_2026-05-12/{audit-app,reco-app,gsg-studio,reality-monitor,learning-lab}/` (60 files git mv préservant l'historique)
+  - 27 nouveaux fichiers shell : 9 pages, 13 components groupés `components/{audits,recos,gsg,reality,learning}/`, 3 lib (`gsg-api.ts`, `reality-fs.ts`, `proposals-fs.ts`), 1 API route (`app/api/learning/proposals/review/route.ts`)
+  - `webapp/microfrontends.json` supprimé · Sidebar.tsx updated (`/audits`, `/recos` pluriel)
+  - Build local + Vercel : 17 routes générées, 87.3 KB shared first load, deploy 59s
+  - 2 commits : `871fb6c` refactor + `f2ac207` manifest §12 → merged via `0e5daf3`
+- **Prod verification** : https://growth-cro.vercel.app
+  - `/login`, `/privacy`, `/terms` → 200 (public OK)
+  - `/`, `/audits`, `/recos`, `/gsg`, `/reality`, `/learning`, `/audit-gads`, `/audit-meta` → 307 redirect `/login?redirect=...` (auth middleware OK, routes existent)
+  - `/api/learning/proposals/review` → 307 redirect (auth middleware also protects API)
+  - 0 erreur 404 / 500
+- **Gates verts** : lint FAIL=1 baseline (pré-existant scripts/, hors scope FR-1), parity ✓, schemas ✓ 3439 files, capabilities ✓ 0 orphans HIGH, typecheck ✓, build ✓
+- **Foundation prête** pour FR-2/3/4/5/6
+
+### FR-1 — Original spec (préservé pour traçabilité)
 - **Effort** : M, 1-1.5j
 - **Cible** : refactor 5 microfrontends scaffold dans `webapp/apps/shell/app/` :
   - `apps/audit-app/app/*` → `apps/shell/app/audits/`
@@ -186,7 +203,7 @@ Ce master PRD encadre le **buildout complet** : consolider les 6 microfrontends 
 ## Success Criteria
 
 ### Globaux V1 (cible aspirational)
-- [ ] FR-1 done : 5 microfrontends consolidés dans shell, 1 deploy
+- [x] FR-1 done 2026-05-13 : 5 microfrontends consolidés dans shell, 1 deploy ✅ — see `webapp-consolidate-architecture.md` for full report
 - [ ] FR-2 done : 4 routes wired Supabase (/clients, /clients/[slug], /audits/[id], /recos)
 - [ ] FR-3 done : /gsg avec 4 LPs preview iframe
 - [ ] FR-4 done : /learning si Mathis action #3 review proposals fait
