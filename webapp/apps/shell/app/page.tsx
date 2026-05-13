@@ -36,29 +36,35 @@ async function loadOverview() {
       errors: [] as string[],
     };
   }
+  // Wave C.5 (audit A.8 P0.3): parallelize the 3 independent fetches instead
+  // of sequential awaits (was 3×TTFB ≈ 60-200ms wasted on the home).
+  const [clientsRes, metricsRes, p0Res] = await Promise.allSettled([
+    listClientsWithStats(supabase),
+    loadCommandCenterMetrics(supabase),
+    loadP0CountsByClient(supabase),
+  ]);
   const errors: string[] = [];
-  let clients: Awaited<ReturnType<typeof listClientsWithStats>> = [];
-  let metrics: Awaited<ReturnType<typeof loadCommandCenterMetrics>> = {
-    recosP0: 0,
-    recentRuns: [],
-    recentAudits: [],
-  };
-  let p0Counts = new Map<string, number>();
-  try {
-    clients = await listClientsWithStats(supabase);
-  } catch (e) {
-    errors.push(`clients: ${(e as Error).message}`);
-  }
-  try {
-    metrics = await loadCommandCenterMetrics(supabase);
-  } catch (e) {
-    errors.push(`metrics: ${(e as Error).message}`);
-  }
-  try {
-    p0Counts = await loadP0CountsByClient(supabase);
-  } catch (e) {
-    errors.push(`p0Counts: ${(e as Error).message}`);
-  }
+  const clients =
+    clientsRes.status === "fulfilled"
+      ? clientsRes.value
+      : ((): Awaited<ReturnType<typeof listClientsWithStats>> => {
+          errors.push(`clients: ${(clientsRes.reason as Error).message}`);
+          return [];
+        })();
+  const metrics =
+    metricsRes.status === "fulfilled"
+      ? metricsRes.value
+      : ((): Awaited<ReturnType<typeof loadCommandCenterMetrics>> => {
+          errors.push(`metrics: ${(metricsRes.reason as Error).message}`);
+          return { recosP0: 0, recentRuns: [], recentAudits: [] };
+        })();
+  const p0Counts =
+    p0Res.status === "fulfilled"
+      ? p0Res.value
+      : ((): Map<string, number> => {
+          errors.push(`p0Counts: ${(p0Res.reason as Error).message}`);
+          return new Map<string, number>();
+        })();
   return { user: userData.user, clients, metrics, p0Counts, supabase, errors };
 }
 

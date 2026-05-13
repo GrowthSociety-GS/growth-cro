@@ -45,6 +45,13 @@ export async function middleware(req: NextRequest) {
   return res;
 }
 
+// Wave C.5 (audit A.8 P0.1): exclude `/api/screenshots/*` from the auth gate.
+// Every audit detail page renders 2 fold thumbnails + up to 6 in <details>.
+// Without this exclusion, each thumbnail GET triggered Supabase auth.getUser()
+// (50-200ms × N thumbs). The route handler itself redirects to a public
+// Supabase Storage URL — no auth is needed at the middleware layer.
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|api/screenshots|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
 };

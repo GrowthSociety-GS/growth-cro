@@ -36,10 +36,12 @@ function Thumbnail({
   src,
   alt,
   caption,
+  priority = false,
 }: {
   src: string;
   alt: string;
   caption: string;
+  priority?: boolean;
 }) {
   return (
     <a
@@ -48,8 +50,21 @@ function Thumbnail({
       target="_blank"
       rel="noopener noreferrer"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element -- raw PNG served via /api/screenshots, no next/image optimisation needed */}
-      <img loading="lazy" src={src} alt={alt} />
+      {/* Wave C.5 (audit A.8 P0.2): explicit width/height to prevent CLS +
+          fetchpriority/loading hints. Full next/image migration deferred until
+          we expose direct Supabase URLs (next sprint) — for now the /api/
+          redirect path keeps the dev/prod swap symmetric. */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- redirect-based src, not eligible for next/image until direct Supabase URLs are exposed */}
+      <img
+        src={src}
+        alt={alt}
+        width={480}
+        height={300}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        decoding="async"
+        style={{ width: "100%", height: "auto", display: "block" }}
+      />
       <span className="gc-audit-screens__caption">{caption}</span>
     </a>
   );
@@ -111,6 +126,7 @@ export function AuditScreenshotsPanel({ clientSlug, pageSlug }: Props) {
             src={screenshotUrl(clientSlug, pageSlug, picks.desktopFold)}
             alt={`Desktop fold — ${pageSlug}`}
             caption="Desktop · fold"
+            priority
           />
         ) : null}
         {picks.mobileFold ? (
@@ -118,6 +134,7 @@ export function AuditScreenshotsPanel({ clientSlug, pageSlug }: Props) {
             src={screenshotUrl(clientSlug, pageSlug, picks.mobileFold)}
             alt={`Mobile fold — ${pageSlug}`}
             caption="Mobile · fold"
+            priority
           />
         ) : null}
       </div>
