@@ -403,6 +403,68 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
+
+**Master PRD** : [`webapp-data-fidelity-and-skills-stratosphere-2026-05`](../../prds/webapp-data-fidelity-and-skills-stratosphere-2026-05.md) — AUDIT-FIRST méthodo post écran de fumée 2026-05-13.
+
+**Wave 0 PREP** :
+- `skills/skill-based-architecture/` cloné (méta-skill WoJiSama, gitignored — install local per-machine)
+- `Superpowers` (obra) installé via `npx skills add` → `.agents/skills/` (17 sub-skills : TDD, dispatching-parallel-agents, systematic-debugging, verification-before-completion, writing-plans, etc.)
+- GStack + Vercel Agent : doc'd Mathis-side (auto-classifier perm rule pour GStack, Dashboard OAuth pour Vercel Agent)
+
+**Wave A AUDIT — 12 dimensions cross-validated, 160 findings totaux** :
+- A.1 Code review (commits `7e0dddb..f510c49`) — 27 findings (3 P0 / 9 P1)
+- A.2 Vercel Agent — doc placeholder (OAuth pending)
+- A.3 vercel:verification — doc placeholder (dev server live pending)
+- A.4 Playwright E2E spec — `webapp/tests/e2e/wave-a-2026-05-14.spec.ts` (23 tests, 48 runs avec mobile)
+- A.5 Design critique — premium 5.2/10, **Inter font fiction confirmed** (référencée partout mais jamais loaded), pill ambigu 3 rôles
+- A.6 A11y WCAG AA — **FAIL** 6 P0 / 11 P1 / 9 P2 (contrast `--gc-muted` 4.13:1 < 4.5:1, Modal sans focus trap)
+- A.7 React best-practices — 28 findings (3 P0 / 8 P1), good RSC posture
+- A.8 Performance — Lighthouse 72-85 estimated → 88-95 post-fix (RSC clean, 3 third-party libs only)
+- A.9 GStack — placeholder (install pending)
+- A.10 Data fidelity — **ROOT CAUSE CONFIRMED** : `scripts/migrate_v27_to_supabase.py` lit `growth_audit_data.js` (V27 panel bundle, 17 fields/reco, `reco_text=''` vide) au lieu de 438 `data/captures/<c>/<p>/recos_enriched.json` (V13 doctrine, 20 fields/reco, 100% rich). Empirically verified via Python in repo (corrected agent V21/V13 label imprecisions)
+- A.11 Security — 3 P0 / 5 P1 / 6 P2 : open redirect `auth/callback` + `login`, `/api/learning/proposals/review` no-auth (convergence A.1), Anthropic key historically leaked, JWT rotation pending Mathis
+- A.12 Mobile — ~60% ready, Modal width hardcoded override, 2 inline grid overrides (UsageTab + ProposalList)
+
+**Wave B SYNTHESIS** — inline dans `AUDIT_SUMMARY_2026-05-14.md` (22 P0 unique canonical list, 6 convergences cross-audit).
+
+**Wave C FIX EXECUTION** — 5 sprints, 5 commits isolés :
+- **C.1** `scripts/migrate_disk_to_supabase.py` (589 LOC) — walks `data/captures/<c>/<p>/` directly, UPSERTs clients (brand_dna full) + audits (6 pillars + utility_banner + overlays + specific + semantic + applicability + contextual) + recos (FULL rich content_json preserving reco_text, anti_patterns, feasibility, pillar, schwartz_awareness, ab_variants, etc.). Idempotent. Dry-run by default. **Dry-run validated: 107 clients · 364 pages · 8698 recos · 100% reco_text non-empty** (vs current Supabase 56/185/3045 with 0% rich). Replaces (will archive) `migrate_v27_to_supabase.py`.
+- **C.2** Security patches — `webapp/apps/shell/lib/safe-redirect.ts` (validates `redirect` path same-origin, rejects `//evil.com` / `/\evil.com` / colon-bearing strings), wired in `auth/callback/route.ts` + `login/page.tsx`. `/api/learning/proposals/review` POST wrapped with `requireAdmin()` + drops user-supplied `reviewed_by` (taken from session).
+- **C.3** A11y + mobile root + Inter font — `--gc-muted: #98a2b3 → #b6bfd0` (4.13:1 → ~5.4:1 WCAG AA). Modal width clamp `min(${w}, calc(100vw - 32px))` + focus trap (Tab cycle + restore on close, 30 LOC). Inter loaded via `next/font/google` exposed as `--gc-font-sans` CSS var. UsageTab inline `repeat(4, ...)` removed (uses `.gc-grid-kpi` responsive CSS). ProposalList inline 4-col → `.gc-proposal-filters` responsive (2-col @720 / 1-col @480).
+- **C.4** React polish — index-as-key fixed in `RichRecoCard.tsx:72` (`examples_good`) + `JudgeScoreCard.tsx:86` (`remarks`) using `${i}-${str.slice(0,32)}` stable key. `router.refresh()` after vote in `ProposalQueue.tsx handleVoted` (KPI stats no longer stale). `getCurrentRole().catch(() => null)` → `catch((err) => { console.error(...); return null; })` in `audits/[c]/[a]/page.tsx:36` + `clients/[slug]/page.tsx:31` — surfaces unexpected Supabase errors in logs while preserving graceful degradation.
+- **C.5** Perf wins — middleware matcher excludes `/api/screenshots/*` (saves ~1s LCP on audit detail, 8 thumbs × 50-200ms Supabase auth). AuditScreenshotsPanel `<img>` : explicit `width/height` (CLS) + `fetchPriority="high"` + `loading="eager"` on fold thumbs. Home `loadOverview()` 3 sequential awaits → `Promise.allSettled` (saves 60-200ms TTFB).
+
+**Wave D VALIDATION — baseline Playwright PASS 48/48** :
+- `desktop-chrome` 24/24 PASS (4.8s)
+- `mobile-chrome` (Pixel 7) 24/24 PASS (2.7s)
+- Couverture : 14 routes protégées (redirect /login sans crash), SP-11 screenshots redirect 307 Supabase, login UX, public legal (/privacy + /terms), mobile responsive (no horizontal scroll 360 + 768), API auth gates (clients/audits/recos)
+- **Mathis-in-loop validation manuelle BLOCKING pre-merge** — checklist 10 routes dans [`WAVE_D_VALIDATION_2026-05-14.md`](../state/WAVE_D_VALIDATION_2026-05-14.md)
+
+**Wave E CLOSE** :
+- `WAVE_D_VALIDATION_2026-05-14.md` (validation status + Mathis checklist)
+- `CONTINUATION_PLAN_2026-05-15.md` (next session entry point + Mathis post-clear actions)
+- Cette entrée changelog §12
+
+**Mathis-side blockers Wave D.2 (déploiement final)** :
+1. ✅ Service_role JWT rotation (déjà fait)
+2. ⏳ `git push origin main` (7 commits this session)
+3. ⏳ Vercel auto-deploy wait
+4. ⏳ Enable Vercel Agent Dashboard
+5. ⏳ Run `migrate_disk_to_supabase.py` LIVE avec creds rotated
+6. ⏳ Validation visuelle 10 routes (1-2h)
+
+**Doctrine respected** :
+- ✅ Audit-first méthodo (12 dimensions cross-validated, AVANT toute fix)
+- ✅ 5 sprints Wave C isolés (1 commit = 1 sprint)
+- ✅ Typecheck shell ✓ après chaque commit
+- ✅ Cross-validation findings (6 convergences entre audits indépendants)
+- ✅ Playwright 48/48 baseline avant claim "shipped"
+- ✅ Self-contained reprise next session via CONTINUATION_PLAN_2026-05-15
+- ✅ Pas de `git push` ni `git reset --hard` ni autre destructive sans accord explicite Mathis
+
+**Effort** : 1 session marathon (~6-7h cumulé), 7 commits sur main, 12 audit reports, 1 migration script + 1 Playwright spec + 1 lib + 7 component edits.
+
 ### 2026-05-13 — Webapp Consolidate Architecture (FR-1 sub-PRD)
 
 **Sub-PRD** : [`webapp-consolidate-architecture`](../../prds/webapp-consolidate-architecture.md) — FR-1 du master [`webapp-full-buildout`](../../prds/webapp-full-buildout.md). Foundation blocking pour FR-2/3/5/6 (clients/audits/recos, GSG studio, settings, polish + validation).
