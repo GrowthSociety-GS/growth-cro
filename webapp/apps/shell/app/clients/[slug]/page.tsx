@@ -28,7 +28,11 @@ export default async function ClientDetailPage({
   const [audits, allClients, role] = await Promise.all([
     listAuditsForClient(supabase, client.id).catch(() => []),
     listClients(supabase).catch(() => []),
-    getCurrentRole().catch(() => null),
+    // Wave C.4 (audit A.1 P0.3 + A.7 P0.3): see audits/[c]/[a] for rationale.
+    getCurrentRole().catch((err) => {
+      console.error("[clients/[slug]] getCurrentRole failed:", err);
+      return null;
+    }),
   ]);
   const isAdmin = role === "admin";
   const clientChoices = allClients.map((c) => ({ slug: c.slug, name: c.name }));

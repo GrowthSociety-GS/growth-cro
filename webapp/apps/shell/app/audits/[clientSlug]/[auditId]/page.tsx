@@ -33,7 +33,14 @@ export default async function SingleAuditDetail({
   const [recos, siblings, role] = await Promise.all([
     listRecosForAudit(supabase, audit.id).catch(() => []),
     listAuditsForClient(supabase, client.id).catch(() => []),
-    getCurrentRole().catch(() => null),
+    // Wave C.4 (audit A.1 P0.3 + A.7 P0.3): surface unexpected auth failures
+    // in server logs instead of silently degrading to non-admin UI. The
+    // function already returns null for the expected cases (no session, no
+    // membership) — .catch here only fires on real Supabase/network errors.
+    getCurrentRole().catch((err) => {
+      console.error("[audits/[c]/[a]] getCurrentRole failed:", err);
+      return null;
+    }),
   ]);
   const sameTypeAudits = siblings.filter(
     (a) => a.page_type === audit.page_type

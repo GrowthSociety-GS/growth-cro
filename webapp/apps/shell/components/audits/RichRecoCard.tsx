@@ -69,8 +69,10 @@ function AntiPatternSection({ ap }: { ap: AntiPattern }) {
           {ap.instead_do ? <p>{ap.instead_do}</p> : null}
           {ap.examples_good.length > 0 ? (
             <ul>
+              {/* Wave C.4 (audit A.7 P0.1): stable key from content+index to
+                  survive re-renders if the array reorders. */}
               {ap.examples_good.map((ex, i) => (
-                <li key={i}>{ex}</li>
+                <li key={`${i}-${ex.slice(0, 32)}`}>{ex}</li>
               ))}
             </ul>
           ) : null}

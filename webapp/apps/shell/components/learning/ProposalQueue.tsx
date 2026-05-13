@@ -10,6 +10,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, Pill } from "@growthcro/ui";
 import type { Proposal, ProposalReview } from "@/lib/proposals-fs";
 import { ProposalVotePanel } from "./ProposalVotePanel";
@@ -34,6 +35,7 @@ function statusOf(p: Proposal): Exclude<StatusFilter, "all"> {
 }
 
 export function ProposalQueue({ proposals }: Props) {
+  const router = useRouter();
   const [voted, setVoted] = useState<Record<string, ProposalReview>>({});
   const [query, setQuery] = useState("");
   const [track, setTrack] = useState<"all" | "v29" | "v30">("all");
@@ -66,6 +68,11 @@ export function ProposalQueue({ proposals }: Props) {
 
   function handleVoted(proposalId: string, review: ProposalReview) {
     setVoted((prev) => ({ ...prev, [proposalId]: review }));
+    // Wave C.4 (audit A.7 P0.2): refresh the Server Component tree so
+    // sibling KPI grids (ProposalStats) re-read the new server state.
+    // Optimistic local state stays for instant feedback; refresh reconciles
+    // the rest of the page within ~100ms.
+    router.refresh();
   }
 
   return (

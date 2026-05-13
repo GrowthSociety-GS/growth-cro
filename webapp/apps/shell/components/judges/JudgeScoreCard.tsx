@@ -83,9 +83,10 @@ export function JudgeScoreCard({ label, accent, judge }: Props) {
                 lineHeight: 1.5,
               }}
             >
+              {/* Wave C.4 (audit A.7 P0.1): stable key from content+index. */}
               {judge.remarks.slice(0, 3).map((r, i) => (
                 <li
-                  key={i}
+                  key={`${i}-${r.slice(0, 32)}`}
                   style={{
                     padding: "2px 0",
                     borderBottom:
