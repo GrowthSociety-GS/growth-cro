@@ -22,13 +22,21 @@ export function NavItem({ label, hint, active, href, onClick, icon }: Props) {
   );
   if (href) {
     return (
-      <a href={href} className={clsx("gc-nav-item", active && "gc-nav-item--active")}>
+      <a
+        href={href}
+        className={clsx("gc-nav-item", active && "gc-nav-item--active")}
+        aria-current={active ? "page" : undefined}
+      >
         {inner}
       </a>
     );
   }
   return (
-    <button className={clsx("gc-nav-item", active && "gc-nav-item--active")} onClick={onClick}>
+    <button
+      className={clsx("gc-nav-item", active && "gc-nav-item--active")}
+      onClick={onClick}
+      aria-current={active ? "page" : undefined}
+    >
       {inner}
     </button>
   );

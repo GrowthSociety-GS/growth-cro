@@ -61,12 +61,17 @@ function isActive(pathname: string, href: string): boolean {
 export function Sidebar({ email }: { email?: string | null }) {
   const pathname = usePathname() ?? "/";
   return (
-    <aside className="gc-side">
+    <aside className="gc-side" aria-label="Navigation principale">
       <div className="gc-side-brand">GrowthCRO V28</div>
       {GROUPS.map((group) => (
         <div className="gc-side-group" key={group.label}>
-          <div className="gc-side-group__label">{group.label}</div>
-          <nav className="gc-stack">
+          <div className="gc-side-group__label" id={`gc-nav-group-${group.label.toLowerCase().replace(/\s+/g, "-")}`}>
+            {group.label}
+          </div>
+          <nav
+            className="gc-stack"
+            aria-labelledby={`gc-nav-group-${group.label.toLowerCase().replace(/\s+/g, "-")}`}
+          >
             {group.items.map((it) => (
               <NavItem
                 key={it.href}
@@ -83,7 +88,12 @@ export function Sidebar({ email }: { email?: string | null }) {
         <div className="gc-side-label">Session</div>
         <div style={{ fontSize: 12, color: "var(--gc-muted)", marginBottom: 8 }}>{email ?? "—"}</div>
         <form action="/auth/signout" method="post">
-          <button className="gc-btn gc-btn--ghost" type="submit" style={{ width: "100%" }}>
+          <button
+            className="gc-btn gc-btn--ghost"
+            type="submit"
+            style={{ width: "100%" }}
+            aria-label="Se déconnecter"
+          >
             Déconnexion
           </button>
         </form>

@@ -1433,3 +1433,245 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * SP-9 — Polish, perf, a11y (P2 webapp-v26-parity-and-beyond 2026-05-13).
+ *
+ *   .gc-skeleton           shimmer-animated placeholder block (loading.tsx)
+ *   .gc-empty-state        centered empty placeholder (no data)
+ *   .gc-error-state        full-page error fallback (error.tsx)
+ *   .gc-skip-link          sr-only by default, visible on focus
+ *   .gc-sr-only            screen-reader-only utility
+ *   :focus-visible         consistent focus ring across .gc-btn, .gc-tab,
+ *                          .gc-nav-item, anchors
+ *   prefers-reduced-motion respects user motion preferences
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/* Skip link — sr-only by default, visible on keyboard focus.
+ * WCAG 2.4.1 Bypass Blocks (Level A). */
+.gc-skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  z-index: 1000;
+  background: var(--gc-gold);
+  color: #17130a;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 13px;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.gc-skip-link:focus,
+.gc-skip-link:focus-visible {
+  top: 8px;
+  outline: 2px solid var(--gc-text);
+  outline-offset: 2px;
+}
+
+/* Screen-reader-only utility — visually hidden but discoverable by AT. */
+.gc-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible — strong outline for keyboard users on all interactive
+ * elements. The :focus-visible pseudo only matches keyboard focus, so mouse
+ * clicks don't trigger the ring. WCAG 2.4.7 Focus Visible (Level AA). */
+.gc-btn:focus-visible,
+.gc-tab:focus-visible,
+.gc-nav-item:focus-visible,
+.gc-pill:focus-visible,
+.gc-modal__close:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gc-gold);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Skeleton shimmer animation — placeholder for loading.tsx routes.
+ * Honors prefers-reduced-motion: no animation, fixed grey fill. */
+.gc-skeleton {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: gc-skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes gc-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gc-skeleton {
+    animation: none;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .gc-skip-link {
+    transition: none;
+  }
+}
+
+/* Empty state — gracious placeholder when a list has no data.
+ * Centered icon + title + description + optional CTA. */
+.gc-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 36px 20px;
+  text-align: center;
+  color: var(--gc-soft);
+}
+
+.gc-empty-state--bordered {
+  border: 1px dashed var(--gc-line);
+  border-radius: var(--gc-radius);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.gc-empty-state__icon {
+  color: var(--gc-muted);
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.gc-empty-state__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gc-text);
+}
+
+.gc-empty-state__desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--gc-muted);
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+.gc-empty-state__cta {
+  margin-top: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Error state — full-page fallback for error.tsx route boundaries. */
+.gc-error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 56px 24px;
+  text-align: center;
+  min-height: 60vh;
+}
+
+.gc-error-state__icon {
+  color: var(--gc-red);
+  opacity: 0.85;
+}
+
+.gc-error-state__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gc-text);
+}
+
+.gc-error-state__desc {
+  margin: 0;
+  font-size: 14px;
+  color: var(--gc-muted);
+  max-width: 540px;
+  line-height: 1.55;
+}
+
+.gc-error-state__details {
+  margin-top: 10px;
+  max-width: 720px;
+  width: 100%;
+  text-align: left;
+}
+
+.gc-error-state__details summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--gc-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.gc-error-state__digest {
+  display: block;
+  margin-top: 8px;
+  background: var(--gc-ink);
+  border: 1px solid var(--gc-line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  color: var(--gc-soft);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.gc-error-state__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+/* Mobile responsive — reduce padding + adjust topbar spacing on small viewports.
+ * Existing rules already cover 1180px (sidebar collapse) and 640px (paddings). */
+@media (max-width: 480px) {
+  .gc-main,
+  .gc-audit-shell,
+  .gc-reco-shell,
+  .gc-gsg-shell,
+  .gc-client-detail,
+  .gc-audit-detail,
+  .gc-recos-aggregator {
+    padding: 12px;
+  }
+  .gc-title h1 {
+    font-size: 22px;
+  }
+  .gc-title p {
+    font-size: 13px;
+  }
+  .gc-empty-state {
+    padding: 24px 12px;
+  }
+  .gc-error-state {
+    padding: 32px 16px;
+  }
+}
+

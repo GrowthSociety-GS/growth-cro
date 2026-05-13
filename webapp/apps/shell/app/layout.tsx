@@ -15,6 +15,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr">
       <body>
+        {/* SP-9 — Skip link, sr-only by default, visible on keyboard focus. */}
+        <a href="#gc-main" className="gc-skip-link">
+          Aller au contenu principal
+        </a>
         {children}
         <div className="gc-grain" aria-hidden="true" />
         <ConsentBanner />
