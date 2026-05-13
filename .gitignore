@@ -90,6 +90,8 @@ data/audits/meta/
 # Cf .claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md §5 Installation procedure.
 .claude/skills/
 skills-lock.json
+# External skill clones (per-machine, re-installed via git clone — cf WAVE_0_STATUS_*.md)
+skills/skill-based-architecture/
 
 
 # ─── Codex / OpenAI agent runner artefacts ────────────
