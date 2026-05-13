@@ -75,7 +75,21 @@ UTILITY_BANNER_FILE = "score_utility_banner.json"
 SPECIFIC_FILE = "score_specific.json"
 SEMANTIC_FILE = "score_semantic.json"
 PAGE_TYPE_FILE = "score_page_type.json"
-RECOS_FILE = "recos_enriched.json"
+# Dual-schema source strategy (Wave C.1-bis, 2026-05-14):
+# - recos_v13_final.json is the CURRENT pipeline output (per
+#   growthcro.recos.orchestrator:673). Schema: {before, after, why, cluster_id,
+#   addresses_killer, expected_lift_pct, effort_hours, _grounding_score, ...}.
+#   Generated May 4 — fresh.
+# - recos_enriched.json is the LEGACY enricher output (April 18 doctrine V13
+#   /enricher v1.1.0-p2c). Schema: {reco_text, anti_patterns, feasibility,
+#   pillar, schwartz_awareness, ab_variants, ...} — narrative-rich.
+# - We MERGE per criterion_id: fresh v13_final fields override, narrative
+#   anti_patterns/reco_text/pillar/schwartz_awareness from enriched when
+#   absent in v13_final.
+# This is a stopgap until the cleanup epic AD-9 (rename _vNN → capability)
+# extends to data dirs — see CONTINUATION_PLAN.
+RECOS_FILE_FRESH = "recos_v13_final.json"
+RECOS_FILE_NARRATIVE = "recos_enriched.json"
 BRAND_DNA_FILE = "brand_dna.json"
 
 # Fields stored in dedicated reco columns — exclude from content_json to avoid
@@ -143,9 +157,12 @@ def discover_clients() -> list[str]:
     for entry in sorted(CAPTURES_DIR.iterdir()):
         if not entry.is_dir() or entry.name.startswith("_") or entry.name.startswith("."):
             continue
-        # A client dir is one that has at least one page subdir with recos_enriched.json
+        # A client dir is one that has at least one page subdir with EITHER
+        # fresh (recos_v13_final.json) OR legacy (recos_enriched.json) recos.
         has_recos = any(
-            (sub / RECOS_FILE).exists() for sub in entry.iterdir() if sub.is_dir()
+            (sub / RECOS_FILE_FRESH).exists() or (sub / RECOS_FILE_NARRATIVE).exists()
+            for sub in entry.iterdir()
+            if sub.is_dir()
         )
         if has_recos or (entry / BRAND_DNA_FILE).exists():
             out.append(entry.name)
@@ -153,7 +170,7 @@ def discover_clients() -> list[str]:
 
 
 def discover_pages(client: str) -> list[str]:
-    """Return list of page_type slugs for a client (dirs with recos_enriched.json)."""
+    """Return list of page_type slugs for a client (dirs with at least one recos file)."""
     client_dir = CAPTURES_DIR / client
     if not client_dir.is_dir():
         return []
@@ -161,7 +178,11 @@ def discover_pages(client: str) -> list[str]:
     for sub in sorted(client_dir.iterdir()):
         if not sub.is_dir() or sub.name.startswith("_"):
             continue
-        if (sub / RECOS_FILE).exists() or (sub / PAGE_TYPE_FILE).exists():
+        if (
+            (sub / RECOS_FILE_FRESH).exists()
+            or (sub / RECOS_FILE_NARRATIVE).exists()
+            or (sub / PAGE_TYPE_FILE).exists()
+        ):
             out.append(sub.name)
     return out
 
@@ -200,21 +221,88 @@ def load_page_scores(client: str, page: str) -> dict[str, Any]:
 
 
 def load_page_recos(client: str, page: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """Returns (rich_recos_list, page_meta) from recos_enriched.json."""
-    data = _read_json(CAPTURES_DIR / client / page / RECOS_FILE)
-    if not data:
-        return [], {}
-    recos = data.get("recos") or []
+    """Returns (merged_recos_list, page_meta).
+
+    Merge strategy (Wave C.1-bis):
+    - PRIMARY source: ``recos_v13_final.json`` (fresh, May 4, current pipeline).
+    - Per-reco overlay from ``recos_enriched.json`` (April 18 narrative-rich)
+      keyed by ``criterion_id``. We layer the narrative fields (reco_text,
+      anti_patterns, schwartz_awareness, ab_variants, perception, pillar)
+      from the enriched source ONTO the fresh record. Fresh wins on
+      scoring/quantification fields (effort_hours, expected_lift_pct, _grounding).
+    - Recos present in enriched but absent from v13_final are appended as
+      ``_legacy_only=true`` (rare — 3 ids on weglot/home).
+
+    Page meta is sourced from whichever file is present (fresh wins).
+    """
+    page_dir = CAPTURES_DIR / client / page
+    fresh_data = _read_json(page_dir / RECOS_FILE_FRESH) or {}
+    narr_data = _read_json(page_dir / RECOS_FILE_NARRATIVE) or {}
+
+    fresh_recos = fresh_data.get("recos") or []
+    narr_recos = narr_data.get("recos") or []
+    # Index narrative by criterion_id for O(1) merge.
+    narr_by_cid: dict[str, dict[str, Any]] = {}
+    for r in narr_recos:
+        cid = r.get("criterion_id") or r.get("criterion")
+        if cid:
+            narr_by_cid[cid] = r
+
+    merged: list[dict[str, Any]] = []
+    matched_cids: set[str] = set()
+    for fresh in fresh_recos:
+        cid = fresh.get("criterion_id") or fresh.get("criterion")
+        narr = narr_by_cid.get(cid) if cid else None
+        record = dict(fresh)  # start with fresh as base
+        if narr:
+            matched_cids.add(cid)
+            # Overlay narrative-only fields (don't override fresh quantification)
+            for k in (
+                "reco_text",
+                "anti_patterns",
+                "schwartz_awareness",
+                "ab_variants",
+                "perception",
+                "pillar",
+                "feasibility",  # rich dict with effort_days/feasibility_flag
+                "business_category",
+                "enricher_version",
+                "v32_weight_boost",
+                "cascade",
+                "prerequisite_cascade",
+                "status",
+                "enriched_at",
+                "impact",
+                "guardrails_triggered",
+            ):
+                if k in narr and narr[k] is not None and record.get(k) is None:
+                    record[k] = narr[k]
+        merged.append(record)
+
+    # Append legacy-only narrative recos (criterion_ids not seen in fresh)
+    for cid, narr in narr_by_cid.items():
+        if cid not in matched_cids:
+            record = dict(narr)
+            record["_legacy_only"] = True
+            merged.append(record)
+
+    # Page meta — fresh preferred, narrative fallback
     meta = {
-        "doctrine_version": data.get("doctrine_version"),
-        "enricher_version": data.get("enricher_version"),
-        "business_category": data.get("business_category"),
-        "page_type": data.get("page_type"),
-        "schwartz_awareness": data.get("schwartz_awareness"),
-        "v32_applicability_overlay": data.get("v32_applicability_overlay"),
-        "v32_contextual_overlay": data.get("v32_contextual_overlay"),
+        "doctrine_version": fresh_data.get("doctrine_version") or narr_data.get("doctrine_version"),
+        "enricher_version": narr_data.get("enricher_version") or fresh_data.get("enricher_version"),
+        "business_category": narr_data.get("business_category") or fresh_data.get("business_category"),
+        "page_type": fresh_data.get("page_type") or narr_data.get("page_type") or page,
+        "schwartz_awareness": narr_data.get("schwartz_awareness"),
+        "v32_applicability_overlay": narr_data.get("v32_applicability_overlay"),
+        "v32_contextual_overlay": narr_data.get("v32_contextual_overlay"),
+        "pipeline_source_fresh": bool(fresh_recos),
+        "pipeline_source_narrative": bool(narr_recos),
+        "n_fresh": len(fresh_recos),
+        "n_narrative": len(narr_recos),
+        "n_merged": len(merged),
+        "n_matched": len(matched_cids),
     }
-    return recos, meta
+    return merged, meta
 
 
 # ---------------------------------------------------------------------------
@@ -461,28 +549,43 @@ def collect_per_client(slug: str) -> dict[str, Any]:
 
 
 def summarize_dry(panel: dict[str, Any], clients_db: dict[str, Any], slugs: list[str]) -> None:
-    """Dry-run: print per-client + per-page counts + sample reco field richness."""
+    """Dry-run: per-client merge stats (fresh + narrative + matched)."""
     total_pages = 0
     total_recos = 0
-    rich_recos = 0  # recos with reco_text non-empty
+    rich_recos = 0  # recos with reco_text non-empty (post-merge)
+    has_before_after = 0  # recos with fresh before/after/why (post-merge)
     sample_done = False
+    n_fresh_only_pages = 0
+    n_narrative_only_pages = 0
+    n_both_pages = 0
     for slug in slugs:
         data = collect_per_client(slug)
         n_pages = len(data["pages"])
-        n_recos = sum(len(p["recos"]) for p in data["pages"])
-        n_rich = sum(
-            1
-            for p in data["pages"]
-            for r in p["recos"]
-            if (r.get("reco_text") or "").strip()
-        )
+        n_recos = 0
+        n_rich_c = 0
+        n_ba_c = 0
+        for p in data["pages"]:
+            n_recos += len(p["recos"])
+            meta = p["meta"]
+            if meta.get("pipeline_source_fresh") and meta.get("pipeline_source_narrative"):
+                n_both_pages += 1
+            elif meta.get("pipeline_source_fresh"):
+                n_fresh_only_pages += 1
+            elif meta.get("pipeline_source_narrative"):
+                n_narrative_only_pages += 1
+            for r in p["recos"]:
+                if (r.get("reco_text") or "").strip():
+                    n_rich_c += 1
+                if r.get("before") or r.get("after") or r.get("why"):
+                    n_ba_c += 1
         total_pages += n_pages
         total_recos += n_recos
-        rich_recos += n_rich
+        rich_recos += n_rich_c
+        has_before_after += n_ba_c
         client_row = normalize_client(slug, panel.get(slug, {}), clients_db.get(slug, {}), data["brand_dna"])
         print(
-            f"  {slug:30s}  pages={n_pages:2d}  recos={n_recos:3d}  rich={n_rich:3d}"
-            f"  brand_dna={'✓' if data['brand_dna'] else '·'}"
+            f"  {slug:30s}  pages={n_pages:2d}  recos={n_recos:3d}  rich_text={n_rich_c:3d}"
+            f"  fresh_ba={n_ba_c:3d}  brand_dna={'✓' if data['brand_dna'] else '·'}"
             f"  category={client_row.get('business_category') or '?'}"
         )
         if not sample_done and data["pages"]:
@@ -490,16 +593,24 @@ def summarize_dry(panel: dict[str, Any], clients_db: dict[str, Any], slugs: list
             if sample_page["recos"]:
                 sample = sample_page["recos"][0]
                 fields = sorted(sample.keys())
-                print(f"\n  SAMPLE reco fields ({slug}/{sample_page['page_type']}, n={len(fields)}):")
+                print(f"\n  SAMPLE merged reco fields ({slug}/{sample_page['page_type']}, n={len(fields)}):")
                 print(f"    {fields}")
-                print(f"    reco_text[:160] = {repr((sample.get('reco_text') or '')[:160])}")
-                print(f"    pillar = {sample.get('pillar')}")
-                print(f"    anti_patterns_n = {len(sample.get('anti_patterns') or [])}\n")
+                print(f"    [fresh] before[:120] = {repr((sample.get('before') or '')[:120])}")
+                print(f"    [fresh] after[:120]  = {repr((sample.get('after') or '')[:120])}")
+                print(f"    [fresh] why[:120]    = {repr((sample.get('why') or '')[:120])}")
+                print(f"    [narr]  reco_text[:120] = {repr((sample.get('reco_text') or '')[:120])}")
+                print(f"    [narr]  pillar = {sample.get('pillar')}")
+                print(f"    [narr]  anti_patterns_n = {len(sample.get('anti_patterns') or [])}")
+                print(f"    [meta] {sample_page['meta'].get('n_fresh')} fresh + {sample_page['meta'].get('n_narrative')} narrative → {sample_page['meta'].get('n_merged')} merged ({sample_page['meta'].get('n_matched')} matched cids)\n")
                 sample_done = True
     print(
         f"\n[migrate] TOTALS: {len(slugs)} clients · {total_pages} pages · "
-        f"{total_recos} recos ({rich_recos} with reco_text non-empty, "
-        f"{(rich_recos * 100 // total_recos) if total_recos else 0}%)"
+        f"{total_recos} recos\n"
+        f"  rich `reco_text` (narrative)        : {rich_recos} ({(rich_recos * 100 // total_recos) if total_recos else 0}%)\n"
+        f"  fresh `before/after/why` (May 4)    : {has_before_after} ({(has_before_after * 100 // total_recos) if total_recos else 0}%)\n"
+        f"  pages with BOTH sources             : {n_both_pages}\n"
+        f"  pages with fresh ONLY               : {n_fresh_only_pages}\n"
+        f"  pages with narrative ONLY           : {n_narrative_only_pages}"
     )
 
 

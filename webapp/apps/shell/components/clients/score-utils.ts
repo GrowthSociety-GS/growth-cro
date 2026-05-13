@@ -169,36 +169,72 @@ export function extractRichReco(
   };
   if (!content || typeof content !== "object") return empty;
 
-  // recoText prefers the long-form `reco_text` (V3.2.0 enricher) and falls
-  // back to `summary` / `description` for seed-data minimaliste.
-  const recoText =
+  // recoText prefers the long-form `reco_text` (V3.2.0 enricher, narrative
+  // April 18). Wave C.1-bis (2026-05-14): also accept the fresh May 4 schema
+  // `before/after/why` from `recos_v13_final.json` and synthesize a narrative
+  // when the legacy enriched file is absent.
+  let recoText =
     asString(content.reco_text) ??
     asString(content.summary) ??
     asString(content.description);
 
+  const before = asString(content.before);
+  const after = asString(content.after);
+  const why = asString(content.why);
+  if (!recoText && (before || after || why)) {
+    const parts: string[] = [];
+    if (before) parts.push(`AVANT — ${before}`);
+    if (after) parts.push(`APRÈS — ${after}`);
+    if (why) parts.push(`POURQUOI — ${why}`);
+    recoText = parts.join("\n\n");
+  }
+
   const pillar = asString(content.pillar);
   const severity = asString(content.severity);
   const enricherVersion = asString(content.enricher_version);
+  // expected_lift_pct: numeric in fresh schema, percent-formatted string in
+  // enricher payloads.
   const expectedLiftPct =
     asNumber(content.expected_lift_pct) ??
     asNumber((content as { expectedLiftPct?: unknown }).expectedLiftPct);
 
-  // `effort_days` may live at top level OR nested under `feasibility`.
+  // effort_days: fresh schema uses `effort_hours`, enricher uses `effort_days`
+  // (top-level or nested under `feasibility`). Convert hours → days when
+  // needed (8h/day per doctrine `feasibility.doctrine_threshold`).
   let effortDays = asNumber(content.effort_days);
   if (effortDays === null && typeof content.feasibility === "object") {
     effortDays = asNumber(
       (content.feasibility as { effort_days?: unknown }).effort_days
     );
   }
+  if (effortDays === null) {
+    const hours = asNumber(content.effort_hours);
+    if (hours !== null && hours > 0) {
+      effortDays = Math.max(1, Math.round(hours / 8));
+    }
+  }
 
   const iceScore = asNumber(content.ice_score);
 
+  // Anti-patterns: prefer the rich structured shape from the enricher;
+  // fall back to a synthetic single anti-pattern derived from
+  // `before` + `why` when narrative is absent (Wave C.1-bis).
   const antiPatternsRaw = Array.isArray(content.anti_patterns)
     ? content.anti_patterns
     : [];
-  const antiPatterns = antiPatternsRaw
+  let antiPatterns = antiPatternsRaw
     .map(extractAntiPattern)
     .filter((x): x is AntiPattern => x !== null);
+  if (antiPatterns.length === 0 && (before || why || after)) {
+    antiPatterns = [
+      {
+        pattern: before,
+        why_bad: why,
+        instead_do: after,
+        examples_good: [],
+      },
+    ];
+  }
 
   const examplesGood = asStringArray(content.examples_good);
 
