@@ -380,3 +380,390 @@ a:hover {
     text-align: left;
   }
 }
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Grain texture — fixed full-page SVG noise overlay (V26 reference).
+ * Adds the prestige feel of a luxury dashboard. Click-through transparent.
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Modal system — accessible (focus trap + ESC close + backdrop click).
+ * Used for edit/create/delete actions on recos/audits/clients (SP-7 CRUD).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 11, 16, 0.78);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  animation: gc-fade-in 0.15s ease;
+}
+
+@keyframes gc-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gc-modal {
+  background: var(--gc-panel);
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  box-shadow: var(--gc-shadow);
+  width: min(640px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  animation: gc-modal-in 0.18s ease;
+}
+
+@keyframes gc-modal-in {
+  from {
+    transform: translateY(12px) scale(0.985);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.gc-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gc-line-soft);
+}
+
+.gc-modal__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--gc-text);
+}
+
+.gc-modal__close {
+  border: 1px solid var(--gc-line);
+  background: transparent;
+  color: var(--gc-muted);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.gc-modal__close:hover {
+  border-color: var(--gc-gold);
+  color: var(--gc-gold);
+}
+
+.gc-modal__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: auto;
+}
+
+.gc-modal__foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--gc-line-soft);
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Tabs system — controlled, used for page-types navigation (SP-4).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--gc-line);
+  margin-bottom: 12px;
+}
+
+.gc-tab {
+  border: 1px solid transparent;
+  border-bottom: 0;
+  background: transparent;
+  color: var(--gc-muted);
+  padding: 9px 12px;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: -1px;
+}
+
+.gc-tab:hover {
+  color: var(--gc-text);
+}
+
+.gc-tab--active {
+  background: var(--gc-panel);
+  border-color: var(--gc-line);
+  border-bottom-color: var(--gc-panel);
+  color: var(--gc-gold);
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Form row — label + input + hint, used inside modals (SP-7).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gc-form-row__label {
+  font-size: 11px;
+  color: var(--gc-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+}
+
+.gc-form-row__input,
+.gc-form-row__select,
+.gc-form-row__textarea {
+  width: 100%;
+  background: var(--gc-bg);
+  border: 1px solid var(--gc-line);
+  color: var(--gc-text);
+  border-radius: 6px;
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+
+.gc-form-row__input:focus,
+.gc-form-row__select:focus,
+.gc-form-row__textarea:focus {
+  outline: 2px solid var(--gc-gold);
+  outline-offset: 1px;
+  border-color: var(--gc-gold);
+}
+
+.gc-form-row__hint {
+  font-size: 11px;
+  color: var(--gc-muted);
+}
+
+.gc-form-row__error {
+  font-size: 11px;
+  color: var(--gc-red);
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Mono code block — for JSON briefs viewer (SP-5 GSG).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-mono {
+  background: var(--gc-ink);
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  color: #dbe3ef;
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 680px;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Brand DNA — colors swatches + typography + voice (SP-3).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-dna-colors {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.gc-dna-swatch {
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  overflow: hidden;
+  background: var(--gc-panel);
+}
+
+.gc-dna-swatch__color {
+  height: 80px;
+  width: 100%;
+}
+
+.gc-dna-swatch__meta {
+  padding: 8px 10px;
+}
+
+.gc-dna-swatch__name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gc-text);
+  margin: 0;
+}
+
+.gc-dna-swatch__hex {
+  font-size: 11px;
+  color: var(--gc-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  margin: 2px 0 0;
+}
+
+.gc-dna-typo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  background: var(--gc-panel);
+}
+
+.gc-dna-typo__sample {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gc-text);
+  letter-spacing: -0.01em;
+}
+
+.gc-dna-voice {
+  padding: 14px;
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  background: var(--gc-panel);
+  color: var(--gc-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Doctrine bloc — V3.2.1 piliers structured viewer (SP-4 extension).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-doctrine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.gc-doctrine-bloc {
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  padding: 12px;
+  background: var(--gc-panel);
+}
+
+.gc-doctrine-bloc__title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gc-gold);
+  margin: 0 0 6px;
+  font-weight: 800;
+}
+
+.gc-doctrine-bloc__count {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--gc-text);
+  margin: 0;
+}
+
+.gc-doctrine-bloc__hint {
+  font-size: 11px;
+  color: var(--gc-muted);
+  margin: 4px 0 0;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Funnel viz — sales funnel steps (SP-10, optional).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-funnel-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (max-width: 720px) {
+  .gc-funnel-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gc-funnel-step {
+  border: 1px solid var(--gc-line);
+  border-radius: var(--gc-radius);
+  padding: 12px;
+  background: var(--gc-panel);
+  text-align: center;
+}
+
+.gc-funnel-step__label {
+  font-size: 12px;
+  color: var(--gc-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gc-funnel-step__value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gc-text);
+  margin: 6px 0 0;
+}
+
+.gc-funnel-step__rate {
+  font-size: 12px;
+  color: var(--gc-green);
+  margin-top: 2px;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+ * Utility — visually hidden but accessible (SR labels).
+ * ─────────────────────────────────────────────────────────────────────── */
+
+.gc-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

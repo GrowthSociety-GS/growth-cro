@@ -10,5 +10,8 @@ export { Pill } from "./components/Pill";
 export { ClientRow } from "./components/ClientRow";
 export { NavItem } from "./components/NavItem";
 export { ConsentBanner } from "./components/ConsentBanner";
+export { Modal } from "./components/Modal";
+export { Tabs } from "./components/Tabs";
+export { FormRow } from "./components/FormRow";
 export { tokens } from "./tokens";
 export type { ButtonVariant } from "./components/Button";

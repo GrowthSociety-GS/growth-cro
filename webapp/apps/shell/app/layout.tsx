@@ -16,6 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="fr">
       <body>
         {children}
+        <div className="gc-grain" aria-hidden="true" />
         <ConsentBanner />
       </body>
     </html>
