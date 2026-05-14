@@ -17,8 +17,8 @@
 
 import { useState, useMemo } from "react";
 import { scoreColor } from "@growthcro/ui";
-import type { ScentBreakSeverity, ScentTrailRow } from "@/lib/scent-fs";
-import { maxSeverity } from "@/lib/scent-fs";
+import type { ScentBreakSeverity, ScentTrailRow } from "@/lib/scent-types";
+import { maxSeverity } from "@/lib/scent-types";
 
 type SortKey = "slug" | "n_breaks" | "max_severity" | "captured_at" | "scent_score";
 type SortDir = "asc" | "desc";

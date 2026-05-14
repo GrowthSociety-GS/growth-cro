@@ -13,7 +13,7 @@
 // Maps to the Pill tones already defined in @growthcro/ui.
 
 import { Pill } from "@growthcro/ui";
-import type { ScentBreak, ScentBreakSeverity } from "@/lib/scent-fs";
+import type { ScentBreak, ScentBreakSeverity } from "@/lib/scent-types";
 
 type Props = {
   clientSlug: string;

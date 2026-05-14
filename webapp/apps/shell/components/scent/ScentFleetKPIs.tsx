@@ -13,8 +13,8 @@
 //                       / "high" with the numeric float as hint.
 
 import { KpiCard } from "@growthcro/ui";
-import type { ScentTrailRow } from "@/lib/scent-fs";
-import { severityWeight } from "@/lib/scent-fs";
+import type { ScentTrailRow } from "@/lib/scent-types";
+import { severityWeight } from "@/lib/scent-types";
 
 type Props = {
   rows: ScentTrailRow[];

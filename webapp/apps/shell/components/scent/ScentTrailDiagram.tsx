@@ -18,8 +18,8 @@
 "use client";
 
 import { useState } from "react";
-import type { ScentNode, ScentNodeKey, ScentTrailRow } from "@/lib/scent-fs";
-import { hasBreakBetween, SCENT_EDGES } from "@/lib/scent-fs";
+import type { ScentNode, ScentNodeKey, ScentTrailRow } from "@/lib/scent-types";
+import { hasBreakBetween, SCENT_EDGES } from "@/lib/scent-types";
 
 type Props = {
   trail: ScentTrailRow;
