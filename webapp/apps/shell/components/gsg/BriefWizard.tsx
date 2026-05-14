@@ -1,10 +1,28 @@
 "use client";
 
+// BriefWizard — admin-only intake form that captures the GSG brief shape and
+// hands it off to the pipeline-trigger backend.
+//
+// Sprint 10 / Task 010 — gsg-design-grammar-viewer-restore (2026-05-15) :
+// rewired to use `<TriggerRunButton type="gsg" metadata={...} />` (Task 002)
+// instead of the previous orphan `triggerGsgRun()` direct-fetch path. The
+// orphan path remains in `lib/gsg-api.ts` for backward compat (not deleted —
+// see the file's deprecation note) but is no longer called from the UI.
+//
+// Admin gating : the underlying `POST /api/runs` route uses `requireAdmin()`,
+// so non-admin sessions get a 403 surfaced by `<TriggerRunButton>`. The
+// wizard itself is shown to every authenticated user — the gate is at the
+// API boundary, not the UI.
+//
+// Wire format (matches `TriggerRunButton.Metadata`) : passes `client_slug`,
+// `page_type`, `mode`, plus the optional `audience` field. The remaining
+// brief fields (`product_name`, `one_line_pitch`, `primary_cta`,
+// `brand_voice`) are persisted to the runs row via `metadata_json` once
+// Phase B extends the Metadata type — for now they live in the preview only.
+
 import { useState } from "react";
-import { Button, Pill } from "@growthcro/ui";
-import { triggerGsgRun, type GsgBrief } from "@/lib/gsg-api";
-import { useSupabase } from "@/lib/use-supabase";
-import { insertRun } from "@growthcro/data";
+import { Pill } from "@growthcro/ui";
+import { TriggerRunButton } from "@/components/runs/TriggerRunButton";
 
 const PAGE_TYPES = [
   "lp_listicle",
@@ -45,10 +63,7 @@ type Props = {
 };
 
 export function BriefWizard({ onPreview, clients }: Props) {
-  const supabase = useSupabase();
   const [values, setValues] = useState<WizardValues>(INITIAL);
-  const [pending, setPending] = useState(false);
-  const [message, setMessage] = useState<{ tone: "ok" | "err"; text: string } | null>(null);
 
   function update<K extends keyof WizardValues>(key: K, value: WizardValues[K]) {
     setValues((v) => ({ ...v, [key]: value }));
@@ -59,43 +74,21 @@ export function BriefWizard({ onPreview, clients }: Props) {
     onPreview(values);
   }
 
-  async function runGsg() {
-    setPending(true);
-    setMessage(null);
-    try {
-      const brief: GsgBrief = {
-        client_slug: values.client_slug,
-        page_type: values.page_type,
-        mode: values.mode,
-        product_name: values.product_name,
-        one_line_pitch: values.one_line_pitch,
-        primary_cta: values.primary_cta,
-        brand_voice: values.brand_voice || undefined,
-        target_audience: values.target_audience || undefined,
-      };
-      // Best-effort: write a pending run row directly via Supabase so the
-      // shell live feed picks it up immediately even if the backend is offline.
-      try {
-        await insertRun(supabase, {
-          type: "gsg",
-          client_id: null,
-          status: "pending",
-          started_at: new Date().toISOString(),
-          finished_at: null,
-          output_path: null,
-          metadata_json: brief as unknown as Record<string, unknown>,
-        });
-      } catch {
-        /* anonymous role probably blocked by RLS — accept */
-      }
-      const { run_id } = await triggerGsgRun(brief);
-      setMessage({ tone: "ok", text: `Run lancé : ${run_id}` });
-    } catch (e) {
-      setMessage({ tone: "err", text: (e as Error).message });
-    } finally {
-      setPending(false);
-    }
-  }
+  // Build the metadata payload for `TriggerRunButton`. Empty strings are
+  // skipped so the runs row stays clean. The Task 002 route accepts the
+  // shape `{ type, client_slug?, page_type?, mode?, audience?, ... }`.
+  const triggerMetadata = {
+    client_slug: values.client_slug || undefined,
+    page_type: values.page_type,
+    mode: values.mode,
+    audience: values.target_audience || undefined,
+  };
+
+  const canTrigger =
+    values.client_slug.length > 0 &&
+    values.product_name.length > 0 &&
+    values.one_line_pitch.length > 0 &&
+    values.primary_cta.length > 0;
 
   return (
     <form className="gc-wizard" onSubmit={previewBrief}>
@@ -183,15 +176,25 @@ export function BriefWizard({ onPreview, clients }: Props) {
           placeholder="ex: PME e-commerce internationale"
         />
       </label>
-      <div style={{ display: "flex", gap: 8, marginTop: 6 }}>
-        <Button type="submit">Prévisualiser</Button>
-        <Button type="button" variant="primary" disabled={pending} onClick={runGsg}>
-          {pending ? "Lancement…" : "Lancer le run GSG"}
-        </Button>
+      <div
+        style={{
+          display: "flex",
+          gap: 8,
+          marginTop: 6,
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
+        <button type="submit" className="gc-btn">
+          Prévisualiser
+        </button>
+        <TriggerRunButton
+          type="gsg"
+          label={canTrigger ? "Lancer le run GSG" : "Compléter le brief"}
+          disabled={!canTrigger}
+          metadata={triggerMetadata}
+        />
       </div>
-      {message ? (
-        <p className={message.tone === "ok" ? "gc-success" : "gc-error"}>{message.text}</p>
-      ) : null}
       <p style={{ marginTop: 6 }}>
         <Pill tone="cyan">Anti-pattern guard</Pill>{" "}
         <span style={{ fontSize: 12, color: "var(--gc-muted)" }}>
