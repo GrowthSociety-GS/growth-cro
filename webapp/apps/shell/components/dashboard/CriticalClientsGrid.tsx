@@ -54,7 +54,16 @@ export function CriticalClientsGrid({ clients }: Props) {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ fontWeight: 600, fontSize: 14 }}>{c.name}</div>
+              <div style={{ fontWeight: 600, fontSize: 14 }}>
+                {c.name}
+                {c.p0_count > 0 ? (
+                  <span
+                    className="gc-p0-dot"
+                    aria-label={`${c.p0_count} reco P0 active${c.p0_count > 1 ? "s" : ""}`}
+                    title={`${c.p0_count} P0 active${c.p0_count > 1 ? "s" : ""}`}
+                  />
+                ) : null}
+              </div>
               <span
                 className="gc-pill gc-pill--red"
                 style={{ fontVariantNumeric: "tabular-nums" }}

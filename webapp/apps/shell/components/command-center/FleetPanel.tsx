@@ -149,7 +149,16 @@ export function FleetPanel({ clients, p0CountsByClient, selectedSlug }: Props) {
                   aria-pressed={isActive}
                 >
                   <div className="gc-client-row__top">
-                    <span className="gc-client-row__name">{c.name}</span>
+                    <span className="gc-client-row__name">
+                      {c.name}
+                      {p0 > 0 ? (
+                        <span
+                          className="gc-p0-dot"
+                          aria-label={`${p0} reco P0 active${p0 > 1 ? "s" : ""}`}
+                          title={`${p0} P0 active${p0 > 1 ? "s" : ""}`}
+                        />
+                      ) : null}
+                    </span>
                     <span className="gc-client-row__score">
                       {c.avg_score_pct !== null ? Math.round(c.avg_score_pct) : "—"}
                     </span>

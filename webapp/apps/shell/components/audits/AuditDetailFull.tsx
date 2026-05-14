@@ -18,6 +18,8 @@ import {
 } from "@/components/clients/score-utils";
 import { RichRecoCard } from "@/components/audits/RichRecoCard";
 import { AuditScreenshotsPanel } from "@/components/audits/AuditScreenshotsPanel";
+import { V26Panels } from "@/components/audits/V26Panels";
+import { CanonicalTunnelTab } from "@/components/audits/CanonicalTunnelTab";
 
 type Props = {
   audit: Audit;
@@ -26,6 +28,8 @@ type Props = {
   clientSlug: string;
   /** When true, render Edit/Delete triggers on each RichRecoCard (admin views). */
   editable?: boolean;
+  /** Sprint 6 — surfaced on V26Panels + ClientHeroBlock. Defensive null. */
+  brandDna?: Record<string, unknown> | null;
 };
 
 const TOP_RECOS_EXPANDED = 5;
@@ -161,25 +165,40 @@ export function AuditDetailFull({
   clientName,
   clientSlug,
   editable,
+  brandDna = null,
 }: Props) {
   return (
-    <div className="gc-audit-detail__grid">
-      <div className="gc-stack">
-        <ScoresCard audit={audit} />
-        <RecosCard
-          audit={audit}
-          recos={recos}
-          clientName={clientName}
-          clientSlug={clientSlug}
-          editable={editable}
-        />
-      </div>
+    <div className="gc-stack">
+      {/* Task 005 — per-client overview tiles + canonical-tunnel gate. The
+          tunnel surface only renders when audit.scores_json.canonical_tunnel
+          exists, so it's silently absent for most audits. */}
+      <V26Panels
+        audit={audit}
+        recos={recos}
+        clientName={clientName}
+        clientSlug={clientSlug}
+        brandDna={brandDna}
+      />
+      <CanonicalTunnelTab audit={audit} recos={recos} />
 
-      <div className="gc-stack">
-        <AuditScreenshotsPanel
-          clientSlug={clientSlug}
-          pageSlug={audit.page_slug}
-        />
+      <div className="gc-audit-detail__grid">
+        <div className="gc-stack">
+          <ScoresCard audit={audit} />
+          <RecosCard
+            audit={audit}
+            recos={recos}
+            clientName={clientName}
+            clientSlug={clientSlug}
+            editable={editable}
+          />
+        </div>
+
+        <div className="gc-stack">
+          <AuditScreenshotsPanel
+            clientSlug={clientSlug}
+            pageSlug={audit.page_slug}
+          />
+        </div>
       </div>
     </div>
   );

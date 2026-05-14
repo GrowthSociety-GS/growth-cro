@@ -143,6 +143,7 @@ export default async function SingleAuditDetail({
         clientName={client.name}
         clientSlug={client.slug}
         editable={isAdmin}
+        brandDna={client.brand_dna_json}
       />
     </main>
   );

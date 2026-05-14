@@ -1,6 +1,7 @@
 "use client";
 
-// SP-4 — Page-types tabs (V26 .page-tabs parity).
+// SP-4 — Page-types tabs (V26 .page-tabs parity) + Sprint 6 / Task 005
+// sticky-top behaviour.
 //
 // Client Component. Wraps `@growthcro/ui` `Tabs` and syncs the active tab to
 // the URL via `?page_type=<type>` so the selection is shareable and survives
@@ -11,6 +12,11 @@
 // + .page-tab--converged-notice) + L1971-L1979 (selectPage). Our tabs are
 // auto-discovered from `groupAuditsByPageType(audits)` so we always show what
 // data exists.
+//
+// Task 005 — sticky-top : when the audits-list page scrolls, the tabs stay
+// visible. We use CSS `position: sticky; top: 0` on a wrapper div with a
+// translucent backdrop so the underlying content remains legible. Falls
+// back to plain layout on browsers without sticky support.
 import { useCallback } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Tabs } from "@growthcro/ui";
@@ -58,5 +64,9 @@ export function PageTypesTabs({ groups, activePageType }: Props) {
         : undefined,
   }));
 
-  return <Tabs items={items} active={activePageType} onChange={onChange} />;
+  return (
+    <div className="gc-sticky-tabs">
+      <Tabs items={items} active={activePageType} onChange={onChange} />
+    </div>
+  );
 }

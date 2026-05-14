@@ -21,6 +21,8 @@ import { LifecyclePill } from "@/components/audits/LifecyclePill";
 import { EvidencePill } from "@/components/audits/EvidencePill";
 import { RecoBboxCrop } from "@/components/audits/RecoBboxCrop";
 import { RecoSynthesisTabs } from "@/components/audits/RecoSynthesisTabs";
+import { criterionPillText } from "@/lib/criteria-labels";
+import { useViewport } from "@/lib/use-viewport";
 
 type Props = {
   reco: Reco;
@@ -71,13 +73,20 @@ export function RichRecoCard({
   editable = false,
   clientSlug,
   pageSlug,
-  screenshotFilename = "desktop_full.png",
+  screenshotFilename,
 }: Props) {
   const [open, setOpen] = useState(defaultOpen);
   const [debugOpen, setDebugOpen] = useState(false);
   const rich = extractRichReco(reco.content_json);
   const priority = reco.priority;
-  const screenshotUrl = buildScreenshotUrl(clientSlug, pageSlug, screenshotFilename);
+  // Task 005 — bbox crop follows the shared viewport toggle (💻 / 📱).
+  // Explicit `screenshotFilename` prop still wins when the caller pins one.
+  const { viewport } = useViewport();
+  const effectiveFilename =
+    screenshotFilename ??
+    (viewport === "mobile" ? "mobile_full.png" : "desktop_full.png");
+  const screenshotUrl = buildScreenshotUrl(clientSlug, pageSlug, effectiveFilename);
+  const criterionText = criterionPillText(reco.criterion_id);
 
   return (
     <article className={`gc-rich-reco gc-rich-reco--${priority.toLowerCase()}`}>
@@ -88,8 +97,10 @@ export function RichRecoCard({
             <Pill tone={severityTone(rich.severity)}>{rich.severity}</Pill>
           ) : null}
           {rich.pillar ? <Pill tone="soft">{rich.pillar}</Pill> : null}
-          {reco.criterion_id ? (
-            <Pill tone="soft">{reco.criterion_id}</Pill>
+          {criterionText ? (
+            <span title={reco.criterion_id ?? undefined}>
+              <Pill tone="soft">{criterionText}</Pill>
+            </span>
           ) : null}
           {/* Task 006 — lifecycle pill always rendered (defaults to backlog) */}
           <LifecyclePill
