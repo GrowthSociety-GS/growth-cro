@@ -48,6 +48,40 @@ export type RecoPriority = "P0" | "P1" | "P2" | "P3";
 export type RecoEffort = "S" | "M" | "L";
 export type RecoLift = "S" | "M" | "L";
 
+// Task 006 (Sprint 5, 2026-05-14) — recos.lifecycle_status enum added via
+// migration 20260514_0019_recos_lifecycle.sql. 13-state V26 closed-loop
+// flow : discovery → A/B → shipped → learned.
+export type RecoLifecycleStatus =
+  | "backlog"
+  | "prioritized"
+  | "scoped"
+  | "designing"
+  | "implementing"
+  | "qa"
+  | "staged"
+  | "ab_running"
+  | "ab_inconclusive"
+  | "ab_negative"
+  | "ab_positive"
+  | "shipped"
+  | "learned";
+
+export const RECO_LIFECYCLE_STATES: RecoLifecycleStatus[] = [
+  "backlog",
+  "prioritized",
+  "scoped",
+  "designing",
+  "implementing",
+  "qa",
+  "staged",
+  "ab_running",
+  "ab_inconclusive",
+  "ab_negative",
+  "ab_positive",
+  "shipped",
+  "learned",
+];
+
 export type Reco = {
   id: UUID;
   audit_id: UUID;
@@ -58,6 +92,9 @@ export type Reco = {
   title: string;
   content_json: Record<string, unknown>;
   oco_anchors_json: Record<string, unknown> | null;
+  // Task 006 : optional in TS because legacy code paths may select without
+  // the column ; defaults to 'backlog' for rows seeded pre-migration.
+  lifecycle_status?: RecoLifecycleStatus;
   created_at: ISODateString;
 };
 

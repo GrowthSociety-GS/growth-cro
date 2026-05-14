@@ -108,6 +108,8 @@ export type AntiPattern = {
   examples_good: string[];
 };
 
+export type Bbox = [number, number, number, number];
+
 export type RichRecoContent = {
   recoText: string | null;
   pillar: string | null;
@@ -119,6 +121,15 @@ export type RichRecoContent = {
   antiPatterns: AntiPattern[];
   examplesGood: string[];
   evidenceIds: string[];
+  // Task 006 (Sprint 5) — raw fresh-schema triplet preserved for the 3-tab
+  // synthesis view. When the row uses the legacy enricher shape, these stay
+  // null and `<RecoSynthesisTabs />` falls back to anti_patterns[0].
+  before: string | null;
+  after: string | null;
+  why: string | null;
+  // Task 006 — bbox lives in `content_json.perception.bbox` (when the
+  // enricher actually emitted it) ; mostly null in the current dataset.
+  bbox: Bbox | null;
 };
 
 function asString(v: unknown): string | null {
@@ -152,6 +163,25 @@ function extractAntiPattern(raw: unknown): AntiPattern | null {
   return { pattern, why_bad, instead_do, examples_good };
 }
 
+function extractBbox(content: Record<string, unknown>): Bbox | null {
+  // `content_json.perception.bbox` — V13 enricher attempted shape.
+  // Tolerate raw arrays at the root too (some seed data lives there).
+  const candidates: unknown[] = [];
+  const perception = (content as { perception?: unknown }).perception;
+  if (perception && typeof perception === "object") {
+    candidates.push((perception as { bbox?: unknown }).bbox);
+  }
+  candidates.push((content as { bbox?: unknown }).bbox);
+  for (const c of candidates) {
+    if (!Array.isArray(c) || c.length !== 4) continue;
+    const arr = c.map((v) => (typeof v === "number" && Number.isFinite(v) ? v : null));
+    if (arr.every((v): v is number => v !== null)) {
+      return [arr[0], arr[1], arr[2], arr[3]] as Bbox;
+    }
+  }
+  return null;
+}
+
 export function extractRichReco(
   content: Record<string, unknown> | null
 ): RichRecoContent {
@@ -166,6 +196,10 @@ export function extractRichReco(
     antiPatterns: [],
     examplesGood: [],
     evidenceIds: [],
+    before: null,
+    after: null,
+    why: null,
+    bbox: null,
   };
   if (!content || typeof content !== "object") return empty;
 
@@ -252,6 +286,10 @@ export function extractRichReco(
     antiPatterns,
     examplesGood,
     evidenceIds,
+    before,
+    after,
+    why,
+    bbox: extractBbox(content),
   };
 }
 
