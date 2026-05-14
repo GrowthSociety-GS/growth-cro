@@ -1,31 +1,37 @@
 "use client";
 
-// RichRecoCard — render ONE reco with the full V3.2 enricher shape :
-// `reco_text` long-form (line-breaks + emojis preserved), priority/severity/
-// pillar badges, anti-pattern "pourquoi" / "comment faire" sections, and an
-// expandable debug footer (effort_days · ice_score · enricher_version).
+// RichRecoCard — render ONE reco with the full V3.2 enricher shape plus the
+// V26 Task 006 surfaces : bbox screenshot crop, 3-tab synthesis (Problème /
+// Action / Pourquoi), lifecycle pill (13 states), evidence pill.
 //
-// FR-2b (pivot 2026-05-13). Component is `"use client"` only because of the
-// collapsible state (open/closed). Rendering itself is deterministic.
+// FR-2b (pivot 2026-05-13) → enriched 2026-05-14 (Sprint 5 / Task 006).
 //
-// Defensive against seed-data minimaliste : if `content_json` is just
-// `{ title, summary }`, we render the title + summary + priority pill and
-// skip the rich sections — never throw on missing fields.
+// Defensive : if `content_json` is just `{ title, summary }`, falls back to
+// title + RecoSynthesisTabs "Pas de … renseigné" placeholders. Never throws.
+//
+// Mono-concern : presentation + collapse state. Lifecycle dropdown PATCH +
+// evidence modal are owned by their respective child components.
 
 import { useState } from "react";
 import { Pill } from "@growthcro/ui";
 import type { Reco } from "@growthcro/data";
-import {
-  extractRichReco,
-  type AntiPattern,
-} from "@/components/clients/score-utils";
+import { extractRichReco } from "@/components/clients/score-utils";
 import { RecoEditTrigger } from "@/components/audits/RecoEditTrigger";
+import { LifecyclePill } from "@/components/audits/LifecyclePill";
+import { EvidencePill } from "@/components/audits/EvidencePill";
+import { RecoBboxCrop } from "@/components/audits/RecoBboxCrop";
+import { RecoSynthesisTabs } from "@/components/audits/RecoSynthesisTabs";
 
 type Props = {
   reco: Reco;
   defaultOpen?: boolean;
-  /** Render the edit/delete trigger row. Server pages opt-in (admin views). */
+  /** Render the edit/delete trigger row + lifecycle dropdown. Admin views opt-in. */
   editable?: boolean;
+  /** Slug pair used to construct the screenshot URL for the bbox crop. */
+  clientSlug?: string;
+  pageSlug?: string;
+  /** Optional screenshot filename override (defaults to the desktop fold capture). */
+  screenshotFilename?: string;
 };
 
 function priorityTone(priority: string): "red" | "amber" | "green" | "soft" {
@@ -48,52 +54,33 @@ function formatLift(pct: number | null): string {
   return `+${pct.toFixed(1)}%`;
 }
 
-function AntiPatternSection({ ap }: { ap: AntiPattern }) {
-  const hasWhy = ap.why_bad || ap.pattern;
-  const hasHow = ap.instead_do || ap.examples_good.length > 0;
-  if (!hasWhy && !hasHow) return null;
-  return (
-    <div className="gc-rich-reco__sections">
-      {hasWhy ? (
-        <div className="gc-rich-reco__why">
-          <h4>Pourquoi</h4>
-          {ap.pattern ? (
-            <p className="gc-rich-reco__pattern">{ap.pattern}</p>
-          ) : null}
-          {ap.why_bad ? <p>{ap.why_bad}</p> : null}
-        </div>
-      ) : null}
-      {hasHow ? (
-        <div className="gc-rich-reco__how">
-          <h4>Comment faire</h4>
-          {ap.instead_do ? <p>{ap.instead_do}</p> : null}
-          {ap.examples_good.length > 0 ? (
-            <ul>
-              {/* Wave C.4 (audit A.7 P0.1): stable key from content+index to
-                  survive re-renders if the array reorders. */}
-              {ap.examples_good.map((ex, i) => (
-                <li key={`${i}-${ex.slice(0, 32)}`}>{ex}</li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      ) : null}
-    </div>
-  );
+function buildScreenshotUrl(
+  clientSlug: string | undefined,
+  pageSlug: string | undefined,
+  filename: string,
+): string | null {
+  if (!clientSlug || !pageSlug) return null;
+  return `/api/screenshots/${encodeURIComponent(clientSlug)}/${encodeURIComponent(
+    pageSlug,
+  )}/${encodeURIComponent(filename)}`;
 }
 
-export function RichRecoCard({ reco, defaultOpen = false, editable = false }: Props) {
+export function RichRecoCard({
+  reco,
+  defaultOpen = false,
+  editable = false,
+  clientSlug,
+  pageSlug,
+  screenshotFilename = "desktop_full.png",
+}: Props) {
   const [open, setOpen] = useState(defaultOpen);
   const [debugOpen, setDebugOpen] = useState(false);
   const rich = extractRichReco(reco.content_json);
   const priority = reco.priority;
-  const hasRichSections = rich.antiPatterns.length > 0;
-  const ap = rich.antiPatterns[0] ?? null;
+  const screenshotUrl = buildScreenshotUrl(clientSlug, pageSlug, screenshotFilename);
 
   return (
-    <article
-      className={`gc-rich-reco gc-rich-reco--${priority.toLowerCase()}`}
-    >
+    <article className={`gc-rich-reco gc-rich-reco--${priority.toLowerCase()}`}>
       <header className="gc-rich-reco__head">
         <div className="gc-rich-reco__badges">
           <Pill tone={priorityTone(priority)}>{priority}</Pill>
@@ -104,6 +91,12 @@ export function RichRecoCard({ reco, defaultOpen = false, editable = false }: Pr
           {reco.criterion_id ? (
             <Pill tone="soft">{reco.criterion_id}</Pill>
           ) : null}
+          {/* Task 006 — lifecycle pill always rendered (defaults to backlog) */}
+          <LifecyclePill
+            recoId={reco.id}
+            status={reco.lifecycle_status}
+            editable={editable}
+          />
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {editable ? <RecoEditTrigger reco={reco} /> : null}
@@ -126,13 +119,22 @@ export function RichRecoCard({ reco, defaultOpen = false, editable = false }: Pr
         className="gc-rich-reco__body"
         hidden={!open}
       >
-        {rich.recoText ? (
-          <p className="gc-rich-reco__text" style={{ whiteSpace: "pre-wrap" }}>
-            {rich.recoText}
-          </p>
+        {/* Task 006 — bbox crop on top of the synthesis. Renders only when
+            we have both a bbox AND a screenshot URL. The canvas is lazy
+            (mounted with the parent body that's `hidden` until expanded). */}
+        {open && rich.bbox && screenshotUrl ? (
+          <div style={{ marginBottom: 12 }}>
+            <RecoBboxCrop
+              screenshotUrl={screenshotUrl}
+              bbox={rich.bbox}
+              alt={reco.title}
+            />
+          </div>
         ) : null}
 
-        {hasRichSections && ap ? <AntiPatternSection ap={ap} /> : null}
+        {/* Task 006 — 3-tab synthesis replaces the single body paragraph.
+            Pure rendering, defensive against missing fields. */}
+        <RecoSynthesisTabs rich={rich} />
 
         <footer className="gc-rich-reco__footer">
           <div className="gc-rich-reco__meta">
@@ -146,6 +148,7 @@ export function RichRecoCard({ reco, defaultOpen = false, editable = false }: Pr
             {rich.effortDays !== null ? (
               <Pill tone="soft">{rich.effortDays}j</Pill>
             ) : null}
+            <EvidencePill evidenceIds={rich.evidenceIds} />
           </div>
           <button
             type="button"
@@ -171,10 +174,12 @@ export function RichRecoCard({ reco, defaultOpen = false, editable = false }: Pr
                   </dd>
                 </>
               ) : null}
-              {rich.evidenceIds.length > 0 ? (
+              {rich.bbox ? (
                 <>
-                  <dt>evidence</dt>
-                  <dd>{rich.evidenceIds.join(", ")}</dd>
+                  <dt>bbox</dt>
+                  <dd>
+                    <code>[{rich.bbox.join(", ")}]</code>
+                  </dd>
                 </>
               ) : null}
             </dl>

@@ -120,7 +120,12 @@ function AuditCard({
             </h3>
             <div className="gc-stack">
               {top.map((r) => (
-                <RichRecoCard key={r.id} reco={r} />
+                <RichRecoCard
+                  key={r.id}
+                  reco={r}
+                  clientSlug={clientSlug}
+                  pageSlug={audit.page_slug}
+                />
               ))}
             </div>
             {remaining > 0 ? (

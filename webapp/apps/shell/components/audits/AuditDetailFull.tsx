@@ -79,6 +79,7 @@ function RecosCard({
   audit,
   recos,
   clientName,
+  clientSlug,
   editable,
 }: {
   audit: Audit;
@@ -90,6 +91,7 @@ function RecosCard({
   const sorted = sortRecosByImpact(recos);
   const expanded = sorted.slice(0, TOP_RECOS_EXPANDED);
   const collapsed = sorted.slice(TOP_RECOS_EXPANDED);
+  const pageSlug = audit.page_slug;
 
   return (
     <Card
@@ -113,7 +115,14 @@ function RecosCard({
       ) : (
         <div className="gc-stack">
           {expanded.map((r) => (
-            <RichRecoCard key={r.id} reco={r} defaultOpen editable={editable} />
+            <RichRecoCard
+              key={r.id}
+              reco={r}
+              defaultOpen
+              editable={editable}
+              clientSlug={clientSlug}
+              pageSlug={pageSlug}
+            />
           ))}
           {collapsed.length > 0 ? (
             <details className="gc-audit-recos__more">
@@ -124,7 +133,13 @@ function RecosCard({
               </summary>
               <div className="gc-stack" style={{ marginTop: 10 }}>
                 {collapsed.map((r) => (
-                  <RichRecoCard key={r.id} reco={r} editable={editable} />
+                  <RichRecoCard
+                    key={r.id}
+                    reco={r}
+                    editable={editable}
+                    clientSlug={clientSlug}
+                    pageSlug={pageSlug}
+                  />
                 ))}
               </div>
             </details>
