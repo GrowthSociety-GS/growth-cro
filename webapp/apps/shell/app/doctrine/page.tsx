@@ -1,11 +1,16 @@
-// /doctrine — V3.2.1 piliers viewer (V1 stub).
+// /doctrine — V3.2.1 piliers viewer (SP-6 + Sprint 9 / Task 012).
 //
-// SP-6 webapp-navigation-multi-view 2026-05-13.
-// Server Component rendering the 6 + 1 piliers from playbook V3.2.1 + V3.3
-// utility extension. V1 stub: piliers metadata hardcoded inline (mirrors
-// `playbook/bloc_*_v3-3.json`) since Vercel functions don't ship the
-// `playbook/` folder. A future SP can wire this to a Supabase-stored
-// doctrine_versions table or a build-time JSON import.
+// Server Component composing the V26 doctrine surfaces :
+//   1. ClosedLoopDiagram  — pure inline SVG, 7 nodes, V22 tokens (Task 012).
+//   2. DogfoodCard        — "Growth Society utilise sa propre doctrine."
+//   3. PillierBrowser     — interactive 7-pillier tab + CritereDetail grid
+//                           (uses CRIT_NAMES_V21 from Task 005).
+//   4. Notes V3.2.1 → V3.3.
+//
+// V1 stub: piliers metadata hardcoded inline (mirrors `playbook/bloc_*_v3-3.json`)
+// since Vercel functions don&apos;t ship the `playbook/` folder. A future SP
+// can wire this to a Supabase-stored doctrine_versions table or a build-time
+// JSON import.
 //
 // Mono-concern: this file owns the page composition only; data is a constant.
 
@@ -14,21 +19,18 @@ import { ViewToolbar } from "@/components/ViewToolbar";
 import { Card } from "@growthcro/ui";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { getCurrentRole } from "@/lib/auth-role";
+import { ClosedLoopDiagram } from "@/components/doctrine/ClosedLoopDiagram";
+import { DogfoodCard } from "@/components/doctrine/DogfoodCard";
+import {
+  PillierBrowser,
+  type PillierMeta,
+} from "@/components/doctrine/PillierBrowser";
 
 export const dynamic = "force-dynamic";
 
 // Doctrine V3.2.1 piliers — 6 core + 1 utility extension (V3.3).
 // Sourced from `playbook/bloc_*_v3-3.json` (verified 2026-05-13).
-type Pilier = {
-  block: number | string;
-  pillar: string;
-  label: string;
-  max: number;
-  criteres: number;
-  hint: string;
-};
-
-const PILIERS: Pilier[] = [
+const PILIERS: PillierMeta[] = [
   {
     block: 1,
     pillar: "hero",
@@ -98,7 +100,10 @@ export default async function DoctrinePage() {
   const role = await getCurrentRole().catch(() => null);
   const isAdmin = role === "admin";
   const totalMax = PILIERS.slice(0, 6).reduce((acc, p) => acc + p.max, 0);
-  const totalCriteres = PILIERS.slice(0, 6).reduce((acc, p) => acc + p.criteres, 0);
+  const totalCriteres = PILIERS.slice(0, 6).reduce(
+    (acc, p) => acc + p.criteres,
+    0,
+  );
 
   return (
     <div className="gc-app">
@@ -114,26 +119,19 @@ export default async function DoctrinePage() {
           }
         />
 
-        <Card title="Piliers du scoring V3.2.1">
-          <div className="gc-doctrine-grid">
-            {PILIERS.map((p) => (
-              <article className="gc-doctrine-bloc" key={p.pillar}>
-                <h3 className="gc-doctrine-bloc__title">
-                  Bloc {p.block} · {p.pillar}
-                </h3>
-                <p className="gc-doctrine-bloc__count">
-                  {p.criteres}
-                  <span style={{ fontSize: 12, color: "var(--gc-muted)", marginLeft: 6 }}>
-                    critères / {p.max} pts
-                  </span>
-                </p>
-                <p className="gc-doctrine-bloc__hint">
-                  <strong style={{ color: "var(--gc-soft)" }}>{p.label}.</strong> {p.hint}
-                </p>
-              </article>
-            ))}
-          </div>
+        <Card title="🔄 Closed loop GrowthCRO">
+          <ClosedLoopDiagram />
         </Card>
+
+        <div style={{ marginTop: 14 }}>
+          <DogfoodCard />
+        </div>
+
+        <div style={{ marginTop: 14 }}>
+          <Card title="Piliers du scoring V3.2.1 + V3.3">
+            <PillierBrowser piliers={PILIERS} />
+          </Card>
+        </div>
 
         <div style={{ marginTop: 14 }}>
           <Card title="Notes V3.2.1 → V3.3">
