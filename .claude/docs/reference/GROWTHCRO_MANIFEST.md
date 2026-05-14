@@ -403,6 +403,38 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-15 — D1.A monorepo confirmed via Task 016, architecture-explorer-data updated
+
+**Sprint** : Sprint 10 / Task 016 (`microfrontends-decision-doc`) du MEGA-PRD [`webapp-stratospheric-reconstruction-2026-05`](../../prds/webapp-stratospheric-reconstruction-2026-05.md).
+
+**Décision formalisée** : D1.A — `webapp/` reste un single Next.js 14 shell consolidé (`apps/shell/`, package `@growthcro/shell` v0.28.0). PAS de re-fédération en 5 microfrontends. Verrouillé 2026-05-14 par Mathis (cf [`DECISIONS_2026-05-14.md` §D1](../architecture/DECISIONS_2026-05-14.md)), formalisé en artefacts 2026-05-15 par cette task.
+
+**Artefacts mis à jour (doc-only, 0 webapp/* touché)** :
+- `.claude/docs/architecture/MICROFRONTENDS_DECISION_2026-05-14.md` — **NEW** decision doc autoritaire (rationale solo dev + ~100 clients, trade-offs honnêtes pros/cons, migration path triggers A/B, cross-refs).
+- `deliverables/architecture-explorer-data.js` — `pipelines.webapp_v28.extra.microfrontends` (6 entries) collapsed → 1 `@growthcro/shell v0.28.0` entry. `pipelines.webapp.extra.stages_v28_nextjs_target` "5 microfrontends" remplacé par "single Next.js 14 app". `mermaid_views[4]` rewrited (V28 subgraph = 1 Shell node au lieu de 5 MF nodes). `skills_integration.combo_packs.webapp_nextjs.skills` : `vercel-microfrontends` retiré (max_session 4→3). `skills_integration.essentials` entry `vercel-microfrontends` : `status="dropped"`, `dropped_at="2026-05-15"`, rationale citing D1.A. `meta.revision_notes` field ADDED : `[{date: "2026-05-15", note: "Architecture revised 2026-05-14 per D1.A monorepo decision", task_ref: "Sprint 10 / Task 016"}]`. JS sanity check OK : 251 modules / 7 pipelines / 17 data_artefacts preserved.
+- `scripts/update_architecture_explorer.py` — **NEW** stdlib-only Python utility (idempotent, ~200 LOC), persistence-axis (CODE_DOCTRINE §3). Re-runnable for future architecture audits. `lint_code_hygiene.py --staged` exit 0.
+- `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md` — section §3-bis "Topologie Webapp (D1.A monorepo)" ajoutée (ASCII tree `apps/shell/app/{audits,recos,gsg,reality,learning,clients,settings}`, triggers A/B pour re-évaluer, cross-refs decision doc).
+- `.claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md` v1.4 — `vercel-microfrontends` démoté ESSENTIEL→DROPPED. Combo "Webapp Next.js dev" passe de 5→4 skills permanents. Changelog v1.4 entry ajoutée.
+
+**Rationale rappel (verbatim D1)** :
+1. 1 dev solo (Mathis) + ~100 clients = 6 projets Vercel = overkill.
+2. Epic FR-1 [`webapp-consolidate-architecture`](../../prds/webapp-consolidate-architecture.md) (2026-05-13) a déjà physiquement consolidé les 5 µfrontends en 1 shell.
+3. 1 deploy Vercel + 1 typecheck + 1 build au lieu de 6 (mesuré FR-1 : 17 routes / 87.3 KB first load / middleware 78.5 KB / 0 régression).
+4. Skill optimizing for an architecture we just rejected = cacophonie signal — donc `vercel-microfrontends` drop, pas wait-and-see.
+
+**Migration path documenté** :
+- Trigger A : 2e dev full-time own une feature → re-évaluer D1.B.
+- Trigger B : feature dépasse envelope bundle partagé → lazy-load route-level first, escalade µfrontends si insuffisant.
+- Restore procedure existante : `_archive/webapp_microfrontends_2026-05-12/` (git mv avec history préservée).
+
+**Validation** :
+- `node -e "...eval..."` : JS file parse OK, modules.length=251, counts cohérents.
+- `python3 scripts/update_architecture_explorer.py` × 2 runs : idempotent (second run = "already up to date").
+- `python3 scripts/lint_code_hygiene.py --staged` : exit 0 sur les fichiers nouveaux (Python utility script stdlib-only, axis persistence).
+- 0 webapp/* touché (Task 010 parallèle reste libre sur `apps/shell/app/gsg/`).
+
+**Effort** : doc-only worktree, 3 commits logiques (decision doc + manifest §12 / arch explorer + utility script / product boundaries + blueprint). 0 webapp build/typecheck nécessaire.
+
 ### 2026-05-14 — Sprint 1 + Sprint 2 of MEGA-PRD webapp-stratospheric-reconstruction
 
 **Master PRD** : [`webapp-stratospheric-reconstruction-2026-05`](../../prds/webapp-stratospheric-reconstruction-2026-05.md) — 16 tasks split en 4 tiers, ~25-34 jours solo dev. 2/16 done.

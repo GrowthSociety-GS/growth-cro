@@ -4,7 +4,14 @@ window.ARCH = {
     "generated_at": "2026-05-11T14:19:24Z",
     "source_commit": "1e339f3edd4d67cc1f95c7162d6bb87378a786d6",
     "generated_by": "scripts/update_architecture_map.py",
-    "notes": "Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated."
+    "notes": "Modules section auto-refreshed (path, depends_on, imported_by). purpose/inputs/outputs/doctrine_refs/status/lifecycle_phase are human-curated and preserved across regens. skills_integration section (Issue #17) is 100% human-curated.",
+    "revision_notes": [
+      {
+        "date": "2026-05-15",
+        "note": "Architecture revised 2026-05-14 per D1.A monorepo decision",
+        "task_ref": "Sprint 10 / Task 016"
+      }
+    ]
   },
   "modules": [
     {
@@ -4836,7 +4843,7 @@ window.ARCH = {
         ],
         "stages_v28_nextjs_target": [
           "growthcro/api/server FastAPI exposed via Vercel edge functions",
-          "5 microfrontends: audit-app, reco-app, gsg-studio, reality-monitor, learning-lab",
+          "@growthcro/shell single Next.js 14 app (apps/shell/app/{audits,recos,gsg,reality,learning,clients,settings})",
           "Supabase EU region (auth + tables clients/audits/recos/runs + realtime)"
         ]
       }
@@ -4905,19 +4912,14 @@ window.ARCH = {
     },
     {
       "id": "webapp_v28",
-      "description": "Next.js 14 (App Router) + Supabase EU + Vercel microfrontends. 5 microfrontends + 2 placeholders. Scale Growth Society 100+ clients.",
+      "description": "Next.js 14 (App Router) + Supabase EU. Consolidated single shell per D1.A monorepo decision (2026-05-14). Scale Growth Society 100+ clients.",
       "stages": [],
       "entrypoint": "",
       "duration": "",
-      "status": "V28 v1 — scaffold + migrations + 3 deep microfrontends + 2 placeholders. Deploy Vercel + Supabase EU pending Mathis credentials.",
+      "status": "V28 v2 — single @growthcro/shell v0.28.0 (FR-1 consolidation 2026-05-13, D1.A confirmed 2026-05-14).",
       "extra": {
         "microfrontends": [
-          "shell (3000) — auth + nav + dashboard + realtime runs feed [DEEP]",
-          "audit-app (3001) — clients + audits + scores + recos [DEEP]",
-          "reco-app (3002) — recos browser + filters + priority counts [DEEP]",
-          "gsg-studio (3003) — brief wizard + LP preview + multi-judge stage strip [DEEP]",
-          "reality-monitor (3004) — data sources panel GA4/Meta/Google/Shopify/Clarity [PLACEHOLDER]",
-          "learning-lab (3005) — doctrine proposals V29 + Bayesian V30 tracks [PLACEHOLDER]"
+          "@growthcro/shell v0.28.0 — consolidated Next.js 14 App Router shell (audits/recos/gsg/reality/learning/clients/settings under apps/shell/app/*) [ACTIVE]"
         ],
         "backend": "Option B chosen — FastAPI on Railway/Fly.io (rationale: long-running Playwright capture + LLM scoring incompatible with Vercel edge 30s limit). NEXT_PUBLIC_API_BASE_URL points to Fly.io URL.",
         "auth": "Supabase auth — email/password + magic link via OTP. Cookie httpOnly via @supabase/ssr. Middleware gates everything except /login, /auth/callback, /privacy, /terms.",
@@ -4926,10 +4928,11 @@ window.ARCH = {
         "region": "eu-central-1 (Frankfurt) — RGPD compliance.",
         "target_load_s": 2.0,
         "target_consultants": "100+ clients agence Growth Society + futures agences.",
-        "skills_combo": "frontend-design + web-artifacts-builder + vercel-microfrontends + Figma Implement Design (≤4 per CLAUDE.md anti-pattern",
+        "skills_combo": "frontend-design + web-artifacts-builder + Figma Implement Design (≤4 per CLAUDE.md anti-pattern",
         "task_ref": "Issue #21 webapp-stratosphere",
         "migration_script": "scripts/migrate_v27_to_supabase.py (idempotent, 56 clients × 185 audits × 3045 recos)",
-        "architecture_doc": "architecture/GROWTHCRO_ARCHITECTURE_V1.md"
+        "architecture_doc": "architecture/GROWTHCRO_ARCHITECTURE_V1.md",
+        "architecture_decision": ".claude/docs/architecture/MICROFRONTENDS_DECISION_2026-05-14.md (D1.A)"
       }
     }
   ],
@@ -5198,10 +5201,9 @@ window.ARCH = {
         "skills": [
           "frontend-design",
           "web-artifacts-builder",
-          "vercel-microfrontends",
           "Figma Implement Design"
         ],
-        "max_session": 4,
+        "max_session": 3,
         "activation": "manual at start of sprint webapp V28 (Epic #21)",
         "modules_impacted": [
           "growthcro/api/server"
@@ -5209,7 +5211,7 @@ window.ARCH = {
         "pipeline_stages": [
           "webapp.stages_v28_nextjs_target"
         ],
-        "rationale": "frontend-design pour composants, web-artifacts-builder pour shadcn/Tailwind, vercel-microfrontends pour archi multi-zones, Figma si Mathis fournit un design."
+        "rationale": "frontend-design pour composants, web-artifacts-builder pour shadcn/Tailwind, Figma si Mathis fournit un design. vercel-microfrontends DROPPED 2026-05-15 per D1.A monorepo decision (single @growthcro/shell)."
       }
     },
     "essentials": [
@@ -5236,7 +5238,10 @@ window.ARCH = {
         "source": "skills.sh/vercel/microfrontends/vercel-microfrontends",
         "install_cmd": "npx skills add https://github.com/vercel/microfrontends --skill vercel-microfrontends",
         "installed": false,
-        "combo": "webapp_nextjs"
+        "combo": null,
+        "status": "dropped",
+        "dropped_at": "2026-05-15",
+        "dropped_reason": "D1.A monorepo decision (2026-05-14) — single @growthcro/shell, no multi-zone routing. See MICROFRONTENDS_DECISION_2026-05-14.md."
       },
       {
         "name": "cro-methodology",
@@ -5360,8 +5365,8 @@ window.ARCH = {
       "src": "flowchart TD\n    LP([rendered LP HTML]) --> Orch[\"moteur_multi_judge/orchestrator<br/>V26.AA Sprint 3\"]\n    Orch -->|70% weight| Doctrine[\"judges/doctrine_judge<br/>V3.2.1 — 54 critères + 6 killers\"]\n    Orch -->|30% weight| Humanlike[\"judges/humanlike_judge<br/>wraps skills/gsg_humanlike_audit<br/>(8 dimensions)\"]\n    Orch --> ImplCheck[\"judges/implementation_check<br/>wraps skills/fix_html_runtime<br/>(runtime bug detection)\"]\n\n    Doctrine --> DScore[(\"doctrine_score<br/>+ per-criterion verdicts\")]\n    Humanlike --> HScore[(\"humanlike_score<br/>+ 8-dim breakdown\")]\n    ImplCheck --> Bugs[(\"implementation_bugs<br/>(JS runtime errors, broken counters, …)\")]\n\n    DScore --> Aggregator[\"weighted aggregation<br/>70/30 + killer veto\"]\n    HScore --> Aggregator\n    Bugs --> Aggregator\n    Aggregator --> FinalReport[(\"data/_pipeline_runs/&lt;run&gt;/multi_judge.json<br/>final_score_pct + breakdown\")]\n    FinalReport --> Decision{{\"final_score_pct ≥ 70<br/>+ killers = 0?\"}}\n    Decision -->|YES| Ship([Ship — Weglot V27.2-D baseline: 70.9])\n    Decision -->|NO| Repair[\"growthcro/gsg_lp/repair_loop<br/>(legacy lab)\"]\n    Repair -.iterate.-> LP\n\n    classDef artefact fill:#e8f4ff,stroke:#3a73b0,color:#0c2a4c;\n    class DScore,HScore,Bugs,FinalReport artefact;"
     },
     {
-      "title": "5. Webapp — V27 HTML today, V28 Next.js target",
-      "src": "flowchart TD\n    subgraph V27[\"V27 HTML (active, 56 clients)\"]\n        AuditPipe[\"audit pipeline §2<br/>(56 clients × 185 pages)\"] --> CaptureTree[(\"data/captures/&lt;client&gt;/&lt;page&gt;/*<br/>~150 artefacts/page\")]\n        CaptureTree --> Builder[\"skills/build_growth_audit_data<br/>(consolidates the tree)\"]\n        Builder --> DashJS[(\"deliverables/growth_audit_data.js<br/>12 MB consolidated bundle\")]\n        DashJS --> CommandCenter[/\"deliverables/GrowthCRO-V27-CommandCenter.html<br/>11 panes: Audit / Reco / GSG / …\"/]\n        APIv1[\"growthcro/api/server<br/>FastAPI\"] -.programmatic.-> CommandCenter\n    end\n\n    subgraph V28[\"V28 Next.js (target, Epic #6)\"]\n        SupabaseAuth[\"Supabase EU<br/>auth + tables clients/audits/recos/runs\"]:::pending\n        APIv2[\"growthcro/api/server<br/>via Vercel edge functions\"]:::pending\n        MFAudit[\"audit-app microfrontend\"]:::pending\n        MFReco[\"reco-app microfrontend\"]:::pending\n        MFGSG[\"gsg-studio microfrontend\"]:::pending\n        MFReality[\"reality-monitor microfrontend\"]:::pending\n        MFLearn[\"learning-lab microfrontend\"]:::pending\n        VercelMF[\"vercel-microfrontends<br/>routing\"]:::pending\n\n        SupabaseAuth --> MFAudit\n        SupabaseAuth --> MFReco\n        APIv2 --> MFAudit\n        APIv2 --> MFReco\n        APIv2 --> MFGSG\n        APIv2 --> MFReality\n        APIv2 --> MFLearn\n        VercelMF --> MFAudit\n        VercelMF --> MFReco\n        VercelMF --> MFGSG\n        VercelMF --> MFReality\n        VercelMF --> MFLearn\n    end\n\n    AuditPipe -.same data tree.-> APIv2\n\n    classDef pending fill:#fff7d6,stroke:#d4a017,color:#5d4309,stroke-dasharray:5 3;"
+      "title": "5. Webapp — V27 HTML today, V28 Next.js shell (D1.A monorepo)",
+      "src": "flowchart TD\n    subgraph V27[\"V27 HTML (legacy snapshot, 56 clients)\"]\n        AuditPipe[\"audit pipeline §2<br/>(56 clients × 185 pages)\"] --> CaptureTree[(\"data/captures/&lt;client&gt;/&lt;page&gt;/*<br/>~150 artefacts/page\")]\n        CaptureTree --> Builder[\"skills/build_growth_audit_data<br/>(consolidates the tree)\"]\n        Builder --> DashJS[(\"deliverables/growth_audit_data.js<br/>12 MB consolidated bundle\")]\n        DashJS --> CommandCenter[/\"deliverables/GrowthCRO-V27-CommandCenter.html<br/>11 panes\"/]\n        APIv1[\"growthcro/api/server<br/>FastAPI (legacy)\"] -.programmatic.-> CommandCenter\n    end\n\n    subgraph V28[\"V28 Next.js — @growthcro/shell (D1.A monorepo)\"]\n        SupabaseAuth[\"Supabase EU<br/>auth + tables clients/audits/recos/runs\"]\n        EdgeAPI[\"Next.js API routes<br/>/api/runs · /api/learning · /api/gsg\"]\n        Worker[\"growthcro/worker (Phase A local)<br/>Fly.io VM (Phase B future)\"]\n        Shell[\"@growthcro/shell v0.28.0<br/>apps/shell/app/{audits,recos,gsg,<br/>reality,learning,clients,settings}\"]\n        Realtime[\"Supabase Realtime<br/>channel public:runs\"]\n\n        SupabaseAuth --> Shell\n        EdgeAPI --> Shell\n        EdgeAPI --> Worker\n        Worker --> Realtime\n        Realtime --> Shell\n    end\n\n    AuditPipe -.same data tree.-> Worker"
     },
     {
       "title": "6. Reality / Experiment / Learning loop",
