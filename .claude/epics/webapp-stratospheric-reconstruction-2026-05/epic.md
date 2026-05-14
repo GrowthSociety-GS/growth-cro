@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-14T13:37:58Z
-progress: 13%
+updated: 2026-05-14T18:00:00Z
+progress: 19%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -182,7 +182,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 ### TIER 1 — Foundations (P0 blocking)
 - [x] 001.md - design-dna-v22-stratospheric-recovery ✅ done 2026-05-13 (commits 358a75e + 772961e)
 - [x] 002.md - pipeline-trigger-backend Phase A ✅ done 2026-05-14 (commits 725021a + fe33d1f + 2b572a1 + f337df7 + 5cf1432 + f147bfa; migration applied + worker E2E validated live)
-- [ ] 003.md - client-lifecycle-from-ui (parallel: false, depends 002) ← **NEXT SPRINT**
+- [~] 003.md - client-lifecycle-from-ui 🟡 code complete 2026-05-14 — awaiting Mathis manual validation + Supabase migration apply (`20260514_0018_audits_status.sql`) before flipping to ✅
 
 ### TIER 2 — V26 Parity (P0)
 - [ ] 004.md - dashboard-v26-closed-loop-narrative (parallel: true, depends 001)
@@ -205,11 +205,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 **Total tasks**: 16
 **Done**: 2/16 (12.5%)
-**In progress**: 0
-**Next up**: task 003 (client-lifecycle-from-ui, depends on 002 ✓)
+**Code complete (validation pending)**: 1/16 (003)
+**Next up**: Tier 2 — task 004 dashboard-v26-closed-loop-narrative (parallel-safe, depends 001 ✓)
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~24-32h consumed (Sprint 1 + 2)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~32-40h consumed (Sprint 1 + 2 + 3)
 
 ## Progress log
 
@@ -246,3 +246,19 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - Live E2E smoke validated 2026-05-14T15:29Z : insert pending → worker pickup → dispatch → status=completed in 0.02s
 
 **Cumulative tests** : 41/41 PASS on prod (10 runs-trigger + 7 visual-dna-v22 + 24 wave-a-2026-05-14)
+
+### 2026-05-14 — Sprint 3 (Task 003) 🟡 code complete
+**Client lifecycle from UI — onboard + audit trigger from the webapp**
+- Migration `20260514_0018_audits_status.sql` written (idempotent, status enum + backfill `done`, partial index)
+- POST /api/clients route handler — admin-gated, 7 validation gates (json/name/slug/url/panel_role/panel_status/slug-conflict)
+- `createClient` mutation in `@growthcro/data` + `AuditStatus` enum on the `Audit` type
+- `<AddClientModal>` + `<AddClientTrigger>` islands — auto-slug from URL/name, kebab-case pattern
+- `<AuditStatusPill>` — render-only state surface (idle/capturing/scoring/enriching/done/failed), reuses `.gc-pulse-aura`
+- `<QuickActionCard>` — Home admin-only nudge (AddClient + CreateAudit side-by-side)
+- Sidebar `isAdmin` prop — always-visible Add-Client CTA for admins, sub-rendered conditionally
+- `<TriggerRunButton type="capture">` surfaced on `/clients/[slug]` topbar (homepage capture) + `/audits/[c]/[a]` topbar (re-run page capture)
+- Playwright contract spec `client-lifecycle.spec.ts` — 8 cases (6 validation + 1 mount + 1 anonymous guard)
+- New `violet` Pill tone + matching CSS rule (aurora-violet semantics for `scoring` state)
+- Gates green : `npm run typecheck --workspace=apps/shell` ✓ · `npm run lint --workspace=apps/shell` ✓ · `python3 scripts/lint_code_hygiene.py --staged` ✓
+- Sidebar `isAdmin` propagation to 5 callsites : page, settings, doctrine, audit-gads, audit-meta
+- 🟡 Pending : Mathis applies `20260514_0018_audits_status.sql` via Supabase Dashboard SQL editor (same path as Sprint 2 migration) + Vercel deploy + manual smoke E2E

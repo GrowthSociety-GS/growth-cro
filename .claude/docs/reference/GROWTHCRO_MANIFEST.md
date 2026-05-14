@@ -447,7 +447,32 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 - Migration runs queue + Realtime channel both live
 - `TriggerRunButton` + `RunStatusPill` available as composants React mais PAS encore surfaced sur les routes (Task 003 next)
 
-**Next Sprint 3 (Task 003 client-lifecycle-from-ui, 1-2 jours)** : surface `<TriggerRunButton>` + `<RunStatusPill>` partout (Home QuickActionCard, `/clients/[slug]` per page_type, `/audits/[c]/[a]` re-run button) + `POST /api/clients` route handler + `<AddClientModal>` + `audits.status` column migration + `<AuditStatusPill>` wrapping RunStatusPill. Closes TIER 1 Foundations.
+**Sprint 3 (Task 003) 🟡 — Client lifecycle from UI (code complete, awaiting migration apply + Mathis validation)**
+- Supabase migration `20260514_0018_audits_status.sql` (pending Mathis Dashboard apply) :
+  - `audits.status` enum column `idle/capturing/scoring/enriching/done/failed` (default `idle`)
+  - Backfill existing audits → `done` (rows were seeded with scores already)
+  - `idx_audits_status` index + idempotent column-existence guard
+- Next.js API : `POST /api/clients` route handler (admin gated via `requireAdmin()`) with 7 validation gates (`invalid_json` / `invalid_name` / `invalid_slug` kebab-case regex / `invalid_homepage_url` http(s) check / `invalid_panel_role` enum × 7 V27 roles / `invalid_panel_status` keep|review / `slug_taken` 409 pre-check)
+- `@growthcro/data` : `AuditStatus` enum + optional `status` field on `Audit` type (backward-compat with pre-migration rows) + `createClient(supabase, input)` mutation helper
+- UI primitives `@growthcro/ui` : `violet` Pill tone added (aurora-violet `#8c7ef1` for `scoring` lifecycle state)
+- Components shipped :
+  - `<AddClientModal />` : form + auto-slug derivation from URL hostname → kebab-case (only when slug field untouched), browser pattern validation, redirect to `/clients/<slug>` on success
+  - `<AddClientTrigger />` : admin-only client island wrapping the modal
+  - `<AuditStatusPill status={...} />` : render-only state surface, 6 states with tone+label mapping (idle→soft / capturing→cyan / scoring→violet / enriching→gold / done→green / failed→red) + `.gc-pulse-aura` animation on active states
+  - `<QuickActionCard isAdmin={...} clientChoices={...} />` : Home admin-only nudge bundling AddClientTrigger + CreateAuditTrigger
+- Sidebar : `isAdmin` prop added + always-visible "+ Ajouter un client" CTA conditionally rendered for admins, propagated to 5 callsites (page / settings / doctrine / audit-gads / audit-meta)
+- TriggerRunButton surfaced :
+  - `/` Home : via QuickActionCard
+  - `/clients/[slug]` topbar : admin `↻ Capture homepage` button with `client_slug + page_type=home + url=homepage_url` metadata
+  - `/audits/[c]/[a]` topbar : admin `↻ Re-run capture` button with `client_slug + page_type + url` metadata (per-page re-capture)
+- AuditStatusPill rendered on `/audits/[c]/[a]` next to Score Pill, reads `audit.status` (defaults `done` if column absent pre-migration)
+- Playwright `client-lifecycle.spec.ts` : 8 cases (6 validation contract + DOM mount + anonymous-visitor admin-CTA guard)
+- Validation gates green : `npm run typecheck --workspace=apps/shell` ✓ · `npm run lint --workspace=apps/shell` ✓ (No ESLint warnings or errors) · `python3 scripts/lint_code_hygiene.py --staged` ✓ (0 issues)
+- Decision : pas de Zod (suit la convention existante `/api/audits` validation manuelle 7-gate)
+- Decision : `AuditStatusPill` V1 render-only (subscribe direct aux changes audits.row = Phase B follow-up) ; live updates V1 dépendent du sibling `<RunStatusPill>` qui déclenche `router.refresh()` via Realtime channel `public:runs`
+- 🟡 Pending Mathis : (1) apply migration via Supabase Dashboard SQL editor — (2) merge PR — (3) Vercel deploy — (4) smoke E2E manuel (sidebar + add client → run audit → pill walks live) — (5) flip Task 003 status to ✅ done
+
+**Cumulative tests Sprint 1+2+3** : 49/49 contracts validés en local (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 8 client-lifecycle) — Playwright client-lifecycle à valider contre prod post-deploy.
 
 ### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
 
