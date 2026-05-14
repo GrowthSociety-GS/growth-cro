@@ -47,7 +47,20 @@ export type Reco = {
   created_at: ISODateString;
 };
 
-export type RunType = "audit" | "gsg" | "reality" | "experiment";
+// Task 002 (Sprint 2, 2026-05-14) : granular pipeline types via
+// migration 20260514_0017_runs_extend.sql. Legacy umbrellas audit/experiment
+// kept for backward-compat. New types : capture/score/recos/gsg/multi_judge/
+// reality/geo for fine-grained dispatch by the local Python worker.
+export type RunType =
+  | "audit"
+  | "experiment"
+  | "capture"
+  | "score"
+  | "recos"
+  | "gsg"
+  | "multi_judge"
+  | "reality"
+  | "geo";
 export type RunStatus = "pending" | "running" | "completed" | "failed";
 
 export type Run = {
@@ -59,6 +72,10 @@ export type Run = {
   finished_at: ISODateString | null;
   output_path: string | null;
   metadata_json: Record<string, unknown> | null;
+  // Task 002 : added by migration 20260514_0017 — error_message on failure,
+  // progress_pct (0-100, NULL when unknown) for live status pills.
+  error_message: string | null;
+  progress_pct: number | null;
   created_at: ISODateString;
 };
 

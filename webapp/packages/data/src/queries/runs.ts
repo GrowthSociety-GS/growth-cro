@@ -17,9 +17,12 @@ export async function listRecentRuns(
   return (data ?? []) as Run[];
 }
 
+// Task 002 (Sprint 2) : error_message + progress_pct are filled by the worker
+// daemon post-insert, never by the API caller. Omit them from the insert
+// payload signature so callers don't need to pass null literals.
 export async function insertRun(
   supabase: SupabaseClient,
-  run: Omit<Run, "id" | "created_at">
+  run: Omit<Run, "id" | "created_at" | "error_message" | "progress_pct">
 ): Promise<Run> {
   const { data, error } = await supabase.from(TABLE).insert(run).select().single();
   if (error) throw error;
