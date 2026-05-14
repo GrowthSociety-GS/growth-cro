@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-13T17:12:51Z
-progress: 0%
+updated: 2026-05-14T13:37:58Z
+progress: 13%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -180,9 +180,9 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 (Tasks listed below — see individual files for full scope)
 
 ### TIER 1 — Foundations (P0 blocking)
-- [ ] 001.md - design-dna-v22-stratospheric-recovery (parallel: true)
-- [ ] 002.md - pipeline-trigger-backend Phase A (parallel: true)
-- [ ] 003.md - client-lifecycle-from-ui (parallel: false, depends 002)
+- [x] 001.md - design-dna-v22-stratospheric-recovery ✅ done 2026-05-13 (commits 358a75e + 772961e)
+- [x] 002.md - pipeline-trigger-backend Phase A ✅ done 2026-05-14 (commits 725021a + fe33d1f + 2b572a1 + f337df7 + 5cf1432 + f147bfa; migration applied + worker E2E validated live)
+- [ ] 003.md - client-lifecycle-from-ui (parallel: false, depends 002) ← **NEXT SPRINT**
 
 ### TIER 2 — V26 Parity (P0)
 - [ ] 004.md - dashboard-v26-closed-loop-narrative (parallel: true, depends 001)
@@ -204,6 +204,45 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [ ] 016.md - microfrontends-decision-doc (parallel: true, mostly done in DECISIONS_2026-05-14.md)
 
 **Total tasks**: 16
+**Done**: 2/16 (12.5%)
+**In progress**: 0
+**Next up**: task 003 (client-lifecycle-from-ui, depends on 002 ✓)
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~24-32h consumed (Sprint 1 + 2)
+
+## Progress log
+
+### 2026-05-13 — Sprint 1 (Task 001) ✅
+**Visual DNA V22 Stratospheric Observatory recovery foundation**
+- Commits : 358a75e (foundation) + 772961e (Playwright spec 7/7 PASS)
+- 4 typefaces loaded via next/font (Cormorant + Playfair + Inter + JetBrains Mono)
+- Alaska Boreal Night palette + Sunset Gold + Aurora + 4-layer body bg
+- φ-ratio spacing (--sp-0 to --sp-7)
+- KPI value editorial italic gold-gradient (.gc-kpi b automatic + .gc-kpi-value opt-in)
+- Glass cards (.gc-glass-card) with backdrop-filter
+- Aura cubic-bezier easings
+- StarfieldBackground canvas component (4 layers parallax + shooting stars + 1.8s fade-in + prefers-reduced-motion)
+- scoreColor(pct) HSL utility (red→gold→green continuous)
+- Backward-compat --gc-* aliases preserve all existing component renders
+
+### 2026-05-14 — Sprint 2 (Task 002) ✅
+**Pipeline-trigger backend Phase A — UI ↔ CLI bridge via Supabase runs queue**
+- Commits : 725021a (backend) + fe33d1f (frontend) + 2b572a1 (tests) + f337df7 (routing fix) + 5cf1432 (spec fix) + f147bfa (defensive worker)
+- Supabase migration 20260514_0017_runs_extend.sql APPLIED LIVE by Mathis :
+  - runs.type enum extended (capture/score/recos/gsg/multi_judge/reality/geo)
+  - runs.error_message + runs.progress_pct columns added
+  - idx_runs_pending_fifo partial index for worker polling
+- Python worker (growthcro/worker/) :
+  - daemon.py : poll Supabase queue every 30s, atomic claim, subprocess dispatch
+  - dispatcher.py : RUN_TYPE_TO_CLI mapping for 9 types
+  - cli.py + __main__.py : `python -m growthcro.worker --once` / loop
+  - README.md : Mathis-facing operational doc
+- Pydantic models (growthcro/models/runs_models.py) : RunCreate / RunRow / RunUpdate
+- Next.js API routes : POST /api/runs (admin gated) + GET /api/runs + GET /api/runs/[id]
+- UI components : <TriggerRunButton /> + <RunStatusPill /> (live Supabase Realtime channel public:runs)
+- Playwright runs-trigger.spec.ts : 10/10 PASS on prod
+- Defensive PATCH fallback : worker functions even pre-migration
+- Live E2E smoke validated 2026-05-14T15:29Z : insert pending → worker pickup → dispatch → status=completed in 0.02s
+
+**Cumulative tests** : 41/41 PASS on prod (10 runs-trigger + 7 visual-dna-v22 + 24 wave-a-2026-05-14)

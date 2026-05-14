@@ -143,12 +143,12 @@ export function getPillarsFromAudit(audit: Audit): PillarBar[] {
   return out;
 }
 
-/** Score → color token mapping (V26 reference: red < 40, amber 40..70, green ≥ 70). */
-export function scoreColor(pct: number): string {
-  if (pct >= 70) return "var(--gc-green)";
-  if (pct >= 40) return "var(--gc-amber)";
-  return "var(--gc-red)";
-}
+/** Score → color via continuous HSL gradient (V22 unified, /simplify R2).
+ * Re-exports the canonical implementation from `@growthcro/ui` to eliminate
+ * the name-collision trap (this file previously had a 3-state version that
+ * returned different values for the same input).
+ */
+export { scoreColor } from "@growthcro/ui";
 
 /** Quality classification : "full" (≥ 5 pillars + ≥ 1 reco) vs "partial". */
 export type AuditQuality = {

@@ -205,3 +205,4 @@ data/.vision_cache/
 .docker/
 deliverables/clients/
 .vercel
+supabase/.temp/

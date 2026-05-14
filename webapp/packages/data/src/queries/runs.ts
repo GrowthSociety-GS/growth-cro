@@ -48,16 +48,25 @@ export async function updateRunStatus(
 /**
  * Subscribe to live `runs` updates. Returns a channel — caller must
  * `channel.unsubscribe()` on cleanup.
+ *
+ * `filter` accepts PostgREST `column=eq.value` syntax to scope subscriptions
+ * server-side (e.g. `'id=eq.<uuid>'` for a single run). Without it every
+ * mounted listener receives all run events fleet-wide — wasted frames at
+ * scale. Used by `<RunStatusPill runId={...} />` (single-run filter) and
+ * `<RunsLiveFeed />` (no filter — full fleet).
  */
 export function subscribeRuns(
   supabase: SupabaseClient,
-  onChange: (run: Run, event: "INSERT" | "UPDATE" | "DELETE") => void
+  onChange: (run: Run, event: "INSERT" | "UPDATE" | "DELETE") => void,
+  opts: { filter?: string; channelName?: string } = {}
 ): RealtimeChannel {
+  const channelName = opts.channelName ?? "public:runs";
+  const config = { event: "*" as const, schema: "public", table: TABLE };
   const channel = supabase
-    .channel("public:runs")
+    .channel(channelName)
     .on(
       "postgres_changes",
-      { event: "*", schema: "public", table: TABLE },
+      opts.filter ? { ...config, filter: opts.filter } : config,
       (payload) => {
         const eventType = payload.eventType as "INSERT" | "UPDATE" | "DELETE";
         const row = (payload.new ?? payload.old) as Run;

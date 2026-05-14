@@ -403,6 +403,52 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-14 — Sprint 1 + Sprint 2 of MEGA-PRD webapp-stratospheric-reconstruction
+
+**Master PRD** : [`webapp-stratospheric-reconstruction-2026-05`](../../prds/webapp-stratospheric-reconstruction-2026-05.md) — 16 tasks split en 4 tiers, ~25-34 jours solo dev. 2/16 done.
+
+**Sprint 1 (Task 001) ✅ — Visual DNA V22 Stratospheric Observatory recovery**
+- Commits : `358a75e` (foundation) + `772961e` (Playwright spec)
+- 4 typefaces loaded via `next/font/google` (Cormorant Garamond + Playfair Display + Inter + JetBrains Mono)
+- Palette Alaska Boreal Night (15 tokens) + Sunset Gold signature + Aurora secondaries
+- Spacing golden ratio φ≈1.618 (`--sp-0` à `--sp-7`)
+- 4-layer parallax background : `body::before` (horizon pollution + cosmic linear-gradient) + `body::after` (vignette) + `<StarfieldBackground />` canvas (4 layers parallax + shooting stars + 1.8s fade-in + prefers-reduced-motion) + `.gc-grain` overlay
+- KPI value editorial italic gold-gradient (`.gc-kpi b` automatic + `.gc-kpi-value` opt-in)
+- Glass cards `backdrop-filter: blur(22px) saturate(160%)` + gold-tinted border
+- Aura cubic-bezier easings (`--ease-aura`, `--ease-snap`, `--ease-inertia`)
+- `scoreColor(pct)` HSL utility (red→gold→green continuous)
+- Backward-compat `--gc-*` aliases (cleanup task 015)
+- Playwright `visual-dna-v22.spec.ts` : 7/7 PASS prod
+
+**Sprint 2 (Task 002) ✅ — Pipeline-trigger backend Phase A (UI↔CLI bridge)**
+- Commits : `725021a` (backend) + `fe33d1f` (frontend) + `2b572a1` (tests) + `f337df7` (routing fix) + `5cf1432` (spec fix) + `f147bfa` (defensive worker)
+- Supabase migration `20260514_0017_runs_extend.sql` APPLIED LIVE by Mathis :
+  - `runs.type` enum extended : `capture/score/recos/gsg/multi_judge/reality/geo` granular + legacy `audit/experiment` kept
+  - `runs.error_message` + `runs.progress_pct` columns added
+  - `idx_runs_pending_fifo` partial index for worker polling
+- Python worker `growthcro/worker/` (4 files + README mathis-facing) :
+  - `daemon.py` : Supabase REST stdlib client + atomic claim (race-safe pending→running) + subprocess dispatch + complete/fail with defensive PATCH fallback for pre-migration schema
+  - `dispatcher.py` : `RUN_TYPE_TO_CLI` mapping for 9 types + per-type `build_cli_command()` arg assembly
+  - `cli.py` + `__main__.py` : argparse entrypoint `--once` / `--poll-interval` / `--batch-limit`
+  - SIGINT/SIGTERM graceful shutdown
+- Pydantic models `growthcro/models/runs_models.py` : `RunCreate` / `RunRow` / `RunUpdate` per CODE_DOCTRINE §TYPING
+- Next.js API : `POST /api/runs` (admin gated via `requireAdmin()`, validates type enum + sanitizes metadata) + `GET /api/runs` (list) + `GET /api/runs/[id]` (single)
+- UI components : `<TriggerRunButton type="..." metadata={...} />` + `<RunStatusPill runId={...} />` (live Supabase Realtime channel `public:runs`, animated via `.gc-pulse-aura` on pending/running)
+- `@growthcro/data` types : `RunType` extended to 9 values, `Run.error_message` + `Run.progress_pct` added, `insertRun()` Omit signature excludes these (worker-only fields)
+- Playwright `runs-trigger.spec.ts` : 10/10 PASS prod (verifies contract : 307 redirect / 400 validation / 401-403 auth / never 5xx)
+- Live E2E smoke validated 2026-05-14T15:29Z : `insert pending experiment run via REST → python3 -m growthcro.worker --once → atomic claim → dispatch → status=completed in 0.02s ✓`
+
+**Cumulative tests Sprint 1+2** : 41/41 PASS prod (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger) — zero regression sur les 2 sprints.
+
+**Architecture state post-Sprint 2** :
+- Visual DNA V22 actif sur tous les composants existants via aliases
+- Backend pipeline UI↔CLI fully wired E2E
+- Worker daemon runs locally on dev machine (Phase A decision D2.C-Phase-A)
+- Migration runs queue + Realtime channel both live
+- `TriggerRunButton` + `RunStatusPill` available as composants React mais PAS encore surfaced sur les routes (Task 003 next)
+
+**Next Sprint 3 (Task 003 client-lifecycle-from-ui, 1-2 jours)** : surface `<TriggerRunButton>` + `<RunStatusPill>` partout (Home QuickActionCard, `/clients/[slug]` per page_type, `/audits/[c]/[a]` re-run button) + `POST /api/clients` route handler + `<AddClientModal>` + `audits.status` column migration + `<AuditStatusPill>` wrapping RunStatusPill. Closes TIER 1 Foundations.
+
 ### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
 
 **Master PRD** : [`webapp-data-fidelity-and-skills-stratosphere-2026-05`](../../prds/webapp-data-fidelity-and-skills-stratosphere-2026-05.md) — AUDIT-FIRST méthodo post écran de fumée 2026-05-13.

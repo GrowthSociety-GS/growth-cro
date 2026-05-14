@@ -67,12 +67,17 @@ export function RunStatusPill({ runId, initialStatus, initialProgress, showType 
         if (data) setRun((prev) => ({ ...prev, ...data }));
       });
 
-    // Subscribe to Realtime channel, client-side filtered to this runId.
-    const channel = subscribeRuns(supabase, (incoming) => {
-      if (!mounted) return;
-      if (incoming.id !== runId) return;
-      setRun((prev) => ({ ...prev, ...incoming }));
-    });
+    // Subscribe to Realtime channel scoped server-side to this runId.
+    // /simplify E1 : Postgres-side filter eliminates the O(N) client-side
+    // discard pattern when many pills are mounted simultaneously.
+    const channel = subscribeRuns(
+      supabase,
+      (incoming) => {
+        if (!mounted) return;
+        setRun((prev) => ({ ...prev, ...incoming }));
+      },
+      { filter: `id=eq.${runId}`, channelName: `runs:${runId}` },
+    );
 
     return () => {
       mounted = false;

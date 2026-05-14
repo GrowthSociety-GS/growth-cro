@@ -35,12 +35,17 @@ type ShootingStar = {
   trailLength: number;
 };
 
+// Star counts halved when viewport < 768px (/simplify E2) — mobile CPU
+// budget recovery without losing visual density on desktop. ~188 → ~94 stars
+// on mobile (60fps × 4 layers × twinkle sin = direct Lighthouse uplift).
 const LAYERS = [
   { count: 90, minR: 0.3, maxR: 0.7, speed: 0.6, brightness: 0.4 }, // far
   { count: 60, minR: 0.5, maxR: 1.1, speed: 1.1, brightness: 0.6 }, // mid
   { count: 30, minR: 0.9, maxR: 1.8, speed: 1.8, brightness: 0.85 }, // near
   { count: 8,  minR: 1.6, maxR: 2.6, speed: 2.6, brightness: 1.0 }, // foreground bright
 ];
+
+const MOBILE_BREAKPOINT = 768;
 
 const SHOOTING_STAR_CHANCE = 0.0008; // per frame (~once every 20s @ 60fps)
 const FADE_IN_DURATION_MS = 1800;
@@ -92,8 +97,10 @@ export function StarfieldBackground() {
     }
 
     function spawnStars(w: number, h: number): Star[][] {
-      return LAYERS.map((layer) =>
-        Array.from({ length: layer.count }, () => ({
+      const mobile = w < MOBILE_BREAKPOINT;
+      return LAYERS.map((layer) => {
+        const count = mobile ? Math.ceil(layer.count / 2) : layer.count;
+        return Array.from({ length: count }, () => ({
           x: rand(0, w),
           y: rand(0, h),
           r: rand(layer.minR, layer.maxR),
@@ -102,8 +109,8 @@ export function StarfieldBackground() {
           brightness: layer.brightness * rand(0.7, 1),
           twinklePhase: rand(0, Math.PI * 2),
           twinkleSpeed: rand(0.8, 2.2),
-        })),
-      );
+        }));
+      });
     }
 
     const w = window.innerWidth;
