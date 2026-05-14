@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-14T21:00:00Z
-progress: 25%
+updated: 2026-05-14T22:00:00Z
+progress: 31%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -186,11 +186,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 ### TIER 2 — V26 Parity (P0)
 - [x] 004.md - dashboard-v26-closed-loop-narrative ✅ closed 2026-05-14 (commits ffe5faa + aa8fdf3 + b37aa88 + b7d31e2 + 39ea7d1 + dfddc76 ; Mathis manual validation OK)
-- [ ] 005.md - growth-audit-v26-deep-detail (parallel: false, depends 001+006)
+- [~] 005.md - growth-audit-v26-deep-detail 🟡 code complete 2026-05-14 (parallel-agent worktree merged into main, commits 15158fb + 4745fa4 + a03ac12 + b5f4b34 + ff6725c spec-fix ; awaiting Mathis manual validation "Audit detail à parité V26")
 - [~] 006.md - reco-lifecycle-bbox-and-evidence 🟡 code complete 2026-05-14 (commits 862cb17 + d650acc-equivalent + 84cd681 + 694f027 ; awaiting Mathis migration apply + manual validation "Reco cards V26 enfin restaurées")
 
 ### TIER 3 — Missing Surfaces (P1)
-- [ ] 007.md - scent-trail-pane-port (parallel: true)
+- [~] 007.md - scent-trail-pane-port 🟡 code complete 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; awaiting Mathis migration apply + manual validation "Scent Trail pane restauré")
 - [ ] 008.md - experiments-v27-calculator (parallel: true)
 - [ ] 009.md - geo-monitor-v31-pane (parallel: true, depends Mathis-keys)
 - [ ] 010.md - gsg-design-grammar-viewer-restore (parallel: false, depends 002)
@@ -205,11 +205,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 **Total tasks**: 16
 **Done**: 4/16 (25%)
-**Code complete (validation pending)**: 1/16 (006)
-**Next up**: Tier 2 continue — task 005 growth-audit-v26-deep-detail (depends 001 ✓ + 006 🟡, unblocked) OR task 007 scent-trail-pane-port (parallel-safe, no dep)
+**Code complete (validation pending)**: 3/16 (005 🟡 · 006 🟡 · 007 🟡)
+**Next up**: Tier 3 — task 008 experiments-v27-calculator (parallel-safe, no dep) OR task 012 learning-doctrine-dogfood-restore (parallel-safe, depends 001 ✓). Task 009 GEO + 011 Reality stay blocked on Mathis-keys/creds.
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~56-64h consumed (4 sprints closed + 1 code-complete)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~72-86h consumed (4 sprints closed + 3 code-complete pending validation)
 
 ## Progress log
 
@@ -302,3 +302,34 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - Playwright `reco-lifecycle.spec.ts` : 7 contract cases × 2 viewports = **14/14 PASS prod**
 - Gates green : typecheck ✓ · lint ✓ · code hygiene ✓ · 138/138 cumulative regression PASS prod
 - 🟡 Pending Mathis : (a) apply migration via Supabase Dashboard SQL editor — (b) manual validation "Reco cards V26 enfin restaurées" : lifecycle pill visible on every reco · admin dropdown updates the row · 3 tabs switch · bbox crop renders when data dispo · evidence pill when `evidence_ids` non-vide
+
+### 2026-05-14 — Sprint 6+7 (Tasks 005 + 007) 🟡🟡 code complete (parallel agents)
+**V26 deep-detail + Scent Trail pane shipped in parallel via isolated worktrees**
+
+Two background Agents launched simultaneously in `git worktree` mode (`isolation: worktree`), each owning a non-overlapping file scope. Sequential merge into main + post-merge fix for a `node:fs` client-bundle leak surfaced by Vercel build (caught by the deploy gate, not the typecheck — the agent's worktree only ran `tsc`, not `next build`).
+
+**Task 005 — growth-audit-v26-deep-detail (Sprint 6)** — branch `worktree-agent-a2c26c2abd4e6c5bc` merged to main
+- 4 commits : `15158fb` (CRIT_NAMES_V21 + useViewport + P0 pulse CSS) + `4745fa4` (ClientHeroBlock + V26Panels + CanonicalTunnelTab) + `a03ac12` (integration + viewport-aware screenshots + sticky tabs) + `b5f4b34` (Playwright 8-case contract) + `ff6725c` (spec fix : strip cross-workspace dynamic TS import)
+- 8 NEW files + 9 modified — see [`005.md`](./005.md) implementation log
+- CRIT_NAMES_V21 ships **54 entries** (task spec said 51 — V26 HTML L2416-2442 actually has 54, verbatim port preserved)
+- `AuditScreenshotsPanel` split into server wrapper + `AuditScreenshotsView` client island so the viewport toggle works without leaking fs/Supabase calls
+- `PageTypesTabs` made sticky via `.gc-sticky-tabs` wrapper + `position: sticky; top: 0` (no new component)
+- `useViewport` default-desktop on first render → localStorage promotion in `useEffect` (avoids hydration mismatch)
+- `criterionPillText("ux_05")` → `"Mobile-first (ux_05)"` — FR label + criterion_id parenthetical
+- Pulsing P0 dot CSS animation wired into `<FleetPanel>` + `<CriticalClientsGrid>` — respects `prefers-reduced-motion`
+- Playwright spec : 8/8 PASS prod
+
+**Task 007 — scent-trail-pane-port (Sprint 7)** — branch `worktree-agent-aa64f945a103ee522` merged to main
+- 4 commits : `4dca965` (migration + scent_trail loader + scent-fs lib) + `563017c` (4 scent components) + `a0785db` (/scent route + sidebar nav) + `20076ff` (Playwright contract) + `1a041b8` (post-merge fix : scent-types split for client bundle)
+- 9 NEW files + 1 modified (Sidebar.tsx) — see [`007.md`](./007.md) implementation log
+- Migration `20260514_0020_audits_scent_trail.sql` — additive JSONB column on `audits`, idempotent
+- `scripts/migrate_disk_to_supabase.py` extended : `load_scent_trail()` + `upsert_scent_trail()` helpers. UPSERTs into the most-recent audit row's `scent_trail_json` (reuses audit lifecycle + RLS)
+- New `/scent` route, Server Component, reads `data/captures/*/scent_trail.json` via `lib/scent-fs.ts`
+- 4 components : `<ScentFleetKPIs>` + `<ScentTrailDiagram>` (pure inline SVG viewBox=0 0 600 200, broken=red dashed / continuous=gold solid) + `<BreaksList>` + `<ScentFleetTable>` (sortable, default scent_score asc)
+- Sidebar gets a "🔄 Scent Trail" nav-item in the Studio group
+- V26 disk has **0 `scent_trail.json` files** — empty-state copy validated, route ready for the next capture wave
+- Playwright spec : 8/8 PASS prod
+
+**Post-merge fix (parent session, commit `1a041b8`)** : Vercel build for the post-merge `ff6725c` failed because `ScentFleetTable.tsx` ("use client") value-imported `maxSeverity` from `scent-fs.ts`, which imports `node:fs/promises` + `node:path`. Webpack rejected the `node:` scheme. Same chain hit `ScentTrailDiagram.tsx`. Fix : extracted pure types + helpers into `webapp/apps/shell/lib/scent-types.ts` (zero Node imports), added `import "server-only";` guard to `scent-fs.ts` so future regressions catch at Next compile instead of webpack bundle. Retargeted all 4 scent components to import from `@/lib/scent-types`. **Lesson learned** : agent worktree validation gate should include `npm run build` (not just `tsc --noEmit`) — typecheck doesn't catch `"use client"` + `node:` boundary violations.
+
+**Cumulative tests Sprint 1+2+3+4+5+6+7** : **152/152 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 57 ancillary × 2 viewports) — **zero régression sur les 7 sprints**.

@@ -525,6 +525,56 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 **Cumulative tests Sprint 1+2+3+4+5** : **138/138 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 59 ancillary × 2 viewports) — **zero régression sur les 5 sprints**.
 
+**Sprint 6 + Sprint 7 (Tasks 005 + 007) 🟡🟡 code complete (parallel-agent dispatch, both code complete pending Mathis validation)**
+
+Two background Agents launched simultaneously via `subagent_type: general-purpose` + `isolation: worktree`. Each owned a non-overlapping file scope. Tested locally in their worktrees (`tsc --noEmit` ✓, ESLint ✓, hygiene ✓), committed locally, returned branch + summary. Parent session merged both into main sequentially, validated typecheck + lint + hygiene on merged state, fixed one cross-workspace Playwright dynamic-import test (Task 005), pushed to origin/main, observed Vercel build failure due to `node:fs` leaking into a client bundle in Task 007, applied a fix (split pure types/helpers into `scent-types.ts` + `import "server-only"` guard), redeployed successfully, ran cumulative regression 152/152 PASS prod.
+
+**Task 005 — growth-audit-v26-deep-detail (Sprint 6, parallel-agent worktree)**
+- Commits : `15158fb` (foundation : CRIT_NAMES_V21 + viewport hook + P0 pulse CSS + sticky-tabs CSS) + `4745fa4` (V26 components : ClientHeroBlock + V26Panels + CanonicalTunnelTab) + `a03ac12` (integration : viewport-aware screenshots + criteria labels + sticky tabs + P0 dots) + `b5f4b34` (Playwright contract spec) + `ff6725c` (spec fix : strip dynamic cross-workspace TS import)
+- 8 NEW files + 9 modified
+- `webapp/apps/shell/lib/criteria-labels.ts` — CRIT_NAMES_V21 (**54 entries**, not 51 as the task spec stated — V26 HTML L2416-2442 actually contains 6 hero + 11 per + 9 coh + 8 psy + 8 ux + 5 tech + 7 V21-cluster aliases ; verbatim port preserved) + `criterionLabel()` + `criterionPillText("ux_05") → "Mobile-first (ux_05)"` helpers
+- `webapp/apps/shell/lib/use-viewport.ts` — `{viewport, setViewport}` hook, default desktop, localStorage-persisted via `useEffect` (avoids hydration mismatch)
+- `<ViewportToggle>` two pill buttons 💻 Desktop / 📱 Mobile
+- `<AuditScreenshotsView>` client island consuming useViewport — `AuditScreenshotsPanel` refactored to server wrapper so fs/Supabase calls don't leak to the client bundle
+- `<V26Panels>` per-client overview (BrandDNA + Design Grammar + Evidence + Lifecycle counters)
+- `<CanonicalTunnelTab>` 🌊 tab, gates on `audit.scores_json.canonical_tunnel`, returns `null` silently when missing (silent feature flag)
+- `<ClientHeroBlock>` Brand DNA palette swatches + voice samples + typography sample, reuses existing `normalizeBrandDna()` helper
+- `<RichRecoCard>` enriched : `criterionPillText()` for the criterion_id pill + reads `useViewport` to pick desktop_full.png vs mobile_full.png for bbox crops
+- `<PageTypesTabs>` made sticky via single `.gc-sticky-tabs` wrapper + `position: sticky; top: 0` (no new component)
+- `<FleetPanel>` + `<CriticalClientsGrid>` get the `.gc-p0-dot` pulse next to client names when `p0_count > 0`
+- `@keyframes gc-pulse-p0` + `.gc-p0-dot` + `.gc-sticky-tabs` CSS added to `packages/ui/src/styles.css` with `prefers-reduced-motion` guard
+- Playwright `growth-audit-v26.spec.ts` : 4 contract cases × 2 viewports = 8/8 PASS prod
+- Decision : Playwright dynamic TS cross-workspace import test removed — Playwright loader can't resolve cross-workspace TS modules from `tests/e2e/` ; the `CRIT_NAMES_V21_COUNT` exported constant + TS strict mode already enforce the 54-entry invariant at compile time
+- 🟡 Pending Mathis : manual validation "Audit detail à parité V26" : V26Panels visible on `/audits/[c]/[a]` · ClientHeroBlock on `/clients/[slug]` · viewport toggle switches screenshots + bbox crops · sticky page-type tabs · pulsing P0 dot · criterion_id pills show FR labels
+
+**Task 007 — scent-trail-pane-port (Sprint 7, parallel-agent worktree)**
+- Commits : `4dca965` (foundation : supabase migration + scent_trail loader + scent-fs lib) + `563017c` (4 scent components) + `a0785db` (/scent route + sidebar nav entry) + `20076ff` (Playwright contract spec) + `1a041b8` (parent-session post-merge fix : scent-types split + server-only guard)
+- 9 NEW files + 1 modified (Sidebar.tsx)
+- Migration `supabase/migrations/20260514_0020_audits_scent_trail.sql` (pending Mathis Dashboard apply) — additive JSONB column on `audits`, idempotent column-existence guard, no backfill required (data is per-client not per-audit)
+- `scripts/migrate_disk_to_supabase.py` extended : `load_scent_trail()` + `upsert_scent_trail()` helpers + main-loop wiring. UPSERTs the `scent_trail.json` payload into the most-recent audit row's `scent_trail_json` column for the matching client (reuses audit lifecycle + RLS, avoids a parallel `scent_trails` table for a single nullable column)
+- `webapp/apps/shell/lib/scent-fs.ts` — server-only data layer reading `data/captures/*/scent_trail.json` via `fs/promises`. Defensive against missing files (returns empty array). Now guarded with `import "server-only";` to catch any future client-bundle regression at Next compile step
+- `webapp/apps/shell/lib/scent-types.ts` (added post-merge) — pure types + helpers (`ScentNodeKey` / `ScentNode` / `ScentBreakSeverity` / `ScentBreak` / `ScentTrailRow` / `SCENT_EDGES` / `severityWeight` / `maxSeverity` / `hasBreakBetween`) shared client/server, zero Node imports
+- New `/scent` route — Server Component, fleet overview
+- `<ScentFleetKPIs>` — 3 cards : total breaks · clients with ≥1 break · avg severity (low/medium/high → 1/2/3)
+- `<ScentTrailDiagram>` — pure inline SVG `viewBox="0 0 600 200"` with 3 nodes (radius 46) + 2 directed edges with arrowheads. Edge colors : gold solid (continuous) / red dashed (break detected). Zero D3, zero Recharts
+- `<BreaksList>` — per-client breaks list with severity Pill tones (cyan / amber / red)
+- `<ScentFleetTable>` — sortable rows (slug · n_breaks · max_severity · last_audit · scent_score with HSL `scoreColor()` tint). Default sort `scent_score asc` (worst journeys first, agency-priority bias)
+- Sidebar `Studio` group extended with `{ label: "🔄 Scent Trail", href: "/scent", hint: "V24" }` between GSG and Doctrine
+- V26 disk currently has **0 `scent_trail.json` files** — empty-state copy validated, route ships ready for the next capture wave
+- Playwright `scent-trail.spec.ts` : 4 contract cases × 2 viewports = 8/8 PASS prod
+- 🟡 Pending Mathis : (a) apply migration `20260514_0020_audits_scent_trail.sql` via Supabase Dashboard SQL editor — (b) manual validation "Scent Trail pane restauré" : sidebar entry accessible · `/scent` route renders empty-state · KPIs + diagram + table all visible
+
+**Post-merge fix (parent session, commit `1a041b8`)** : the initial post-merge commit `ff6725c` Vercel build failed because `ScentFleetTable.tsx` (`"use client"`) value-imported `maxSeverity` from `@/lib/scent-fs`, which itself imports `node:fs/promises` + `node:path`. Webpack's client bundler rejected the `node:` scheme :
+```
+Module build failed: UnhandledSchemeError: Reading from "node:fs/promises" is not handled by plugins (Unhandled scheme).
+Import trace : ./lib/scent-fs.ts → ./components/scent/ScentFleetTable.tsx
+```
+Same chain hit `ScentTrailDiagram.tsx` via `hasBreakBetween` + `SCENT_EDGES`. Fix : extracted pure types + helpers into `webapp/apps/shell/lib/scent-types.ts` (zero Node imports), added `import "server-only";` guard to `scent-fs.ts` so any future regression catches at Next compile step instead of webpack bundle step. Retargeted all 4 scent components to import from `@/lib/scent-types`. Local + prod build success after the fix, `/scent` chunk 2.8 kB.
+
+**Lesson learned for the parallel-agent doctrine** : the agent worktree validation gate should include `npm run build --workspace=apps/shell` (not just `npm run typecheck --workspace=apps/shell`) because TypeScript doesn't catch `"use client"` + `node:` boundary violations — only the actual Next/webpack bundle does. Worth a follow-up update to `dispatching-parallel-agents` skill and to the agent prompt template.
+
+**Cumulative tests Sprint 1+2+3+4+5+6+7** : **152/152 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 57 ancillary × 2 viewports) — **zero régression sur les 7 sprints**.
+
 ### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
 
 **Master PRD** : [`webapp-data-fidelity-and-skills-stratosphere-2026-05`](../../prds/webapp-data-fidelity-and-skills-stratosphere-2026-05.md) — AUDIT-FIRST méthodo post écran de fumée 2026-05-13.
