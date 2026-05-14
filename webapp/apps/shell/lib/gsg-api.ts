@@ -1,6 +1,13 @@
 // Thin client wrapper around the FastAPI backend (growthcro/api/server.py).
 // Backend exposure decision: Option B (Railway/Fly.io FastAPI). Rationale in
 // architecture/GROWTHCRO_ARCHITECTURE_V1.md §4.
+//
+// DEPRECATED (Sprint 10 / Task 010 — 2026-05-15) :
+//   The UI no longer calls `triggerGsgRun()` — `<BriefWizard>` now wires
+//   through `<TriggerRunButton type="gsg" />` which posts to the Task 002
+//   `POST /api/runs` route (admin-gated, RLS-aware). This file is kept for
+//   backward compat in case any out-of-tree caller still imports it. New
+//   callers must use the TriggerRunButton path.
 
 import { getAppConfig } from "@growthcro/config";
 

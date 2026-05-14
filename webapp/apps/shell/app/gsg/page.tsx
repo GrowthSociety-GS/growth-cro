@@ -1,54 +1,42 @@
-// GSG Handoff — SP-5 (webapp-v26-parity-and-beyond).
+// /gsg — Design Grammar viewer (V26 surface, 7 artefacts per client).
 //
-// 2-column layout that mirrors the V27 reference Command Center "GSG"
-// view (`deliverables/GrowthCRO-V27-CommandCenter.html`):
+// Sprint 10 / Task 010 — gsg-design-grammar-viewer-restore (2026-05-15).
 //
-//   ┌──────────────────────────┬──────────────────────────┐
-//   │ Modes selector            │ Controlled Preview       │
-//   │ Deterministic GSG Brief   │ (layout flow + iframe)   │
-//   │ Copy brief                │                          │
-//   └──────────────────────────┴──────────────────────────┘
-//   End-to-end Demo flow (Audit → Reco → Brief → Preview)
+// D3.A from `.claude/docs/architecture/DECISIONS_2026-05-14.md` :
+//   - `/gsg`        → Design Grammar viewer (this file)
+//   - `/gsg/handoff` → Brief Wizard + Controlled Preview (relocated from
+//                      the original `/gsg/page.tsx`)
 //
-// Server Component — reads:
-//   - GSG modes from `lib/gsg-brief.ts`
-//   - Available demo LPs from `lib/gsg-fs.ts`
-//   - Client + audit + reco counts from Supabase (RSC, RLS-aware)
-// and renders client islands (`GsgModesSelector`, `CopyBriefButton`) for
-// the URL-driven interactivity.
+// Server Component. Reads the bundle for the selected client via
+// `lib/design-grammar-fs.ts` (server-only — see Sprint 6+7 webpack lesson :
+// any "use client" component value-importing this module would break the
+// bundle). The viewer + sub-components are presentation over the typed
+// `DesignGrammarBundle` prop, with one client island (`<TokensCssPreview>`)
+// for the iframe rendering.
 //
-// State model — everything lives in the URL search params so links are
-// shareable / refresh-stable / Server-side rendered:
-//   - `?mode=<complete|replace|extend|elevate|genesis>` (default: complete)
-//   - `?client=<slug>`                                  (default: 1st demo brand
-//                                                        if available, else 1st
-//                                                        client from Supabase)
+// State model — URL search params keep deep-links shareable / SSR-stable :
+//   - `?client=<slug>`  (default: 1st DG-having client, else 1st Supabase
+//                        client, else empty state)
 //
-// Live FastAPI trigger is intentionally NOT here — the brief is
-// generated client-side via the deterministic builder, copied to
-// clipboard, then handed to `moteur_gsg` out-of-band (V2 will add the
-// "Trigger run" button against the deployed FastAPI service).
+// Most worktrees + Vercel preview deployments will NOT have the
+// `data/captures/<slug>/design_grammar/` archive — the loader returns a
+// 0-artefact bundle gracefully and the viewer renders the empty-state
+// banner. No 500s. Mathis triggers a fresh run from `/gsg/handoff` to
+// populate the grammar.
 
 import { Card, Pill } from "@growthcro/ui";
-import { listClientsWithStats, listAuditsForClient } from "@growthcro/data";
-import type { Audit, ClientWithStats } from "@growthcro/data";
+import { listClientsWithStats } from "@growthcro/data";
+import type { ClientWithStats } from "@growthcro/data";
 import { createServerSupabase } from "@/lib/supabase-server";
-import { listGsgDemoFiles, type GsgDemo } from "@/lib/gsg-fs";
 import {
-  buildDeterministicBrief,
-  resolveGsgMode,
-  GSG_MODES,
-} from "@/lib/gsg-brief";
-import { GsgModesSelector } from "@/components/gsg/GsgModesSelector";
-import { BriefJsonViewer } from "@/components/gsg/BriefJsonViewer";
-import { ControlledPreviewPanel } from "@/components/gsg/ControlledPreviewPanel";
-import { CopyBriefButton } from "@/components/gsg/CopyBriefButton";
-import { EndToEndDemoFlow } from "@/components/gsg/EndToEndDemoFlow";
+  listClientsWithDesignGrammar,
+  loadDesignGrammar,
+} from "@/lib/design-grammar-fs";
+import { DesignGrammarViewer } from "@/components/gsg/DesignGrammarViewer";
 
 export const dynamic = "force-dynamic";
 
 type SearchParams = {
-  mode?: string | string[];
   client?: string | string[];
 };
 
@@ -57,14 +45,15 @@ function firstParam(value: string | string[] | undefined): string | null {
   return value ?? null;
 }
 
-// Pick the client to render. Order of preference:
+// Pick the client to load. Priority :
 //   1. `?client=<slug>` if it exists in the database
-//   2. First demo LP's brand matched against the database
-//   3. First Supabase client alphabetically
+//   2. 1st DG-having client (from disk walk)
+//   3. 1st Supabase client alphabetically
+// Returns null when no clients exist at all → empty-state shell.
 function pickClient(
   params: SearchParams,
   clients: ClientWithStats[],
-  demos: GsgDemo[]
+  dgSlugs: string[],
 ): ClientWithStats | null {
   if (clients.length === 0) return null;
   const requested = firstParam(params.client);
@@ -72,34 +61,18 @@ function pickClient(
     const found = clients.find((c) => c.slug === requested);
     if (found) return found;
   }
-  for (const demo of demos) {
-    if (!demo.brand) continue;
-    const found = clients.find((c) => c.slug === demo.brand);
+  for (const slug of dgSlugs) {
+    const found = clients.find((c) => c.slug === slug);
     if (found) return found;
   }
   return clients[0] ?? null;
 }
 
-// Find the demo LP that best matches the selected client. Same brand
-// is the strongest signal; otherwise the most recent demo wins so the
-// preview is never blank when at least one HTML exists on disk.
-function pickDemo(
-  client: ClientWithStats | null,
-  demos: GsgDemo[]
-): GsgDemo | null {
-  if (!client) return demos[0] ?? null;
-  const matching = demos.find((d) => d.brand === client.slug);
-  return matching ?? null;
-}
-
-export default async function GsgHandoffPage({
+export default async function GsgDesignGrammarPage({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
-  const mode = resolveGsgMode(searchParams.mode);
-  const modeMeta = GSG_MODES[mode];
-
   const supabase = createServerSupabase();
   let clients: ClientWithStats[] = [];
   let fetchError: string | null = null;
@@ -109,39 +82,13 @@ export default async function GsgHandoffPage({
     fetchError = (e as Error).message;
   }
 
-  const demos = listGsgDemoFiles();
-  const selected = pickClient(searchParams, clients, demos);
-  const demo = pickDemo(selected, demos);
+  const dgSlugs = await listClientsWithDesignGrammar();
+  const selected = pickClient(searchParams, clients, dgSlugs);
 
-  // Fetch first audit for the selected client so the brief carries a
-  // real page_type / page_url / doctrine_version (not a fabricated
-  // default). 1-step query, < 200 ms in EU.
-  let auditMeta: Pick<Audit, "page_type" | "page_url" | "doctrine_version" | "total_score_pct"> | null =
-    null;
-  if (selected) {
-    try {
-      const audits = await listAuditsForClient(supabase, selected.id);
-      const audit = audits[0] ?? null;
-      if (audit) {
-        auditMeta = {
-          page_type: audit.page_type,
-          page_url: audit.page_url,
-          doctrine_version: audit.doctrine_version,
-          total_score_pct: audit.total_score_pct,
-        };
-      }
-    } catch {
-      // Soft fail — RLS or seed-empty org. Brief still builds with defaults.
-    }
-  }
-
-  // No client at all → render the empty-state shell (still ships the
-  // mode selector so the UI is consistent and Mathis can preview the
-  // 5 mode copy strings).
   if (!selected) {
     return (
-      <main className="gc-gsg-shell">
-        <Header />
+      <main className="gc-gsg-shell" data-testid="gsg-dg-page">
+        <Header dgCount={dgSlugs.length} clientCount={clients.length} />
         <Card title="Aucun client" actions={<Pill tone="amber">empty</Pill>}>
           <p style={{ color: "var(--gc-muted)", fontSize: 13 }}>
             Aucun client trouvé en base.{" "}
@@ -150,7 +97,11 @@ export default async function GsgHandoffPage({
                 Erreur Supabase : <code>{fetchError}</code>.
               </>
             ) : (
-              <>Seed un client via Supabase pour générer un brief.</>
+              <>
+                Seed un client puis lance un run GSG via{" "}
+                <a href="/gsg/handoff">/gsg/handoff</a> pour amorcer la
+                Design Grammar.
+              </>
             )}
           </p>
         </Card>
@@ -158,139 +109,87 @@ export default async function GsgHandoffPage({
     );
   }
 
-  const brief = buildDeterministicBrief({
-    client: selected,
-    audit: auditMeta,
-    mode,
-  });
-  const briefJson = JSON.stringify(brief, null, 2);
-
-  const auditScore = auditMeta?.total_score_pct ?? null;
-  const recosTotal = selected.recos_count ?? 0;
-  // Priority counts are not on `clients_with_stats`. Approximate P0 from
-  // the audit row when available; otherwise default to 0 — the demo flow
-  // panel renders "audit en attente" in that case.
-  const recosP0 = 0;
+  const bundle = await loadDesignGrammar(selected.slug);
 
   return (
-    <main className="gc-gsg-shell">
-      <Header demoCount={demos.length} clientCount={clients.length} />
+    <main className="gc-gsg-shell" data-testid="gsg-dg-page">
+      <Header dgCount={dgSlugs.length} clientCount={clients.length} />
 
-      <ClientPicker clients={clients} selected={selected} mode={mode} />
+      <ClientPicker clients={clients} selected={selected} dgSlugs={dgSlugs} />
 
-      <div className="gc-gsg-grid">
-        <Card
-          title="Deterministic GSG Brief"
-          actions={
-            <>
-              <Pill tone="cyan">
-                {brief.client_slug} / {brief.page_type}
-              </Pill>
-              <Pill tone="gold">{modeMeta.short}</Pill>
-            </>
-          }
-        >
-          <GsgModesSelector mode={mode} />
-          <BriefJsonViewer brief={brief} />
-          <div className="gc-gsg-actions">
-            <CopyBriefButton briefJson={briefJson} />
-            <a
-              className="gc-btn gc-btn--ghost"
-              href={demo ? `/api/gsg/${encodeURIComponent(demo.slug)}/html` : "#"}
-              aria-disabled={!demo}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open preview in new tab
-            </a>
-          </div>
-        </Card>
-
-        <Card
-          title="Controlled Preview"
-          actions={<Pill tone="gold">No full HTML LLM</Pill>}
-        >
-          <ControlledPreviewPanel brief={brief} mode={modeMeta} demo={demo} />
-        </Card>
-      </div>
-
-      <Card
-        title="End-to-end Demo"
-        actions={<Pill tone="green">Audit → Reco → Brief → Preview</Pill>}
-      >
-        <EndToEndDemoFlow
-          brief={brief}
-          mode={modeMeta}
-          demo={demo}
-          auditScore={auditScore}
-          recosTotal={recosTotal}
-          recosP0={recosP0}
-        />
-      </Card>
+      <DesignGrammarViewer bundle={bundle} />
     </main>
   );
 }
 
 function Header({
-  demoCount,
+  dgCount,
   clientCount,
 }: {
-  demoCount?: number;
-  clientCount?: number;
+  dgCount: number;
+  clientCount: number;
 }) {
   return (
     <div className="gc-topbar">
       <div className="gc-title">
-        <h1>GSG Handoff</h1>
+        <h1>Design Grammar</h1>
         <p>
-          Brief déterministe Audit → GSG, sans méga-prompt. 5 modes de
-          génération (Complete / Replace / Extend / Elevate / Genesis),
-          contrat JSON stable, preview HTML servie par{" "}
-          <code>/api/gsg/[slug]/html</code> avec CSP{" "}
-          <code>default-src &apos;self&apos;</code> + X-Frame-Options
-          SAMEORIGIN. Live trigger FastAPI reviendra en V2.
+          Viewer des 7 artefacts V30 produits par le pipeline Brand DNA +
+          Design Grammar (tokens.css, tokens.json, component_grammar,
+          section_grammar, composition_rules, brand_forbidden_patterns,
+          quality_gates). Source produit canonique des règles de génération
+          GSG. Brief wizard relocalisé sous{" "}
+          <a href="/gsg/handoff">/gsg/handoff</a>.
         </p>
       </div>
       <div className="gc-toolbar">
+        <a href="/gsg/handoff" className="gc-pill gc-pill--soft">
+          Brief Wizard →
+        </a>
         <a href="/" className="gc-pill gc-pill--soft">
           ← Shell
         </a>
-        <Pill tone="cyan">V27.2-G</Pill>
-        {typeof demoCount === "number" ? (
-          <Pill tone="soft">{demoCount} demos</Pill>
-        ) : null}
-        {typeof clientCount === "number" ? (
-          <Pill tone="soft">{clientCount} clients</Pill>
-        ) : null}
+        <Pill tone="cyan">V30</Pill>
+        <Pill tone="soft">{dgCount} DG</Pill>
+        <Pill tone="soft">{clientCount} clients</Pill>
       </div>
     </div>
   );
 }
 
-// Tiny client picker rendered as an inline `<form GET>` — no client
-// island needed, the browser handles the navigation. Keeps the page
-// fully SSR for the deep links Mathis cares about.
+// Inline `<form GET>` picker — no client island needed, the browser handles
+// navigation. Highlights the DG-having clients in the option list so Mathis
+// can spot which clients already have a captured grammar.
 function ClientPicker({
   clients,
   selected,
-  mode,
+  dgSlugs,
 }: {
   clients: ClientWithStats[];
   selected: ClientWithStats;
-  mode: string;
+  dgSlugs: string[];
 }) {
   if (clients.length <= 1) return null;
+  const dgSet = new Set(dgSlugs);
   return (
-    <form className="gc-client-picker" method="get" action="/gsg">
-      <label htmlFor="gsg-client">Client</label>
-      <select id="gsg-client" name="client" defaultValue={selected.slug}>
+    <form
+      className="gc-client-picker"
+      method="get"
+      action="/gsg"
+      data-testid="gsg-dg-client-picker"
+    >
+      <label htmlFor="gsg-dg-client">Client</label>
+      <select
+        id="gsg-dg-client"
+        name="client"
+        defaultValue={selected.slug}
+      >
         {clients.map((c) => (
           <option key={c.slug} value={c.slug}>
-            {c.name} ({c.slug})
+            {c.name} ({c.slug}){dgSet.has(c.slug) ? " · DG" : ""}
           </option>
         ))}
       </select>
-      <input type="hidden" name="mode" value={mode} />
       <button type="submit" className="gc-btn">
         Switch
       </button>
