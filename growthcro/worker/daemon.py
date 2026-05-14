@@ -121,6 +121,31 @@ def claim_run(run_id: str) -> bool:
     return bool(res) and len(res) > 0
 
 
+def _patch_run_with_fallback(run_id: str, body: dict[str, Any], optional_keys: list[str]) -> None:
+    """PATCH a run, falling back to a slimmed-down body if Supabase rejects
+    an unknown column (migration 20260514_0017_runs_extend not yet applied).
+
+    This keeps the worker functional pre-migration : optional columns
+    (progress_pct, error_message) are dropped silently when absent in schema.
+    Once Mathis applies the migration via Dashboard SQL editor, these
+    columns are persisted normally on the next retry.
+    """
+    try:
+        _request("PATCH", f"runs?id=eq.{run_id}", body=body)
+        return
+    except SupabaseError as exc:
+        msg = str(exc).lower()
+        if "could not find" in msg and any(k in msg for k in optional_keys):
+            slim = {k: v for k, v in body.items() if k not in optional_keys}
+            logger.warning(
+                "patch_run fallback (pre-migration?) — dropped optional cols",
+                extra={"run_id": run_id, "dropped": optional_keys},
+            )
+            _request("PATCH", f"runs?id=eq.{run_id}", body=slim)
+            return
+        raise
+
+
 def complete_run(run_id: str, result: DispatchResult) -> None:
     metadata_patch: dict[str, Any] = {
         "stdout_tail": result.stdout_tail,
@@ -128,16 +153,16 @@ def complete_run(run_id: str, result: DispatchResult) -> None:
         "duration_sec": round(result.duration_sec, 2),
         "returncode": result.returncode,
     }
-    _request(
-        "PATCH",
-        f"runs?id=eq.{run_id}",
-        body={
+    _patch_run_with_fallback(
+        run_id,
+        {
             "status": "completed",
             "finished_at": _now_iso(),
             "output_path": result.output_path,
             "metadata_json": metadata_patch,
             "progress_pct": 100,
         },
+        optional_keys=["progress_pct"],
     )
 
 
@@ -150,15 +175,17 @@ def fail_run(run_id: str, result: DispatchResult | None, error: str) -> None:
             "duration_sec": round(result.duration_sec, 2),
             "returncode": result.returncode,
         })
-    _request(
-        "PATCH",
-        f"runs?id=eq.{run_id}",
-        body={
+    # Persist error message in metadata_json (always works) + error_message column (if migration applied).
+    metadata_patch["error"] = error[:2000]
+    _patch_run_with_fallback(
+        run_id,
+        {
             "status": "failed",
             "finished_at": _now_iso(),
             "error_message": error[:2000],
             "metadata_json": metadata_patch,
         },
+        optional_keys=["error_message"],
     )
 
 
