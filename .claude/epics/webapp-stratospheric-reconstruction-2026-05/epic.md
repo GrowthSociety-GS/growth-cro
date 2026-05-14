@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-14T22:00:00Z
-progress: 31%
+updated: 2026-05-14T23:00:00Z
+progress: 44%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -186,11 +186,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 ### TIER 2 — V26 Parity (P0)
 - [x] 004.md - dashboard-v26-closed-loop-narrative ✅ closed 2026-05-14 (commits ffe5faa + aa8fdf3 + b37aa88 + b7d31e2 + 39ea7d1 + dfddc76 ; Mathis manual validation OK)
-- [~] 005.md - growth-audit-v26-deep-detail 🟡 code complete 2026-05-14 (parallel-agent worktree merged into main, commits 15158fb + 4745fa4 + a03ac12 + b5f4b34 + ff6725c spec-fix ; awaiting Mathis manual validation "Audit detail à parité V26")
-- [~] 006.md - reco-lifecycle-bbox-and-evidence 🟡 code complete 2026-05-14 (commits 862cb17 + d650acc-equivalent + 84cd681 + 694f027 ; awaiting Mathis migration apply + manual validation "Reco cards V26 enfin restaurées")
+- [x] 005.md - growth-audit-v26-deep-detail ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 15158fb + 4745fa4 + a03ac12 + b5f4b34 + ff6725c spec-fix ; Mathis manual validation OK)
+- [x] 006.md - reco-lifecycle-bbox-and-evidence ✅ closed 2026-05-14 (commits 862cb17 + d650acc-equivalent + 84cd681 + 694f027 ; migration applied + Mathis manual validation OK)
 
 ### TIER 3 — Missing Surfaces (P1)
-- [~] 007.md - scent-trail-pane-port 🟡 code complete 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; awaiting Mathis migration apply + manual validation "Scent Trail pane restauré")
+- [x] 007.md - scent-trail-pane-port ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; migration applied + Mathis manual validation OK)
 - [ ] 008.md - experiments-v27-calculator (parallel: true)
 - [ ] 009.md - geo-monitor-v31-pane (parallel: true, depends Mathis-keys)
 - [ ] 010.md - gsg-design-grammar-viewer-restore (parallel: false, depends 002)
@@ -204,12 +204,12 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [ ] 016.md - microfrontends-decision-doc (parallel: true, mostly done in DECISIONS_2026-05-14.md)
 
 **Total tasks**: 16
-**Done**: 4/16 (25%)
-**Code complete (validation pending)**: 3/16 (005 🟡 · 006 🟡 · 007 🟡)
-**Next up**: Tier 3 — task 008 experiments-v27-calculator (parallel-safe, no dep) OR task 012 learning-doctrine-dogfood-restore (parallel-safe, depends 001 ✓). Task 009 GEO + 011 Reality stay blocked on Mathis-keys/creds.
+**Done**: 7/16 (44%)
+**In progress**: 0
+**Next up**: Tier 3 batch — task 008 experiments-v27-calculator (parallel-safe, no dep) + task 012 learning-doctrine-dogfood-restore (parallel-safe, depends 001 ✓). Dispatch as parallel agents with `npm run build` gate (lesson Sprint 6+7).
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~72-86h consumed (4 sprints closed + 3 code-complete pending validation)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~80-90h consumed (7 sprints closed)
 
 ## Progress log
 
