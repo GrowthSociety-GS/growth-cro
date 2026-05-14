@@ -54,22 +54,21 @@ test.describe("Sprint 4 — Dashboard V26 closed-loop narrative", () => {
     expect(tabs, "anonymous visitor must not see the dashboard tabs").toBe(0);
   });
 
-  test("/ root SSR includes Cormorant Garamond CSS variable (V22 dna alive)", async ({
+  test("/login SSR carries V22 next/font fingerprint (task 001 dna alive)", async ({
     request,
   }) => {
-    // Any 2xx/3xx response — the body should reference --gc-font-display
-    // (variable injected by next/font in app/layout.tsx). Confirms task 001
-    // typography still in place after Task 004 wiring.
-    const res = await request.get("/", { maxRedirects: 5 });
+    // next/font/google in production injects 4 `__variable_<hash>` classes
+    // onto `<html>` (one per typeface loaded in app/layout.tsx) + preloads
+    // the woff2 files. Both fingerprints prove the V22 task-001 wiring is
+    // still bundled into the build after Task 004 additions.
+    const res = await request.get("/login", { maxRedirects: 5 });
     expect(res.status()).toBeLessThan(500);
     const body = await res.text();
-    // The font.css link or inline style emitted by next/font/google contains
-    // the variable name. Tolerate either form.
-    expect(
-      body.includes("--gc-font-display") ||
-        body.includes("Cormorant") ||
-        body.includes("__className_"),
-      "expected V22 typography fingerprint in SSR",
-    ).toBeTruthy();
+    expect(body, "expected next/font __variable_ classes on <html>").toMatch(
+      /class="__variable_[a-f0-9]+ __variable_[a-f0-9]+/,
+    );
+    expect(body, "expected woff2 preload (4 fonts loaded by task 001)").toContain(
+      ".woff2",
+    );
   });
 });
