@@ -5,6 +5,7 @@
 import { Card } from "@growthcro/ui";
 import { Sidebar } from "@/components/Sidebar";
 import { createServerSupabase } from "@/lib/supabase-server";
+import { getCurrentRole } from "@/lib/auth-role";
 
 export const metadata = { title: "Audit Meta Ads — GrowthCRO V28" };
 export const dynamic = "force-dynamic";
@@ -17,10 +18,12 @@ async function loadUser() {
 
 export default async function AuditMetaPage() {
   const user = await loadUser();
+  const role = await getCurrentRole().catch(() => null);
+  const isAdmin = role === "admin";
 
   return (
     <div className="gc-app">
-      <Sidebar email={user?.email} />
+      <Sidebar email={user?.email} isAdmin={isAdmin} />
       <main className="gc-main">
         <div className="gc-topbar">
           <div className="gc-title">

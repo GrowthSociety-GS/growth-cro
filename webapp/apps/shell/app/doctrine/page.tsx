@@ -13,6 +13,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { ViewToolbar } from "@/components/ViewToolbar";
 import { Card } from "@growthcro/ui";
 import { createServerSupabase } from "@/lib/supabase-server";
+import { getCurrentRole } from "@/lib/auth-role";
 
 export const dynamic = "force-dynamic";
 
@@ -94,12 +95,14 @@ async function getUserEmail() {
 
 export default async function DoctrinePage() {
   const email = await getUserEmail();
+  const role = await getCurrentRole().catch(() => null);
+  const isAdmin = role === "admin";
   const totalMax = PILIERS.slice(0, 6).reduce((acc, p) => acc + p.max, 0);
   const totalCriteres = PILIERS.slice(0, 6).reduce((acc, p) => acc + p.criteres, 0);
 
   return (
     <div className="gc-app">
-      <Sidebar email={email} />
+      <Sidebar email={email} isAdmin={isAdmin} />
       <main className="gc-main">
         <ViewToolbar
           title="Doctrine V3.2.1"

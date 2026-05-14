@@ -4,11 +4,13 @@
 // URL state: `?client=<slug>` selects hero, `?q=<query>` filters, `?sort=<key>` sorts.
 
 import { createServerSupabase } from "@/lib/supabase-server";
+import { getCurrentRole } from "@/lib/auth-role";
 import { Sidebar } from "@/components/Sidebar";
 import { CommandCenterTopbar } from "@/components/command-center/CommandCenterTopbar";
 import { CommandCenterKpis } from "@/components/command-center/CommandCenterKpis";
 import { FleetPanel } from "@/components/command-center/FleetPanel";
 import { ClientHeroDetail } from "@/components/command-center/ClientHeroDetail";
+import { QuickActionCard } from "@/components/dashboard/QuickActionCard";
 import {
   loadCommandCenterMetrics,
   loadP0CountsByClient,
@@ -74,6 +76,14 @@ export default async function HomePage({
   searchParams: SearchParams;
 }) {
   const { user, clients, metrics, p0Counts, supabase, errors } = await loadOverview();
+  // Task 003 (Sprint 3) : surface the Quick-Action card + sidebar Add-Client
+  // CTA only when the current user is an admin. Catch real Supabase errors
+  // (network/RLS) so the home keeps rendering for non-admins.
+  const role = await getCurrentRole().catch((err) => {
+    console.error("[home] getCurrentRole failed:", err);
+    return null;
+  });
+  const isAdmin = role === "admin";
 
   // Default to first client if no selection yet — keeps the right panel useful on
   // first paint instead of showing an empty state.
@@ -85,9 +95,11 @@ export default async function HomePage({
   const p0Record: Record<string, number> = {};
   for (const [k, v] of p0Counts) p0Record[k] = v;
 
+  const clientChoices = clients.map((c) => ({ slug: c.slug, name: c.name }));
+
   return (
     <div className="gc-app">
-      <Sidebar email={user?.email} />
+      <Sidebar email={user?.email} isAdmin={isAdmin} />
       <main className="gc-main" id="gc-main" tabIndex={-1}>
         <CommandCenterTopbar />
 
@@ -97,6 +109,12 @@ export default async function HomePage({
           recentRuns={metrics.recentRuns}
           recentAudits={metrics.recentAudits}
         />
+
+        {isAdmin ? (
+          <div style={{ margin: "16px 0" }}>
+            <QuickActionCard isAdmin={isAdmin} clientChoices={clientChoices} />
+          </div>
+        ) : null}
 
         <div className="gc-layout">
           <FleetPanel

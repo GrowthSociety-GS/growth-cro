@@ -10,6 +10,7 @@ import { TeamTab, type TeamMemberView } from "@/components/settings/TeamTab";
 import { UsageTab } from "@/components/settings/UsageTab";
 import { ApiTab } from "@/components/settings/ApiTab";
 import { createServerSupabase } from "@/lib/supabase-server";
+import { getCurrentRole } from "@/lib/auth-role";
 import { getAppConfig } from "@growthcro/config";
 import { listOrgMembers, loadUsageCounts, type UsageCounts } from "@growthcro/data";
 
@@ -84,10 +85,12 @@ export default async function SettingsPage() {
   const { email, lastSignInAt, members, counts, usageErrors } = await loadSettings();
   const config = getAppConfig();
   const projectRef = extractProjectRef(config.supabaseUrl);
+  const role = await getCurrentRole().catch(() => null);
+  const isAdmin = role === "admin";
 
   return (
     <div className="gc-app">
-      <Sidebar email={email} />
+      <Sidebar email={email} isAdmin={isAdmin} />
       <main className="gc-main">
         <div className="gc-topbar">
           <div className="gc-title">

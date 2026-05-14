@@ -13,6 +13,7 @@ import { HistoryTabPanel } from "@/components/clients/HistoryTabPanel";
 import { avgPillarsAcrossAudits } from "@/components/clients/score-utils";
 import { CreateAuditTrigger } from "@/components/audits/CreateAuditTrigger";
 import { ClientDeleteTrigger } from "@/components/clients/ClientDeleteTrigger";
+import { TriggerRunButton } from "@/components/runs/TriggerRunButton";
 import { getCurrentRole } from "@/lib/auth-role";
 
 export const dynamic = "force-dynamic";
@@ -83,6 +84,19 @@ export default async function ClientDetailPage({
               <CreateAuditTrigger
                 clientChoices={clientChoices}
                 defaultClientSlug={client.slug}
+              />
+              {/* Task 003 — direct capture trigger for the client homepage.
+                  Skips the audit-creation modal when the admin just wants to
+                  re-shoot the screenshots + pipeline. */}
+              <TriggerRunButton
+                type="capture"
+                label="↻ Capture homepage"
+                variant="ghost"
+                metadata={{
+                  client_slug: client.slug,
+                  page_type: "home",
+                  url: client.homepage_url ?? undefined,
+                }}
               />
               <ClientDeleteTrigger
                 clientId={client.id}

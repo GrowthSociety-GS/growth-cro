@@ -13,6 +13,7 @@
 
 import { usePathname } from "next/navigation";
 import { NavItem } from "@growthcro/ui";
+import { AddClientTrigger } from "@/components/clients/AddClientTrigger";
 
 type NavGroup = {
   label: string;
@@ -58,11 +59,25 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function Sidebar({ email }: { email?: string | null }) {
+export function Sidebar({
+  email,
+  isAdmin,
+}: {
+  email?: string | null;
+  isAdmin?: boolean;
+}) {
   const pathname = usePathname() ?? "/";
   return (
     <aside className="gc-side" aria-label="Navigation principale">
       <div className="gc-side-brand">GrowthCRO V28</div>
+      {isAdmin ? (
+        <div className="gc-side-block" style={{ marginBottom: 8 }}>
+          <AddClientTrigger
+            className="gc-pill gc-pill--gold"
+            label="+ Ajouter un client"
+          />
+        </div>
+      ) : null}
       {GROUPS.map((group) => (
         <div className="gc-side-group" key={group.label}>
           <div className="gc-side-group__label" id={`gc-nav-group-${group.label.toLowerCase().replace(/\s+/g, "-")}`}>

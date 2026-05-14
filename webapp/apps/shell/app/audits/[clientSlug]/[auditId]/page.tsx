@@ -15,6 +15,9 @@ import { notFound } from "next/navigation";
 import { AuditDetailFull } from "@/components/audits/AuditDetailFull";
 import { ConvergedNotice } from "@/components/audits/ConvergedNotice";
 import { AuditEditTrigger } from "@/components/audits/AuditEditTrigger";
+import { AuditStatusPill } from "@/components/audits/AuditStatusPill";
+import { TriggerRunButton } from "@/components/runs/TriggerRunButton";
+import type { AuditStatus } from "@growthcro/data";
 
 export const dynamic = "force-dynamic";
 
@@ -77,7 +80,8 @@ export default async function SingleAuditDetail({
                 {" "}
                 <Pill tone="cyan">Score {Math.round(audit.total_score_pct)}%</Pill>
               </>
-            ) : null}
+            ) : null}{" "}
+            <AuditStatusPill status={audit.status as AuditStatus | undefined} />
           </p>
         </div>
         <div className="gc-toolbar">
@@ -97,11 +101,27 @@ export default async function SingleAuditDetail({
             Multi-juges
           </a>
           {isAdmin ? (
-            <AuditEditTrigger
-              audit={audit}
-              clientSlug={client.slug}
-              clientName={client.name}
-            />
+            <>
+              {/* Task 003 — re-run the capture stage for this exact page. The
+                  worker daemon will repopulate screenshots + spatial_v9 +
+                  scores ; the AuditStatusPill above will reflect progress
+                  once the audits.status column is wired by the worker. */}
+              <TriggerRunButton
+                type="capture"
+                label="↻ Re-run capture"
+                variant="ghost"
+                metadata={{
+                  client_slug: client.slug,
+                  page_type: audit.page_type,
+                  url: audit.page_url ?? undefined,
+                }}
+              />
+              <AuditEditTrigger
+                audit={audit}
+                clientSlug={client.slug}
+                clientName={client.name}
+              />
+            </>
           ) : null}
         </div>
       </div>
