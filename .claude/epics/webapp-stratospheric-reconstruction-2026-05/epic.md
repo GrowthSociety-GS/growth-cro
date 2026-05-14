@@ -185,7 +185,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [x] 003.md - client-lifecycle-from-ui ✅ closed 2026-05-14 (commits 9e5772a + d650acc + b8d2df9 + c6fc87f + 742a67c ; migration applied + Mathis Mode A smoke validated)
 
 ### TIER 2 — V26 Parity (P0)
-- [ ] 004.md - dashboard-v26-closed-loop-narrative (parallel: true, depends 001)
+- [~] 004.md - dashboard-v26-closed-loop-narrative 🟡 code complete 2026-05-14 (commits ffe5faa + aa8fdf3 + b37aa88 + b7d31e2 + 39ea7d1 ; awaiting Mathis manual validation "Dashboard ressemble enfin à V26")
 - [ ] 005.md - growth-audit-v26-deep-detail (parallel: false, depends 001+006)
 - [ ] 006.md - reco-lifecycle-bbox-and-evidence (parallel: true, depends 001)
 
@@ -205,11 +205,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 **Total tasks**: 16
 **Done**: 3/16 (18.75%)
-**In progress**: 0
-**Next up**: Tier 2 — task 004 dashboard-v26-closed-loop-narrative (parallel-safe, depends 001 ✓)
+**Code complete (validation pending)**: 1/16 (004)
+**Next up**: Tier 2 parallel batch — task 005 growth-audit-v26-deep-detail (depends 001+006) + task 006 reco-lifecycle-bbox-and-evidence (parallel-safe). 005 can start as soon as 006 fingerprint utilities ship.
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~32-40h consumed (Tier 1 closed)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~40-48h consumed (3 sprints closed + 1 code-complete)
 
 ## Progress log
 
@@ -261,4 +261,22 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - New `violet` Pill tone + matching CSS rule (aurora-violet semantics for `scoring` state)
 - Gates green : `npm run typecheck --workspace=apps/shell` ✓ · `npm run lint --workspace=apps/shell` ✓ · `python3 scripts/lint_code_hygiene.py --staged` ✓
 - Sidebar `isAdmin` propagation to 5 callsites : page, settings, doctrine, audit-gads, audit-meta
-- 🟡 Pending : Mathis applies `20260514_0018_audits_status.sql` via Supabase Dashboard SQL editor (same path as Sprint 2 migration) + Vercel deploy + manual smoke E2E
+- ✅ Closed 2026-05-14 — migration applied prod, Vercel deploy live, Mathis Mode A smoke validated (visual surfaces end-to-end)
+
+### 2026-05-14 — Sprint 4 (Task 004) 🟡 code complete
+**Dashboard V26 Closed-Loop narrative — Home `/` complete rebuild**
+- Commits : ffe5faa (Sprint 3 close docs) + aa8fdf3 (8 NEW components + queries) + b37aa88 (Home wiring + KPI testid) + b7d31e2 (Playwright spec) + 39ea7d1 (V22 fingerprint regex fix)
+- 7 NEW components matching V26 HTML L900-959 / L1620-1740 :
+  - `ClosedLoopStrip` : 8 modules (Evidence · Lifecycle · BrandDNA · DG · Funnel · Reality · GEO · Learning) with active/partial/pending status badges + count/total — BrandDNA and Lifecycle wired to real Supabase counts ; 6 others gracefully degraded to `pending` until their backing task ships (006/007/009/010/011/012)
+  - `DashboardTabs` : URL-synced `?dtab=fleet|business|pagetype` client island with V22 stratospheric pill style
+  - `PillarBarsFleet` : 6 horizontal SVG bars with `scoreColor()` HSL gradient (hero/persuasion/ux/coherence/psycho/tech)
+  - `PriorityDistribution` : P0/P1/P2/P3 stacked bars (red/amber/green/muted) with total reco count headline
+  - `BusinessBreakdownTable` : clients × audits × recos × P0 × score by business_category, gold gradient trailing bar
+  - `PageTypeBreakdownTable` : audits × recos × P0 × score by page_type, aurora cyan→violet trailing bar
+  - `CriticalClientsGrid` : top-12 clients by P0 reco count, deep-linked glass cards with score color
+- NEW `components/dashboard/queries.ts` — 6 aggregation loaders (470 LOC, mono-concern Supabase reads, defensive try/catch + empty fallback per loader)
+- Charts pure inline SVG — zero new dep, continues the `/funnel/` pattern
+- `app/page.tsx` extended : 6 new loaders parallel-fetched via `Promise.allSettled` + defensive `unwrap()` helper
+- Playwright `dashboard-v26.spec.ts` : 4 contract cases × 2 viewports = 8/8 PASS prod (anonymous never exposes admin strip/tabs ; V22 next/font fingerprint persists)
+- Gates green : typecheck ✓ · lint ✓ · code hygiene ✓ · 124/124 cumulative regression PASS prod
+- 🟡 Pending Mathis : manual validation "Dashboard ressemble enfin à V26" — closed-loop strip visible · 3 tabs switchable via URL ?dtab= · pillar bars filled · breakdown tables non-empty
