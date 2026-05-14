@@ -1,7 +1,8 @@
 # GrowthCRO Product Boundaries V26.AH
 
-> Date : 2026-05-04  
+> Date : 2026-05-04 (initial) · 2026-05-15 (webapp topology revision per D1.A)
 > Status : Day 6 du plan de sauvetage. Source de vérité pour ne plus recoller Audit, Recos, GSG, Webapp, Reality, Experiments, Learning et GEO dans un seul flux flou.
+> Cross-ref : webapp topology = 1 shell, 0 µfrontend — voir [`MICROFRONTENDS_DECISION_2026-05-14.md`](MICROFRONTENDS_DECISION_2026-05-14.md) (D1.A) et [`DECISIONS_2026-05-14.md`](DECISIONS_2026-05-14.md) §D1.
 
 ## 0. Verdict Brutal
 
@@ -75,6 +76,46 @@ GEO
         |
         +---------------------> Webapp Observatoire
 ```
+
+## 3-bis. Topologie Webapp (D1.A monorepo, 2026-05-14)
+
+**Décision verrouillée** : `webapp/` = un seul Next.js 14 App Router app sous `webapp/apps/shell/` (package `@growthcro/shell` v0.28.0). PAS de microfrontends, PAS de `microfrontends.json`, PAS de multi-zone routing.
+
+```text
+webapp/
+  apps/
+    shell/                          ← @growthcro/shell v0.28.0 (only Next.js app)
+      app/
+        audits/                     ← ex apps/audit-app/
+        recos/                      ← ex apps/reco-app/
+        gsg/                        ← ex apps/gsg-studio/
+        gsg/handoff/                ← ex Brief Wizard relocated (D3.A)
+        reality/                    ← ex apps/reality-monitor/
+        learning/                   ← ex apps/learning-lab/
+        clients/                    ← lifecycle (D, sub-PRD 3)
+        settings/                   ← admin
+        api/                        ← Next.js API routes (Phase A backend)
+      components/
+        {audits,recos,gsg,reality,learning}/  ← feature-co-located
+  packages/
+    data/                           ← @growthcro/data — shared types
+    ui/                             ← @growthcro/ui — shared primitives
+_archive/
+  webapp_microfrontends_2026-05-12/ ← FR-1 archived 5 µfrontends (git mv)
+```
+
+**Trigger pour re-évaluer D1.A** :
+- Trigger A : 2e dev full-time qui owne une feature cohérente (codeowners boundaries deviennent friction réelle).
+- Trigger B : feature qui dépasse l'envelope du bundle partagé (envisage d'abord lazy-load route-level, escalade µfrontends seulement si insuffisant).
+
+Tant qu'aucun trigger n'a fired, **D1.A tient**. Tout nouveau fichier `webapp/apps/<feature>/` autre que `shell/` = anti-pattern bloquant.
+
+**Cross-refs** :
+- Decision doc : [`MICROFRONTENDS_DECISION_2026-05-14.md`](MICROFRONTENDS_DECISION_2026-05-14.md)
+- DECISIONS §D1 : [`DECISIONS_2026-05-14.md`](DECISIONS_2026-05-14.md)
+- FR-1 epic (consolidation 2026-05-13) : [`webapp-consolidate-architecture`](../../prds/webapp-consolidate-architecture.md)
+- Skill `vercel-microfrontends` dropped : [`SKILLS_INTEGRATION_BLUEPRINT.md` §4.1.4](../reference/SKILLS_INTEGRATION_BLUEPRINT.md)
+- Architecture explorer : `deliverables/architecture-explorer-data.js` (pipelines.webapp_v28 = single shell entry, meta.revision_notes log)
 
 ## 4. Dépendances Autorisées
 

@@ -1,8 +1,12 @@
 # Skills Integration Blueprint — GrowthCRO
 
-**Version**: 1.2 (Task #27 — MCPs Production setup, 2026-05-12)
+**Version**: 1.4 (Sprint 10 / Task 016 — D1.A monorepo confirmed, `vercel-microfrontends` dropped, 2026-05-15)
 **Status**: Active
 **Update policy**: Mis à jour à chaque ajout/retrait de skill OU à chaque epic terminé qui change l'écosystème.
+
+**Changelog v1.4 (2026-05-15)** :
+- `vercel-microfrontends` (Vercel) **DROPPED** per D1.A monorepo decision (cf [`MICROFRONTENDS_DECISION_2026-05-14.md`](../architecture/MICROFRONTENDS_DECISION_2026-05-14.md)). Le skill optimisait pour une archi (5 microfrontends) que Mathis a rejetée 2026-05-14 — keep-and-see serait un signal cacophonie (skill push pour un pattern qu'on a archivé). Status passe d'ESSENTIEL (À INSTALLER) → DROPPED, line 33 table updated, §4.1.4 réécrit, combo "Webapp Next.js dev" passe de 5→4 skills permanents.
+- Re-introduction conditionnée à Trigger A (2e dev full-time qui own une feature) ou Trigger B (feature dépasse envelope bundle partagé). Cf decision doc §4.
 
 **Changelog v1.2 (2026-05-12)** :
 - Section §4bis enrichie : 4 MCPs production documentés (Supabase + Sentry + Meta Ads officiel + Shopify) — install pending Mathis manual.
@@ -30,7 +34,7 @@ Cet écosystème est composé de **22+ skills audités** (14 essentiels + 6 on-d
 | 1 | `frontend-design` | Anthropic (built-in) | ESSENTIEL | Direction artistique générique, partout où on génère du front |
 | 2 | `brand-guidelines` | Anthropic (built-in) | ESSENTIEL | Couche Brand DNA par-client, contrebalance les Anthropic-defaults |
 | 3 | `web-artifacts-builder` | Anthropic (built-in) | ESSENTIEL | shadcn/Tailwind/state-mgmt pour la webapp V28 future |
-| 4 | `vercel-microfrontends` | Vercel | ESSENTIEL (À INSTALLER) | Archi microfrontends pour la webapp V28 Next.js |
+| 4 | `vercel-microfrontends` | Vercel | DROPPED (2026-05-15, D1.A) | Archi microfrontends rejetée — webapp = single `@growthcro/shell` consolidé (cf decision doc) |
 | 5 | `cro-methodology` | Conversion Rate Experts / wondelai | ESSENTIEL (À INSTALLER) | Méthodologie CRE en POST-PROCESS, alimente la fusion V3.3 (#18) |
 | 6 | `Emil Kowalski Design Skill` | emilkowal.ski | ESSENTIEL (À INSTALLER) | Animations premium pour le GSG stratosphère (#19) |
 | 7 | `Impeccable` | pbakaus / impeccable.style | ESSENTIEL (À INSTALLER) | 200 anti-patterns, QA polish post-render GSG |
@@ -126,34 +130,32 @@ Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite s
 
 ---
 
-### Combo "Webapp Next.js dev" (étendu — 5 skills max, exception documentée)
+### Combo "Webapp Next.js dev" (4 skills — post D1.A monorepo decision)
 
-**Skills actifs** (post Task #26 Stratosphère S1 install):
+**Skills actifs** (post Sprint 10 / Task 016 — `vercel-microfrontends` DROPPED) :
 - `frontend-design` (composants visuels)
 - `web-artifacts-builder` (shadcn/Tailwind/state-mgmt)
-- `vercel-microfrontends` (archi multi-zones)
 - `vercel-react-best-practices` (70 règles React/Next.js perf — Vercel)
 - `web-design-guidelines` (100+ règles a11y+perf+UX — Vercel)
 
-**Limite**: 5 skills/session (one-off exception documentée — sweet spot historique 4, mais ce combo cumule design + archi + 2 layers Vercel best-practices critiques pour Epic #6 webapp V28 perf budget <2s).
+**Limite**: 4 skills/session — revient au sweet spot historique après drop de `vercel-microfrontends`. Cones d'action disjoints (composant × stack × perf × a11y), zero cacophonie.
 
-**Trade-off décidé (2026-05-12)** : on garde 5 skills permanents. `Figma Implement Design` démoté en **on-demand** (slash `/figma-implement` invoqué ponctuellement quand Mathis colle un lien Figma). Rationale :
-- Les 2 Vercel skills sont permanents car ils auto-appliquent fixes pendant gen (zero effort post-install).
-- `Figma Implement Design` n'est utile que les sessions où un Figma file existe.
-- Le combo reste anti-cacophonie (cones d'action disjoints : composant × stack × archi × perf × a11y).
+**Évolution historique** :
+- v1.0 (initial) : combo prévu à 4 skills (frontend-design + web-artifacts-builder + `vercel-microfrontends` + Figma Implement Design).
+- v1.1 (2026-05-12) : étendu à 5 skills (ajout 2 Vercel best-practices), `Figma Implement Design` démoté on-demand.
+- v1.4 (2026-05-15) : `vercel-microfrontends` DROPPED per D1.A monorepo decision (cf [`MICROFRONTENDS_DECISION_2026-05-14.md`](../architecture/MICROFRONTENDS_DECISION_2026-05-14.md)). Combo revient à 4 skills.
 
-**Activation**: Manuelle au début d'un sprint webapp V28 (Epic #6 / #21).
+**Activation**: Manuelle au début d'un sprint webapp (Epic #21 stratospheric-reconstruction).
 
 **Rationale détaillée**:
 - `frontend-design` produit les composants UI
 - `web-artifacts-builder` fournit la stack (shadcn/Tailwind + React state)
-- `vercel-microfrontends` cadre l'archi : 5 microfrontends (audit-app / reco-app / gsg-studio / reality-monitor / learning-lab — cf `epic.md` AD-1)
 - `vercel-react-best-practices` (Vercel — 70 règles perf) : empêche async/await waterfalls, barrel imports lourds, re-renders inutiles
 - `web-design-guidelines` (Vercel — 100+ règles a11y+perf+UX) : WCAG 2.1 AA, forms patterns, animations, semantic HTML
 
 **Modules impactés** (`WEBAPP_ARCHITECTURE_MAP.yaml`):
-- `growthcro/api/server` (FastAPI exposée via Vercel edge functions)
-- `webapp/apps/audit-app`, `reco-app`, `gsg-studio`, `reality-monitor`, `learning-lab` (post Epic #6)
+- `growthcro/api/server` (FastAPI exposée via Vercel edge functions — legacy, migration progressive vers Next.js API routes)
+- `webapp/apps/shell/app/{audits,recos,gsg,reality,learning,clients,settings}/` — single Next.js 14 shell per D1.A
 - pipelines: `webapp` stages `stages_v28_nextjs_target`
 
 **Note de phasing**: ce combo n'est PAS activé en permanence avant Epic #6 deploy (webapp V28 migration). En attendant, V27 HTML reste live.
@@ -305,18 +307,21 @@ Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite s
 - **Signaux contraires**: Aucun connu. Ce skill est strictement webapp.
 - **Coût API potentiel**: O(webapp dev) — sollicité durant le sprint #21. Pas de coût per-client/per-run.
 
-#### 4.1.4 `vercel-microfrontends` (Vercel, À INSTALLER)
+#### 4.1.4 `vercel-microfrontends` (Vercel) — **DROPPED (2026-05-15, D1.A)**
 
-- **Source**: `https://skills.sh/vercel/microfrontends/vercel-microfrontends`
-- **Installation**: `npx skills add https://github.com/vercel/microfrontends --skill vercel-microfrontends`
-- **Quand l'activer**: Combo "Webapp Next.js dev" (Epic #21).
-- **Où dans le code**:
-  - `microfrontends.json` (config Vercel, à créer dans #21)
-  - `growthcro/api/server` (exposé via Vercel edge functions)
-  - Routing des 5 microfrontends
-- **Intégration patterns**: **Architecture template**. Le skill fournit la config Vercel et les patterns multi-zones. On suit le pattern pour nos 5 microfrontends.
-- **Signaux contraires**: Aucun.
-- **Coût API potentiel**: O(webapp dev) — consulté durant sprint #21 pour la config + routing. Pas de coût per-run.
+- **Verdict** : ~~ESSENTIEL (À INSTALLER)~~ → **DROPPED**.
+- **Décision** : [`MICROFRONTENDS_DECISION_2026-05-14.md`](../architecture/MICROFRONTENDS_DECISION_2026-05-14.md) (D1.A monorepo, verrouillé 2026-05-14 par Mathis, formalisé 2026-05-15 via Sprint 10 / Task 016).
+- **Rationale du drop** :
+  1. La webapp est consolidée en un single `@growthcro/shell` v0.28.0 depuis FR-1 (2026-05-13). Plus de 5 microfrontends à orchestrer.
+  2. Un skill qui pousse pour une archi explicitement rejetée = signal cacophonie (le skill suggérerait des patterns multi-zone que notre code n'implémente plus).
+  3. Solo dev + ~100 clients = 6 projets Vercel overkill. Trade-off documenté dans le decision doc.
+- **Source (archivée pour mémoire)** : `https://skills.sh/vercel/microfrontends/vercel-microfrontends`.
+- **Installation** : **NE PAS installer** tant que D1.A tient.
+- **Conditions de re-introduction** :
+  - **Trigger A** : 2e dev full-time own une feature cohérente (codeowners boundaries deviennent friction réelle).
+  - **Trigger B** : feature dépasse l'envelope du bundle partagé — escalader d'abord vers lazy-loaded route-level code splitting, microfrontends seulement si insuffisant.
+  - Aucun de ces triggers n'est actif aujourd'hui.
+- **Restore procedure** (si un trigger fire) : voir `_archive/webapp_microfrontends_2026-05-12/README.md` + decision doc §4 migration path.
 
 #### 4.1.5 `cro-methodology` (Conversion Rate Experts / wondelai, À INSTALLER)
 
