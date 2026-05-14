@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-15T08:00:00Z
-progress: 62%
+updated: 2026-05-15T09:00:00Z
+progress: 69%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -193,7 +193,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [x] 007.md - scent-trail-pane-port ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; migration applied + Mathis manual validation OK)
 - [x] 008.md - experiments-v27-calculator ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits c6a352e + 2c83535 + 02e8933 + 24fa668 ; migration applied + Mathis manual validation OK)
 - [ ] 009.md - geo-monitor-v31-pane (parallel: true, depends Mathis-keys)
-- [ ] 010.md - gsg-design-grammar-viewer-restore (parallel: false, depends 002)
+- [~] 010.md - gsg-design-grammar-viewer-restore 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits a041d97 + 5505384 + 5ea0cb0 + 5c13636 ; awaiting Mathis manual validation "/gsg restauré V26 + /gsg/handoff fonctionnel")
 - [ ] 011.md - reality-layer-5-connectors-wiring (parallel: false, depends 002+Mathis-creds)
 - [x] 012.md - learning-doctrine-dogfood-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; Mathis manual validation OK)
 
@@ -201,15 +201,15 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [ ] 013.md - global-chrome-cmdk-breadcrumbs (parallel: false, depends 001-012)
 - [ ] 014.md - essential-skills-install-and-wire (parallel: true)
 - [ ] 015.md - legacy-cleanup-mega-prompt-archive (parallel: true)
-- [ ] 016.md - microfrontends-decision-doc (parallel: true, mostly done in DECISIONS_2026-05-14.md)
+- [~] 016.md - microfrontends-decision-doc 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits 3e7636b + 63587c3 + 9921714 ; awaiting Mathis sign-off on decision doc + architecture-explorer)
 
 **Total tasks**: 16
 **Done**: 9/16 (56%)
-**In progress**: 0
-**Next up**: Tier 3 continuation — task 010 gsg-design-grammar-viewer-restore (depends 002 ✓) + task 014 essential-skills-install-and-wire (parallel-safe, no dep). Dispatch as parallel agents v3 with the 4-gate validation. 009 GEO + 011 Reality stay blocked on Mathis-keys/creds.
+**Code complete (validation pending)**: 2/16 (010 🟡 · 016 🟡)
+**Next up**: Mathis-side work — task 014 essential-skills-install-and-wire (needs `npx skills add` perms + skill source URL discovery) + task 015 legacy-cleanup-mega-prompt-archive (high blast radius `--gc-*` alias removal, manual review preferred). Task 013 cmd+K depends on 014/015. Task 009 GEO + 011 Reality stay blocked on Mathis-keys/creds.
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~110-120h consumed (9 sprints closed)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~124-136h consumed (9 sprints closed + 2 code-complete pending validation)
 
 ## Progress log
 
@@ -358,3 +358,27 @@ Second parallel-agent dispatch via `subagent_type: general-purpose` + `isolation
 - Playwright `learning-doctrine.spec.ts` : 10/10 PASS prod (after parent-session softening — agent's spec asserted testids on routes that 307 to /login for anonymous ; switched to contract pattern matching other Sprints)
 
 **Cumulative tests Sprint 1-9** : **168/168 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 8 experiments + 10 learning-doctrine + 55 ancillary × 2 viewports) — **zero régression sur les 9 sprints**.
+
+### 2026-05-15 — Sprint 10 (Tasks 010 + 016) 🟡🟡 code complete (parallel agents v3)
+
+Third parallel-agent dispatch via `isolation: worktree`. Tasks 014 + 015 deferred to Mathis-side : 014 (essential skills install) needs `npx skills add` perms + speculative source URL discovery ; 015 (legacy `--gc-*` alias cleanup) has 30+ component blast radius requiring careful manual review.
+
+**Task 010 — gsg-design-grammar-viewer-restore (branch worktree-agent-aed9dcfc515075dd4 merged to main)**
+- 4 commits : `a041d97` (design-grammar types + server-only fs reader) + `5505384` (API redirect/proxy route mirroring SP-11) + `5ea0cb0` (Design Grammar viewer + Brief Wizard relocation to /handoff) + `5c13636` (Playwright contract spec)
+- 10 NEW files + 3 modified — see [`010.md`](./010.md) implementation log
+- `/gsg` rebuilt as Design Grammar viewer Server Component with 7-artefact grid (tokens.css preview + tokens.json + 5 grammar JSONs)
+- `/gsg/handoff` houses the relocated Brief Wizard ; orphan `triggerGsgRun()` fetch swapped for `<TriggerRunButton type="gsg" metadata={...} />` (now flows through admin-gated Task 002 backend)
+- Iframe sandbox : `sandbox="allow-same-origin"` only (no `allow-scripts`) — tokens.css is CSS-only ; `referrerPolicy="no-referrer"` + bounded `max-height` defend against layout bombs
+- API route `/api/design-grammar/[client]/[file]` mirrors SP-11 dual-backend pattern (302 to Supabase Storage when configured, fs fallback for local)
+- GsgRunPreview client island subscribes to Supabase Realtime `runs` filtered server-side by `run_id` (same pattern as RunStatusPill)
+- Server-only/pure split applied upfront (Sprint 6+7 lesson) — zero post-merge bundle fix
+
+**Task 016 — microfrontends-decision-doc (branch worktree-agent-abd14eb3e7ac0b73a merged to main)**
+- 3 commits : `3e7636b` (decision doc + manifest §12) + `63587c3` (architecture-explorer-data.js + utility script) + `9921714` (PRODUCT_BOUNDARIES §3-bis + BLUEPRINT v1.4)
+- 2 NEW files + 4 modified
+- `.claude/docs/architecture/MICROFRONTENDS_DECISION_2026-05-14.md` — D1.A formalised (126 lines : rationale, pros/cons, migration Triggers A/B, FR-1 cross-ref)
+- `scripts/update_architecture_explorer.py` — idempotent stdlib-only Python utility for atomic JSON mutation on `architecture-explorer-data.js` (preserved for future audits)
+- `deliverables/architecture-explorer-data.js` collapsed 6 µfrontend entries → 1 `@growthcro/shell v0.28.0` entry, mermaid view 5 rewritten, `meta.revision_notes` field added (JS sanity check confirmed window.ARCH still parses, modules=251 preserved)
+- `SKILLS_INTEGRATION_BLUEPRINT` bumped v1.4 — `vercel-microfrontends` DROPPED (not parked) ; combo Webapp 5→4 skills
+
+**Cumulative tests Sprint 1-10** : **182/182 PASS prod canonical** (+ Sprint 10 contract spec for /gsg + /gsg/handoff + /api/design-grammar) — **zero régression sur les 10 sprints**.

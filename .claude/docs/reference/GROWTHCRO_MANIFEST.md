@@ -641,6 +641,39 @@ Second batch of parallel agents via `subagent_type: general-purpose` + `isolatio
 
 **Cumulative tests Sprint 1-9** : **168/168 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 8 experiments + 10 learning-doctrine + 55 ancillary × 2 viewports) — **zero régression sur les 9 sprints**.
 
+**Sprint 10 (Tasks 010 + 016) 🟡🟡 code complete — parallel-agent dispatch v3**
+
+Third parallel-agent batch via `subagent_type: general-purpose` + `isolation: worktree`. Both agents passed all 4 gates (typecheck + lint + **build** + hygiene) locally before reporting. Zero post-merge bundle fix required — Sprint 7 server-only/pure split pattern fully internalised.
+
+Tasks 014 (essential-skills-install) + 015 (legacy `--gc-*` cleanup) deferred to Mathis-side : 014 needs `npx skills add` perms + speculative source URL discovery for 4 skills ; 015 has 30+ component blast radius for `--gc-*` alias removal that warrants careful manual review rather than agent dispatch.
+
+**Task 010 — gsg-design-grammar-viewer-restore (Sprint 10a, branch worktree-agent-aed9dcfc515075dd4)**
+- Commits : `a041d97` (design-grammar types + server-only fs reader) + `5505384` (`/api/design-grammar/[client]/[file]` redirect/proxy route) + `5ea0cb0` (Design Grammar viewer + Brief Wizard relocation to `/handoff`) + `5c13636` (Playwright contract spec)
+- 10 NEW files + 3 modified
+- Implements D3.A : `/gsg` rebuilt as Design Grammar viewer (Server Component with 7-artefact grid) ; Brief Wizard moves to `/gsg/handoff` (admin-gated)
+- `lib/design-grammar-types.ts` (pure types, zero Node imports) + `lib/design-grammar-fs.ts` (server-only with `import "server-only";` guard) — Sprint 7 split pattern applied upfront
+- `<TokensCssPreview>` client island : sandboxed `<iframe srcDoc>` rendering tokens.css live with a sample CTA + KPI block. `sandbox="allow-same-origin"` only (CSS-only, no JS exec) ; `referrerPolicy="no-referrer"` + bounded max-height defend against layout bombs
+- `<GsgRunPreview>` subscribes to Supabase Realtime `runs` filtered server-side by `run_id` (same `subscribeRuns` helper as RunStatusPill, simplify E1 pattern)
+- `BriefWizard` orphan `triggerGsgRun()` fetch replaced with `<TriggerRunButton type="gsg" metadata={...} />` — flows through admin-gated Task 002 backend
+- API route `/api/design-grammar/[client]/[file]` mirrors SP-11 screenshots : 302 to Supabase Storage when `NEXT_PUBLIC_SUPABASE_URL` set, fs fallback for local
+- Route tree post-build : `/gsg` 4.18 kB + `/gsg/handoff` 5.37 kB + `/api/design-grammar/[client]/[file]` dynamic
+- 🟡 Pending Mathis : manual validation "/gsg restauré V26 + /gsg/handoff fonctionnel"
+
+**Task 016 — microfrontends-decision-doc (Sprint 10b, branch worktree-agent-abd14eb3e7ac0b73a)**
+- Commits : `3e7636b` (decision doc + manifest §12) + `63587c3` (architecture-explorer-data.js + utility script) + `9921714` (PRODUCT_BOUNDARIES §3-bis + BLUEPRINT v1.4)
+- 2 NEW files + 4 modified
+- `.claude/docs/architecture/MICROFRONTENDS_DECISION_2026-05-14.md` (NEW, 126 lines) — D1.A formalised : rationale (1 dev solo, ~100 clients, simpler ops), pros (single deploy, cohesive context) vs cons (no inter-feature isolation), migration Triggers A/B, FR-1 cross-reference
+- `scripts/update_architecture_explorer.py` (NEW, 236 lines, stdlib-only) — idempotent Python utility for atomic JSON mutation on `architecture-explorer-data.js` ; preserved for future audits
+- `deliverables/architecture-explorer-data.js` : 6 µfrontend entries → 1 `@growthcro/shell v0.28.0` entry under `pipelines.webapp_v28.extra.microfrontends`, mermaid view 5 rewritten, `meta.revision_notes` field added. JS sanity check confirms `window.ARCH` still parses (modules=251 / pipelines=7 / mermaid_views=6 / `webapp_v28.microfrontends.length=1`)
+- `PRODUCT_BOUNDARIES_V26AH.md` new §3-bis "Topologie Webapp" cross-references DECISIONS_2026-05-14.md D1.A
+- `SKILLS_INTEGRATION_BLUEPRINT.md` bumped to v1.4 — `vercel-microfrontends` DROPPED (not parked) with Trigger A/B re-introduction conditions ; combo Webapp 5→4 skills
+- Idempotent : `python3 scripts/update_architecture_explorer.py` × 2 runs → second prints "already up to date"
+- 🟡 Pending Mathis : sign-off on decision doc + visual check of `open deliverables/architecture-explorer.html`
+
+**Lesson from agent's wrong-cwd hiccup** : Task 016 agent initially wrote files into main's checkout (cwd reset between Bash calls landed it in `main` instead of the worktree). Recovered via `git diff > patch + git apply` + safety stash `task-016-revert-from-main` (dropped by parent after merge verification). Worth a follow-up to the `dispatching-parallel-agents` skill : agents working in worktrees should `cd <worktree>` and verify via `git rev-parse --show-toplevel` before every Bash sequence to avoid this drift.
+
+**Cumulative tests Sprint 1-10** : **182/182 PASS prod canonical** (+ Sprint 10 contract spec for /gsg + /gsg/handoff + /api/design-grammar) — **zero régression sur les 10 sprints**.
+
 ### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
 
 **Master PRD** : [`webapp-data-fidelity-and-skills-stratosphere-2026-05`](../../prds/webapp-data-fidelity-and-skills-stratosphere-2026-05.md) — AUDIT-FIRST méthodo post écran de fumée 2026-05-13.
