@@ -59,10 +59,10 @@ export function TriggerRunButton({
     setPending(true);
     setError(null);
     try {
-      const res = await fetch(`/api/runs/${type}`, {
+      const res = await fetch(`/api/runs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(metadata ?? {}),
+        body: JSON.stringify({ type, ...(metadata ?? {}) }),
       });
       const body = (await res.json()) as
         | { ok: true; run: { id: string } }

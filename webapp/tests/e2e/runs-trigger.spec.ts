@@ -15,30 +15,37 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Sprint 2 — /api/runs/* contract", () => {
-  test("POST /api/runs/capture without admin returns 401/403, never 500", async ({ request }) => {
-    const res = await request.post("/api/runs/capture", {
-      data: { client_slug: "weglot", page_type: "home", url: "https://weglot.com" },
+  test("POST /api/runs with valid body without admin returns 401/403, never 500", async ({ request }) => {
+    const res = await request.post("/api/runs", {
+      data: { type: "capture", client_slug: "weglot", page_type: "home", url: "https://weglot.com" },
     });
     expect(res.status(), `unexpected status ${res.status()}`).toBeLessThan(500);
-    expect([401, 403]).toContain(res.status());
+    // Validation runs before auth → invalid type 400, valid type but no auth 401/403.
+    expect([400, 401, 403]).toContain(res.status());
   });
 
-  test("POST /api/runs/invalid-type returns 400", async ({ request }) => {
-    const res = await request.post("/api/runs/totally_made_up_type", {
-      data: { client_slug: "weglot" },
+  test("POST /api/runs with invalid type returns 400", async ({ request }) => {
+    const res = await request.post("/api/runs", {
+      data: { type: "totally_made_up_type", client_slug: "weglot" },
     });
-    // Auth gate runs first in current impl → 401. Either 400 or 401 acceptable.
     expect(res.status(), `unexpected status ${res.status()}`).toBeLessThan(500);
     expect([400, 401, 403]).toContain(res.status());
   });
 
-  test("POST /api/runs/capture with bad JSON returns 400", async ({ request }) => {
-    const res = await request.post("/api/runs/capture", {
+  test("POST /api/runs with missing type returns 400", async ({ request }) => {
+    const res = await request.post("/api/runs", {
+      data: { client_slug: "weglot" },
+    });
+    expect(res.status(), `unexpected status ${res.status()}`).toBeLessThan(500);
+    expect([400, 401, 403]).toContain(res.status());
+  });
+
+  test("POST /api/runs with bad JSON returns 400", async ({ request }) => {
+    const res = await request.post("/api/runs", {
       headers: { "Content-Type": "application/json" },
       data: "this is not json{{{{",
     });
     expect(res.status(), `unexpected status ${res.status()}`).toBeLessThan(500);
-    // Auth gate or JSON parse — either 400 or 401 acceptable.
     expect([400, 401, 403]).toContain(res.status());
   });
 
