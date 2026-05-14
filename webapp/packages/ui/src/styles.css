@@ -1306,3 +1306,48 @@ a.gc-e2e__detail:hover {
     animation: none;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Sprint 6 / Task 005 — Pulsing P0 dot (V26 parity).
+ * Used next to client names when p0_count > 0 (FleetPanel, CriticalClientsGrid).
+ * ───────────────────────────────────────────────────────────────────────── */
+
+@keyframes gc-pulse-p0 {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 117, 85, 0.7); }
+  50%      { box-shadow: 0 0 0 8px rgba(232, 117, 85, 0); }
+}
+.gc-p0-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bad, #e87555);
+  animation: gc-pulse-p0 1.6s var(--ease-aura, ease) infinite;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gc-p0-dot { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Sprint 6 / Task 005 — Sticky page-types tabs (PageTypesTabs wrapper).
+ * Translucent panel-tinted backdrop so underlying content stays legible.
+ * ───────────────────────────────────────────────────────────────────────── */
+
+.gc-sticky-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: linear-gradient(
+    to bottom,
+    var(--gc-bg) 0%,
+    rgba(0, 2, 7, 0.92) 70%,
+    rgba(0, 2, 7, 0) 100%
+  );
+  padding-top: 8px;
+  padding-bottom: 4px;
+  margin-top: -8px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}

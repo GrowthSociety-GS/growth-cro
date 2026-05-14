@@ -6,6 +6,7 @@ import { getClientBySlug, listAuditsForClient, listClients } from "@growthcro/da
 import { createServerSupabase } from "@/lib/supabase-server";
 import { notFound } from "next/navigation";
 import { PillarRadialChart } from "@/components/clients/PillarRadialChart";
+import { ClientHeroBlock } from "@/components/clients/ClientHeroBlock";
 import { ClientDetailTabs } from "@/components/clients/ClientDetailTabs";
 import { AuditsTabPanel } from "@/components/clients/AuditsTabPanel";
 import { BrandDNATabPanel } from "@/components/clients/BrandDNATabPanel";
@@ -106,6 +107,13 @@ export default async function ClientDetailPage({
           ) : null}
         </div>
       </div>
+
+      {/* Task 005 — Brand DNA hero (palette + voice + typography teaser). */}
+      <ClientHeroBlock
+        brandDna={client.brand_dna_json}
+        clientName={client.name}
+        clientSlug={client.slug}
+      />
 
       <div className="gc-grid-kpi">
         <KpiCard label="Audits" value={audits.length} />
