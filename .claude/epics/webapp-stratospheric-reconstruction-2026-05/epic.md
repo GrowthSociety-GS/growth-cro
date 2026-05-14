@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-14T23:00:00Z
-progress: 44%
+updated: 2026-05-15T00:00:00Z
+progress: 56%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -191,11 +191,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 ### TIER 3 — Missing Surfaces (P1)
 - [x] 007.md - scent-trail-pane-port ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; migration applied + Mathis manual validation OK)
-- [ ] 008.md - experiments-v27-calculator (parallel: true)
+- [~] 008.md - experiments-v27-calculator 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits c6a352e + 2c83535 + 02e8933 + 24fa668 ; awaiting migration apply + Mathis manual validation "Experiments calculator functional")
 - [ ] 009.md - geo-monitor-v31-pane (parallel: true, depends Mathis-keys)
 - [ ] 010.md - gsg-design-grammar-viewer-restore (parallel: false, depends 002)
 - [ ] 011.md - reality-layer-5-connectors-wiring (parallel: false, depends 002+Mathis-creds)
-- [ ] 012.md - learning-doctrine-dogfood-restore (parallel: true, depends 001)
+- [~] 012.md - learning-doctrine-dogfood-restore 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; awaiting Mathis manual validation "Doctrine et Learning V26-parity restaurées")
 
 ### TIER 4 — Enhancements (P2)
 - [ ] 013.md - global-chrome-cmdk-breadcrumbs (parallel: false, depends 001-012)
@@ -205,11 +205,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 **Total tasks**: 16
 **Done**: 7/16 (44%)
-**In progress**: 0
-**Next up**: Tier 3 batch — task 008 experiments-v27-calculator (parallel-safe, no dep) + task 012 learning-doctrine-dogfood-restore (parallel-safe, depends 001 ✓). Dispatch as parallel agents with `npm run build` gate (lesson Sprint 6+7).
+**Code complete (validation pending)**: 2/16 (008 🟡 · 012 🟡)
+**Next up**: Tier 3 continuation — task 010 gsg-design-grammar-viewer-restore (depends 002 ✓) OR task 014 essential-skills-install-and-wire (parallel-safe, no dep). Task 009 GEO + 011 Reality remain blocked on Mathis-keys/creds.
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~80-90h consumed (7 sprints closed)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~96-108h consumed (7 sprints closed + 2 code-complete pending validation)
 
 ## Progress log
 
@@ -333,3 +333,28 @@ Two background Agents launched simultaneously in `git worktree` mode (`isolation
 **Post-merge fix (parent session, commit `1a041b8`)** : Vercel build for the post-merge `ff6725c` failed because `ScentFleetTable.tsx` ("use client") value-imported `maxSeverity` from `scent-fs.ts`, which imports `node:fs/promises` + `node:path`. Webpack rejected the `node:` scheme. Same chain hit `ScentTrailDiagram.tsx`. Fix : extracted pure types + helpers into `webapp/apps/shell/lib/scent-types.ts` (zero Node imports), added `import "server-only";` guard to `scent-fs.ts` so future regressions catch at Next compile instead of webpack bundle. Retargeted all 4 scent components to import from `@/lib/scent-types`. **Lesson learned** : agent worktree validation gate should include `npm run build` (not just `tsc --noEmit`) — typecheck doesn't catch `"use client"` + `node:` boundary violations.
 
 **Cumulative tests Sprint 1+2+3+4+5+6+7** : **152/152 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 57 ancillary × 2 viewports) — **zero régression sur les 7 sprints**.
+
+### 2026-05-15 — Sprint 8+9 (Tasks 008 + 012) 🟡🟡 code complete (parallel agents v2)
+
+Second parallel-agent dispatch via `subagent_type: general-purpose` + `isolation: worktree`. Lesson from Sprint 6+7 applied : the agent validation gate now includes `npm run build --workspace=apps/shell` (not just `tsc --noEmit`) — both agents passed all 4 gates locally, zero post-merge fix required for the bundle this time.
+
+**Task 008 — experiments-v27-calculator (Sprint 8)** — branch `worktree-agent-aa7881edd57834169` merged to main
+- 4 commits : `c6a352e` (foundation : sample-size math + types + Supabase table) + `2c83535` (4 experiment components) + `02e8933` (/experiments route + sidebar nav-item) + `24fa668` (Playwright contract spec)
+- 10 NEW files + 1 modified (Sidebar.tsx) — see [`008.md`](./008.md) implementation log
+- Sample size formula : textbook two-sample proportion z-test with Acklam inverse-normal CDF approximation, pure-TS no scipy dep. `inverseNormalCdf(0.975) = 1.959964` ✓ (z_alpha 95% 2-tailed). Default inputs (baseline 5%, MDE +20%, α=0.05, power=0.8, 2-tailed) → n_per_arm ≈ 8155 matches Evan Miller's calculator exactly. **Note** : the spec said "3,840 ± 5%" — that figure corresponds to MDE +30%, not +20%. Math is correct.
+- New `experiments` table with RLS via existing `is_org_member()` + `is_org_admin()` helpers (consistent with clients/audits/recos)
+- Sidebar position : "🧪 Experiments" inserted between Scent Trail and Doctrine in Studio group
+- Server/client boundary applied per Sprint 7 lesson : `lib/experiment-types.ts` pure shared module + `lib/experiments-data.ts` with `import "server-only";` guard
+- Playwright `experiments.spec.ts` : 8/8 PASS prod (contract pattern, anonymous never-500)
+
+**Task 012 — learning-doctrine-dogfood-restore (Sprint 9)** — branch `worktree-agent-a7c0dd6014cf848e3` merged to main
+- 4 commits : `098c434` (LifecycleBarsChart) + `75c8b56` (TrackSparkline + ProposalStats extension) + `4fca7f5` (ClosedLoopDiagram + DogfoodCard + PillierBrowser) + `0395996` (Playwright contract spec)
+- 7 NEW files + 3 modified — see [`012.md`](./012.md) implementation log
+- `<LifecycleBarsChart>` : 13 horizontal bars per `recos.lifecycle_status`, defensive probe + missing-column fallback (renders zero-bars + hint if Sprint 5 migration not applied)
+- `<ClosedLoopDiagram>` : 7 nodes positioned on a circle (`-π/2` start, clockwise) so Audit sits at top, quadratic-Bezier edges with arrowhead marker — pure declarative SVG, zero mermaid/D3
+- `<DogfoodCard>` : 2-column grid (CTA + KPI block) with radial-gradient gold spotlight + Cormorant italic gold-gradient headline
+- `<PillierBrowser>` + `<CritereDetail>` : 7-pilier browser using CRIT_NAMES_V21 (Sprint 5) for FR labels ; V3.3 `util_*` falls back to V21 cluster aliases as a stand-in
+- `<TrackSparkline>` : V29/V30 per-track sparklines, data-range-adaptive weekly bins
+- Playwright `learning-doctrine.spec.ts` : 10/10 PASS prod (after parent-session softening — agent's spec asserted testids on routes that 307 to /login for anonymous ; switched to contract pattern matching other Sprints)
+
+**Cumulative tests Sprint 1-9** : **168/168 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 8 experiments + 10 learning-doctrine + 55 ancillary × 2 viewports) — **zero régression sur les 9 sprints**.

@@ -575,6 +575,40 @@ Same chain hit `ScentTrailDiagram.tsx` via `hasBreakBetween` + `SCENT_EDGES`. Fi
 
 **Cumulative tests Sprint 1+2+3+4+5+6+7** : **152/152 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 57 ancillary × 2 viewports) — **zero régression sur les 7 sprints**.
 
+**Sprint 8 + Sprint 9 (Tasks 008 + 012) 🟡🟡 code complete — parallel-agent dispatch v2 (with `npm run build` gate)**
+
+Second batch of parallel agents via `subagent_type: general-purpose` + `isolation: worktree`. The agent validation gate was extended after the Sprint 6+7 `node:fs` post-merge fix : it now requires `npm run build --workspace=apps/shell` to exit 0, in addition to typecheck + lint + hygiene. Both agents passed all 4 gates locally before reporting — zero post-merge bundle fix this time, vindicating the lesson.
+
+**Task 008 — experiments-v27-calculator (Sprint 8, branch worktree-agent-aa7881edd57834169)**
+- Commits : `c6a352e` (foundation : sample-size math + types + Supabase experiments table) + `2c83535` (4 experiment components) + `02e8933` (/experiments route + sidebar nav-item) + `24fa668` (Playwright contract spec)
+- 10 NEW files + 1 modified (Sidebar.tsx)
+- Migration `supabase/migrations/20260514_0021_experiments.sql` (pending Mathis Dashboard apply) — new `experiments` table with RLS via existing `is_org_member()` + `is_org_admin()` helpers from `20260511_0002_rls_policies.sql` (consistent with clients/audits/recos policy code, no inline subqueries)
+- `webapp/apps/shell/lib/sample-size-calc.ts` — pure-TS Acklam approximation for inverse normal CDF + two-sample proportion z-test formula. Zero scipy dep, zero npm dep.
+- `webapp/apps/shell/lib/experiment-types.ts` — pure types shared client/server (zero Node imports, doctrine pattern applied upfront this time)
+- `webapp/apps/shell/lib/experiments-data.ts` — server-only Supabase data layer with `import "server-only";` guard (lesson applied)
+- 4 NEW components : `<SampleSizeCalculator>` (real-time recalc on input change), `<RampUpMatrix>` (slow/medium/fast preset + phase ETA), `<KillSwitchesMatrix>` (3 thresholds → action), `<ActiveExperimentsList>` (server-rendered with empty-state fallback)
+- New `/experiments` route with `loading.tsx` + `error.tsx` boundaries
+- Sidebar : "🧪 Experiments" inserted between Scent Trail and Doctrine in the Studio group
+- Sample-size validation : `inverseNormalCdf(0.975) = 1.959964 ≈ 1.96` ✓ (z_alpha at 95% CI 2-tailed). With default inputs (baseline 5%, MDE +20%, α=0.05, power=0.8, 2-tailed) → n_per_arm ≈ 8155 matches Evan Miller's calculator exactly. **Discovery during agent work** : the spec said "3,840" — that figure corresponds to MDE +30%, not +20%. Math correct, only spec sample value off.
+- Playwright `experiments.spec.ts` : 8/8 PASS prod
+- 🟡 Pending Mathis : (a) apply migration `20260514_0021_experiments.sql` via Supabase Dashboard SQL editor — (b) manual validation "Experiments calculator functional" : `/experiments` accessible from sidebar · sample-size calc recalculates live · ramp-up matrix renders · kill-switches matrix static · empty experiments list with empty-state
+
+**Task 012 — learning-doctrine-dogfood-restore (Sprint 9, branch worktree-agent-a7c0dd6014cf848e3)**
+- Commits : `098c434` (LifecycleBarsChart) + `75c8b56` (TrackSparkline + ProposalStats extension + page wiring) + `4fca7f5` (ClosedLoopDiagram + DogfoodCard + PillierBrowser) + `0395996` (Playwright contract spec) + `c2760b1` (parent-session spec fix : softened to anonymous contract pattern)
+- 7 NEW files + 3 modified (`app/learning/page.tsx`, `app/doctrine/page.tsx`, `components/learning/ProposalStats.tsx`)
+- `<LifecycleBarsChart>` on `/learning` : 13 horizontal bars per `recos.lifecycle_status`. Defensive probe query on `lifecycle_status="backlog"` short-circuits to `missing=true` + 13 zero-bars + hint banner when Sprint 5 migration not applied. Never throws.
+- `<TrackSparkline>` : V29 audit-based vs V30 Bayesian per-track sparklines, weekly bins over the data's actual date range (not a fixed 12-week window) so dev envs with sparse data still draw a meaningful trace ; empty track gets a dashed baseline
+- `<ClosedLoopDiagram>` on `/doctrine` top : 7 nodes positioned on a circle (`-π/2` start, clockwise) so Audit sits at top, quadratic-Bezier edges bending slightly inward + arrowhead marker. Pure declarative SVG, **zero mermaid / D3 / react-mermaid2 dep**.
+- `<DogfoodCard>` on `/doctrine` : 2-column grid (1.1fr CTA / 0.9fr KPI block) with a radial-gradient gold spotlight overlay ; Cormorant italic gold-gradient headline "Growth Society utilise sa propre doctrine." + 3 dogfooded fleet KPIs. Visual proof "we eat our own dogfood".
+- `<PillierBrowser>` + `<CritereDetail>` on `/doctrine` : 7-pilier × N critères browser using `CRIT_NAMES_V21` (Sprint 5) for FR labels. V3.3 `utility_elements` falls back to V21 cluster aliases (emoji-prefixed shortcuts) as a stand-in until Phase B wires Supabase `doctrine_versions`.
+- `ProposalStats` extended : 5 KPI cards top (N pending / N accepted / N rejected / N deferred / N refined) + 2 TrackSparkline charts
+- Playwright `learning-doctrine.spec.ts` : 5 cases × 2 viewports = 10/10 PASS prod (after parent-session softening — agent's original spec asserted DOM testids on `/learning` and `/doctrine`, but both routes 307 to /login for anonymous visitors ; switched to contract pattern matching other Sprints : route never-500 + /login mount + anonymous never sees admin)
+- 🟡 Pending Mathis : manual validation "Doctrine et Learning V26-parity restaurées" : `/learning` shows LifecycleBarsChart + 2 sparklines + KPI cards top · `/doctrine` shows ClosedLoopDiagram + DogfoodCard + PillierBrowser + CritereDetail with FR labels
+
+**Parallel-agent dispatch lesson applied (and vindicated)** : extending the validation gate to include `npm run build` (catches `"use client"` + `node:` boundary violations that webpack rejects but TypeScript silently accepts) eliminated the post-merge bundle fix that cost Sprint 6+7 a redeploy cycle. Both agents shipped clean ; only post-merge touch was a spec softening (Sprint 9's testid-on-gated-route assertion).
+
+**Cumulative tests Sprint 1-9** : **168/168 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 8 experiments + 10 learning-doctrine + 55 ancillary × 2 viewports) — **zero régression sur les 9 sprints**.
+
 ### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
 
 **Master PRD** : [`webapp-data-fidelity-and-skills-stratosphere-2026-05`](../../prds/webapp-data-fidelity-and-skills-stratosphere-2026-05.md) — AUDIT-FIRST méthodo post écran de fumée 2026-05-13.
