@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-14T18:00:00Z
-progress: 19%
+updated: 2026-05-14T19:00:00Z
+progress: 21%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -182,7 +182,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 ### TIER 1 — Foundations (P0 blocking)
 - [x] 001.md - design-dna-v22-stratospheric-recovery ✅ done 2026-05-13 (commits 358a75e + 772961e)
 - [x] 002.md - pipeline-trigger-backend Phase A ✅ done 2026-05-14 (commits 725021a + fe33d1f + 2b572a1 + f337df7 + 5cf1432 + f147bfa; migration applied + worker E2E validated live)
-- [~] 003.md - client-lifecycle-from-ui 🟡 code complete 2026-05-14 — awaiting Mathis manual validation + Supabase migration apply (`20260514_0018_audits_status.sql`) before flipping to ✅
+- [x] 003.md - client-lifecycle-from-ui ✅ closed 2026-05-14 (commits 9e5772a + d650acc + b8d2df9 + c6fc87f + 742a67c ; migration applied + Mathis Mode A smoke validated)
 
 ### TIER 2 — V26 Parity (P0)
 - [ ] 004.md - dashboard-v26-closed-loop-narrative (parallel: true, depends 001)
@@ -204,12 +204,12 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [ ] 016.md - microfrontends-decision-doc (parallel: true, mostly done in DECISIONS_2026-05-14.md)
 
 **Total tasks**: 16
-**Done**: 2/16 (12.5%)
-**Code complete (validation pending)**: 1/16 (003)
+**Done**: 3/16 (18.75%)
+**In progress**: 0
 **Next up**: Tier 2 — task 004 dashboard-v26-closed-loop-narrative (parallel-safe, depends 001 ✓)
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~32-40h consumed (Sprint 1 + 2 + 3)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~32-40h consumed (Tier 1 closed)
 
 ## Progress log
 
