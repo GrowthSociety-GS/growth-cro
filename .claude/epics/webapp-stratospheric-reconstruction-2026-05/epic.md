@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-14T19:00:00Z
-progress: 21%
+updated: 2026-05-14T21:00:00Z
+progress: 25%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -185,7 +185,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [x] 003.md - client-lifecycle-from-ui ✅ closed 2026-05-14 (commits 9e5772a + d650acc + b8d2df9 + c6fc87f + 742a67c ; migration applied + Mathis Mode A smoke validated)
 
 ### TIER 2 — V26 Parity (P0)
-- [~] 004.md - dashboard-v26-closed-loop-narrative 🟡 code complete 2026-05-14 (commits ffe5faa + aa8fdf3 + b37aa88 + b7d31e2 + 39ea7d1 ; awaiting Mathis manual validation "Dashboard ressemble enfin à V26")
+- [x] 004.md - dashboard-v26-closed-loop-narrative ✅ closed 2026-05-14 (commits ffe5faa + aa8fdf3 + b37aa88 + b7d31e2 + 39ea7d1 + dfddc76 ; Mathis manual validation OK)
 - [ ] 005.md - growth-audit-v26-deep-detail (parallel: false, depends 001+006)
 - [ ] 006.md - reco-lifecycle-bbox-and-evidence (parallel: true, depends 001)
 
@@ -204,12 +204,12 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [ ] 016.md - microfrontends-decision-doc (parallel: true, mostly done in DECISIONS_2026-05-14.md)
 
 **Total tasks**: 16
-**Done**: 3/16 (18.75%)
-**Code complete (validation pending)**: 1/16 (004)
-**Next up**: Tier 2 parallel batch — task 005 growth-audit-v26-deep-detail (depends 001+006) + task 006 reco-lifecycle-bbox-and-evidence (parallel-safe). 005 can start as soon as 006 fingerprint utilities ship.
+**Done**: 4/16 (25%)
+**In progress**: 0
+**Next up**: Tier 2 batch — task 006 reco-lifecycle-bbox-and-evidence (parallel-safe, débloque 005) + task 007 scent-trail-pane-port (parallel-safe, no dep) en parallèle
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~40-48h consumed (3 sprints closed + 1 code-complete)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~48-56h consumed (Tier 1 closed + Sprint 4 closed)
 
 ## Progress log
 
