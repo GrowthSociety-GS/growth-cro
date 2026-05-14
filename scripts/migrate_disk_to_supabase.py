@@ -91,6 +91,10 @@ PAGE_TYPE_FILE = "score_page_type.json"
 RECOS_FILE_FRESH = "recos_v13_final.json"
 RECOS_FILE_NARRATIVE = "recos_enriched.json"
 BRAND_DNA_FILE = "brand_dna.json"
+# Sprint 7 / Task 007 — scent-trail-pane-port. Per-client file (NOT per-page),
+# read from `data/captures/<client>/scent_trail.json` and UPSERTed into
+# `audits.scent_trail_json` of the most-recent audit for that client.
+SCENT_TRAIL_FILE = "scent_trail.json"
 
 # Fields stored in dedicated reco columns — exclude from content_json to avoid
 # duplication. Everything else from the rich enricher payload is preserved.
@@ -215,6 +219,16 @@ def discover_pages(client: str) -> list[str]:
 
 def load_brand_dna(client: str) -> dict[str, Any] | None:
     return _read_json(CAPTURES_DIR / client / BRAND_DNA_FILE)
+
+
+def load_scent_trail(client: str) -> dict[str, Any] | None:
+    """Read `data/captures/<client>/scent_trail.json` (one file per client).
+
+    Sprint 7 / Task 007. Defensive : returns None if the file is missing or
+    malformed (caller skips the UPSERT). Schema validation is intentionally
+    light — the webapp `<ScentTrailDiagram>` parses defensively too.
+    """
+    return _read_json(CAPTURES_DIR / client / SCENT_TRAIL_FILE)
 
 
 def load_page_scores(client: str, page: str) -> dict[str, Any]:
@@ -538,6 +552,39 @@ def upsert_audits(rows: list[dict[str, Any]]) -> list[str]:
     return [r["id"] for r in (res or [])]
 
 
+def upsert_scent_trail(client_uuid: str, payload: dict[str, Any]) -> bool:
+    """PATCH `audits.scent_trail_json` on the most-recent audit for a client.
+
+    Sprint 7 / Task 007 design decision : we attach the per-client scent_trail
+    payload to the most-recent audit row (highest ``created_at``) rather than
+    creating a parallel ``scent_trails`` table. Rationale :
+      1. The audit row already owns the (client, period) timeline ; reusing it
+         scales with the audit lifecycle (delete-audit cascades correctly).
+      2. The webapp fleet pane joins audits→clients once ; adding a column is
+         a no-cost read.
+      3. A separate table would force a 2nd RLS policy + a 2nd realtime
+         channel for no semantic gain (scent_trail IS an audit signal).
+
+    Defensive : returns False (skip silently) if no audit exists for the
+    client. Returns True on successful PATCH.
+    """
+    if not payload:
+        return False
+    rows = _request(
+        "GET",
+        f"audits?client_id=eq.{client_uuid}&select=id&order=created_at.desc&limit=1",
+    )
+    if not rows:
+        return False
+    audit_id = rows[0]["id"]
+    _request(
+        "PATCH",
+        f"audits?id=eq.{audit_id}",
+        body={"scent_trail_json": payload},
+    )
+    return True
+
+
 def upsert_recos(rows: list[dict[str, Any]]) -> int:
     if not rows:
         return 0
@@ -702,7 +749,7 @@ def main() -> int:
     delete_audits_for_clients(list(slug_to_uuid.values()))
 
     # Insert audits + recos per client
-    total_audits, total_recos = 0, 0
+    total_audits, total_recos, total_scent = 0, 0, 0
     for slug in slugs:
         client_uuid = slug_to_uuid.get(slug)
         if not client_uuid:
@@ -723,9 +770,17 @@ def main() -> int:
         if reco_rows:
             n = upsert_recos(reco_rows)
             total_recos += n
+        # Sprint 7 / Task 007 — scent trail is per-client, attach to most-recent
+        # audit (created above). Silent skip if scent_trail.json missing.
+        scent_payload = load_scent_trail(slug)
+        if scent_payload and upsert_scent_trail(client_uuid, scent_payload):
+            total_scent += 1
         time.sleep(0.05)  # rate-limit politesse
 
-    print(f"[migrate] DONE: {len(slug_to_uuid)} clients · {total_audits} audits · {total_recos} recos.")
+    print(
+        f"[migrate] DONE: {len(slug_to_uuid)} clients · {total_audits} audits · "
+        f"{total_recos} recos · {total_scent} scent trails."
+    )
     return 0
 
 
