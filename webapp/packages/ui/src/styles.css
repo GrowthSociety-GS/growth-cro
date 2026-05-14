@@ -334,6 +334,12 @@ a:hover {
   background: rgba(101, 214, 207, 0.08);
 }
 
+.gc-pill--violet {
+  color: var(--aurora-violet);
+  border-color: rgba(140, 126, 241, 0.45);
+  background: rgba(140, 126, 241, 0.08);
+}
+
 .gc-pill--soft {
   color: var(--gc-muted);
 }

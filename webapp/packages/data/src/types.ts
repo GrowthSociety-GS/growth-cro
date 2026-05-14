@@ -17,6 +17,17 @@ export type Client = {
   updated_at: ISODateString;
 };
 
+// Task 003 (Sprint 3, 2026-05-14) — audits.status lifecycle column added via
+// migration 20260514_0018_audits_status.sql. Worker daemon walks an audit
+// through these states ; <AuditStatusPill /> renders the live state.
+export type AuditStatus =
+  | "idle"
+  | "capturing"
+  | "scoring"
+  | "enriching"
+  | "done"
+  | "failed";
+
 export type Audit = {
   id: UUID;
   client_id: UUID;
@@ -27,6 +38,9 @@ export type Audit = {
   scores_json: Record<string, unknown>;
   total_score: number | null;
   total_score_pct: number | null;
+  // Task 003 : optional in TS because legacy code paths may select without
+  // the column ; defaults to 'done' for any row seeded before the migration.
+  status?: AuditStatus;
   created_at: ISODateString;
 };
 
