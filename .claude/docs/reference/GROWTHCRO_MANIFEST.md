@@ -496,6 +496,35 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 **Cumulative tests Sprint 1+2+3+4** : 124/124 PASS prod canonical (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 59 ancillary auth/nav/realtime/client-detail spec coverage × 2 viewports) — **zero régression sur les 4 sprints**.
 
+**Sprint 5 (Task 006) 🟡 — Reco-lifecycle V26 surfaces (code complete, awaiting migration apply + Mathis validation)**
+- Commits : `862cb17` (foundation : migration + types + bbox extraction) + B-hash (API + 5 NEW components) + `84cd681` (RichRecoCard integration + callsites) + `694f027` (Playwright spec 7 cases × 2 viewports)
+- Migration `20260514_0019_recos_lifecycle.sql` (pending Mathis Dashboard apply) :
+  - `recos.lifecycle_status` text column with 13-state CHECK constraint covering the V26 closed-loop funnel : `backlog` → `prioritized` → `scoped` → `designing` → `implementing` → `qa` → `staged` → `ab_running` / `ab_inconclusive` / `ab_negative` / `ab_positive` → `shipped` → `learned`
+  - Idempotent column-existence guard, default `backlog`, explicit backfill
+  - Partial index `idx_recos_lifecycle_active` on rows past backlog — powers the Closed-Loop "Lifecycle" tile from Task 004
+- `@growthcro/data` : `RecoLifecycleStatus` union + `RECO_LIFECYCLE_STATES` ordered array (drives the dropdown menu order) + optional `lifecycle_status` field on `Reco` (backward-compat with pre-migration rows)
+- `score-utils.extractRichReco` enriched :
+  - `bbox: Bbox | null` (4-tuple) from `content_json.perception.bbox` with auto-detection of normalized [0,1] vs absolute pixel conventions
+  - Raw `before / after / why` triplet preserved separately from the synthesized `recoText` so the 3-tab synthesis can branch on data shape
+- Admin-gated `PATCH /api/recos/[id]/lifecycle` route handler — 4 validation gates (UUID format / JSON body / presence / 13-state enum acceptor) + cookie-bound Supabase + `requireAdmin` + returns `{ ok, reco: { id, lifecycle_status } }` for optimistic local hydration
+- 5 NEW components matching V26 HTML L2455-2580 :
+  - `<LifecyclePill>` : 13-tone Pill (soft/cyan/violet/amber/gold/red/green per state semantic — backlog=soft, A/B running=gold, shipped=green, A/B negative=red, learned=gold) + admin variant with inline `<select>` dropdown that PATCHes the route + optimistically updates local state, rolls back on failure
+  - `<EvidencePill>` : count surface with 📜 icon, opens `<EvidenceModal>` on click ; renders `null` when `evidence_ids` empty (current dataset reality)
+  - `<EvidenceModal>` : V1 surface lists raw IDs as code chips ; Phase B will resolve against `evidence_ledger` Supabase table (ships in task 010-ish)
+  - `<RecoBboxCrop>` : `<canvas>` drawing of audit screenshot at maxWidth=480 + red `#e87555` 3px-stroke rect at bbox coordinates, auto-detection of coord convention, clamps out-of-bounds, lazy mount (only when parent body expanded), wraps in anchor opening full-res in new tab
+  - `<RecoSynthesisTabs>` : 3-tab synthesis (Problème / Action / Pourquoi) with defensive cascade — prefers `rich.before/after/why` (fresh recos_v13_final schema), falls back to `antiPatterns[0]` fields (legacy enricher), or `rich.recoText` long-form ; "Pas de … renseigné" placeholders when nothing available
+- `RichRecoCard` refactored to integrate all 5 surfaces : LifecyclePill in header badges row (always rendered, defaults backlog), RecoBboxCrop above synthesis when `bbox + screenshotUrl` resolvable, RecoSynthesisTabs replaces single body paragraph, EvidencePill in meta footer
+- Callsites updated to plumb `clientSlug + pageSlug` for screenshot URL construction : `AuditDetailFull.RecosCard` + `app/audits/[clientSlug]/page.tsx` AuditCard
+- Playwright `reco-lifecycle.spec.ts` : 7 contract cases × 2 viewports = **14/14 PASS prod**. Covers : PATCH unauth → 307/401/403, invalid UUID → 400, invalid 14th-state → 400, missing body → 400, bad JSON → 400, all 13 valid states accepted (no 400 from validator), `/login` mount clean after Task 006 imports.
+- Gates green : `npm run typecheck --workspace=apps/shell` ✓ · `npm run lint --workspace=apps/shell` ✓ · `python3 scripts/lint_code_hygiene.py --staged` ✓
+- Decision : sub-route `/api/recos/[id]/lifecycle` (pas extension de `/api/recos/[id]`) — surface explicite, ne pollue pas le body shape du PATCH général qui gère title/severity/effort/lift
+- Decision : LifecyclePill V1 toujours rendu (default `backlog` quand colonne absente) — la lifecycle est conceptuellement présente même avant la migration, l'UI ne doit pas changer de structure une fois la migration appliquée
+- Decision : RecoBboxCrop accepte les 2 conventions de coordonnées avec auto-detect (toutes les valeurs ≤1 → normalized) — la majorité des recos n'ont pas de bbox aujourd'hui (perception ne contient que `component_type/present/count`), donc le rendu est gracefully `null` la plupart du temps
+- Decision : EvidencePill rend `null` quand `evidence_ids` est vide — pas de "0 evidences" pill polluant la meta row
+- 🟡 Pending Mathis : (a) apply migration `20260514_0019_recos_lifecycle.sql` via Supabase Dashboard SQL editor — (b) manual validation "Reco cards V26 enfin restaurées" : lifecycle pill visible sur chaque reco · dropdown admin update bien la row · 3 tabs Problème/Action/Pourquoi switchent · bbox crop renderé quand data dispo · evidence pill quand `evidence_ids` non-vide.
+
+**Cumulative tests Sprint 1+2+3+4+5** : **138/138 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 59 ancillary × 2 viewports) — **zero régression sur les 5 sprints**.
+
 ### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
 
 **Master PRD** : [`webapp-data-fidelity-and-skills-stratosphere-2026-05`](../../prds/webapp-data-fidelity-and-skills-stratosphere-2026-05.md) — AUDIT-FIRST méthodo post écran de fumée 2026-05-13.

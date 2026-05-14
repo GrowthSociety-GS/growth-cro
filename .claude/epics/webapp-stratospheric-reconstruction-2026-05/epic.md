@@ -187,7 +187,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 ### TIER 2 — V26 Parity (P0)
 - [x] 004.md - dashboard-v26-closed-loop-narrative ✅ closed 2026-05-14 (commits ffe5faa + aa8fdf3 + b37aa88 + b7d31e2 + 39ea7d1 + dfddc76 ; Mathis manual validation OK)
 - [ ] 005.md - growth-audit-v26-deep-detail (parallel: false, depends 001+006)
-- [ ] 006.md - reco-lifecycle-bbox-and-evidence (parallel: true, depends 001)
+- [~] 006.md - reco-lifecycle-bbox-and-evidence 🟡 code complete 2026-05-14 (commits 862cb17 + d650acc-equivalent + 84cd681 + 694f027 ; awaiting Mathis migration apply + manual validation "Reco cards V26 enfin restaurées")
 
 ### TIER 3 — Missing Surfaces (P1)
 - [ ] 007.md - scent-trail-pane-port (parallel: true)
@@ -205,11 +205,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 **Total tasks**: 16
 **Done**: 4/16 (25%)
-**In progress**: 0
-**Next up**: Tier 2 batch — task 006 reco-lifecycle-bbox-and-evidence (parallel-safe, débloque 005) + task 007 scent-trail-pane-port (parallel-safe, no dep) en parallèle
+**Code complete (validation pending)**: 1/16 (006)
+**Next up**: Tier 2 continue — task 005 growth-audit-v26-deep-detail (depends 001 ✓ + 006 🟡, unblocked) OR task 007 scent-trail-pane-port (parallel-safe, no dep)
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~48-56h consumed (Tier 1 closed + Sprint 4 closed)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~56-64h consumed (4 sprints closed + 1 code-complete)
 
 ## Progress log
 
@@ -279,4 +279,26 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - `app/page.tsx` extended : 6 new loaders parallel-fetched via `Promise.allSettled` + defensive `unwrap()` helper
 - Playwright `dashboard-v26.spec.ts` : 4 contract cases × 2 viewports = 8/8 PASS prod (anonymous never exposes admin strip/tabs ; V22 next/font fingerprint persists)
 - Gates green : typecheck ✓ · lint ✓ · code hygiene ✓ · 124/124 cumulative regression PASS prod
-- 🟡 Pending Mathis : manual validation "Dashboard ressemble enfin à V26" — closed-loop strip visible · 3 tabs switchable via URL ?dtab= · pillar bars filled · breakdown tables non-empty
+- ✅ Closed 2026-05-14 — Mathis manual validation OK
+
+### 2026-05-14 — Sprint 5 (Task 006) 🟡 code complete
+**Reco-lifecycle V26 surfaces — bbox crop + 3-tab synthesis + 13-state pill + evidence**
+- Commits : `862cb17` (foundation : migration + types + bbox extraction) + `[B-hash]` (API + 5 NEW components) + `84cd681` (RichRecoCard integration + callsites) + `694f027` (Playwright spec 7 cases × 2 viewports)
+- Migration `20260514_0019_recos_lifecycle.sql` (pending Mathis Dashboard apply) :
+  - `recos.lifecycle_status` text + 13-state CHECK constraint (backlog → prioritized → scoped → designing → implementing → qa → staged → ab_running / ab_inconclusive / ab_negative / ab_positive → shipped → learned)
+  - Idempotent column-existence guard, default 'backlog'
+  - Partial index `idx_recos_lifecycle_active` on rows past backlog (powers the Closed-Loop "Lifecycle" tile from task 004)
+- `@growthcro/data` : `RecoLifecycleStatus` union + `RECO_LIFECYCLE_STATES` ordered array + optional `lifecycle_status` field on `Reco`
+- `score-utils.extractRichReco` enriched : `bbox` extraction (perception.bbox path, normalized 0-1 OR absolute pixel auto-detection) + raw `before/after/why` triplet preserved separately from synthesized `recoText`
+- Admin-gated `PATCH /api/recos/[id]/lifecycle` route — 4 validation gates (UUID format, JSON body, presence, 13-state enum acceptor)
+- 5 NEW components matching V26 HTML L2455-2580 :
+  - `<LifecyclePill>` : 13-tone Pill mapping (soft/cyan/violet/amber/gold/red/green) + admin variant with inline `<select>` dropdown that PATCHes the route, optimistic update with rollback on failure
+  - `<EvidencePill>` : count surface with 📜 icon ; renders `null` when `evidence_ids` empty (current dataset reality)
+  - `<EvidenceModal>` : V1 lists raw IDs as code chips ; Phase B will resolve them against the upcoming `evidence_ledger` Supabase table
+  - `<RecoBboxCrop>` : `<canvas>` drawing of audit screenshot at maxWidth=480 + red `#e87555` 3px-stroke rect at bbox, normalized + pixel coord auto-detection, clamps out-of-bounds, lazy mount (only when parent body expanded), wraps in anchor to open full-res in new tab
+  - `<RecoSynthesisTabs>` : 3-tab synthesis (Problème / Action / Pourquoi) with defensive cascade — prefers `rich.before/after/why` (fresh schema), falls back to `antiPatterns[0]` fields (legacy enricher) or `rich.recoText` long-form, "Pas de … renseigné" placeholders when nothing available
+- `RichRecoCard` refactored to integrate all 5 surfaces : LifecyclePill in header badges row, RecoBboxCrop above synthesis when `bbox + screenshotUrl` resolvable, RecoSynthesisTabs replaces single body paragraph, EvidencePill in meta footer
+- Callsites updated to plumb `clientSlug + pageSlug` for screenshot URL construction : `AuditDetailFull.RecosCard` + `app/audits/[clientSlug]/page.tsx` AuditCard
+- Playwright `reco-lifecycle.spec.ts` : 7 contract cases × 2 viewports = **14/14 PASS prod**
+- Gates green : typecheck ✓ · lint ✓ · code hygiene ✓ · 138/138 cumulative regression PASS prod
+- 🟡 Pending Mathis : (a) apply migration via Supabase Dashboard SQL editor — (b) manual validation "Reco cards V26 enfin restaurées" : lifecycle pill visible on every reco · admin dropdown updates the row · 3 tabs switch · bbox crop renders when data dispo · evidence pill when `evidence_ids` non-vide
