@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-15T00:00:00Z
-progress: 56%
+updated: 2026-05-15T08:00:00Z
+progress: 62%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -191,11 +191,11 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 ### TIER 3 — Missing Surfaces (P1)
 - [x] 007.md - scent-trail-pane-port ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; migration applied + Mathis manual validation OK)
-- [~] 008.md - experiments-v27-calculator 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits c6a352e + 2c83535 + 02e8933 + 24fa668 ; awaiting migration apply + Mathis manual validation "Experiments calculator functional")
+- [x] 008.md - experiments-v27-calculator ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits c6a352e + 2c83535 + 02e8933 + 24fa668 ; migration applied + Mathis manual validation OK)
 - [ ] 009.md - geo-monitor-v31-pane (parallel: true, depends Mathis-keys)
 - [ ] 010.md - gsg-design-grammar-viewer-restore (parallel: false, depends 002)
 - [ ] 011.md - reality-layer-5-connectors-wiring (parallel: false, depends 002+Mathis-creds)
-- [~] 012.md - learning-doctrine-dogfood-restore 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; awaiting Mathis manual validation "Doctrine et Learning V26-parity restaurées")
+- [x] 012.md - learning-doctrine-dogfood-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; Mathis manual validation OK)
 
 ### TIER 4 — Enhancements (P2)
 - [ ] 013.md - global-chrome-cmdk-breadcrumbs (parallel: false, depends 001-012)
@@ -204,12 +204,12 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [ ] 016.md - microfrontends-decision-doc (parallel: true, mostly done in DECISIONS_2026-05-14.md)
 
 **Total tasks**: 16
-**Done**: 7/16 (44%)
-**Code complete (validation pending)**: 2/16 (008 🟡 · 012 🟡)
-**Next up**: Tier 3 continuation — task 010 gsg-design-grammar-viewer-restore (depends 002 ✓) OR task 014 essential-skills-install-and-wire (parallel-safe, no dep). Task 009 GEO + 011 Reality remain blocked on Mathis-keys/creds.
+**Done**: 9/16 (56%)
+**In progress**: 0
+**Next up**: Tier 3 continuation — task 010 gsg-design-grammar-viewer-restore (depends 002 ✓) + task 014 essential-skills-install-and-wire (parallel-safe, no dep). Dispatch as parallel agents v3 with the 4-gate validation. 009 GEO + 011 Reality stay blocked on Mathis-keys/creds.
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~96-108h consumed (7 sprints closed + 2 code-complete pending validation)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~110-120h consumed (9 sprints closed)
 
 ## Progress log
 
