@@ -34,6 +34,7 @@ const GROUPS: NavGroup[] = [
     label: "Studio",
     items: [
       { label: "GSG Studio", href: "/gsg", hint: "Brief + LP" },
+      { label: "🔄 Scent Trail", href: "/scent", hint: "V24" },
       { label: "Doctrine", href: "/doctrine", hint: "V3.2.1" },
       { label: "Reality", href: "/reality", hint: "Soon" },
       { label: "Learning", href: "/learning", hint: "V29/V30" },
