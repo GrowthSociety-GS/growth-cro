@@ -23,8 +23,11 @@ function avgScore(clients: ClientWithStats[]): number {
 export function CommandCenterKpis({ clients, recosP0, recentRuns, recentAudits }: Props) {
   const totalAudits = clients.reduce((acc, c) => acc + c.audits_count, 0);
 
+  // Task 001 already routes the inner `<b>` (KpiCard markup) through the
+  // `.gc-kpi b` rule → Cormorant Garamond italic + 3-stop gold gradient.
+  // Task 004 only adds a stable testid hook for the Playwright assertions.
   return (
-    <div className="gc-grid-kpi">
+    <div className="gc-grid-kpi" data-testid="command-center-kpis">
       <KpiCard label="Fleet" value={clients.length} hint={`${totalAudits} audits total`} />
       <KpiCard label="P0 recos" value={recosP0} hint="priorité critique" />
       <KpiCard label="Avg score" value={`${avgScore(clients)}%`} hint="moyenne fleet" />
