@@ -6,6 +6,7 @@
 import { createServerSupabase } from "@/lib/supabase-server";
 import { getCurrentRole } from "@/lib/auth-role";
 import { Sidebar } from "@/components/Sidebar";
+import { StickyHeader } from "@/components/chrome/StickyHeader";
 import { CommandCenterTopbar } from "@/components/command-center/CommandCenterTopbar";
 import { CommandCenterKpis } from "@/components/command-center/CommandCenterKpis";
 import { FleetPanel } from "@/components/command-center/FleetPanel";
@@ -156,6 +157,21 @@ export default async function HomePage({
 
   const clientChoices = clients.map((c) => ({ slug: c.slug, name: c.name }));
 
+  // Sprint 11 / Task 013 — Sidebar count badges. Each count is computed
+  // defensively (the badge hides itself when null/0), so a failed Supabase
+  // call never breaks the chrome — it just renders without the corresponding
+  // pill. Audit count = sum of per-client audits_count from listClientsWithStats.
+  const auditsTotal = clients.reduce(
+    (acc, c) => acc + ((c as { audits_count?: number }).audits_count ?? 0),
+    0,
+  );
+  const sidebarBadges = {
+    clients: clients.length || null,
+    audits: auditsTotal || null,
+    recosP0: metrics.recosP0 || null,
+    learning: null, // file-based proposals; wiring deferred to a follow-up
+  };
+
   // Task 004 (Sprint 4) — Dashboard V26 Closed-Loop narrative.
   // 3 panes assembled here as ReactNode so DashboardTabs (client island)
   // doesn't need to know about server-only data fetching.
@@ -195,8 +211,16 @@ export default async function HomePage({
 
   return (
     <div className="gc-app">
-      <Sidebar email={user?.email} isAdmin={isAdmin} />
+      <Sidebar email={user?.email} isAdmin={isAdmin} badges={sidebarBadges} />
       <main className="gc-main" id="gc-main" tabIndex={-1}>
+        {/* Sprint 11 / Task 013 — global chrome (StickyHeader + CmdK).
+            Renders only for authenticated users : the palette has admin-only
+            actions and the breadcrumbs add nothing on /login. V1 ships with
+            the legacy CommandCenterTopbar still in place ; cleanup of the
+            per-page topbars is tracked as a follow-up (see worktree brief). */}
+        {user ? (
+          <StickyHeader isAdmin={isAdmin} clientChoices={clientChoices} />
+        ) : null}
         <CommandCenterTopbar />
 
         <CommandCenterKpis
