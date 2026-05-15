@@ -1,11 +1,11 @@
 # Skills Integration Blueprint — GrowthCRO
 
-**Version**: 1.4 (Sprint 10 / Task 016 — D1.A monorepo confirmed, `vercel-microfrontends` dropped, 2026-05-15)
+**Version**: 1.5 (Sprint 12 / Task 014 — 3 essentials installed via `npx skills add` : `cro-methodology` / `emil-design-eng` / `impeccable`, 2026-05-15)
 **Status**: Active
 **Update policy**: Mis à jour à chaque ajout/retrait de skill OU à chaque epic terminé qui change l'écosystème.
 
 **Changelog v1.4 (2026-05-15)** :
-- `vercel-microfrontends` (Vercel) **DROPPED** per D1.A monorepo decision (cf [`MICROFRONTENDS_DECISION_2026-05-14.md`](../architecture/MICROFRONTENDS_DECISION_2026-05-14.md)). Le skill optimisait pour une archi (5 microfrontends) que Mathis a rejetée 2026-05-14 — keep-and-see serait un signal cacophonie (skill push pour un pattern qu'on a archivé). Status passe d'ESSENTIEL (À INSTALLER) → DROPPED, line 33 table updated, §4.1.4 réécrit, combo "Webapp Next.js dev" passe de 5→4 skills permanents.
+- `vercel-microfrontends` (Vercel) **DROPPED** per D1.A monorepo decision (cf [`MICROFRONTENDS_DECISION_2026-05-14.md`](../architecture/MICROFRONTENDS_DECISION_2026-05-14.md)). Le skill optimisait pour une archi (5 microfrontends) que Mathis a rejetée 2026-05-14 — keep-and-see serait un signal cacophonie (skill push pour un pattern qu'on a archivé). Status passe d'ESSENTIEL (INSTALLED v1.5) → DROPPED, line 33 table updated, §4.1.4 réécrit, combo "Webapp Next.js dev" passe de 5→4 skills permanents.
 - Re-introduction conditionnée à Trigger A (2e dev full-time qui own une feature) ou Trigger B (feature dépasse envelope bundle partagé). Cf decision doc §4.
 
 **Changelog v1.2 (2026-05-12)** :
@@ -35,9 +35,9 @@ Cet écosystème est composé de **22+ skills audités** (14 essentiels + 6 on-d
 | 2 | `brand-guidelines` | Anthropic (built-in) | ESSENTIEL | Couche Brand DNA par-client, contrebalance les Anthropic-defaults |
 | 3 | `web-artifacts-builder` | Anthropic (built-in) | ESSENTIEL | shadcn/Tailwind/state-mgmt pour la webapp V28 future |
 | 4 | `vercel-microfrontends` | Vercel | DROPPED (2026-05-15, D1.A) | Archi microfrontends rejetée — webapp = single `@growthcro/shell` consolidé (cf decision doc) |
-| 5 | `cro-methodology` | Conversion Rate Experts / wondelai | ESSENTIEL (À INSTALLER) | Méthodologie CRE en POST-PROCESS, alimente la fusion V3.3 (#18) |
-| 6 | `Emil Kowalski Design Skill` | emilkowal.ski | ESSENTIEL (À INSTALLER) | Animations premium pour le GSG stratosphère (#19) |
-| 7 | `Impeccable` | pbakaus / impeccable.style | ESSENTIEL (À INSTALLER) | 200 anti-patterns, QA polish post-render GSG |
+| 5 | `cro-methodology` | Conversion Rate Experts / wondelai | ESSENTIEL (INSTALLED v1.5) | Méthodologie CRE en POST-PROCESS, alimente la fusion V3.3 (#18) |
+| 6 | `Emil Kowalski Design Skill` | emilkowal.ski | ESSENTIEL (INSTALLED v1.5) | Animations premium pour le GSG stratosphère (#19) |
+| 7 | `Impeccable` | pbakaus / impeccable.style | ESSENTIEL (INSTALLED v1.5) | 200 anti-patterns, QA polish post-render GSG |
 | 8 | `vercel-react-best-practices` | vercel-labs/agent-skills | ESSENTIEL (installed 2026-05-12) | 70 règles React/Next.js perf — combo Webapp Next.js dev |
 | 9 | `web-design-guidelines` | vercel-labs/agent-skills | ESSENTIEL (installed 2026-05-12) | 100+ règles a11y+perf+UX — combo Webapp Next.js dev + QA+a11y |
 | 10 | `vercel-composition-patterns` | vercel-labs/agent-skills | ESSENTIEL (installed 2026-05-12) | Bundle Vercel — composition patterns React/Next.js |
@@ -309,7 +309,7 @@ Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite s
 
 #### 4.1.4 `vercel-microfrontends` (Vercel) — **DROPPED (2026-05-15, D1.A)**
 
-- **Verdict** : ~~ESSENTIEL (À INSTALLER)~~ → **DROPPED**.
+- **Verdict** : ~~ESSENTIEL (INSTALLED v1.5)~~ → **DROPPED**.
 - **Décision** : [`MICROFRONTENDS_DECISION_2026-05-14.md`](../architecture/MICROFRONTENDS_DECISION_2026-05-14.md) (D1.A monorepo, verrouillé 2026-05-14 par Mathis, formalisé 2026-05-15 via Sprint 10 / Task 016).
 - **Rationale du drop** :
   1. La webapp est consolidée en un single `@growthcro/shell` v0.28.0 depuis FR-1 (2026-05-13). Plus de 5 microfrontends à orchestrer.
@@ -323,7 +323,7 @@ Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite s
   - Aucun de ces triggers n'est actif aujourd'hui.
 - **Restore procedure** (si un trigger fire) : voir `_archive/webapp_microfrontends_2026-05-12/README.md` + decision doc §4 migration path.
 
-#### 4.1.5 `cro-methodology` (Conversion Rate Experts / wondelai, À INSTALLER)
+#### 4.1.5 `cro-methodology` (wondelai, INSTALLED v1.5 — `.agents/skills/cro-methodology/`)
 
 - **Source**: `https://skills.sh/wondelai/skills/cro-methodology`
 - **Installation**: `npx skills add https://github.com/wondelai/skills --skill cro-methodology`
@@ -341,7 +341,7 @@ Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite s
 - **Signaux contraires**: `lp-creator` + `lp-front` (exclus) auraient leur propre méthodo qui conflit.
 - **Coût API potentiel**: O(audit) — consulté à l'étape `recos` du `audit_pipeline`. Délégation Sonnet 4.5.
 
-#### 4.1.6 `Emil Kowalski Design Skill` (third-party, À INSTALLER)
+#### 4.1.6 `emil-design-eng` (third-party, INSTALLED v1.5 — `.agents/skills/emil-design-eng/`)
 
 - **Source**: `https://emilkowal.ski/skill`
 - **Installation**: `npx skills add emilkowalski/skill`
@@ -354,7 +354,7 @@ Le install `npx skills add trailofbits/skills` apporte **74 skills** (la suite s
 - **Signaux contraires**: `Impeccable` peut signaler des anti-patterns animation — c'est OK, c'est complémentaire (motion proposée par Emil, QA polish par Impeccable).
 - **Coût API potentiel**: O(GSG run) — consulté pendant visual_system. Pas de coût additionnel notable.
 
-#### 4.1.7 `Impeccable` (third-party, À INSTALLER)
+#### 4.1.7 `impeccable` (third-party, INSTALLED v1.5 — `.agents/skills/impeccable/`)
 
 - **Source**: `https://impeccable.style/`
 - **Installation**: `npx skills add pbakaus/impeccable` (skill) + `npx impeccable detect <path>` (CLI séparée, optionnelle pour audits locaux)

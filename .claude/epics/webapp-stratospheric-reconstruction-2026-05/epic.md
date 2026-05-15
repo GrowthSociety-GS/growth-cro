@@ -199,7 +199,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 
 ### TIER 4 — Enhancements (P2)
 - [x] 013.md - global-chrome-cmdk-breadcrumbs ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 0e17cd9 + 5cfd70a + f02f393 ; Mathis manual validation OK)
-- [~] 014.md - essential-skills-install-and-wire (Sprint 12 in flight — parent-session inline tackle)
+- [x] 014.md - essential-skills-install-and-wire ✅ closed 2026-05-15 (parent-session inline : `npx skills add` × 3 skills + BLUEPRINT v1.5)
 - [x] 015.md - legacy-cleanup-mega-prompt-archive ✅ **no-op confirmed** 2026-05-15 (archive work already shipped in prior commits `2cc7601` Issue #37 gsg_lp + `fce80ea` Issue #23 reality_layer ; growth-site-generator scripts remain blocked by 5 active prod imports — out of scope ; `--gc-*` alias cleanup deferred to Mathis-manual due to 30+ component blast radius)
 - [x] 016.md - microfrontends-decision-doc ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 3e7636b + 63587c3 + 9921714 ; Mathis sign-off OK)
 
