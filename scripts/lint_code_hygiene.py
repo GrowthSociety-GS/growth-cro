@@ -52,8 +52,12 @@ KNOWN_DEBT = {
 }
 
 # Basename duplicates allowed by AD-1 (package-prefix disambiguates).
-BASENAME_ALLOWLIST = {"__init__.py", "cli.py", "base.py", "orchestrator.py",
-                      "persist.py", "prompt_assembly.py", "README.md"}
+# `__main__.py` is a Python language convention — any package that supports
+# `python -m <pkg>` needs one ; multiple such packages in the tree is
+# legitimate (e.g. growthcro.worker + growthcro.geo). Added 2026-05-15.
+BASENAME_ALLOWLIST = {"__init__.py", "__main__.py", "cli.py", "base.py",
+                      "orchestrator.py", "persist.py", "prompt_assembly.py",
+                      "README.md"}
 
 # Archive folder pattern — FAIL rule #3
 ARCHIVE_PATTERN = re.compile(r"^(_archive|_obsolete|.*deprecated|.*backup).*", re.IGNORECASE)

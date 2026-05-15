@@ -43,7 +43,8 @@ type Props = {
   clientChoices?: { slug: string; name: string }[];
 };
 
-// Visible entries = NAV_ENTRIES minus the disabled ones (e.g. /geo).
+// Visible entries = NAV_ENTRIES minus the disabled ones (none at the moment
+// post Task 009 — kept as a filter for future placeholder entries).
 const VISIBLE_ENTRIES: NavEntry[] = NAV_ENTRIES.filter((e) => !e.disabled);
 
 // Action entries (synthetic, not in the nav registry).
