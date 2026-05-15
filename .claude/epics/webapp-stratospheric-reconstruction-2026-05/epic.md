@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-15T10:00:00Z
-progress: 75%
+updated: 2026-05-15T11:00:00Z
+progress: 81%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -198,18 +198,20 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [x] 012.md - learning-doctrine-dogfood-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; Mathis manual validation OK)
 
 ### TIER 4 — Enhancements (P2)
-- [ ] 013.md - global-chrome-cmdk-breadcrumbs (parallel: false, depends 001-012)
+- [~] 013.md - global-chrome-cmdk-breadcrumbs 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits 0e17cd9 + 5cfd70a + f02f393 ; awaiting Mathis manual validation "Chrome global V26 restauré + Cmd+K productif")
 - [ ] 014.md - essential-skills-install-and-wire (parallel: true)
-- [ ] 015.md - legacy-cleanup-mega-prompt-archive (parallel: true)
+- [x] 015.md - legacy-cleanup-mega-prompt-archive ✅ **no-op confirmed** 2026-05-15 (archive work already shipped in prior commits `2cc7601` Issue #37 gsg_lp + `fce80ea` Issue #23 reality_layer ; growth-site-generator scripts remain blocked by 5 active prod imports — out of scope ; `--gc-*` alias cleanup deferred to Mathis-manual due to 30+ component blast radius)
 - [x] 016.md - microfrontends-decision-doc ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 3e7636b + 63587c3 + 9921714 ; Mathis sign-off OK)
 
 **Total tasks**: 16
-**Done**: 11/16 (69%)
-**In progress**: 0
-**Next up — Option A finishing strip** : (a) Task 013 global-chrome-cmdk-breadcrumbs (depends 001-012 done ✓ ; 009/011 stubs OK since those routes don't ship the chrome data) + (b) Task 015 legacy-cleanup-mega-prompt-archive (archive-mode only ; `--gc-*` alias cleanup deferred to manual). Tasks 014 (skills install) + 009 (GEO keys) + 011 (Reality creds) remain Mathis-side.
+**Done**: 12/16 (75% — 11 validated + 015 no-op confirmed)
+**Code complete (validation pending)**: 1/16 (013 🟡)
+**Mathis-side / blocked**: 3/16 (014 skills install, 009 GEO API keys, 011 Reality OAuth creds)
+**Next up** : Mathis validates 013 → epic closes at 13/16 ≡ 81% ✅ shipped scope.
+**Out of scope to this PRD** : 014 + 009 + 011 + `--gc-*` alias cleanup → tracked in follow-up PRD `webapp-followup-skills-credentials-cleanup-2026-06` (TBD).
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~140-150h consumed (11 sprints closed)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~152-162h consumed (12/16 tasks landed)
 
 ## Progress log
 
@@ -382,3 +384,47 @@ Third parallel-agent dispatch via `isolation: worktree`. Tasks 014 + 015 deferre
 - `SKILLS_INTEGRATION_BLUEPRINT` bumped v1.4 — `vercel-microfrontends` DROPPED (not parked) ; combo Webapp 5→4 skills
 
 **Cumulative tests Sprint 1-10** : **182/182 PASS prod canonical** (+ Sprint 10 contract spec for /gsg + /gsg/handoff + /api/design-grammar) — **zero régression sur les 10 sprints**.
+
+### 2026-05-15 — Sprint 11 (Tasks 013 + 015 no-op) 🟡 + ✅ (parallel agents v4)
+
+Fourth parallel-agent dispatch — Option A "boucler l'epic". Two agents launched in parallel : Task 013 (chrome global) shipped 3 commits, Task 015 (legacy archive) returned no-op (prior commits already covered the safe targets ; remaining target blocked by active prod imports).
+
+**Task 013 — global-chrome-cmdk-breadcrumbs (Sprint 11, branch worktree-agent-a9e52364e647af483 merged to main)**
+- Commits : `0e17cd9` (cmdk-items registry + use-keyboard-shortcuts hook + V22 chrome CSS) + `5cfd70a` (StickyHeader + CmdKPalette + DynamicBreadcrumbs + SidebarNavBadge components + Sidebar refactor + Breadcrumbs shim) + `f02f393` (wire StickyHeader + sidebar badges into / + global-chrome.spec.ts)
+- 7 NEW files + 4 modified
+- `<CmdKPalette>` : 357 LOC zero-new-dep palette (React state + `createPortal` + substring filter) — `cmdk` package banned per "no new dep" doctrine. Trigger Cmd+K (Mac) / Ctrl+K (other), recent items localStorage, ESC + focus restore + `role="dialog"` a11y
+- `<DynamicBreadcrumbs>` : extended SEGMENT_LABELS (scent/experiments/handoff/geo/funnel/judges/dna) + UUID detector truncates to 8 chars ; hidden on `/`, `/login`, `/privacy`, `/terms`
+- `<SidebarNavBadge>` : count badges (Clients 51 / Audits sum / P0 recos gold / Learning deferred) ; defensive null/0 hiding
+- `<StickyHeader>` : sticky-top + backdrop blur + gold border-bottom ; breadcrumbs (left) + search (center) + actions slot (right)
+- `lib/cmdk-items.ts` : shared NAV_ENTRIES registry consumed by Sidebar + palette → single source of truth, can't drift
+- `useKeyboardShortcuts` : pure hook, document listener (Cmd+K / `/`), gated on `e.metaKey || e.ctrlKey` to not trap focus in inputs
+- GEO entry kept in registry with `disabled: true` (sidebar renders greyed with title="Task 009 — coming soon", palette filters out) — Task 009 not yet shipped
+- Per-page legacy topbar (CommandCenterTopbar on /) kept alongside StickyHeader to stay within Task 013 scope — non-blocking follow-up Mathis can decide on
+- Playwright `global-chrome.spec.ts` : PASS prod
+- 🟡 Pending Mathis : manual validation "Chrome global V26 restauré + Cmd+K productif" — Cmd+K opens palette · fuzzy filter works · breadcrumbs render across routes · sidebar badges visible
+
+**Task 015 — legacy-cleanup-mega-prompt-archive (Sprint 11 archive-mode, NO-OP confirmed)**
+- No commits made. Worktree returned empty (auto-cleaned by harness).
+- Pre-flight inventory by Sprint 11 agent revealed all movable targets already archived in prior commits :
+  - `growthcro/gsg_lp/*` → archived commit `2cc7601` (Issue #37, `_archive/growthcro_gsg_lp_2026-05-12_legacy_island/`)
+  - `skills/site-capture/scripts/reality_layer/*` → archived commit `fce80ea` (Issue #23, `_archive/skills_reality_layer_2026-05-11_promoted_to_growthcro/`)
+  - `growthcro/recos/pipeline_sequential.py` + `growthcro/recos/brief_v15_builder.py` → ABSENT from disk (canonical lives at `moteur_gsg/core/`)
+  - `skills/growth-site-generator/scripts/*` (10 modules) → **BLOCKED for archive** : 5 active prod imports in `moteur_multi_judge/orchestrator.py` + `humanlike_judge.py` + `implementation_check.py` wrap `gsg_humanlike_audit.py` + `fix_html_runtime.py`. The `moteur_multi_judge/orchestrator.py` line 29 TODO ("à move Sprint 7") tracks the real port required before archive ; out of Task 015 archive-mode scope, follow-up PRD candidate.
+- `--gc-*` palette alias cleanup (originally bundled into 015) explicitly **deferred to Mathis-manual** due to 30+ component blast radius. Will be tackled in a follow-up PRD.
+- ✅ Closed as **no-op confirmed** — archive doctrine already satisfied by prior epics, no new git mv required.
+
+**Cumulative tests Sprint 1-11** : **190/190 PASS prod canonical** (+ Sprint 11 contract spec for global chrome surfaces) — **zero régression sur les 11 sprints**.
+
+### Epic closeout — out-of-scope tracker
+
+The epic ships at **13/16 task slots** (11 validated + 015 no-op + 013 awaiting validation) ≡ ~81% effective progress. The remaining 3 slots are explicitly out-of-scope of THIS PRD and tracked for a follow-up :
+
+| Task | Why deferred | Trigger to reopen |
+|---|---|---|
+| 014 essential-skills-install-and-wire | `npx skills add` perms + speculative URL discovery for 3 skills (`cro-methodology` / `Emil Kowalski Design Skill` / `Impeccable`) | Mathis runs the installs locally + drops the verified sources in a follow-up commit |
+| 009 geo-monitor-v31-pane | Blocked on Mathis-side credentials : `OPENAI_API_KEY` + `PERPLEXITY_API_KEY` not yet provisioned | Keys dropped in `.env.local` → reopen epic OR new PRD `geo-monitor-v31-shippable-2026-06` |
+| 011 reality-layer-5-connectors-wiring | Blocked on Mathis-side OAuth provisioning for 5 connectors (Catchr / Meta / GA / Shopify / Clarity) | Credentials provisioned → reopen epic OR new PRD `reality-layer-shippable-2026-06` |
+| `--gc-*` alias cleanup (sub-part of 015) | 30+ component blast radius requires coordinated review | Mathis-manual pass with visual regression check |
+| `skills/growth-site-generator/*` real port to `moteur_multi_judge/judges/` | 5 active prod imports — needs port + tests not archive | Sprint 7 / "à move Sprint 7" TODO in `moteur_multi_judge/orchestrator.py` line 29 |
+
+These will surface as a new PRD `webapp-followup-skills-credentials-cleanup-2026-06` when Mathis is ready to reopen them.

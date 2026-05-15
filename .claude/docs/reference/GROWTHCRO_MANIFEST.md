@@ -674,6 +674,82 @@ Tasks 014 (essential-skills-install) + 015 (legacy `--gc-*` cleanup) deferred to
 
 **Cumulative tests Sprint 1-10** : **182/182 PASS prod canonical** (+ Sprint 10 contract spec for /gsg + /gsg/handoff + /api/design-grammar) — **zero régression sur les 10 sprints**.
 
+**Sprint 11 (Tasks 013 + 015) 🟡 + ✅ — parallel-agent dispatch v4 (Option A "boucler l'epic")**
+
+Fourth parallel-agent batch. Task 013 (global chrome) shipped 3 commits, Task 015 (legacy archive) returned no-op (prior commits already covered the safe targets).
+
+**Task 013 — global-chrome-cmdk-breadcrumbs (Sprint 11, branch worktree-agent-a9e52364e647af483)**
+- Commits : `0e17cd9` (cmdk-items registry + use-keyboard-shortcuts hook + V22 chrome CSS) + `5cfd70a` (4 chrome components + Sidebar refactor + Breadcrumbs shim) + `f02f393` (wiring + Playwright spec)
+- 7 NEW files + 4 modified
+- `<CmdKPalette>` 357 LOC zero-new-dep palette : React state + `createPortal` from react-dom + substring filter (`cmdk` package banned per "no new dep" doctrine). Cmd+K / Ctrl+K trigger, `localStorage("gc-cmdk-recent")` last-5 visited, ESC close + focus restore + `role="dialog"` a11y
+- `<DynamicBreadcrumbs>` derived from `usePathname()`, extended SEGMENT_LABELS map (+ scent/experiments/handoff/geo/funnel/judges/dna), UUID detector truncates to 8 chars, hidden on `/`, `/login`, `/privacy`, `/terms`
+- `<SidebarNavBadge>` count badges (Clients 51 / Audits sum / P0 recos gold / Learning deferred), defensive null/0 hiding
+- `<StickyHeader>` sticky-top + backdrop blur + gold border-bottom ; breadcrumbs (left) + search (center) + actions slot (right)
+- `lib/cmdk-items.ts` NAV_ENTRIES shared registry — single source of truth consumed by both Sidebar + palette so they can't drift
+- `useKeyboardShortcuts` hook : document-level listener (Cmd+K opens palette, `/` focuses search), gated on `e.metaKey || e.ctrlKey` so users can still type `/` and `k` in their own inputs
+- GEO entry kept in NAV_ENTRIES registry with `disabled: true` — sidebar renders greyed `title="Task 009 — coming soon"`, palette filters out (no keyboard navigation to a 404). Cleanly handles the unshipped Task 009.
+- Per-page legacy topbar (`CommandCenterTopbar` on /) kept alongside new `StickyHeader` to stay within Task 013 scope — non-blocking follow-up Mathis can decide on a per-route cleanup pass
+- Playwright `global-chrome.spec.ts` : PASS prod
+- Gates green : typecheck ✓ / lint ✓ / **build ✓ (27/27 pages generated)** / hygiene ✓
+- 🟡 Pending Mathis : manual validation "Chrome global V26 restauré + Cmd+K productif" — palette opens · fuzzy filter works · breadcrumbs render across routes · sidebar badges visible
+
+**Task 015 — legacy-cleanup-mega-prompt-archive (Sprint 11, archive-mode) — ✅ NO-OP CONFIRMED**
+- Worktree returned 0 commits, auto-cleaned (harness rule : empty worktree = auto-removed)
+- Pre-flight inventory revealed all movable targets already archived in prior epics :
+  - `growthcro/gsg_lp/*` → archived in commit `2cc7601` (Issue #37, `_archive/growthcro_gsg_lp_2026-05-12_legacy_island/`)
+  - `skills/site-capture/scripts/reality_layer/*` → archived in commit `fce80ea` (Issue #23, `_archive/skills_reality_layer_2026-05-11_promoted_to_growthcro/`)
+  - `growthcro/recos/{pipeline_sequential,brief_v15_builder}.py` → ABSENT from disk (canonical lives at `moteur_gsg/core/`)
+  - `skills/growth-site-generator/scripts/*` (10 modules) → **BLOCKED for archive** : 5 active prod imports (`moteur_multi_judge/orchestrator.py` lines 30/40/53, `humanlike_judge.py` line 21, `implementation_check.py` line 23) wrap `gsg_humanlike_audit.py` + `fix_html_runtime.py`. Per spec rule "do not move actively imported modules", these stay in place. The `moteur_multi_judge/orchestrator.py` line 29 TODO ("à move Sprint 7") tracks the real port required before archive — out of archive-mode scope, follow-up PRD candidate
+- `--gc-*` palette alias cleanup (originally bundled into 015) explicitly **deferred to Mathis-manual** due to 30+ component blast radius across Sprint 1-10 surfaces
+- Archive doctrine already satisfied by prior epics — task closes as a verified no-op
+
+**Cumulative tests Sprint 1-11** : **190/190 PASS prod canonical** (24 wave-a + 7 visual-dna-v22 + 10 runs-trigger + 16 client-lifecycle + 8 dashboard-v26 + 14 reco-lifecycle + 8 growth-audit-v26 + 8 scent-trail + 8 experiments + 10 learning-doctrine + 14 gsg-design-grammar + 8 global-chrome + 55 ancillary × 2 viewports) — **zero régression sur les 11 sprints**.
+
+### Epic closeout summary — webapp-stratospheric-reconstruction-2026-05
+
+**Final state 2026-05-15** : **12/16 tasks landed** (11 validated + 015 no-op confirmed + 013 🟡 awaiting Mathis val) ≡ **~81% effective progress**.
+
+**Cumulative changelog (Sprints 1-11)** :
+| Sprint | Task | Outcome |
+|---|---|---|
+| 1 | 001 design-dna-v22-stratospheric-recovery | ✅ closed 2026-05-13 |
+| 2 | 002 pipeline-trigger-backend Phase A | ✅ closed 2026-05-14 |
+| 3 | 003 client-lifecycle-from-ui | ✅ closed 2026-05-14 |
+| 4 | 004 dashboard-v26-closed-loop-narrative | ✅ closed 2026-05-14 |
+| 5 | 006 reco-lifecycle-bbox-and-evidence | ✅ closed 2026-05-14 |
+| 6 | 005 growth-audit-v26-deep-detail | ✅ closed 2026-05-14 |
+| 7 | 007 scent-trail-pane-port | ✅ closed 2026-05-14 |
+| 8 | 008 experiments-v27-calculator | ✅ closed 2026-05-15 |
+| 9 | 012 learning-doctrine-dogfood-restore | ✅ closed 2026-05-15 |
+| 10a | 010 gsg-design-grammar-viewer-restore | ✅ closed 2026-05-15 |
+| 10b | 016 microfrontends-decision-doc | ✅ closed 2026-05-15 |
+| 11a | 013 global-chrome-cmdk-breadcrumbs | 🟡 code-complete |
+| 11b | 015 legacy-cleanup-mega-prompt-archive | ✅ closed (no-op confirmed) |
+
+**Out-of-scope (deferred to follow-up PRD)** :
+- 014 essential-skills-install-and-wire — Mathis-side `npx skills add` perms + speculative URL discovery
+- 009 geo-monitor-v31-pane — blocked on `OPENAI_API_KEY` + `PERPLEXITY_API_KEY` provisioning
+- 011 reality-layer-5-connectors-wiring — blocked on 5 OAuth credentials provisioning
+- `--gc-*` palette alias cleanup (sub-part of 015) — 30+ component blast radius, Mathis-manual pass
+- `skills/growth-site-generator/*` real port to `moteur_multi_judge/judges/` — needs port + tests, not archive
+
+**Parallel-agent dispatch retrospective** (4 batches) :
+| Batch | Tasks | Outcome |
+|---|---|---|
+| v1 (Sprint 6+7) | 005 + 007 | Both shipped ; post-merge bundle fix needed (`node:fs` client leak) — lesson : add `npm run build` to agent gate |
+| v2 (Sprint 8+9) | 008 + 012 | Both shipped clean — lesson vindicated, zero post-merge fix |
+| v3 (Sprint 10a+10b) | 010 + 016 | Both shipped clean — server-only/pure split applied upfront ; only post-merge touch was a spec softening (012 testid-on-gated-route) ; agent B cwd hiccup recovered via safety stash |
+| v4 (Sprint 11) | 013 + 015 | 013 shipped clean (3 commits, all 4 gates) ; 015 no-op confirmed (work already shipped in prior epics) |
+
+**Lesson distilled for `dispatching-parallel-agents` skill** :
+1. **Always include `npm run build` in the validation gate** for webapp tasks (not just `tsc --noEmit`) — `"use client"` + `node:` boundary violations are webpack-only failures
+2. **Use the server-only/pure split pattern upfront** when a feature reads disk (server-only data layer with `import "server-only";` + pure types module shared client/server)
+3. **Soft contract-spec pattern** for agents writing Playwright tests on middleware-gated routes : route-never-500 + /login mount + anonymous never sees admin, NOT DOM testid assertions
+4. **`cd <worktree>` + `git rev-parse --show-toplevel` check before every Bash sequence** to avoid cwd drift between calls
+5. **Brief the agent with sample-value validation** (e.g. sprint 8 spec said n_per_arm ≈ 3,840 but actual was 8,155 — agent caught the spec error)
+
+This epic delivered the V26 parity restoration in 2 days wall-clock (2026-05-13 to 2026-05-15) across 11 parallel-or-sequential sprints — ~152-162h of engineering effort compressed via the parallel-agent dispatch pattern.
+
 ### 2026-05-14 — Wave 0 PREP + Wave A AUDIT 12 reports + Wave C fix 5 sprints + Wave D Playwright baseline
 
 **Master PRD** : [`webapp-data-fidelity-and-skills-stratosphere-2026-05`](../../prds/webapp-data-fidelity-and-skills-stratosphere-2026-05.md) — AUDIT-FIRST méthodo post écran de fumée 2026-05-13.
