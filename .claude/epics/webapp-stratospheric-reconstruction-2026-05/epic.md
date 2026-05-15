@@ -2,8 +2,8 @@
 name: webapp-stratospheric-reconstruction-2026-05
 status: in-progress
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-15T09:00:00Z
-progress: 69%
+updated: 2026-05-15T10:00:00Z
+progress: 75%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -193,7 +193,7 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [x] 007.md - scent-trail-pane-port ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; migration applied + Mathis manual validation OK)
 - [x] 008.md - experiments-v27-calculator ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits c6a352e + 2c83535 + 02e8933 + 24fa668 ; migration applied + Mathis manual validation OK)
 - [ ] 009.md - geo-monitor-v31-pane (parallel: true, depends Mathis-keys)
-- [~] 010.md - gsg-design-grammar-viewer-restore 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits a041d97 + 5505384 + 5ea0cb0 + 5c13636 ; awaiting Mathis manual validation "/gsg restauré V26 + /gsg/handoff fonctionnel")
+- [x] 010.md - gsg-design-grammar-viewer-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits a041d97 + 5505384 + 5ea0cb0 + 5c13636 ; Mathis manual validation OK)
 - [ ] 011.md - reality-layer-5-connectors-wiring (parallel: false, depends 002+Mathis-creds)
 - [x] 012.md - learning-doctrine-dogfood-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; Mathis manual validation OK)
 
@@ -201,15 +201,15 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [ ] 013.md - global-chrome-cmdk-breadcrumbs (parallel: false, depends 001-012)
 - [ ] 014.md - essential-skills-install-and-wire (parallel: true)
 - [ ] 015.md - legacy-cleanup-mega-prompt-archive (parallel: true)
-- [~] 016.md - microfrontends-decision-doc 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits 3e7636b + 63587c3 + 9921714 ; awaiting Mathis sign-off on decision doc + architecture-explorer)
+- [x] 016.md - microfrontends-decision-doc ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 3e7636b + 63587c3 + 9921714 ; Mathis sign-off OK)
 
 **Total tasks**: 16
-**Done**: 9/16 (56%)
-**Code complete (validation pending)**: 2/16 (010 🟡 · 016 🟡)
-**Next up**: Mathis-side work — task 014 essential-skills-install-and-wire (needs `npx skills add` perms + skill source URL discovery) + task 015 legacy-cleanup-mega-prompt-archive (high blast radius `--gc-*` alias removal, manual review preferred). Task 013 cmd+K depends on 014/015. Task 009 GEO + 011 Reality stay blocked on Mathis-keys/creds.
+**Done**: 11/16 (69%)
+**In progress**: 0
+**Next up — Option A finishing strip** : (a) Task 013 global-chrome-cmdk-breadcrumbs (depends 001-012 done ✓ ; 009/011 stubs OK since those routes don't ship the chrome data) + (b) Task 015 legacy-cleanup-mega-prompt-archive (archive-mode only ; `--gc-*` alias cleanup deferred to manual). Tasks 014 (skills install) + 009 (GEO keys) + 011 (Reality creds) remain Mathis-side.
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~124-136h consumed (9 sprints closed + 2 code-complete pending validation)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~140-150h consumed (11 sprints closed)
 
 ## Progress log
 
