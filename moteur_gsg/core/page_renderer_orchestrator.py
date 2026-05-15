@@ -172,22 +172,47 @@ def render_controlled_page(
     faq_html = _render_faq(faq)
 
     reason_html = []
+    total_reasons = len(reasons)
+    # V27.2-G+ Sprint 14: insert a mid-parcours CTA after ~half of the
+    # reasons. Mathis feedback 2026-05-15: the only mid-CTA was at ~70%
+    # scroll (after the comparison table) — too late for the scanner
+    # persona to commit. We place it after reason floor(N/2) so it
+    # appears around the 40–50% scroll mark.
+    mid_cta_index = max(1, total_reasons // 2) if total_reasons >= 6 else 0
     for idx, reason in enumerate(reasons, start=1):
         paragraphs = reason.get("paragraphs") or []
         if isinstance(paragraphs, str):
             paragraphs = [paragraphs]
         side = reason.get("side_note")
         side_html = f'    <div class="side-note">{_e(side)}</div>' if side else ""
+        heading_text = reason.get("heading") or ""
         reason_html.append(f"""
 <article class="reason" id="reason-{idx:02d}">
   <div class="reason-number">{idx:02d}</div>
   <div class="reason-body">
-    <h2>{_e(reason.get('heading'))}</h2>
+    <h2>{_e(heading_text)}</h2>
     {_paragraphs(paragraphs)}
 {side_html}
   </div>
-  {_reason_visual(idx, visual_system)}
+  {_reason_visual(idx, visual_system, heading_text)}
 </article>""")
+        if idx == mid_cta_index:
+            mid_cta_heading = "Convaincu jusqu'ici ?" if plan.target_language.lower().startswith("fr") else "Convinced so far?"
+            mid_cta_body = (
+                "Lancez votre essai gratuit. Sans carte, sans engagement, en 5 minutes."
+                if plan.target_language.lower().startswith("fr")
+                else "Start your free trial. No card, no commitment, 5 minutes."
+            )
+            reason_html.append(f"""
+<section class="mid-cta" aria-label="Call to action">
+  <div class="mid-cta-inner">
+    <div>
+      <h3>{_e(mid_cta_heading)}</h3>
+      <p>{_e(mid_cta_body)}</p>
+    </div>
+    <a class="cta-button" href="{_e(cta_href)}">{_e(cta_label)}</a>
+  </div>
+</section>""")
 
     html = f"""<!DOCTYPE html>
 <html lang="{_e(plan.target_language.lower())}">

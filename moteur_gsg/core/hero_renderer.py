@@ -48,20 +48,37 @@ def _hero_visual(plan: GSGPagePlan, visual_system: dict[str, Any] | None = None)
     )
 
     if variant == "proof_atlas":
-        facts = _facts(plan, limit=3)
-        fact_rows = "".join(
-            f"<li><b>{chr(64 + idx)}</b><span>{_e((fact.get('context') or fact.get('number') or 'Source discipline')[:74])}</span></li>"
-            for idx, fact in enumerate(facts, start=1)
-        ) or "<li><b>A</b><span>Proof only when sourced</span></li>"
+        # V27.2-G+ Sprint 14: cleaner editorial composition — real product
+        # screenshot in a browser chrome + a single signature stat badge.
+        # Removes abstract "Proof atlas / A / B / C" decoration that confused
+        # users about what they were looking at.
+        facts = _facts(plan, limit=2)
+        signature_fact = ""
+        if facts:
+            primary = facts[0]
+            number = (primary.get("number") or "").strip()
+            context = (primary.get("context") or "").strip()
+            if number:
+                signature_fact = f"""
+  <div class="hero-signature">
+    <strong>{_e(number[:18])}</strong>
+    <span>{_e(context[:64])}</span>
+  </div>"""
+            elif context:
+                signature_fact = f"""
+  <div class="hero-signature">
+    <strong>{client}</strong>
+    <span>{_e(context[:64])}</span>
+  </div>"""
+        shot_html = (
+            f'<div class="hero-shot-frame">'
+            f'<div class="browser-bar"><span></span><span></span><span></span><strong>{client}.com</strong></div>'
+            f'<div class="hero-shot-canvas">{desktop_img}</div>'
+            f'</div>'
+        )
         return f"""
 <div class="hero-visual hero-visual-atlas" aria-hidden="true" data-visual-kind="proof_atlas">
-  <div class="atlas-shot">{desktop_img}</div>
-  <div class="atlas-ledger">
-    <span>Proof atlas</span>
-    <strong>{client}</strong>
-    <ul>{fact_rows}</ul>
-  </div>
-  <div class="atlas-axis"><i></i><i></i><i></i></div>
+  {shot_html}{signature_fact}
 </div>"""
 
     if variant == "system_map":

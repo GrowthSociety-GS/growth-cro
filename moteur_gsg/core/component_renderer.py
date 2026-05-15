@@ -2,8 +2,14 @@
 
 Three helpers:
 
-* ``_reason_visual(idx, visual_system)`` — listicle reason marginalia
-  panel (atlas / network / signal-rail variants).
+* ``_reason_visual(idx, visual_system, heading)`` — listicle reason
+  marginalia panel. V27.2-G+ Sprint 14: emits a relevant inline SVG
+  icon picked by keyword matching on the reason heading (globe / clock
+  / sparkle / search / plug / users / star / trending-up / shield /
+  gift). Falls back to a neutral "checkmark" when no keyword matches.
+  Previous abstract "FIELD NOTE A/B" / "SYSTEM" / "SEO/UX/ROI" labels
+  were removed (Mathis feedback 2026-05-15: they confused the reader
+  about what they were looking at).
 * ``_component_bullets(items)`` — small ``<ul>`` for component bullets,
   capped at 4.
 * ``_component_visual(section, idx, plan, module)`` — per-component
@@ -24,39 +30,71 @@ from .html_escaper import _e
 from .planner import GSGPagePlan
 
 
-def _reason_visual(idx: int, visual_system: dict[str, Any] | None = None) -> str:
-    """Render the marginalia visual for reason ``idx`` (1-based)."""
-    premium_layer = (visual_system or {}).get("premium_layer") or {}
-    treatment = premium_layer.get("reason_visual") or "signal_rail"
-    if treatment == "atlas_file_rail":
-        letter = chr(65 + ((idx - 1) % 4))
-        return f"""
-<div class="reason-visual reason-visual-atlas" aria-hidden="true" data-premium-visual="atlas_file_rail">
-  <span class="visual-label">FIELD NOTE {letter}</span>
-  <span class="folio-card folio-a"></span>
-  <span class="folio-card folio-b"></span>
-  <span class="folio-pin pin-a"></span>
-  <span class="folio-pin pin-b"></span>
-</div>"""
-    if treatment == "network_map":
-        return """
-<div class="reason-visual reason-visual-network" aria-hidden="true" data-premium-visual="network_map">
-  <span class="visual-label">SYSTEM</span>
-  <span class="network-node node-a"></span>
-  <span class="network-node node-b"></span>
-  <span class="network-node node-c"></span>
-  <span class="network-line line-a"></span>
-  <span class="network-line line-b"></span>
-</div>"""
-    labels = ["SEO", "UX", "ROI", "OPS", "CTA", "GEO", "VOC", "CAC", "QA", "GO"]
-    label = labels[(idx - 1) % len(labels)]
+# V27.2-G+ Sprint 14: inline SVG icon library (24x24 viewBox, stroke
+# currentColor — themed via CSS var --gsg-primary on the wrapper).
+_REASON_ICONS: dict[str, str] = {
+    "globe": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+    "clock": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    "sparkle": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2 2M16.4 16.4l2 2M5.6 18.4l2-2M16.4 7.6l2-2"/><circle cx="12" cy="12" r="3"/></svg>',
+    "search": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+    "plug": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v4M15 2v4M7 6h10v6a5 5 0 0 1-10 0V6Z"/><path d="M12 17v5"/></svg>',
+    "users": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.8"/><path d="M15 20c0-2.5 1.8-4.5 4-5"/></svg>',
+    "star": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z"/></svg>',
+    "trending": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>',
+    "shield": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.4 3.2 8.4 8 9 4.8-.6 8-4.6 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>',
+    "gift": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4"/><path d="M12 8v13M5 12v9h14v-9M8.5 8a2.5 2.5 0 1 1 3.5-3.5A2.5 2.5 0 1 1 15.5 8"/></svg>',
+    "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.5 2.5L16 9.5"/></svg>',
+}
+
+# Keyword → icon mapping (lowercase). Order matters — earliest match wins.
+# Specific topics (SEO, reviews, human-review) must run before broader
+# matches (multilingue→globe, wordpress→plug, intégr→plug).
+_REASON_KEYWORDS: list[tuple[tuple[str, ...], str]] = [
+    (("111", "marques", "social proof", "ils utilisent", "they trust", "fortune", "1 368", "brands trust"), "users"),
+    (("seo", "indexation", "hreflang", "ranking", "référenc", "referenc", "server-side", "search engine"), "search"),
+    (("trustpilot", "g2", "review", "avis", "étoile", "etoile", "note ", "4.8", "4.9", "5/5", "rating"), "star"),
+    (("maintenance", "sans effort", "zéro maintenance", "zero maintenance", "ops "), "shield"),
+    (("humain", "glossaire", "révis", "revis", "qualité", "quality", "translator", "traducteur", "human"), "shield"),
+    (("ia ", " ia,", " ia.", "intelligence artificielle", "ai ", "neural", "machine", "automat", "autonome", "fidèle"), "sparkle"),
+    (("5 min", "minute", "rapide", "setup", "install", "code-free", "no-code", "sans code", "zéro ligne", "zero ligne", "time-to-market", "time to market"), "clock"),
+    (("gratuit", "free", "essai", "trial", "sans carte", "no credit", "perpétuel", "demo"), "gift"),
+    (("trafic", "traffic", "conversion", "+%", "+ %", "croissance", "growth", "revenue", "+ 200", "+ 400"), "trending"),
+    (("langue", "language", "international", "marché", "pays", "monde", "110", "multiling", "rtl", "dialect"), "globe"),
+    (("intégr", "integr", "wordpress", "shopify", "webflow", "wix", "squarespace", "plugin", "connecteur", "stack"), "plug"),
+    (("client", "brand", "production"), "users"),
+]
+
+
+def _pick_icon_key(heading: str | None) -> str:
+    """Pick an icon key by scanning ``heading`` for keyword matches."""
+    if not heading:
+        return "check"
+    haystack = " " + heading.lower() + " "
+    for keywords, icon in _REASON_KEYWORDS:
+        for keyword in keywords:
+            if keyword in haystack:
+                return icon
+    return "check"
+
+
+def _reason_visual(
+    idx: int,
+    visual_system: dict[str, Any] | None = None,
+    heading: str | None = None,
+) -> str:
+    """Render the marginalia visual for reason ``idx`` (1-based).
+
+    Sprint 14: emits a topic-relevant inline SVG icon based on the
+    reason heading. ``visual_system`` is kept for backward compat but
+    no longer drives the rendering — abstract "FIELD NOTE A/B" /
+    "SYSTEM" / signal-rail decorations were removed.
+    """
+    icon_key = _pick_icon_key(heading)
+    svg = _REASON_ICONS.get(icon_key) or _REASON_ICONS["check"]
     return f"""
-<div class="reason-visual" aria-hidden="true" data-premium-visual="{_e(treatment)}">
-  <span class="visual-label">{_e(label)}</span>
-  <span class="rail rail-a"></span>
-  <span class="rail rail-b"></span>
-  <span class="dot dot-a"></span>
-  <span class="dot dot-b"></span>
+<div class="reason-visual" aria-hidden="true" data-reason-icon="{_e(icon_key)}">
+  <div class="reason-icon-frame">{svg}</div>
+  <div class="reason-icon-number">{idx:02d}</div>
 </div>"""
 
 
