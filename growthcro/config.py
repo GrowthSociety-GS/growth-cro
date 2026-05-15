@@ -114,6 +114,25 @@ _KNOWN_VARS: tuple[tuple[str, bool, str, str], ...] = (
     ("SHOPIFY_ADMIN_API_TOKEN",      False, "",        "Reality Layer — Shopify Admin API access token. Per-client: SHOPIFY_ADMIN_API_TOKEN_<SLUG>."),
     ("CLARITY_API_TOKEN",            False, "",        "Reality Layer — Microsoft Clarity Data Export token. Per-client: CLARITY_API_TOKEN_<SLUG>."),
     ("CLARITY_PROJECT_ID",           False, "",        "Reality Layer — Microsoft Clarity project ID. Per-client: CLARITY_PROJECT_ID_<SLUG>."),
+    # ── Reality Layer V30 — OAuth (Task 011) ──────────────────────────────────
+    # Defensive : when an OAuth app isn't provisioned, the webapp callback
+    # returns 503 `connector_not_configured` and the Python poller returns
+    # `SnapshotResult(skipped=True, reason='not_connected')`. Code ships now,
+    # activates when Mathis provisions each OAuth app on the connector side.
+    ("REALITY_TOKEN_ENCRYPTION_KEY", False, "",        "Reality Layer V30 — AES key (any string) used as pgcrypto session GUC `app.reality_token_key`. When missing, the encrypt() returns the sentinel '__no_key__' and the API surfaces an error."),
+    ("REALITY_OAUTH_STATE_SECRET",   False, "",        "Reality Layer V30 — HMAC-SHA256 secret used to sign OAuth state. Mismatch → callback redirects with ?error=invalid_state."),
+    ("CRON_SECRET",                  False, "",        "Vercel Cron — Bearer token validated by /api/cron/reality-poll. Vercel auto-injects this for Cron Jobs. Manual triggers must include `Authorization: Bearer <CRON_SECRET>`."),
+    ("CATCHR_CLIENT_ID",             False, "",        "Reality Layer V30 — Catchr OAuth client_id. Provision at catchr.io/oauth."),
+    ("CATCHR_CLIENT_SECRET",         False, "",        "Reality Layer V30 — Catchr OAuth client_secret."),
+    ("META_ADS_CLIENT_ID",           False, "",        "Reality Layer V30 — Meta Ads OAuth client_id (Facebook App ID)."),
+    ("META_ADS_CLIENT_SECRET",       False, "",        "Reality Layer V30 — Meta Ads OAuth app secret."),
+    ("GOOGLE_ADS_OAUTH_CLIENT_ID",   False, "",        "Reality Layer V30 — Google Ads OAuth client_id (Cloud Console)."),
+    ("GOOGLE_ADS_OAUTH_CLIENT_SECRET", False, "",      "Reality Layer V30 — Google Ads OAuth client_secret."),
+    ("SHOPIFY_CLIENT_ID",            False, "",        "Reality Layer V30 — Shopify Partners app client_id."),
+    ("SHOPIFY_CLIENT_SECRET",        False, "",        "Reality Layer V30 — Shopify Partners app client_secret."),
+    ("CLARITY_CLIENT_ID",            False, "",        "Reality Layer V30 — Microsoft Clarity OAuth client_id (private beta — Clarity OAuth not GA)."),
+    ("CLARITY_CLIENT_SECRET",        False, "",        "Reality Layer V30 — Microsoft Clarity OAuth client_secret."),
+    ("NEXT_PUBLIC_APP_URL",          False, "",        "Reality Layer V30 — Public origin (https://growth-cro.vercel.app) used as OAuth redirect_uri prefix. When unset, fallback http://localhost:3000."),
 )
 
 
@@ -211,6 +230,43 @@ class _Config:
     # ── Behavioral toggles ───────────────────────────────────────────
     def is_aggressive_cmp(self) -> bool:
         return _truthy(os.environ.get("AGGRESSIVE_CMP"))
+
+    # ── Reality Layer V30 — OAuth + cron ─────────────────────────────
+    def reality_token_encryption_key(self) -> Optional[str]:
+        """AES key for pgcrypto encryption of OAuth tokens (Task 011)."""
+        return os.environ.get("REALITY_TOKEN_ENCRYPTION_KEY") or None
+
+    def reality_oauth_state_secret(self) -> Optional[str]:
+        """HMAC-SHA256 secret for OAuth state validation (Task 011)."""
+        return os.environ.get("REALITY_OAUTH_STATE_SECRET") or None
+
+    def reality_oauth_client(self, connector: str) -> tuple[Optional[str], Optional[str]]:
+        """Return (client_id, client_secret) for one of the 5 V30 OAuth apps.
+
+        Connector keys : 'catchr' | 'meta_ads' | 'google_ads' | 'shopify' | 'clarity'.
+        Defensive : returns (None, None) when the OAuth app is not provisioned.
+        """
+        prefix_map = {
+            "catchr": "CATCHR",
+            "meta_ads": "META_ADS",
+            "google_ads": "GOOGLE_ADS_OAUTH",
+            "shopify": "SHOPIFY",
+            "clarity": "CLARITY",
+        }
+        prefix = prefix_map.get(connector)
+        if not prefix:
+            return (None, None)
+        cid = os.environ.get(f"{prefix}_CLIENT_ID") or None
+        secret = os.environ.get(f"{prefix}_CLIENT_SECRET") or None
+        return (cid, secret)
+
+    def cron_secret(self) -> Optional[str]:
+        """Vercel Cron Bearer token (Task 011)."""
+        return os.environ.get("CRON_SECRET") or None
+
+    def app_public_url(self, default: str = "http://localhost:3000") -> str:
+        """Public origin for OAuth redirect_uri (Task 011)."""
+        return os.environ.get("NEXT_PUBLIC_APP_URL") or default
 
     # ── Reality Layer per-client lookup ──────────────────────────────
     def reality_client_env(self, var: str, client_slug: str) -> Optional[str]:
