@@ -159,12 +159,15 @@ COMPONENTS_CSS = """.argument-line {
   font-size: 20px;
 }
 .intro p:first-child::first-letter {
+  /* V27.2-J Sprint 18 T18-4 : bigger drop cap (6.4rem, was 5.2rem) +
+     subtle serif fallback for editorial print feel. */
   float: left;
-  margin: 9px 12px 0 0;
-  font-family: var(--gsg-font-display);
-  font-size: 5.2rem;
+  margin: 11px 14px 0 0;
+  font-family: "Georgia", var(--gsg-font-display), serif;
+  font-size: 6.4rem;
   line-height: .72;
   color: var(--gsg-primary);
+  font-weight: 700;
 }
 .proof-strip {
   width: var(--gsg-wide);
@@ -381,6 +384,39 @@ COMPONENTS_CSS = """.argument-line {
 }
 .dot-a { top: 53px; left: 18px; }
 .dot-b { top: 95px; left: 88px; background: var(--gsg-primary); }
+/* V27.2-J Sprint 18 T18-3 : editorial pull-quote callout.
+   Premium magazine convention — interleaved every 3 reasons to break
+   the listicle rhythm. XL display italic, a flourish quote mark
+   in the brand color floating left. */
+.pull-quote {
+  width: var(--gsg-content);
+  margin: 56px auto;
+  padding: 28px 0 28px 64px;
+  border-left: 3px solid var(--gsg-primary);
+  font-family: var(--gsg-font-display);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1.18;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gsg-ink);
+  position: relative;
+  max-width: 900px;
+}
+.pull-quote p { margin: 0; }
+.pull-quote-mark {
+  position: absolute;
+  left: 16px; top: -6px;
+  font-family: var(--gsg-font-display);
+  font-size: clamp(3.6rem, 7vw, 6.4rem);
+  line-height: 1;
+  color: var(--gsg-primary);
+  font-style: normal;
+  opacity: 0.85;
+}
+@media (max-width: 720px) {
+  .pull-quote { padding: 22px 0 22px 40px; }
+  .pull-quote-mark { left: 4px; }
+}
 .mid-cta {
   width: var(--gsg-wide);
   margin: 56px auto;
@@ -734,8 +770,8 @@ COMPONENTS_CSS = """.argument-line {
   position: relative;
 }
 .testimonial-avatar {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   border-radius: 999px;
   background: linear-gradient(135deg, var(--gsg-primary), var(--gsg-accent));
   color: var(--gsg-on-primary);
@@ -743,8 +779,23 @@ COMPONENTS_CSS = """.argument-line {
   place-items: center;
   font-family: var(--gsg-font-display);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 22px;
   letter-spacing: -0.02em;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+/* V27.2-J Sprint 18 T18-2 : when a real Unsplash portrait is supplied,
+   the avatar wraps an <img> instead of a letter. We zero the gradient
+   so the photo isn't tinted, and ensure the image fills the circle. */
+.testimonial-avatar-photo {
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--gsg-primary) 18%, transparent);
+}
+.testimonial-avatar-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .testimonial-quote {
   margin: 0;

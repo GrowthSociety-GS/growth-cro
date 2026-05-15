@@ -120,6 +120,10 @@ class Testimonial:
     authorized: bool = True
     source_url: Optional[str] = None  # T15-2: URL publique du témoignage
     sourced_from: Optional[str] = None  # T15-2: "internal_brief" si pas d'URL publique
+    # V27.2-J Sprint 18 T18-2 : optional Unsplash portrait ID for the
+    # avatar (replaces letter-monogram). Format `<photo-id>` matching
+    # `https://images.unsplash.com/photo-<id>`.
+    unsplash_portrait_id: Optional[str] = None
 
     def validate(self) -> list[str]:
         errors = []
@@ -384,6 +388,8 @@ class BriefV2:
                     "source_url": t.source_url or "",
                     "sourced_from": t.sourced_from or "",
                     "is_verified": t.is_verified(),
+                    # T18-2: Unsplash portrait ID for the avatar.
+                    "unsplash_portrait_id": t.unsplash_portrait_id or "",
                 }
                 for t in self.testimonials
                 if t.authorized

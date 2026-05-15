@@ -395,9 +395,33 @@ def run_mode_1_complete(
                 from ..core.copy_lp_creator_parser import parse_lp_creator_copy
                 lp_creator_copy_doc = parse_lp_creator_copy(lp_creator_copy_path)
                 if lp_creator_copy_doc and lp_creator_copy_doc.get("reasons"):
+                    # V27.2-J Sprint 18 T18-2 : merge unsplash_portrait_id
+                    # from the brief V2 onto the parsed LP-Creator
+                    # testimonials. The .md format doesn't carry this
+                    # field, so we propagate it from the brief by matching
+                    # on company name (case-insensitive substring).
+                    brief_testimonials = brief.get("testimonials") or []
+                    parsed_items = (lp_creator_copy_doc.get("testimonials") or {}).get("items") or []
+                    for parsed_t in parsed_items:
+                        if not isinstance(parsed_t, dict):
+                            continue
+                        company = (parsed_t.get("company") or "").lower()
+                        for brief_t in brief_testimonials:
+                            if not isinstance(brief_t, dict):
+                                continue
+                            brief_company = (brief_t.get("company") or "").lower()
+                            if brief_company and brief_company in company:
+                                if brief_t.get("unsplash_portrait_id"):
+                                    parsed_t["unsplash_portrait_id"] = brief_t["unsplash_portrait_id"]
+                                if brief_t.get("source_url"):
+                                    parsed_t["source_url"] = brief_t["source_url"]
+                                    parsed_t["is_verified"] = True
+                                if brief_t.get("sourced_from"):
+                                    parsed_t["sourced_from"] = brief_t["sourced_from"]
+                                break
                     logger.info(
                         f"  ✓ LP-Creator canonical copy loaded ({len(lp_creator_copy_doc.get('reasons') or [])} reasons, "
-                        f"{len((lp_creator_copy_doc.get('testimonials') or {}).get('items') or [])} testimonials, "
+                        f"{len(parsed_items)} testimonials, "
                         f"{len((lp_creator_copy_doc.get('faq') or {}).get('items') or [])} faq) — skipping Sonnet copy"
                     )
             except Exception as exc:
@@ -461,6 +485,8 @@ def run_mode_1_complete(
                             "source_url": t.get("source_url", ""),
                             "sourced_from": t.get("sourced_from", ""),
                             "is_verified": bool(t.get("is_verified", False)),
+                            # T18-2: Unsplash portrait ID for the avatar.
+                            "unsplash_portrait_id": t.get("unsplash_portrait_id", ""),
                         }
                         for t in (brief.get("testimonials") or [])
                         if isinstance(t, dict) and t.get("authorized", True)

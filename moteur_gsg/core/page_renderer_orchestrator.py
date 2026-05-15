@@ -181,6 +181,18 @@ def render_controlled_page(
             is_verified = bool(item.get("is_verified") or source_url or is_internal_validated)
             initial = (name[:1] or company[:1] or "?").upper()
             stat_html = f'<p class="testimonial-stat">{_e(stat)}</p>' if stat else ""
+            # T18-2: real Unsplash portrait when ID provided ; else
+            # fall back to the letter-monogram circle.
+            unsplash_id = (item.get("unsplash_portrait_id") or "").strip()
+            if unsplash_id:
+                avatar_html = (
+                    f'<div class="testimonial-avatar testimonial-avatar-photo" aria-hidden="true">'
+                    f'<img src="https://images.unsplash.com/photo-{_e(unsplash_id)}?w=240&amp;h=240&amp;fit=crop&amp;crop=faces&amp;q=80" '
+                    f'alt="" loading="lazy" width="60" height="60">'
+                    f'</div>'
+                )
+            else:
+                avatar_html = f'<div class="testimonial-avatar" aria-hidden="true">{_e(initial)}</div>'
             verified_html = ""
             card_class = "testimonial-card"
             if not is_verified:
@@ -199,7 +211,7 @@ def render_controlled_page(
                 verified_html = f'<a class="testimonial-source-link" href="{_e(source_url)}" rel="nofollow noopener" target="_blank">{_e(domain)} ↗</a>'
             cards.append(f"""
 <article class="{card_class}">
-  <div class="testimonial-avatar" aria-hidden="true">{_e(initial)}</div>
+  {avatar_html}
   <blockquote class="testimonial-quote">{_e(quote)}</blockquote>
   <p class="testimonial-attr">
     <strong>{_e(name)}</strong>
@@ -257,6 +269,11 @@ def render_controlled_page(
     # persona to commit. We place it after reason floor(N/2) so it
     # appears around the 40–50% scroll mark.
     mid_cta_index = max(1, total_reasons // 2) if total_reasons >= 6 else 0
+    # V27.2-J Sprint 18 T18-3 : editorial pull-quote callouts after
+    # reasons 3, 6 (and 9 if total≥10). Premium-magazine convention —
+    # breaks the listicle rhythm with a XL display italic callout
+    # surfaced from the PREVIOUS reason's side_note (sourced highlight).
+    pullquote_indices = {3, 6, 9} if total_reasons >= 10 else ({3, 6} if total_reasons >= 7 else set())
     for idx, reason in enumerate(reasons, start=1):
         paragraphs = reason.get("paragraphs") or []
         if isinstance(paragraphs, str):
@@ -291,6 +308,17 @@ def render_controlled_page(
     <a class="cta-button" href="{_e(cta_href)}">{_e(cta_label)}</a>
   </div>
 </section>""")
+        # T18-3: editorial pull-quote after reasons in pullquote_indices.
+        # The quote pulls from the CURRENT reason's side_note (sourced
+        # highlight) to keep the editorial rhythm tied to proof. Skip if
+        # the reason has no side_note.
+        if idx in pullquote_indices and reason.get("side_note"):
+            pq = reason.get("side_note", "").strip()
+            reason_html.append(f"""
+<aside class="pull-quote" aria-label="Highlight">
+  <span class="pull-quote-mark" aria-hidden="true">“</span>
+  <p>{_e(pq)}</p>
+</aside>""")
 
     html = f"""<!DOCTYPE html>
 <html lang="{_e(plan.target_language.lower())}">

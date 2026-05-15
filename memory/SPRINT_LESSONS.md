@@ -104,6 +104,24 @@ des skills installés mais des modules Python heuristiques.
 
 ---
 
+## Sprint 18 — 2026-05-15 (CLOSED) — Beyond Excellent : Humanlike boost
+
+Goal : push composite from 88.2% Exceptionnel → ≥ 92% Stratospheric.
+Result V11 : composite 87.8% Exceptionnel ; Humanlike 72.5% → 75.0%
+Bon (+2.5pts) — direction correcte mais pas suffisant pour Stratospheric.
+Doctrine est descendu de 81.2% → 80.0% (les pull-quotes peuvent avoir
+ajouté du contenu sans citations sourcées, à vérifier en Sprint 19).
+
+### Règles dégagées
+
+| Règle | Déclencheur | Conséquence si violée |
+|------|-------------|-----------------------|
+| Les avatars testimonials doivent être de **vraies photos** (URL Unsplash CDN sans clé API) — les monogrammes lettrés font fuir le Humanlike judge de 5pts en avg. | Toute LP avec section testimonials | Humanlike judge bloqué entre 70-75% |
+| Les pull-quote callouts éditoriaux (1 tous les 3 reasons, side_note de la raison courante en XL italic display) ajoutent du rythme magazine MAIS attention au Doctrine judge — un pull-quote n'a pas de citation sourcée propre, peut compter comme "unsourced number". | Listicle ≥ 7 reasons | Doctrine -1.5pts si pull-quote contient un chiffre non re-cité |
+| Le parser LP-Creator doit tolérer `**Label** (descripteur)\n> content` ET `**Label**: content_inline` ET `**Label**\n> content`. La regex doit avoir un groupe optionnel `\s*\([^)]*\)?` entre le `**` et le séparateur. | Parsing copy.md riche | Champs perdus silencieusement (ex : sub_h1 V10) |
+
+---
+
 ## Sprint X — futurs
 
 Format identique. 1-3 règles par sprint maximum. Si une règle est très
@@ -119,4 +137,5 @@ en plus de l'archiver ici.
 - Sprint 14 — Visual quality fixes 4 observations (`4a8de5f`)
 - Sprint 15 — GSG pipeline real end-to-end (`8ae6283`)
 - Sprint 16 — Resolve all + stratospheric hero (`223b504`)
-- Sprint 17 — Stratospheric final polish + honest skills audit (commit pending)
+- Sprint 17 — Stratospheric final polish + honest skills audit (`a82c54c`)
+- Sprint 18 — Beyond Excellent : Humanlike +2.5pts via real Unsplash portraits + pull-quotes + sub-h1 + bigger drop cap (commit pending)

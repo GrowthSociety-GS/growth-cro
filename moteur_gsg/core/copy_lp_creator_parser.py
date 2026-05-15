@@ -54,10 +54,13 @@ _RE_SECTION = re.compile(r"^##\s+Section\s+\d+\s*[—-]\s*(.+?)\s*$", re.IGNOREC
 _RE_REASON = re.compile(r"^###\s*\[(\d{1,2})\]\s+(.+?)\s*$", re.MULTILINE)
 _RE_TESTIMONIAL_HEADER = re.compile(r"^###\s+T[ée]moignage\s+\d+\s*[—-]\s*(.+?)\s*$", re.IGNORECASE | re.MULTILINE)
 _RE_FAQ_HEADER = re.compile(r"^###\s+(.+\?)\s*$", re.MULTILINE)
-# A "field" block opens with `**Label**` then either `\n> {content}` or `: {content_inline}`.
-# Captures everything until the next blank line, next `**Label**`, or end.
+# A "field" block opens with `**Label**` then optionally a `(parenthetical
+# descriptor)`, then either `\n> {content}` or `: {content_inline}`.
+# V27.2-J Sprint 18 T18-1 : the parenthetical descriptor was breaking the
+# regex for fields like `**Sub-H1** (italique léger)\n> (et pas une agence
+# à 20 000 €)`. Now tolerated.
 _RE_FIELD = re.compile(
-    r"^\*\*([^*]+?)\*\*\s*(?::\s*(.+?)|\s*\n>\s*(.+?))(?=\n\n|\n\*\*|\n###|\Z)",
+    r"^\*\*([^*]+?)\*\*\s*(?:\([^)]*\))?\s*(?::\s*(.+?)|\s*\n>\s*(.+?))(?=\n\n|\n\*\*|\n###|\Z)",
     re.DOTALL | re.MULTILINE,
 )
 _RE_QUOTE_BLOCK = re.compile(r">\s*«\s*(.+?)\s*»", re.DOTALL)
@@ -206,6 +209,11 @@ def _parse_testimonials(body: str) -> dict[str, Any]:
             "sourced_from": "internal_brief",
             "source_url": "",
             "is_verified": False,
+            # T18-2: empty by default. Bridge in mode_1_complete merges
+            # the unsplash_portrait_id from the brief V2 onto the parsed
+            # copy_doc when present (LP-Creator markdown doesn't carry
+            # this field — it's a brief-level setting).
+            "unsplash_portrait_id": "",
         })
     return {"heading": "Ils en parlent mieux que nous.", "items": items}
 

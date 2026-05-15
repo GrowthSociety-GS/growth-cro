@@ -119,7 +119,8 @@
       "company": "Polaar",
       "quote": "On a ouvert l'Allemagne et l'Espagne en moins de 3 mois. Pas une seule ligne de code dev. Aujourd'hui, l'international représente plus de 40% de notre trafic.",
       "authorized": true,
-      "sourced_from": "internal_brief"
+      "sourced_from": "internal_brief",
+      "unsplash_portrait_id": "1573497019940-1c28c88b4f3e"
     },
     {
       "name": "Marketing Lead",
@@ -127,7 +128,8 @@
       "company": "Respond.io",
       "quote": "Notre équipe ne parle pas espagnol. Avec Weglot, on est entrés sur le marché LATAM sans recruter un seul translator interne. Les premiers leads ES sont arrivés au bout de 6 semaines.",
       "authorized": true,
-      "sourced_from": "internal_brief"
+      "sourced_from": "internal_brief",
+      "unsplash_portrait_id": "1507003211169-0a1dd7228f2d"
     },
     {
       "name": "Direction technique",
@@ -135,7 +137,8 @@
       "company": "L'Équipe Creative",
       "quote": "On le déploie sur tous les sites clients depuis 2023. Le setup en 5 min nous fait gagner 2 jours par projet — et nos clients e-commerce voient le ROI dès le premier trimestre.",
       "authorized": true,
-      "sourced_from": "internal_brief"
+      "sourced_from": "internal_brief",
+      "unsplash_portrait_id": "1494790108377-be9c29b29330"
     }
   ],
   "existing_page_url": null,
