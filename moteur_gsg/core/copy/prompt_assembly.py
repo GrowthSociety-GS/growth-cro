@@ -36,7 +36,7 @@ Rules:
 - Keep copy specific, concrete, and non-generic.
 - The renderer owns layout. Do not mention layout instructions in copy."""
 
-COPY_PROMPT_MAX_CHARS = 8000
+COPY_PROMPT_MAX_CHARS = 10000
 
 
 def _compact_text(value: Any, max_chars: int) -> str:

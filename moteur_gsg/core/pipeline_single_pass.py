@@ -75,7 +75,7 @@ def call_sonnet_multimodal(
         for img_path in image_paths:
             if not img_path.exists():
                 if verbose:
-                    logger.info(f"  ⚠️  Image not found, skip: {img_path}", flush=True)
+                    logger.info(f"  ⚠️  Image not found, skip: {img_path}")
                 continue
             ext = img_path.suffix.lower().lstrip(".")
             media_type = "image/png" if ext == "png" else f"image/{ext}"
@@ -91,7 +91,7 @@ def call_sonnet_multimodal(
 
     if verbose:
         sz = len(system_prompt) + len(user_message)
-        logger.info(f"  → Sonnet MULTIMODAL (model={model}, prompt={sz} chars, images={images_loaded}, max_tokens={max_tokens}, T={temperature})...", flush=True)
+        logger.info(f"  → Sonnet MULTIMODAL (model={model}, prompt={sz} chars, images={images_loaded}, max_tokens={max_tokens}, T={temperature})...")
 
     t0 = time.time()
     msg = api.messages.create(
@@ -107,11 +107,11 @@ def call_sonnet_multimodal(
     html = _strip_html_fences(raw)
 
     if verbose:
-        logger.info(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars", flush=True)
+        logger.info(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars")
 
     if not re.search(r"<!DOCTYPE\s+html>", html, re.IGNORECASE):
         if verbose:
-            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
+            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}")
 
     return {
         "html": html,
@@ -141,7 +141,7 @@ def call_sonnet(
 
     if verbose:
         sz = len(system_prompt) + len(user_message)
-        logger.info(f"  → Sonnet single_pass (model={model}, prompt={sz} chars, max_tokens={max_tokens}, T={temperature})...", flush=True)
+        logger.info(f"  → Sonnet single_pass (model={model}, prompt={sz} chars, max_tokens={max_tokens}, T={temperature})...")
 
     t0 = time.time()
     msg = api.messages.create(
@@ -157,12 +157,12 @@ def call_sonnet(
     html = _strip_html_fences(raw)
 
     if verbose:
-        logger.info(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars", flush=True)
+        logger.info(f"  ← Sonnet : in={msg.usage.input_tokens} out={msg.usage.output_tokens} ({dt:.1f}s) html={len(html)} chars")
 
     # Sanity check : doit ressembler à du HTML
     if not re.search(r"<!DOCTYPE\s+html>", html, re.IGNORECASE):
         if verbose:
-            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
+            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}")
 
     return {
         "html": html,
@@ -226,7 +226,7 @@ def call_sonnet_messages(
             for img_path in image_paths:
                 if not img_path.exists():
                     if verbose:
-                        logger.info(f"  ⚠️  Image not found, skip: {img_path}", flush=True)
+                        logger.info(f"  ⚠️  Image not found, skip: {img_path}")
                     continue
                 ext = img_path.suffix.lower().lstrip(".")
                 media_type = "image/png" if ext == "png" else f"image/{ext}"
@@ -283,7 +283,7 @@ def call_sonnet_messages(
 
     if not re.search(r"<!DOCTYPE\s+html>", html, re.IGNORECASE):
         if verbose:
-            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}", flush=True)
+            logger.info(f"  ⚠️  No <!DOCTYPE html> found. First 300 chars: {html[:300]}")
 
     return {
         "html": html,
@@ -312,12 +312,12 @@ def apply_runtime_fixes(html: str, verbose: bool = True) -> tuple[str, dict]:
         fixed, info = apply_fix_html_runtime(html, inject_js=False)
     except LegacyLabUnavailable as exc:
         if verbose:
-            logger.info(f"  ⚠️  fix_html_runtime unavailable, skip post-process: {exc}", flush=True)
+            logger.info(f"  ⚠️  fix_html_runtime unavailable, skip post-process: {exc}")
         return html, {"applied": False, "reason": str(exc)}
     if verbose:
         n_fixes = len(info.get("fixes_applied", []))
         n_warnings = len(info.get("warnings", []))
-        logger.info(f"  ✓ fix_html_runtime adapter: {n_fixes} fixes, {n_warnings} warnings", flush=True)
+        logger.info(f"  ✓ fix_html_runtime adapter: {n_fixes} fixes, {n_warnings} warnings")
     return fixed, {"applied": True, **info}
 
 

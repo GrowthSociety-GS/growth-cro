@@ -6,7 +6,7 @@ import sys
 from growthcro.config import config
 
 
-def get_anthropic_client(timeout: float = 60.0, max_retries: int = 3):
+def get_anthropic_client(timeout: float = 600.0, max_retries: int = 3):
     """Lazy-load the anthropic SDK, validate the API key, return an `Anthropic` client.
 
     Behaviour:

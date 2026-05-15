@@ -1,0 +1,180 @@
+{
+  "version": "GSG_CANONICAL_MINIMAL_V27",
+  "generation_path": "minimal",
+  "mode": "complete",
+  "client": "weglot",
+  "page_type": "lp_listicle",
+  "target_language": "FR",
+  "html_path": "deliverables/gsg_demo/weglot-listicle-FUSED-2026-05-15.html",
+  "brief_archive": "data/_briefs_v2/20260515_130903_weglot_com_lp_listicle_GSG_CANONICAL_V27.json",
+  "telemetry": {
+    "wall_seconds_total": 58.5,
+    "wall_seconds_gen": 58.1,
+    "wall_seconds_judge": 0,
+    "tokens_in_gen": 2964,
+    "tokens_out_gen": 2840,
+    "tokens_in_total": 2964,
+    "tokens_out_total": 2840,
+    "cost_estimate_usd": 0.051,
+    "minimal_gate_pass": true,
+    "impeccable_score": 100,
+    "impeccable_pass": true
+  },
+  "prompt_meta": {
+    "generation_strategy": "controlled",
+    "copy_prompt_chars": 8498,
+    "plan_sections": 15,
+    "layout_name": "editorial_listicle_longform",
+    "doctrine_upstream": {
+      "business_category": "saas",
+      "criteria_ids": [
+        "per_01",
+        "per_04",
+        "per_08",
+        "psy_05",
+        "hero_06",
+        "coh_01",
+        "coh_03",
+        "coh_04",
+        "coh_06",
+        "ux_01"
+      ],
+      "pillar_weights": {
+        "coherence": 0.4,
+        "hero": 0.1,
+        "persuasion": 0.3,
+        "psycho": 0.1,
+        "ux": 0.1
+      },
+      "evidence_policy": "proof_rich",
+      "page_type_specific_ids": [
+        "list_01",
+        "list_02",
+        "list_03",
+        "list_04",
+        "list_05"
+      ],
+      "excluded_criteria": [
+        "hero_03",
+        "psy_01",
+        "psy_02",
+        "psy_04",
+        "ux_08"
+      ]
+    },
+    "context_pack": {
+      "version": "gsg-generation-context-v27.2",
+      "available_count": 8,
+      "missing_count": 13,
+      "risk_flags": [
+        "proof_light_no_invention_required"
+      ],
+      "audit_dependency_policy": "read_context_only"
+    },
+    "visual_intelligence": {
+      "version": "gsg-visual-intelligence-v27.2",
+      "visual_role": "premium_editorial_argument",
+      "density": "medium_high_editorial",
+      "energy": "calm_authoritative",
+      "proof_visibility": "light_explicit_no_fake_claims",
+      "product_visibility": "high"
+    },
+    "creative_route_contract": {
+      "version": "gsg-creative-route-contract-v27.2-f",
+      "route_name": "Proof Atlas Editorial",
+      "risk_level": "premium",
+      "source": "structured_golden_creative_selector",
+      "golden_ref_count": 3,
+      "technique_ref_count": 7,
+      "renderer_overrides": {
+        "hero_variant": "proof_atlas",
+        "rhythm": "atlas_marginalia",
+        "proof_mode": "source_strip"
+      },
+      "top_golden_refs": [
+        {
+          "site": "gymshark",
+          "page": "pdp",
+          "distance": 1.36
+        },
+        {
+          "site": "whoop",
+          "page": "pdp",
+          "distance": 1.42
+        },
+        {
+          "site": "whoop",
+          "page": "home",
+          "distance": 1.45
+        }
+      ]
+    },
+    "n_critical": 5,
+    "target_language": "FR",
+    "primary_cta_label": "Essayer Weglot gratuitement →",
+    "allowed_number_tokens": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "1",
+      "10",
+      "100",
+      "10000",
+      "110",
+      "111368",
+      "1140",
+      "12",
+      "15",
+      "15000",
+      "199",
+      "2",
+      "20",
+      "20000",
+      "200000",
+      "2023",
+      "3",
+      "30",
+      "30000",
+      "360",
+      "4",
+      "4.8",
+      "4.9",
+      "40",
+      "400",
+      "45",
+      "49",
+      "5",
+      "50",
+      "500",
+      "50000",
+      "588",
+      "6",
+      "7",
+      "70",
+      "768"
+    ],
+    "visual_assets": [
+      "desktop_fold",
+      "desktop_full",
+      "lp_leadgen_fold",
+      "lp_leadgen_full",
+      "mobile_fold",
+      "mobile_full",
+      "pricing_fold",
+      "pricing_full"
+    ]
+  },
+  "minimal_gates": {
+    "html_integrity_issues": [],
+    "font_violations": [],
+    "english_cta_violations": [],
+    "unsourced_numeric_claims": [],
+    "pass": true
+  }
+}
