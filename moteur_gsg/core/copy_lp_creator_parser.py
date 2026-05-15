@@ -331,7 +331,11 @@ def parse_lp_creator_copy(path: str | Path) -> dict[str, Any]:
         elif "problem" in label or "intro" in label or "bridge" in label:
             intro = _parse_intro(body)
             out["intro"] = intro.get("paragraphs") or []
-        elif "raison" in label or "reason" in label:
+        elif "raison" in label or "reason" in label or "levier" in label or "step" in label or "étape" in label:
+            # V27.2-M Sprint 21 (T21) : accept "leviers" / "steps" / "étapes" as
+            # section labels for the numbered list — was rejecting "Section 3 —
+            # Les 10 leviers" silently and falling back to Sonnet, losing the
+            # canonical LP-Creator copy.
             out["reasons"] = _parse_reasons(body)
         elif "comparatif" in label or "comparison" in label:
             # Sprint 16 (T16-1) : extract markdown table |Critère|Sans X|Avec X|.

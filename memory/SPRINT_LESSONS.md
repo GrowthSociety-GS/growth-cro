@@ -176,6 +176,48 @@ Result V13b (skip-judges) : **composite 92.2% Stratospheric** 🚀
 
 ---
 
+## Sprint 21 — 2026-05-15 (CLOSED) — Final acceptance test from-blank Weglot
+
+Mathis a déclenché le test from-blank Weglot après Sprint 20. Premier
+attempt : j'ai recyclé l'angle Sprint 13 sans m'en rendre compte
+(stats Polaar mauvaises, headings reasons identiques). Mathis a flagué
+honnêtement et exigé un VRAI from-blank.
+
+Deuxième attempt avec consigne stricte "ne repars de rien" :
+- Fetch étendu sur 8 pages Weglot (homepage / pricing / customers
+  index + 3 case studies / about / blog FR / 4 articles individuels /
+  resources)
+- 10 angles 100% nouveaux synthétisés (AI Overview +327% / DeepL 75% /
+  WPML 300-500ms latency / sub-directories reco / Visual Editor in-
+  context / glossary 3 règles / IA brand-configured + IBM 37 langues +
+  Bradery 10min/sem / Napta DE ×4 + Polaar US revenue 5%→17% /
+  framework 20/80 borderless SaaS / workflow 90/10)
+- Copy fresh rédigé + validé par Mathis
+- Parser bug découvert : `Section 3 — Les 10 leviers` rejeté
+  silencieusement (regex acceptait juste "raison"/"reason") → fallback
+  Sonnet → ancien copy Sprint 13 rendu
+- Fix : parser accepte "raison"/"reason"/"levier"/"step"/"étape"
+- V14b re-run : Multi-judge 85.3% 🏆 Exceptionnel, Humanlike 88.8% 🏆
+  (best ever, +13.8pts vs V11), Doctrine 83.8% Excellent, Composite
+  88.6% Exceptionnel.
+
+**Doctrine "content-input-from-blank" pinnée** dans
+`memory/CONTENT_INPUT_DOCTRINE.md` + indexée dans MEMORY.md : règle
+hard gate pour tous GSGs futurs — avant toute Phase 1 brief, fetch 6
+catégories de sources (homepage / pricing / customers + 2-3 cases /
+about / blog + top articles / features), synthèse fresh, proposition
+de 3 angles distincts, attente choix user.
+
+### Règles dégagées
+
+| Règle | Déclencheur | Conséquence si violée |
+|------|-------------|-----------------------|
+| Le LP-Creator markdown parser doit accepter au moins 5 labels de section pour la liste numérotée : "raison" / "reason" / "levier" / "step" / "étape". Sinon, parser échoue silencieusement et tombe en fallback Sonnet (qui régénère un copy différent — Sprint 13 réutilisé au lieu du copy fresh Sprint 21). | Création d'une nouvelle copy.md avec un label section "leviers" / "steps" | Copy fresh ignoré silencieusement, ancien copy ressuscité, score Multi-judge tombe (Sonnet régénère générique au lieu d'utiliser le Mathis-validated fresh) |
+| Le fresh content ancré dans des sources publiques fraîches (étude AI Overview 1.3M citations, cas Napta×4 vs cas Polaar+400% qui était mauvais) DOPE le Humanlike judge de +13pts (V11 75% → V14b 88.8%). Le judge perçoit la spécificité éditoriale et le sourcing visible. | Pipeline avec copy fresh content vs copy generic recycled | Plafond Humanlike 75% indépassable, judges fatigués par déjà-vu Sprint-N. |
+| Le test "from blank" exige fetch d'au moins 4 sources que la session n'a JAMAIS touchées (ex : blog FR + 4 articles + 2-3 case studies individuelles). Si l'agent fetch seulement les pages déjà vues Sprint 13, c'est encore du recyclage. Doctrine : varier les sources à chaque from-blank. | Phase 1 brief from-blank | Faux from-blank, contenu prévisible, score Humanlike < 80% |
+
+---
+
 ## Sprint X — futurs
 
 Format identique. 1-3 règles par sprint maximum. Si une règle est très
@@ -194,4 +236,5 @@ en plus de l'archiver ici.
 - Sprint 17 — Stratospheric final polish + honest skills audit (`a82c54c`)
 - Sprint 18 — Beyond Excellent : Humanlike +2.5pts (`9503106`)
 - Sprint 19 — Push to Stratospheric : structural wins, multi-judge noise (`bbae6d2`)
-- Sprint 20 — Quality completeness : a11y axe-core + lighthouse perf wired (commit pending)
+- Sprint 20 — Quality completeness : a11y axe-core + lighthouse perf wired (`662c88a`)
+- Sprint 21 — Final acceptance test from-blank Weglot + doctrine content-input pinned + parser fix (commit pending) — V14b composite 88.6% Exceptionnel, Humanlike 88.8% 🏆 (best ever), Doctrine 83.8% Excellent, Multi-judge 85.3% 🏆

@@ -5,7 +5,7 @@
   "client_url": "https://www.weglot.com/fr",
   "objective": "Convertir un visiteur trafic paid Meta Ads / Google Ads / TikTok B2B founder vers signup essai gratuit Weglot (https://dashboard.weglot.com/register). Le signup est sans carte bancaire requise, plan gratuit perpétuel (10 000 mots + 1 langue). KPI primaire : taux de signup. KPI secondaire : taux de scroll au-delà des 10 raisons.",
   "audience": "Founder / Marketing Lead / E-commerce Manager PME 10-100 employés ou SaaS B2B Seed/Series A. 30-45 ans, francophone (FR+BE+CH+CA-QC). Schwartz 3 problem-aware : hésite entre 4 alternatives — (a) dev in-house 3-6 mois cher, (b) agence trad pro 15-30K€ + délai 2-4 semaines, (c) Google Translate plugin gratuit qui détruit le SEO, (d) DeepL ou SaaS à comparer. Decision-maker pragmatique, compare 2-3 outils, lit Trustpilot/G2/Reddit, valorise transparence pricing. Anti-bullshit allergique (déteste 'révolutionnaire/leader/disruptif'), veut chiffres + screenshots. Time-poor : scanne, ne lit pas. 3 peurs : (1) chaos SEO hreflang ratée = sanction Google → 'trafic organique va péter', (2) qualité robotic qui fait fuir leads → 'crédibilité perdue', (3) time-to-market → 'j'ai 1 mois pas 6'. 3 désirs : site live multilingue <1 mois, qualité acceptable sans recruter, +15-40% trafic organique 3-6 mois sans maintenance.",
-  "angle": "10 raisons pour lesquelles 111 368 marques ont choisi Weglot pour traduire leur site (et pas une agence à 20 000 €). Anti-bullshit positioning vs agence de traduction traditionnelle. Social proof number ancré (111 368 marques) + opposition financière concrète (20 000 €) qui adresse directement l'objection prix. Format listicle scannable, scrollable, mobile-friendly pour audience trafic paid time-poor.",
+  "angle": "10 leviers que ni Google Translate ni votre agence n'activent — étude AI Overviews +327% visibilité (1.3M citations) + cas concrets Napta DE ×4 / Polaar US revenue 5%→17% / Respond.io 15 langues days-not-months / IBM 37 langues. Anti-bullshit positioning : pas le standard parce que populaire, mais parce que techniquement nécessaire en 2025 (AI Overviews).",
   "traffic_source": [
     "cold_ad_meta",
     "cold_ad_google",
@@ -128,30 +128,33 @@
   ],
   "testimonials": [
     {
-      "name": "Équipe Growth",
-      "position": "Growth Team",
+      "name": "Sophie von Kirchmann",
+      "position": "E-Store Manager",
       "company": "Polaar",
-      "quote": "On a ouvert l'Allemagne et l'Espagne en moins de 3 mois. Pas une seule ligne de code dev. Aujourd'hui, l'international représente plus de 40% de notre trafic.",
+      "quote": "Le gain de temps avec la traduction instantanée de Weglot est indiscutable. Une modification sur une fiche produit ? On sait qu'elle est automatiquement traduite et live sur les pages multilingues.",
       "authorized": true,
-      "sourced_from": "internal_brief",
+      "source_url": "https://www.weglot.com/customers/polaar",
+      "sourced_from": "",
       "unsplash_portrait_id": "1573497019940-1c28c88b4f3e"
     },
     {
-      "name": "Marketing Lead",
-      "position": "Marketing Lead",
+      "name": "Polina Usynina",
+      "position": "Project Lead",
       "company": "Respond.io",
-      "quote": "Notre équipe ne parle pas espagnol. Avec Weglot, on est entrés sur le marché LATAM sans recruter un seul translator interne. Les premiers leads ES sont arrivés au bout de 6 semaines.",
+      "quote": "Notre croissance a été rapide — nos marchés cibles ont explosé plus vite que prévu. La seule façon de tenir le rythme : localiser le site dans plusieurs langues le plus vite possible.",
       "authorized": true,
-      "sourced_from": "internal_brief",
+      "source_url": "https://www.weglot.com/customers/respond-io",
+      "sourced_from": "",
       "unsplash_portrait_id": "1507003211169-0a1dd7228f2d"
     },
     {
-      "name": "Direction technique",
-      "position": "Tech Director",
-      "company": "L'Équipe Creative",
-      "quote": "On le déploie sur tous les sites clients depuis 2023. Le setup en 5 min nous fait gagner 2 jours par projet — et nos clients e-commerce voient le ROI dès le premier trimestre.",
+      "name": "Salomé Amar",
+      "position": "Founder",
+      "company": "L'Équipe Créative",
+      "quote": "Weglot répond exactement à ce que je peux promettre à mes clients : passer en multilingue facilement, garder leur autonomie totale sur leur site, générer plus de leads.",
       "authorized": true,
-      "sourced_from": "internal_brief",
+      "source_url": "https://www.weglot.com/customers/lequipe-creative",
+      "sourced_from": "",
       "unsplash_portrait_id": "1494790108377-be9c29b29330"
     }
   ],
@@ -180,5 +183,5 @@
   "product_photos_real": [],
   "font_override": null,
   "palette_override": [],
-  "lp_creator_validated_copy_path": "deliverables/gsg_demo/weglot-listicle-2026-05-15-COPY.md"
+  "lp_creator_validated_copy_path": "deliverables/gsg_demo/weglot-listicle-2026-05-15-COPY-SPRINT21-FRESH.md"
 }

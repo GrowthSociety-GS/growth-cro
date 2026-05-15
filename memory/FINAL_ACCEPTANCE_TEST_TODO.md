@@ -6,6 +6,8 @@ type: project
 
 # 🎯 TEST D'ACCEPTANCE FINAL — Weglot listicle from blank page
 
+**Statut** : ✅ **COMPLETED 2026-05-15** (Sprint 21, commit pending). V14b shipped.
+
 **Demandé par** : Mathis 2026-05-15 (post-Sprint 18 close commit `9503106`)
 **Citation** : *"à la toute fin des sprints on refera le listicle Weglot
 depuis une page blanche tu me demanderas les inputs comme dans la web

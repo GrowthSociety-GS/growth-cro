@@ -37,6 +37,7 @@ Notes empiriques V26.AF :
 | Fichier | Portée | Quand le lire |
 |---|---|---|
 | **`FINAL_ACCEPTANCE_TEST_TODO.md`** | 🎯 **TEST D'ACCEPTANCE FINAL** demandé par Mathis 2026-05-15. Refaire le listicle Weglot from blank page (LP-Creator 4 phases interactives → moteur_gsg → review). À exécuter APRÈS la clôture des sprints planifiés (Sprint 19+ todo avant). | Avant chaque session post-clear + à la clôture des sprints en cours |
+| **`CONTENT_INPUT_DOCTRINE.md`** | 🛑 **DOCTRINE HARD GATE** "content-input-from-blank" — Mathis 2026-05-15 a constaté que je recyclais l'angle Sprint 13 sans questionner. Désormais : avant toute Phase 1 brief, l'agent DOIT fetcher 6 catégories de sources (homepage / pricing / customers index + 2-3 case studies individuelles / about / blog index + top articles / features), synthétiser des fresh insights, et PROPOSER 3 ANGLES DISTINCTS avant pré-remplissage. À wirer dans Sprint 21+ pipeline (slash command + BriefV2 field + audit gate). | À chaque from-blank brief, tous clients, tous types LP |
 | `SPRINT_LESSONS.md` | **Boucle d'apprentissage** — règles distillées sprint par sprint (Sprint 13/14/15…). Format `règle \| déclencheur \| conséquence`. À mettre à jour à la clôture de chaque sprint (1-3 règles max). | Avant ouverture d'un nouveau sprint + à la clôture |
 | `HISTORY.md` | Journal chronologique phases 1-18 | Skim dernier tiers seulement (forensic) |
 | `SPECS.md` | Specs figées modules (capture, perception, scoring, reco) | Avant modif d'un module |
