@@ -36,6 +36,7 @@ Notes empiriques V26.AF :
 
 | Fichier | Portée | Quand le lire |
 |---|---|---|
+| `SPRINT_LESSONS.md` | **Boucle d'apprentissage** — règles distillées sprint par sprint (Sprint 13/14/15…). Format `règle \| déclencheur \| conséquence`. À mettre à jour à la clôture de chaque sprint (1-3 règles max). | Avant ouverture d'un nouveau sprint + à la clôture |
 | `HISTORY.md` | Journal chronologique phases 1-18 | Skim dernier tiers seulement (forensic) |
 | `SPECS.md` | Specs figées modules (capture, perception, scoring, reco) | Avant modif d'un module |
 
