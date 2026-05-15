@@ -3,5 +3,11 @@
   "buildCommand": "npm run build --workspace=apps/shell",
   "outputDirectory": "apps/shell/.next",
   "framework": "nextjs",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "crons": [
+    {
+      "path": "/api/cron/reality-poll",
+      "schedule": "0 * * * *"
+    }
+  ]
 }
