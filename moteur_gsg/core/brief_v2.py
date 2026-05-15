@@ -81,10 +81,17 @@ _ALLOWED_FORBIDDEN_VISUAL = {
 
 @dataclass
 class SourcedNumber:
-    """Section 4.5 — chiffre interne avec source vérifiable (anti-invention)."""
+    """Section 4.5 — chiffre interne avec source vérifiable (anti-invention).
+
+    V27.2-K Sprint 19 (T19-2) : optional ``source_url`` for publishing
+    the proof URL alongside the reason that cites this number. When
+    present, the renderer emits a `.reason-sources` chip pointing to
+    this URL.
+    """
     number: str
     source: str
     context: str
+    source_url: Optional[str] = None  # T19-2: publishable URL for the proof
 
     def validate(self) -> list[str]:
         errors = []
@@ -396,7 +403,7 @@ class BriefV2:
             ]
         if self.sourced_numbers:
             legacy["sourced_numbers"] = [
-                {"number": sn.number, "source": sn.source, "context": sn.context}
+                {"number": sn.number, "source": sn.source, "context": sn.context, "source_url": sn.source_url or ""}
                 for sn in self.sourced_numbers
             ]
         if self.concept_description:

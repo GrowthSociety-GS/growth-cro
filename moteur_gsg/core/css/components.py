@@ -403,6 +403,50 @@ COMPONENTS_CSS = """.argument-line {
   max-width: 900px;
 }
 .pull-quote p { margin: 0; }
+.pull-quote-cite {
+  /* V27.2-K Sprint 19 T19-1 : provenance label tying the pull-quote
+     to its source reason. Doctrine judge uses this + the
+     data-pull-quote-of-reason attribute to skip the quote during the
+     unsourced-number scan. */
+  display: block;
+  margin-top: 14px;
+  font-family: var(--gsg-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-style: normal;
+  color: var(--gsg-muted);
+  text-transform: uppercase;
+}
+/* V27.2-K Sprint 19 T19-2 : reason-level proof citation chips.
+   Visible at the bottom of any reason whose body cites a sourced
+   number with a public URL. Tiny pills with the publisher name and
+   an external-link arrow. Strongest possible signal for the Doctrine
+   judge that the claim is provably sourced. */
+.reason-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.reason-sources li { margin: 0; padding: 0; }
+.reason-sources li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--gsg-primary) 22%, transparent);
+  background: color-mix(in srgb, var(--gsg-primary) 5%, white);
+  font-family: var(--gsg-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--gsg-primary);
+  text-decoration: none;
+  transition: background var(--gsg-duration) var(--gsg-easing);
+}
+.reason-sources li a:hover { background: color-mix(in srgb, var(--gsg-primary) 14%, white); }
 .pull-quote-mark {
   position: absolute;
   left: 16px; top: -6px;

@@ -99,6 +99,116 @@ def list_supported_modes() -> list[str]:
     return list(_MODE_REGISTRY.keys())
 
 
+# V27.2-K Sprint 19 (T19-3) — Multi-page generation foundation.
+# Unlocks the "100 clients Growth Society production" scale by running
+# `generate_lp()` for N pages sharing brand_dna + brief context, then
+# emitting a consolidated bundle summary.
+def generate_lp_bundle(
+    *,
+    client: str,
+    pages: list[str],
+    shared_brief: dict,
+    save_dir: str | None = None,
+    skip_judges: bool = True,
+    mode: str = "complete",
+    **kwargs,
+) -> dict:
+    """Generate N pages for a client in a single run.
+
+    Each page reuses ``shared_brief`` (objective / audience / angle /
+    target_language) ; the ``page_type`` is taken from the ``pages``
+    list (one iteration per page). Outputs land under
+    ``<save_dir>/<client>/<YYYY-MM-DD>/<page_type>.html`` plus a
+    consolidated ``bundle_summary.json`` aggregating composite scores.
+
+    Args:
+      client: slug du client
+      pages: list of page_types, e.g. ["home", "pricing", "lp_listicle"]
+      shared_brief: brief minimal partagé (objective, audience, angle,
+                    target_language, mode, traffic_source, visitor_mode,
+                    available_proofs, sourced_numbers, testimonials,
+                    lp_creator_validated_copy_path, ...) — chaque page
+                    hérite de cette base. Page-specific overrides peuvent
+                    être ajoutés en wrappant la fonction.
+      save_dir: répertoire racine pour les outputs (par défaut
+                ``deliverables/bundles``).
+      skip_judges: True par défaut pour bundle (économise wall+cost),
+                   False pour valider chaque page individuellement.
+
+    Returns: dict avec :
+      - results: {page_type: result_dict} (output complet de generate_lp)
+      - bundle_summary: aggregated composite_score per page + global avg
+      - save_dir: chemin du dossier d'output
+    """
+    from datetime import datetime
+    from pathlib import Path
+    import json
+
+    if not pages:
+        raise ValueError("generate_lp_bundle requires at least 1 page_type")
+
+    root = Path(save_dir) if save_dir else Path("deliverables") / "bundles"
+    out_dir = root / client / datetime.now().strftime("%Y-%m-%d")
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    results: dict[str, dict] = {}
+    bundle_summary: dict[str, dict] = {}
+
+    for page_type in pages:
+        # Each page gets the same brief but with the page_type set.
+        page_brief = dict(shared_brief)
+        page_brief["page_type"] = page_type
+        html_path = out_dir / f"{page_type}.html"
+        try:
+            result = generate_lp(
+                mode=mode,
+                client=client,
+                page_type=page_type,
+                brief=page_brief,
+                save_html_path=str(html_path),
+                skip_judges=skip_judges,
+                **kwargs,
+            )
+            results[page_type] = {
+                "html_path": str(html_path),
+                "composite_score": (result.get("telemetry") or {}).get("composite_score"),
+                "final_grade": (result.get("telemetry") or {}).get("final_grade"),
+                "multi_judge_score": (result.get("audit") or {}).get("final", {}).get("final_score_pct"),
+                "impeccable_score": (result.get("telemetry") or {}).get("impeccable_score"),
+                "cost_usd": (result.get("telemetry") or {}).get("cost_estimate_usd"),
+            }
+            bundle_summary[page_type] = results[page_type]
+        except Exception as exc:
+            results[page_type] = {"error": str(exc), "html_path": None}
+            bundle_summary[page_type] = {"error": str(exc)}
+
+    # Aggregate composite scores
+    composites = [
+        b.get("composite_score") for b in bundle_summary.values()
+        if isinstance(b, dict) and b.get("composite_score") is not None
+    ]
+    aggregate = {
+        "client": client,
+        "generated_at": datetime.now().isoformat(),
+        "pages": list(pages),
+        "n_pages": len(pages),
+        "n_success": len(composites),
+        "n_failed": len(pages) - len(composites),
+        "avg_composite_score": round(sum(composites) / len(composites), 1) if composites else None,
+        "per_page": bundle_summary,
+    }
+    (out_dir / "bundle_summary.json").write_text(
+        json.dumps(aggregate, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    return {
+        "results": results,
+        "bundle_summary": aggregate,
+        "save_dir": str(out_dir),
+    }
+
+
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser()

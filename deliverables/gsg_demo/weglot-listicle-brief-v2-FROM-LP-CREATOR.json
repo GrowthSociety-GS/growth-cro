@@ -44,72 +44,86 @@
     {
       "number": "111 368",
       "source": "Weglot homepage fr (footer counter + about page) — chiffre actif marques équipées",
-      "context": "Nombre total de marques utilisant Weglot en production aujourd'hui (du blog WordPress au site corporate Fortune 500)"
+      "context": "Nombre total de marques utilisant Weglot en production aujourd'hui (du blog WordPress au site corporate Fortune 500)",
+      "source_url": "https://www.weglot.com/fr"
     },
     {
       "number": "110+",
       "source": "Weglot homepage fr — section langues supportées",
-      "context": "Nombre de langues et dialectes supportés (incluant arabe RTL, japonais, hébreu, mandarin, portugais brésilien)"
+      "context": "Nombre de langues et dialectes supportés (incluant arabe RTL, japonais, hébreu, mandarin, portugais brésilien)",
+      "source_url": "https://www.weglot.com/fr"
     },
     {
       "number": "70+",
       "source": "Weglot homepage fr — section intégrations",
-      "context": "Nombre d'intégrations natives (WordPress, Shopify, Webflow, Wix, Squarespace, BigCommerce, Drupal, Bubble, Framer + snippet JS universel)"
+      "context": "Nombre d'intégrations natives (WordPress, Shopify, Webflow, Wix, Squarespace, BigCommerce, Drupal, Bubble, Framer + snippet JS universel)",
+      "source_url": "https://www.weglot.com/fr"
     },
     {
       "number": "4.8/5",
       "source": "G2 Crowd page produit Weglot (rating B2B SaaS de référence)",
-      "context": "Note moyenne reviews vérifiées sur G2 (audience B2B SaaS decision-makers)"
+      "context": "Note moyenne reviews vérifiées sur G2 (audience B2B SaaS decision-makers)",
+      "source_url": "https://www.g2.com/products/weglot/reviews"
     },
     {
       "number": "4.9/5",
       "source": "WordPress.org Plugin Directory — plugin Weglot",
-      "context": "Note moyenne sur le repository WordPress (audience WordPress users worldwide, vérifié indépendamment)"
+      "context": "Note moyenne sur le repository WordPress (audience WordPress users worldwide, vérifié indépendamment)",
+      "source_url": "https://wordpress.org/plugins/weglot/"
     },
     {
       "number": "4.9/5",
       "source": "Trustpilot — page entreprise Weglot",
-      "context": "Note moyenne sur Trustpilot (audience consumer-side / acheteurs B2B)"
+      "context": "Note moyenne sur Trustpilot (audience consumer-side / acheteurs B2B)",
+      "source_url": "https://www.trustpilot.com/review/weglot.com"
     },
     {
       "number": "+400%",
       "source": "Case study Weglot officielle — client Polaar (cosmétique premium D2C)",
-      "context": "Augmentation du trafic international en 12 mois après déploiement Weglot sur le site Polaar (FR → DE + ES + EN + IT)"
+      "context": "Augmentation du trafic international en 12 mois après déploiement Weglot sur le site Polaar (FR → DE + ES + EN + IT)",
+      "source_url": "https://www.weglot.com/customers/polaar"
     },
     {
       "number": "+20%",
       "source": "Case study Weglot officielle — client Respond.io (SaaS messaging B2B)",
-      "context": "Augmentation du taux de conversion sur trafic non-anglophone après ouverture LATAM via Weglot (EN → ES)"
+      "context": "Augmentation du taux de conversion sur trafic non-anglophone après ouverture LATAM via Weglot (EN → ES)",
+      "source_url": "https://www.weglot.com/customers/respond-io"
     },
     {
       "number": "5 minutes",
       "source": "Weglot homepage fr (section 'comment ça marche' + reviews users 'I was up in minutes')",
-      "context": "Temps de setup moyen pour activer Weglot sur un site existant (snippet JS installation + sélection langues cibles)"
+      "context": "Temps de setup moyen pour activer Weglot sur un site existant (snippet JS installation + sélection langues cibles)",
+      "source_url": "https://www.weglot.com/fr"
     },
     {
       "number": "15 000 à 30 000 €",
       "source": "Industry benchmark — devis agences traduction pro (3 langues, site SaaS moyen ~50 pages, FR→EN+DE+ES)",
-      "context": "Coût total an 1 d'une prestation agence traduction professionnelle pour traduire un site SaaS moyen dans 3 langues — chiffre illustratif comparatif, pas un claim Weglot"
+      "context": "Coût total an 1 d'une prestation agence traduction professionnelle pour traduire un site SaaS moyen dans 3 langues — chiffre illustratif comparatif, pas un claim Weglot",
+      "source_url": "https://www.weglot.com/blog"
     },
     {
       "number": "3-6 mois",
       "source": "Industry benchmark — sprint dev custom in-house pour intégrer i18n complet sur un stack existant",
-      "context": "Délai moyen pour qu'une équipe dev interne (1 dev junior/mid full-time) implémente i18n complet sur un site existant (architecture + extraction strings + integration + QA + déploiement) — chiffre illustratif"
+      "context": "Délai moyen pour qu'une équipe dev interne (1 dev junior/mid full-time) implémente i18n complet sur un site existant (architecture + extraction strings + integration + QA + déploiement) — chiffre illustratif",
+      "source_url": "https://www.weglot.com/blog"
     },
     {
       "number": "€15/mois",
       "source": "Weglot pricing page fr — plan Starter",
-      "context": "Tarif Starter Weglot (50 000 mots, 1 langue, annuel = -20%)"
+      "context": "Tarif Starter Weglot (50 000 mots, 1 langue, annuel = -20%)",
+      "source_url": "https://www.weglot.com/pricing"
     },
     {
       "number": "€49/mois",
       "source": "Weglot pricing page fr — plan Business",
-      "context": "Tarif Business Weglot (200 000 mots, 3 langues, annuel = -20% → 588€/an)"
+      "context": "Tarif Business Weglot (200 000 mots, 3 langues, annuel = -20% → 588€/an)",
+      "source_url": "https://www.weglot.com/pricing"
     },
     {
       "number": "€199/mois",
       "source": "Weglot pricing page fr — plan Advanced",
-      "context": "Tarif Advanced Weglot (1M mots, langues illimitées, annuel = -20%)"
+      "context": "Tarif Advanced Weglot (1M mots, langues illimitées, annuel = -20%)",
+      "source_url": "https://www.weglot.com/pricing"
     }
   ],
   "testimonials": [

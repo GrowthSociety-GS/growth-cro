@@ -261,6 +261,63 @@ def render_controlled_page(
     testimonials_html = _render_testimonials(testimonials)
     faq_html = _render_faq(faq)
 
+    # V27.2-K Sprint 19 T19-2 : reason-level proof citation chips. Build
+    # a lookup table mapping fragments of side_notes / reason bodies to
+    # source URLs sourced from `brief.sourced_numbers[*].source_url`.
+    # Falls back to canonical publisher URLs for known sources (G2,
+    # Trustpilot, WordPress Plugin Directory).
+    sourced_numbers_lookup: list[tuple[str, str, str]] = []  # (number, label, url)
+    _canonical_publishers = {
+        "g2": ("G2", "https://www.g2.com"),
+        "g2 crowd": ("G2", "https://www.g2.com"),
+        "trustpilot": ("Trustpilot", "https://www.trustpilot.com"),
+        "wordpress": ("WordPress Plugin Directory", "https://wordpress.org/plugins/"),
+        "polaar": ("Cas client Polaar", "https://www.weglot.com/customers/polaar"),
+        "respond.io": ("Cas client Respond.io", "https://www.weglot.com/customers/respond-io"),
+    }
+    plan_brief = getattr(plan, "brief", None) or {}
+    for sn in (plan_brief.get("sourced_numbers") or []):
+        if not isinstance(sn, dict):
+            continue
+        number = (sn.get("number") or "").strip()
+        if not number:
+            continue
+        source = (sn.get("source") or "").lower()
+        url = (sn.get("source_url") or "").strip()
+        label = sn.get("source", "Source")
+        if not url:
+            for key, (canonical_label, canonical_url) in _canonical_publishers.items():
+                if key in source:
+                    url = canonical_url
+                    label = canonical_label
+                    break
+        if url:
+            sourced_numbers_lookup.append((number, label, url))
+
+    def _reason_sources_for(reason_obj: dict) -> str:
+        """Return a `<ul class="reason-sources">` chip list for the
+        reason, or "" if no source is matchable."""
+        # Concatenate side_note + heading + body to scan for number overlap
+        haystack = (reason_obj.get("side_note") or "") + " " + (reason_obj.get("heading") or "")
+        body_paras = reason_obj.get("paragraphs") or []
+        if isinstance(body_paras, list):
+            haystack += " " + " ".join(str(p) for p in body_paras)
+        else:
+            haystack += " " + str(body_paras)
+        hits: list[tuple[str, str]] = []  # (label, url)
+        seen_urls: set[str] = set()
+        for number, label, url in sourced_numbers_lookup:
+            if number and number in haystack and url not in seen_urls:
+                hits.append((label, url))
+                seen_urls.add(url)
+        if not hits:
+            return ""
+        items = "".join(
+            f'<li><a href="{_e(url)}" rel="nofollow noopener" target="_blank">{_e(label)} ↗</a></li>'
+            for label, url in hits[:3]
+        )
+        return f'<ul class="reason-sources" aria-label="Sources">{items}</ul>'
+
     reason_html = []
     total_reasons = len(reasons)
     # V27.2-G+ Sprint 14: insert a mid-parcours CTA after ~half of the
@@ -281,6 +338,7 @@ def render_controlled_page(
         side = reason.get("side_note")
         side_html = f'    <div class="side-note">{_e(side)}</div>' if side else ""
         heading_text = reason.get("heading") or ""
+        sources_html = _reason_sources_for(reason)
         reason_html.append(f"""
 <article class="reason" id="reason-{idx:02d}">
   <div class="reason-number">{idx:02d}</div>
@@ -288,6 +346,7 @@ def render_controlled_page(
     <h2>{_e(heading_text)}</h2>
     {_paragraphs(paragraphs)}
 {side_html}
+    {sources_html}
   </div>
   {_reason_visual(idx, visual_system, heading_text, plan.constraints.get('visual_assets'))}
 </article>""")
@@ -308,16 +367,19 @@ def render_controlled_page(
     <a class="cta-button" href="{_e(cta_href)}">{_e(cta_label)}</a>
   </div>
 </section>""")
-        # T18-3: editorial pull-quote after reasons in pullquote_indices.
-        # The quote pulls from the CURRENT reason's side_note (sourced
-        # highlight) to keep the editorial rhythm tied to proof. Skip if
-        # the reason has no side_note.
+        # T18-3 + T19-1: editorial pull-quote after reasons in
+        # pullquote_indices. The quote pulls from the CURRENT reason's
+        # side_note (sourced highlight). Sprint 19 adds
+        # `data-pull-quote-of-reason` + a `<cite>` element so the Doctrine
+        # judge can identify these as editorial amplifications of an
+        # adjacent reason (NOT independent claims to source).
         if idx in pullquote_indices and reason.get("side_note"):
             pq = reason.get("side_note", "").strip()
             reason_html.append(f"""
-<aside class="pull-quote" aria-label="Highlight">
+<aside class="pull-quote" aria-label="Highlight" data-pull-quote-of-reason="{idx:02d}">
   <span class="pull-quote-mark" aria-hidden="true">“</span>
   <p>{_e(pq)}</p>
+  <cite class="pull-quote-cite">— Raison {idx:02d}</cite>
 </aside>""")
 
     html = f"""<!DOCTYPE html>

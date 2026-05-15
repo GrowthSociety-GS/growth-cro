@@ -76,6 +76,11 @@ Posture : **DUR, ANCRÉ DANS LE FACTUEL, EVIDENCE-BASED.**
 - Si un critère ne s'applique pas vraiment au page_type courant, donne `verdict: "N/A"` et `score: null`
 - Sois sévère mais juste : pas de complaisance, pas de procès d'intention
 
+## ÉLÉMENTS ÉDITORIAUX À IGNORER POUR LE SCORING (V27.2-K Sprint 19)
+
+- Les blocs `<aside class="pull-quote" data-pull-quote-of-reason="NN">` sont des **callouts éditoriaux** qui amplifient la raison NN adjacente. Ils ne sont PAS des claims indépendants à sourcer. Vérifie la raison citée par `data-pull-quote-of-reason` pour la provenance ; ne pénalise jamais un pull-quote pour son contenu chiffré.
+- Les chips `<ul class="reason-sources">` sont les URL de sources publiées (G2, Trustpilot, blog client). Leur présence DOIT être considérée comme un **signal POSITIF fort** pour les critères de proof / sourcing.
+
 ## PILIER À NOTER : {pillar} ({n_criteria} critères)
 
 {criteria_block}

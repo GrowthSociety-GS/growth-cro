@@ -1,0 +1,21 @@
+{
+  "client": "weglot",
+  "generated_at": "2026-05-15T17:28:08.928259",
+  "pages": [
+    "lp_listicle"
+  ],
+  "n_pages": 1,
+  "n_success": 1,
+  "n_failed": 0,
+  "avg_composite_score": 98.8,
+  "per_page": {
+    "lp_listicle": {
+      "html_path": "deliverables/bundles/weglot/2026-05-15/lp_listicle.html",
+      "composite_score": 98.8,
+      "final_grade": "Stratospheric",
+      "multi_judge_score": null,
+      "impeccable_score": 96,
+      "cost_usd": 0.0
+    }
+  }
+}
