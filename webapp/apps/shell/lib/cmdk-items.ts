@@ -33,11 +33,9 @@ export type NavEntry = {
 /**
  * Single source of truth for the 11 navigation items. Order = display order.
  *
- * GEO entry (Task 009 unshipped at 2026-05-15): kept in the registry as a
- * `disabled: true` placeholder so users see the planned surface area, but it
- * doesn't link to a 404. The Sidebar renders it greyed-out ; the palette
- * filters it out (we never want to "navigate" to a non-existent route via the
- * keyboard).
+ * GEO entry was a `disabled: true` placeholder until Sprint 12a / Task 009
+ * (2026-05-15) shipped the /geo route + per-client drilldown. Flipped to
+ * `disabled: false` ; the palette now navigates to it.
  */
 export const NAV_GROUPS: { id: NavGroupId; label: string }[] = [
   { id: "pipeline", label: "Pipeline" },
@@ -59,15 +57,8 @@ export const NAV_ENTRIES: NavEntry[] = [
   { href: "/learning", label: "Learning", hint: "V29/V30", group: "studio" },
   { href: "/scent", label: "Scent Trail", hint: "V24", group: "studio" },
   { href: "/experiments", label: "Experiments", hint: "V27", group: "studio" },
-  // GEO placeholder — Task 009 not yet shipped at 2026-05-15.
-  {
-    href: "/geo",
-    label: "GEO Monitor",
-    hint: "Soon",
-    group: "studio",
-    disabled: true,
-    disabledHint: "Task 009 — coming soon",
-  },
+  // GEO Monitor — Task 009 shipped 2026-05-15 (defensive : no key → empty state).
+  { href: "/geo", label: "GEO Monitor", hint: "V31+", group: "studio" },
   // ── Agency Tools ──────────────────────────────────────────────────────
   { href: "/audit-gads", label: "Audit Google Ads", hint: "Agency", group: "agency" },
   { href: "/audit-meta", label: "Audit Meta Ads", hint: "Agency", group: "agency" },
