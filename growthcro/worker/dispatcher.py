@@ -11,7 +11,7 @@ Source CLI signatures :
   - gsg         : `python -m moteur_gsg.orchestrator --mode <mode> --client X ...`
   - multi_judge : `python -m moteur_multi_judge.orchestrator --client X --page Y`
   - reality     : `python -m growthcro.reality.poller --client X` (NEW, task 011)
-  - geo         : `python -m growthcro.geo.runner --client X --engine all` (NEW, task 009)
+  - geo         : `python -m growthcro.geo --client X --engines all` (Task 009)
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ RUN_TYPE_TO_CLI: dict[str, list[str]] = {
     "gsg":         [sys.executable, "-m", "moteur_gsg.orchestrator"],
     "multi_judge": [sys.executable, "-m", "moteur_multi_judge.orchestrator"],
     "reality":     [sys.executable, "-m", "growthcro.reality.poller"],
-    "geo":         [sys.executable, "-m", "growthcro.geo.runner"],
+    "geo":         [sys.executable, "-m", "growthcro.geo"],
     # Legacy umbrellas — map to capture as default chain entry point
     "audit":       [sys.executable, "-m", "growthcro.capture.cli"],
     "experiment":  [sys.executable, "-c", "print('experiment dispatcher not implemented; see growthcro/experiments/')"],
@@ -121,11 +121,29 @@ def build_cli_command(run_type: str, metadata: dict[str, Any]) -> list[str]:
         if page := metadata.get("page_type"):
             args += ["--page", str(page)]
 
-    elif run_type in ("reality", "geo"):
+    elif run_type == "reality":
         if client := metadata.get("client_slug"):
             args += ["--client", str(client)]
         if engine := metadata.get("engine"):
             args += ["--engine", str(engine)]
+
+    elif run_type == "geo":
+        if client := metadata.get("client_slug"):
+            args += ["--client", str(client)]
+        # Accept both `engines` (plural, spec) and `engine` (legacy singular).
+        if engines := metadata.get("engines"):
+            args += ["--engines", str(engines)]
+        elif engine := metadata.get("engine"):
+            args += ["--engines", str(engine)]
+        if (limit := metadata.get("limit")) is not None:
+            args += ["--limit", str(limit)]
+        if brand := metadata.get("brand"):
+            args += ["--brand", str(brand)]
+        if keywords := metadata.get("keywords"):
+            # Accept str or list — normalise to comma list.
+            if isinstance(keywords, list):
+                keywords = ",".join(str(k) for k in keywords)
+            args += ["--keywords", str(keywords)]
 
     return args
 
