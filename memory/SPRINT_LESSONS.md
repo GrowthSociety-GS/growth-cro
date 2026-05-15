@@ -61,6 +61,25 @@ CRO methodology 9/10 PASS, cost $0.34 / 137s wall.
 
 ---
 
+## Sprint 16 — 2026-05-15 (CLOSED) — Resolve all + stratospheric hero
+
+Sprint a (1) corrigé la régression multi-judge V8b (Doctrine 82.5%
+Humanlike 81.2% FINAL 82.1% — meilleur score ever), (2) wired 3 skills
+runtime supplémentaires (frontend-design 10/10, brand-guidelines 10/10,
+emil-design-eng 10/10), (3) shippé un hero stratosphérique XL editorial,
+(4) parsé la comparison table depuis LP-Creator, (5) fix CRO scent_match
+→ 10/10 PASS.
+
+### Règles dégagées
+
+| Règle | Déclencheur | Conséquence si violée |
+|------|-------------|-----------------------|
+| Le `[non-vérifié]` overlay testimonial ne doit s'afficher QUE quand il n'y a NI `source_url` NI `sourced_from="internal_brief"`. Sinon = pénalité multi-judge -4pts humanlike. | Renderer testimonials | Trust visuel cassé, score Doctrine + Humanlike chutent ≥ 4pts |
+| Quand on wire un skill runtime en Python heuristique, **mono-concern** : un fichier `<skill>_audit.py` par skill (frontend_design / brand_guidelines / emil_design_eng / cro_methodology). Pas de méga-module. | Sprint qui ajoute un skill runtime | Difficile à maintenir / overlap des règles |
+| Le check `scent_match` doit scanner `brief.angle + brief.objective` (contenu) — PAS `brief.must_include_elements` (méta-règles voice/layout). | Test CRO scent_match | Faux négatifs (le brief promet anti-bullshit, le hero contient pas le mot "bullshit" → fail bizarre) |
+
+---
+
 ## Sprint X — futurs
 
 Format identique. 1-3 règles par sprint maximum. Si une règle est très
@@ -74,4 +93,5 @@ en plus de l'archiver ici.
 
 - Sprint 13 — `moteur_gsg` V27.2-G+ extend listicle layout (`5b1f515`)
 - Sprint 14 — Visual quality fixes 4 observations (`4a8de5f`)
-- Sprint 15 — GSG pipeline real end-to-end (closing commit pending)
+- Sprint 15 — GSG pipeline real end-to-end (`8ae6283`)
+- Sprint 16 — Resolve all + stratospheric hero (commit pending)

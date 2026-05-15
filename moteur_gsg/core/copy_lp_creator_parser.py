@@ -210,6 +210,50 @@ def _parse_testimonials(body: str) -> dict[str, Any]:
     return {"heading": "Ils en parlent mieux que nous.", "items": items}
 
 
+def _parse_comparison_table(body: str) -> dict[str, Any]:
+    """Parse a markdown table ``| Critère | Sans X | Avec X |`` into the
+    comparison schema expected by the renderer.
+
+    Sprint 16 (T16-1) addition. The LP-Creator copy.md uses a 3-column
+    markdown table ; we read the header for labels and the body rows for
+    the dimension/without/with triplets. Returns ``{}`` if no table found.
+    """
+    lines = [ln for ln in body.splitlines() if ln.strip().startswith("|")]
+    if len(lines) < 3:  # needs header + separator + ≥1 row
+        return {}
+    # Header
+    header_cells = [c.strip() for c in lines[0].strip("|").split("|")]
+    if len(header_cells) < 3:
+        return {}
+    # Skip separator line (lines[1] = | --- | --- | --- |)
+    rows = []
+    for raw in lines[2:]:
+        cells = [c.strip() for c in raw.strip("|").split("|")]
+        if len(cells) < 3:
+            continue
+        # Strip ❌ ✅ ** decorations from the cells
+        dimension = re.sub(r"[*❌✅]", "", cells[0]).strip()
+        without = re.sub(r"[*❌]", "", cells[1]).strip()
+        with_ = re.sub(r"[*✅]", "", cells[2]).strip()
+        if dimension and (without or with_):
+            rows.append({"dimension": dimension, "without": without, "with": with_})
+    if not rows:
+        return {}
+    # H2 heading: try to recover from body before the table.
+    heading_match = re.search(r"\*\*H2\*\*\s*:\s*(.+)", body)
+    heading = heading_match.group(1).strip() if heading_match else "Faisons un bilan honnête."
+    # Header labels with ❌ ✅ stripped
+    without_label = re.sub(r"[*❌]", "", header_cells[1]).strip() or "Sans"
+    with_label = re.sub(r"[*✅]", "", header_cells[2]).strip() or "Avec"
+    return {
+        "heading": heading,
+        "subtitle": None,
+        "without_label": without_label,
+        "with_label": with_label,
+        "rows": rows,
+    }
+
+
 def _parse_faq(body: str) -> dict[str, Any]:
     matches = list(_RE_FAQ_HEADER.finditer(body))
     items: list[dict[str, str]] = []
@@ -282,10 +326,8 @@ def parse_lp_creator_copy(path: str | Path) -> dict[str, Any]:
         elif "raison" in label or "reason" in label:
             out["reasons"] = _parse_reasons(body)
         elif "comparatif" in label or "comparison" in label:
-            # MVP: comparison rows are deterministic-fallback-generated;
-            # parsing the markdown table here is doable but optional for
-            # Sprint 15 MVP. The renderer hydrates from brief.sourced_numbers.
-            pass
+            # Sprint 16 (T16-1) : extract markdown table |Critère|Sans X|Avec X|.
+            out["comparison"] = _parse_comparison_table(body)
         elif "témoignage" in label or "testimonial" in label or "temoignage" in label:
             out["testimonials"] = _parse_testimonials(body)
         elif "faq" in label:

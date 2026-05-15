@@ -83,37 +83,57 @@ a { color: inherit; }
 .byline strong { display: block; font-family: var(--gsg-font-display); font-size: 15px; }
 .byline span { color: var(--gsg-muted); }
 .hero {
+  /* V27.2-H Sprint 16 T16-5: stratospheric editorial hero.
+     Increased top padding (130px desktop) + asymetric grid
+     (62/38 split) creates the First Round Review / Stripe Press
+     feel. Vertical rhythm anchored to the H1's optical baseline. */
   width: var(--gsg-wide);
   margin: 0 auto;
-  padding: 76px 0 88px;
+  padding: clamp(72px, 11vw, 130px) 0 clamp(72px, 8vw, 108px);
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(320px, .85fr);
-  gap: clamp(40px, 7vw, 96px);
+  grid-template-columns: minmax(0, 1.18fr) minmax(280px, .72fr);
+  gap: clamp(36px, 6vw, 88px);
   align-items: center;
+  position: relative;
 }
 .hero-copy { min-width: 0; }
 .eyebrow {
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   font-family: var(--gsg-font-mono);
   color: var(--gsg-primary);
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gsg-primary) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--gsg-primary) 24%, transparent);
 }
 h1 {
+  /* T16-5: XL editorial typography — clamp pushes desktop to 5.8rem
+     (≈ 93px at 16px root). Tight tracking + line-height 0.92 evokes
+     editorial print (NYT Magazine, First Round Review). */
   margin: 0;
-  max-width: min(620px, 100%);
+  max-width: min(820px, 100%);
   font-family: var(--gsg-font-display);
-  font-size: clamp(3rem, 5vw, 4.65rem);
+  font-size: clamp(2.6rem, 6vw, 5.8rem);
   line-height: .92;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  text-wrap: balance;
 }
 .dek {
-  max-width: 620px;
-  margin: 34px 0 0;
+  /* T16-5 : the dek is the "second-tier reader" voice — slightly
+     larger, looser line-height. Indented by an optical 4px to align
+     with the H1's first stroke (typographic detail). */
+  max-width: 640px;
+  margin: 32px 0 0;
   color: var(--gsg-muted);
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
-  line-height: 1.45;
+  font-size: clamp(1.22rem, 2vw, 1.62rem);
+  line-height: 1.42;
+  font-weight: 400;
 }
 .hero-visual {
   min-height: 420px;

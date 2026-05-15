@@ -143,22 +143,48 @@ def _comparison_present_check(copy_doc: dict[str, Any]) -> tuple[bool, str]:
 
 
 def _scent_match_check(copy_doc: dict[str, Any], brief: dict[str, Any] | None) -> tuple[bool, str]:
-    """If brief contains a traffic_source with `cold_ad_*`, the hero eyebrow or H1 should echo the ad's promise."""
+    """If brief carries `cold_ad_*` traffic, the hero must echo the ad's
+    actual promise. Sprint 16 (T16-1) fix : the previous version scanned
+    ``must_include_elements`` which mostly contains meta-instructions
+    (voice rules, layout rules), not content keywords. Switch to
+    ``brief.angle`` + ``brief.objective`` — these carry the actual LP
+    content keywords (product name, audience benefit, value prop).
+    """
     if not brief:
         return True, ""
     traffic = brief.get("traffic_source") or []
     if not any("cold_ad" in str(t) for t in traffic):
         return True, ""
-    # Heuristic : check that the eyebrow or H1 contains at least one keyword from must_include_elements
-    must = " ".join(str(x) for x in (brief.get("must_include_elements") or []))[:200].lower()
-    if not must:
-        return True, ""  # nothing to match against
+    # T16-1 : scan angle + objective (content keywords), not must_include (meta-rules).
+    angle = str(brief.get("angle") or "")[:300]
+    objective = str(brief.get("objective") or "")[:300]
+    haystack = (angle + " " + objective).lower()
+    if not haystack.strip():
+        return True, ""
+    # Stop-words (common French + meta-instruction noise).
+    stop = {
+        "client", "brief", "pour", "avec", "sans", "dans", "leur", "votre",
+        "notre", "cette", "comme", "alors", "depuis", "entre", "encore",
+        "anti-bullshit", "voice", "chaque", "claim", "chiffre",
+    }
+    keywords = [
+        w for w in re.findall(r"[a-zA-Zàâäéèêëîïôöùûüç0-9]{4,}", haystack)
+        if w not in stop
+    ][:8]
     hero = copy_doc.get("hero") or {}
-    above_fold = (str(hero.get("eyebrow") or "") + " " + str(hero.get("h1") or "") + " " + str(hero.get("dek") or "")).lower()
-    keywords = [w for w in re.findall(r"[a-zA-Zàâäéèêëîïôöùûüç]{5,}", must) if w not in {"client", "brief"}][:6]
+    above_fold = (
+        str(hero.get("eyebrow") or "") + " "
+        + str(hero.get("h1") or "") + " "
+        + str(hero.get("dek") or "")
+    ).lower()
     matches = sum(1 for kw in keywords if kw in above_fold)
-    if matches < 1 and keywords:
-        return False, "Scent trail weak : paid ad context provided but hero ignores must_include keywords"
+    # We need at least 2 matches between the ad-context keywords and the
+    # hero copy — this is the "scent trail" rule.
+    if matches < 2 and keywords:
+        return False, (
+            f"Scent trail weak : paid ad keywords (angle+objective) overlap only {matches}/8 with the hero. "
+            f"Hero must echo the ad's specific promise."
+        )
     return True, ""
 
 

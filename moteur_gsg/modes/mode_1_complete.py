@@ -748,6 +748,39 @@ def run_mode_1_complete(
     except Exception as exc:
         logger.warning(f"  ⚠ CRO methodology audit failed : {exc}")
 
+    # ── 2e. Skills runtime audits (V27.2-H Sprint 16 T16-2/3/4) ────
+    # frontend-design + brand-guidelines + emil-design-eng — each is a
+    # Python heuristic implementation of the corresponding Anthropic
+    # skill. They run at runtime on every generation (deterministic, no
+    # extra LLM cost) and surface their score 0-10 + gaps in the run
+    # summary. Mathis 2026-05-15 : *"on est sûr qu'on a tout fait avec
+    # le full pipe… toutes les compétences qu'on doit utiliser"*.
+    skills_runtime: dict[str, Any] = {}
+    for skill_id, audit_callable, audit_kwargs in (
+        ("frontend-design", "frontend_design_audit.run_frontend_design_audit", {"html": html}),
+        ("brand-guidelines", "brand_guidelines_audit.run_brand_guidelines_audit", {"html": html, "client": client}),
+        ("emil-design-eng", "emil_design_eng_audit.run_emil_design_eng_audit", {"html": html}),
+    ):
+        try:
+            module_name, func_name = audit_callable.split(".")
+            module = __import__(f"moteur_gsg.core.{module_name}", fromlist=[func_name])
+            func = getattr(module, func_name)
+            report = func(**audit_kwargs)
+            skills_runtime[skill_id] = report
+            if verbose:
+                score = report.get("score")
+                passed = report.get("passed")
+                gap_count = len(report.get("gaps") or [])
+                logger.info(
+                    f"  {skill_id:18s} : score={score}/10 "
+                    f"{'PASS' if passed else 'FAIL'} gaps={gap_count}"
+                )
+                for gap in (report.get("gaps") or [])[:3]:
+                    logger.info(f"     - {gap.get('severity', 'warn'):8s} {gap.get('id')} : {gap.get('description')}")
+        except Exception as exc:
+            logger.warning(f"  ⚠ {skill_id} audit failed : {exc}")
+    gen["skills_runtime_audits"] = skills_runtime
+
     # ── 3. Save HTML ─────────────────────────────────────────
     if save_html_path:
         out_html = pathlib.Path(save_html_path)
@@ -812,6 +845,8 @@ def run_mode_1_complete(
         "impeccable_qa": impeccable_report,
         # T15-5: CRO methodology runtime audit (cf. core.cro_methodology_audit).
         "cro_methodology_audit": gen.get("cro_methodology_audit"),
+        # T16-2/3/4: 3 skills runtime audits (frontend-design, brand-guidelines, emil-design-eng).
+        "skills_runtime_audits": gen.get("skills_runtime_audits"),
         "client": client,
         "page_type": page_type,
         "brief": brief,

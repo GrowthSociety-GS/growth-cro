@@ -168,17 +168,25 @@ def render_controlled_page(
             company = item.get("company") or ""
             quote = item.get("quote") or ""
             stat = item.get("stat_highlight") or ""
-            # V27.2-H Sprint 15 T15-2: anti-invention overlay. A
-            # testimonial without a public source_url is marked
-            # [non-vérifié] so the reader knows it comes from internal
-            # qualification (or — worse — from Sonnet invention).
+            # V27.2-H Sprint 15 T15-2 + Sprint 16 T16-0 : the overlay
+            # is reserved for testimonials with NO attribution at all.
+            # When ``sourced_from="internal_brief"`` the testimonial has
+            # been validated by the brief owner (Mathis) — we render
+            # normally, just without a public source link. The previous
+            # orange `[non-vérifié]` badge on internal-brief testimonials
+            # was tanking multi-judge trust score (-4pts humanlike).
             source_url = (item.get("source_url") or "").strip()
-            is_verified = bool(item.get("is_verified") or source_url)
+            sourced_from = (item.get("sourced_from") or "").strip().lower()
+            is_internal_validated = sourced_from == "internal_brief"
+            is_verified = bool(item.get("is_verified") or source_url or is_internal_validated)
             initial = (name[:1] or company[:1] or "?").upper()
             stat_html = f'<p class="testimonial-stat">{_e(stat)}</p>' if stat else ""
             verified_html = ""
             card_class = "testimonial-card"
             if not is_verified:
+                # Truly invented (no source_url, no internal_brief flag)
+                # — should already be caught by brief validation, but
+                # defensive in case the path is bypassed.
                 card_class += " testimonial-card-unverified"
                 verified_html = '<span class="testimonial-unverified-badge" title="Source non-publique — voir le brief">non-vérifié</span>'
             elif source_url:
