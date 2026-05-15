@@ -43,11 +43,13 @@ Sprint a remplacé "Proof atlas / FIELD NOTE A-B" par browser-chrome
 
 ---
 
-## Sprint 15 — 2026-05-15 (en cours) — GSG pipeline real end-to-end
+## Sprint 15 — 2026-05-15 (CLOSED) — GSG pipeline real end-to-end
 
-Sprint en cours — leçons à compléter à la clôture.
+Sprint shippé en commit (à venir). Toutes les 6 tasks closes. Run
+d'acceptance Weglot V8b : 7/7 gates passent, multi-judge 76.4% Excellent,
+CRO methodology 9/10 PASS, cost $0.34 / 137s wall.
 
-### Règles dégagées (anticipées — à valider à la clôture)
+### Règles dégagées (SHIPPED)
 
 | Règle | Déclencheur | Conséquence si violée |
 |------|-------------|-----------------------|
@@ -72,4 +74,4 @@ en plus de l'archiver ici.
 
 - Sprint 13 — `moteur_gsg` V27.2-G+ extend listicle layout (`5b1f515`)
 - Sprint 14 — Visual quality fixes 4 observations (`4a8de5f`)
-- Sprint 15 — GSG pipeline real end-to-end (in progress)
+- Sprint 15 — GSG pipeline real end-to-end (closing commit pending)

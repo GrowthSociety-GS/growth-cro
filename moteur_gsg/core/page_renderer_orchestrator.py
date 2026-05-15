@@ -62,6 +62,56 @@ def render_controlled_page(
     author_name = byline.get("author_name") or "Growth Society Research"
     initials = "".join(part[0] for part in author_name.split()[:2]).upper() or "GS"
 
+    def _hero_cta_block(hero_data: dict[str, Any], default_href: str, default_label: str) -> str:
+        """V27.2-H T15-4: render the primary CTA + reassurance microcopy
+        directly in the hero, so the LP doesn't depend on the final CTA
+        section for above-the-fold conversion."""
+        label = hero_data.get("primary_cta_label") or default_label
+        microcopy = hero_data.get("microcopy") or ""
+        microcopy_html = f'<p class="hero-microcopy">{_e(microcopy)}</p>' if microcopy else ""
+        return f"""
+<div class="hero-cta-block">
+  <a class="cta-button cta-button-hero" href="{_e(default_href)}">{_e(label)}</a>
+  {microcopy_html}
+</div>"""
+
+    def _hero_logos_grid(hero_data: dict[str, Any], plan_arg: GSGPagePlan) -> str:
+        """V27.2-H T15-4: render the tier-1 logos grid when the brief
+        signals ``available_proofs.logos_clients_tier1`` OR the LP-Creator
+        canonical copy supplies a ``logos_line`` ("HBO · Nielsen · IBM ·
+        Décathlon · Amazon"). Mathis 2026-05-15 : *"c'est passé où… les
+        mentions de Amazon, Microsoft etc.."*. The grid renders plain
+        wordmarks (no SVG dependency), opacity 0.55 → 1.0 on hover.
+        """
+        # Prefer the canonical line from LP-Creator (verbatim Mathis-validated)
+        logos_line = (hero_data.get("logos_line") or "").strip()
+        if not logos_line:
+            # Fallback : derive from the brief if logos_clients_tier1 is
+            # flagged AND a `client_logos_tier1` list was provided.
+            proofs = plan_arg.constraints.get("available_proofs") or []
+            tier1_list = plan_arg.constraints.get("client_logos_tier1") or []
+            if "logos_clients_tier1" in proofs and tier1_list:
+                logos_line = " · ".join(str(x) for x in tier1_list[:6])
+        if not logos_line:
+            return ""
+        # Split on · or | or • or comma — accept multiple separators.
+        import re as _re
+        names = [n.strip() for n in _re.split(r"[·•|,]+", logos_line) if n.strip()]
+        if not names:
+            return ""
+        names = names[:6]  # max 6 logos
+        items = "".join(f"<li>{_e(n)}</li>" for n in names)
+        label = (
+            "Ils nous font confiance"
+            if plan_arg.target_language.lower().startswith("fr")
+            else "Trusted by"
+        )
+        return f"""
+<div class="hero-logos">
+  <span class="hero-logos-label">{_e(label)}</span>
+  <ul class="hero-logos-grid">{items}</ul>
+</div>"""
+
     def _render_comparison(data: dict[str, Any]) -> str:
         if not data:
             return ""
@@ -118,10 +168,29 @@ def render_controlled_page(
             company = item.get("company") or ""
             quote = item.get("quote") or ""
             stat = item.get("stat_highlight") or ""
+            # V27.2-H Sprint 15 T15-2: anti-invention overlay. A
+            # testimonial without a public source_url is marked
+            # [non-vérifié] so the reader knows it comes from internal
+            # qualification (or — worse — from Sonnet invention).
+            source_url = (item.get("source_url") or "").strip()
+            is_verified = bool(item.get("is_verified") or source_url)
             initial = (name[:1] or company[:1] or "?").upper()
             stat_html = f'<p class="testimonial-stat">{_e(stat)}</p>' if stat else ""
+            verified_html = ""
+            card_class = "testimonial-card"
+            if not is_verified:
+                card_class += " testimonial-card-unverified"
+                verified_html = '<span class="testimonial-unverified-badge" title="Source non-publique — voir le brief">non-vérifié</span>'
+            elif source_url:
+                # Surface a clickable [source] link for fully verified ones.
+                from urllib.parse import urlparse
+                try:
+                    domain = urlparse(source_url).netloc.replace("www.", "")
+                except Exception:
+                    domain = "source"
+                verified_html = f'<a class="testimonial-source-link" href="{_e(source_url)}" rel="nofollow noopener" target="_blank">{_e(domain)} ↗</a>'
             cards.append(f"""
-<article class="testimonial-card">
+<article class="{card_class}">
   <div class="testimonial-avatar" aria-hidden="true">{_e(initial)}</div>
   <blockquote class="testimonial-quote">{_e(quote)}</blockquote>
   <p class="testimonial-attr">
@@ -129,6 +198,7 @@ def render_controlled_page(
     <span>{_e(position)}{" · " if position and company else ""}{_e(company)}</span>
   </p>
   {stat_html}
+  {verified_html}
 </article>""")
         return f"""
 <section class="testimonials" aria-labelledby="testimonials-title">
@@ -194,7 +264,7 @@ def render_controlled_page(
     {_paragraphs(paragraphs)}
 {side_html}
   </div>
-  {_reason_visual(idx, visual_system, heading_text)}
+  {_reason_visual(idx, visual_system, heading_text, plan.constraints.get('visual_assets'))}
 </article>""")
         if idx == mid_cta_index:
             mid_cta_heading = "Convaincu jusqu'ici ?" if plan.target_language.lower().startswith("fr") else "Convinced so far?"
@@ -242,6 +312,8 @@ def render_controlled_page(
           <p class="eyebrow">{_e(hero.get('eyebrow'))}</p>
           <h1 id="page-title">{_e(hero.get('h1'))}</h1>
           <p class="dek">{_e(hero.get('dek'))}</p>
+          {_hero_cta_block(hero, cta_href, cta_label)}
+          {_hero_logos_grid(hero, plan)}
         </div>
         {_hero_visual(plan, visual_system)}
       </section>

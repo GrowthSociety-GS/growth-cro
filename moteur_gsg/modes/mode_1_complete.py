@@ -101,10 +101,35 @@ def _asset_ref_for_html(asset_path: pathlib.Path, save_html_path: str | None) ->
         return asset_path.as_posix()
 
 
-def _select_visual_assets(client: str, page_type: str | None = None, save_html_path: str | None = None) -> dict[str, str]:
-    """Select deterministic brand/product screenshots for the controlled renderer."""
+def _select_visual_assets(
+    client: str,
+    page_type: str | None = None,
+    save_html_path: str | None = None,
+    target_language: str | None = None,
+) -> dict[str, str]:
+    """Select deterministic brand/product screenshots for the controlled renderer.
+
+    V27.2-H Sprint 15 (T15-1) — additions :
+
+    * **Lang-aware fallback** : when ``target_language="FR"`` and a
+      ``home_fr/`` capture exists, prefer it over ``home/`` for the
+      ``desktop_fold`` key. Mathis 2026-05-15 : *"je vois la capture du
+      site en anglais avec une description en anglais"* — the hero must
+      reflect the target language.
+    * **Per-reason contextual assets** : surface additional keys
+      (``integrations_fold``, ``customers_fold``, ``dashboard_fold``,
+      ``onboarding_fold``) when those captures exist. The
+      ``component_renderer._reason_visual`` picks the right one based on
+      the reason heading keywords.
+    """
     assets: dict[str, str] = {}
     candidates = []
+    # T15-1: lang-aware home capture priority (FR target → home_fr first).
+    home_subdirs = ["home"]
+    if (target_language or "").upper() == "FR":
+        home_subdirs = ["home_fr", "home"]
+    elif (target_language or "").upper() == "EN":
+        home_subdirs = ["home_en", "home"]
     if page_type:
         candidates.extend([
             ("target_desktop_fold", CAPTURES / client / page_type / "screenshots" / "desktop_clean_fold.png"),
@@ -113,20 +138,36 @@ def _select_visual_assets(client: str, page_type: str | None = None, save_html_p
             ("target_mobile_full", CAPTURES / client / page_type / "screenshots" / "mobile_clean_full.png"),
             ("target_spatial_annotated", CAPTURES / client / page_type / "screenshots" / "spatial_annotated_desktop.png"),
         ])
-    candidates.extend([
-        ("desktop_fold", CAPTURES / client / "home" / "screenshots" / "desktop_clean_fold.png"),
-        ("mobile_fold", CAPTURES / client / "home" / "screenshots" / "mobile_clean_fold.png"),
-        ("desktop_full", CAPTURES / client / "home" / "screenshots" / "desktop_clean_full.png"),
-        ("mobile_full", CAPTURES / client / "home" / "screenshots" / "mobile_clean_full.png"),
-        ("pricing_fold", CAPTURES / client / "pricing" / "screenshots" / "desktop_clean_fold.png"),
-        ("pricing_full", CAPTURES / client / "pricing" / "screenshots" / "desktop_clean_full.png"),
-        ("lp_leadgen_fold", CAPTURES / client / "lp_leadgen" / "screenshots" / "desktop_clean_fold.png"),
-        ("lp_leadgen_full", CAPTURES / client / "lp_leadgen" / "screenshots" / "desktop_clean_full.png"),
-        ("pdp_fold", CAPTURES / client / "pdp" / "screenshots" / "desktop_clean_fold.png"),
-        ("pdp_full", CAPTURES / client / "pdp" / "screenshots" / "desktop_clean_full.png"),
-    ])
+    # Lang-aware home (FR target prefers home_fr/ if present).
+    for home_dir in home_subdirs:
+        candidates.extend([
+            ("desktop_fold", CAPTURES / client / home_dir / "screenshots" / "desktop_clean_fold.png"),
+            ("mobile_fold", CAPTURES / client / home_dir / "screenshots" / "mobile_clean_fold.png"),
+            ("desktop_full", CAPTURES / client / home_dir / "screenshots" / "desktop_clean_full.png"),
+            ("mobile_full", CAPTURES / client / home_dir / "screenshots" / "mobile_clean_full.png"),
+        ])
+    # T15-1: contextual per-reason captures (SaaS-typical deeplinks).
+    contextual = [
+        "pricing", "pricing_fr",
+        "integrations", "integrations_fr",
+        "customers", "customers_fr",
+        "dashboard", "dashboard_fr",
+        "onboarding", "onboarding_fr",
+        "lp_leadgen", "pdp",
+    ]
+    for sub in contextual:
+        # Normalize key (drop _fr suffix in the exposed key — the
+        # renderer treats ``pricing_fold`` and would-be ``pricing_fr_fold``
+        # as the same topic).
+        key_base = sub.replace("_fr", "")
+        candidates.extend([
+            (f"{key_base}_fold", CAPTURES / client / sub / "screenshots" / "desktop_clean_fold.png"),
+            (f"{key_base}_full", CAPTURES / client / sub / "screenshots" / "desktop_clean_full.png"),
+        ])
     for key, path in candidates:
-        if path.exists():
+        # First-write-wins : keep the higher-priority entry already in
+        # ``assets`` (e.g. home_fr beats home for the FR target).
+        if key not in assets and path.exists():
             assets[key] = _asset_ref_for_html(path, save_html_path)
     return assets
 
@@ -314,7 +355,10 @@ def run_mode_1_complete(
             aura_tokens=aura_tokens,
             visual_intelligence=visual_pack.to_dict(),
         )
-        visual_assets = _select_visual_assets(client, page_type, save_html_path)
+        visual_assets = _select_visual_assets(
+            client, page_type, save_html_path,
+            target_language=(brief.get("target_language") or "FR"),
+        )
         if visual_assets:
             minimal_constraints = {
                 **minimal_constraints,
@@ -340,7 +384,38 @@ def run_mode_1_complete(
             )
 
         # ── 2. Bounded copy JSON only ───────────────────────────────────────
-        if copy_fallback_only:
+        # V27.2-H Sprint 15 (T15-3): if the brief references a validated
+        # LP-Creator copy.md, parse it and use it as canonical — skip the
+        # Sonnet copy call entirely. Mathis's 20/20 phrasing (with named
+        # entities Amazon/HBO/Polaar etc.) is preserved verbatim.
+        lp_creator_copy_path = (brief.get("lp_creator_validated_copy_path") or "").strip()
+        lp_creator_copy_doc: dict[str, Any] = {}
+        if lp_creator_copy_path:
+            try:
+                from ..core.copy_lp_creator_parser import parse_lp_creator_copy
+                lp_creator_copy_doc = parse_lp_creator_copy(lp_creator_copy_path)
+                if lp_creator_copy_doc and lp_creator_copy_doc.get("reasons"):
+                    logger.info(
+                        f"  ✓ LP-Creator canonical copy loaded ({len(lp_creator_copy_doc.get('reasons') or [])} reasons, "
+                        f"{len((lp_creator_copy_doc.get('testimonials') or {}).get('items') or [])} testimonials, "
+                        f"{len((lp_creator_copy_doc.get('faq') or {}).get('items') or [])} faq) — skipping Sonnet copy"
+                    )
+            except Exception as exc:
+                logger.warning(f"  ⚠ LP-Creator copy parse failed ({exc}) — falling back to Sonnet")
+                lp_creator_copy_doc = {}
+
+        if lp_creator_copy_doc and lp_creator_copy_doc.get("reasons"):
+            # Skip Sonnet entirely — use canonical LP-Creator copy.
+            copy_result = {
+                "copy": lp_creator_copy_doc,
+                "raw": "",
+                "prompt_chars": 0,
+                "tokens_in": 0,
+                "tokens_out": 0,
+                "wall_seconds": 0,
+                "model": "lp_creator_canonical",
+            }
+        elif copy_fallback_only:
             copy_result = {
                 "copy": fallback_copy_from_plan(plan),
                 "raw": "",
@@ -370,6 +445,10 @@ def run_mode_1_complete(
         if page_type == "lp_listicle":
             signals = _has_rich_listicle_signals(brief)
             if signals["has_testimonials"] and not (copy_doc.get("testimonials") or {}).get("items"):
+                # V27.2-H Sprint 15 T15-2: propagate source attribution
+                # (source_url + is_verified) into copy_doc so the
+                # renderer can mark unverified testimonials with a
+                # [non-vérifié] overlay or skip them entirely.
                 copy_doc["testimonials"] = {
                     "heading": "Ils en parlent mieux que nous.",
                     "items": [
@@ -379,6 +458,9 @@ def run_mode_1_complete(
                             "company": t.get("company", ""),
                             "quote": t.get("quote", ""),
                             "stat_highlight": "",
+                            "source_url": t.get("source_url", ""),
+                            "sourced_from": t.get("sourced_from", ""),
+                            "is_verified": bool(t.get("is_verified", False)),
                         }
                         for t in (brief.get("testimonials") or [])
                         if isinstance(t, dict) and t.get("authorized", True)
@@ -643,6 +725,29 @@ def run_mode_1_complete(
             f"{'PASS' if ip_passed else 'FAIL'} hits={ip_hits}"
         )
 
+    # ── 2d. CRO methodology audit (V27.2-H Sprint 15 T15-5) ────
+    # Deterministic CRO heuristic audit against copy_doc + brief.
+    # Same spirit as the cro-methodology Anthropic skill (10/10
+    # scoring) but implemented in Python so it runs on every
+    # generation with zero LLM cost. Mathis 2026-05-15 : *"j'espère
+    # qu'on appelle tous les skills qu'on a mis en place"*.
+    try:
+        from ..core.cro_methodology_audit import run_cro_methodology_audit
+        cro_report = run_cro_methodology_audit(copy_doc=copy_doc, brief=brief)
+        gen["cro_methodology_audit"] = cro_report
+        if verbose:
+            cro_score = cro_report.get("score")
+            cro_passed = cro_report.get("passed")
+            cro_gap_count = len(cro_report.get("gaps") or [])
+            logger.info(
+                f"  CRO methodology : score={cro_score}/10 "
+                f"{'PASS' if cro_passed else 'FAIL'} gaps={cro_gap_count}"
+            )
+            for gap in (cro_report.get("gaps") or [])[:5]:
+                logger.info(f"     - {gap.get('severity', 'warn'):8s} {gap.get('id')} : {gap.get('description')}")
+    except Exception as exc:
+        logger.warning(f"  ⚠ CRO methodology audit failed : {exc}")
+
     # ── 3. Save HTML ─────────────────────────────────────────
     if save_html_path:
         out_html = pathlib.Path(save_html_path)
@@ -705,6 +810,8 @@ def run_mode_1_complete(
         "telemetry": telemetry,
         "minimal_gates": minimal_report,
         "impeccable_qa": impeccable_report,
+        # T15-5: CRO methodology runtime audit (cf. core.cro_methodology_audit).
+        "cro_methodology_audit": gen.get("cro_methodology_audit"),
         "client": client,
         "page_type": page_type,
         "brief": brief,

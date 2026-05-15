@@ -99,13 +99,27 @@ class SourcedNumber:
 
 @dataclass
 class Testimonial:
-    """Section 4.6 — testimonial nommé et autorisé (anti-Sarah-32-ans)."""
+    """Section 4.6 — testimonial nommé et autorisé (anti-Sarah-32-ans).
+
+    V27.2-H Sprint 15 (T15-2) : anti-invention guard renforcé. Le brief
+    doit fournir ``source_url`` (URL publique de la citation : G2,
+    Trustpilot, blog client, communiqué presse, etc.) OU
+    ``sourced_from="internal_brief"`` pour signifier explicitement que
+    le testimonial vient d'une qualification interne non-publique
+    (auquel cas le renderer marque ``[non-vérifié]`` overlay).
+
+    Mathis 2026-05-15 : *"Screen 3 : c'est les vrais infos ça ? Les
+    vrais avis ? J'en doute fortement"*. Cette validation refuse les
+    testimonials sans aucune attribution vérifiable.
+    """
     name: str
     position: str
     company: str
     quote: str
     photo_path: Optional[Path] = None
     authorized: bool = True
+    source_url: Optional[str] = None  # T15-2: URL publique du témoignage
+    sourced_from: Optional[str] = None  # T15-2: "internal_brief" si pas d'URL publique
 
     def validate(self) -> list[str]:
         errors = []
@@ -117,7 +131,24 @@ class Testimonial:
             errors.append(f"Testimonial.{self.name}: authorized=False — refus d'utilisation pour LP publique")
         if self.photo_path and not Path(self.photo_path).exists():
             errors.append(f"Testimonial.{self.name}: photo_path '{self.photo_path}' does not exist on disk")
+        # T15-2 anti-invention guard: testimonial sans source publique ET
+        # sans flag explicite internal_brief = refus.
+        has_url = bool((self.source_url or "").strip())
+        is_internal = (self.sourced_from or "").strip().lower() == "internal_brief"
+        if not has_url and not is_internal:
+            errors.append(
+                f"Testimonial.{self.name}: ni source_url publique ni sourced_from='internal_brief' "
+                f"— testimonial considéré inventé (anti-invention guard T15-2)."
+            )
         return errors
+
+    def is_verified(self) -> bool:
+        """True if the testimonial has a public source URL (display normally).
+
+        False = display with a [non-vérifié] overlay or skip entirely
+        depending on the renderer policy.
+        """
+        return bool((self.source_url or "").strip())
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -162,6 +193,11 @@ class BriefV2:
     testimonials: list[Testimonial] = field(default_factory=list)
     existing_page_url: Optional[str] = None  # required Mode 2 REPLACE
     concept_description: Optional[str] = None  # required Mode 3 EXTEND
+    # V27.2-H Sprint 15 (T15-3): path to a validated LP-Creator copy.md.
+    # When present, the moteur GSG skips the Sonnet copy generation and
+    # uses this copy as canonical (Mathis-validated 20/20 phrasing
+    # preserved verbatim, named entities like Amazon/HBO kept).
+    lp_creator_validated_copy_path: Optional[str] = None
 
     # — Section 5 : VISUEL & DA —
     forbidden_visual_patterns: list[str] = field(default_factory=list)
@@ -342,6 +378,12 @@ class BriefV2:
                     "company": t.company,
                     "quote": t.quote,
                     "authorized": t.authorized,
+                    # T15-2: propagate source attribution into the legacy
+                    # brief so the renderer can decide between "verified"
+                    # display and "[non-vérifié]" overlay.
+                    "source_url": t.source_url or "",
+                    "sourced_from": t.sourced_from or "",
+                    "is_verified": t.is_verified(),
                 }
                 for t in self.testimonials
                 if t.authorized
@@ -353,6 +395,10 @@ class BriefV2:
             ]
         if self.concept_description:
             legacy["concept_description"] = self.concept_description
+        # T15-3: propagate the canonical LP-Creator copy path so
+        # mode_1_complete can short-circuit the Sonnet copy stage.
+        if self.lp_creator_validated_copy_path:
+            legacy["lp_creator_validated_copy_path"] = self.lp_creator_validated_copy_path
         if self.anti_references:
             legacy["anti_references"] = list(self.anti_references)
         if self.forbidden_visual_patterns:

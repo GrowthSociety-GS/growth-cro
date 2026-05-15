@@ -165,9 +165,41 @@ strict = true
 
 **Anti-pattern explicite** : ne JAMAIS introduire de `# type: ignore` pour silencer une erreur mypy strict sur le scope. Fixer la cause racine (narrowing, validators, Optional explicite).
 
+## Learning loop (Sprint 15 — 2026-05-15)
+
+**Pourquoi** : Mathis 2026-05-15 a flagué l'absence formelle de boucle
+d'apprentissage entre les sprints. Conséquence prévisible : régressions
+identiques d'un sprint à l'autre, pas de capitalisation des fixes.
+
+**Convention** : à la **clôture** d'un sprint, ajouter 1-3 leçons
+distillées dans [`memory/SPRINT_LESSONS.md`](../../../memory/SPRINT_LESSONS.md)
+sous le format `Règle | Déclencheur | Conséquence si violée`. Pas plus
+de 3 leçons par sprint — si plus, c'est que le sprint a dérapé sur sa
+focalisation.
+
+**Propagation** : si une leçon est très transverse (sécurité, perf,
+mono-concern, ou pattern reproductible), la propager **aussi** dans le
+présent fichier sous une section dédiée. Les leçons archivées ici
+deviennent des règles automatiquement applicables aux prochains
+sprints.
+
+**Hard rule** : un commit `feat(gsg):` ou `fix(gsg):` qui clôt un sprint
+DOIT toucher `memory/SPRINT_LESSONS.md`.
+
+### Sprint 15 — règles propagées dans la doctrine
+
+| Rule | Where enforced |
+|------|----------------|
+| Internal artefact paths (`home/capture.*`, `recos_v*`, `score_*`, `brief`) NEVER leak into rendered HTML. | `moteur_gsg/core/fact_assembler._publishable_source_label` + `moteur_gsg/core/impeccable_qa` rule `internal_provenance_leak` (severity=critical) |
+| Testimonials without a public `source_url` MUST carry `sourced_from="internal_brief"` — or be refused at brief validation. | `moteur_gsg.core.brief_v2.Testimonial.validate` |
+| When `target_language="FR"` and a `data/captures/<client>/home_fr/` capture exists, it overrides `home/` for the hero. | `moteur_gsg.modes.mode_1_complete._select_visual_assets` (param `target_language`) |
+| When `brief.lp_creator_validated_copy_path` is present, the moteur GSG **skips Sonnet copy generation entirely** and uses the LP-Creator copy as canonical. | `moteur_gsg.modes.mode_1_complete` post-brief-load logic |
+| CRO methodology runtime audit MUST be reported in `canonical_run_summary.json` for every run (score 0-10). | `moteur_gsg.core.cro_methodology_audit.run_cro_methodology_audit` |
+
 ## Cross-references
 
 - CLAUDE.md "Init obligatoire" step #10 — doctrine is mandatory init reading.
 - CLAUDE.md "Anti-patterns prouvés" entries 8-11 — same rules in narrative form.
 - `.claude/agents/*.md` "Refus / Refuse to emit" sections — sub-agents enforce the 4 hard rules before code emission.
 - `state.py` — final line shows `CODE HYGIENE — fail: N, warn: M, info: K, debt: D` on every run.
+- `memory/SPRINT_LESSONS.md` — learning loop archive, 1-3 règles par sprint.

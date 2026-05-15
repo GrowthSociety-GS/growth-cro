@@ -169,6 +169,31 @@ ANTI_PATTERNS: tuple[dict[str, Any], ...] = (
         "pattern": re.compile(r"\bwidth\s*:\s*(?:1[5-9]|[2-9])\d{3,}px"),
         "allowed": 1,
     },
+    # V27.2-H Sprint 15 T15-2: internal provenance leak.
+    # Mathis 2026-05-15: `<small>home/capture.structure.headings</small>`
+    # leaked in the proof strip. Never let internal artefact paths reach
+    # the rendered HTML.
+    {
+        "id": "internal_provenance_leak",
+        "severity": "critical",
+        "description": "Internal artefact path leaked to HTML (home/capture.*, recos_v*, score_*, perception_v*, brief, primary_cta_label)",
+        "pattern": re.compile(
+            r"<small>\s*("
+            r"(?:home|pricing|lp_leadgen|pdp|collection)/capture\.[\w.]+"
+            r"|capture\.(?:structure|copy|proof)\.[\w.]+"
+            r"|recos_v\d+(?:_\w+)?"
+            r"|recos_dedup_\w+"
+            r"|score_\w+"
+            r"|perception_v\d+"
+            r"|v143_\w+"
+            r"|primary_cta_label"
+            r"|brief(?:\.sourced_numbers)?"
+            r"|evidence_policy"
+            r")\s*</small>",
+            re.IGNORECASE,
+        ),
+        "allowed": 0,
+    },
     # Performance
     {
         "id": "large_data_uri",

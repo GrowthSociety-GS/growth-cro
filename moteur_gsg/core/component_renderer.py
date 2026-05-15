@@ -50,9 +50,9 @@ _REASON_ICONS: dict[str, str] = {
 # Specific topics (SEO, reviews, human-review) must run before broader
 # matches (multilingue→globe, wordpress→plug, intégr→plug).
 _REASON_KEYWORDS: list[tuple[tuple[str, ...], str]] = [
-    (("111", "marques", "social proof", "ils utilisent", "they trust", "fortune", "1 368", "brands trust"), "users"),
+    (("111", "marques", "social proof", "ils utilisent", "they trust", "fortune", "1 368", "brands trust", "standard", "leader du marché"), "users"),
     (("seo", "indexation", "hreflang", "ranking", "référenc", "referenc", "server-side", "search engine"), "search"),
-    (("trustpilot", "g2", "review", "avis", "étoile", "etoile", "note ", "4.8", "4.9", "5/5", "rating"), "star"),
+    (("trustpilot", "g2", "review", "avis", "étoile", "etoile", "note ", "notes ", "4.8", "4.9", "5/5", "rating", "plateformes"), "star"),
     (("maintenance", "sans effort", "zéro maintenance", "zero maintenance", "ops "), "shield"),
     (("humain", "glossaire", "révis", "revis", "qualité", "quality", "translator", "traducteur", "human"), "shield"),
     (("ia ", " ia,", " ia.", "intelligence artificielle", "ai ", "neural", "machine", "automat", "autonome", "fidèle"), "sparkle"),
@@ -60,7 +60,7 @@ _REASON_KEYWORDS: list[tuple[tuple[str, ...], str]] = [
     (("gratuit", "free", "essai", "trial", "sans carte", "no credit", "perpétuel", "demo"), "gift"),
     (("trafic", "traffic", "conversion", "+%", "+ %", "croissance", "growth", "revenue", "+ 200", "+ 400"), "trending"),
     (("langue", "language", "international", "marché", "pays", "monde", "110", "multiling", "rtl", "dialect"), "globe"),
-    (("intégr", "integr", "wordpress", "shopify", "webflow", "wix", "squarespace", "plugin", "connecteur", "stack"), "plug"),
+    (("intégr", "integr", "wordpress", "shopify", "webflow", "wix", "squarespace", "plugin", "connecteur", "stack", "compatible", "utilisez déjà", "you use", "you already use"), "plug"),
     (("client", "brand", "production"), "users"),
 ]
 
@@ -77,12 +77,37 @@ def _pick_icon_key(heading: str | None) -> str:
     return "check"
 
 
+# V27.2-H Sprint 15 T15-1 : map an icon key to a contextual screenshot
+# asset key. If the visual_assets dict contains a matching screenshot,
+# render it instead of the SVG icon — gives the reader a real product
+# screenshot tied to the reason's topic.
+_ICON_TO_ASSET_KEY: dict[str, str] = {
+    "plug": "integrations_fold",
+    "users": "customers_fold",
+    "star": "customers_fold",
+    "clock": "onboarding_fold",
+    "sparkle": "dashboard_fold",
+    "search": "dashboard_fold",
+    "gift": "pricing_fold",
+    "globe": "dashboard_fold",
+    "shield": "dashboard_fold",
+    "trending": "customers_fold",
+}
+
+
 def _reason_visual(
     idx: int,
     visual_system: dict[str, Any] | None = None,
     heading: str | None = None,
+    assets: dict[str, str] | None = None,
 ) -> str:
     """Render the marginalia visual for reason ``idx`` (1-based).
+
+    V27.2-H Sprint 15 (T15-1) : when a topic-relevant **contextual
+    screenshot** is available in ``assets`` (e.g. `integrations_fold`
+    for a reason about integrations, `customers_fold` for a social-proof
+    reason), render that screenshot **inside** the icon frame. Falls back
+    to the inline SVG icon when no contextual asset matches.
 
     Sprint 14: emits a topic-relevant inline SVG icon based on the
     reason heading. ``visual_system`` is kept for backward compat but
@@ -91,6 +116,24 @@ def _reason_visual(
     """
     icon_key = _pick_icon_key(heading)
     svg = _REASON_ICONS.get(icon_key) or _REASON_ICONS["check"]
+    # T15-1: try contextual screenshot first.
+    contextual_html = ""
+    if assets:
+        asset_key = _ICON_TO_ASSET_KEY.get(icon_key)
+        asset_src = assets.get(asset_key) if asset_key else None
+        if asset_src:
+            contextual_html = (
+                f'<div class="reason-contextual-shot" data-asset-key="{_e(asset_key)}">'
+                f'<img src="{_e(asset_src)}" alt="" loading="lazy">'
+                f'</div>'
+            )
+    if contextual_html:
+        return f"""
+<div class="reason-visual reason-visual-contextual" aria-hidden="true" data-reason-icon="{_e(icon_key)}">
+  <div class="reason-icon-frame reason-icon-frame-small">{svg}</div>
+  {contextual_html}
+  <div class="reason-icon-number">{idx:02d}</div>
+</div>"""
     return f"""
 <div class="reason-visual" aria-hidden="true" data-reason-icon="{_e(icon_key)}">
   <div class="reason-icon-frame">{svg}</div>
