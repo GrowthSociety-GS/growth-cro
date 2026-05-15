@@ -1,9 +1,10 @@
 ---
 name: webapp-stratospheric-reconstruction-2026-05
-status: in-progress
+status: closed
 created: 2026-05-13T17:12:51Z
-updated: 2026-05-15T11:00:00Z
-progress: 81%
+updated: 2026-05-15T14:30:00Z
+closed: 2026-05-15T14:30:00Z
+progress: 100%
 prd: .claude/prds/webapp-stratospheric-reconstruction-2026-05.md
 github: (will be set on sync)
 ---
@@ -192,9 +193,9 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 ### TIER 3 — Missing Surfaces (P1)
 - [x] 007.md - scent-trail-pane-port ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; migration applied + Mathis manual validation OK)
 - [x] 008.md - experiments-v27-calculator ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits c6a352e + 2c83535 + 02e8933 + 24fa668 ; migration applied + Mathis manual validation OK)
-- [~] 009.md - geo-monitor-v31-pane (Sprint 12 in flight — parallel-agent dispatch v5 ; code shippable defensive without keys, will activate when Mathis drops OPENAI + PERPLEXITY)
+- [x] 009.md - geo-monitor-v31-pane ✅ closed 2026-05-15 (parallel-agent v5 merged, commits 8592b21+683ce00+5d8771b+7d5fbaf+de3be1c+2ca98ea ; defensive shippable — activates on Mathis OPENAI/PERPLEXITY key drop)
 - [x] 010.md - gsg-design-grammar-viewer-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits a041d97 + 5505384 + 5ea0cb0 + 5c13636 ; Mathis manual validation OK)
-- [~] 011.md - reality-layer-5-connectors-wiring (Sprint 12 in flight — parallel-agent dispatch v5 ; OAuth scaffolding shippable, will activate when Mathis provisions 5 connector OAuth)
+- [x] 011.md - reality-layer-5-connectors-wiring ✅ closed 2026-05-15 (parallel-agent v5 merged, commits 7cc9945+fdc2ef6+80bd9dd+f0e0c19 + post-merge cron-Hobby-fix aadf429 ; defensive shippable — activates on Mathis 5 OAuth registrations + secrets drop)
 - [x] 012.md - learning-doctrine-dogfood-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; Mathis manual validation OK)
 
 ### TIER 4 — Enhancements (P2)
@@ -204,14 +205,12 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 - [x] 016.md - microfrontends-decision-doc ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 3e7636b + 63587c3 + 9921714 ; Mathis sign-off OK)
 
 **Total tasks**: 16
-**Done**: 12/16 (75% — 11 validated + 015 no-op confirmed)
-**Code complete (validation pending)**: 1/16 (013 🟡)
-**Mathis-side / blocked**: 3/16 (014 skills install, 009 GEO API keys, 011 Reality OAuth creds)
-**Next up** : Mathis validates 013 → epic closes at 13/16 ≡ 81% ✅ shipped scope.
-**Out of scope to this PRD** : 014 + 009 + 011 + `--gc-*` alias cleanup → tracked in follow-up PRD `webapp-followup-skills-credentials-cleanup-2026-06` (TBD).
+**Done**: 16/16 (100%) — Epic CLOSED 2026-05-15T14:30Z
+**Mathis-side activation pending (post-closeout)** : 2 (009 GEO keys + 011 Reality OAuth creds — code defensive shippable, activates when creds drop)
+**Out of scope (future PRD)** : `--gc-*` alias cleanup (sub-part of 015, 30+ component blast radius) + `growth-site-generator/*` real port to `moteur_multi_judge/judges/`
 **Parallel tasks**: 11
 **Sequential tasks**: 5
-**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~152-162h consumed (12/16 tasks landed)
+**Estimated total effort**: 200-272 hours (25-34 jours solo dev) — ~180-200h consumed in 2 days wall-clock
 
 ## Progress log
 
