@@ -1677,6 +1677,323 @@ button:focus-visible {
 
 
 
+/* ─────────────────────────────────────────────────────────────────────────
+ * Sprint 11 / Task 013 — Global chrome (StickyHeader + CmdK + SidebarNavBadge).
+ *
+ *   .gc-sticky-header       sticky top bar with breadcrumbs + search + actions
+ *   .gc-cmdk-backdrop       full-viewport scrim behind the palette
+ *   .gc-cmdk                portal-mounted palette dialog
+ *   .gc-cmdk__list          listbox of nav + actions + recent items
+ *   .gc-sidebar-badge       count pill inside the sidebar nav rows
+ *   .gc-side-row            container wrapping a NavItem + badge horizontally
+ *   .gc-nav-item--disabled  greyed placeholder for unshipped routes (/geo)
+ * ───────────────────────────────────────────────────────────────────────── */
+
+.gc-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0 12px;
+  margin-bottom: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 21, 0.92) 0%,
+    rgba(10, 14, 21, 0.74) 80%,
+    rgba(10, 14, 21, 0)
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+.gc-sticky-header__left {
+  min-width: 0;
+}
+
+.gc-sticky-header__left .gc-breadcrumbs {
+  margin: 0;
+}
+
+.gc-sticky-header__center {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.gc-sticky-header__right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.gc-sticky-header__search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+  background: #0b1018;
+  border: 1px solid var(--gc-line);
+  color: var(--gc-muted);
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  transition: border-color 0.12s ease, color 0.12s ease;
+}
+
+.gc-sticky-header__search:hover,
+.gc-sticky-header__search:focus-visible {
+  border-color: var(--gold-sunset);
+  color: var(--gc-text);
+}
+
+.gc-sticky-header__search-placeholder {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gc-sticky-header__kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: var(--gc-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--gc-line-soft);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+@media (max-width: 880px) {
+  .gc-sticky-header {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .gc-sticky-header__right {
+    justify-content: flex-start;
+  }
+  .gc-sticky-header__search {
+    max-width: 100%;
+  }
+}
+
+/* Command palette — portal-mounted, full-viewport backdrop + centered card. */
+.gc-cmdk-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(5, 8, 16, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 96px 16px 16px;
+}
+
+.gc-cmdk {
+  width: 100%;
+  max-width: 600px;
+  background: #0b1018;
+  border: 1px solid var(--gc-line);
+  border-radius: 12px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--gold-dim);
+  overflow: hidden;
+  outline: none;
+}
+
+.gc-cmdk__input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--gc-line-soft);
+}
+
+.gc-cmdk__input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  color: var(--gc-text);
+  font: inherit;
+  font-size: 15px;
+  padding: 4px 0;
+  outline: none;
+}
+
+.gc-cmdk__input::placeholder {
+  color: var(--gc-muted);
+}
+
+.gc-cmdk__hint {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  color: var(--gc-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--gc-line-soft);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.gc-cmdk__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  max-height: 56vh;
+  overflow: auto;
+}
+
+.gc-cmdk__section {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gc-muted);
+  padding: 10px 16px 4px;
+  opacity: 0.7;
+}
+
+.gc-cmdk__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gc-text);
+  transition: background 0.08s ease;
+}
+
+.gc-cmdk__item--active {
+  background: rgba(232, 200, 114, 0.08);
+  border-left: 2px solid var(--gold-sunset);
+  padding-left: 14px;
+}
+
+.gc-cmdk__label {
+  font-weight: 600;
+}
+
+.gc-cmdk__small {
+  color: var(--gc-muted);
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.gc-cmdk__empty {
+  padding: 18px 16px;
+  font-size: 13px;
+  color: var(--gc-muted);
+  text-align: center;
+}
+
+.gc-cmdk__foot {
+  display: flex;
+  gap: 14px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--gc-line-soft);
+  font-size: 11px;
+  color: var(--gc-muted);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+/* Sidebar — Sprint 11 enhancements (badges + disabled placeholder + gold
+   active accent). The .gc-side-row wraps a NavItem + its optional badge in a
+   flex container so the badge stays right-aligned without breaking active
+   border highlighting. */
+.gc-side-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gc-side-row .gc-nav-item {
+  flex: 1;
+  padding-right: 36px; /* leave room for the absolutely-positioned badge */
+}
+
+.gc-side-row__badge {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.gc-sidebar-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gc-muted);
+  border: 1px solid var(--gc-line-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.gc-sidebar-badge--gold {
+  background: rgba(232, 200, 114, 0.14);
+  color: var(--gold-sunset);
+  border-color: rgba(232, 200, 114, 0.32);
+  box-shadow: 0 0 0 1px rgba(232, 200, 114, 0.08);
+}
+
+/* V22 gold accent for active nav items in the sidebar — overrides the base
+   NavItem styling defined in packages/ui/src/styles.css. */
+.gc-side .gc-nav-item--active {
+  position: relative;
+  background: rgba(232, 200, 114, 0.08);
+  border-color: rgba(232, 200, 114, 0.22);
+  color: var(--gc-text);
+}
+
+.gc-side .gc-nav-item--active::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--gold-sunset);
+}
+
+/* Disabled placeholder row (Task 009 GEO unshipped). */
+.gc-nav-item--disabled {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px dashed var(--gc-line-soft);
+  border-radius: 6px;
+  color: var(--gc-muted);
+  background: transparent;
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.gc-nav-item--disabled small {
+  color: var(--gc-muted);
+  font-size: 11px;
+}
+
 /* Wave C.3 (audit A.12 P0.2): responsive filter row for ProposalList.
    1fr search + 3 selects on desktop; selects wrap below 720px; everything
    stacks below 480px (mobile). */
