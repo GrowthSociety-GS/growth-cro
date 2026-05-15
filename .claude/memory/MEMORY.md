@@ -36,6 +36,7 @@ Notes empiriques V26.AF :
 
 | Fichier | Portée | Quand le lire |
 |---|---|---|
+| **`FINAL_ACCEPTANCE_TEST_TODO.md`** | 🎯 **TEST D'ACCEPTANCE FINAL** demandé par Mathis 2026-05-15. Refaire le listicle Weglot from blank page (LP-Creator 4 phases interactives → moteur_gsg → review). À exécuter APRÈS la clôture des sprints planifiés (Sprint 19+ todo avant). | Avant chaque session post-clear + à la clôture des sprints en cours |
 | `SPRINT_LESSONS.md` | **Boucle d'apprentissage** — règles distillées sprint par sprint (Sprint 13/14/15…). Format `règle \| déclencheur \| conséquence`. À mettre à jour à la clôture de chaque sprint (1-3 règles max). | Avant ouverture d'un nouveau sprint + à la clôture |
 | `HISTORY.md` | Journal chronologique phases 1-18 | Skim dernier tiers seulement (forensic) |
 | `SPECS.md` | Specs figées modules (capture, perception, scoring, reco) | Avant modif d'un module |
