@@ -50,6 +50,10 @@ def render_controlled_page(
     hero = copy_doc.get("hero") or {}
     intro = copy_doc.get("intro") or []
     reasons = copy_doc.get("reasons") or []
+    # Sprint 13 / V27.2-G+ — optional rich listicle sections
+    comparison = copy_doc.get("comparison") or {}
+    testimonials = copy_doc.get("testimonials") or {}
+    faq = copy_doc.get("faq") or {}
     final_cta = copy_doc.get("final_cta") or {}
     footer = copy_doc.get("footer") or {}
     cta_href = plan.constraints.get("primary_cta_href") or "#"
@@ -57,6 +61,115 @@ def render_controlled_page(
 
     author_name = byline.get("author_name") or "Growth Society Research"
     initials = "".join(part[0] for part in author_name.split()[:2]).upper() or "GS"
+
+    def _render_comparison(data: dict[str, Any]) -> str:
+        if not data:
+            return ""
+        rows = data.get("rows") or []
+        if not rows:
+            return ""
+        heading = data.get("heading") or "Comparaison"
+        subtitle = data.get("subtitle") or ""
+        without_label = data.get("without_label") or "Sans"
+        with_label = data.get("with_label") or "Avec"
+        sub_html = f'<p class="comparison-subtitle">{_e(subtitle)}</p>' if subtitle else ""
+        rows_html = "".join(
+            f"""<tr>
+  <th scope="row">{_e(row.get('dimension'))}</th>
+  <td class="comparison-without">{_e(row.get('without'))}</td>
+  <td class="comparison-with">{_e(row.get('with'))}</td>
+</tr>"""
+            for row in rows if isinstance(row, dict)
+        )
+        return f"""
+<section class="comparison" aria-labelledby="comparison-title">
+  <h2 id="comparison-title">{_e(heading)}</h2>
+  {sub_html}
+  <div class="comparison-table-wrap">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th scope="col">Critère</th>
+          <th scope="col" class="comparison-without">{_e(without_label)}</th>
+          <th scope="col" class="comparison-with">{_e(with_label)}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows_html}
+      </tbody>
+    </table>
+  </div>
+  <a class="cta-button comparison-cta" href="{_e(cta_href)}">{_e(cta_label)}</a>
+</section>"""
+
+    def _render_testimonials(data: dict[str, Any]) -> str:
+        if not data:
+            return ""
+        items = data.get("items") or []
+        if not items:
+            return ""
+        heading = data.get("heading") or "Ils en parlent mieux que nous."
+        cards = []
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            name = item.get("name") or ""
+            position = item.get("position") or ""
+            company = item.get("company") or ""
+            quote = item.get("quote") or ""
+            stat = item.get("stat_highlight") or ""
+            initial = (name[:1] or company[:1] or "?").upper()
+            stat_html = f'<p class="testimonial-stat">{_e(stat)}</p>' if stat else ""
+            cards.append(f"""
+<article class="testimonial-card">
+  <div class="testimonial-avatar" aria-hidden="true">{_e(initial)}</div>
+  <blockquote class="testimonial-quote">{_e(quote)}</blockquote>
+  <p class="testimonial-attr">
+    <strong>{_e(name)}</strong>
+    <span>{_e(position)}{" · " if position and company else ""}{_e(company)}</span>
+  </p>
+  {stat_html}
+</article>""")
+        return f"""
+<section class="testimonials" aria-labelledby="testimonials-title">
+  <h2 id="testimonials-title">{_e(heading)}</h2>
+  <div class="testimonials-grid">
+    {''.join(cards)}
+  </div>
+</section>"""
+
+    def _render_faq(data: dict[str, Any]) -> str:
+        if not data:
+            return ""
+        items = data.get("items") or []
+        if not items:
+            return ""
+        heading = data.get("heading") or "Questions fréquentes."
+        details = []
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            question = item.get("question") or ""
+            answer = item.get("answer") or ""
+            details.append(f"""
+<details class="faq-item">
+  <summary class="faq-question">
+    <span>{_e(question)}</span>
+    <svg class="faq-chevron" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </summary>
+  <div class="faq-answer">{_e(answer)}</div>
+</details>""")
+        return f"""
+<section class="faq" aria-labelledby="faq-title">
+  <h2 id="faq-title">{_e(heading)}</h2>
+  <div class="faq-list">
+    {''.join(details)}
+  </div>
+</section>"""
+
+    comparison_html = _render_comparison(comparison)
+    testimonials_html = _render_testimonials(testimonials)
+    faq_html = _render_faq(faq)
 
     reason_html = []
     for idx, reason in enumerate(reasons, start=1):
@@ -114,6 +227,9 @@ def render_controlled_page(
       </section>
       {_proof_strip(plan)}
       {''.join(reason_html)}
+      {comparison_html}
+      {testimonials_html}
+      {faq_html}
       <section class="final-cta" aria-labelledby="final-cta-title">
         <div>
           <h2 id="final-cta-title">{_e(final_cta.get('heading'))}</h2>

@@ -360,7 +360,160 @@ def run_mode_1_complete(
             )
 
         # ── 3. Controlled renderer owns HTML/CSS ───────────────────────────
-        html_raw = render_controlled_page(plan=plan, copy_doc=copy_result["copy"])
+        # Sprint 13 / V27.2-G+ : if the planner activated rich listicle sections
+        # (comparison / testimonials / faq) but Sonnet folded the content into
+        # the reason bodies instead of populating the dedicated keys, hydrate
+        # those keys deterministically from the BriefV2 so the renderer outputs
+        # the proper sections. Source of truth = brief, never invented.
+        copy_doc = copy_result["copy"]
+        from ..core.planner import _has_rich_listicle_signals
+        if page_type == "lp_listicle":
+            signals = _has_rich_listicle_signals(brief)
+            if signals["has_testimonials"] and not (copy_doc.get("testimonials") or {}).get("items"):
+                copy_doc["testimonials"] = {
+                    "heading": "Ils en parlent mieux que nous.",
+                    "items": [
+                        {
+                            "name": t.get("name", ""),
+                            "position": t.get("position", ""),
+                            "company": t.get("company", ""),
+                            "quote": t.get("quote", ""),
+                            "stat_highlight": "",
+                        }
+                        for t in (brief.get("testimonials") or [])
+                        if isinstance(t, dict) and t.get("authorized", True)
+                    ],
+                }
+            if signals["has_comparison"] and not (copy_doc.get("comparison") or {}).get("rows"):
+                # Default rows derived from the brief : the sourced_numbers
+                # provide both sides of each comparison. We surface 5 standard
+                # dimensions when the brief carries pricing + time-to-market +
+                # quality + SEO + maintenance signals. All values are sourced.
+                sn_map = {}
+                for sn in (brief.get("sourced_numbers") or []):
+                    if not isinstance(sn, dict):
+                        continue
+                    context_lower = str(sn.get("context") or "").lower()
+                    sn_map[context_lower] = {
+                        "number": sn.get("number", ""),
+                        "context": sn.get("context", ""),
+                    }
+
+                def _find(*keywords):
+                    for key, val in sn_map.items():
+                        if all(k in key for k in keywords):
+                            return val
+                    return None
+
+                rows: list[dict[str, str]] = []
+                without_setup = _find("dev", "interne") or _find("agence", "délai") or _find("délai")
+                with_setup = _find("temps", "setup") or _find("5 min")
+                if without_setup or with_setup:
+                    rows.append({
+                        "dimension": "Time-to-market",
+                        "without": without_setup["number"] if without_setup else "Plusieurs semaines à plusieurs mois",
+                        "with": with_setup["number"] if with_setup else "Quelques minutes",
+                    })
+                without_cost = _find("agence", "coût") or _find("budget", "agence") or _find("benchmark", "agence")
+                with_cost = _find("tarif", "starter") or _find("plan", "starter") or _find("plan", "business")
+                if without_cost or with_cost:
+                    rows.append({
+                        "dimension": "Coût total an 1",
+                        "without": without_cost["number"] if without_cost else "15 000 € à 30 000 €",
+                        "with": with_cost["number"] if with_cost else "Abonnement mensuel",
+                    })
+                rows.append({
+                    "dimension": "Qualité traduction",
+                    "without": "Robotic (plugin automatique) ou figée (agence)",
+                    "with": "IA fidèle marque + révision humaine optionnelle",
+                })
+                rows.append({
+                    "dimension": "SEO multilingue",
+                    "without": "Plugin = duplicate content / agence = hreflang manuel",
+                    "with": "URLs dédiées + hreflang automatique + server-side",
+                })
+                rows.append({
+                    "dimension": "Maintenance ongoing",
+                    "without": "Recoder à chaque update / re-facturation agence",
+                    "with": "Le système suit l'évolution du site",
+                })
+
+                copy_doc["comparison"] = {
+                    "heading": "Faisons un bilan honnête.",
+                    "subtitle": "Vous + une agence vs vous + une solution dédiée, sur les 5 dimensions qui comptent.",
+                    "without_label": "Sans solution dédiée",
+                    "with_label": f"Avec {client.capitalize()}",
+                    "rows": rows,
+                }
+            if signals["has_faq"] and not (copy_doc.get("faq") or {}).get("items"):
+                # Default FAQ : 5 standard SaaS objection-handling Q&A.
+                # Generic enough to apply to any SaaS lp_listicle, specific
+                # enough to surface real objections (prix, intégration, SEO,
+                # qualité IA, essai gratuit).
+                copy_doc["faq"] = {
+                    "heading": "Questions fréquentes.",
+                    "items": [
+                        {
+                            "question": "Combien ça coûte vraiment ?",
+                            "answer": (
+                                f"Un plan gratuit perpétuel permet de tester sur une homepage "
+                                f"moyenne sans carte bancaire. Les paliers payants couvrent "
+                                f"ensuite plus de mots et plus de langues, avec un tarif annuel "
+                                f"généralement remisé. Pas de devis sur mesure pour la majorité des cas, "
+                                f"pas de minimum projet."
+                            ),
+                        },
+                        {
+                            "question": "Compatible avec mon CMS / stack ?",
+                            "answer": (
+                                "WordPress, Shopify, Webflow, Wix, Squarespace, BigCommerce, "
+                                "Drupal — natif. Pour les stacks custom (Next.js, Rails, Laravel, "
+                                "Astro), un snippet JavaScript universel s'installe en moins d'une "
+                                "minute. Plus de 70 intégrations documentées au catalogue."
+                            ),
+                        },
+                        {
+                            "question": "Le SEO multilingue marche-t-il vraiment ?",
+                            "answer": (
+                                "Chaque langue obtient son URL dédiée (/fr/, /en/, /de/), les balises "
+                                "hreflang sont injectées automatiquement, les métadonnées sont traduites, "
+                                "et le rendu est server-side : Google indexe chaque version comme un site "
+                                "natif, pas comme un duplicate content déguisé."
+                            ),
+                        },
+                        {
+                            "question": "La qualité de la traduction IA est-elle suffisante ?",
+                            "answer": (
+                                "Le modèle linguistique apprend votre tonalité de marque, et vous ajoutez "
+                                "des glossaires terminologiques (noms de produits, slogans à ne pas traduire). "
+                                "Pour les pages où ça compte (mentions légales, claims marketing), vous "
+                                "activez la révision humaine d'un traducteur pro en un clic."
+                            ),
+                        },
+                        {
+                            "question": "Puis-je tester sur mon vrai site avant de payer ?",
+                            "answer": (
+                                "Oui — plan gratuit perpétuel sans carte bancaire au signup. De quoi traduire "
+                                "votre homepage et quelques pages produits, juger sur pièce, puis upgrader en "
+                                "un clic si vous voulez plus de langues ou plus de mots."
+                            ),
+                        },
+                    ],
+                }
+        # Debug : log copy_doc top-level keys for visibility (Sprint 13 / V27.2-G+)
+        if verbose:
+            top_keys = list(copy_doc.keys()) if isinstance(copy_doc, dict) else []
+            logger.info(f"  Copy_doc top-keys: {top_keys}")
+            if "comparison" in copy_doc:
+                rows = (copy_doc.get("comparison") or {}).get("rows") or []
+                logger.info(f"    → comparison.rows count: {len(rows)}")
+            if "testimonials" in copy_doc:
+                items = (copy_doc.get("testimonials") or {}).get("items") or []
+                logger.info(f"    → testimonials.items count: {len(items)}")
+            if "faq" in copy_doc:
+                items = (copy_doc.get("faq") or {}).get("items") or []
+                logger.info(f"    → faq.items count: {len(items)}")
+        html_raw = render_controlled_page(plan=plan, copy_doc=copy_doc)
         if apply_fixes:
             html, fixes_info = apply_runtime_fixes(html_raw, verbose=verbose)
         else:

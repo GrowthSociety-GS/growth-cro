@@ -438,4 +438,253 @@ COMPONENTS_CSS = """.argument-line {
   background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--gsg-primary) 8%, transparent));
   pointer-events: none;
 }
+
+/* ──────────────────────────────────────────────────────────────────────
+   Sprint 13 / V27.2-G+ — Listicle rich sections
+   Comparison table · Testimonials grid · FAQ accordion
+   Gated by BriefV2 signals in planner._lp_listicle_sections().
+   ────────────────────────────────────────────────────────────────────── */
+
+.comparison {
+  width: var(--gsg-wide);
+  margin: 0 auto;
+  padding: 88px 0 32px;
+  text-align: center;
+}
+.comparison h2 {
+  font-family: var(--gsg-font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  margin: 0 0 16px;
+  color: var(--gsg-ink);
+  text-wrap: balance;
+}
+.comparison-subtitle {
+  margin: 0 auto 36px;
+  max-width: 580px;
+  color: var(--gsg-muted);
+  font-size: 16px;
+}
+.comparison-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--gsg-radius);
+  border: 1px solid var(--gsg-border);
+  background: var(--gsg-surface);
+  margin: 0 auto 32px;
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.comparison-table thead {
+  background: color-mix(in srgb, var(--gsg-soft) 64%, var(--gsg-surface));
+}
+.comparison-table th,
+.comparison-table td {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--gsg-border);
+  vertical-align: top;
+}
+.comparison-table th[scope="col"] {
+  font-family: var(--gsg-font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gsg-ink);
+}
+.comparison-table th[scope="row"] {
+  font-weight: 600;
+  color: var(--gsg-ink);
+  width: 28%;
+}
+.comparison-table td.comparison-without {
+  color: var(--gsg-muted);
+}
+.comparison-table td.comparison-without::before {
+  content: "✗ ";
+  color: #c83a3a;
+  font-weight: 700;
+  margin-right: 4px;
+}
+.comparison-table th.comparison-without {
+  color: #c83a3a;
+}
+.comparison-table td.comparison-with {
+  color: var(--gsg-ink);
+  font-weight: 500;
+  background: color-mix(in srgb, var(--gsg-soft) 32%, var(--gsg-surface));
+}
+.comparison-table td.comparison-with::before {
+  content: "✓ ";
+  color: var(--gsg-primary);
+  font-weight: 700;
+  margin-right: 4px;
+}
+.comparison-table th.comparison-with {
+  color: var(--gsg-primary);
+}
+.comparison-table tbody tr:last-child th,
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.comparison-cta {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.testimonials {
+  width: var(--gsg-wide);
+  margin: 0 auto;
+  padding: 88px 0;
+}
+.testimonials h2 {
+  text-align: center;
+  font-family: var(--gsg-font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  margin: 0 0 40px;
+  color: var(--gsg-ink);
+  text-wrap: balance;
+}
+.testimonials-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.testimonial-card {
+  background: var(--gsg-surface);
+  border: 1px solid var(--gsg-border);
+  border-radius: var(--gsg-radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--gsg-primary), var(--gsg-accent));
+  color: var(--gsg-on-primary);
+  display: grid;
+  place-items: center;
+  font-family: var(--gsg-font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.testimonial-quote {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gsg-ink);
+  font-style: italic;
+}
+.testimonial-quote::before {
+  content: "« ";
+  color: var(--gsg-primary);
+  font-weight: 700;
+}
+.testimonial-quote::after {
+  content: " »";
+  color: var(--gsg-primary);
+  font-weight: 700;
+}
+.testimonial-attr {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--gsg-muted);
+}
+.testimonial-attr strong {
+  display: block;
+  color: var(--gsg-ink);
+  font-family: var(--gsg-font-display);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.testimonial-stat {
+  margin: 0;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--gsg-primary) 8%, var(--gsg-surface));
+  border-radius: var(--gsg-radius-subtle);
+  font-family: var(--gsg-font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gsg-primary);
+  letter-spacing: 0.02em;
+}
+
+.faq {
+  width: var(--gsg-content);
+  margin: 0 auto;
+  padding: 88px 0;
+}
+.faq h2 {
+  text-align: center;
+  font-family: var(--gsg-font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  margin: 0 0 40px;
+  color: var(--gsg-ink);
+  text-wrap: balance;
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--gsg-surface);
+  border: 1px solid var(--gsg-border);
+  border-radius: var(--gsg-radius);
+  overflow: hidden;
+  transition: border-color var(--gsg-duration) var(--gsg-easing);
+}
+.faq-item[open] {
+  border-color: color-mix(in srgb, var(--gsg-primary) 30%, var(--gsg-border));
+}
+.faq-question {
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--gsg-font-display);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--gsg-ink);
+  line-height: 1.4;
+}
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+.faq-chevron {
+  width: 14px;
+  height: 10px;
+  flex-shrink: 0;
+  color: var(--gsg-muted);
+  transition: transform var(--gsg-duration) var(--gsg-easing);
+}
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--gsg-primary);
+}
+.faq-answer {
+  padding: 0 24px 20px;
+  color: var(--gsg-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
 """

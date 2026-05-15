@@ -1,0 +1,166 @@
+{
+  "mode": "complete",
+  "page_type": "lp_listicle",
+  "target_language": "FR",
+  "client_url": "https://www.weglot.com/fr",
+  "objective": "Convertir un visiteur trafic paid Meta Ads / Google Ads / TikTok B2B founder vers signup essai gratuit Weglot (https://dashboard.weglot.com/register). Le signup est sans carte bancaire requise, plan gratuit perpétuel (10 000 mots + 1 langue). KPI primaire : taux de signup. KPI secondaire : taux de scroll au-delà des 10 raisons.",
+  "audience": "Founder / Marketing Lead / E-commerce Manager PME 10-100 employés ou SaaS B2B Seed/Series A. 30-45 ans, francophone (FR+BE+CH+CA-QC). Schwartz 3 problem-aware : hésite entre 4 alternatives — (a) dev in-house 3-6 mois cher, (b) agence trad pro 15-30K€ + délai 2-4 semaines, (c) Google Translate plugin gratuit qui détruit le SEO, (d) DeepL ou SaaS à comparer. Decision-maker pragmatique, compare 2-3 outils, lit Trustpilot/G2/Reddit, valorise transparence pricing. Anti-bullshit allergique (déteste 'révolutionnaire/leader/disruptif'), veut chiffres + screenshots. Time-poor : scanne, ne lit pas. 3 peurs : (1) chaos SEO hreflang ratée = sanction Google → 'trafic organique va péter', (2) qualité robotic qui fait fuir leads → 'crédibilité perdue', (3) time-to-market → 'j'ai 1 mois pas 6'. 3 désirs : site live multilingue <1 mois, qualité acceptable sans recruter, +15-40% trafic organique 3-6 mois sans maintenance.",
+  "angle": "10 raisons pour lesquelles 111 368 marques ont choisi Weglot pour traduire leur site (et pas une agence à 20 000 €). Anti-bullshit positioning vs agence de traduction traditionnelle. Social proof number ancré (111 368 marques) + opposition financière concrète (20 000 €) qui adresse directement l'objection prix. Format listicle scannable, scrollable, mobile-friendly pour audience trafic paid time-poor.",
+  "traffic_source": [
+    "cold_ad_meta",
+    "cold_ad_google",
+    "warm_retargeting"
+  ],
+  "visitor_mode": "scan_30s",
+  "inspiration_urls": [],
+  "inspiration_reasons": null,
+  "inspiration_screenshots": [],
+  "anti_references": [
+    "Toute LP qui utilise 'révolutionnaire / leader / disruptif / game-changer / unique au monde'",
+    "Toute LP qui invente des stats ('des milliers de clients' au lieu de 111 368 marques)",
+    "Toute LP avec 5 CTAs concurrents diluant l'attention (doctrine 1:1 ratio)",
+    "Toute LP avec fausse urgence (compte à rebours, 'expire dans 24h')",
+    "Toute LP qui utilise des photos lifestyle/stock-photo hero sans authenticity",
+    "L'ancien advertorial Weglot V27.2-C (deliverables/gsg_demo/weglot-advertorial-v272c.html) : référence INVERSE — ne pas copier sa structure narrative advertorial, c'est un listicle ici"
+  ],
+  "desired_signature": "Anti-bullshit pragmatique + éditorial premium. Tonalité confident-warm-direct (Brand DNA Weglot). Chaque claim a un chiffre concret avec source réelle. Whitespace généreux, hiérarchie visuelle stricte (1 H1 + 1 CTA primaire répété 3x identiques). Numéros [01]-[10] en typographie éditoriale distinctive pour ancrer le format listicle. Couleurs Weglot réelles (magenta primary + violet accent + deep navy ink), pas d'invention.",
+  "desired_emotion": "Soulagement (un outil sérieux qui résout enfin le dilemme entre dev in-house lent / agence chère / Google Translate qui pète le SEO) + Confiance pragmatique (les chiffres + les noms de marques tier-1 + 3 ratings convergents + cas client Polaar +400% font le travail, pas le marketing speech) + Légitimité (faire partie des 111 368 marques qui ont déjà tranché).",
+  "source_documents": [
+    "deliverables/gsg_demo/weglot-listicle-2026-05-15-COPY.md"
+  ],
+  "founder_citations": [],
+  "client_blog_urls": [
+    "https://www.weglot.com/fr/blog",
+    "https://www.weglot.com/fr/resources/guides"
+  ],
+  "available_proofs": [
+    "logos_clients_tier1",
+    "note_trustpilot_sourced",
+    "chiffres_internes",
+    "temoignages_named",
+    "certifications"
+  ],
+  "sourced_numbers": [
+    {
+      "number": "111 368",
+      "source": "Weglot homepage fr (footer counter + about page) — chiffre actif marques équipées",
+      "context": "Nombre total de marques utilisant Weglot en production aujourd'hui (du blog WordPress au site corporate Fortune 500)"
+    },
+    {
+      "number": "110+",
+      "source": "Weglot homepage fr — section langues supportées",
+      "context": "Nombre de langues et dialectes supportés (incluant arabe RTL, japonais, hébreu, mandarin, portugais brésilien)"
+    },
+    {
+      "number": "70+",
+      "source": "Weglot homepage fr — section intégrations",
+      "context": "Nombre d'intégrations natives (WordPress, Shopify, Webflow, Wix, Squarespace, BigCommerce, Drupal, Bubble, Framer + snippet JS universel)"
+    },
+    {
+      "number": "4.8/5",
+      "source": "G2 Crowd page produit Weglot (rating B2B SaaS de référence)",
+      "context": "Note moyenne reviews vérifiées sur G2 (audience B2B SaaS decision-makers)"
+    },
+    {
+      "number": "4.9/5",
+      "source": "WordPress.org Plugin Directory — plugin Weglot",
+      "context": "Note moyenne sur le repository WordPress (audience WordPress users worldwide, vérifié indépendamment)"
+    },
+    {
+      "number": "4.9/5",
+      "source": "Trustpilot — page entreprise Weglot",
+      "context": "Note moyenne sur Trustpilot (audience consumer-side / acheteurs B2B)"
+    },
+    {
+      "number": "+400%",
+      "source": "Case study Weglot officielle — client Polaar (cosmétique premium D2C)",
+      "context": "Augmentation du trafic international en 12 mois après déploiement Weglot sur le site Polaar (FR → DE + ES + EN + IT)"
+    },
+    {
+      "number": "+20%",
+      "source": "Case study Weglot officielle — client Respond.io (SaaS messaging B2B)",
+      "context": "Augmentation du taux de conversion sur trafic non-anglophone après ouverture LATAM via Weglot (EN → ES)"
+    },
+    {
+      "number": "5 minutes",
+      "source": "Weglot homepage fr (section 'comment ça marche' + reviews users 'I was up in minutes')",
+      "context": "Temps de setup moyen pour activer Weglot sur un site existant (snippet JS installation + sélection langues cibles)"
+    },
+    {
+      "number": "15 000 à 30 000 €",
+      "source": "Industry benchmark — devis agences traduction pro (3 langues, site SaaS moyen ~50 pages, FR→EN+DE+ES)",
+      "context": "Coût total an 1 d'une prestation agence traduction professionnelle pour traduire un site SaaS moyen dans 3 langues — chiffre illustratif comparatif, pas un claim Weglot"
+    },
+    {
+      "number": "3-6 mois",
+      "source": "Industry benchmark — sprint dev custom in-house pour intégrer i18n complet sur un stack existant",
+      "context": "Délai moyen pour qu'une équipe dev interne (1 dev junior/mid full-time) implémente i18n complet sur un site existant (architecture + extraction strings + integration + QA + déploiement) — chiffre illustratif"
+    },
+    {
+      "number": "€15/mois",
+      "source": "Weglot pricing page fr — plan Starter",
+      "context": "Tarif Starter Weglot (50 000 mots, 1 langue, annuel = -20%)"
+    },
+    {
+      "number": "€49/mois",
+      "source": "Weglot pricing page fr — plan Business",
+      "context": "Tarif Business Weglot (200 000 mots, 3 langues, annuel = -20% → 588€/an)"
+    },
+    {
+      "number": "€199/mois",
+      "source": "Weglot pricing page fr — plan Advanced",
+      "context": "Tarif Advanced Weglot (1M mots, langues illimitées, annuel = -20%)"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Équipe Growth",
+      "position": "Growth Team",
+      "company": "Polaar",
+      "quote": "On a ouvert l'Allemagne et l'Espagne en moins de 3 mois. Pas une seule ligne de code dev. Aujourd'hui, l'international représente plus de 40% de notre trafic.",
+      "photo_path": null,
+      "authorized": true
+    },
+    {
+      "name": "Marketing Lead",
+      "position": "Marketing Lead",
+      "company": "Respond.io",
+      "quote": "Notre équipe ne parle pas espagnol. Avec Weglot, on est entrés sur le marché LATAM sans recruter un seul translator interne. Les premiers leads ES sont arrivés au bout de 6 semaines.",
+      "photo_path": null,
+      "authorized": true
+    },
+    {
+      "name": "Direction technique",
+      "position": "Tech Director",
+      "company": "L'Équipe Creative",
+      "quote": "On le déploie sur tous les sites clients depuis 2023. Le setup en 5 min nous fait gagner 2 jours par projet — et nos clients e-commerce voient le ROI dès le premier trimestre.",
+      "photo_path": null,
+      "authorized": true
+    }
+  ],
+  "existing_page_url": null,
+  "concept_description": "LISTICLE 10 raisons. Voice anti-bullshit factuel chiffré. Titre H1 '10 raisons pour lesquelles 111 368 marques ont choisi Weglot pour traduire leur site' + sub-H1 italique '(et pas une agence à 20 000 €)'. Sous-titre 'Traduisez votre site dans 110+ langues en 5 minutes — sans dev, sans agence, sans pétage de SEO.' Les 10 raisons ordonnées : [01] Standard 111 368 marques · [02] Setup 5 min zéro code · [03] SEO multilingue server-side propre · [04] IA fidèle marque pas robotic · [05] Plan gratuit perpétuel sans CB · [06] 70+ intégrations · [07] 110 langues RTL inclus · [08] Révision humaine intégrée · [09] G2 4.8 / WP 4.9 / Trustpilot 4.9 · [10] Zéro maintenance. Structure 7 sections : Hero ATF + Problem-bridge + 10 raisons + Comparatif Sans/Avec Weglot 5 lignes + 3 témoignages + FAQ 5 Q + CTA final. CTA répété 3x identique 'Essayer Weglot gratuitement →' vers dashboard.weglot.com/register.",
+  "forbidden_visual_patterns": [
+    "stock_photos",
+    "gradient_mesh",
+    "ai_generated_images",
+    "checkmark_icons_systematic",
+    "lifestyle_photography_hero",
+    "glassmorphism",
+    "neumorphism"
+  ],
+  "client_logo": null,
+  "product_photos_real": [],
+  "font_override": null,
+  "palette_override": [],
+  "must_include_elements": [
+    "Voice anti-bullshit : ZÉRO 'révolutionnaire/leader/disruptif/game-changer/unique au monde'. Chaque claim = 1 chiffre sourcé.",
+    "H1 commence par '10 raisons' + 10 cards numérotées [01]-[10] dans l'ordre du concept_description.",
+    "CTA répété 3x identique : 'Essayer Weglot gratuitement →' (Hero / sous Comparatif / CTA final).",
+    "Section Comparatif obligatoire : table 'Sans vs Avec Weglot' avec 5 lignes (Time-to-market, Coût an 1, Qualité, SEO, Maintenance).",
+    "Section 3 témoignages : exactement Polaar / Respond.io / L'Équipe Creative avec citations EXACTES de testimonials[].",
+    "Section FAQ 5 questions accordion : prix / compatibilité / SEO / qualité IA / tester gratuit.",
+    "Mobile-first 360/768/1140. Cards raisons : 1-col mobile / 2-cols desktop. Sticky CTA mobile.",
+    "Animations Emil-style subtle uniquement (reveal scroll IntersectionObserver), respect prefers-reduced-motion."
+  ]
+}

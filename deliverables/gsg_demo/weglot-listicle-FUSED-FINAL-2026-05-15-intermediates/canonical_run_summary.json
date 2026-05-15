@@ -1,0 +1,217 @@
+{
+  "version": "GSG_CANONICAL_MINIMAL_V27",
+  "generation_path": "minimal",
+  "mode": "complete",
+  "client": "weglot",
+  "page_type": "lp_listicle",
+  "target_language": "FR",
+  "html_path": "deliverables/gsg_demo/weglot-listicle-FUSED-FINAL-2026-05-15.html",
+  "brief_archive": "data/_briefs_v2/20260515_134046_weglot_com_lp_listicle_GSG_CANONICAL_V27.json",
+  "telemetry": {
+    "wall_seconds_total": 75.6,
+    "wall_seconds_gen": 75.1,
+    "wall_seconds_judge": 0,
+    "tokens_in_gen": 5006,
+    "tokens_out_gen": 4719,
+    "tokens_in_total": 5006,
+    "tokens_out_total": 4719,
+    "cost_estimate_usd": 0.086,
+    "minimal_gate_pass": false,
+    "impeccable_score": 100,
+    "impeccable_pass": true
+  },
+  "prompt_meta": {
+    "generation_strategy": "controlled",
+    "copy_prompt_chars": 13969,
+    "plan_sections": 18,
+    "layout_name": "editorial_listicle_longform",
+    "doctrine_upstream": {
+      "business_category": "saas",
+      "criteria_ids": [
+        "per_01",
+        "per_04",
+        "per_08",
+        "psy_05",
+        "hero_06",
+        "coh_01",
+        "coh_03",
+        "coh_04",
+        "coh_06",
+        "ux_01"
+      ],
+      "pillar_weights": {
+        "coherence": 0.4,
+        "hero": 0.1,
+        "persuasion": 0.3,
+        "psycho": 0.1,
+        "ux": 0.1
+      },
+      "evidence_policy": "proof_rich",
+      "page_type_specific_ids": [
+        "list_01",
+        "list_02",
+        "list_03",
+        "list_04",
+        "list_05"
+      ],
+      "excluded_criteria": [
+        "hero_03",
+        "psy_01",
+        "psy_02",
+        "psy_04",
+        "ux_08"
+      ]
+    },
+    "context_pack": {
+      "version": "gsg-generation-context-v27.2",
+      "available_count": 8,
+      "missing_count": 13,
+      "risk_flags": [],
+      "audit_dependency_policy": "read_context_only"
+    },
+    "visual_intelligence": {
+      "version": "gsg-visual-intelligence-v27.2",
+      "visual_role": "premium_editorial_argument",
+      "density": "medium_high_editorial",
+      "energy": "clear_high_signal",
+      "proof_visibility": "high_source_led",
+      "product_visibility": "high"
+    },
+    "creative_route_contract": {
+      "version": "gsg-creative-route-contract-v27.2-f",
+      "route_name": "Proof Atlas Editorial",
+      "risk_level": "premium",
+      "source": "structured_golden_creative_selector",
+      "golden_ref_count": 3,
+      "technique_ref_count": 7,
+      "renderer_overrides": {
+        "hero_variant": "proof_atlas",
+        "rhythm": "atlas_marginalia",
+        "proof_mode": "source_strip"
+      },
+      "top_golden_refs": [
+        {
+          "site": "gymshark",
+          "page": "pdp",
+          "distance": 1.36
+        },
+        {
+          "site": "whoop",
+          "page": "pdp",
+          "distance": 1.42
+        },
+        {
+          "site": "whoop",
+          "page": "home",
+          "distance": 1.45
+        }
+      ]
+    },
+    "n_critical": 5,
+    "target_language": "FR",
+    "primary_cta_label": "Essayer Weglot gratuitement →",
+    "allowed_number_tokens": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "1",
+      "10",
+      "100",
+      "10000",
+      "110",
+      "110110",
+      "111368",
+      "1140",
+      "12",
+      "15",
+      "15000",
+      "199",
+      "2",
+      "20",
+      "20000",
+      "200000",
+      "2023",
+      "24",
+      "3",
+      "30",
+      "30000",
+      "360",
+      "4",
+      "4.8",
+      "4.9",
+      "40",
+      "400",
+      "45",
+      "49",
+      "5",
+      "50",
+      "500",
+      "50000",
+      "588",
+      "6",
+      "7",
+      "70",
+      "768"
+    ],
+    "visual_assets": [
+      "desktop_fold",
+      "desktop_full",
+      "lp_leadgen_fold",
+      "lp_leadgen_full",
+      "mobile_fold",
+      "mobile_full",
+      "pricing_fold",
+      "pricing_full"
+    ]
+  },
+  "minimal_gates": {
+    "html_integrity_issues": [],
+    "font_violations": [],
+    "english_cta_violations": [],
+    "unsourced_numeric_claims": [
+      {
+        "number": "10 000",
+        "normalized": "10000",
+        "category": "plain",
+        "context": "C Le signup est sans carte bancaire requise, plan gratuit perpétuel (10 000 Vous hésitez entre développer une solution in-house pendant plusieurs mois, payer une age"
+      },
+      {
+        "number": "01 111 368",
+        "normalized": "01111368",
+        "category": "count",
+        "context": "caire requise, plan gratuit perpétuel (10 000 mots + 1 langue). brief 01 111 368 marques utilisent Weglot en production Ce chiffre n'est pas une estimation marketing. 111"
+      },
+      {
+        "number": "70+",
+        "normalized": "70",
+        "category": "time",
+        "context": "rpétuel, aucune carte bancaire requise pour démarrer. FIELD NOTE A 06 70+ intégrations natives Weglot s'intègre nativement à plus de 70 plateformes : WordPress, Sh"
+      },
+      {
+        "number": "70",
+        "normalized": "70",
+        "category": "time",
+        "context": "E A 06 70+ intégrations natives Weglot s'intègre nativement à plus de 70 plateformes : WordPress, Shopify, Webflow, Wix, Squarespace, BigCommerce, Drupal, Bubble,"
+      },
+      {
+        "number": "07 110",
+        "normalized": "07110",
+        "category": "count",
+        "context": "s natives maintenues par Weglot, zéro dev custom requis. FIELD NOTE B 07 110 langues et dialectes, RTL inclus Weglot supporte plus de 110 langues et dialectes : arabe"
+      },
+      {
+        "number": "70",
+        "normalized": "70",
+        "category": "time",
+        "context": "nippet JavaScript universel s'installe en moins d'une minute. Plus de 70 intégrations documentées au catalogue. Le SEO multilingue marche-t-il vraiment ? Chaque l"
+      }
+    ],
+    "pass": false
+  }
+}

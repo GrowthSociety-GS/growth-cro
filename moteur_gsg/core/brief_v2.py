@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
-from typing import Literal, Optional
+from typing import Any, Literal, Optional
 
 
 # Enums déclarés via Literal — utilisés à la fois pour typing et validation runtime.
@@ -320,12 +320,54 @@ class BriefV2:
         if self.inspiration_urls:
             notes_lines.append(f"INSPIRATION_URLS (Mode 4 ELEVATE) : {', '.join(self.inspiration_urls)}")
 
-        return {
+        # Sprint 13 / V27.2-G+ — preserve the rich BriefV2 fields as structured
+        # data in addition to the legacy `notes` text blob, so downstream
+        # consumers (planner._has_rich_listicle_signals, prompt_assembly.
+        # _compact_brief_for_copy) can detect testimonials / sourced_numbers /
+        # must_include_elements directly without re-parsing free-text notes.
+        legacy: dict[str, Any] = {
             "objectif": self.objective,
+            "objective": self.objective,
             "audience": self.audience,
             "angle": self.angle,
             "notes": "\n".join(notes_lines) if notes_lines else "",
         }
+        if self.must_include_elements:
+            legacy["must_include_elements"] = list(self.must_include_elements)
+        if self.testimonials:
+            legacy["testimonials"] = [
+                {
+                    "name": t.name,
+                    "position": t.position,
+                    "company": t.company,
+                    "quote": t.quote,
+                    "authorized": t.authorized,
+                }
+                for t in self.testimonials
+                if t.authorized
+            ]
+        if self.sourced_numbers:
+            legacy["sourced_numbers"] = [
+                {"number": sn.number, "source": sn.source, "context": sn.context}
+                for sn in self.sourced_numbers
+            ]
+        if self.concept_description:
+            legacy["concept_description"] = self.concept_description
+        if self.anti_references:
+            legacy["anti_references"] = list(self.anti_references)
+        if self.forbidden_visual_patterns:
+            legacy["forbidden_visual_patterns"] = list(self.forbidden_visual_patterns)
+        if self.available_proofs:
+            legacy["available_proofs"] = list(self.available_proofs)
+        if self.desired_signature:
+            legacy["desired_signature"] = self.desired_signature
+        if self.desired_emotion:
+            legacy["desired_emotion"] = self.desired_emotion
+        if self.traffic_source:
+            legacy["traffic_source"] = list(self.traffic_source)
+        if self.visitor_mode:
+            legacy["visitor_mode"] = self.visitor_mode
+        return legacy
 
     def to_dict(self) -> dict:
         """Serialize en dict JSON-friendly (Path → str, dataclasses → dict)."""
