@@ -49,7 +49,7 @@ LOCAL WORKER (this module, growthcro/worker/daemon.py)
   ↓   gsg         : python -m moteur_gsg.orchestrator --mode M --client X
   ↓   multi_judge : python -m moteur_multi_judge.orchestrator --client X
   ↓   reality     : python -m growthcro.reality.poller --client X
-  ↓   geo         : python -m growthcro.geo.runner --client X
+  ↓   geo         : python -m growthcro.geo --client X --engines all
   ↓ on completion: UPDATE runs status=completed, output_path, metadata_json.{stdout,stderr,duration,returncode}
   ↓ on failure  : UPDATE runs status=failed, error_message, metadata_json
 Supabase Realtime emits update → Webapp UI <RunStatusPill /> updates live

@@ -40,7 +40,7 @@ from dataclasses import dataclass, field
 from typing import Iterable, Literal
 
 from growthcro.config import config
-from growthcro.geo.scorer import compute_presence_score
+from growthcro.geo.presence_scorer import compute_presence_score
 from growthcro.observability.logger import get_logger
 
 logger = get_logger(__name__)

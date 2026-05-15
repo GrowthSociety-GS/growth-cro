@@ -8,7 +8,7 @@ webapp `/geo` pane can surface :
   - Engine × query coverage matrix for per-client drilldown
 
 Mono-concern submodules:
-  - scorer      : pure presence-score formula (no I/O, no SDK).
-  - runner      : per-engine query execution + defensive no-key handling.
-  - cli         : argparse + python -m growthcro.geo entrypoint.
+  - presence_scorer : pure presence-score formula (no I/O, no SDK).
+  - engine_runner   : per-engine query execution + defensive no-key handling.
+  - cli             : argparse + python -m growthcro.geo entrypoint.
 """

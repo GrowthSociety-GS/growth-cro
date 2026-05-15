@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
-from growthcro.geo.runner import SUPPORTED_ENGINES, EngineName, RunResult, run_engine
+from growthcro.geo.engine_runner import SUPPORTED_ENGINES, EngineName, RunResult, run_engine
 from growthcro.observability.logger import get_logger, set_correlation_id, set_pipeline_name
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
