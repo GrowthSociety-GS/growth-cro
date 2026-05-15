@@ -20,7 +20,6 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import {
   REALITY_CONNECTORS,
   REALITY_METRICS,
-  type ClientCredentialRowSafe,
   type FleetHeatCell,
   type RealityConnector,
   type RealityConnectorStatus,
@@ -201,7 +200,6 @@ function projectCredentialStatus(
     updated_at: string;
     access_token_encrypted: string | null;
   } | null,
-  connector: RealityConnector,
   isOauthAppConfigured: boolean,
 ): RealityConnectorStatus {
   if (!isOauthAppConfigured) return "not_configured";
@@ -262,11 +260,7 @@ export async function fetchClientCredentialsGate(
   }
   return REALITY_CONNECTORS.map((connector) => {
     const row = rows.find((r) => r.connector === connector) ?? null;
-    const status = projectCredentialStatus(
-      row,
-      connector,
-      isOauthAppConfigured(connector),
-    );
+    const status = projectCredentialStatus(row, isOauthAppConfigured(connector));
     return {
       connector,
       status,
