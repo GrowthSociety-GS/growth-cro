@@ -1,0 +1,127 @@
+{
+  "version": "1",
+  "generated_at": "2026-05-15",
+  "description": "20 standard GEO buyer-intent queries spanning 5 business categories (ecommerce, saas, leadgen, marketplace, agency). Used by growthcro.geo to probe ChatGPT / Claude / Perplexity for brand presence.",
+  "queries": [
+    {
+      "id": "ecom-01",
+      "query_text": "What are the best DTC skincare brands for sensitive skin?",
+      "business_category": "ecommerce",
+      "intent": "discovery"
+    },
+    {
+      "id": "ecom-02",
+      "query_text": "Best sustainable activewear brands in 2026",
+      "business_category": "ecommerce",
+      "intent": "comparison"
+    },
+    {
+      "id": "ecom-03",
+      "query_text": "Where can I buy specialty coffee subscription online?",
+      "business_category": "ecommerce",
+      "intent": "transactional"
+    },
+    {
+      "id": "ecom-04",
+      "query_text": "Top reviewed home espresso machines under 500 euros",
+      "business_category": "ecommerce",
+      "intent": "comparison"
+    },
+    {
+      "id": "saas-01",
+      "query_text": "Best AI writing assistants for marketing teams",
+      "business_category": "saas",
+      "intent": "comparison"
+    },
+    {
+      "id": "saas-02",
+      "query_text": "What is the best alternative to Intercom for SaaS startups?",
+      "business_category": "saas",
+      "intent": "comparison"
+    },
+    {
+      "id": "saas-03",
+      "query_text": "Top website translation tools for ecommerce stores",
+      "business_category": "saas",
+      "intent": "discovery"
+    },
+    {
+      "id": "saas-04",
+      "query_text": "Affordable customer support software for small businesses",
+      "business_category": "saas",
+      "intent": "transactional"
+    },
+    {
+      "id": "leadgen-01",
+      "query_text": "Best B2B email outreach platforms 2026",
+      "business_category": "leadgen",
+      "intent": "comparison"
+    },
+    {
+      "id": "leadgen-02",
+      "query_text": "How to generate qualified leads for a SaaS company?",
+      "business_category": "leadgen",
+      "intent": "discovery"
+    },
+    {
+      "id": "leadgen-03",
+      "query_text": "Top webinar platforms for B2B lead generation",
+      "business_category": "leadgen",
+      "intent": "comparison"
+    },
+    {
+      "id": "leadgen-04",
+      "query_text": "Best landing page builders for paid campaigns",
+      "business_category": "leadgen",
+      "intent": "transactional"
+    },
+    {
+      "id": "market-01",
+      "query_text": "Best online marketplaces for vintage furniture sellers",
+      "business_category": "marketplace",
+      "intent": "discovery"
+    },
+    {
+      "id": "market-02",
+      "query_text": "Where to find vetted freelance developers in Europe?",
+      "business_category": "marketplace",
+      "intent": "transactional"
+    },
+    {
+      "id": "market-03",
+      "query_text": "Top platforms for renting equipment to small businesses",
+      "business_category": "marketplace",
+      "intent": "discovery"
+    },
+    {
+      "id": "market-04",
+      "query_text": "What are the leading peer-to-peer carpooling apps in 2026?",
+      "business_category": "marketplace",
+      "intent": "comparison"
+    },
+    {
+      "id": "agency-01",
+      "query_text": "Best performance marketing agencies for ecommerce growth",
+      "business_category": "agency",
+      "intent": "comparison"
+    },
+    {
+      "id": "agency-02",
+      "query_text": "Top Google Ads agencies for B2B SaaS in France",
+      "business_category": "agency",
+      "intent": "comparison"
+    },
+    {
+      "id": "agency-03",
+      "query_text": "How to choose a CRO agency for a DTC brand?",
+      "business_category": "agency",
+      "intent": "discovery"
+    },
+    {
+      "id": "agency-04",
+      "query_text": "Recommended Meta Ads agencies for scaling DTC brands",
+      "business_category": "agency",
+      "intent": "transactional"
+    }
+  ]
+}
