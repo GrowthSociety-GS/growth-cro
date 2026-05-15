@@ -103,41 +103,27 @@ def _reason_visual(
 ) -> str:
     """Render the marginalia visual for reason ``idx`` (1-based).
 
-    V27.2-H Sprint 15 (T15-1) : when a topic-relevant **contextual
-    screenshot** is available in ``assets`` (e.g. `integrations_fold`
-    for a reason about integrations, `customers_fold` for a social-proof
-    reason), render that screenshot **inside** the icon frame. Falls back
-    to the inline SVG icon when no contextual asset matches.
+    V27.2-I Sprint 17 (PRD-B) : every reason now gets a **full custom
+    SVG illustration** (≥ 220 px tall, editorial line-art, themed via
+    ``currentColor``) drawn from the
+    ``reason_illustration.render_reason_illustration()`` library.
+    The previous 56×56 inline SVG icons are demoted to a small badge
+    next to the number. Mathis 2026-05-15 : *"les mini images à côté
+    des numéros sont nulles on les voit pas"*.
 
-    Sprint 14: emits a topic-relevant inline SVG icon based on the
-    reason heading. ``visual_system`` is kept for backward compat but
-    no longer drives the rendering — abstract "FIELD NOTE A/B" /
-    "SYSTEM" / signal-rail decorations were removed.
+    Sprint 15's contextual-screenshot path is kept as an OPTIONAL
+    secondary layer when the brief explicitly references a topic-
+    matching capture (``assets[icon_to_asset_key]``) — but the primary
+    visual is now the custom illustration, never a thumbnail.
     """
+    from .reason_illustration import render_reason_illustration
     icon_key = _pick_icon_key(heading)
-    svg = _REASON_ICONS.get(icon_key) or _REASON_ICONS["check"]
-    # T15-1: try contextual screenshot first.
-    contextual_html = ""
-    if assets:
-        asset_key = _ICON_TO_ASSET_KEY.get(icon_key)
-        asset_src = assets.get(asset_key) if asset_key else None
-        if asset_src:
-            contextual_html = (
-                f'<div class="reason-contextual-shot" data-asset-key="{_e(asset_key)}">'
-                f'<img src="{_e(asset_src)}" alt="" loading="lazy">'
-                f'</div>'
-            )
-    if contextual_html:
-        return f"""
-<div class="reason-visual reason-visual-contextual" aria-hidden="true" data-reason-icon="{_e(icon_key)}">
-  <div class="reason-icon-frame reason-icon-frame-small">{svg}</div>
-  {contextual_html}
-  <div class="reason-icon-number">{idx:02d}</div>
-</div>"""
+    illustration_svg = render_reason_illustration(icon_key)
+    badge_svg = _REASON_ICONS.get(icon_key) or _REASON_ICONS["check"]
     return f"""
-<div class="reason-visual" aria-hidden="true" data-reason-icon="{_e(icon_key)}">
-  <div class="reason-icon-frame">{svg}</div>
-  <div class="reason-icon-number">{idx:02d}</div>
+<div class="reason-visual reason-visual-editorial" aria-hidden="true" data-reason-icon="{_e(icon_key)}">
+  <div class="reason-illustration">{illustration_svg}</div>
+  <div class="reason-icon-badge">{badge_svg}</div>
 </div>"""
 
 

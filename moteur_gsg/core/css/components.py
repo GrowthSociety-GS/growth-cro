@@ -234,6 +234,39 @@ COMPONENTS_CSS = """.argument-line {
   padding-top: 22px;
   border-top: 1px solid color-mix(in srgb, var(--gsg-primary) 32%, transparent);
 }
+/* V27.2-I Sprint 17 PRD-B: editorial illustration layout.
+   The reason now displays a 280×180 custom SVG illustration above
+   the reason body — replacing the tiny 88px screenshots. */
+.reason-visual-editorial {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 18px;
+  padding: 26px 28px 22px;
+  margin-top: 6px;
+  border-top: 1px solid color-mix(in srgb, var(--gsg-primary) 24%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--gsg-primary) 3%, white);
+  color: var(--gsg-primary);
+}
+.reason-illustration {
+  width: 100%;
+  max-width: 360px;
+}
+.reason-illustration svg { width: 100%; height: auto; display: block; }
+.reason-icon-badge {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  background: color-mix(in srgb, var(--gsg-primary) 12%, white);
+  color: var(--gsg-primary);
+  border: 1px solid color-mix(in srgb, var(--gsg-primary) 22%, transparent);
+}
+.reason-icon-badge svg { width: 18px; height: 18px; }
+@media (max-width: 720px) {
+  .reason-visual-editorial { padding: 18px; gap: 14px; }
+  .reason-illustration { max-width: 100%; }
+}
 .reason-icon-frame {
   width: 56px;
   height: 56px;

@@ -169,6 +169,36 @@ ANTI_PATTERNS: tuple[dict[str, Any], ...] = (
         "pattern": re.compile(r"\bwidth\s*:\s*(?:1[5-9]|[2-9])\d{3,}px"),
         "allowed": 1,
     },
+    # V27.2-I Sprint 17 PRD-A : redundant proof section.
+    # Mathis 2026-05-15 (V9 review) : *"le bandeau qui veut rien dire"*
+    # — when the proof-strip rendered facts that were already in the H1
+    # or reason headings, the strip became visual noise. We catch the
+    # pattern : a `<ul class="proof-strip">` AND an H1 that contains
+    # the same number as one of the proof-strip <li>.
+    {
+        "id": "redundant_proof_section",
+        "severity": "warning",
+        "description": "proof-strip <ul> repeats a number already present in the H1 — visual noise (Mathis 2026-05-15 bandeau)",
+        "pattern": re.compile(
+            r'<ul class="proof-strip"[^>]*>.*?</ul>.*?<h1[^>]*>[^<]*?(\d[\d ,.]{3,})',
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "allowed": 0,
+    },
+    # V27.2-I Sprint 17 PRD-A : visual_density_too_low.
+    # A reason article with no .reason-illustration / no <svg> / no
+    # <img> is a "flat text slab". Listicles must surface a visual per
+    # reason. Catch the absence pattern.
+    {
+        "id": "visual_density_too_low",
+        "severity": "info",
+        "description": "Listicle reason <article> with NO accompanying visual (no .reason-illustration / .reason-visual / <svg> / <img>) — flat text slab",
+        "pattern": re.compile(
+            r'<article class="reason"[^>]*>(?:(?!<svg|<img|reason-illustration|reason-visual).)*?</article>',
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "allowed": 0,
+    },
     # V27.2-H Sprint 15 T15-2: internal provenance leak.
     # Mathis 2026-05-15: `<small>home/capture.structure.headings</small>`
     # leaked in the proof strip. Never let internal artefact paths reach

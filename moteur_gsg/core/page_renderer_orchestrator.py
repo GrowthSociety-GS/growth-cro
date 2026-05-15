@@ -319,6 +319,7 @@ def render_controlled_page(
         <div class="hero-copy">
           <p class="eyebrow">{_e(hero.get('eyebrow'))}</p>
           <h1 id="page-title">{_e(hero.get('h1'))}</h1>
+          {f'<p class="sub-h1">{_e(hero.get("sub_h1"))}</p>' if hero.get('sub_h1') else ''}
           <p class="dek">{_e(hero.get('dek'))}</p>
           {_hero_cta_block(hero, cta_href, cta_label)}
           {_hero_logos_grid(hero, plan)}
@@ -330,7 +331,7 @@ def render_controlled_page(
       <section class="intro" aria-label="Introduction">
         {_paragraphs(intro)}
       </section>
-      {_proof_strip(plan)}
+      {'' if plan.page_type == 'lp_listicle' else _proof_strip(plan)}
       {''.join(reason_html)}
       {comparison_html}
       {testimonials_html}

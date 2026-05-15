@@ -94,10 +94,16 @@ def _impl_penalty(impl_report: dict) -> float:
 
 
 def _verdict_tier(pct: float) -> str:
+    # V27.2-I Sprint 17 PRD-A : recalibration des seuils. Mathis 2026-05-15
+    # *"82% Excellent mais y'a bcp de problèmes"* — l'ancien seuil "Excellent
+    # ≥ 75%" était trop permissif. La nouvelle échelle aligne "Stratospheric"
+    # avec ce que Mathis appellerait "shippable sans édition", et "Excellent"
+    # avec "vraiment bon mais polissage léger possible".
+    if pct >= 92: return "🚀 Stratospheric"
     if pct >= 85: return "🏆 Exceptionnel"
-    if pct >= 75: return "✅ Excellent"
-    if pct >= 65: return "🟡 Bon"
-    if pct >= 50: return "⚠️ Moyen"
+    if pct >= 78: return "✅ Excellent"
+    if pct >= 70: return "🟡 Bon"
+    if pct >= 60: return "⚠️ Moyen"
     return "🔴 Insuffisant"
 
 

@@ -80,6 +80,30 @@ emil-design-eng 10/10), (3) shippé un hero stratosphérique XL editorial,
 
 ---
 
+## Sprint 17 — 2026-05-15 (CLOSED) — Stratospheric final polish + honest skills audit
+
+Mathis 2026-05-15 V9 review : *"82% Excellent mais y'a bcp de
+problèmes"*. Sprint 17 a (1) recalibré les seuils de notation (Excellent
+≥ 78%, Exceptionnel ≥ 85%, Stratospheric ≥ 92%) — l'ancien seuil
+"Excellent ≥ 75%" était trop permissif, (2) introduit un
+`composite_score` qui pondère multi-judge (0.55) + impeccable (0.10) +
+4 audits runtime (0.35), (3) shippé 10 illustrations SVG sur-mesure
+(≥ 220px) par reason au lieu des thumbnails 88px, (4) retiré la
+proof-strip mixte EN+FR redondante en lp_listicle, (5) ajouté une
+texture paper-grain SVG turbulence, (6) écrit un audit honnête
+documentant que `brand-guidelines` / `frontend-design` ne sont PAS
+des skills installés mais des modules Python heuristiques.
+
+### Règles dégagées
+
+| Règle | Déclencheur | Conséquence si violée |
+|------|-------------|-----------------------|
+| Les seuils de notation "Excellent ≥ 75%" sont trop permissifs vu de Mathis. La doctrine impose : Stratospheric ≥ 92, Exceptionnel ≥ 85, Excellent ≥ 78. | Calibration multi-judge / composite_score | Faux positifs "Excellent" qui décrédibilisent le système de scoring |
+| Un module Python d'audit ≠ un skill wirée. Si on nomme un fichier `brand_guidelines_audit.py` on doit DOCUMENTER honnêtement (cf. `docs/state/SKILLS_HONEST_AUDIT_*.md`) que c'est un module natif inspiré d'un skill, pas une invocation Skill tool. | Sprint qui ajoute un audit runtime | Drift doctrine ↔ implémentation, faux sentiment de robustesse |
+| Le defensive coding contre malformed Sonnet output (`if not isinstance(c, dict): continue`) DOIT être systématique sur tout itération `result["criteria"]` — Sonnet retourne parfois `criteria` comme array de strings au lieu d'objects, surtout en tool_use forcé. | Multi-judge / Sonnet tool_use parsing | Hard crash en aggregation, sprint bloqué |
+
+---
+
 ## Sprint X — futurs
 
 Format identique. 1-3 règles par sprint maximum. Si une règle est très
@@ -94,4 +118,5 @@ en plus de l'archiver ici.
 - Sprint 13 — `moteur_gsg` V27.2-G+ extend listicle layout (`5b1f515`)
 - Sprint 14 — Visual quality fixes 4 observations (`4a8de5f`)
 - Sprint 15 — GSG pipeline real end-to-end (`8ae6283`)
-- Sprint 16 — Resolve all + stratospheric hero (commit pending)
+- Sprint 16 — Resolve all + stratospheric hero (`223b504`)
+- Sprint 17 — Stratospheric final polish + honest skills audit (commit pending)

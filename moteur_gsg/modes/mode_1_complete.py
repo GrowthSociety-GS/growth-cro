@@ -825,6 +825,61 @@ def run_mode_1_complete(
         "impeccable_score": impeccable_report.get("score"),
         "impeccable_pass": impeccable_report.get("passed"),
     }
+
+    # V27.2-I Sprint 17 PRD-A : computed final_grade from a weighted
+    # aggregation of all 6 audits. New thresholds : Stratospheric ≥ 92,
+    # Exceptionnel ≥ 85, Excellent ≥ 78 (was ≥ 75). Mathis 2026-05-15 :
+    # *"82% Excellent mais y'a bcp de problèmes"* — recalibration needed.
+    multi_judge_final = (audit or {}).get("final", {}).get("final_score_pct") if audit else None
+    cro_score_10 = (gen.get("cro_methodology_audit") or {}).get("score") or 0
+    skills_audits = gen.get("skills_runtime_audits") or {}
+    fd_score = (skills_audits.get("frontend-design") or {}).get("score") or 0
+    bg_score = (skills_audits.get("brand-guidelines") or {}).get("score") or 0
+    em_score = (skills_audits.get("emil-design-eng") or {}).get("score") or 0
+    impeccable_pct = impeccable_report.get("score") or 0  # 0-100
+    # Weighted aggregation, all on a 0-100 scale.
+    weights = {
+        "multi_judge": 0.55,
+        "impeccable": 0.10,
+        "cro_methodology": 0.15,
+        "frontend_design": 0.07,
+        "brand_guidelines": 0.06,
+        "emil_design_eng": 0.07,
+    }
+    if multi_judge_final is not None:
+        composite = (
+            weights["multi_judge"] * multi_judge_final
+            + weights["impeccable"] * impeccable_pct
+            + weights["cro_methodology"] * cro_score_10 * 10
+            + weights["frontend_design"] * fd_score * 10
+            + weights["brand_guidelines"] * bg_score * 10
+            + weights["emil_design_eng"] * em_score * 10
+        )
+    else:
+        # No judges run — fallback to runtime audits only.
+        composite = (
+            0.30 * impeccable_pct
+            + 0.30 * cro_score_10 * 10
+            + 0.15 * fd_score * 10
+            + 0.10 * bg_score * 10
+            + 0.15 * em_score * 10
+        )
+    composite = round(composite, 1)
+    if composite >= 92:
+        final_grade = "Stratospheric"
+    elif composite >= 85:
+        final_grade = "Exceptionnel"
+    elif composite >= 78:
+        final_grade = "Excellent"
+    elif composite >= 70:
+        final_grade = "Bon"
+    elif composite >= 60:
+        final_grade = "Moyen"
+    else:
+        final_grade = "Insuffisant"
+    telemetry["composite_score"] = composite
+    telemetry["final_grade"] = final_grade
+    telemetry["composite_weights"] = weights
     if verbose:
         logger.info("\n══ Mode 1 COMPLETE — DONE ══")
         logger.info(f"  Wall total      : {telemetry['wall_seconds_total']}s")
@@ -833,7 +888,8 @@ def run_mode_1_complete(
             logger.info(f"  Minimal gates   : {'PASS' if telemetry['minimal_gate_pass'] else 'FAIL'}")
         if audit:
             t = audit.get("final", {})
-            logger.info(f"  Final score     : {t.get('final_score_pct', '?')}% — {t.get('verdict', '?')}")
+            logger.info(f"  Multi-judge     : {t.get('final_score_pct', '?')}% — {t.get('verdict', '?')}")
+        logger.info(f"  Composite score : {telemetry['composite_score']}% — {telemetry['final_grade']}")
 
     return {
         "html": html,

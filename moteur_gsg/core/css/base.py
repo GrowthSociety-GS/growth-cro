@@ -25,15 +25,17 @@ body {
   letter-spacing: 0;
 }
 body::before {
+  /* V27.2-I Sprint 17 PRD-B: paper-grain texture overlay via inline
+     SVG turbulence filter. Editorial print feel without the cost of
+     a bitmap asset. Opacity tuned to be visible only on flat surfaces
+     (a hint, not a noise pattern in your face). */
   content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: .055;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 4px);
+  opacity: .06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.85'/></svg>");
   mix-blend-mode: multiply;
 }
 p, a { overflow-wrap: anywhere; }
@@ -123,6 +125,21 @@ h1 {
   letter-spacing: -0.02em;
   font-weight: 700;
   text-wrap: balance;
+}
+/* V27.2-I Sprint 17 PRD-B: sub-h1 sits BETWEEN the H1 and the dek.
+   Italic display weight, ~half the H1 size, slightly muted color —
+   editorial subtitle convention from print magazines (NYT Mag,
+   First Round Review). LP-Creator parser surfaces this from the
+   `**Sub-H1**` field. */
+.sub-h1 {
+  margin: 14px 0 0;
+  font-family: var(--gsg-font-display);
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  line-height: 1.1;
+  font-style: italic;
+  font-weight: 400;
+  color: color-mix(in srgb, var(--gsg-ink) 70%, var(--gsg-muted));
+  max-width: min(720px, 100%);
 }
 .dek {
   /* T16-5 : the dek is the "second-tier reader" voice — slightly

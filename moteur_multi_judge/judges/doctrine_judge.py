@@ -248,6 +248,8 @@ def _check_killer_rules(pillar_results: list[dict]) -> tuple[bool, list[dict]]:
     violations = []
     for r in pillar_results:
         for c in r.get("criteria", []):
+            if not isinstance(c, dict):
+                continue
             cid = c.get("id")
             crit = all_crit.get(cid)
             if not crit:
@@ -331,6 +333,10 @@ def audit_lp_doctrine(
     n_top = n_ok = n_critical = n_na = 0
     for r in pillar_results:
         for c in r.get("criteria", []):
+            if not isinstance(c, dict):
+                # Defensive : Sonnet sometimes returns malformed criteria
+                # entries (string instead of dict). Skip without crashing.
+                continue
             verdict = c.get("verdict")
             score = c.get("score")
             crit = get_criterion(c.get("id"))
@@ -363,6 +369,8 @@ def audit_lp_doctrine(
         p_total = 0.0
         p_max = 0.0
         for c in r.get("criteria", []):
+            if not isinstance(c, dict):
+                continue
             if c.get("verdict") == "N/A" or c.get("score") is None:
                 continue
             p_total += float(c.get("score", 0))
