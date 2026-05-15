@@ -815,6 +815,39 @@ def run_mode_1_complete(
         if verbose:
             logger.info(f"  ✓ HTML saved : {out_html.relative_to(ROOT) if out_html.is_relative_to(ROOT) else out_html}")
 
+    # ── 3b. External audits (V27.2-L Sprint 20 T20-1/2) ────────
+    # axe-core WCAG2A+AA accessibility scan + Lighthouse performance
+    # audit. Both run via Node subprocesses against the saved HTML file
+    # (need a real file path on disk, not the in-memory string). Skipped
+    # silently if `save_html_path` not provided.
+    a11y_report: dict[str, Any] = {}
+    perf_report: dict[str, Any] = {}
+    if save_html_path:
+        try:
+            from ..core.external_audits import run_a11y_audit, run_perf_audit
+            a11y_report = run_a11y_audit(str(save_html_path))
+            gen["a11y_audit"] = a11y_report
+            if verbose:
+                a11y_score = a11y_report.get("score")
+                a11y_n = a11y_report.get("n_violations")
+                logger.info(
+                    f"  a11y axe-core    : score={a11y_score}/100 "
+                    f"{'PASS' if a11y_report.get('passed') else 'FAIL'} violations={a11y_n}"
+                )
+            perf_report = run_perf_audit(str(save_html_path))
+            gen["perf_audit"] = perf_report
+            if verbose:
+                perf_score = perf_report.get("score")
+                lcp = perf_report.get("lcp_ms")
+                cls = perf_report.get("cls")
+                logger.info(
+                    f"  perf lighthouse  : score={perf_score}/100 "
+                    f"{'PASS' if perf_report.get('passed') else 'FAIL'} "
+                    f"LCP={lcp}ms CLS={cls}"
+                )
+        except Exception as exc:
+            logger.warning(f"  ⚠ external audits failed : {exc}")
+
     # ── 4. Multi-judge ──────────────────────────────────────
     audit: dict = {}
     if not skip_judges:
@@ -863,14 +896,20 @@ def run_mode_1_complete(
     bg_score = (skills_audits.get("brand-guidelines") or {}).get("score") or 0
     em_score = (skills_audits.get("emil-design-eng") or {}).get("score") or 0
     impeccable_pct = impeccable_report.get("score") or 0  # 0-100
-    # Weighted aggregation, all on a 0-100 scale.
+    # V27.2-L Sprint 20 T20-3 : add a11y + perf to the composite.
+    a11y_pct = (gen.get("a11y_audit") or {}).get("score") or 0  # 0-100
+    perf_pct = (gen.get("perf_audit") or {}).get("score") or 0  # 0-100
+    # Weighted aggregation, all on a 0-100 scale. New weights account
+    # for a11y + perf as critical real-world quality signals.
     weights = {
-        "multi_judge": 0.55,
-        "impeccable": 0.10,
-        "cro_methodology": 0.15,
-        "frontend_design": 0.07,
-        "brand_guidelines": 0.06,
-        "emil_design_eng": 0.07,
+        "multi_judge": 0.45,
+        "impeccable": 0.08,
+        "cro_methodology": 0.12,
+        "frontend_design": 0.05,
+        "brand_guidelines": 0.05,
+        "emil_design_eng": 0.05,
+        "a11y": 0.10,
+        "perf": 0.10,
     }
     if multi_judge_final is not None:
         composite = (
@@ -880,15 +919,19 @@ def run_mode_1_complete(
             + weights["frontend_design"] * fd_score * 10
             + weights["brand_guidelines"] * bg_score * 10
             + weights["emil_design_eng"] * em_score * 10
+            + weights["a11y"] * a11y_pct
+            + weights["perf"] * perf_pct
         )
     else:
-        # No judges run — fallback to runtime audits only.
+        # No judges run — fallback to runtime + external audits only.
         composite = (
-            0.30 * impeccable_pct
-            + 0.30 * cro_score_10 * 10
-            + 0.15 * fd_score * 10
-            + 0.10 * bg_score * 10
-            + 0.15 * em_score * 10
+            0.20 * impeccable_pct
+            + 0.20 * cro_score_10 * 10
+            + 0.10 * fd_score * 10
+            + 0.08 * bg_score * 10
+            + 0.10 * em_score * 10
+            + 0.16 * a11y_pct
+            + 0.16 * perf_pct
         )
     composite = round(composite, 1)
     if composite >= 92:
@@ -929,6 +972,9 @@ def run_mode_1_complete(
         "cro_methodology_audit": gen.get("cro_methodology_audit"),
         # T16-2/3/4: 3 skills runtime audits (frontend-design, brand-guidelines, emil-design-eng).
         "skills_runtime_audits": gen.get("skills_runtime_audits"),
+        # T20-1/2: external subprocess audits (axe-core a11y + lighthouse perf).
+        "a11y_audit": gen.get("a11y_audit"),
+        "perf_audit": gen.get("perf_audit"),
         "client": client,
         "page_type": page_type,
         "brief": brief,

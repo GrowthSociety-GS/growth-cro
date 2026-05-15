@@ -152,6 +152,30 @@ Exceptionnel (-1.1pts vs V11). Honest assessment :
 
 ---
 
+## Sprint 20 — 2026-05-15 (CLOSED) — Quality completeness : a11y + perf
+
+Goal : add deterministic real-world quality signals (WCAG a11y +
+Core Web Vitals perf) before the final from-blank acceptance test.
+Both wired as Node subprocess audits, parsed by Python wrapper module,
+weighted 0.10 each in the composite_score formula.
+
+Result V13b (skip-judges) : **composite 92.2% Stratospheric** 🚀
+  Impeccable QA   : 96/100 PASS
+  CRO methodology : 10/10
+  frontend-design + brand-guidelines + emil-design-eng : 10/10 each
+  a11y axe-core   : 70/100 PASS (1 color-contrast violation)
+  perf lighthouse : 86/100 PASS (LCP 2.25s, CLS 0)
+
+### Règles dégagées
+
+| Règle | Déclencheur | Conséquence si violée |
+|------|-------------|-----------------------|
+| Lighthouse rejette les URLs `file://` (`INVALID_URL`). Pour auditer un HTML local, monter un mini-serveur Node `http` éphémère sur `127.0.0.1:0` et passer l'URL `http://...`. | Audit perf en local sans déployer | Lighthouse exit avec INVALID_URL, score = null |
+| Le composite_score doit pondérer ≥ 50% d'audits **déterministes** (impeccable + cro + design + a11y + perf) face au multi-judge Sonnet (≤ 50%). Sonnet a ±2-3pts de bruit run-to-run ; les audits déterministes stabilisent le grade. | Calibration composite_score | Note Stratospheric/Insuffisant qui yoyote selon le seed Sonnet |
+| Les subprocess audits Node.js doivent JAMAIS faire crasher le pipeline Python — toujours `try/except` autour du `subprocess.run()` + fallback `{error: msg, score: None}`. | Pipeline production 100 clients | Un crash a11y/perf casse la génération de toutes les pages suivantes |
+
+---
+
 ## Sprint X — futurs
 
 Format identique. 1-3 règles par sprint maximum. Si une règle est très
@@ -169,4 +193,5 @@ en plus de l'archiver ici.
 - Sprint 16 — Resolve all + stratospheric hero (`223b504`)
 - Sprint 17 — Stratospheric final polish + honest skills audit (`a82c54c`)
 - Sprint 18 — Beyond Excellent : Humanlike +2.5pts (`9503106`)
-- Sprint 19 — Push to Stratospheric : structural wins (pull-quote provenance + reason sources + bundle generator) but multi-judge noise washed out gains (commit pending)
+- Sprint 19 — Push to Stratospheric : structural wins, multi-judge noise (`bbae6d2`)
+- Sprint 20 — Quality completeness : a11y axe-core + lighthouse perf wired (commit pending)
