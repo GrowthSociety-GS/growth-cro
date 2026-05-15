@@ -192,14 +192,14 @@ Avant transition tier suivant, validation manuelle Mathis sur l'environnement Ve
 ### TIER 3 — Missing Surfaces (P1)
 - [x] 007.md - scent-trail-pane-port ✅ closed 2026-05-14 (parallel-agent worktree merged into main, commits 4dca965 + 563017c + a0785db + 20076ff + post-merge fix 1a041b8 ; migration applied + Mathis manual validation OK)
 - [x] 008.md - experiments-v27-calculator ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits c6a352e + 2c83535 + 02e8933 + 24fa668 ; migration applied + Mathis manual validation OK)
-- [ ] 009.md - geo-monitor-v31-pane (parallel: true, depends Mathis-keys)
+- [~] 009.md - geo-monitor-v31-pane (Sprint 12 in flight — parallel-agent dispatch v5 ; code shippable defensive without keys, will activate when Mathis drops OPENAI + PERPLEXITY)
 - [x] 010.md - gsg-design-grammar-viewer-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits a041d97 + 5505384 + 5ea0cb0 + 5c13636 ; Mathis manual validation OK)
-- [ ] 011.md - reality-layer-5-connectors-wiring (parallel: false, depends 002+Mathis-creds)
+- [~] 011.md - reality-layer-5-connectors-wiring (Sprint 12 in flight — parallel-agent dispatch v5 ; OAuth scaffolding shippable, will activate when Mathis provisions 5 connector OAuth)
 - [x] 012.md - learning-doctrine-dogfood-restore ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 098c434 + 75c8b56 + 4fca7f5 + 0395996 + parent-session spec fix c2760b1 ; Mathis manual validation OK)
 
 ### TIER 4 — Enhancements (P2)
-- [~] 013.md - global-chrome-cmdk-breadcrumbs 🟡 code complete 2026-05-15 (parallel-agent worktree merged into main, commits 0e17cd9 + 5cfd70a + f02f393 ; awaiting Mathis manual validation "Chrome global V26 restauré + Cmd+K productif")
-- [ ] 014.md - essential-skills-install-and-wire (parallel: true)
+- [x] 013.md - global-chrome-cmdk-breadcrumbs ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 0e17cd9 + 5cfd70a + f02f393 ; Mathis manual validation OK)
+- [~] 014.md - essential-skills-install-and-wire (Sprint 12 in flight — parent-session inline tackle)
 - [x] 015.md - legacy-cleanup-mega-prompt-archive ✅ **no-op confirmed** 2026-05-15 (archive work already shipped in prior commits `2cc7601` Issue #37 gsg_lp + `fce80ea` Issue #23 reality_layer ; growth-site-generator scripts remain blocked by 5 active prod imports — out of scope ; `--gc-*` alias cleanup deferred to Mathis-manual due to 30+ component blast radius)
 - [x] 016.md - microfrontends-decision-doc ✅ closed 2026-05-15 (parallel-agent worktree merged into main, commits 3e7636b + 63587c3 + 9921714 ; Mathis sign-off OK)
 
