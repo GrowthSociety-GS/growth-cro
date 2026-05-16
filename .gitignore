@@ -88,7 +88,13 @@ data/audits/meta/
 .claude/worktrees/
 # Skills installed via `npx skills add ...` (local-only — per-machine, not source).
 # Cf .claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md §5 Installation procedure.
-.claude/skills/
+# Ignore all skill subfolders by default, then re-include the 3 project-custom skills
+# (committed for traceability — cf AUDIT_DECISION_DOSSIER_2026-05-16 §5.4 and
+# growthcro-stratosphere-p0 epic decision "3 skills custom dans `.claude/skills/` racine projet").
+.claude/skills/*
+!.claude/skills/growthcro-anti-drift
+!.claude/skills/growthcro-prd-planner
+!.claude/skills/growthcro-status-memory
 skills-lock.json
 # External skill clones (per-machine, re-installed via git clone — cf WAVE_0_STATUS_*.md)
 skills/skill-based-architecture/
