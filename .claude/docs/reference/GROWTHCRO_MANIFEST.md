@@ -403,6 +403,61 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-16 — Wave 1 Renaissance SHIPPED (issues #56 + #57 + #58)
+
+**Epic** : [`gsg-creative-renaissance`](../../epics/gsg-creative-renaissance/epic.md) [#55](https://github.com/GrowthSociety-GS/growth-cro/issues/55). PRD : [`gsg-creative-renaissance.md`](../../prds/gsg-creative-renaissance.md). 3 issues atomiques Wave 1 closed (#56 CR-01 + #57 CR-02 + #58 CR-03), 5 commits feat + 2 housekeeping.
+
+**Issue #56 — CR-01 Creative Exploration Engine** (`feat(creative_engine)` commits `4b47abf` part 1/2 + `d2ef097` part 2/2)
+- **New package** `moteur_gsg/creative_engine/` mono-concern 4 axes : `__init__.py` (68 LOC re-exports) + `orchestrator.py` (514 LOC, axe orchestration) + `persist.py` (120 LOC, axe persistence, atomic tmpfile+rename) + `cli.py` (204 LOC, axe CLI argparse subcommand `explore`).
+- **New models** `growthcro/models/creative_models.py` (167 LOC, axe TYPING, Pydantic v2 frozen+extra=forbid) : `CreativeRoute` (11 thesis fields min_length=20 + page_type_modules 2-12 + risks ≥1 + why_this_route_fits ≥50) + `CreativeRouteBatch` (3-5 routes, 12 BusinessCategory Literal, unique route_ids invariant) + `RouteThesis` nested + `CreativeEngineError`.
+- **Anthropic call** : `claude-opus-4-7` model (à valider en smoke heavy — peut nécessiter swap vers ID exact `claude-opus-4-7-YYYYMMDD` ou `claude-opus-4-1`). System prompt 4 sections, ≤8K chars hard limit (anti-pattern #1) asserted at module load. Empty context = 2700 chars, rich Weglot context = 5165 chars, 35% headroom.
+- **Retry strategy** : 1 retry via Sonnet self-correction si Opus output not JSON parseable. Si second attempt fails → `raise CreativeEngineError`.
+- **Cost** : ~$0.5-1 par run de 5 routes (input ~5K tokens, output ~8K tokens).
+- **Tests** : 36 pytest (16 schema + 7 orchestrator + 7 persist + 6 CLI). Anthropic SDK fully mocked. Real smoke pending Mathis manual run.
+- **Early-push strategy** : commit 1 (schema only) pushed ~30 min après dispatch pour unblock CR-02 + CR-03 parallèle. Commit 2 (full feature) ~2h après.
+
+**Issue #57 — CR-02 Visual Judge / Route Selection** (`feat(creative_engine)` commit `a40d1bf` + `46f21e2` task frontmatter close)
+- **New module** `moteur_gsg/creative_engine/judge.py` (559 LOC, axe validation). System prompt 4 sections, 2386 chars (≤4K asserted at module load, anti-pattern #1). Sonnet structured output via tool_use, retry once si invalid, raise sur double failure.
+- **New models** `growthcro/models/judge_models.py` (164 LOC, axe TYPING) : `RouteScore` (5 axes 1-10 + `weighted_score` computed_field, formule `brand_fit*0.30 + cro_fit*0.25 + originality*0.15 + feasibility*0.15 + visual_potential*0.15`) + `RouteSelectionDecision` (selected + alternatives_evaluated, cross-field invariant validator selected_route_id matches score, judge_meta dict pour telemetry).
+- **Tie-break déterministe** : weighted_score → brand_fit le plus haut → route_id alphabétique min. Le LLM pick est stored advisory dans `judge_meta.llm_selected_route_id`, le vrai winner est le tie-break deterministic.
+- **Anti-cheat** : si tous les 5 axes scores identiques sur toutes routes → logger.warning (flat-scores suspect), fallback deterministic continue.
+- **Persist** : atomic `save_route_selection_decision()` à `data/captures/<client>/<page>/route_selection_decision.json`. `load_*` strip le computed `weighted_score` avant re-validation (frozen+extra=forbid rejette extras).
+- **Cost** : ~$0.1 per batch (Sonnet ~3K input × 5 routes + ~500 output).
+- **Tests** : 18 pytest (formula math, tie-break by brand_fit + alpha, deterministic across permutations, Pydantic axis range + decision invariants, happy path + retry on invalid JSON + retry on schema mismatch + raise on double fail, flat-scores WARN with caplog).
+
+**Issue #58 — CR-03 Contracts Pydantic schemas** (`feat(creative_engine)` commit `dc0e9a8`)
+- **New models** `growthcro/models/visual_composer_models.py` (421 LOC, axe TYPING, Pydantic v2 frozen+extra=forbid) : `CreativeRouteContract` (post Visual Judge, deterministic facing renderer, factory `from_creative_route()`) + `SectionSpec` (16 section_type Literal + copy_slots + visual_modules + order_index) + `VisualModule` (15 module_type Literal + target_section FK + params) + `MotionSpec` (5 trigger × 7 animation_type Literal, duration 50-3000ms, delay 0-5000ms) + `AssetSpec` (9 asset_type Literal, 4 source_strategy Literal, exactly-one-of-4 resolution slots `resolved_path | resolved_svg_inline | resolved_url | unresolved=True` invariant — **PAS de prompt_for_image_gen field** vu décision skip image gen v1) + `ResponsiveBreakpoints` (mobile/tablet/desktop defaults) + `VisualComposerContract` (top-level avec 8 invariants : unique IDs per collection + foreign keys validation).
+- **Mono-concern split** : file séparé de `creative_models.py` (CR-01) pour respecter §TYPING ("Modèles dans `growthcro/models/<topic>_models.py` mono-concern, ≤200 LOC" — split à 421 LOC justifié single-concern par lint INFO tier).
+- **Tests** : 23 pytest cases (factory, frozen mutation, invariants unique IDs + foreign keys, exactly-one-of-4 AssetSpec resolution, round-trip).
+
+**Smoke gates final post Wave 1** :
+- **pytest** : 215 passed in 0.30s (138 baseline + 77 Wave 1 Renaissance = +56% coverage)
+- **lint_code_hygiene** : FAIL 3 (only pre-P0 debt : `_archive_deprecated`, `components.py` 979 LOC, `seed_supabase` os.environ). Aucun nouveau fail Wave 1.
+- **SCHEMA validate_all** : 3439 files OK
+- **audit_skills_governance** : 38 entries, 0 drift
+- **audit_capabilities** : 0 orphans HIGH (5 potentiels low-priority)
+- **Race incidents** : 1 mitigated (Agent CR-03 stashed CR-02 untracked files pendant commit, popped cleanly. CR-02 push fast-forward après).
+
+**Process learning Wave 1** :
+- **Early-push pattern marche** : Agent CR-01 a pushed schema only en commit 1 (~30 min), libérant CR-02 + CR-03 pour démarrer parallèle. Pattern réutilisable pour futures waves quand 1 fichier foundational débloque N consommateurs.
+- **Stash-on-race-detection works** : Agent CR-03 a `git stash` les fichiers CR-02 untracked, commit ses fichiers, push, puis `git stash pop` — zero conflit final, zero work lost.
+- **Mono-concern enforcement** : CR-03 a refusé d'étendre creative_models.py (CR-01-owned), a créé visual_composer_models.py séparé. Mathis can grow each models file independently sans craindre cross-issue conflicts.
+
+**Risques surfacés Wave 1 (à monitorer Wave 2/3)** :
+- **Model ID `claude-opus-4-7`** non vérifié contre Anthropic API live. Premier real Opus call (Mathis smoke) peut 404 → swap nécessaire vers ID exact disponible (`claude-opus-4-7-YYYYMMDD` ou rétrograder Opus 4.1).
+- **`max_tokens=8000`** est un guess pour 5 routes × 11 thesis fields. Real Opus output peut nécessiter 12K+ si routes long-form → augmenter si observed truncation.
+- **`extract_json_from_response`** réutilisé depuis `growthcro/recos/schema.py` — first `{...}` block extraction, may break si Opus replies prose-then-JSON-then-prose. À monitor.
+- **CR-04 (Wave 2 prochaine)** consumera `RouteSelectionDecision.selected_route_score.route_id` (str) — pas `judge_meta.llm_selected_route_id`. Documenté dans le commit a40d1bf.
+- **AssetSpec exactly-one-of-4 invariant** : CR-04 asset_resolver doit toujours set 1 des 4 slots (default `unresolved=True` fail-loud si rien match). Si CR-04 build incrementally, construire Pydantic à la fin (sinon validator raise pendant build).
+
+**Wave 1 effort réel vs estimé** :
+- CR-01 : estimé L 16h, réel ~3h wall (early-push strategy + agent productivity)
+- CR-02 : estimé M 12h, réel ~1.5h wall (parallel après CR-01 schema)
+- CR-03 : estimé M 8h, réel ~1h wall (parallel après CR-01 schema)
+- **Total Wave 1 wall : ~5.5h** vs estimé 36h dev solo. Parallélisation 3 agents = 6.5x speedup observé.
+
+**Wave 2 prochaine** : CR-04 Visual Composer + vocabulary library 12 verticals (L 18h depuis skip image gen v1) + CR-05 Screenshot QA via MCP Playwright (L 16h). MCP Playwright déjà installed + Restart Claude Code OK. Promptfoo déjà installed. Ready to dispatch dès que Mathis valide Wave 1 (smoke heavy real Opus call).
+
 ### 2026-05-16 — Epic `gsg-creative-renaissance` registered as DEFERRED (Codex addendum)
 
 **Source** : [`.claude/docs/state/CODEX_TO_CLAUDE_GSG_CREATIVE_ENGINE_ADDENDUM_2026-05-16.md`](../state/CODEX_TO_CLAUDE_GSG_CREATIVE_ENGINE_ADDENDUM_2026-05-16.md) — addendum Codex 2026-05-16 validé Mathis. Tracks both files in commit `cae249c`.
