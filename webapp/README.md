@@ -35,7 +35,7 @@ npm run build
 
 ## Architecture
 
-See `architecture/GROWTHCRO_ARCHITECTURE_V1.md` (root of repo).
+See `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md` (single shell D1.A 2026-05-14 verrouillé) and `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` (module + data-artefact map). The previous V1 microfrontends target doc has been archived under `_archive/architecture_pre_d1a/`.
 
 ## Data migration
 

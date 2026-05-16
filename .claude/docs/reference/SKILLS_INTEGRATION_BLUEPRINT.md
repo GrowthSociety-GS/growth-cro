@@ -683,7 +683,7 @@ Une fois les 4 skills installés, mettre à jour :
 ### Pour démarrer un sprint webapp V28
 
 - [ ] Combo "Webapp Next.js dev" actif (frontend-design + web-artifacts-builder + vercel-microfrontends + Figma si applicable)
-- [ ] Architecture target lue : `.claude/docs/architecture/GROWTHCRO_ARCHITECTURE_V1.md` (à mettre à jour dans #21)
+- [ ] Architecture vivante lue : `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md` (single shell D1.A 2026-05-14 verrouillé — ancienne cible V1 microfrontends archivée sous `_archive/architecture_pre_d1a/`)
 - [ ] `microfrontends.json` initialisé Vercel (premier sprint webapp V28)
 - [ ] Brand DNA per-microfrontend décidé (audit-app peut avoir un thème, gsg-studio peut en avoir un autre adapté au context creative)
 

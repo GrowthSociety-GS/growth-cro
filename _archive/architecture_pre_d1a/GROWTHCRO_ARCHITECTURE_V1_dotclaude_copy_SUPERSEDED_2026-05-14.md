@@ -1,10 +1,16 @@
-# GrowthCRO — Architecture Complète de la Webapp
-
-> Version 1.0 — 5 avril 2026
-> Stack : Next.js 14 (App Router) + Supabase (Auth, DB, Storage, Realtime) + Vercel
-> Philosophie : "Mille fois mieux que Rocket" — UI light mode premium, anti-dashboard-générique
+> **⚠️ ARCHIVED 2026-05-16 — DO NOT USE AS LIVING ARCHITECTURE SOURCE**
 >
-> Note V26.AH (2026-05-04) : ce document reste la cible produit long-terme. Le runtime actuel est un static MVP + moteurs Python séparés. Avant de coder, lire `architecture/PRODUCT_BOUNDARIES_V26AH.md` et `architecture/RESCUE_DECISION_V26AH_2026-05-04.md`.
+> **SUPERSEDED** by [`.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md`](../../.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md) §3-bis D1.A (2026-05-14, Mathis stamp 2026-05-14T16:30Z) which **locks single shell** (`webapp/apps/shell/` only, microfrontends retired). This document was the long-term webapp target written in April 2026; the D1.A decision retired its microfrontend / multi-zone topology.
+>
+> Kept for historical reference / design rationale only. Archived 2026-05-16 by issue [#41](https://github.com/GrowthSociety-GS/growth-cro/issues/41). Originally located at `.claude/docs/architecture/GROWTHCRO_ARCHITECTURE_V1.md`.
+>
+> ---
+
+# GrowthCRO — Architecture Complète de la Webapp (SUPERSEDED)
+
+> Version 1.0 — 5 avril 2026 — ARCHIVED 2026-05-16
+> Stack (target — retired) : Next.js 14 (App Router) + Supabase (Auth, DB, Storage, Realtime) + Vercel
+> Philosophie : "Mille fois mieux que Rocket" — UI light mode premium, anti-dashboard-générique
 
 ---
 

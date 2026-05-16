@@ -25,7 +25,7 @@ Index unique de la doctrine projet GrowthCRO. Tout ce que Claude Code et Codex C
 │   │   ├── HANDOFF_TO_CLAUDE_CODE.md        # Handoff doc
 │   │   └── START_HERE_NEW_SESSION.md        # Onboarding nouvelle session
 │   └── architecture/      # Specs architecturales V27+
-│       ├── GROWTHCRO_ARCHITECTURE_V1.md
+│       │   (GROWTHCRO_ARCHITECTURE_V1.md archivé 2026-05-16 issue #41 — voir _archive/architecture_pre_d1a/)
 │       ├── GSG_CANONICAL_CONTRACT_V27_2026-05-05.md
 │       ├── GSG_RECONSTRUCTION_SPEC_V27_2_2026-05-06.md
 │       ├── PANEL_CANONIQUE_V27_PROPOSAL_2026-05-05.md

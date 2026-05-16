@@ -1,6 +1,6 @@
 # GrowthCRO — Outil interne d'audit CRO + closed-loop apprenant
 
-**État** : V27.2-F GSG route selector Golden/Creative structuré (2026-05-07) · **Vision** : Notion `Mathis Project x GrowthCRO Web App` + `Le Guide Expliqué Simplement`
+**État** : V27 canonical (V27.2-F route selector + V27.2-G visual layer) — single shell D1.A verrouillé (2026-05-14) · **Vision** : Notion `Mathis Project x GrowthCRO Web App` + `Le Guide Expliqué Simplement`
 
 ---
 
@@ -17,9 +17,9 @@ GrowthCRO est un **consultant CRO senior automatisé** pour les ~100 clients de 
 
 → **Boucle fermée** : Audit → Action → Mesure → Apprentissage → Génération → Monitoring.
 
-**Architecture cible** (`architecture/GROWTHCRO_ARCHITECTURE_V1.md`) : webapp Next.js 14 + Supabase + Vercel. Aujourd'hui : HTML statique V26 `deliverables/GrowthCRO-V26-WebApp.html` + V27 Command Center `deliverables/GrowthCRO-V27-CommandCenter.html` (lit `growth_audit_data.js`, fonctionne en `open html` direct sans serveur).
+**Architecture vivante** : `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md` (single shell D1.A 2026-05-14 verrouillé) + `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml` (module + data-artefact map, auto-mis à jour). Aujourd'hui : HTML statique V26 `deliverables/GrowthCRO-V26-WebApp.html` + V27 Command Center `deliverables/GrowthCRO-V27-CommandCenter.html` (lit `growth_audit_data.js`, fonctionne en `open html` direct sans serveur). _Note: la doc cible V1 microfrontends (2026-05-11) est archivée sous `_archive/architecture_pre_d1a/` — superseded par D1.A._
 
-**Séparation produit active V26.AH** : lire `architecture/PRODUCT_BOUNDARIES_V26AH.md` avant tout nouveau sprint. Audit/Reco, GSG, Webapp, Reality, Experiment, Learning et GEO sont des produits internes séparés avec dépendances explicites.
+**Séparation produit active V26.AH** : lire `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md` avant tout nouveau sprint. Audit/Reco, GSG, Webapp, Reality, Experiment, Learning et GEO sont des produits internes séparés avec dépendances explicites.
 
 ---
 
@@ -261,7 +261,9 @@ Voir `.claude/docs/reference/RUNBOOK.md` pour procédures complètes.
 - **Proposition panel V27** : `.claude/docs/architecture/PANEL_CANONIQUE_V27_PROPOSAL_2026-05-05.md`
 - **Contrat panel V27 runtime** : `data/curated_clients_v27.json`
 - **Reco quality audit V26.AH** : `reports/RECO_QUALITY_AUDIT_V26AH_2026-05-04.md`
-- **Architecture cible Next.js+Supabase** : `architecture/GROWTHCRO_ARCHITECTURE_V1.md`
+- **Architecture vivante (single shell D1.A)** : `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md`
+- **Module + data-artefact map (machine-readable)** : `.claude/docs/state/WEBAPP_ARCHITECTURE_MAP.yaml`
+- **Doc V1 microfrontends archivée (historique)** : `_archive/architecture_pre_d1a/GROWTHCRO_ARCHITECTURE_V1_SUPERSEDED_2026-05-14.md`
 
 ---
 
