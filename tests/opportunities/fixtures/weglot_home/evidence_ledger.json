@@ -1,0 +1,73 @@
+{
+  "version": "v26.A.1.0 (fixture)",
+  "client": "weglot",
+  "page": "home",
+  "viewport": "desktop",
+  "n_items": 7,
+  "updated_at": "2026-05-16T00:00:00",
+  "items": [
+    {
+      "evidence_id": "ev_fix_hero_03_001",
+      "criterion_ref": "hero_03",
+      "source_type": "vision",
+      "score_observed": 1.5,
+      "score_max": 3,
+      "verdict": "ok",
+      "rationale_excerpt": "CTA 'Try for free' verbe OK mais 0x0 sous 44px."
+    },
+    {
+      "evidence_id": "ev_fix_hero_04_001",
+      "criterion_ref": "hero_04",
+      "source_type": "dom",
+      "score_observed": 0.0,
+      "score_max": 3,
+      "verdict": "critical",
+      "rationale_excerpt": "Aucun visuel hero détecté."
+    },
+    {
+      "evidence_id": "ev_fix_per_02_001",
+      "criterion_ref": "per_02",
+      "source_type": "vision",
+      "score_observed": 1.5,
+      "score_max": 3,
+      "verdict": "ok",
+      "rationale_excerpt": "Storytelling juxtaposition sans arc narratif fort."
+    },
+    {
+      "evidence_id": "ev_fix_per_06_001",
+      "criterion_ref": "per_06",
+      "source_type": "vision",
+      "score_observed": 1.0,
+      "score_max": 3,
+      "verdict": "ok",
+      "rationale_excerpt": "Bénéfice émotionnel absent."
+    },
+    {
+      "evidence_id": "ev_fix_coh_02_001",
+      "criterion_ref": "coh_02",
+      "source_type": "vision",
+      "score_observed": 1.5,
+      "score_max": 3,
+      "verdict": "ok",
+      "rationale_excerpt": "Cohérence visuelle moyenne."
+    },
+    {
+      "evidence_id": "ev_fix_coh_04_001",
+      "criterion_ref": "coh_04",
+      "source_type": "vision",
+      "score_observed": 1.5,
+      "score_max": 3,
+      "verdict": "ok",
+      "rationale_excerpt": "Voice tone OK mais générique."
+    },
+    {
+      "evidence_id": "ev_fix_tech_01_001",
+      "criterion_ref": "tech_01",
+      "source_type": "lighthouse",
+      "score_observed": 1.5,
+      "score_max": 3,
+      "verdict": "ok",
+      "rationale_excerpt": "LCP 3.2s sur mobile (cible <2.5s)."
+    }
+  ]
+}

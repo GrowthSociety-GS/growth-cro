@@ -1,0 +1,48 @@
+{
+  "doctrineVersion": "v3.2.0-draft (fixture)",
+  "generatedAt": "2026-05-16T00:00:00Z",
+  "label": "weglot",
+  "pageType": "home",
+  "universal": {
+    "byPillar": {
+      "hero": {
+        "bloc": "hero",
+        "score100": 75.0,
+        "kept_criteria": [
+          {"id": "hero_01", "score": 3.0, "max": 3.0, "tier": "top"},
+          {"id": "hero_03", "score": 1.5, "max": 3.0, "tier": "ok"},
+          {"id": "hero_04", "score": 0.0, "max": 3.0, "tier": "critical"}
+        ]
+      },
+      "persuasion": {
+        "bloc": "persuasion",
+        "score100": 50.0,
+        "kept_criteria": [
+          {"id": "per_02", "score": 1.5, "max": 3.0, "tier": "ok"},
+          {"id": "per_06", "score": 1.0, "max": 3.0, "tier": "ok"}
+        ]
+      },
+      "coherence": {
+        "bloc": "coherence",
+        "score100": 50.0,
+        "kept_criteria": [
+          {"id": "coh_02", "score": 1.5, "max": 3.0, "tier": "ok"},
+          {"id": "coh_04", "score": 1.5, "max": 3.0, "tier": "ok"}
+        ]
+      },
+      "tech": {
+        "bloc": "tech",
+        "score100": 60.0,
+        "kept_criteria": [
+          {"id": "tech_01", "score": 1.5, "max": 3.0, "tier": "ok"},
+          {"id": "tech_02", "score": 3.0, "max": 3.0, "tier": "top"}
+        ]
+      }
+    }
+  },
+  "applicability_overlay": {
+    "applied": true,
+    "rules_matched": [],
+    "rules_matched_count": 0
+  }
+}
