@@ -42,7 +42,12 @@ import time
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-# Load .env
+# Load .env into os.environ BEFORE any anthropic SDK construction.
+# growthcro.config._load_dotenv_once() runs at import time; without this line,
+# downstream modules (doctrine_judge.py, recos/client.py, etc.) construct
+# anthropic.Anthropic() with an empty env and crash on missing ANTHROPIC_API_KEY.
+import growthcro.config  # noqa: F401 — side-effect import for env load
+
 from moteur_gsg.core.brief_v2_validator import (
     parse_brief_v2_from_dict, archive_brief_v2,
 )
