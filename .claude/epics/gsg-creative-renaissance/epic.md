@@ -4,7 +4,7 @@ status: ready
 created: 2026-05-16T17:20:00Z
 updated: 2026-05-16T18:45:00Z
 prd: .claude/prds/gsg-creative-renaissance.md
-github: TBD
+github: https://github.com/GrowthSociety-GS/growth-cro/issues/55
 source_addendum: .claude/docs/state/CODEX_TO_CLAUDE_GSG_CREATIVE_ENGINE_ADDENDUM_2026-05-16.md
 depends_on:
   - epic:growthcro-stratosphere-p0 (DONE 2026-05-16)
@@ -12,20 +12,23 @@ depends_on:
   - follow-up:gate-skip-style-script (Agent Alpha P1.12 émergent, à scoper)
   - follow-up:smoke-runtime-validated-by-mathis (DONE 2026-05-16)
 sub_issues:
-  - CR-01 — Creative Exploration Engine (Wave 1, L 16h)
-  - CR-02 — Visual Judge / Route Selection (Wave 1, M 12h)
-  - CR-03 — Contracts schemas (Wave 1, M 8h)
-  - CR-04 — Visual Composer + vocabulary library multi-vertical (Wave 2, XL 24h)
-  - CR-05 — Screenshot QA via MCP Playwright (Wave 2, L 16h)
-  - CR-06 — Renderer extension multi-vertical (Wave 3, XL 24h)
-  - CR-07 — Promptfoo benchmark suite (Wave 3, L 16h)
-  - CR-08 — 5 custom skills + final wire + CLAUDE.md (Wave 3, M 12h)
+  - #56 CR-01 — Creative Exploration Engine (Wave 1, L 16h)
+  - #57 CR-02 — Visual Judge / Route Selection (Wave 1, M 12h)
+  - #58 CR-03 — Contracts schemas (Wave 1, M 8h)
+  - #59 CR-04 — Visual Composer + vocabulary library multi-vertical (Wave 2, XL 24h)
+  - #60 CR-05 — Screenshot QA via MCP Playwright (Wave 2, L 16h)
+  - #61 CR-06 — Renderer extension multi-vertical (Wave 3, XL 24h)
+  - #62 CR-07 — Promptfoo benchmark suite (Wave 3, L 16h)
+  - #63 CR-08 — 5 custom skills + final wire + CLAUDE.md (Wave 3, M 12h)
 total_effort: 128h dev (3-5 sprints solo, 1-2 weeks parallélisé 3-5 agents)
 ---
 
 # Epic: gsg-creative-renaissance
 
-> **Status: DEFERRED.** Cet epic ne démarre PAS tant que les follow-ups runtime résiduels ne sont pas verts. Cf. addendum Codex §"What To Change In The GSG Roadmap" : *"After runtime alignment is fixed, the next GSG roadmap should not jump straight to more renderer tweaks."*
+> **Status: READY** (PRD complete, 8 sub-issues GitHub created #56-#63, awaiting dispatch). Runtime alignment Wave 3 + Sprint P1 DONE 2026-05-16. Codex addendum §"What To Change In The GSG Roadmap" satisfied.
+>
+> **GitHub Epic** : [#55](https://github.com/GrowthSociety-GS/growth-cro/issues/55)
+> **PRD complet** : [`.claude/prds/gsg-creative-renaissance.md`](../../prds/gsg-creative-renaissance.md) (~250 LOC, 5 user stories, 8 functional requirements, success criteria)
 
 ## Source de vérité produit
 
@@ -73,9 +76,9 @@ Diagramme Mermaid complet : cf. addendum §"Architecture Diagram".
 - Pas de judging design depuis HTML text seul → **screenshot QA mandatory**
 - Post-run judges en QA, **pas en gate générateur** (Wave 3 VerdictGate continue post-génération, c'est OK)
 
-## Task Breakdown Preview (high-level, ~6-8 issues)
+## Task Breakdown Preview (8 issues, total 128h dev)
 
-Effort total estimé : 80-150h dev (3-5 sprints), à valider par PRD séparé une fois l'epic démarré.
+PRD complet écrit ([`.claude/prds/gsg-creative-renaissance.md`](../../prds/gsg-creative-renaissance.md)). 8 sub-issues atomiques avec task files locaux (CR-01.md à CR-08.md) + GitHub issues #56-#63 créées sous label `epic:gsg-creative-renaissance`.
 
 | # | Issue | Effort | Wave |
 |---|---|---|---|
