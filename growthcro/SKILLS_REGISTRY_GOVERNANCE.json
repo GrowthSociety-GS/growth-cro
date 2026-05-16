@@ -27,12 +27,12 @@
   "mathis_decision_summary": "18 externals audited. Proposed: KEEP=13 (impeccable runtime_heuristic + 12 doc-only/session-level superpowers safe), DROP=4 (brainstorming, receiving-code-review, requesting-code-review, gstack), PIN=0 (impeccable NPM source is dormant under KEEP envelope). Final DROP/PIN decisions deferred to Mathis review of SKILLS_SECURITY_CHECKLIST.md.",
   "totals": {
     "installed_external_active": 0,
-    "installed_external_dormant": 15,
+    "installed_external_dormant": 11,
     "installed_custom": 13,
     "runtime_heuristic_python": 4,
     "subagent": 5,
     "mcp_server": 0,
-    "archived": 1,
+    "archived": 5,
     "grand_total": 38
   },
   "entries": [
@@ -110,7 +110,7 @@
     },
     {
       "id": "brainstorming",
-      "type": "installed_external_dormant",
+      "type": "archived",
       "location": "skills-lock.json (obra/superpowers)",
       "invocation_proof": "no occurrence found via grep",
       "llm_cost": "0",
@@ -124,9 +124,10 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "mathis_decision_proposed": "DROP",
+      "mathis_decision_proposed": "DROPPED_2026-05-16",
       "decision_justification": "Local HTTP server (.agents/skills/brainstorming/scripts/server.cjs binds 127.0.0.1:random) + env vars BRAINSTORM_* + /tmp/brainstorm/ fs scope. Replaceable by growthcro-prd-planner + growthcro-anti-drift (covers structured brainstorm). No active session usage detected.",
-      "notes": "EXCEPTION among superpowers: this one HAS scripts. server.cjs (354 LOC) creates http.createServer on 127.0.0.1, reads BRAINSTORM_PORT/HOST/URL_HOST/DIR/OWNER_PID env. start-server.sh/stop-server.sh boundary shell. Local-only network, no remote download, no secrets, no git."
+      "notes": "Dropped 2026-05-16 per #46 security audit + Mathis approval (epic growthcro-stratosphere-p0). Original notes: EXCEPTION among superpowers: this one HAS scripts. server.cjs (354 LOC) creates http.createServer on 127.0.0.1, reads BRAINSTORM_PORT/HOST/URL_HOST/DIR/OWNER_PID env. start-server.sh/stop-server.sh boundary shell. Local-only network, no remote download, no secrets, no git.",
+      "dropped_at": "2026-05-16"
     },
     {
       "id": "dispatching-parallel-agents",
@@ -190,7 +191,7 @@
     },
     {
       "id": "gstack",
-      "type": "installed_external_dormant",
+      "type": "archived",
       "location": "skills-lock.json (garrytan/gstack)",
       "invocation_proof": "no occurrence found via grep",
       "llm_cost": "0",
@@ -208,13 +209,14 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "mathis_decision_proposed": "DROP",
+      "mathis_decision_proposed": "DROPPED_2026-05-16",
       "decision_justification": "CRITICAL: combo shell + network + ANTHROPIC_API_KEY manipulation + remote binary download + unpinned deps for a DORMANT skill. AUDIT_DECISION_DOSSIER §5.7 already lists 'Réinstaller gstack sans audit sécurité' as anti-pattern. If re-installation needed later: exact pin all deps + sandbox subprocess + dynamic_test audit required.",
-      "notes": "Install reported failed in doc 2026-05-14, dormant. Headless browser QA capabilities — security review required before reactivation (network + shell + fs). DROP candidate (Issue #46)."
+      "notes": "Dropped 2026-05-16 per #46 security audit + Mathis approval (epic growthcro-stratosphere-p0). Original notes: Install reported failed in doc 2026-05-14, dormant. Headless browser QA capabilities — security review required before reactivation (network + shell + fs). DROP candidate (Issue #46).",
+      "dropped_at": "2026-05-16"
     },
     {
       "id": "receiving-code-review",
-      "type": "installed_external_dormant",
+      "type": "archived",
       "location": "skills-lock.json (obra/superpowers)",
       "invocation_proof": "no occurrence found via grep",
       "llm_cost": "0",
@@ -228,13 +230,14 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "mathis_decision_proposed": "DROP",
+      "mathis_decision_proposed": "DROPPED_2026-05-16",
       "decision_justification": "Doc-only (SKILL.md only). No active PR review workflow on GrowthCRO (solo dev). If Mathis opens PR review workflow later, re-install. Native /security-review covers code review needs.",
-      "notes": "Dormant — session-level skill for processing review feedback. Candidate DROP (no active PR workflow)."
+      "notes": "Dropped 2026-05-16 per #46 security audit + Mathis approval (epic growthcro-stratosphere-p0). Original notes: Dormant — session-level skill for processing review feedback. Candidate DROP (no active PR workflow).",
+      "dropped_at": "2026-05-16"
     },
     {
       "id": "requesting-code-review",
-      "type": "installed_external_dormant",
+      "type": "archived",
       "location": "skills-lock.json (obra/superpowers)",
       "invocation_proof": "no occurrence found via grep",
       "llm_cost": "0",
@@ -248,9 +251,10 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "mathis_decision_proposed": "DROP",
+      "mathis_decision_proposed": "DROPPED_2026-05-16",
       "decision_justification": "Doc-only (SKILL.md + code-reviewer.md template). No active PR review workflow. Native /security-review covers needs.",
-      "notes": "Dormant — session-level skill for requesting reviews. Candidate DROP (no active PR workflow)."
+      "notes": "Dropped 2026-05-16 per #46 security audit + Mathis approval (epic growthcro-stratosphere-p0). Original notes: Dormant — session-level skill for requesting reviews. Candidate DROP (no active PR workflow).",
+      "dropped_at": "2026-05-16"
     },
     {
       "id": "subagent-driven-development",
