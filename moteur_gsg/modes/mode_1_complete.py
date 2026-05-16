@@ -48,6 +48,7 @@ import time
 from typing import Any
 
 from ..core.brand_intelligence import load_brand_dna, has_brand_dna, get_brand_summary
+from ..core.claims_source_gate import ClaimsSourceError, validate_claims_sources
 from ..core.impeccable_qa import run_impeccable_qa
 from ..core.prompt_assembly import build_mode1_prompt
 from ..core.pipeline_single_pass import apply_runtime_fixes, single_pass
@@ -251,6 +252,7 @@ def run_mode_1_complete(
                                         # Defaults REVERT au setup Sprint 3 qui marchait.
                                         # creative_route + design_grammar restent OPT-IN explicites.
     inject_design_grammar: bool = False,  # Sprint C.1 REVERT (cf comment ci-dessus).
+    ship_strict: bool = False,  # Wave 3 #51 + #50: raise ClaimsSourceError / VerdictGateError on gate failure.
     verbose: bool = True,
 ) -> dict:
     """Pipeline complet Mode 1 COMPLETE.
@@ -749,6 +751,47 @@ def run_mode_1_complete(
         logger.info(
             f"  Impeccable QA   : score={ip_score}/100 "
             f"{'PASS' if ip_passed else 'FAIL'} hits={ip_hits}"
+        )
+
+    # ── 2c.1. Claims Source Gate (Wave 3 #51) ──────────────────
+    # Post-impeccable, pre-multi-judge. Refuses ship if any rendered
+    # claim (testimonial/number/logo/stat) lacks a `data-evidence-id`
+    # or points to a ledger entry with a non-strict source_type
+    # (anything other than vision/dom/api_external/rule_deterministic).
+    # V26.A invariant: every claim must be traceable to an observable
+    # signal — not an LLM classifier. Loads evidence_ledger.json from
+    # data/captures/<client>/<page_type>/, then falls back to home/
+    # if the page_type capture has none. Missing ledger = empty {} →
+    # every claim flagged as missing_source (safe-fail blocks ship).
+    evidence_ledger_path = CAPTURES / client / page_type / "evidence_ledger.json"
+    if not evidence_ledger_path.exists():
+        evidence_ledger_path = CAPTURES / client / "home" / "evidence_ledger.json"
+    evidence_ledger: dict[str, Any] = {"items": []}
+    if evidence_ledger_path.exists():
+        try:
+            evidence_ledger = json.loads(evidence_ledger_path.read_text())
+        except Exception as exc:
+            logger.warning(
+                f"  ⚠ evidence_ledger.json load failed ({exc}) — claims gate runs against empty ledger"
+            )
+    claims_report = validate_claims_sources(html, evidence_ledger)
+    gen["claims_source_gate"] = claims_report.model_dump()
+    if verbose:
+        logger.info(
+            f"  ClaimsSrc Gate  : claims={claims_report.claims_total} "
+            f"valid={claims_report.claims_with_valid_source} "
+            f"missing={len(claims_report.claims_missing_source)} "
+            f"invalid={len(claims_report.claims_invalid_source)} "
+            f"{'PASS' if claims_report.gate_passed else 'FAIL'}"
+        )
+    if not claims_report.gate_passed:
+        gen["claims_source_gate_failed"] = True
+        if ship_strict:
+            raise ClaimsSourceError(claims_report)
+        logger.warning(
+            f"  ClaimsSourceGate failed (non-strict mode): "
+            f"{len(claims_report.claims_missing_source)} missing + "
+            f"{len(claims_report.claims_invalid_source)} invalid — continuing run."
         )
 
     # ── 2d. CRO methodology audit (V27.2-H Sprint 15 T15-5) ────

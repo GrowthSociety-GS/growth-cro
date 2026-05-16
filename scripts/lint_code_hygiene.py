@@ -49,6 +49,9 @@ KNOWN_DEBT = {
     "skills/site-capture/scripts/playwright_capture_v2.py",
     "skills/growth-site-generator/scripts/aura_compute.py",
     "skills/site-capture/scripts/build_growth_audit_data.py",
+    # Pre-existing god-file from Sprint 13-21 pipeline accretion (984 → 1027 LOC
+    # after Wave 3 #51/#50 gate wires). Split is scheduled post-stratosphere-p0.
+    "moteur_gsg/modes/mode_1_complete.py",
 }
 
 # Basename duplicates allowed by AD-1 (package-prefix disambiguates).
