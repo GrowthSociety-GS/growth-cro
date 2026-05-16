@@ -1,28 +1,25 @@
 """Opportunity Layer — actionable CRO opportunities per page (Issue #47).
 
 Single-concern split:
-- schema.py   : thin re-export of the canonical models in
-                ``growthcro.models.opportunity_models`` (TYPING axis,
-                CODE_DOCTRINE convention).
-- persist.py  : read / write ``opportunities.json`` for one
-                (client_slug, page_type) pair. Atomic writes via
-                ``tmpfile + rename``.
+- persist.py      : read / write ``opportunities.json`` for one
+                    (client_slug, page_type) pair. Atomic writes via
+                    ``tmpfile + rename``.
+- orchestrator.py : deterministic generation from scoring artefacts (Issue #48).
+
+Canonical Pydantic models live in ``growthcro.models.opportunity_models``
+(TYPING axis per ``docs/doctrine/CODE_DOCTRINE.md``). Re-exported below for
+ergonomic ``from growthcro.opportunities import Opportunity`` callers.
 
 Out of scope here:
-- Opportunity *generation* (orchestrator) — Issue #48.
 - CLI entrypoint — Issue #49.
 - LLM enrichment — Issue P1 (future).
-
-Public re-exports below let callers ``from growthcro.opportunities import
-Opportunity, OpportunityBatch, save_opportunities, load_opportunities``
-without reaching into the inner modules.
 """
+from growthcro.models.opportunity_models import Opportunity, OpportunityBatch
 from growthcro.opportunities.persist import (
     load_opportunities,
     opportunities_path,
     save_opportunities,
 )
-from growthcro.opportunities.schema import Opportunity, OpportunityBatch
 
 __all__ = [
     "Opportunity",
