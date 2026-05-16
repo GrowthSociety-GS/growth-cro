@@ -403,6 +403,34 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-16 — P0 Wave 1 issues #40 + #41 (SSRF crawler gate + architecture V1 archive)
+
+**Epic** : [`growthcro-stratosphere-p0`](../../epics/growthcro-stratosphere-p0/) Wave 1, Agent 1 dispatch.
+
+**Issue #40 — Fix SSRF crawler validation** (`fix(security)` commit `386543f`)
+- **New mono-concern module** : `growthcro/capture/url_validator.py` (210 LOC, axis `validation`, Pydantic v2 frozen model `URLValidationResult` + custom `URLValidationError`). Stdlib + Pydantic only; no env access (CODE_DOCTRINE §CONFIG).
+- **Defenses** : scheme allowlist {http, https} (blocks `file://`, `javascript:`, `data:`, `gopher:`); hostname blocklist (`localhost`, `metadata.google.internal`, `metadata.aws.internal`, AWS/GCP/Tencent metadata, IPv6 loopback aliases); port allowlist {80, 443, 8080, 8443} (blocks 22 SSH, 25 SMTP, 3389 RDP, …); per-answer `socket.getaddrinfo` resolution + RFC1918/loopback/link-local/multicast rejection — **DNS rebinding defense** (subdomain resolving to internal IP is caught).
+- **Wired in** : `growthcro/capture/orchestrator.py::capture_page` (validates BEFORE allocating browser context — fast-fail returns structured `ok=False` with `errors[].stage="url_validation"`, no Playwright network attempt) + `growthcro/capture/cli.py` (argparse type for `--url` + upfront validation of `--batch` JSON entries).
+- **Tests** : `tests/capture/test_url_validator.py` (102 LOC) covers the 10 mandated AC cases (5 valid: example.com/example.org/www.weglot.com + 5 reject: localhost:9000, 169.254.169.254 AWS metadata, file:///etc/passwd, 10.0.0.1, 192.168.1.1:22) + 11 hardening cases (empty/whitespace, `javascript:`, `data:`, `gopher:`, 127.0.0.1, `[::1]`, metadata.google.internal, 0.0.0.0, ports 22/25) + frozen-model invariant + argparse adapter accept/reject. Manual smoke verified end-to-end: orchestrator returns `ok=False` without Playwright network call for blocked URLs.
+- **Risk addressed** : `AUDIT_DECISION_DOSSIER_2026-05-16` §10.1 risk #1 (CRITIQUE) — repo PUBLIC on GitHub, any fork/PR contributor could trigger crawler against `localhost`, AWS metadata service, or internal RFC1918 hosts and persist scraped HTML to `data/captures/...`.
+- **Gates** : `python3 scripts/lint_code_hygiene.py --staged` exit 0 (pre-existing print()/441 LOC warning on `orchestrator.py` unchanged, not introduced by this commit).
+
+**Issue #41 — Archive obsolete architecture V1 doc** (`docs(architecture)` commit `e3142d3`)
+- **Archived** (`git mv` preserving history; required `git add -f` for the new locations because `_archive/*` is gitignored):
+  - `architecture/GROWTHCRO_ARCHITECTURE_V1.md` (2026-05-11 V28 microfrontends target, 256 LOC) → `_archive/architecture_pre_d1a/GROWTHCRO_ARCHITECTURE_V1_SUPERSEDED_2026-05-14.md`
+  - `.claude/docs/architecture/GROWTHCRO_ARCHITECTURE_V1.md` (2026-04-05 "complete webapp" V1, 897 LOC, mentioned Rocket-comparison rationale) → `_archive/architecture_pre_d1a/GROWTHCRO_ARCHITECTURE_V1_dotclaude_copy_SUPERSEDED_2026-05-14.md`
+  - Both files now carry a top-of-doc SUPERSEDED banner pointing at `.claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md` §3-bis D1.A (single shell verrouillé 2026-05-14).
+- **New** : `_archive/architecture_pre_d1a/README.md` explains the folder's purpose, lists the two archived docs with original paths + line counts, and points readers at the current source of truth (`PRODUCT_BOUNDARIES_V26AH.md` + `WEBAPP_ARCHITECTURE_MAP.yaml`).
+- **Updated live docs** (no longer point at the dead V1):
+  - `README.md` ligne 3 (état) → "V27 canonical (V27.2-F + V27.2-G visual layer) — single shell D1.A verrouillé". Ligne 20-22 (Architecture cible) → "Architecture vivante : .claude/docs/architecture/PRODUCT_BOUNDARIES_V26AH.md + WEBAPP_ARCHITECTURE_MAP.yaml". Ligne 264 (refs) → idem + pointeur historique vers archive.
+  - `webapp/README.md` ligne 38 → pointe vers `PRODUCT_BOUNDARIES_V26AH.md` + `WEBAPP_ARCHITECTURE_MAP.yaml`.
+  - `.claude/README.md` tree listing → V1 entry remplacée par note "archivé 2026-05-16 issue #41".
+  - `.claude/docs/reference/SKILLS_INTEGRATION_BLUEPRINT.md` ligne 686 → checklist "Architecture target lue" pointe désormais sur `PRODUCT_BOUNDARIES_V26AH.md`.
+- **Verification** : `find . -path "./_archive" -prune -o -name "GROWTHCRO_ARCHITECTURE_V1.md" -print` returns nothing outside `_archive/` (AC #8 satisfied).
+- **Drift addressed** : `AUDIT_DECISION_DOSSIER_2026-05-16` §10.4 contradiction #1 — the two V1 docs described a microfrontends V28 topology already retired by D1.A 2026-05-14. Without archive, each new Claude session risked hallucinating the dead microfrontends layout from these visible "active" docs.
+
+**Operational note** : a parallel-agent pre-commit hook race captured portions of the issue #41 doc edits into commits `bffeff2` + `c0d2c70` (with misleading "task #44 closed" subject lines — those commits actually contain the README.md / webapp/README.md / .claude/README.md / SKILLS_INTEGRATION_BLUEPRINT.md edits and one of the V1 mv operations). The remaining archive files needed `git add -f` and landed in `e3142d3`. Content-wise, the tree is correct on `main` post-`e3142d3`. PRDs/epic specs/audit dossiers retain their textual references to `architecture/GROWTHCRO_ARCHITECTURE_V1.md` as historical context (they describe what was archived, not where to read live architecture).
+
 ### 2026-05-15 — D1.A monorepo confirmed via Task 016, architecture-explorer-data updated
 
 **Sprint** : Sprint 10 / Task 016 (`microfrontends-decision-doc`) du MEGA-PRD [`webapp-stratospheric-reconstruction-2026-05`](../../prds/webapp-stratospheric-reconstruction-2026-05.md).
