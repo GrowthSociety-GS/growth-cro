@@ -67,12 +67,32 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import pathlib
 import time
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CAPTURES = ROOT / "data" / "captures"
+
+# V26.A — strict source-type enum (Issue #51 / ClaimsSourceGate). Renderable
+# claims must trace to observable signals. `llm_classifier` alone is forbidden.
+# Enforcement: moteur_gsg/core/claims_source_gate.py.
+EvidenceSourceType = Literal[
+    "vision", "dom", "api_external", "rule_deterministic",
+    "vision+dom", "hybrid_vision_dom",
+]
+_VALID_SOURCE_TYPES: frozenset[str] = frozenset({
+    "vision", "dom", "api_external", "rule_deterministic",
+    "vision+dom", "hybrid_vision_dom",
+})
+_logger = logging.getLogger("growthcro.evidence_ledger")
+
+
+def is_valid_source_type(source_type: str | None) -> bool:
+    """True iff `source_type` is part of the strict V26.A enum. Backward
+    compat: invalid values return False without raising (caller blocks ship)."""
+    return bool(source_type) and source_type in _VALID_SOURCE_TYPES
 
 
 def compute_capture_hash(file_path: pathlib.Path) -> str:
@@ -137,6 +157,13 @@ class EvidenceLedger:
     ) -> str:
         """Add an evidence item. Returns the generated evidence_id."""
         self._load()
+        if not is_valid_source_type(source_type):
+            _logger.warning(
+                "evidence_ledger.invalid_source_type "
+                "client=%s page=%s source_type=%s — will be rejected by "
+                "ClaimsSourceGate (V26.A invariant)",
+                self.client, self.page, source_type,
+            )
         cr = criterion_ref or "_global"
         self._counter[cr] = self._counter.get(cr, 0) + 1
         seq = self._counter[cr]
