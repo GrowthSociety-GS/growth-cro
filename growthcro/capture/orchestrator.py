@@ -17,6 +17,7 @@ from .browser import get_browser, handle_cookies, new_stealth_context
 from .cloud import get_brightdata_endpoint
 from .dom import ANNOTATE_JS, REMOVE_ANNOTATIONS_JS, load_extraction_js
 from .persist import assemble_spatial_v9, write_html, write_spatial_v9
+from .url_validator import URLValidationError, validate_url
 
 from growthcro.observability.logger import get_logger
 
@@ -55,6 +56,29 @@ async def capture_page(
     nodes = 0
     text_len = 0
     attempt = 0
+
+    # ── SSRF gate: validate URL BEFORE allocating browser context ──
+    try:
+        validate_url(url)
+    except URLValidationError as exc:
+        logger.info(f"  🛑 SSRF gate rejected URL: {exc}")
+        errors.append({"stage": "url_validation", "msg": str(exc)[:200]})
+        final_capture = assemble_spatial_v9(
+            url=url, label=label, page_type=page_type,
+            perception_tree=None, stages=stages,
+            errors=errors, completeness=0.0,
+        )
+        write_spatial_v9(out_dir, final_capture)
+        return {
+            "ok": False,
+            "label": label,
+            "pageType": page_type,
+            "sections": 0,
+            "completeness": 0.0,
+            "elapsed": f"{time.time() - t0:.1f}",
+            "errors": errors,
+            "stages": stages,
+        }
 
     # Create stealth context + page
     context = await new_stealth_context(browser)

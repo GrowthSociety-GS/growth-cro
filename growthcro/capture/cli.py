@@ -11,13 +11,15 @@ import pathlib
 import sys
 
 from .orchestrator import run_batch, run_single
+from .url_validator import URLValidationError, argparse_url_type, validate_url
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(
         description="Ghost Capture Cloud — Playwright Python (local + cloud browser)"
     )
-    ap.add_argument("--url", help="URL à capturer")
+    ap.add_argument("--url", type=argparse_url_type,
+                    help="URL à capturer (validée contre SSRF avant exécution)")
     ap.add_argument("--label", default="capture", help="Label client")
     ap.add_argument("--page-type", default="home", help="Type de page")
     ap.add_argument("--out-dir", default="./output", help="Répertoire de sortie")
@@ -49,6 +51,20 @@ def main() -> int:
         print("❌ Spécifie --url ou --batch")
         ap.print_help()
         return 1
+
+    # Validate URLs from --batch files upfront (--url already validated by argparse type).
+    if args.batch:
+        try:
+            batch_tasks = json.loads(pathlib.Path(args.batch).read_text())
+        except (OSError, json.JSONDecodeError) as exc:
+            print(f"❌ Batch file unreadable: {exc}")
+            return 1
+        for task in batch_tasks:
+            try:
+                validate_url(task.get("url", ""))
+            except URLValidationError as exc:
+                print(f"❌ Batch task rejected: {exc}")
+                return 1
 
     # Import playwright here (fail-fast with clear message if not installed)
     try:
