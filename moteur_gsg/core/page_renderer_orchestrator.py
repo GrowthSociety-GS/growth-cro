@@ -36,6 +36,7 @@ from .html_escaper import _e
 from .component_renderer import _reason_visual
 from .planner import GSGPagePlan
 from .section_renderer import _render_component_page
+from .seo_caps import cap_description, cap_title
 from .visual_system import build_visual_system
 
 
@@ -434,8 +435,8 @@ def render_controlled_page(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{_e(meta.get('title') or hero.get('h1'))}</title>
-  <meta name="description" content="{_e(meta.get('description') or hero.get('dek'))}">
+  <title>{_e(cap_title(meta.get('title') or hero.get('h1')))}</title>
+  <meta name="description" content="{_e(cap_description(meta.get('description') or hero.get('dek')))}">
   <style>
 {render_renderer_css(tokens)}
 {render_animations_css(tokens)}
