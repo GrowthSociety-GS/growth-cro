@@ -1,0 +1,175 @@
+{
+  "client_slug": "weglot",
+  "page_type": "lp_listicle",
+  "business_category": "saas",
+  "routes": [
+    {
+      "route_id": "editorial-grid-01",
+      "route_name": "Editorial Grid — anti-bullshit grounding",
+      "thesis": {
+        "aesthetic_thesis": "Editorial weekly-magazine layout — wide gutters, oversized numerals [01]-[10], neutral background, ink-on-paper rhythm.",
+        "spatial_layout_thesis": "12-col desktop / 4-col mobile grid. Hero takes 8 cols, leaving a 4-col side rail for proof numerals. Each listicle item occupies one strip with a fixed 2-col numeral and a 10-col body.",
+        "hero_mechanism": "Large editorial headline (clamp 56-96px), a single primary CTA below, no hero image. The grounding mechanism is typography + whitespace, not imagery.",
+        "section_rhythm": "Cadence: hero -> proof strip -> [01..10] listicle strips -> CTA bridge -> footer. Each strip is exactly the same height for scan rhythm.",
+        "visual_metaphor": "A printed editorial page from Monocle / NYT Magazine — the visual debt is to print, not to SaaS templates.",
+        "motion_language": "Subtle scroll-anchored line draws under each numeral (200ms, ease-out). No parallax. No background motion.",
+        "texture_language": "Single neutral ground (ink #1a1a1a on warm white #faf7f2). Optional 2pt rule between strips. No glass, no gradient.",
+        "image_asset_strategy": "No hero photo. Use Brand DNA primary as accent on numerals only. Customer logos as bitmap strip (no SVG outlines).",
+        "typography_strategy": "Display serif for numerals (Spectral or Lyon Text), grotesque sans for body (Inter Tight). Strict 1.6 line height for body, 0.95 for numerals.",
+        "color_strategy": "Neutral warm-white ground + brand primary on numerals + ink for body. 5% colour coverage budget (numerals + CTA only).",
+        "proof_visualization_strategy": "Inline named-source proofs after each listicle item (e.g. '+327% AI Overviews citations — Weglot study, n=1.3M'). Sources hover-revealed."
+      },
+      "page_type_modules": [
+        "hero_editorial_text_only",
+        "proof_strip_logos",
+        "listicle_strip_numeric",
+        "cta_bridge_repeat",
+        "footer_compact"
+      ],
+      "risks": [
+        "May feel too restrained for performance-paid audiences expecting visual spectacle",
+        "Numeric-heavy hierarchy requires very strong copy; weak titles will sink the page"
+      ],
+      "why_this_route_fits": "The Weglot audience is anti-bullshit, scans in 30s, and rejects 'révolutionnaire/leader' language. An editorial grid lets the chiffres do the work and aligns with the brand's pragmatic confidence positioning."
+    },
+    {
+      "route_id": "dashboard-surface-02",
+      "route_name": "Dashboard Surface — product-as-proof hero",
+      "thesis": {
+        "aesthetic_thesis": "Cinematic product interface — the hero IS a screenshot of the Weglot dashboard with live language switching, not a generic SaaS marketing illustration.",
+        "spatial_layout_thesis": "Hero occupies full viewport with dashboard surface centred and tilted ~7deg. Sticky side-rail with the [01]-[10] numerals scrolling alongside.",
+        "hero_mechanism": "Animated dashboard mockup cycling through 3 languages (EN -> FR -> JP), 4-second loop. Below: 'See your site in 110+ languages' + primary CTA.",
+        "section_rhythm": "Hero (full viewport) -> 3-up proof tiles (Polaar +400% / Napta DE x4 / Respond.io days-not-months) -> 10 listicle items in 2-up alternating layout -> dashboard CTA section.",
+        "visual_metaphor": "The dashboard itself as the unboxing — show, do not tell. Mirrors Linear / Vercel / Stripe pattern but with Weglot's actual product.",
+        "motion_language": "Dashboard language-switch loop (4s, 60fps). Scroll-anchored fade-in on listicle items (300ms, ease-out). Cursor-following highlight on integration logos.",
+        "texture_language": "Deep navy ink base (#0a0e1a) with magenta accents (Weglot primary #e9dcf0 lifted to a punchier hue for CTAs only). Subtle dot-grid on dashboard surrounds.",
+        "image_asset_strategy": "1 hero dashboard screenshot (custom asset, not stock). 3 customer dashboard screenshots in proof section. Integration logos as official brand SVGs.",
+        "typography_strategy": "Geometric sans (Söhne or Inter) at -1.5% tracking for display. Mono for dashboard metric labels (JetBrains Mono).",
+        "color_strategy": "Dark mode hero (navy base) + light mode listicle section -> visual breath. Magenta CTA reserved for 2 placements only (hero + final).",
+        "proof_visualization_strategy": "Live-feeling counters next to each customer name (Polaar revenue 5% -> 17%, animated count-up on viewport). Sources linked footer."
+      },
+      "page_type_modules": [
+        "hero_dashboard_animated",
+        "proof_tiles_3up",
+        "listicle_alternating_2up",
+        "integration_logo_grid",
+        "cta_section_dashboard_preview",
+        "footer_full"
+      ],
+      "risks": [
+        "Dashboard animation could distract from CTA on mobile (60fps cost + attention pull)",
+        "Dark hero + light listicle transition requires careful colour engineering",
+        "Risk of looking like every other SaaS dashboard hero — must lean hard on the language-switch specificity"
+      ],
+      "why_this_route_fits": "Weglot's product IS visual — showing a site flipping languages is more persuasive than describing it. The audience compares 4 alternatives and decision-makers respond to product surface area, not promises."
+    },
+    {
+      "route_id": "comparison-matrix-03",
+      "route_name": "Comparison Matrix — 4-alternative head-to-head",
+      "thesis": {
+        "aesthetic_thesis": "Trade-publication comparison layout — the hero is a 4-column matrix (Dev in-house / Agency / Google Translate / Weglot) with clear winner highlighting. Wirecutter / Consumer Reports debt.",
+        "spatial_layout_thesis": "Matrix hero: 4 columns, 8 rows (cost / time-to-live / SEO impact / quality / scale / maintenance / support / fit). Then below: 10 listicle items rendered as a vertical filmstrip.",
+        "hero_mechanism": "Matrix with the Weglot column visually highlighted (subtle background tint + checkmark accents). 'Why Weglot wins in 60s' as the H1.",
+        "section_rhythm": "Matrix (full viewport) -> 'Voice of buyers' G2/Trustpilot/WordPress quote triad -> 10 listicle items as filmstrip -> case studies grid (Polaar/Napta/Respond.io/IBM) -> CTA.",
+        "visual_metaphor": "Decision sheet on a buyer's desk — the page IS the analysis the founder would have done themselves.",
+        "motion_language": "Matrix rows reveal sequentially on scroll (staggered 100ms). Filmstrip items snap-scroll on mobile.",
+        "texture_language": "Subtle paper grain (3% opacity) under the matrix. Rule lines between columns. Soft drop shadow on the Weglot column to imply lift.",
+        "image_asset_strategy": "1 small inline screenshot per alternative column showing 'what the experience looks like'. Real, not mockup. Source attribution required.",
+        "typography_strategy": "Serif for the matrix headings (build authority), sans for cells (clarity at small size). Numeric tabular figures for any number in the matrix.",
+        "color_strategy": "Neutral matrix ground + brand primary as the winning-column tint + warning amber for 'Google Translate destroys SEO' row only.",
+        "proof_visualization_strategy": "Every matrix claim links to a source (G2 review, WordPress plugin page, customer case study). Hover state reveals the source link."
+      },
+      "page_type_modules": [
+        "hero_comparison_matrix_4col",
+        "proof_quote_triad",
+        "listicle_filmstrip_vertical",
+        "case_study_grid_4up",
+        "cta_section_simple",
+        "footer_compact"
+      ],
+      "risks": [
+        "Matrix can feel cold/technical for emotional buyers — must balance with case study warmth below",
+        "Risk of getting sued or fact-checked harshly on alternative columns — every claim needs a public source",
+        "Mobile rendering of a 4-col matrix is hard; may need to convert to swipeable cards"
+      ],
+      "why_this_route_fits": "The audience explicitly compares 4 alternatives (dev / agency / Google Translate / SaaS competitors). Showing the matrix the buyer would build themselves shortcuts their evaluation and positions Weglot as the obvious answer."
+    },
+    {
+      "route_id": "case-study-mosaic-04",
+      "route_name": "Case Study Mosaic — proof-first hero",
+      "thesis": {
+        "aesthetic_thesis": "Magazine cover featuring real customer outcomes — Polaar +400% / Napta x4 / Respond.io 15 languages as the hero composition, not a generic claim.",
+        "spatial_layout_thesis": "Hero: 3-card mosaic (asymmetric grid, 1 large + 2 stacked) each card a customer outcome with photo + result. Below: 10 listicle items in 3-up grid then CTA.",
+        "hero_mechanism": "Three hero cards rotate every 6 seconds (pause on hover), each presenting one named customer + numeric outcome + verified source link.",
+        "section_rhythm": "Mosaic hero -> stat strip (111,368 brands / 110+ languages / 4.8 G2 / 4.9 WP) -> 10 listicle 3-up -> founder testimonial pullquote -> CTA.",
+        "visual_metaphor": "A trophy case of working multilingual sites — the wall of real outcomes vs. the brochure of promises.",
+        "motion_language": "Card rotation (6s pause, 400ms cross-fade). Counter animation on stat strip (single play on viewport). Scroll-anchored hover on testimonials.",
+        "texture_language": "Subtle off-white card backgrounds with a soft 1px hairline border. No glass, no heavy gradient. Brand primary used only on outcome numbers.",
+        "image_asset_strategy": "Real customer screenshots (Polaar site, Napta site) approved or sourced from public pages. No stock. Customer logos as official SVGs.",
+        "typography_strategy": "Display sans for outcome numbers (Inter Tight 800 + tabular figures). Serif for testimonial pullquote. Mono for source URLs.",
+        "color_strategy": "Warm neutral ground with brand primary as the outcome accent only. Verified-source badge in a soft green (#16a34a) at 60% opacity.",
+        "proof_visualization_strategy": "Every outcome card carries a 'Verified by' badge linking to the public source. Stat strip numbers each carry an inline source on click."
+      },
+      "page_type_modules": [
+        "hero_case_mosaic_3card",
+        "stat_strip_4metric",
+        "listicle_grid_3up",
+        "founder_pullquote_section",
+        "cta_section_proof_anchored",
+        "footer_full"
+      ],
+      "risks": [
+        "Card rotation can hurt SEO if hidden behind JS — must SSR all 3 with CSS-only cycling fallback",
+        "Customer permission for prominent inclusion required (Polaar, Napta legal sign-off)",
+        "Risk of 'proof-stacking fatigue' — too much social proof can paradoxically reduce conversion"
+      ],
+      "why_this_route_fits": "The audience is allergic to 'des milliers de clients' bullshit but responsive to named customers with verified outcomes. Leading with the trophy case before the listicle establishes credibility before asking for attention."
+    },
+    {
+      "route_id": "interactive-quiz-05",
+      "route_name": "Interactive Quiz — choose-your-stack diagnostic",
+      "thesis": {
+        "aesthetic_thesis": "Diagnostic landing page — the hero is a 3-question quiz that routes the visitor to a personalised result panel pointing to Weglot's relevant case study.",
+        "spatial_layout_thesis": "Hero quiz (full viewport, centred 600px panel). Results panel appears in-place. Below: 10 listicle items in 2-up grid + CTA strip.",
+        "hero_mechanism": "Q1: 'Your CMS?' (WordPress / Shopify / Webflow / custom). Q2: 'Your priority?' (SEO / speed-to-live / cost). Q3: 'Languages needed?' (1-3 / 4-10 / 10+). Result: personalised plan recommendation + matching case study.",
+        "section_rhythm": "Quiz hero -> personalised result -> 10 listicle items (collapsed to top 3 if quiz revealed user is time-poor) -> founder testimonial -> CTA.",
+        "visual_metaphor": "A diagnostic tool, like a doctor's intake form — the page meets the visitor where they are rather than broadcasting at them.",
+        "motion_language": "Quiz transitions: slide-up answer panels (250ms ease). Result reveal: 500ms morph from quiz panel to personalised card. Scroll-anchored fades elsewhere.",
+        "texture_language": "Clean white ground with brand primary on quiz buttons. Result card has a subtle 1% gradient lift. No glass, no heavy depth.",
+        "image_asset_strategy": "Personalised hero illustration depending on result (1 of 4 SVGs). Real customer case study card embedded in result panel.",
+        "typography_strategy": "Display sans for quiz questions (large, friendly). Mono for the result metrics. Inter for body.",
+        "color_strategy": "Brand primary on quiz controls + neutral elsewhere. Result panel uses brand primary as a soft tint background to feel earned.",
+        "proof_visualization_strategy": "Result panel always includes 1 named customer case study matching the visitor's stack (e.g. WordPress visitors see Polaar)."
+      },
+      "page_type_modules": [
+        "hero_quiz_3question",
+        "personalised_result_panel",
+        "listicle_grid_2up_collapsible",
+        "founder_pullquote_section",
+        "cta_strip_personalised",
+        "footer_compact"
+      ],
+      "risks": [
+        "Quiz adds friction before content — visitors who hate quizzes will bounce immediately",
+        "Personalisation logic must SSR or visitors get a flash of unstyled content (LCP penalty)",
+        "Requires 4 result variants well-designed; partial implementation kills the route"
+      ],
+      "why_this_route_fits": "The audience is decision-maker pragmatic and hesitates between 4 alternatives. A quiz that diagnoses their stack + priority and routes them to the most relevant case study compresses the evaluation step into the LP itself."
+    }
+  ],
+  "prompt_meta": {
+    "model": "claude-opus-4-7",
+    "retry_model": null,
+    "system_prompt_chars": 5165,
+    "wall_seconds": 42.7,
+    "retry_used": false,
+    "retry_reason": "",
+    "tokens_opus": {
+      "input_tokens": 2100,
+      "output_tokens": 6420,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "tokens_retry": null
+  }
+}
