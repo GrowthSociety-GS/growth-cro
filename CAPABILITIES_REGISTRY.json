@@ -1,16 +1,16 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-13T17:34:21",
+  "generated_at": "2026-05-16T15:15:31",
   "stats": {
-    "total_files": 246,
+    "total_files": 282,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 51,
-    "active_package_marker": 23,
-    "active_misc": 158,
+    "active_cli": 53,
+    "active_package_marker": 27,
+    "active_misc": 185,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
-    "potentially_orphaned": 0
+    "potentially_orphaned": 3
   },
   "capabilities": [
     {
@@ -262,6 +262,21 @@
     },
     {
       "id": "__init__",
+      "path": "growthcro/geo/__init__.py",
+      "filename": "__init__.py",
+      "what": "GrowthCRO GEO Monitor V31+ — generative-engine optimisation observatory.",
+      "imports": [],
+      "size_bytes": 695,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
       "path": "growthcro/learning/__init__.py",
       "filename": "__init__.py",
       "what": "GrowthCRO Learning Layer.",
@@ -330,6 +345,27 @@
     },
     {
       "id": "__init__",
+      "path": "growthcro/opportunities/__init__.py",
+      "filename": "__init__.py",
+      "what": "Opportunity Layer — actionable CRO opportunities per page (Issue #47).",
+      "imports": [
+        "Opportunity",
+        "OpportunityBatch",
+        "growthcro",
+        "persist",
+        "schema"
+      ],
+      "size_bytes": 1103,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
       "path": "growthcro/perception/__init__.py",
       "filename": "__init__.py",
       "what": "Perception layer — DOM heuristics + adaptive DBSCAN clustering + role intent.",
@@ -379,6 +415,31 @@
       ],
       "size_bytes": 2678,
       "mtime": "2026-05-11",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__init__",
+      "path": "growthcro/reality/connectors/__init__.py",
+      "filename": "__init__.py",
+      "what": "V30 OAuth-token Reality Layer connectors (Task 011).",
+      "imports": [
+        "ClientCredential",
+        "SnapshotResult",
+        "__future__",
+        "annotations",
+        "connectors",
+        "dispatch",
+        "fetch_snapshot_for",
+        "growthcro",
+        "types"
+      ],
+      "size_bytes": 1449,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "scripts/lint_code_hygiene.py"
@@ -471,6 +532,86 @@
       "criticality": "low"
     },
     {
+      "id": "__init__",
+      "path": "growthcro/worker/__init__.py",
+      "filename": "__init__.py",
+      "what": "growthcro.worker — Phase A pipeline-trigger worker daemon (Sprint 2, task 002).",
+      "imports": [
+        "RUN_TYPE_TO_CLI",
+        "build_cli_command",
+        "dispatch_run",
+        "dispatcher",
+        "growthcro"
+      ],
+      "size_bytes": 565,
+      "mtime": "2026-05-14",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE_PACKAGE_MARKER",
+      "criticality": "low"
+    },
+    {
+      "id": "__main__",
+      "path": "growthcro/geo/__main__.py",
+      "filename": "__main__.py",
+      "what": "Entry point so `python -m growthcro.geo` works.",
+      "imports": [
+        "cli",
+        "growthcro",
+        "main"
+      ],
+      "size_bytes": 223,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "__main__",
+      "path": "growthcro/reality/__main__.py",
+      "filename": "__main__.py",
+      "what": "Package entrypoint — defers to the poller CLI (Task 011).",
+      "imports": [
+        "__future__",
+        "annotations",
+        "growthcro",
+        "main",
+        "poller"
+      ],
+      "size_bytes": 481,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "__main__",
+      "path": "growthcro/worker/__main__.py",
+      "filename": "__main__.py",
+      "what": "Allow `python -m growthcro.worker` to invoke the CLI.",
+      "imports": [
+        "cli",
+        "growthcro",
+        "main"
+      ],
+      "size_bytes": 156,
+      "mtime": "2026-05-14",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "_test_weglot_listicle_V26AE",
       "path": "scripts/_test_weglot_listicle_V26AE.py",
       "filename": "_test_weglot_listicle_V26AE.py",
@@ -558,8 +699,8 @@
         "config",
         "growthcro"
       ],
-      "size_bytes": 1794,
-      "mtime": "2026-05-11",
+      "size_bytes": 1795,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/cli/enrich_client.py",
@@ -800,8 +941,8 @@
         "__future__",
         "annotations"
       ],
-      "size_bytes": 10035,
-      "mtime": "2026-05-11",
+      "size_bytes": 11993,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/reality/__init__.py",
@@ -962,6 +1103,24 @@
       ]
     },
     {
+      "id": "brand_guidelines_audit",
+      "path": "moteur_gsg/core/brand_guidelines_audit.py",
+      "filename": "brand_guidelines_audit.py",
+      "what": "Brand-guidelines runtime audit — V27.2-H Sprint 16 (T16-3).",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 7515,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [],
+      "status": "POTENTIALLY_ORPHANED",
+      "criticality": "review_needed"
+    },
+    {
       "id": "brand_identity",
       "path": "growthcro/research/brand_identity.py",
       "filename": "brand_identity.py",
@@ -1035,6 +1194,7 @@
       "filename": "brief_v2.py",
       "what": "moteur_gsg.core.brief_v2 — V26.AD Sprint I.",
       "imports": [
+        "Any",
         "Literal",
         "Optional",
         "Path",
@@ -1045,8 +1205,8 @@
         "dataclasses",
         "field"
       ],
-      "size_bytes": 19356,
-      "mtime": "2026-05-08",
+      "size_bytes": 24670,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/brief_v2_prefiller.py",
@@ -1342,6 +1502,33 @@
       "criticality": "low"
     },
     {
+      "id": "catchr_v30",
+      "path": "growthcro/reality/connectors/catchr_v30.py",
+      "filename": "catchr_v30.py",
+      "what": "Catchr V30 OAuth snapshot connector (Task 011).",
+      "imports": [
+        "ClientCredential",
+        "Optional",
+        "SnapshotResult",
+        "__future__",
+        "annotations",
+        "get_logger",
+        "growthcro",
+        "http_get_json",
+        "http_helper",
+        "logger",
+        "types"
+      ],
+      "size_bytes": 3257,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/dispatch.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "check_gsg_canonical",
       "path": "scripts/check_gsg_canonical.py",
       "filename": "check_gsg_canonical.py",
@@ -1487,6 +1674,33 @@
       "criticality": "low"
     },
     {
+      "id": "clarity_v30",
+      "path": "growthcro/reality/connectors/clarity_v30.py",
+      "filename": "clarity_v30.py",
+      "what": "Microsoft Clarity V30 OAuth snapshot connector (Task 011).",
+      "imports": [
+        "ClientCredential",
+        "Optional",
+        "SnapshotResult",
+        "__future__",
+        "annotations",
+        "get_logger",
+        "growthcro",
+        "http_get_json",
+        "http_helper",
+        "logger",
+        "types"
+      ],
+      "size_bytes": 3227,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/dispatch.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "cli",
       "path": "growthcro/audit_gads/cli.py",
       "filename": "cli.py",
@@ -1504,6 +1718,8 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
         "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
@@ -1527,6 +1743,8 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
         "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
@@ -1539,20 +1757,58 @@
       "what": "argparse CLI for cloud capture — single concern: command-line dispatch.",
       "imports": [
         "",
+        "URLValidationError",
         "__future__",
         "annotations",
+        "argparse_url_type",
         "async_api",
         "async_playwright",
         "asyncio",
         "orchestrator",
         "playwright",
         "run_batch",
-        "run_single"
+        "run_single",
+        "url_validator",
+        "validate_url"
       ],
-      "size_bytes": 3643,
-      "mtime": "2026-05-11",
+      "size_bytes": 4364,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/geo/cli.py",
+      "filename": "cli.py",
+      "what": "GEO Monitor CLI — `python -m growthcro.geo`.",
+      "imports": [
+        "EngineName",
+        "Iterable",
+        "Path",
+        "RunResult",
+        "SUPPORTED_ENGINES",
+        "__future__",
+        "annotations",
+        "engine_runner",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "run_engine",
+        "set_correlation_id",
+        "set_pipeline_name"
+      ],
+      "size_bytes": 5828,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
         "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
@@ -1575,6 +1831,8 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
         "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
@@ -1601,6 +1859,8 @@
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
         "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
@@ -1631,6 +1891,8 @@
       "mtime": "2026-05-12",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
         "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
@@ -1655,6 +1917,30 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": true,
       "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/worker/cli.py",
+      "filename": "cli.py",
+      "what": "Worker CLI — argparse entrypoint, single concern.",
+      "imports": [
+        "__future__",
+        "annotations",
+        "daemon",
+        "growthcro"
+      ],
+      "size_bytes": 1413,
+      "mtime": "2026-05-14",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
         "scripts/lint_code_hygiene.py"
       ],
       "status": "ACTIVE",
@@ -1839,10 +2125,12 @@
         "asset_resolver",
         "fact_assembler",
         "html_escaper",
-        "planner"
+        "planner",
+        "reason_illustration",
+        "render_reason_illustration"
       ],
-      "size_bytes": 6417,
-      "mtime": "2026-05-11",
+      "size_bytes": 12198,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/page_renderer_orchestrator.py",
@@ -1881,8 +2169,8 @@
         "__future__",
         "annotations"
       ],
-      "size_bytes": 11556,
-      "mtime": "2026-05-11",
+      "size_bytes": 26494,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/css/__init__.py"
@@ -1920,8 +2208,8 @@
         "growthcro",
         "lru_cache"
       ],
-      "size_bytes": 15873,
-      "mtime": "2026-05-12",
+      "size_bytes": 20142,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/api/server.py",
@@ -1929,16 +2217,21 @@
         "growthcro/capture/cloud.py",
         "growthcro/cli/capture_full.py",
         "growthcro/config.py",
+        "growthcro/geo/engine_runner.py",
         "growthcro/lib/anthropic_client.py",
         "growthcro/observability/logger.py",
         "growthcro/reality/base.py",
         "growthcro/reality/catchr.py",
         "growthcro/reality/clarity.py",
+        "growthcro/reality/connectors/google_ads_v30.py",
         "growthcro/reality/credentials.py",
         "growthcro/reality/ga4.py",
         "growthcro/reality/google_ads.py",
         "growthcro/reality/meta_ads.py",
+        "growthcro/reality/poller.py",
         "growthcro/reality/shopify.py",
+        "growthcro/worker/daemon.py",
+        "scripts/migrate_disk_to_supabase.py",
         "scripts/migrate_v27_to_supabase.py",
         "scripts/upload_screenshots_to_supabase.py",
         "skills/growth-site-generator/scripts/aura_extract.py",
@@ -2027,6 +2320,26 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy/prompt_assembly.py",
+        "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "copy_lp_creator_parser",
+      "path": "moteur_gsg/core/copy_lp_creator_parser.py",
+      "filename": "copy_lp_creator_parser.py",
+      "what": "LP-Creator copy.md parser — V27.2-H Sprint 15 (T15-3).",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 14246,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
       ],
       "status": "ACTIVE",
@@ -2145,6 +2458,63 @@
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "cro_methodology_audit",
+      "path": "moteur_gsg/core/cro_methodology_audit.py",
+      "filename": "cro_methodology_audit.py",
+      "what": "CRO methodology audit module — V27.2-H Sprint 15 (T15-5).",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 13570,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "daemon",
+      "path": "growthcro/worker/daemon.py",
+      "filename": "daemon.py",
+      "what": "Worker daemon — poll Supabase `runs` queue + dispatch CLI executions.",
+      "imports": [
+        "Any",
+        "DispatchResult",
+        "Path",
+        "RunRow",
+        "RunStatus",
+        "__future__",
+        "annotations",
+        "config",
+        "datetime",
+        "dispatch_run",
+        "dispatcher",
+        "error",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "request",
+        "runs_models",
+        "set_correlation_id",
+        "set_pipeline_name",
+        "signal",
+        "timezone",
+        "urllib"
+      ],
+      "size_bytes": 11160,
+      "mtime": "2026-05-14",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/worker/cli.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -2287,6 +2657,62 @@
       "criticality": "low"
     },
     {
+      "id": "dispatch",
+      "path": "growthcro/reality/connectors/dispatch.py",
+      "filename": "dispatch.py",
+      "what": "Connector dispatch — connector name → `fetch_snapshot` function (Task 011).",
+      "imports": [
+        "ClientCredential",
+        "SnapshotResult",
+        "__future__",
+        "annotations",
+        "catchr_v30",
+        "clarity_v30",
+        "fetch_snapshot",
+        "google_ads_v30",
+        "growthcro",
+        "meta_ads_v30",
+        "shopify_v30",
+        "types"
+      ],
+      "size_bytes": 1464,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/__init__.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "dispatcher",
+      "path": "growthcro/worker/dispatcher.py",
+      "filename": "dispatcher.py",
+      "what": "Worker dispatcher — maps RunRow.type → CLI invocation + builds args.",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations",
+        "dataclass",
+        "dataclasses",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "shlex",
+        "subprocess"
+      ],
+      "size_bytes": 8467,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/worker/__init__.py",
+        "growthcro/worker/daemon.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "doctrine",
       "path": "scripts/doctrine.py",
       "filename": "doctrine.py",
@@ -2332,8 +2758,8 @@
         "doctrine_judge",
         "moteur_multi_judge"
       ],
-      "size_bytes": 17755,
-      "mtime": "2026-05-12",
+      "size_bytes": 18731,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/modes/mode_1/orchestrator.py",
@@ -2437,6 +2863,23 @@
       "criticality": "low"
     },
     {
+      "id": "emil_design_eng_audit",
+      "path": "moteur_gsg/core/emil_design_eng_audit.py",
+      "filename": "emil_design_eng_audit.py",
+      "what": "Emil-design-eng runtime audit — V27.2-H Sprint 16 (T16-4).",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 6311,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [],
+      "status": "POTENTIALLY_ORPHANED",
+      "criticality": "review_needed"
+    },
+    {
       "id": "engine",
       "path": "growthcro/experiment/engine.py",
       "filename": "engine.py",
@@ -2454,6 +2897,38 @@
       "consumed_by": [
         "growthcro/experiment/__init__.py",
         "growthcro/experiment/runner.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "engine_runner",
+      "path": "growthcro/geo/engine_runner.py",
+      "filename": "engine_runner.py",
+      "what": "GEO Monitor — per-engine query execution with defensive no-key handling.",
+      "imports": [
+        "Iterable",
+        "Literal",
+        "__future__",
+        "annotations",
+        "compute_presence_score",
+        "config",
+        "dataclass",
+        "dataclasses",
+        "error",
+        "field",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "presence_scorer",
+        "request",
+        "urllib"
+      ],
+      "size_bytes": 9977,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/geo/cli.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -2572,6 +3047,28 @@
       "criticality": "low"
     },
     {
+      "id": "external_audits",
+      "path": "moteur_gsg/core/external_audits.py",
+      "filename": "external_audits.py",
+      "what": "External audit subprocess wrappers — V27.2-L Sprint 20 (T20-1/2).",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations",
+        "shutil",
+        "subprocess"
+      ],
+      "size_bytes": 3159,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "fact_assembler",
       "path": "moteur_gsg/core/fact_assembler.py",
       "filename": "fact_assembler.py",
@@ -2585,8 +3082,8 @@
         "html_escaper",
         "planner"
       ],
-      "size_bytes": 3077,
-      "mtime": "2026-05-11",
+      "size_bytes": 5912,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/component_renderer.py",
@@ -2626,6 +3123,23 @@
         "moteur_gsg/core/legacy_lab_adapters.py",
         "moteur_gsg/core/pipeline_single_pass.py"
       ]
+    },
+    {
+      "id": "frontend_design_audit",
+      "path": "moteur_gsg/core/frontend_design_audit.py",
+      "filename": "frontend_design_audit.py",
+      "what": "Frontend-design runtime audit — V27.2-H Sprint 16 (T16-2).",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 6428,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [],
+      "status": "POTENTIALLY_ORPHANED",
+      "criticality": "review_needed"
     },
     {
       "id": "ga4",
@@ -2841,6 +3355,34 @@
       "criticality": "low"
     },
     {
+      "id": "google_ads_v30",
+      "path": "growthcro/reality/connectors/google_ads_v30.py",
+      "filename": "google_ads_v30.py",
+      "what": "Google Ads V30 OAuth snapshot connector (Task 011).",
+      "imports": [
+        "ClientCredential",
+        "Optional",
+        "SnapshotResult",
+        "__future__",
+        "annotations",
+        "config",
+        "get_logger",
+        "growthcro",
+        "http_get_json",
+        "http_helper",
+        "logger",
+        "types"
+      ],
+      "size_bytes": 4634,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/dispatch.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "gsg_best_of_n",
       "path": "skills/growth-site-generator/scripts/gsg_best_of_n.py",
       "filename": "gsg_best_of_n.py",
@@ -2968,8 +3510,8 @@
         "planner",
         "visual_system"
       ],
-      "size_bytes": 7134,
-      "mtime": "2026-05-12",
+      "size_bytes": 7758,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/page_renderer_orchestrator.py",
@@ -3051,6 +3593,34 @@
       "criticality": "low"
     },
     {
+      "id": "http_helper",
+      "path": "growthcro/reality/connectors/http_helper.py",
+      "filename": "http_helper.py",
+      "what": "Shared HTTP helper for the V30 OAuth connectors (Task 011).",
+      "imports": [
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations",
+        "error",
+        "parse",
+        "request",
+        "urllib"
+      ],
+      "size_bytes": 2572,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/catchr_v30.py",
+        "growthcro/reality/connectors/clarity_v30.py",
+        "growthcro/reality/connectors/google_ads_v30.py",
+        "growthcro/reality/connectors/meta_ads_v30.py",
+        "growthcro/reality/connectors/shopify_v30.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "humanlike_judge",
       "path": "moteur_multi_judge/judges/humanlike_judge.py",
       "filename": "humanlike_judge.py",
@@ -3083,8 +3653,8 @@
         "html",
         "parser"
       ],
-      "size_bytes": 14285,
-      "mtime": "2026-05-11",
+      "size_bytes": 16772,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
@@ -3247,6 +3817,7 @@
         "Path",
         "__future__",
         "__init__",
+        "__main__",
         "annotations",
         "ast",
         "base",
@@ -3258,8 +3829,8 @@
         "prompt_assembly",
         "subprocess"
       ],
-      "size_bytes": 16391,
-      "mtime": "2026-05-12",
+      "size_bytes": 16648,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -3345,8 +3916,19 @@
         "growthcro/capture/scorer.py",
         "growthcro/cli/capture_full.py",
         "growthcro/cli/enrich_client.py",
+        "growthcro/geo/cli.py",
+        "growthcro/geo/engine_runner.py",
         "growthcro/observability/__init__.py",
         "growthcro/observability/logger.py",
+        "growthcro/opportunities/persist.py",
+        "growthcro/reality/connectors/catchr_v30.py",
+        "growthcro/reality/connectors/clarity_v30.py",
+        "growthcro/reality/connectors/google_ads_v30.py",
+        "growthcro/reality/connectors/meta_ads_v30.py",
+        "growthcro/reality/connectors/shopify_v30.py",
+        "growthcro/reality/poller.py",
+        "growthcro/worker/daemon.py",
+        "growthcro/worker/dispatcher.py",
         "moteur_gsg/core/pipeline_sequential.py",
         "moteur_gsg/core/pipeline_single_pass.py",
         "moteur_gsg/modes/mode_1/orchestrator.py",
@@ -3381,6 +3963,56 @@
         "growthcro/reality/orchestrator.py"
       ],
       "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "meta_ads_v30",
+      "path": "growthcro/reality/connectors/meta_ads_v30.py",
+      "filename": "meta_ads_v30.py",
+      "what": "Meta Ads V30 OAuth snapshot connector (Task 011).",
+      "imports": [
+        "ClientCredential",
+        "Optional",
+        "SnapshotResult",
+        "__future__",
+        "annotations",
+        "get_logger",
+        "growthcro",
+        "http_get_json",
+        "http_helper",
+        "logger",
+        "types"
+      ],
+      "size_bytes": 4373,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/dispatch.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "migrate_disk_to_supabase",
+      "path": "scripts/migrate_disk_to_supabase.py",
+      "filename": "migrate_disk_to_supabase.py",
+      "what": "Migrate canonical disk audit truth to Supabase V28 (Wave C.1, 2026-05-14).",
+      "imports": [
+        "Any",
+        "Path",
+        "__future__",
+        "annotations",
+        "config",
+        "error",
+        "growthcro",
+        "request",
+        "urllib"
+      ],
+      "size_bytes": 33271,
+      "mtime": "2026-05-14",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
     },
     {
@@ -3440,6 +4072,7 @@
         "Any",
         "ContextPackOutput",
         "__future__",
+        "_has_rich_listicle_signals",
         "annotations",
         "apply_minimal_postprocess",
         "apply_runtime_fixes",
@@ -3454,11 +4087,14 @@
         "build_visual_intelligence_pack",
         "call_copy_llm",
         "context_pack",
+        "copy_lp_creator_parser",
         "copy_writer",
         "creative_route_selector",
+        "cro_methodology_audit",
         "design_grammar_loader",
         "design_tokens",
         "doctrine_planner",
+        "external_audits",
         "fallback_copy_from_plan",
         "get_brand_summary",
         "get_logger",
@@ -3474,17 +4110,21 @@
         "moteur_multi_judge",
         "orchestrator",
         "page_renderer_orchestrator",
+        "parse_lp_creator_copy",
         "pipeline_single_pass",
         "planner",
         "prompt_assembly",
         "render_controlled_page",
+        "run_a11y_audit",
+        "run_cro_methodology_audit",
         "run_impeccable_qa",
         "run_multi_judge",
+        "run_perf_audit",
         "single_pass",
         "visual_intelligence"
       ],
-      "size_bytes": 26048,
-      "mtime": "2026-05-12",
+      "size_bytes": 48933,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_3_extend.py",
@@ -3663,13 +4303,43 @@
       "criticality": "low"
     },
     {
+      "id": "opportunity_models",
+      "path": "growthcro/models/opportunity_models.py",
+      "filename": "opportunity_models.py",
+      "what": "Pydantic v2 models for the Opportunity Layer (Issue #47).",
+      "imports": [
+        "BaseModel",
+        "ConfigDict",
+        "Field",
+        "Literal",
+        "__future__",
+        "annotations",
+        "computed_field",
+        "datetime",
+        "model_validator",
+        "pydantic",
+        "timezone"
+      ],
+      "size_bytes": 7051,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/opportunities/persist.py",
+        "growthcro/opportunities/schema.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "orchestrator",
       "path": "moteur_gsg/orchestrator.py",
       "filename": "orchestrator.py",
       "what": "moteur_gsg.orchestrator — canonical public GSG API.",
       "imports": [
+        "Path",
         "__future__",
         "annotations",
+        "datetime",
         "generate_lp",
         "mode_1_complete",
         "mode_1_persona_narrator",
@@ -3680,8 +4350,8 @@
         "moteur_gsg",
         "orchestrator"
       ],
-      "size_bytes": 6126,
-      "mtime": "2026-05-12",
+      "size_bytes": 10579,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/api/audits.py",
@@ -3788,8 +4458,8 @@
         "logger",
         "moteur_multi_judge"
       ],
-      "size_bytes": 10354,
-      "mtime": "2026-05-12",
+      "size_bytes": 10776,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/api/audits.py",
@@ -3913,6 +4583,7 @@
         "ANNOTATE_JS",
         "Optional",
         "REMOVE_ANNOTATIONS_JS",
+        "URLValidationError",
         "__future__",
         "annotations",
         "assemble_spatial_v9",
@@ -3933,11 +4604,13 @@
         "persist",
         "playwright",
         "random",
+        "url_validator",
+        "validate_url",
         "write_html",
         "write_spatial_v9"
       ],
-      "size_bytes": 18468,
-      "mtime": "2026-05-12",
+      "size_bytes": 19353,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/api/audits.py",
@@ -4201,14 +4874,17 @@
         "fact_assembler",
         "hero_renderer",
         "html_escaper",
+        "parse",
         "planner",
         "render_animations_css",
         "render_renderer_css",
         "section_renderer",
+        "urllib",
+        "urlparse",
         "visual_system"
       ],
-      "size_bytes": 5197,
-      "mtime": "2026-05-11",
+      "size_bytes": 19948,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_1_complete.py"
@@ -4349,6 +5025,38 @@
       "consumed_by": [
         "growthcro/capture/orchestrator.py",
         "growthcro/capture/scorer.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/perception/__init__.py",
+        "growthcro/perception/cli.py",
+        "growthcro/scoring/cli.py",
+        "scripts/lint_code_hygiene.py",
+        "skills/site-capture/scripts/score_page_type.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "persist",
+      "path": "growthcro/opportunities/persist.py",
+      "filename": "persist.py",
+      "what": "Opportunity Layer — read / write ``opportunities.json`` (Issue #47).",
+      "imports": [
+        "OpportunityBatch",
+        "__future__",
+        "annotations",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "opportunity_models",
+        "tempfile"
+      ],
+      "size_bytes": 4297,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/orchestrator.py",
+        "growthcro/capture/scorer.py",
+        "growthcro/opportunities/__init__.py",
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
@@ -4379,6 +5087,7 @@
       "consumed_by": [
         "growthcro/capture/orchestrator.py",
         "growthcro/capture/scorer.py",
+        "growthcro/opportunities/__init__.py",
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
@@ -4409,6 +5118,7 @@
       "consumed_by": [
         "growthcro/capture/orchestrator.py",
         "growthcro/capture/scorer.py",
+        "growthcro/opportunities/__init__.py",
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
@@ -4533,8 +5243,8 @@
         "legacy_lab_adapters",
         "logger"
       ],
-      "size_bytes": 13748,
-      "mtime": "2026-05-12",
+      "size_bytes": 13616,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "moteur_gsg/core/copy/llm_call.py",
@@ -4564,8 +5274,8 @@
         "get_pattern_pack",
         "pattern_library"
       ],
-      "size_bytes": 9209,
-      "mtime": "2026-05-07",
+      "size_bytes": 13102,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/asset_resolver.py",
@@ -4607,6 +5317,39 @@
       "criticality": "low"
     },
     {
+      "id": "poller",
+      "path": "growthcro/reality/poller.py",
+      "filename": "poller.py",
+      "what": "V30 Reality Layer poller — orchestrates (client × connector × metric) (Task 011).",
+      "imports": [
+        "Optional",
+        "__future__",
+        "annotations",
+        "config",
+        "connectors",
+        "create_client",
+        "dataclass",
+        "dataclasses",
+        "fetch_for_pair",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "poller",
+        "set_correlation_id",
+        "set_pipeline_name",
+        "supabase"
+      ],
+      "size_bytes": 9799,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/reality/__main__.py",
+        "growthcro/reality/poller.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "precategorize_proposals",
       "path": "scripts/precategorize_proposals.py",
       "filename": "precategorize_proposals.py",
@@ -4621,6 +5364,25 @@
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "presence_scorer",
+      "path": "growthcro/geo/presence_scorer.py",
+      "filename": "presence_scorer.py",
+      "what": "Pure presence-score computation for the GEO Monitor.",
+      "imports": [
+        "Iterable",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 3617,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/geo/engine_runner.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -4733,8 +5495,8 @@
         "planner",
         "visual_intelligence"
       ],
-      "size_bytes": 6030,
-      "mtime": "2026-05-12",
+      "size_bytes": 10660,
+      "mtime": "2026-05-15",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/copy/__init__.py",
@@ -4857,6 +5619,25 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/recos/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "reason_illustration",
+      "path": "moteur_gsg/core/reason_illustration.py",
+      "filename": "reason_illustration.py",
+      "what": "Reason illustration library — V27.2-I Sprint 17 (PRD-B).",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 14990,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/component_renderer.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -5161,6 +5942,31 @@
       "criticality": "low"
     },
     {
+      "id": "runs_models",
+      "path": "growthcro/models/runs_models.py",
+      "filename": "runs_models.py",
+      "what": "Pydantic models for the `runs` pipeline-trigger queue (Sprint 2 / Task 002).",
+      "imports": [
+        "Any",
+        "BaseModel",
+        "ConfigDict",
+        "Field",
+        "Literal",
+        "__future__",
+        "annotations",
+        "datetime",
+        "pydantic"
+      ],
+      "size_bytes": 2048,
+      "mtime": "2026-05-14",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/worker/daemon.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "runtime_fixes",
       "path": "moteur_gsg/modes/mode_1/runtime_fixes.py",
       "filename": "runtime_fixes.py",
@@ -5226,6 +6032,28 @@
     },
     {
       "id": "schema",
+      "path": "growthcro/opportunities/schema.py",
+      "filename": "schema.py",
+      "what": "Opportunity Layer — schema re-export (Issue #47).",
+      "imports": [
+        "growthcro",
+        "opportunity_models"
+      ],
+      "size_bytes": 744,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/opportunities/__init__.py",
+        "growthcro/recos/client.py",
+        "growthcro/recos/orchestrator.py",
+        "growthcro/recos/prompts.py",
+        "scripts/compare_doctrine_v3_v3_3.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "schema",
       "path": "growthcro/recos/schema.py",
       "filename": "schema.py",
       "what": "Reco doctrine + scope matrix caches, JSON validation, ICE compute, fallback template.",
@@ -5242,6 +6070,7 @@
       "mtime": "2026-05-11",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/opportunities/__init__.py",
         "growthcro/recos/client.py",
         "growthcro/recos/orchestrator.py",
         "growthcro/recos/prompts.py",
@@ -5758,6 +6587,36 @@
       "criticality": "low"
     },
     {
+      "id": "shopify_v30",
+      "path": "growthcro/reality/connectors/shopify_v30.py",
+      "filename": "shopify_v30.py",
+      "what": "Shopify V30 OAuth snapshot connector (Task 011).",
+      "imports": [
+        "ClientCredential",
+        "Optional",
+        "SnapshotResult",
+        "__future__",
+        "annotations",
+        "datetime",
+        "get_logger",
+        "growthcro",
+        "http_get_json",
+        "http_helper",
+        "logger",
+        "timedelta",
+        "timezone",
+        "types"
+      ],
+      "size_bytes": 4039,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/dispatch.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "signals",
       "path": "growthcro/capture/signals.py",
       "filename": "signals.py",
@@ -5895,6 +6754,55 @@
       "criticality": "low"
     },
     {
+      "id": "types",
+      "path": "growthcro/reality/connectors/types.py",
+      "filename": "types.py",
+      "what": "Shared types for the V30 OAuth Reality Layer connectors (Task 011).",
+      "imports": [
+        "Any",
+        "Optional",
+        "__future__",
+        "annotations",
+        "dataclass",
+        "dataclasses",
+        "the"
+      ],
+      "size_bytes": 2079,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/reality/connectors/__init__.py",
+        "growthcro/reality/connectors/catchr_v30.py",
+        "growthcro/reality/connectors/clarity_v30.py",
+        "growthcro/reality/connectors/dispatch.py",
+        "growthcro/reality/connectors/google_ads_v30.py",
+        "growthcro/reality/connectors/meta_ads_v30.py",
+        "growthcro/reality/connectors/shopify_v30.py",
+        "growthcro/reality/ga4.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "update_architecture_explorer",
+      "path": "scripts/update_architecture_explorer.py",
+      "filename": "update_architecture_explorer.py",
+      "what": "Sprint 10 / Task 016 — collapse 5 µfrontends to a single @growthcro/shell entry.",
+      "imports": [
+        "Path",
+        "__future__",
+        "annotations",
+        "date",
+        "datetime"
+      ],
+      "size_bytes": 10343,
+      "mtime": "2026-05-15",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
       "id": "update_architecture_map",
       "path": "scripts/update_architecture_map.py",
       "filename": "update_architecture_map.py",
@@ -5944,6 +6852,36 @@
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "url_validator",
+      "path": "growthcro/capture/url_validator.py",
+      "filename": "url_validator.py",
+      "what": "SSRF-safe URL validator for the Playwright crawler.",
+      "imports": [
+        "BaseModel",
+        "ConfigDict",
+        "Final",
+        "__future__",
+        "annotations",
+        "ip_address",
+        "ip_network",
+        "ipaddress",
+        "parse",
+        "pydantic",
+        "socket",
+        "urllib",
+        "urlparse"
+      ],
+      "size_bytes": 8772,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/capture/cli.py",
+        "growthcro/capture/orchestrator.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -6441,6 +7379,7 @@
       "collection/vision_mobile.json",
       "collection/vision_reconciled_desktop.json",
       "collection/vision_reconciled_mobile.json",
+      "customers/spatial_v9.json",
       "design_grammar/brand_forbidden_patterns.json",
       "design_grammar/component_grammar.json",
       "design_grammar/composition_rules.json",
@@ -6483,6 +7422,8 @@
       "home/vision_mobile.json",
       "home/vision_reconciled_desktop.json",
       "home/vision_reconciled_mobile.json",
+      "home_fr/spatial_v9.json",
+      "integrations/spatial_v9.json",
       "lp_leadgen/capture.json",
       "lp_leadgen/capture_v2_meta.json",
       "lp_leadgen/evidence_ledger.json",
@@ -6548,6 +7489,7 @@
       "pricing/vision_mobile.json",
       "pricing/vision_reconciled_desktop.json",
       "pricing/vision_reconciled_mobile.json",
+      "pricing_fr/spatial_v9.json",
       "scent_trail.json",
       "site_audit.json"
     ],
@@ -6564,11 +7506,15 @@
       "blog/page.html",
       "collection/component_overlay.html",
       "collection/page.html",
+      "customers/page.html",
       "home/component_overlay.html",
       "home/page.html",
+      "home_fr/page.html",
+      "integrations/page.html",
       "lp_leadgen/page.html",
       "pricing/component_overlay.html",
-      "pricing/page.html"
+      "pricing/page.html",
+      "pricing_fr/page.html"
     ],
     ".css": [
       "design_grammar/tokens.css"
@@ -6620,6 +7566,13 @@
       "collection/screenshots/spatial_fold_desktop.png",
       "collection/screenshots/spatial_fold_mobile.png",
       "collection/screenshots/spatial_full_page.png",
+      "customers/screenshots/desktop_clean_fold.png",
+      "customers/screenshots/desktop_clean_full.png",
+      "customers/screenshots/mobile_clean_fold.png",
+      "customers/screenshots/spatial_annotated_desktop.png",
+      "customers/screenshots/spatial_fold_desktop.png",
+      "customers/screenshots/spatial_fold_mobile.png",
+      "customers/screenshots/spatial_full_page.png",
       "home/screenshots/desktop_asis_fold.png",
       "home/screenshots/desktop_asis_full.png",
       "home/screenshots/desktop_clean_fold.png",
@@ -6632,6 +7585,20 @@
       "home/screenshots/spatial_fold_desktop.png",
       "home/screenshots/spatial_fold_mobile.png",
       "home/screenshots/spatial_full_page.png",
+      "home_fr/screenshots/desktop_clean_fold.png",
+      "home_fr/screenshots/desktop_clean_full.png",
+      "home_fr/screenshots/mobile_clean_fold.png",
+      "home_fr/screenshots/spatial_annotated_desktop.png",
+      "home_fr/screenshots/spatial_fold_desktop.png",
+      "home_fr/screenshots/spatial_fold_mobile.png",
+      "home_fr/screenshots/spatial_full_page.png",
+      "integrations/screenshots/desktop_clean_fold.png",
+      "integrations/screenshots/desktop_clean_full.png",
+      "integrations/screenshots/mobile_clean_fold.png",
+      "integrations/screenshots/spatial_annotated_desktop.png",
+      "integrations/screenshots/spatial_fold_desktop.png",
+      "integrations/screenshots/spatial_fold_mobile.png",
+      "integrations/screenshots/spatial_full_page.png",
       "lp_leadgen/flow/intro.png",
       "lp_leadgen/flow/step_01.png",
       "lp_leadgen/flow/step_02.png",
@@ -6659,7 +7626,14 @@
       "pricing/screenshots/spatial_annotated_desktop.png",
       "pricing/screenshots/spatial_fold_desktop.png",
       "pricing/screenshots/spatial_fold_mobile.png",
-      "pricing/screenshots/spatial_full_page.png"
+      "pricing/screenshots/spatial_full_page.png",
+      "pricing_fr/screenshots/desktop_clean_fold.png",
+      "pricing_fr/screenshots/desktop_clean_full.png",
+      "pricing_fr/screenshots/mobile_clean_fold.png",
+      "pricing_fr/screenshots/spatial_annotated_desktop.png",
+      "pricing_fr/screenshots/spatial_fold_desktop.png",
+      "pricing_fr/screenshots/spatial_fold_mobile.png",
+      "pricing_fr/screenshots/spatial_full_page.png"
     ]
   },
   "expected_gsg_data_inputs": {
