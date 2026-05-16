@@ -1,16 +1,16 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-16T17:11:53",
+  "generated_at": "2026-05-16T19:57:10",
   "stats": {
-    "total_files": 288,
+    "total_files": 292,
     "active_wired": 4,
     "active_indirect": 10,
     "active_cli": 54,
     "active_package_marker": 27,
-    "active_misc": 190,
+    "active_misc": 192,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
-    "potentially_orphaned": 3
+    "potentially_orphaned": 5
   },
   "capabilities": [
     {
@@ -2545,6 +2545,31 @@
       ]
     },
     {
+      "id": "creative_models",
+      "path": "growthcro/models/creative_models.py",
+      "filename": "creative_models.py",
+      "what": "Pydantic v2 models for the Creative Exploration Engine (Issue #56, epic gsg-creative-renaissance).",
+      "imports": [
+        "Any",
+        "BaseModel",
+        "ConfigDict",
+        "Field",
+        "Literal",
+        "__future__",
+        "annotations",
+        "model_validator",
+        "pydantic"
+      ],
+      "size_bytes": 8417,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/models/visual_composer_models.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "creative_route_selector",
       "path": "moteur_gsg/core/creative_route_selector.py",
       "filename": "creative_route_selector.py",
@@ -3950,6 +3975,31 @@
       ]
     },
     {
+      "id": "judge_models",
+      "path": "growthcro/models/judge_models.py",
+      "filename": "judge_models.py",
+      "what": "Pydantic v2 models for the Visual Judge (Issue #57, epic gsg-creative-renaissance).",
+      "imports": [
+        "Any",
+        "BaseModel",
+        "ConfigDict",
+        "Field",
+        "__future__",
+        "annotations",
+        "computed_field",
+        "datetime",
+        "model_validator",
+        "pydantic",
+        "timezone"
+      ],
+      "size_bytes": 8360,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [],
+      "status": "POTENTIALLY_ORPHANED",
+      "criticality": "review_needed"
+    },
+    {
       "id": "learning_layer_v29_audit_based",
       "path": "skills/site-capture/scripts/learning_layer_v29_audit_based.py",
       "filename": "learning_layer_v29_audit_based.py",
@@ -5139,6 +5189,8 @@
         "animations",
         "annotations",
         "build_visual_system",
+        "cap_description",
+        "cap_title",
         "component_renderer",
         "css",
         "evidence_id_injector",
@@ -5150,11 +5202,12 @@
         "render_animations_css",
         "render_renderer_css",
         "section_renderer",
+        "seo_caps",
         "urllib",
         "urlparse",
         "visual_system"
       ],
-      "size_bytes": 22519,
+      "size_bytes": 22596,
       "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -6728,6 +6781,8 @@
         "animations",
         "annotations",
         "build_visual_system",
+        "cap_description",
+        "cap_title",
         "component_renderer",
         "css",
         "fact_assembler",
@@ -6736,10 +6791,11 @@
         "planner",
         "render_animations_css",
         "render_renderer_css",
+        "seo_caps",
         "visual_system"
       ],
-      "size_bytes": 5880,
-      "mtime": "2026-05-11",
+      "size_bytes": 5957,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/core/page_renderer_orchestrator.py"
@@ -6763,6 +6819,25 @@
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
+      "id": "seo_caps",
+      "path": "moteur_gsg/core/seo_caps.py",
+      "filename": "seo_caps.py",
+      "what": "SEO meta caps for the GSG renderer (tech_03 killer rule, 2026-05-16).",
+      "imports": [
+        "__future__",
+        "annotations"
+      ],
+      "size_bytes": 2838,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/page_renderer_orchestrator.py",
+        "moteur_gsg/core/section_renderer.py"
+      ],
+      "status": "ACTIVE",
       "criticality": "low"
     },
     {
@@ -7316,6 +7391,31 @@
       "should_be_consumed_by": [
         "moteur_gsg/core/"
       ]
+    },
+    {
+      "id": "visual_composer_models",
+      "path": "growthcro/models/visual_composer_models.py",
+      "filename": "visual_composer_models.py",
+      "what": "Pydantic v2 contracts for the Visual Composer layer (Issue #58, epic gsg-creative-renaissance).",
+      "imports": [
+        "Any",
+        "BaseModel",
+        "ConfigDict",
+        "Field",
+        "Literal",
+        "__future__",
+        "annotations",
+        "creative_models",
+        "growthcro",
+        "model_validator",
+        "pydantic"
+      ],
+      "size_bytes": 17356,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [],
+      "status": "POTENTIALLY_ORPHANED",
+      "criticality": "review_needed"
     },
     {
       "id": "visual_gates",
