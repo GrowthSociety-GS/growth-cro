@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT))
 
 from moteur_multi_judge.judges.blocking_gates import aggregate_blocking_gates
 from moteur_multi_judge.judges.doctrine_judge import audit_lp_doctrine
+from moteur_multi_judge.persist import save_multi_judge_audit
 
 # humanlike_judge : encore dans skills/growth-site-generator (V26.Z, à move Sprint 7)
 sys.path.insert(0, str(ROOT / "skills" / "growth-site-generator" / "scripts"))
@@ -267,6 +268,18 @@ def run_multi_judge(
         logger.info(f"  Coût total     : ${audit['totals_meta']['cost_estimate_usd']} | Wall : {grand_dt:.1f}s")
         if audit["final"]["killer_rules_violated"]:
             logger.info(f"  ⛔ KILLER RULES VIOLATED ({len(audit['final']['killer_violations'])})")
+
+    # ── 6. Persist complete audit (#54) ─────────────────────────
+    # Wrapped in try/except so an I/O failure never breaks the run.
+    # The orchestrator must always return the audit dict to the caller,
+    # even if disk persistence fails.
+    try:
+        save_multi_judge_audit(audit, client, page_type)
+    except Exception as e:  # pragma: no cover — defensive
+        logger.warning(
+            "multi_judge_audit.persist_failed",
+            extra={"error": str(e), "client": client, "page_type": page_type},
+        )
 
     return audit
 

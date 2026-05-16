@@ -10,4 +10,17 @@ par 3 juges complémentaires consommant la doctrine racine partagée :
 orchestrator.py expose run_multi_judge(html, client, page_type) qui orchestre
 les 3 juges et calcule le score final pondéré (70% doctrine + 30% humanlike,
 avec cap automatique si killer_rule violée).
+
+persist.py expose save_multi_judge_audit / load_multi_judge_audit (Issue #54).
 """
+from moteur_multi_judge.persist import (
+    load_multi_judge_audit,
+    multi_judge_audit_path,
+    save_multi_judge_audit,
+)
+
+__all__ = [
+    "load_multi_judge_audit",
+    "multi_judge_audit_path",
+    "save_multi_judge_audit",
+]
