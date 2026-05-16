@@ -1,13 +1,13 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-16T15:15:31",
+  "generated_at": "2026-05-16T16:09:56",
   "stats": {
-    "total_files": 282,
+    "total_files": 287,
     "active_wired": 4,
     "active_indirect": 10,
-    "active_cli": 53,
+    "active_cli": 54,
     "active_package_marker": 27,
-    "active_misc": 185,
+    "active_misc": 189,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
     "potentially_orphaned": 3
@@ -351,11 +351,13 @@
       "imports": [
         "Opportunity",
         "OpportunityBatch",
+        "generate_opportunities",
         "growthcro",
-        "persist",
-        "schema"
+        "opportunity_models",
+        "orchestrator",
+        "persist"
       ],
-      "size_bytes": 1103,
+      "size_bytes": 1109,
       "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
@@ -612,6 +614,32 @@
       "criticality": "low"
     },
     {
+      "id": "_internals",
+      "path": "growthcro/opportunities/_internals.py",
+      "filename": "_internals.py",
+      "what": "Opportunity orchestrator — internal plumbing (Issue #48).",
+      "imports": [
+        "Any",
+        "Category",
+        "Owner",
+        "Severity",
+        "__future__",
+        "annotations",
+        "dataclass",
+        "dataclasses",
+        "growthcro",
+        "opportunity_models"
+      ],
+      "size_bytes": 3639,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/opportunities/orchestrator.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "_test_weglot_listicle_V26AE",
       "path": "scripts/_test_weglot_listicle_V26AE.py",
       "filename": "_test_weglot_listicle_V26AE.py",
@@ -857,6 +885,24 @@
       "criticality": "low"
     },
     {
+      "id": "audit_skills_governance",
+      "path": "scripts/audit_skills_governance.py",
+      "filename": "audit_skills_governance.py",
+      "what": "audit_skills_governance.py — validate SKILLS_REGISTRY_GOVERNANCE.json.",
+      "imports": [
+        "Any",
+        "__future__",
+        "annotations",
+        "state"
+      ],
+      "size_bytes": 7187,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": true,
+      "consumed_by": [],
+      "status": "ACTIVE_CLI_ENTRYPOINT",
+      "criticality": "low"
+    },
+    {
       "id": "audits",
       "path": "growthcro/api/audits.py",
       "filename": "audits.py",
@@ -1037,6 +1083,36 @@
       "is_cli_entrypoint": false,
       "consumed_by": [
         "skills/site-capture/scripts/project_snapshot.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "blocking_gates",
+      "path": "moteur_multi_judge/judges/blocking_gates.py",
+      "filename": "blocking_gates.py",
+      "what": "VerdictGate — aggregate the hard-stop gates that override the composite.",
+      "imports": [
+        "BaseModel",
+        "ConfigDict",
+        "Field",
+        "Literal",
+        "Path",
+        "__future__",
+        "annotations",
+        "computed_field",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "pydantic",
+        "subprocess"
+      ],
+      "size_bytes": 12904,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_multi_judge/orchestrator.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -1647,6 +1723,38 @@
       "criticality": "low"
     },
     {
+      "id": "claims_source_gate",
+      "path": "moteur_gsg/core/claims_source_gate.py",
+      "filename": "claims_source_gate.py",
+      "what": "ClaimsSourceGate — deterministic HTML validator for claim provenance.",
+      "imports": [
+        "BaseModel",
+        "ConfigDict",
+        "Field",
+        "HTMLParser",
+        "Literal",
+        "__future__",
+        "annotations",
+        "claims_source_gate",
+        "get_logger",
+        "growthcro",
+        "html",
+        "logger",
+        "moteur_gsg",
+        "parser",
+        "pydantic"
+      ],
+      "size_bytes": 18516,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "moteur_gsg/core/claims_source_gate.py",
+        "moteur_gsg/modes/mode_1_complete.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
       "id": "clarity",
       "path": "growthcro/reality/clarity.py",
       "filename": "clarity.py",
@@ -1805,6 +1913,34 @@
       ],
       "size_bytes": 5828,
       "mtime": "2026-05-15",
+      "is_cli_entrypoint": true,
+      "consumed_by": [
+        "growthcro/geo/__main__.py",
+        "growthcro/worker/__main__.py",
+        "scripts/lint_code_hygiene.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "cli",
+      "path": "growthcro/opportunities/cli.py",
+      "filename": "cli.py",
+      "what": "Opportunity Layer CLI — generate ``opportunities.json`` per (client, page).",
+      "imports": [
+        "__future__",
+        "annotations",
+        "generate_opportunities",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "orchestrator",
+        "persist",
+        "save_opportunities",
+        "traceback"
+      ],
+      "size_bytes": 5671,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/geo/__main__.py",
@@ -3004,14 +3140,16 @@
       "imports": [
         "Any",
         "EvidenceLedger",
+        "Literal",
         "Optional",
         "__future__",
         "annotations",
         "evidence_ledger",
-        "hashlib"
+        "hashlib",
+        "logging"
       ],
-      "size_bytes": 12059,
-      "mtime": "2026-04-29",
+      "size_bytes": 13249,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "skills/site-capture/scripts/enrich_scores_with_evidence.py",
@@ -3829,8 +3967,8 @@
         "prompt_assembly",
         "subprocess"
       ],
-      "size_bytes": 16648,
-      "mtime": "2026-05-15",
+      "size_bytes": 16855,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": true,
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
@@ -3920,6 +4058,8 @@
         "growthcro/geo/engine_runner.py",
         "growthcro/observability/__init__.py",
         "growthcro/observability/logger.py",
+        "growthcro/opportunities/cli.py",
+        "growthcro/opportunities/orchestrator.py",
         "growthcro/opportunities/persist.py",
         "growthcro/reality/connectors/catchr_v30.py",
         "growthcro/reality/connectors/clarity_v30.py",
@@ -3929,10 +4069,12 @@
         "growthcro/reality/poller.py",
         "growthcro/worker/daemon.py",
         "growthcro/worker/dispatcher.py",
+        "moteur_gsg/core/claims_source_gate.py",
         "moteur_gsg/core/pipeline_sequential.py",
         "moteur_gsg/core/pipeline_single_pass.py",
         "moteur_gsg/modes/mode_1/orchestrator.py",
         "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_multi_judge/judges/blocking_gates.py",
         "moteur_multi_judge/orchestrator.py"
       ],
       "status": "ACTIVE",
@@ -4070,12 +4212,15 @@
       "imports": [
         "",
         "Any",
+        "ClaimsSourceError",
         "ContextPackOutput",
+        "VerdictGateError",
         "__future__",
         "_has_rich_listicle_signals",
         "annotations",
         "apply_minimal_postprocess",
         "apply_runtime_fixes",
+        "blocking_gates",
         "brand_intelligence",
         "build_design_tokens",
         "build_doctrine_pack",
@@ -4086,6 +4231,7 @@
         "build_structured_creative_route_contract",
         "build_visual_intelligence_pack",
         "call_copy_llm",
+        "claims_source_gate",
         "context_pack",
         "copy_lp_creator_parser",
         "copy_writer",
@@ -4121,10 +4267,11 @@
         "run_multi_judge",
         "run_perf_audit",
         "single_pass",
+        "validate_claims_sources",
         "visual_intelligence"
       ],
-      "size_bytes": 48933,
-      "mtime": "2026-05-15",
+      "size_bytes": 51775,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "moteur_gsg/modes/mode_3_extend.py",
@@ -4324,8 +4471,10 @@
       "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
-        "growthcro/opportunities/persist.py",
-        "growthcro/opportunities/schema.py"
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/_internals.py",
+        "growthcro/opportunities/orchestrator.py",
+        "growthcro/opportunities/persist.py"
       ],
       "status": "ACTIVE",
       "criticality": "low"
@@ -4360,6 +4509,8 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4422,6 +4573,8 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4446,8 +4599,10 @@
       "what": "Multi-Judge Orchestrator V26.AA Sprint 3.",
       "imports": [
         "__future__",
+        "aggregate_blocking_gates",
         "annotations",
         "audit_lp_doctrine",
+        "blocking_gates",
         "doctrine_judge",
         "fix_html_runtime",
         "fix_html_runtime_v26z",
@@ -4458,8 +4613,8 @@
         "logger",
         "moteur_multi_judge"
       ],
-      "size_bytes": 10776,
-      "mtime": "2026-05-15",
+      "size_bytes": 12427,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": true,
       "consumed_by": [
         "growthcro/api/audits.py",
@@ -4468,6 +4623,8 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4512,6 +4669,8 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4556,6 +4715,8 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4619,6 +4780,52 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
+        "growthcro/reality/__init__.py",
+        "growthcro/recos/cli.py",
+        "moteur_gsg/modes/mode_1/__init__.py",
+        "moteur_gsg/modes/mode_1_complete.py",
+        "moteur_gsg/orchestrator.py",
+        "scripts/_test_weglot_listicle_V26AE.py",
+        "scripts/check_gsg_component_planner.py",
+        "scripts/check_gsg_controlled_renderer.py",
+        "scripts/check_gsg_creative_route_selector.py",
+        "scripts/check_gsg_intake_wizard.py",
+        "scripts/check_gsg_visual_renderer.py",
+        "scripts/lint_code_hygiene.py",
+        "scripts/run_gsg_full_pipeline.py"
+      ],
+      "status": "ACTIVE",
+      "criticality": "low"
+    },
+    {
+      "id": "orchestrator",
+      "path": "growthcro/opportunities/orchestrator.py",
+      "filename": "orchestrator.py",
+      "what": "Opportunity engine — deterministic orchestrator (Issue #48).",
+      "imports": [
+        "Any",
+        "__future__",
+        "_internals",
+        "annotations",
+        "get_logger",
+        "growthcro",
+        "logger",
+        "opportunity_models"
+      ],
+      "size_bytes": 15217,
+      "mtime": "2026-05-16",
+      "is_cli_entrypoint": false,
+      "consumed_by": [
+        "growthcro/api/audits.py",
+        "growthcro/audit_gads/__init__.py",
+        "growthcro/audit_gads/cli.py",
+        "growthcro/audit_meta/__init__.py",
+        "growthcro/audit_meta/cli.py",
+        "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4677,6 +4884,8 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -4715,13 +4924,15 @@
         "golden_bridge",
         "golden_differential",
         "growthcro",
+        "load_opportunities",
+        "opportunities",
         "prompts",
         "recos",
         "recos_models",
         "schema"
       ],
-      "size_bytes": 30979,
-      "mtime": "2026-05-12",
+      "size_bytes": 32112,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/api/audits.py",
@@ -4730,6 +4941,8 @@
         "growthcro/audit_meta/__init__.py",
         "growthcro/audit_meta/cli.py",
         "growthcro/capture/cli.py",
+        "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/reality/__init__.py",
         "growthcro/recos/cli.py",
         "moteur_gsg/modes/mode_1/__init__.py",
@@ -5026,6 +5239,7 @@
         "growthcro/capture/orchestrator.py",
         "growthcro/capture/scorer.py",
         "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
@@ -5057,6 +5271,7 @@
         "growthcro/capture/orchestrator.py",
         "growthcro/capture/scorer.py",
         "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
@@ -5088,6 +5303,7 @@
         "growthcro/capture/orchestrator.py",
         "growthcro/capture/scorer.py",
         "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
@@ -5119,6 +5335,7 @@
         "growthcro/capture/orchestrator.py",
         "growthcro/capture/scorer.py",
         "growthcro/opportunities/__init__.py",
+        "growthcro/opportunities/cli.py",
         "growthcro/perception/__init__.py",
         "growthcro/perception/cli.py",
         "growthcro/scoring/cli.py",
@@ -5758,8 +5975,8 @@
         "annotations",
         "pydantic"
       ],
-      "size_bytes": 7590,
-      "mtime": "2026-05-12",
+      "size_bytes": 7931,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
         "growthcro/recos/cli.py",
@@ -6032,28 +6249,6 @@
     },
     {
       "id": "schema",
-      "path": "growthcro/opportunities/schema.py",
-      "filename": "schema.py",
-      "what": "Opportunity Layer — schema re-export (Issue #47).",
-      "imports": [
-        "growthcro",
-        "opportunity_models"
-      ],
-      "size_bytes": 744,
-      "mtime": "2026-05-16",
-      "is_cli_entrypoint": false,
-      "consumed_by": [
-        "growthcro/opportunities/__init__.py",
-        "growthcro/recos/client.py",
-        "growthcro/recos/orchestrator.py",
-        "growthcro/recos/prompts.py",
-        "scripts/compare_doctrine_v3_v3_3.py"
-      ],
-      "status": "ACTIVE",
-      "criticality": "low"
-    },
-    {
-      "id": "schema",
       "path": "growthcro/recos/schema.py",
       "filename": "schema.py",
       "what": "Reco doctrine + scope matrix caches, JSON validation, ICE compute, fallback template.",
@@ -6066,11 +6261,10 @@
         "pillars",
         "resolve_doctrine_paths"
       ],
-      "size_bytes": 28115,
-      "mtime": "2026-05-11",
+      "size_bytes": 29397,
+      "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
-        "growthcro/opportunities/__init__.py",
         "growthcro/recos/client.py",
         "growthcro/recos/orchestrator.py",
         "growthcro/recos/prompts.py",
@@ -7396,6 +7590,7 @@
       "home/criterion_crops_v2_mobile.json",
       "home/critic_report.json",
       "home/evidence_ledger.json",
+      "home/opportunities.json",
       "home/perception_v13.json",
       "home/recos_dedup_report.json",
       "home/recos_enriched.json",
@@ -7433,6 +7628,7 @@
       "lp_leadgen/flow/step_02.json",
       "lp_leadgen/flow/step_03.json",
       "lp_leadgen/flow/step_recos.json",
+      "lp_leadgen/opportunities.json",
       "lp_leadgen/perception_v13.json",
       "lp_leadgen/recos_dedup_report.json",
       "lp_leadgen/recos_v13_final.json",
@@ -7463,6 +7659,7 @@
       "pricing/criterion_crops_v2_mobile.json",
       "pricing/critic_report.json",
       "pricing/evidence_ledger.json",
+      "pricing/opportunities.json",
       "pricing/perception_v13.json",
       "pricing/recos_dedup_report.json",
       "pricing/recos_enriched.json",
