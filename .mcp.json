@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.claude.com/schemas/mcp-config.json",
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "env": {}
+    }
+  }
+}
