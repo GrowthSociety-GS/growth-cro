@@ -1,0 +1,720 @@
+{
+  "$schema_version": "1.0",
+  "registry_purpose": "Honest governance registry distinct from CAPABILITIES_REGISTRY.json (code-only). Each entry documents real invocation type, security posture, audit method. Triggered by AUDIT_DECISION_DOSSIER_2026-05-16 §5.1-5.3 + P0.4 (Issue #45). Three skills labeled 'active' via skills-lock.json are in fact Python local heuristics — this registry corrects that drift.",
+  "schema": {
+    "id": "string (skill-or-agent-id)",
+    "type": "installed_external_active | installed_external_dormant | installed_custom | runtime_heuristic_python | subagent | mcp_server | archived",
+    "location": "string (path relative to repo root)",
+    "invocation_proof": "string (file:line OR 'no occurrence found via grep')",
+    "llm_cost": "0 | low | medium | high",
+    "security": {
+      "shell": "bool (executes shell commands)",
+      "network": "bool (makes network requests)",
+      "env_vars": "bool (reads env vars)",
+      "secrets": "bool (handles secrets/API keys)",
+      "git": "bool (executes git commands)",
+      "filesystem": "read_only | read_write | none"
+    },
+    "audit_date": "YYYY-MM-DD",
+    "audit_method": "static_grep | dynamic_test | doc_only",
+    "notes": "string"
+  },
+  "audit_date": "2026-05-16",
+  "audit_source": ".claude/docs/state/AUDIT_DECISION_DOSSIER_2026-05-16_POST_PACK_GPT_PLUS_ADDENDUM.md §5.1-5.3 + Issue #45",
+  "totals": {
+    "installed_external_active": 0,
+    "installed_external_dormant": 15,
+    "installed_custom": 13,
+    "runtime_heuristic_python": 4,
+    "subagent": 5,
+    "mcp_server": 0,
+    "archived": 1,
+    "grand_total": 38
+  },
+  "entries": [
+    {
+      "id": "impeccable",
+      "type": "runtime_heuristic_python",
+      "location": "skills-lock.json (pbakaus/impeccable) + moteur_gsg/core/impeccable_qa.py",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:743",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Skill installed via skills-lock.json (pbakaus/impeccable), but invoked as Python function `run_impeccable_qa(html)` in moteur_gsg/core/impeccable_qa.py:384. Therefore type=runtime_heuristic_python (honest)."
+    },
+    {
+      "id": "cro-methodology",
+      "type": "runtime_heuristic_python",
+      "location": "skills-lock.json (wondelai/skills) + moteur_gsg/core/cro_methodology_audit.py",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:761",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Skill installed via skills-lock.json (wondelai/skills), but invoked as `run_cro_methodology_audit(copy_doc, brief)` Python function in moteur_gsg/core/cro_methodology_audit.py:233. Module docstring explicitly states 'honest runtime version'. Type=runtime_heuristic_python."
+    },
+    {
+      "id": "emil-design-eng",
+      "type": "runtime_heuristic_python",
+      "location": "skills-lock.json (emilkowalski/skill) + moteur_gsg/core/emil_design_eng_audit.py",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:788",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Skill installed via skills-lock.json (emilkowalski/skill), invoked as `run_emil_design_eng_audit(html)` Python function in moteur_gsg/core/emil_design_eng_audit.py:130. Type=runtime_heuristic_python."
+    },
+    {
+      "id": "brainstorming",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant — no Python invocation found. Auto-loadable via Skill tool but never explicitly required. Candidate to DROP or PIN (decision in Issue #46)."
+    },
+    {
+      "id": "dispatching-parallel-agents",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant — invoked indirectly via session orchestration (current Wave 2 parallel dispatch). Used at LLM/session layer, not Python code."
+    },
+    {
+      "id": "executing-plans",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Used at session level when executing written plans. Candidate to KEEP (regular session use)."
+    },
+    {
+      "id": "finishing-a-development-branch",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": true,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Loads git commands at session-time when finishing a branch. KEEP for end-of-wave merge discipline."
+    },
+    {
+      "id": "gstack",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (garrytan/gstack)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": true,
+        "network": true,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Install reported failed in doc 2026-05-14, dormant. Headless browser QA capabilities — security review required before reactivation (network + shell + fs). DROP candidate (Issue #46)."
+    },
+    {
+      "id": "receiving-code-review",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant — session-level skill for processing review feedback. Candidate KEEP."
+    },
+    {
+      "id": "requesting-code-review",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant — session-level skill for requesting reviews. Candidate KEEP."
+    },
+    {
+      "id": "subagent-driven-development",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Used implicitly when current orchestrator session spawns subagents (TaskCreate). KEEP."
+    },
+    {
+      "id": "systematic-debugging",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Session-level. KEEP."
+    },
+    {
+      "id": "test-driven-development",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Session-level. KEEP."
+    },
+    {
+      "id": "using-git-worktrees",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": true,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Git worktree management at session level. KEEP for isolated feature work."
+    },
+    {
+      "id": "using-superpowers",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Session-onboarding skill loaded at conversation start by harness. Acts as router to other obra/superpowers skills. KEEP."
+    },
+    {
+      "id": "verification-before-completion",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Session-level discipline (run tests before claiming done). KEEP — already part of CLAUDE.md rules."
+    },
+    {
+      "id": "writing-plans",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Session-level plan-writing helper. KEEP (paired with executing-plans)."
+    },
+    {
+      "id": "writing-skills",
+      "type": "installed_external_dormant",
+      "location": "skills-lock.json (obra/superpowers)",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Dormant. Used in Wave 1 of stratosphere-p0 to create 3 custom skills (anti-drift, prd-planner, status-memory). KEEP."
+    },
+    {
+      "id": "site-capture",
+      "type": "installed_custom",
+      "location": "skills/site-capture/",
+      "invocation_proof": "state.py:27",
+      "llm_cost": "0",
+      "security": {
+        "shell": true,
+        "network": true,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "LOCKED v1.0.0, production. Playwright-based capture, network-heavy. Invocation: state.py SCRIPTS = skills/site-capture/scripts. SKILL.md present."
+    },
+    {
+      "id": "gsg",
+      "type": "installed_custom",
+      "location": "skills/gsg/",
+      "invocation_proof": "moteur_gsg/orchestrator.py:36",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE. Public GSG skill (canonical). Referenced as the only public GSG entry-point. SKILL.md present."
+    },
+    {
+      "id": "cro-auditor",
+      "type": "installed_custom",
+      "location": "skills/cro-auditor/",
+      "invocation_proof": "scripts/audit_capabilities.py:44",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE, 54 critères CRO. SKILL.md present. Referenced by audit_capabilities.py SCAN_FOLDERS."
+    },
+    {
+      "id": "client-context-manager",
+      "type": "installed_custom",
+      "location": "skills/client-context-manager/",
+      "invocation_proof": "scripts/audit_capabilities.py:47",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE hub client. SKILL.md present. Referenced by audit_capabilities.py SCAN_FOLDERS."
+    },
+    {
+      "id": "webapp-publisher",
+      "type": "installed_custom",
+      "location": "skills/webapp-publisher/",
+      "invocation_proof": "scripts/update_architecture_map.py:400",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE. Publishes audits/recos/LPs V26 to webapp. SKILL.md present. Listed as producer in architecture map."
+    },
+    {
+      "id": "audit-bridge-to-gsg",
+      "type": "installed_custom",
+      "location": "skills/audit-bridge-to-gsg/",
+      "invocation_proof": "moteur_gsg/core/brief_v15_builder.py:10",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE bridge audit→Brief Mode 2. SKILL.md present. Brief V15 builder references its SKILL.md §B."
+    },
+    {
+      "id": "cro-library",
+      "type": "installed_custom",
+      "location": "skills/cro-library/",
+      "invocation_proof": "moteur_gsg/core/pattern_library.py:16",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE pattern library 56 clients. SKILL.md present. patterns.json consumed by moteur_gsg/core/pattern_library.py."
+    },
+    {
+      "id": "growthcro-strategist",
+      "type": "installed_custom",
+      "location": "skills/growthcro-strategist/",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE diagnostic stratégique on-demand. SKILL.md present. No Python invocation expected — invoked via Skill tool at session level."
+    },
+    {
+      "id": "skill-based-architecture",
+      "type": "installed_custom",
+      "location": "skills/skill-based-architecture/",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "ACTIVE meta-skill (architecture doctrine). SKILL.md present. No Python invocation expected — session-level use."
+    },
+    {
+      "id": "growth-site-generator",
+      "type": "runtime_heuristic_python",
+      "location": "skills/growth-site-generator/scripts/",
+      "invocation_proof": "moteur_multi_judge/judges/implementation_check.py:23",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Lab legacy folder, NO SKILL.md. Scripts still invoked by implementation_check judge (fix_html_runtime.py) and humanlike_judge (V26.Z). Sprint 7 plans to move humanlike judge out. Until then: runtime_heuristic_python. Audit dossier P0 says ARCHIVE — defer until consumers migrated."
+    },
+    {
+      "id": "mode-1-launcher",
+      "type": "archived",
+      "location": "skills/mode-1-launcher/",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "none"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "FROZEN/DEPRECATED, replaced by skills/gsg/. SKILL.md present (legacy). Only referenced in audit_capabilities.py SCAN_FOLDERS. Audit dossier P0 says ARCHIVE under _archive/skills_legacy/."
+    },
+    {
+      "id": "_roadmap_v27",
+      "type": "installed_custom",
+      "location": "skills/_roadmap_v27/",
+      "invocation_proof": "no occurrence found via grep",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "static_grep",
+      "notes": "Roadmap placeholders (notion-sync, connections-manager, dashboard-engine). Not yet wired. KEEP as roadmap V27 scaffolding."
+    },
+    {
+      "id": "capabilities-keeper",
+      "type": "subagent",
+      "location": ".claude/agents/capabilities-keeper.md",
+      "invocation_proof": ".claude/agents/capabilities-keeper.md:2",
+      "llm_cost": "high",
+      "security": {
+        "shell": true,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "Tools: Bash, Read, Grep. Model: opus. PROACTIVELY triggered. Anti-oubli enforcer for CAPABILITIES_REGISTRY.json. KEEP."
+    },
+    {
+      "id": "doctrine-keeper",
+      "type": "subagent",
+      "location": ".claude/agents/doctrine-keeper.md",
+      "invocation_proof": ".claude/agents/doctrine-keeper.md:2",
+      "llm_cost": "high",
+      "security": {
+        "shell": true,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "Tools: Read, Grep, Bash. Model: opus. Gardien de la doctrine GrowthCRO. Mentions cro-methodology (post-process, never invoked via Skill tool). KEEP."
+    },
+    {
+      "id": "scorer",
+      "type": "subagent",
+      "location": ".claude/agents/scorer.md",
+      "invocation_proof": ".claude/agents/scorer.md:2",
+      "llm_cost": "medium",
+      "security": {
+        "shell": true,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "Tools: Bash, Read, Grep. Model: sonnet. Scores client/page per doctrine v3.2. KEEP."
+    },
+    {
+      "id": "reco-enricher",
+      "type": "subagent",
+      "location": ".claude/agents/reco-enricher.md",
+      "invocation_proof": ".claude/agents/reco-enricher.md:2",
+      "llm_cost": "medium",
+      "security": {
+        "shell": true,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "Tools: Bash, Read, Grep. Model: sonnet. Generates enriched recos (Sonnet 4.5). Mentions cro-methodology + page/form/signup-flow/onboarding/paywall-upgrade/popup-cro slash commands (post-process, never invoked via Skill tool). KEEP."
+    },
+    {
+      "id": "capture-worker",
+      "type": "subagent",
+      "location": ".claude/agents/capture-worker.md",
+      "invocation_proof": ".claude/agents/capture-worker.md:2",
+      "llm_cost": "medium",
+      "security": {
+        "shell": true,
+        "network": true,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "Tools: Bash, Read, Write. Model: sonnet. Playwright capture worker. Network-heavy. KEEP."
+    },
+    {
+      "id": "growthcro-anti-drift",
+      "type": "installed_custom",
+      "location": ".claude/skills/growthcro-anti-drift/SKILL.md",
+      "invocation_proof": ".claude/skills/growthcro-anti-drift/SKILL.md:2",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "NEW (created in Wave 1, Issue #42). Enforces scope/issue discipline/LOC constraints/anti-drift protocol before any code-emission task. Frontmatter conforms to Anthropic Skill schema."
+    },
+    {
+      "id": "growthcro-prd-planner",
+      "type": "installed_custom",
+      "location": ".claude/skills/growthcro-prd-planner/SKILL.md",
+      "invocation_proof": ".claude/skills/growthcro-prd-planner/SKILL.md:2",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_only"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "NEW (created in Wave 1, Issue #43). GrowthCRO-opinionated wrapper around ccpm — PRD → Epic → Issues → Dependencies → Acceptance → Tests. Has templates/ subdir. Frontmatter conforms to Anthropic Skill schema."
+    },
+    {
+      "id": "growthcro-status-memory",
+      "type": "installed_custom",
+      "location": ".claude/skills/growthcro-status-memory/SKILL.md",
+      "invocation_proof": ".claude/skills/growthcro-status-memory/SKILL.md:2",
+      "llm_cost": "0",
+      "security": {
+        "shell": false,
+        "network": false,
+        "env_vars": false,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write"
+      },
+      "audit_date": "2026-05-16",
+      "audit_method": "doc_only",
+      "notes": "NEW (created in Wave 1, Issue #44). Updates project memory files (PROJECT_STATUS.md / NEXT_ACTIONS.md / CHANGELOG_AI.md / ADR-XXX.md) after epic close / sprint close / major PR / architectural decision. Frontmatter conforms to Anthropic Skill schema."
+    }
+  ]
+}
