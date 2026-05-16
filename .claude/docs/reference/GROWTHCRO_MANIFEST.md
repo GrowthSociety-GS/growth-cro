@@ -403,6 +403,34 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-16 — Epic `gsg-creative-renaissance` registered as DEFERRED (Codex addendum)
+
+**Source** : [`.claude/docs/state/CODEX_TO_CLAUDE_GSG_CREATIVE_ENGINE_ADDENDUM_2026-05-16.md`](../state/CODEX_TO_CLAUDE_GSG_CREATIVE_ENGINE_ADDENDUM_2026-05-16.md) — addendum Codex 2026-05-16 validé Mathis. Tracks both files in commit `cae249c`.
+
+**Diagnostic Codex** (validé par smoke heavy 2026-05-16) : GrowthCRO a verrouillé la chaîne de vérité (Wave 3 ClaimsSourceGate + VerdictGate, Sprint P1 evidence-id + audit persist) mais n'a **jamais musclé la chaîne créative**. GSG actuel = safe template filler qui rejette les mauvais outputs au lieu de générer des outputs ambitieux. Preuve empirique : composite 50.2% sur Weglot lp_listicle (vs baseline Sprint 21 V14b 88.6%), doctrine 50%, humanlike 87.5% → le multi_judge "sent" le manque d'âme.
+
+**Epic scope** (cf. [`.claude/epics/gsg-creative-renaissance/epic.md`](../../epics/gsg-creative-renaissance/epic.md)) :
+- Creative Exploration Engine (3-5 directions par frontier model)
+- Visual Judge / Route Selection
+- CreativeRouteContract + VisualComposerContract (Pydantic v2 stricts)
+- Visual Composer (sections + modules + motion + textures library multi-vertical)
+- Screenshot QA mandatory (desktop + mobile, LLM visual inspection)
+- Renderer extension multi-vertical
+- 6+ clients benchmark anti-overfit Weglot
+- 5 custom skills `gsg-creative-explorer`/`gsg-visual-judge`/`gsg-visual-composer`/`gsg-brand-fit-judge`/`gsg-renderer-qa` (mono-concern, anti-mega-prompt)
+
+**Effort estimé** : 80-150h dev (3-5 sprints).
+
+**Status DEFERRED — démarre PAS avant** :
+1. Mathis valide runtime smoke heavy post Sprint P1
+2. 2 follow-ups émergents Agent Alpha scopés (ClaimsSourceGate skip `<style>`/`<script>`, optional renderer testimonial-card alignment)
+3. PRD complet écrit (via skill `growthcro-prd-planner`)
+4. Décisions externes : provider abstraction P1.9 (GPT vs Claude Opus pour creative), image gen provider (DALL-E vs Midjourney vs FLUX), Playwright MCP P1.4 wired pour Screenshot QA, Promptfoo evals P1.6 wired pour benchmark
+
+**Pourquoi DEFERRED et pas immediate dispatch** : Codex explicit §"What To Change In The GSG Roadmap" : *"After runtime alignment is fixed, the next GSG roadmap should not jump straight to more renderer tweaks. Recommended order: 1. Fix runtime/check/doc alignment first..."*. C'est ce qu'on vient de faire (Wave 3 + Sprint P1), il reste les follow-ups runtime résiduels avant d'attaquer le créatif.
+
+**Probabilité** : cet epic = très probablement le *"énorme chantier"* que Mathis mentionne dans CLAUDE.md step #12 pour la prochaine session majeure.
+
 ### 2026-05-16 — Sprint P1 "production-ready gates" (issues #52 + #53 + #54 + wire follow-up)
 
 **Epic** : `epic:production-ready-gates` label (no PRD ceremony — mini-sprint 3 issues post Wave 3 smoke runtime, scope émergent du smoke réel sur Weglot lp_listicle qui a révélé 3 gaps précis).
