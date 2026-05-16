@@ -1,15 +1,26 @@
 ---
 name: gsg-creative-renaissance
-status: deferred
+status: ready
 created: 2026-05-16T17:20:00Z
-prd: null
-github: null
+updated: 2026-05-16T18:45:00Z
+prd: .claude/prds/gsg-creative-renaissance.md
+github: TBD
 source_addendum: .claude/docs/state/CODEX_TO_CLAUDE_GSG_CREATIVE_ENGINE_ADDENDUM_2026-05-16.md
 depends_on:
   - epic:growthcro-stratosphere-p0 (DONE 2026-05-16)
   - epic:production-ready-gates (DONE 2026-05-16, sprint P1)
   - follow-up:gate-skip-style-script (Agent Alpha P1.12 émergent, à scoper)
-  - follow-up:smoke-runtime-validated-by-mathis (pending)
+  - follow-up:smoke-runtime-validated-by-mathis (DONE 2026-05-16)
+sub_issues:
+  - CR-01 — Creative Exploration Engine (Wave 1, L 16h)
+  - CR-02 — Visual Judge / Route Selection (Wave 1, M 12h)
+  - CR-03 — Contracts schemas (Wave 1, M 8h)
+  - CR-04 — Visual Composer + vocabulary library multi-vertical (Wave 2, XL 24h)
+  - CR-05 — Screenshot QA via MCP Playwright (Wave 2, L 16h)
+  - CR-06 — Renderer extension multi-vertical (Wave 3, XL 24h)
+  - CR-07 — Promptfoo benchmark suite (Wave 3, L 16h)
+  - CR-08 — 5 custom skills + final wire + CLAUDE.md (Wave 3, M 12h)
+total_effort: 128h dev (3-5 sprints solo, 1-2 weeks parallélisé 3-5 agents)
 ---
 
 # Epic: gsg-creative-renaissance
