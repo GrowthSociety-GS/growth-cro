@@ -15,12 +15,12 @@ sub_issues:
   - #56 CR-01 — Creative Exploration Engine (Wave 1, L 16h)
   - #57 CR-02 — Visual Judge / Route Selection (Wave 1, M 12h)
   - #58 CR-03 — Contracts schemas (Wave 1, M 8h)
-  - #59 CR-04 — Visual Composer + vocabulary library multi-vertical (Wave 2, XL 24h)
+  - #59 CR-04 — Visual Composer + vocabulary library multi-vertical + asset resolver (Wave 2, L 18h — image gen SKIP v1)
   - #60 CR-05 — Screenshot QA via MCP Playwright (Wave 2, L 16h)
   - #61 CR-06 — Renderer extension multi-vertical (Wave 3, XL 24h)
   - #62 CR-07 — Promptfoo benchmark suite (Wave 3, L 16h)
   - #63 CR-08 — 5 custom skills + final wire + CLAUDE.md (Wave 3, M 12h)
-total_effort: 128h dev (3-5 sprints solo, 1-2 weeks parallélisé 3-5 agents)
+total_effort: 122h dev (3-5 sprints solo, 1-2 weeks parallélisé 3-5 agents — image gen SKIP v1)
 ---
 
 # Epic: gsg-creative-renaissance
@@ -107,21 +107,22 @@ PRD complet écrit ([`.claude/prds/gsg-creative-renaissance.md`](../../prds/gsg-
 | Décision | Choix | Rationale |
 |---|---|---|
 | **Creative LLM** (CR-01) | **Claude Opus 4.7** | Stack 100% Anthropic, pas de nouvelle auth provider, Opus = plus créatif que Sonnet sur exploration. Coût ~$0.5-1 par run de 3-5 routes |
-| **Image gen** (CR-04) | **DALL-E 3 via OpenAI** | 1 seul provider image, prix prévisible (~$0.04-0.12/image), qualité "safe" pour B2B/SaaS/ecom. Ajoute OPENAI_API_KEY (déjà optional dans growthcro/config.py schema). Pas de Midjourney/FLUX en v1 (epic v2 si besoin variant artistique) |
-| **Screenshot QA** (CR-05) | **MCP Playwright** | MCP server-level (hors compte 8 skills/session). Playwright pip dep déjà là (utilisé pour capture). Install MCP = 1 config json. Bloque CR-05 sans ça |
-| **Eval framework** (CR-07) | **Promptfoo** | Standard de facto LLM eval (open-source, GitHub 5k+ stars, support Anthropic + OpenAI natif, golden datasets, web UI). Setup ~2h. Permet d'objectiver "Renaissance ne régresse pas Sprint 21 baseline + détecte overfit Weglot" |
+| **Image gen** (CR-04) | **SKIP v1** (Brand DNA + SVG/CSS/Lottie + stock fallback) | Mathis 2026-05-16 : pas d'image gen IA en v1. Brand DNA per-client a déjà logos/photos/assets. SVG/CSS/gradients/Lottie open-source couvrent 80% des needs visuels premium. Pexels/Unsplash API (gratuit, no auth) si vraiment besoin photos stock. Pas d'OpenAI/Replicate/Midjourney à manager. FLUX ou DALL-E = ajout v2 si benchmark Promptfoo prouve que luxury/lifestyle verticals plafonnent à cause de visuel manquant |
+| **Screenshot QA** (CR-05) | **MCP Playwright** | MCP server-level (hors compte 8 skills/session). Playwright pip dep déjà là (utilisé pour capture). Install MCP = 1 config json. ✅ DONE commit `58ad215` (`.mcp.json` project-level), restart Claude Code requis pour pick-up |
+| **Eval framework** (CR-07) | **Promptfoo** | Standard de facto LLM eval (open-source, GitHub 5k+ stars, support Anthropic + OpenAI natif, golden datasets, web UI). ✅ DONE installed globally v0.121.11. Permet d'objectiver "Renaissance ne régresse pas Sprint 21 baseline + détecte overfit Weglot" |
 
 **Implications pour l'archi epic** :
 - Pas besoin de provider abstraction LLM (P1.9 backlog peut rester P1, 1 seul Opus pour creative + Sonnet pour copy)
-- Besoin d'une **provider abstraction LÉGÈRE pour image** : `growthcro/lib/image_client.py` mono-concern wrapping DALL-E first, futur Midjourney/FLUX swap-in si décision v2
-- **Décision OPENAI_API_KEY** : à ajouter aux secrets `.env` + rotation discipline (cf. Mathis note sur ANTHROPIC_API_KEY exposé dans transcript de cette session)
-- **MCP install** : 1 config dans `~/.claude/mcp.json` ou `.claude/settings.json` selon convention projet (à check au démarrage de l'epic)
-- **Promptfoo install** : `npm install -g promptfoo` + `promptfoo init` dans `_eval/` dossier projet
+- **Pas d'image_client.py** : CR-04 perd ce module. Remplacé par `asset_resolver.py` qui resolver Brand DNA paths + SVG vocabulary library + Pexels/Unsplash fallback (no auth required pour Pexels via no-key endpoint)
+- **Pas d'OPENAI_API_KEY** à ajouter en v1
+- **MCP Playwright** : `.mcp.json` au root projet (committed) + restart Claude Code Mathis
+- **Promptfoo** : installed globally, prêt pour `promptfoo init` dans `_eval/` (CR-07)
 
 ### Internal — DÉPENDANCES OBSOLÈTES (à supprimer, déprécié par décisions tranchées)
 - ~~P1.4 Playwright MCP~~ → DONE via décision Screenshot QA
 - ~~P1.6 Promptfoo / DeepEval evals~~ → DONE via décision Eval framework
 - ~~P1.9 Provider abstraction LLM~~ → différé (1 seul provider creative = Opus)
+- ~~OpenAI/DALL-E dependency~~ → SKIP v1 (Brand DNA + SVG/CSS/Lottie + stock suffisent)
 
 ## Out of scope (explicite)
 

@@ -15,7 +15,7 @@ created: 2026-05-16T18:30:00Z
 
 Le GSG GrowthCRO post-Wave 3 + Sprint P1 a une **chaîne de vérité solide** (ClaimsSourceGate + VerdictGate + evidence-id injection + audit persistence) mais une **chaîne créative atrophiée** : le HTML produit est correct mais "safe template filler", pas premium. Smoke runtime 2026-05-16 sur Weglot lp_listicle : composite 50%, humanlike 88.8% / doctrine 50% (cap killer rule sur "missing ad creatives"). Le système est honnête (Wave 3 a fait son job), mais l'output visuel manque d'âme.
 
-Renaissance ajoute une **couche créative déterministe** avant le rendering : **Creative Exploration Engine (Opus 4.7)** génère 3-5 directions créatives audacieuses, **Visual Judge** sélectionne la meilleure, **Visual Composer** la traduit en sections/modules/motion/textures concrets, **Renderer étendu** produit du HTML premium multi-vertical, **Screenshot QA (MCP Playwright)** valide visuellement, **Multi-Judge** continue en QA post-prod. **Promptfoo** prouve non-régression sur 6+ clients tests.
+Renaissance ajoute une **couche créative déterministe** avant le rendering : **Creative Exploration Engine (Opus 4.7)** génère 3-5 directions créatives audacieuses, **Visual Judge** sélectionne la meilleure, **Visual Composer** la traduit en sections/modules/motion/textures concrets (SVG + CSS + gradients + Lottie + brand DNA assets existants), **Renderer étendu** produit du HTML premium multi-vertical, **Screenshot QA (MCP Playwright)** valide visuellement, **Multi-Judge** continue en QA post-prod. **Promptfoo** prouve non-régression sur 6+ clients tests. **Image gen IA explicitement SKIP en v1** (Brand DNA + SVG/CSS/Lottie + stock fallback couvrent 80% des needs, FLUX/DALL-E ajout v2 si benchmark prouve besoin).
 
 8 sub-issues atomiques, ~80-150h dev, 3 waves. Démarre quand cet epic est priorisé par Mathis (probablement = le *"énorme chantier"* CLAUDE.md step #12).
 
@@ -95,10 +95,11 @@ Schemas Pydantic v2 stricts dans `growthcro/models/creative_models.py` (axe TYPI
 ### FR-4 — Visual Composer (CR-04)
 Package `moteur_gsg/visual_composer/` (mono-concern, library multi-vertical) :
 - `vocabulary/` : library JSON par business category (`saas.json`, `ecommerce.json`, `luxury.json`, `marketplace.json`, `app_acquisition.json`, `media_editorial.json`, `local_service.json`, `health_wellness.json`, `finance.json`, `creator_course.json`, `enterprise.json`, `consumer_brand.json`)
-- Each vocabulary file : hero_mechanisms[], section_rhythms[], visual_metaphors[], motion_patterns[], texture_rules[], image_strategies[], typography_scales[]
+- Each vocabulary file : hero_mechanisms[], section_rhythms[], visual_metaphors[], motion_patterns[], texture_rules[], asset_strategies[] (SVG patterns, gradients, Lottie animations, brand DNA asset references), typography_scales[]
 - `composer.py` : transform `CreativeRouteContract` + vocabulary → `VisualComposerContract` concret
-- `asset_brief_generator.py` : pour chaque asset_spec, draft prompt pour image gen (DALL-E 3)
+- `asset_resolver.py` : pour chaque asset_spec, resolver le path/SVG/CSS depuis (a) Brand DNA per-client existing assets, (b) vocabulary library SVG patterns, (c) Pexels/Unsplash stock fallback (gratuit, no auth)
 - `motion_specs_generator.py` : convertit motion_language thesis en specs CSS/JS concrets
+- **PAS d'image gen IA en v1** : Brand DNA + SVG/CSS/Lottie + stock couvrent les needs. Image gen FLUX/DALL-E = epic v2 si benchmark prouve besoin (e.g. luxury/lifestyle verticals plafonnent à cause de visuel manquant)
 
 ### FR-5 — Screenshot QA (CR-05)
 Module `moteur_gsg/renderer_qa/` :
@@ -159,10 +160,9 @@ Dans `.claude/skills/` :
 ## Constraints & Assumptions
 
 ### Constraints
-- **Stack** : Claude Opus 4.7 (creative) + Claude Sonnet 4.6 (copy + judge) + OpenAI DALL-E 3 (images) + MCP Playwright (screenshots) + Promptfoo (eval) — décisions tranchées Mathis 2026-05-16
-- **OPENAI_API_KEY** doit être ajoutée à `.env` + rotation discipline avant CR-04 démarre
-- **MCP Playwright** install requis avant CR-05 démarre
-- **Promptfoo** install requis avant CR-07 démarre
+- **Stack** : Claude Opus 4.7 (creative) + Claude Sonnet 4.6 (copy + judge) + MCP Playwright (screenshots) + Promptfoo (eval) — décisions tranchées Mathis 2026-05-16. **Image gen explicitement SKIP v1** (Brand DNA + SVG/CSS/Lottie + stock fallback)
+- **MCP Playwright** : DONE (commit `58ad215`, restart Claude Code requis pour pick-up)
+- **Promptfoo** : DONE (installed globally v0.121.11)
 - **Pas de modification doctrine V3.2.1** (V3.3 = Mathis review, hors)
 - **Pas de mega-prompt** (CLAUDE.md #1, Codex §"Skills / Tools Direction")
 - **Pas de LLM invente proof** (ClaimsSourceGate continue de filter)
@@ -186,7 +186,7 @@ Dans `.claude/skills/` :
 - **Mode 6 ELITE GSG** (hors)
 - **Microfrontends webapp** (D1.A acté single shell)
 - **Provider abstraction LLM** (1 Opus suffit pour creative, Sonnet pour copy — pas besoin)
-- **Image gen multi-provider** (DALL-E v1, Midjourney/FLUX v2 si besoin)
+- **Image gen IA en v1** : explicitement skip (Brand DNA + SVG/CSS/Lottie + stock couvrent les needs). FLUX/DALL-E = v2 si benchmark prouve besoin sur luxury/lifestyle verticals
 - **Promotion axe-core / Lighthouse en gates strict** (P1.5 separate)
 - **Slash command `/lp-creator-from-blank`** (P1.10 separate)
 - **BriefV2 `chosen_angle` field** (P1.11 separate)
@@ -208,11 +208,11 @@ Dans `.claude/skills/` :
   - ClaimsSourceGate skip `<style>`/`<script>` content (réduit false positives)
   - Renderer testimonial-card class alignment (cosmétique)
 
-### External (install requis avant les CRs concernés)
-- **OpenAI account + OPENAI_API_KEY** in `.env` (avant CR-04)
-- **MCP Playwright config** dans `.claude/settings.json` ou `~/.claude/mcp.json` (avant CR-05)
-- **Promptfoo install** `npm install -g promptfoo` (avant CR-07)
-- **Claude Opus 4.7 API access** (déjà OK, même clé ANTHROPIC_API_KEY)
+### External (status post 2026-05-16)
+- ✅ **MCP Playwright** wired (`.mcp.json` committed `58ad215`, restart Claude Code requis pour pick-up)
+- ✅ **Promptfoo** installed globally (`npm install -g promptfoo` v0.121.11)
+- ✅ **Claude Opus 4.7 API access** (déjà OK via ANTHROPIC_API_KEY)
+- ❌ ~~OpenAI DALL-E~~ : explicitement SKIP en v1 per décision Mathis 2026-05-16
 
 ### GitHub
 - 1 Epic issue à créer post-PRD validation Mathis
