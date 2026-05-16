@@ -24,6 +24,7 @@ import time
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from moteur_multi_judge.judges.blocking_gates import aggregate_blocking_gates
 from moteur_multi_judge.judges.doctrine_judge import audit_lp_doctrine
 
 # humanlike_judge : encore dans skills/growth-site-generator (V26.Z, à move Sprint 7)
@@ -116,6 +117,7 @@ def run_multi_judge(
     weight_humanlike: float = 0.3,
     skip_humanlike: bool = False,
     skip_implementation: bool = False,
+    upstream_impeccable_report: dict | None = None,
     verbose: bool = True,
 ) -> dict:
     """Audit complet d'une LP HTML par les 3 juges complémentaires.
@@ -205,6 +207,33 @@ def run_multi_judge(
         "killer_rules_violated": doctrine_audit.get("killer_rules_violated", False),
         "killer_violations": doctrine_audit.get("killer_violations", []),
     }
+
+    # ── 4b. VerdictGate (Wave 3 #50) — hard-stop override ────
+    # Aggregates impeccable_qa + doctrine.killer_rules + impl_penalty +
+    # 6 check_gsg_*.py + SCHEMA/validate_all.py. Any failure forces
+    # final_score_pct=0 and verdict="🔴 Non shippable" regardless of
+    # the composite. This is the "shippable signal" gate — the composite
+    # is a quality signal that can be high while the page is still
+    # un-shippable (e.g. killer rule violated at 92%).
+    gates_report = aggregate_blocking_gates(
+        # impeccable_qa runs upstream in mode_1_complete; passed-through via
+        # `upstream_impeccable_report` kwarg. When run_multi_judge is called
+        # standalone (e.g. CLI / tests), default to `passed=True` so the gate
+        # doesn't spuriously block on a missing field.
+        impeccable_report=upstream_impeccable_report or {"passed": True},
+        doctrine_audit=doctrine_audit,
+        implementation_audit={"impl_penalty_pp": impl_pen},
+    )
+    audit["final"]["blocking_gates_report"] = gates_report.model_dump()
+    if gates_report.any_gate_failed:
+        if verbose:
+            logger.warning(
+                f"  ⛔ VerdictGate FAIL: forcing final_score_pct=0, verdict='🔴 Non shippable'. "
+                f"Failed gates: {', '.join(gates_report.failed_gates)}"
+            )
+        audit["final"]["final_score_pct"] = 0
+        audit["final"]["verdict"] = "🔴 Non shippable"
+        audit["final"]["non_shippable_reasons"] = gates_report.failed_gates
 
     # ── 5. Telemetry ────────────────────────────────────────
     grand_dt = time.time() - grand_t0

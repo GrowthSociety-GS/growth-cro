@@ -896,10 +896,16 @@ def run_mode_1_complete(
     if not skip_judges:
         if verbose:
             logger.info("\n→ Multi-judge (doctrine + humanlike + impl_check)...")
+        from moteur_multi_judge.judges.blocking_gates import VerdictGateError
         from moteur_multi_judge.orchestrator import run_multi_judge
         audit = run_multi_judge(
-            html=html, client=client, page_type=page_type, verbose=verbose,
+            html=html, client=client, page_type=page_type,
+            upstream_impeccable_report=impeccable_report,  # Wave 3 #50: feed gate
+            verbose=verbose,
         )
+        # Wave 3 #50: hard-stop if any blocking gate failed and caller is strict.
+        if ship_strict and audit.get("final", {}).get("verdict") == "🔴 Non shippable":
+            raise VerdictGateError(audit["final"].get("blocking_gates_report") or {})
         if save_audit_path:
             out_audit = pathlib.Path(save_audit_path)
             out_audit.parent.mkdir(parents=True, exist_ok=True)
