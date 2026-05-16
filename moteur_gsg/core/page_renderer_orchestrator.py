@@ -24,9 +24,15 @@ from typing import Any
 
 from .animations import render_animations_css
 from .css import render_renderer_css
+from .evidence_id_injector import (
+    build_claim_index,
+    find_id_for_logo,
+    find_id_for_testimonial,
+    wrap_numbers_with_evidence,
+)
 from .fact_assembler import _proof_strip
 from .hero_renderer import _hero_visual
-from .html_escaper import _e, _paragraphs
+from .html_escaper import _e
 from .component_renderer import _reason_visual
 from .planner import GSGPagePlan
 from .section_renderer import _render_component_page
@@ -62,13 +68,30 @@ def render_controlled_page(
     author_name = byline.get("author_name") or "Growth Society Research"
     initials = "".join(part[0] for part in author_name.split()[:2]).upper() or "GS"
 
+    # Issue #52 — ClaimsSourceGate compliance. Build a normalised index of
+    # every brief-sourced claim (numbers, testimonials, logos) once per
+    # page; the renderer threads it through to inline ``data-evidence-id``
+    # attribute injection. Claims without a matching brief entry render
+    # WITHOUT the attribute — V26.A fail-loud invariant lets
+    # ClaimsSourceGate catch them downstream.
+    _brief_for_idx = getattr(plan, "brief", None) or {}
+    claim_idx = build_claim_index(_brief_for_idx, plan.client, plan.page_type)
+
+    def _eh(text: Any) -> str:
+        """Escape + wrap matched numbers with claim spans (Issue #52)."""
+        return wrap_numbers_with_evidence(_e(text), claim_idx)
+
+    def _paras_eh(items: list[Any]) -> str:
+        """Variant of ``_paragraphs`` that wraps matched numbers per Issue #52."""
+        return "\n".join(f"<p>{_eh(item)}</p>" for item in (items or []) if item)
+
     def _hero_cta_block(hero_data: dict[str, Any], default_href: str, default_label: str) -> str:
         """V27.2-H T15-4: render the primary CTA + reassurance microcopy
         directly in the hero, so the LP doesn't depend on the final CTA
         section for above-the-fold conversion."""
         label = hero_data.get("primary_cta_label") or default_label
         microcopy = hero_data.get("microcopy") or ""
-        microcopy_html = f'<p class="hero-microcopy">{_e(microcopy)}</p>' if microcopy else ""
+        microcopy_html = f'<p class="hero-microcopy">{_eh(microcopy)}</p>' if microcopy else ""
         return f"""
 <div class="hero-cta-block">
   <a class="cta-button cta-button-hero" href="{_e(default_href)}">{_e(label)}</a>
@@ -100,7 +123,17 @@ def render_controlled_page(
         if not names:
             return ""
         names = names[:6]  # max 6 logos
-        items = "".join(f"<li>{_e(n)}</li>" for n in names)
+        # Issue #52 — each logo `<li>` carries `data-logo` (recognised by
+        # ClaimsSourceGate as a claim element regardless of tag/class) plus
+        # the brief-derived `data-evidence-id` when the name matches the
+        # brief's `client_logos_tier1` list.
+        def _logo_li(name: str) -> str:
+            eid = find_id_for_logo(name, claim_idx)
+            attrs = ' data-logo="1"'
+            if eid:
+                attrs += f' data-evidence-id="{_e(eid)}"'
+            return f"<li{attrs}>{_e(name)}</li>"
+        items = "".join(_logo_li(n) for n in names)
         label = (
             "Ils nous font confiance"
             if plan_arg.target_language.lower().startswith("fr")
@@ -126,8 +159,8 @@ def render_controlled_page(
         rows_html = "".join(
             f"""<tr>
   <th scope="row">{_e(row.get('dimension'))}</th>
-  <td class="comparison-without">{_e(row.get('without'))}</td>
-  <td class="comparison-with">{_e(row.get('with'))}</td>
+  <td class="comparison-without">{_eh(row.get('without'))}</td>
+  <td class="comparison-with">{_eh(row.get('with'))}</td>
 </tr>"""
             for row in rows if isinstance(row, dict)
         )
@@ -180,7 +213,18 @@ def render_controlled_page(
             is_internal_validated = sourced_from == "internal_brief"
             is_verified = bool(item.get("is_verified") or source_url or is_internal_validated)
             initial = (name[:1] or company[:1] or "?").upper()
-            stat_html = f'<p class="testimonial-stat">{_e(stat)}</p>' if stat else ""
+            # Issue #52 — wrap the stat highlight so numeric proof inside a
+            # testimonial card resolves to the brief's sourced_numbers ledger
+            # entry when the number appears verbatim there.
+            stat_html = f'<p class="testimonial-stat">{_eh(stat)}</p>' if stat else ""
+            # Issue #52 — resolve the brief evidence id for this testimonial
+            # quote. `data-testimonial` attribute lets ClaimsSourceGate detect
+            # the card regardless of its `<article>` tag (gate only DOM-matches
+            # `div.testimonial-card` / `blockquote.testimonial`).
+            testimonial_eid = find_id_for_testimonial(quote, claim_idx)
+            card_evidence_attrs = ' data-testimonial="1"'
+            if testimonial_eid:
+                card_evidence_attrs += f' data-evidence-id="{_e(testimonial_eid)}"'
             # T18-2: real Unsplash portrait when ID provided ; else
             # fall back to the letter-monogram circle.
             unsplash_id = (item.get("unsplash_portrait_id") or "").strip()
@@ -210,7 +254,7 @@ def render_controlled_page(
                     domain = "source"
                 verified_html = f'<a class="testimonial-source-link" href="{_e(source_url)}" rel="nofollow noopener" target="_blank">{_e(domain)} ↗</a>'
             cards.append(f"""
-<article class="{card_class}">
+<article class="{card_class}"{card_evidence_attrs}>
   {avatar_html}
   <blockquote class="testimonial-quote">{_e(quote)}</blockquote>
   <p class="testimonial-attr">
@@ -336,15 +380,18 @@ def render_controlled_page(
         if isinstance(paragraphs, str):
             paragraphs = [paragraphs]
         side = reason.get("side_note")
-        side_html = f'    <div class="side-note">{_e(side)}</div>' if side else ""
+        # Issue #52 — side_note frequently carries the sourced highlight
+        # (e.g. "111 368 marques en production"); wrap numbers so the
+        # ClaimsSourceGate matches them via `span.number`.
+        side_html = f'    <div class="side-note">{_eh(side)}</div>' if side else ""
         heading_text = reason.get("heading") or ""
         sources_html = _reason_sources_for(reason)
         reason_html.append(f"""
 <article class="reason" id="reason-{idx:02d}">
   <div class="reason-number">{idx:02d}</div>
   <div class="reason-body">
-    <h2>{_e(heading_text)}</h2>
-    {_paragraphs(paragraphs)}
+    <h2>{_eh(heading_text)}</h2>
+    {_paras_eh(paragraphs)}
 {side_html}
     {sources_html}
   </div>
@@ -361,8 +408,8 @@ def render_controlled_page(
 <section class="mid-cta" aria-label="Call to action">
   <div class="mid-cta-inner">
     <div>
-      <h3>{_e(mid_cta_heading)}</h3>
-      <p>{_e(mid_cta_body)}</p>
+      <h3>{_eh(mid_cta_heading)}</h3>
+      <p>{_eh(mid_cta_body)}</p>
     </div>
     <a class="cta-button" href="{_e(cta_href)}">{_e(cta_label)}</a>
   </div>
@@ -378,7 +425,7 @@ def render_controlled_page(
             reason_html.append(f"""
 <aside class="pull-quote" aria-label="Highlight" data-pull-quote-of-reason="{idx:02d}">
   <span class="pull-quote-mark" aria-hidden="true">“</span>
-  <p>{_e(pq)}</p>
+  <p>{_eh(pq)}</p>
   <cite class="pull-quote-cite">— Raison {idx:02d}</cite>
 </aside>""")
 
@@ -407,10 +454,10 @@ def render_controlled_page(
       <div class="top-rule"></div>
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <p class="eyebrow">{_e(hero.get('eyebrow'))}</p>
-          <h1 id="page-title">{_e(hero.get('h1'))}</h1>
-          {f'<p class="sub-h1">{_e(hero.get("sub_h1"))}</p>' if hero.get('sub_h1') else ''}
-          <p class="dek">{_e(hero.get('dek'))}</p>
+          <p class="eyebrow">{_eh(hero.get('eyebrow'))}</p>
+          <h1 id="page-title">{_eh(hero.get('h1'))}</h1>
+          {f'<p class="sub-h1">{_eh(hero.get("sub_h1"))}</p>' if hero.get('sub_h1') else ''}
+          <p class="dek">{_eh(hero.get('dek'))}</p>
           {_hero_cta_block(hero, cta_href, cta_label)}
           {_hero_logos_grid(hero, plan)}
         </div>
@@ -419,7 +466,7 @@ def render_controlled_page(
     </header>
     <main>
       <section class="intro" aria-label="Introduction">
-        {_paragraphs(intro)}
+        {_paras_eh(intro)}
       </section>
       {'' if plan.page_type == 'lp_listicle' else _proof_strip(plan)}
       {''.join(reason_html)}
@@ -428,8 +475,8 @@ def render_controlled_page(
       {faq_html}
       <section class="final-cta" aria-labelledby="final-cta-title">
         <div>
-          <h2 id="final-cta-title">{_e(final_cta.get('heading'))}</h2>
-          <p>{_e(final_cta.get('body'))}</p>
+          <h2 id="final-cta-title">{_eh(final_cta.get('heading'))}</h2>
+          <p>{_eh(final_cta.get('body'))}</p>
         </div>
         <a class="cta-button" href="{_e(cta_href)}">{_e(cta_label)}</a>
       </section>
