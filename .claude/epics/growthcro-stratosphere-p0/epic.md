@@ -2,10 +2,10 @@
 name: growthcro-stratosphere-p0
 status: backlog
 created: 2026-05-16T12:14:34Z
-updated: 2026-05-16T12:14:34Z
+updated: 2026-05-16T12:43:15Z
 progress: 0%
 prd: .claude/prds/growthcro-stratosphere-p0.md
-github: (will be set on sync)
+github: https://github.com/GrowthSociety-GS/growth-cro/issues/39
 ---
 
 # Epic: growthcro-stratosphere-p0
@@ -197,20 +197,23 @@ Total estimated : ~75h (low end if minimal acceptance) → ~120h (high end if ex
 
 ## Tasks Created
 
-- [ ] 001.md - Fix SSRF crawler validation (parallel: true)
-- [ ] 002.md - Archive obsolete architecture V1 doc (parallel: true)
-- [ ] 003.md - Create skill `growthcro-anti-drift` (parallel: true)
-- [ ] 004.md - Create skill `growthcro-prd-planner` (parallel: true)
-- [ ] 005.md - Create skill `growthcro-status-memory` (parallel: true)
-- [ ] 006.md - Create `SKILLS_REGISTRY_GOVERNANCE.json` + audit script (parallel: partial, depends 003-005)
-- [ ] 007.md - Skills security checklist + retroactive audit 17 externals (parallel: true, depends 006)
-- [ ] 008.md - `Opportunity` Pydantic schema + persistence (parallel: true)
-- [ ] 009.md - Opportunity engine orchestrator deterministic (parallel: partial, depends 008)
-- [ ] 010.md - Opportunity CLI + wire recos orchestrator (parallel: true, depends 009)
-- [ ] 011.md - Verdict Gate aggregator in multi-judge (parallel: true)
-- [ ] 012.md - ClaimsSourceGate HTML parser + wire mode_1 (parallel: true)
+- [ ] #40 - Fix SSRF crawler validation (parallel: true)
+- [ ] #41 - Archive obsolete architecture V1 doc (parallel: true)
+- [ ] #42 - Create skill `growthcro-anti-drift` (parallel: true)
+- [ ] #43 - Create skill `growthcro-prd-planner` (parallel: true)
+- [ ] #44 - Create skill `growthcro-status-memory` (parallel: true)
+- [ ] #45 - Create `SKILLS_REGISTRY_GOVERNANCE.json` + audit script (parallel: partial, depends 42-44)
+- [ ] #46 - Skills security checklist + retroactive audit 17 externals (parallel: true, depends 45)
+- [ ] #47 - `Opportunity` Pydantic schema + persistence (parallel: true)
+- [ ] #48 - Opportunity engine orchestrator deterministic (parallel: partial, depends 47)
+- [ ] #49 - Opportunity CLI + wire recos orchestrator (parallel: true, depends 48)
+- [ ] #50 - Verdict Gate aggregator in multi-judge (parallel: true, conflicts 51)
+- [ ] #51 - ClaimsSourceGate HTML parser + wire mode_1 (parallel: true, conflicts 50)
 
 Total tasks: 12
-Parallel tasks (wave 1): 6 — 001, 002, 003, 004, 005, 008
-Sequential tasks (waves 2-3): 6 — 006, 007, 009, 010, 011, 012
+Parallel tasks (wave 1): 6 — #40, #41, #42, #43, #44, #47
+Sequential tasks (waves 2-3): 6 — #45, #46, #48, #49, #50, #51
 Estimated total effort: 75-120h
+
+Epic issue: https://github.com/GrowthSociety-GS/growth-cro/issues/39
+Synced: 2026-05-16T12:43:15Z
