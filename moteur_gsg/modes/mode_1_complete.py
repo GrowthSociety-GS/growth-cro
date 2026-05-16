@@ -49,6 +49,7 @@ from typing import Any
 
 from ..core.brand_intelligence import load_brand_dna, has_brand_dna, get_brand_summary
 from ..core.claims_source_gate import ClaimsSourceError, validate_claims_sources
+from ..core.evidence_id_injector import augment_evidence_ledger_with_brief
 from ..core.impeccable_qa import run_impeccable_qa
 from ..core.prompt_assembly import build_mode1_prompt
 from ..core.pipeline_single_pass import apply_runtime_fixes, single_pass
@@ -774,6 +775,12 @@ def run_mode_1_complete(
             logger.warning(
                 f"  ⚠ evidence_ledger.json load failed ({exc}) — claims gate runs against empty ledger"
             )
+    # P1.12 follow-up: augment ledger with brief.sourced_numbers + testimonials +
+    # available_proofs so renderer-injected data-evidence-id values lookup correctly
+    # (claims move from claims_invalid_source to claims_with_valid_source).
+    evidence_ledger = augment_evidence_ledger_with_brief(
+        evidence_ledger, brief, client, page_type
+    )
     claims_report = validate_claims_sources(html, evidence_ledger)
     gen["claims_source_gate"] = claims_report.model_dump()
     if verbose:
