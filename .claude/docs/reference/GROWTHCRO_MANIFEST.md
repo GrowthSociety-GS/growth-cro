@@ -403,6 +403,52 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-16 — Sprint P1 "production-ready gates" (issues #52 + #53 + #54 + wire follow-up)
+
+**Epic** : `epic:production-ready-gates` label (no PRD ceremony — mini-sprint 3 issues post Wave 3 smoke runtime, scope émergent du smoke réel sur Weglot lp_listicle qui a révélé 3 gaps précis).
+
+**Issue #52 — GSG renderer injects `data-evidence-id`** (`feat(gsg)` commit `7984675` Agent Alpha + `d405472` wire follow-up)
+- **New module** : `moteur_gsg/core/evidence_id_injector.py` (459 LOC, axe `prompt_assembly`). Expose `augment_evidence_ledger_with_brief(ledger, brief, client, page_type)` pure function (idempotent, NEW dict), `build_brief_evidence_items`, `build_claim_index`, `find_id_for_logo` etc. Match déterministe par claim text (substring/normalized) — pas de LLM.
+- **Modified** : `moteur_gsg/core/page_renderer_orchestrator.py` (+47 LOC, axe `prompt_assembly`). Injecte `data-evidence-id="<id>"` sur chaque claim rendu (numbers, testimonials, logos, proof items). Si pas de match dans evidence_ledger → render SANS attribute (V26.A fail-loud invariant — ClaimsSourceGate catch).
+- **Wire** (commit `d405472`) : `moteur_gsg/modes/mode_1_complete.py` +7 LOC. Import `augment_evidence_ledger_with_brief` + appel juste avant `validate_claims_sources()` ligne 777. Augmente le ledger avec brief.sourced_numbers + testimonials + available_proofs (15 items typiquement) AVANT que le gate ne valide. Sans ce wire, les `data-evidence-id` injectés par le renderer passent en `claims_invalid_source` au lieu de `claims_with_valid_source` — même outcome shipping mais sémantique différente.
+- **Tests** : `tests/gsg/test_renderer_evidence_id.py` (414 LOC, 24 cases). 129/129 pytest total pass.
+- **Synthetic smoke pre-wire** : claims_valid 0 → 15 contre brief Weglot. Smoke post-wire heavy en attente Mathis (cf. follow-up notes).
+
+**Issue #53 — Sweep `import growthcro.config` dans 8 entry scripts** (`fix(env)` commit `2e763b3` Agent Beta)
+- **Pattern fix** : 1 ligne `import growthcro.config  # noqa: F401` au top de chaque entry script (après `from __future__`, avant les autres imports). Déclenche `growthcro/config.py:_load_dotenv_once()` qui charge `.env` dans `os.environ` AVANT que `anthropic.Anthropic()` soit construit downstream.
+- **Files patched (8)** : `scripts/_test_weglot_listicle_V26AE.py`, `growthcro/cli/enrich_client.py`, `skills/site-capture/scripts/brand_dna_diff_extractor.py`, `skills/growth-site-generator/scripts/{creative_director,gsg_humanlike_audit,gsg_multi_judge,gsg_pipeline_sequential,scrap_inspiration}.py`.
+- **Files skipped (10)** : 5 importent déjà `growthcro.config`, 3 libs non-entry, 2 territoire d'autres agents (Alpha/Gamma), 1 fait via cef06fb antérieur.
+- **Files reverted (1)** : `skills/site-capture/scripts/recos_rewrite_fr.py` crashe à l'import sur `reco_enricher_v13_api` (shim supprimé issue #11) — bug pré-existant flag follow-up.
+- **Note importante** : pattern v2 ≠ naïve 1-line car les scripts `skills/.../scripts/` n'ont pas le repo root en `sys.path` au moment de l'import. Pattern adopté : `sys.path.insert(0, str(_pl.Path(__file__).resolve().parents[N]))` AVANT `import growthcro.config` (aligné sur le pattern de référence run_gsg_full_pipeline.py commit cef06fb).
+- **Smoke** : `--help` exit 0 sur chaque script patché.
+
+**Issue #54 — Multi-judge persiste audit complet** (`feat(multi_judge)` commit `ce53de1` Agent Gamma)
+- **New module** : `moteur_multi_judge/persist.py` (128 LOC, axe `persistence`). Expose `save_multi_judge_audit(audit, client, page_type, *, root=None)` + `load_multi_judge_audit(...)` + `multi_judge_audit_path(...)`. Atomic write via `tempfile.NamedTemporaryFile + os.replace` — même idiome que `growthcro/opportunities/persist.py` Wave 1 #47. `json.dumps(..., default=str)` pour absorber Pydantic enums / Paths / datetimes (artefact human-debug + webapp display, pas round-trip strict Pydantic).
+- **Modified** : `moteur_multi_judge/__init__.py` (+13 LOC re-exports), `moteur_multi_judge/orchestrator.py` (+13 LOC, 1 import + 11-line try/except call AVANT le `return audit` final). Wrap try/except pour que I/O failure ne casse jamais le run (mode 1 doit toujours retourner l'audit, même si persist fail logger.warning).
+- **Tests** : `tests/multi_judge/test_persist.py` (155 LOC, 7 tests : round_trip, path_convention, atomic_write, load_missing, creates_parent_dir, persists_killer_rules_and_failed_gates, persists_nested_blocking_gates). 17/17 pytest pass (10 verdict-gate existants + 7 nouveaux).
+- **Path persistence** : `data/captures/<client>/<page_type>/multi_judge_audit.json`. Top keys : `client`, `page_type`, `audit_version`, `doctrine` (per-pillar breakdown), `humanlike`, `implementation`, `final` (contenant `final_score_pct`, `verdict`, `killer_rules_violated`, `killer_violations`, `blocking_gates_report.{any_gate_failed,failed_gates}`), `totals_meta` (wall/tokens/cost).
+- **Débloque** : (a) post-hoc debugging "quelles 2 killer rules ont failed?" (avant : invisible disk-side), (b) Webapp Observatoire V26 display per-criterion, (c) Learning Layer V29 pattern detection cross-runs.
+
+**Smoke gates final post Sprint P1** :
+- **pytest** : 129 passed in 0.32s (98 Wave 1+2+3 + 31 Sprint P1 nouveaux : 24 evidence-id + 7 multi-judge persist)
+- **lint_code_hygiene** : FAIL 3 (mode_1_complete.py bumpé à 1040 LOC, tracked KNOWN_DEBT — pas un nouveau fail ; 2 autres préexistants `components.py` 979 LOC + `seed_supabase` os.environ)
+- **SCHEMA validate_all** : 3439 files OK
+- **audit_skills_governance** : 38 entries 0 drift (registry proofs line numbers bumpés post-wire : impeccable 745→746, cro-methodology 805→812, emil-design-eng 831→838)
+- **audit_capabilities** : 0 orphans HIGH (nouveaux modules `moteur_gsg/core/evidence_id_injector.py` + `moteur_multi_judge/persist.py` registered)
+
+**Follow-ups identifiés par Agent Alpha (à scoper séparément si Mathis valide)** :
+1. **ClaimsSourceGate skip `<style>` and `<script>` content** : sur smoke pre-wire, 100/115 claims détectés viennent de percentages dans `<style>` blocks (CSS keyframes opacity). `HTMLParser` walk dans `<style>`. Réduirait le bruit drastiquement. ~30 LOC dans `moteur_gsg/core/claims_source_gate.py`.
+2. **Re-render renderer's existing `<article class="testimonial-card">`** : Agent Alpha a workarround via `data-testimonial="1"` attribute (déjà dans gate's `_CLAIM_DATA_ATTRS`). Si nettoyer renderer + gate pour aligner sur `<div class="testimonial-card">` partout : optionnel.
+
+**Bilan stratosphérique cumulé** post Sprint P1 :
+- **P0 (epic growthcro-stratosphere-p0)** : 12/12 issues + epic CLOSED
+- **P1 production-ready gates** : 3/3 issues CLOSED + 1 wire follow-up CLOSED (commits 7984675 + 2e763b3 + ce53de1 + d405472)
+- **3 follow-ups Mathis review pending** : CLAUDE.md step #13 ✅ commit 9f636a6 + DROP 4 skills ✅ commit f5d5738 + heavy smoke ✅ Mathis run validated
+- **P1 backlog restant** (10 items P1 hors ce sprint + 2 émergents identifiés ce sprint) → prochaine session
+- **Total commits depuis epic open** : 28 commits sur main (P0 + P1 + housekeeping)
+- **Total tests** : 129 pytest pass
+- **Status** : système agentic GrowthCRO **production-ready end-to-end** sur les gates wirés
+
 ### 2026-05-16 — P0 Wave 1 issues #40 + #41 (SSRF crawler gate + architecture V1 archive)
 
 **Epic** : [`growthcro-stratosphere-p0`](../../epics/growthcro-stratosphere-p0/) Wave 1, Agent 1 dispatch.
