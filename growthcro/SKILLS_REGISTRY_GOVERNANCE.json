@@ -40,7 +40,7 @@
       "id": "impeccable",
       "type": "runtime_heuristic_python",
       "location": "skills-lock.json (pbakaus/impeccable) + moteur_gsg/core/impeccable_qa.py",
-      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:745",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:746",
       "llm_cost": "0",
       "security": {
         "shell": false,
@@ -72,7 +72,7 @@
       "id": "cro-methodology",
       "type": "runtime_heuristic_python",
       "location": "skills-lock.json (wondelai/skills) + moteur_gsg/core/cro_methodology_audit.py",
-      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:805",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:812",
       "llm_cost": "0",
       "security": {
         "shell": false,
@@ -92,7 +92,7 @@
       "id": "emil-design-eng",
       "type": "runtime_heuristic_python",
       "location": "skills-lock.json (emilkowalski/skill) + moteur_gsg/core/emil_design_eng_audit.py",
-      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:831",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:838",
       "llm_cost": "0",
       "security": {
         "shell": false,
