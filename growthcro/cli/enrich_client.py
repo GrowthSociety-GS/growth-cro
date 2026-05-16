@@ -37,6 +37,16 @@ Dépendances :
     ANTHROPIC_API_KEY doit être dans l'env.
 """
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parents[2]))
+
+# Load .env into os.environ BEFORE any anthropic SDK construction.
+# growthcro.config._load_dotenv_once() runs at import time; without this line,
+# downstream modules construct anthropic.Anthropic() with an empty env and
+# crash on missing ANTHROPIC_API_KEY.
+import growthcro.config  # noqa: F401,E402 — side-effect import for env load
+
 import argparse
 import json
 import re

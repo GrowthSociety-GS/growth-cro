@@ -21,6 +21,16 @@ Usage :
 """
 from __future__ import annotations
 
+import sys as _sys
+import pathlib as _pl
+_sys.path.insert(0, str(_pl.Path(__file__).resolve().parents[3]))
+
+# Load .env into os.environ BEFORE any anthropic SDK construction.
+# growthcro.config._load_dotenv_once() runs at import time; without this line,
+# downstream modules construct anthropic.Anthropic() with an empty env and
+# crash on missing ANTHROPIC_API_KEY.
+import growthcro.config  # noqa: F401,E402 — side-effect import for env load
+
 import argparse
 import json
 import pathlib
