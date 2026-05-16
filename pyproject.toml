@@ -71,6 +71,7 @@ module = [
   "growthcro.models.visual_models",
   "growthcro.models.context_models",
   "growthcro.models.recos_models",
+  "growthcro.models.opportunity_models",
 ]
 # Strict flag set, listed explicitly. Per mypy docs, a few strict
 # subflags (``warn_redundant_casts``, ``warn_unused_ignores``,
