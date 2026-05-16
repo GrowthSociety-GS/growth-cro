@@ -105,6 +105,11 @@ class RecoEnriched(BaseModel):
     # Provenance — distinguishes a fallback (LLM failed) from a real enrichment.
     is_fallback: bool = False
     fallback_reason: str | None = None
+    # Opportunity Layer wiring (Issue #49). ``None`` when the reco predates
+    # ``opportunities.json`` generation OR when no opportunity matches the
+    # reco's ``criterion_id``. Non-None form is an opportunity ``id`` from
+    # ``growthcro.opportunities`` (e.g. ``opp_weglot_home_hero_03``).
+    linked_opportunity_id: str | None = None
 
 
 class RecoBatch(BaseModel):

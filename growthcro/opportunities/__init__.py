@@ -15,6 +15,7 @@ Out of scope here:
 - LLM enrichment — Issue P1 (future).
 """
 from growthcro.models.opportunity_models import Opportunity, OpportunityBatch
+from growthcro.opportunities.orchestrator import generate_opportunities
 from growthcro.opportunities.persist import (
     load_opportunities,
     opportunities_path,
@@ -24,6 +25,7 @@ from growthcro.opportunities.persist import (
 __all__ = [
     "Opportunity",
     "OpportunityBatch",
+    "generate_opportunities",
     "load_opportunities",
     "opportunities_path",
     "save_opportunities",

@@ -409,6 +409,17 @@ async def process_page(
     page = data.get("page") or ""
     prompts: list[dict[str, Any]] = data.get("prompts", [])
 
+    # Issue #49 — Opportunity Layer wiring. Load opportunities.json once per
+    # page; build criterion_id → opp.id map. Backward compat: file may be
+    # absent (legacy pages) → empty map → linked_opportunity_id stays None.
+    from growthcro.opportunities import load_opportunities as _load_opps  # local import to avoid cycle risk
+
+    try:
+        _opp_batch = _load_opps(client, page)
+    except Exception:  # noqa: BLE001 — never fail recos because opps batch is malformed
+        _opp_batch = None
+    _opp_link_map: dict[str, str] = _schema.build_opportunity_link_map(_opp_batch)
+
     existing: dict[str, dict[str, Any]] = {}
     if out_file.exists() and not force:
         prev = json.load(open(out_file))
@@ -469,7 +480,12 @@ async def process_page(
         if not crit_id:
             return None
         if crit_id in existing and not existing[crit_id].get("_fallback") and not existing[crit_id].get("_skipped"):
-            return existing[crit_id]
+            # Issue #49 — backfill linked_opportunity_id for cached recos so a
+            # re-run after `opportunities.cli prepare` enriches old artefacts.
+            cached = existing[crit_id]
+            if "linked_opportunity_id" not in cached:
+                cached["linked_opportunity_id"] = _opp_link_map.get(crit_id)
+            return cached
 
         if p.get("skipped"):
             reason = p.get("skipped_reason", "unknown")
@@ -485,6 +501,7 @@ async def process_page(
                 "effort_hours": 1,
                 "priority": "P3",
                 "implementation_notes": f"reco_enricher skip : {reason}. Corriger en amont (re-capture).",
+                "linked_opportunity_id": _opp_link_map.get(crit_id),
                 "_skipped": True,
                 "_skipped_reason": reason,
                 "_tokens": 0,
@@ -549,11 +566,13 @@ async def process_page(
             reco["criterion_id"] = crit_id
             reco["cluster_id"] = p.get("cluster_id")
             reco["cluster_role"] = p.get("cluster_picked")
+            reco["linked_opportunity_id"] = _opp_link_map.get(crit_id)
         else:
             parsed["criterion_id"] = crit_id
             parsed["cluster_id"] = p.get("cluster_id")
             parsed["cluster_role"] = p.get("cluster_picked")
             parsed["ice_score"] = _schema.compute_ice_score_v13(parsed)
+            parsed["linked_opportunity_id"] = _opp_link_map.get(crit_id)
             parsed["_tokens"] = tokens
             parsed["_retry_count"] = retry_count
             parsed["_grounding_score"] = grounding_score

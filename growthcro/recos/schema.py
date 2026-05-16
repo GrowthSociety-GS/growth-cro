@@ -683,3 +683,28 @@ def check_grounding(reco: dict, hints: dict) -> tuple[int, list[str]]:
         issues.append(f"cta_not_cited:{cta!r}")
 
     return score, issues
+
+
+# ────────────────────────────────────────────────────────────────
+# Opportunity Layer wiring (Issue #49)
+# ────────────────────────────────────────────────────────────────
+def build_opportunity_link_map(opp_batch: Any) -> dict[str, str]:
+    """Map ``criterion_ref → opportunity.id`` from an ``OpportunityBatch``.
+
+    Used by the recos orchestrator to attach ``linked_opportunity_id`` on
+    each generated reco. ``opp_batch`` accepts ``None`` (page has no
+    ``opportunities.json`` yet → empty map → backward compat) or any
+    ``OpportunityBatch``-shaped object exposing ``.opportunities`` with
+    ``criterion_ref`` and ``id`` per item.
+
+    Pure function: no I/O. Caller (orchestrator) does the load.
+    """
+    if opp_batch is None:
+        return {}
+    out: dict[str, str] = {}
+    for opp in getattr(opp_batch, "opportunities", []) or []:
+        crit = getattr(opp, "criterion_ref", None)
+        opp_id = getattr(opp, "id", None)
+        if crit and opp_id:
+            out[crit] = opp_id
+    return out
