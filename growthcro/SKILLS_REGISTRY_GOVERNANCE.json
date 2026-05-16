@@ -21,6 +21,10 @@
   },
   "audit_date": "2026-05-16",
   "audit_source": ".claude/docs/state/AUDIT_DECISION_DOSSIER_2026-05-16_POST_PACK_GPT_PLUS_ADDENDUM.md §5.1-5.3 + Issue #45",
+  "security_audit_date": "2026-05-16",
+  "security_audit_source": ".claude/docs/reference/SKILLS_SECURITY_CHECKLIST.md + Issue #46",
+  "security_audit_method": "static_grep on .agents/skills/<id>/ files",
+  "mathis_decision_summary": "18 externals audited. Proposed: KEEP=13 (impeccable runtime_heuristic + 12 doc-only/session-level superpowers safe), DROP=4 (brainstorming, receiving-code-review, requesting-code-review, gstack), PIN=0 (impeccable NPM source is dormant under KEEP envelope). Final DROP/PIN decisions deferred to Mathis review of SKILLS_SECURITY_CHECKLIST.md.",
   "totals": {
     "installed_external_active": 0,
     "installed_external_dormant": 15,
@@ -36,7 +40,7 @@
       "id": "impeccable",
       "type": "runtime_heuristic_python",
       "location": "skills-lock.json (pbakaus/impeccable) + moteur_gsg/core/impeccable_qa.py",
-      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:743",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:745",
       "llm_cost": "0",
       "security": {
         "shell": false,
@@ -46,15 +50,29 @@
         "git": false,
         "filesystem": "read_only"
       },
+      "security_npm_source": {
+        "shell": true,
+        "network": true,
+        "env_vars": true,
+        "secrets": false,
+        "git": false,
+        "filesystem": "read_write",
+        "dynamic_code": false,
+        "remote_content_download": false,
+        "unpinned_deps": false,
+        "details": "NPM scripts in .agents/skills/impeccable/scripts/ (61 files) use child_process execSync (live-poll.mjs:11, live.mjs:20), fetch http://localhost:port (live-browser.js + 5 others), process.env.IMPECCABLE_CONTEXT_DIR. Local-only network. NOT invoked by pipeline."
+      },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "notes": "Skill installed via skills-lock.json (pbakaus/impeccable), but invoked as Python function `run_impeccable_qa(html)` in moteur_gsg/core/impeccable_qa.py:384. Therefore type=runtime_heuristic_python (honest)."
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Python local in moteur_gsg/core/impeccable_qa.py is what runs (safe, covered by lint hygiene). NPM source dormant — PIN on SHA recommended, no auto-update.",
+      "notes": "Skill installed via skills-lock.json (pbakaus/impeccable), but invoked as Python function `run_impeccable_qa(html)` in moteur_gsg/core/impeccable_qa.py:384. Therefore type=runtime_heuristic_python (honest). Security field reflects Python runtime path (safe); security_npm_source reflects the NPM source on disk (heavy but inert)."
     },
     {
       "id": "cro-methodology",
       "type": "runtime_heuristic_python",
       "location": "skills-lock.json (wondelai/skills) + moteur_gsg/core/cro_methodology_audit.py",
-      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:761",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:805",
       "llm_cost": "0",
       "security": {
         "shell": false,
@@ -66,13 +84,15 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Markdown source (.agents/skills/cro-methodology/, 1 SKILL.md + 6 references, NO scripts) is safe. Python local in moteur_gsg/core/cro_methodology_audit.py is what runs.",
       "notes": "Skill installed via skills-lock.json (wondelai/skills), but invoked as `run_cro_methodology_audit(copy_doc, brief)` Python function in moteur_gsg/core/cro_methodology_audit.py:233. Module docstring explicitly states 'honest runtime version'. Type=runtime_heuristic_python."
     },
     {
       "id": "emil-design-eng",
       "type": "runtime_heuristic_python",
       "location": "skills-lock.json (emilkowalski/skill) + moteur_gsg/core/emil_design_eng_audit.py",
-      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:788",
+      "invocation_proof": "moteur_gsg/modes/mode_1_complete.py:831",
       "llm_cost": "0",
       "security": {
         "shell": false,
@@ -84,6 +104,8 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Markdown source (.agents/skills/emil-design-eng/, 1 SKILL.md only, NO scripts) is safe. Python local in moteur_gsg/core/emil_design_eng_audit.py is what runs.",
       "notes": "Skill installed via skills-lock.json (emilkowalski/skill), invoked as `run_emil_design_eng_audit(html)` Python function in moteur_gsg/core/emil_design_eng_audit.py:130. Type=runtime_heuristic_python."
     },
     {
@@ -93,16 +115,18 @@
       "invocation_proof": "no occurrence found via grep",
       "llm_cost": "0",
       "security": {
-        "shell": false,
-        "network": false,
-        "env_vars": false,
+        "shell": true,
+        "network": true,
+        "env_vars": true,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_write"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "notes": "Dormant — no Python invocation found. Auto-loadable via Skill tool but never explicitly required. Candidate to DROP or PIN (decision in Issue #46)."
+      "mathis_decision_proposed": "DROP",
+      "decision_justification": "Local HTTP server (.agents/skills/brainstorming/scripts/server.cjs binds 127.0.0.1:random) + env vars BRAINSTORM_* + /tmp/brainstorm/ fs scope. Replaceable by growthcro-prd-planner + growthcro-anti-drift (covers structured brainstorm). No active session usage detected.",
+      "notes": "EXCEPTION among superpowers: this one HAS scripts. server.cjs (354 LOC) creates http.createServer on 127.0.0.1, reads BRAINSTORM_PORT/HOST/URL_HOST/DIR/OWNER_PID env. start-server.sh/stop-server.sh boundary shell. Local-only network, no remote download, no secrets, no git."
     },
     {
       "id": "dispatching-parallel-agents",
@@ -116,10 +140,12 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only (SKILL.md only, no scripts). Used in this Wave 3 session dispatch. Zero attack surface.",
       "notes": "Dormant — invoked indirectly via session orchestration (current Wave 2 parallel dispatch). Used at LLM/session layer, not Python code."
     },
     {
@@ -134,10 +160,12 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only (SKILL.md only). Paired with writing-plans for session-level plan execution discipline.",
       "notes": "Dormant. Used at session level when executing written plans. Candidate to KEEP (regular session use)."
     },
     {
@@ -156,6 +184,8 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only SKILL.md. Teaches LLM session-time git merge/rebase/push discipline (executed by Bash tool, not by skill scripts). Useful end-of-wave.",
       "notes": "Dormant. Loads git commands at session-time when finishing a branch. KEEP for end-of-wave merge discipline."
     },
     {
@@ -167,13 +197,19 @@
       "security": {
         "shell": true,
         "network": true,
-        "env_vars": false,
-        "secrets": false,
-        "git": false,
-        "filesystem": "read_write"
+        "env_vars": true,
+        "secrets": true,
+        "git": true,
+        "filesystem": "read_write",
+        "dynamic_code": false,
+        "remote_content_download": true,
+        "unpinned_deps": true,
+        "details": "768 files. child_process execSync/spawnSync in dev-skill.ts, host-config-export.ts, skill-check.ts, test-free-shards.ts, slop-diff.ts. Deps include @ngrok/ngrok (tunnel), playwright (browser), @huggingface/transformers (ML download). process.env.ANTHROPIC_API_KEY read and PASSED to subprocess (preflight-agent-sdk.ts:56,72). setup-scc.sh downloads binaries from github.com/boyter/scc/releases via Homebrew. slop-diff.ts spawns 'git diff' + 'npx slop-scan'. package.json uses ^ flexible deps."
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "DROP",
+      "decision_justification": "CRITICAL: combo shell + network + ANTHROPIC_API_KEY manipulation + remote binary download + unpinned deps for a DORMANT skill. AUDIT_DECISION_DOSSIER §5.7 already lists 'Réinstaller gstack sans audit sécurité' as anti-pattern. If re-installation needed later: exact pin all deps + sandbox subprocess + dynamic_test audit required.",
       "notes": "Install reported failed in doc 2026-05-14, dormant. Headless browser QA capabilities — security review required before reactivation (network + shell + fs). DROP candidate (Issue #46)."
     },
     {
@@ -188,11 +224,13 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "notes": "Dormant — session-level skill for processing review feedback. Candidate KEEP."
+      "mathis_decision_proposed": "DROP",
+      "decision_justification": "Doc-only (SKILL.md only). No active PR review workflow on GrowthCRO (solo dev). If Mathis opens PR review workflow later, re-install. Native /security-review covers code review needs.",
+      "notes": "Dormant — session-level skill for processing review feedback. Candidate DROP (no active PR workflow)."
     },
     {
       "id": "requesting-code-review",
@@ -206,11 +244,13 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "notes": "Dormant — session-level skill for requesting reviews. Candidate KEEP."
+      "mathis_decision_proposed": "DROP",
+      "decision_justification": "Doc-only (SKILL.md + code-reviewer.md template). No active PR review workflow. Native /security-review covers needs.",
+      "notes": "Dormant — session-level skill for requesting reviews. Candidate DROP (no active PR workflow)."
     },
     {
       "id": "subagent-driven-development",
@@ -224,10 +264,12 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only (SKILL.md + 3 prompt templates .md). Used in this exact Wave 3 session (subagent dispatch). Zero attack surface.",
       "notes": "Dormant. Used implicitly when current orchestrator session spawns subagents (TaskCreate). KEEP."
     },
     {
@@ -237,16 +279,18 @@
       "invocation_proof": "no occurrence found via grep",
       "llm_cost": "0",
       "security": {
-        "shell": false,
+        "shell": true,
         "network": false,
         "env_vars": false,
         "secrets": false,
-        "git": false,
-        "filesystem": "none"
+        "git": true,
+        "filesystem": "read_write"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "notes": "Dormant. Session-level. KEEP."
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "SKILL.md + 8 references .md + find-polluter.sh (bash bisection script, safe, uses git stash + find). Script is manually invoked, audit clean.",
+      "notes": "Dormant. Session-level discipline. find-polluter.sh shell bisection script — safe but writes (git stash test files temp)."
     },
     {
       "id": "test-driven-development",
@@ -260,10 +304,12 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only (SKILL.md + testing-anti-patterns.md). TDD is GrowthCRO doctrine — session-level discipline.",
       "notes": "Dormant. Session-level. KEEP."
     },
     {
@@ -282,6 +328,8 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only SKILL.md. Teaches git worktree add/remove at session level (executed by Bash tool). Useful for Wave parallel dispatch isolation.",
       "notes": "Dormant. Git worktree management at session level. KEEP for isolated feature work."
     },
     {
@@ -296,10 +344,12 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only SKILL.md + 3 platform-mapping .md references. Session-onboarding router for the other superpowers skills. Required if >=1 superpower is kept.",
       "notes": "Dormant. Session-onboarding skill loaded at conversation start by harness. Acts as router to other obra/superpowers skills. KEEP."
     },
     {
@@ -314,10 +364,12 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only SKILL.md. Already mirrored in CLAUDE.md §Règles immuables (Code hygiene gate, Schemas guard-rails) — complements project doctrine.",
       "notes": "Dormant. Session-level discipline (run tests before claiming done). KEEP — already part of CLAUDE.md rules."
     },
     {
@@ -332,10 +384,12 @@
         "env_vars": false,
         "secrets": false,
         "git": false,
-        "filesystem": "none"
+        "filesystem": "read_only"
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "Doc-only (SKILL.md + plan-document-reviewer-prompt.md). Paired with executing-plans. Used in writing implementation plans.",
       "notes": "Dormant. Session-level plan-writing helper. KEEP (paired with executing-plans)."
     },
     {
@@ -345,7 +399,7 @@
       "invocation_proof": "no occurrence found via grep",
       "llm_cost": "0",
       "security": {
-        "shell": false,
+        "shell": true,
         "network": false,
         "env_vars": false,
         "secrets": false,
@@ -354,7 +408,9 @@
       },
       "audit_date": "2026-05-16",
       "audit_method": "static_grep",
-      "notes": "Dormant. Used in Wave 1 of stratosphere-p0 to create 3 custom skills (anti-drift, prd-planner, status-memory). KEEP."
+      "mathis_decision_proposed": "KEEP",
+      "decision_justification": "SKILL.md + 4 references .md + render-graphs.js (uses execSync 'dot' graphviz binary, writes .svg). Script audited safe (reads markdown, writes SVG only). Used in Wave 1 to create 3 custom skills.",
+      "notes": "Dormant. render-graphs.js requires system 'graphviz' binary (optional, skip if absent). Used in Wave 1 of stratosphere-p0 to create 3 custom skills (anti-drift, prd-planner, status-memory). KEEP."
     },
     {
       "id": "site-capture",
