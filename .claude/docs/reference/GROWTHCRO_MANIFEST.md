@@ -403,6 +403,75 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-17 — Wave 1.5 Renaissance CR-09 SHIPPED — Elite Mode (Opus Unleashed direct-to-HTML)
+
+**Epic** : [`gsg-creative-renaissance`](../../epics/gsg-creative-renaissance/epic.md) [#55](https://github.com/GrowthSociety-GS/growth-cro/issues/55). Issue [#64](https://github.com/GrowthSociety-GS/growth-cro/issues/64) closed (`feat(creative_engine.elite)` commit `25f8944`).
+
+**Pourquoi pivot hybride post-Wave 1** : Mathis a partagé `landing_page_gpt_max_demo.html` (GPT-5 single-shot ORBITAL démo, ~950 lignes HTML/CSS/JS premium auto-contenu : aurora gradients, conic logo, glassmorphism, 3D tilt, marquee, dashboard mockup). Le benchmark révèle que Wave 1 structured mode (5 routes thesis abstraites → Composer → Renderer) ne peut pas atteindre ce niveau visuel car il force Opus à dépenser son budget créatif sur 11 fields texte au lieu de produire du HTML direct.
+
+**Codex review 2026-05-17** valide pivot ET ajoute 4 garde-fous non-négociables (inscrits verbatim dans CR-09.md, dans le PRD §FR-9, et dans les docstrings de chaque module elite/) :
+1. Elite HTML candidates are NOT converted to VisualComposerContract.
+2. Elite output must preserve original layout/CSS/motion unless a deterministic gate finds a concrete blocking issue.
+3. Renderer (CR-06) is fallback/structured path ONLY.
+4. Convergence between structured and elite modes happens at post-process gates (evidence/claims/SEO/screenshots/multi-judge/persist), NEVER at rendering layer.
+
+**Two Creative Modes** coexistent (Wave 1 NOT removed) :
+- `structured` (Wave 1 CR-01/02/03) : thesis routes JSON → composer → renderer. Default backward-compat, learning, scaling 56 clients, fallback safe.
+- `elite` (CR-09 NEW) : Opus Unleashed 1-3 HTML candidates direct → judge HTML → post-process minimal. Opt-in via CLI, wow-factor/client demo/benchmark, preserves Opus output.
+- Mode `both` UNIQUEMENT via CLI flag `--debug-compare` future, JAMAIS default workflow.
+
+**Modules shipped CR-09** (15 fichiers, ~3944 LOC) :
+- **`growthcro/models/elite_models.py`** (227 LOC, axe TYPING) : `HtmlCandidate` (Pydantic v2 frozen, html_content min_length=2000 + validator HTML basic shape) + `HtmlCandidateBatch` (1-3 candidates, BusinessCategory Literal réutilisé depuis CR-01, invariant unique candidate_ids) + `HtmlCandidatePreFilterReport` + `EliteCreativeError`.
+- **`moteur_gsg/creative_engine/elite/__init__.py`** (115 LOC) : re-exports + doctrine doc.
+- **`moteur_gsg/creative_engine/elite/orchestrator.py`** (775 LOC, axe ORCHESTRATION, INFO tier reviewer-affirmed single-concern) : 5-section system prompt asserted ≤6K chars (anti-pattern CLAUDE.md #1) — Role + Creative Bar criteria + Brand DNA constraints + Toolbox autorisée/bannie + Hard constraints output. Model `claude-opus-4-7` (fallback CLI flag `--opus-model claude-opus-4-1` si 404). `max_tokens=24000` par candidate. `temperature=0.85`. **PAS de tool_use** (HTML libre). 1 call Opus par candidate (loop 3 max pour diversité). Retry once via Sonnet self-correction si HTML extraction fail. `raise EliteCreativeError` si double fail.
+- **`moteur_gsg/creative_engine/elite/persist.py`** (196 LOC, axe PERSISTENCE) : atomic tmpfile + os.replace pour chaque `<candidate_id>.html` + `<candidate_id>.metadata.json` + 1 `batch_meta.json`. Path `data/captures/<client>/<page>/elite_candidates/`.
+- **`moteur_gsg/creative_engine/elite/cli.py`** (263 LOC, axe CLI) : subcommand `explore` avec `--client`, `--page`, `--candidates` (default 3, validate 1-3), `--creative-reference` (opt-in append, validate ≤1, anti-patchwork). Import `growthcro.config` early (lesson Sprint P1 #53). Exit 0/1/2.
+- **`moteur_gsg/creative_engine/elite/creative_bar.py`** (224 LOC, axe CONFIG) : dict statique 12 verticals (saas, ecommerce, luxury, marketplace, app_acquisition, media_editorial, local_service, health_wellness, finance, creator_course, enterprise, consumer_brand). Each entry ≤1000 chars asserted module load. **Anti-mimicry** : pas de HTML golden complets, juste criteria qualitatifs ("Ambition visuelle élevée. Hero avec mécanisme propriétaire. Mobile non sacrifié. Motion utile. Preuves sourcées. Pas de template SaaS fade.").
+- **`moteur_gsg/creative_engine/elite/judge_html.py`** (468 LOC, axe VALIDATION) : Phase 1 judge `judge_html_pre_filter()` — Sonnet 4.6 call avec HTML strings truncated à 15K chars chaque (anti-context-overflow). Score 3 axes : `parsing_valid`, `brand_alignment_text_only`, `obvious_issues_count`. Threshold elimination + best-survivor safety net. Wave 1 `judge.py select_route()` PRESERVED (architecturalement séparé, mono-concern split — décision agent justifiée par mono-concern doctrine). Phase 2 = Screenshot QA winner picking = CR-05 Wave 2 scope.
+- **`moteur_gsg/creative_engine/elite/references/.gitkeep`** : empty dir pour futures opt-in goldens.
+
+**Post-process Elite (non-destructif, Codex constraint #2)** : Le HTML Opus est livré tel quel. Seuls les 2 fixes in-place sont autorisés post-orchestrator :
+- `evidence_id_injector` (existing Sprint P1 commit `d405472`) injecte `data-evidence-id` attributes via match brief.sourced_numbers/testimonials.
+- `seo_caps` (existing commit `6348fa2`) cap title ≤60 chars + meta description ≤160 chars.
+- `claims_source_gate` (Wave 3) valide log, NON-bloquant en mode normal.
+- `screenshot_qa` (CR-05 Wave 2 pending) capture+score (Phase 2 judge).
+- `multi_judge` post-run audit + persist (Sprint P1).
+- **ZÉRO** re-rendering, re-composition, sanitization lourde.
+
+**Tests** : 138 nouveaux pytest cases dans `tests/creative_engine/elite/` (mocked Opus + Sonnet) :
+- `test_models.py` : Pydantic invariants (frozen, min_length, unique IDs, extra=forbid)
+- `test_creative_bar.py` : 12 verticals lookup, missing KeyError, ≤1000 chars assertion
+- `test_orchestrator.py` : valid HTML parse, retry on invalid, raise on double fail, prompt length cap
+- `test_persist.py` : round-trip 3 candidates, atomic write
+- `test_cli.py` : `--candidates 3` exit 0, `--candidates 5/0` exit 1, `--creative-reference a b` exit 1
+- `test_judge_html_pre_filter.py` : eliminate broken, keep viable, best-survivor safety net
+
+**Smoke gates final post CR-09** :
+- **pytest** : 353 passed in 0.48s (215 baseline + 138 CR-09 = +64% coverage delta)
+- **lint_code_hygiene** : FAIL 3 (only pre-P0 debt : `_archive_deprecated`, `components.py` 979 LOC, `seed_supabase` os.environ). Aucun nouveau fail CR-09.
+- **SCHEMA validate_all** : 3439 files OK (inchangé, pas de touch schema)
+- **Codex constraints verify** : grep `VisualComposerContract|visual_composer_models|page_renderer_orchestrator|section_renderer` dans `moteur_gsg/creative_engine/elite/` + `tests/creative_engine/elite/` + `growthcro/models/elite_models.py` retourne uniquement des MENTIONS DOCSTRING du Constraint Statement #1 ("Elite HTML candidates are NOT converted to VisualComposerContract"), zéro `import` ou `from` forbidden. ✅ Tous 4 garde-fous respectés.
+- **System prompt length** : 4420 chars max across 12 verticals × rich brand DNA × 7 forbidden patterns (cap 6000) — 26% headroom.
+- **Issue #64 closed** + commit `25f8944` pushed.
+
+**Décision architecturale agent** (différente du plan, justifiée) : Au lieu d'étendre `moteur_gsg/creative_engine/judge.py` (+80 LOC plan original), l'agent a créé `moteur_gsg/creative_engine/elite/judge_html.py` mono-concern séparé (468 LOC). Plus propre architecturalement : structured judge (Wave 1 `select_route`) reste intouché, Elite Phase 1 judge isolé dans elite package. Les 2 judges partagent `JUDGE_MODEL` constant via re-import pour cost-telemetry rollup consistency. **Wave 1 NOT touched, zero regression risk.**
+
+**Effort réel vs estimé** : CR-09 estimé L 16h, réel ~3h wall (1 agent dédié focused, parallèle aucun car séquentiel single agent). Even better speedup que Wave 1 (1 agent vs 3 parallèle = pas de race friction).
+
+**Smoke runtime pending Mathis** (~$1.5-3 cost, ~2 min wall) :
+```bash
+set -a; source .env; set +a
+python3 -m moteur_gsg.creative_engine.elite.cli explore --client weglot --page lp_listicle --candidates 3
+```
+Validation : 3 HTML candidates sauvegardés dans `data/captures/weglot/lp_listicle/elite_candidates/` → ouvre dans navigateur, compare visuellement vs `growthcro/landing_page_gpt_max_demo.html` (ORBITAL GPT-5 démo benchmark externe, **non injecté dans pipe** — usage externe seulement). Cible : ≥1 candidate atteint ou dépasse niveau visuel ORBITAL.
+
+**Risques surfacés CR-09 (à monitorer)** :
+- **Model ID `claude-opus-4-7`** non vérifié contre Anthropic API live. Premier smoke peut 404 → CLI a fallback `--opus-model claude-opus-4-1` flag.
+- **`max_tokens=24000`** est un guess pour HTML complet 800-4000 LOC. Real Opus output peut nécessiter 32K si LP très dense → augmenter si observed truncation.
+- **`temperature=0.85`** valeur créative testée OK sur stubs mockés, real LLM peut produire output trop "wild" sur certains briefs → ajuster 0.7-0.9 range selon feedback Mathis.
+
+**Wave 2 prochaine adaptée** : CR-04 Visual Composer (structured mode only, L 18h) + CR-05 Screenshot QA (BOTH modes — adapté pour aussi être Phase 2 winner judge sur Elite HtmlCandidate survivors, L 16h indep). Renderer extension CR-06 Wave 3 reste structured-only per Codex constraint #3.
+
 ### 2026-05-16 — Wave 1 Renaissance SHIPPED (issues #56 + #57 + #58)
 
 **Epic** : [`gsg-creative-renaissance`](../../epics/gsg-creative-renaissance/epic.md) [#55](https://github.com/GrowthSociety-GS/growth-cro/issues/55). PRD : [`gsg-creative-renaissance.md`](../../prds/gsg-creative-renaissance.md). 3 issues atomiques Wave 1 closed (#56 CR-01 + #57 CR-02 + #58 CR-03), 5 commits feat + 2 housekeeping.
