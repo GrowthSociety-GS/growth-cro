@@ -1,8 +1,8 @@
 {
   "version": "v1.0",
-  "generated_at": "2026-05-16T19:57:10",
+  "generated_at": "2026-05-17T12:59:02",
   "stats": {
-    "total_files": 292,
+    "total_files": 293,
     "active_wired": 4,
     "active_indirect": 10,
     "active_cli": 54,
@@ -10,7 +10,7 @@
     "active_misc": 192,
     "orphaned_from_gsg_HIGH": 0,
     "partial_wired": 0,
-    "potentially_orphaned": 5
+    "potentially_orphaned": 6
   },
   "capabilities": [
     {
@@ -2564,6 +2564,7 @@
       "mtime": "2026-05-16",
       "is_cli_entrypoint": false,
       "consumed_by": [
+        "growthcro/models/elite_models.py",
         "growthcro/models/visual_composer_models.py"
       ],
       "status": "ACTIVE",
@@ -3037,6 +3038,32 @@
       "consumed_by": [],
       "status": "ACTIVE_CLI_ENTRYPOINT",
       "criticality": "low"
+    },
+    {
+      "id": "elite_models",
+      "path": "growthcro/models/elite_models.py",
+      "filename": "elite_models.py",
+      "what": "Pydantic v2 models for Elite Mode (Opus Unleashed direct-to-HTML).",
+      "imports": [
+        "Any",
+        "BaseModel",
+        "BusinessCategory",
+        "ConfigDict",
+        "Field",
+        "__future__",
+        "annotations",
+        "creative_models",
+        "field_validator",
+        "growthcro",
+        "model_validator",
+        "pydantic"
+      ],
+      "size_bytes": 11044,
+      "mtime": "2026-05-17",
+      "is_cli_entrypoint": false,
+      "consumed_by": [],
+      "status": "POTENTIALLY_ORPHANED",
+      "criticality": "review_needed"
     },
     {
       "id": "emil_design_eng_audit",
@@ -7815,6 +7842,10 @@
       "lp_leadgen/usp_signals.json",
       "lp_leadgen/vision_desktop.json",
       "lp_leadgen/vision_mobile.json",
+      "lp_listicle/elite_candidates/batch_meta.json",
+      "lp_listicle/elite_candidates/opus-candidate-01.metadata.json",
+      "lp_listicle/elite_candidates/opus-candidate-02.metadata.json",
+      "lp_listicle/elite_candidates/opus-candidate-03.metadata.json",
       "lp_listicle/multi_judge_audit.json",
       "pages_discovered.json",
       "pricing/capture.json",
@@ -7876,6 +7907,9 @@
       "home_fr/page.html",
       "integrations/page.html",
       "lp_leadgen/page.html",
+      "lp_listicle/elite_candidates/opus-candidate-01.html",
+      "lp_listicle/elite_candidates/opus-candidate-02.html",
+      "lp_listicle/elite_candidates/opus-candidate-03.html",
       "pricing/component_overlay.html",
       "pricing/page.html",
       "pricing_fr/page.html"
