@@ -1,99 +1,90 @@
-// Shell home — Command Center (SP-2 webapp-command-center-view, V26 parity).
-// Topbar + 5-col KPI grid + 2-col layout (Fleet sidebar + ClientHeroDetail).
-// Mono-concern: orchestrate Server Components, pass URL state to client islands.
-// URL state: `?client=<slug>` selects hero, `?q=<query>` filters, `?sort=<key>` sorts.
+// Shell home — Command Center (C1, Issue #74, 2026-05-17).
+//
+// Workflow-first 4-zone rebuild replacing the V26 dense KPI-mur :
+//   Zone 1  Today / Urgent          — 3-5 ranked items needing attention now
+//   Zone 2  Fleet Health            — sobre KPIs (clients, score, runs, GSG)
+//   Zone 3  Recent Runs (realtime)  — live channel public:runs
+//   Zone 4  Next Best Actions       — rule-based suggestions
+//
+// Source : `.claude/docs/state/WEBAPP_TARGET_IA_2026-05.md` §1.1 + PRD FR-8.
+// Mono-concern : orchestrate Server Components, pass URL state to client
+// islands. Data fetching is parallelized via Promise.allSettled so a single
+// failure (e.g. missing view) doesn't break the page.
+//
+// Query budget : 5 Supabase round-trips (vs 9 in legacy). Each loader is
+// internally batched (see queries.ts).
 
 import { createServerSupabase } from "@/lib/supabase-server";
 import { getCurrentRole } from "@/lib/auth-role";
-// B1 (Issue #72, 2026-05-17) — Sidebar + StickyHeader + breadcrumbs now live
-// in `app/layout.tsx` (nested layout uniformisé). The legacy
-// `CommandCenterTopbar` component is dropped : the StickyHeader (with
-// breadcrumbs + Cmd+K) replaces it. Per-page inline `gc-topbar` blocks remain
-// where pages still need a title row — see /clients, /doctrine, /settings.
-import { CommandCenterKpis } from "@/components/command-center/CommandCenterKpis";
-import { FleetPanel } from "@/components/command-center/FleetPanel";
-import { ClientHeroDetail } from "@/components/command-center/ClientHeroDetail";
 import { QuickActionCard } from "@/components/dashboard/QuickActionCard";
-import { ClosedLoopStrip } from "@/components/dashboard/ClosedLoopStrip";
-import { DashboardTabs } from "@/components/dashboard/DashboardTabs";
-import { PillarBarsFleet } from "@/components/dashboard/PillarBarsFleet";
-import { PriorityDistribution } from "@/components/dashboard/PriorityDistribution";
-import { BusinessBreakdownTable } from "@/components/dashboard/BusinessBreakdownTable";
-import { PageTypeBreakdownTable } from "@/components/dashboard/PageTypeBreakdownTable";
-import { CriticalClientsGrid } from "@/components/dashboard/CriticalClientsGrid";
+import { TodayUrgentZone } from "@/components/command-center/TodayUrgentZone";
+import { FleetHealthZone } from "@/components/command-center/FleetHealthZone";
+import { RecentRunsZone } from "@/components/command-center/RecentRunsZone";
+import { NextBestActionsZone } from "@/components/command-center/NextBestActionsZone";
 import {
-  loadCommandCenterMetrics,
-  loadP0CountsByClient,
+  loadUrgentActions,
+  loadFleetHealth,
+  loadNextBestActions,
+  type UrgentAction,
+  type FleetHealth,
+  type NextBestAction,
 } from "@/components/command-center/queries";
-import {
-  loadClosedLoopCoverage,
-  loadFleetPillarAverages,
-  loadPriorityDistribution,
-  loadBusinessBreakdown,
-  loadPageTypeBreakdown,
-  loadCriticalClients,
-} from "@/components/dashboard/queries";
-import { Card } from "@growthcro/ui";
-import { listClientsWithStats } from "@growthcro/data";
+import { listClients, listRecentRuns, type Run } from "@growthcro/data";
 
 export const dynamic = "force-dynamic";
 
-type SearchParams = {
-  client?: string;
-  q?: string;
-  sort?: string;
+type OverviewData = {
+  isAuthenticated: boolean;
+  urgent: UrgentAction[];
+  fleet: FleetHealth;
+  recentRuns: Run[];
+  nextBest: NextBestAction[];
+  clientNameById: Record<string, { slug: string; name: string }>;
+  clientChoices: { slug: string; name: string }[];
+  errors: string[];
 };
 
-async function loadOverview() {
+const EMPTY_FLEET: FleetHealth = {
+  clientsTotal: 0,
+  clientsAudited: 0,
+  avgScorePct: null,
+  runsLast24h: 0,
+  runsCompletedLast24h: 0,
+  gsgDraftsLast7d: 0,
+  recosP0: 0,
+};
+
+async function loadOverview(): Promise<OverviewData> {
   const supabase = createServerSupabase();
   const { data: userData } = await supabase.auth.getUser();
   if (!userData.user) {
     return {
-      user: null,
-      clients: [],
-      metrics: { recosP0: 0, recentRuns: [], recentAudits: [] },
-      p0Counts: new Map<string, number>(),
-      dashboard: {
-        coverage: { modules: [], totalClients: 0 } as Awaited<
-          ReturnType<typeof loadClosedLoopCoverage>
-        >,
-        pillars: [] as Awaited<ReturnType<typeof loadFleetPillarAverages>>,
-        priorities: { P0: 0, P1: 0, P2: 0, P3: 0, total: 0 } as Awaited<
-          ReturnType<typeof loadPriorityDistribution>
-        >,
-        business: [] as Awaited<ReturnType<typeof loadBusinessBreakdown>>,
-        pageTypes: [] as Awaited<ReturnType<typeof loadPageTypeBreakdown>>,
-        critical: [] as Awaited<ReturnType<typeof loadCriticalClients>>,
-      },
-      supabase,
-      errors: [] as string[],
+      isAuthenticated: false,
+      urgent: [],
+      fleet: EMPTY_FLEET,
+      recentRuns: [],
+      nextBest: [],
+      clientNameById: {},
+      clientChoices: [],
+      errors: [],
     };
   }
-  // Wave C.5 (audit A.8 P0.3): parallelize all dashboard fetches in one
-  // round. Sprint 4 adds 6 aggregation loaders (closed-loop / pillars /
-  // priorities / business / pagetype / critical). Each falls back to a
-  // sensible empty value on failure.
-  const [
-    clientsRes,
-    metricsRes,
-    p0Res,
-    coverageRes,
-    pillarsRes,
-    prioritiesRes,
-    businessRes,
-    pageTypesRes,
-    criticalRes,
-  ] = await Promise.allSettled([
-    listClientsWithStats(supabase),
-    loadCommandCenterMetrics(supabase),
-    loadP0CountsByClient(supabase),
-    loadClosedLoopCoverage(supabase),
-    loadFleetPillarAverages(supabase),
-    loadPriorityDistribution(supabase),
-    loadBusinessBreakdown(supabase),
-    loadPageTypeBreakdown(supabase),
-    loadCriticalClients(supabase, 12),
-  ]);
+
+  // C1 query budget : 5 parallel round-trips.
+  //   1. urgent actions    (multiple internal queries, single helper)
+  //   2. fleet health      (multiple internal queries, single helper)
+  //   3. recent runs       (single supabase select)
+  //   4. next best actions (multiple internal queries, single helper)
+  //   5. clients list      (for run→client name lookup + QuickActionCard)
+  const [urgentRes, fleetRes, runsRes, nextRes, clientsRes] =
+    await Promise.allSettled([
+      loadUrgentActions(supabase, { maxItems: 5 }),
+      loadFleetHealth(supabase),
+      listRecentRuns(supabase, { limit: 10 }),
+      loadNextBestActions(supabase, { maxItems: 5 }),
+      listClients(supabase),
+    ]);
+
   const errors: string[] = [];
   const unwrap = <T,>(
     res: PromiseSettledResult<T>,
@@ -104,105 +95,49 @@ async function loadOverview() {
     errors.push(`${label}: ${(res.reason as Error).message}`);
     return fallback;
   };
-  const clients = unwrap(clientsRes, "clients", [] as Awaited<ReturnType<typeof listClientsWithStats>>);
-  const metrics = unwrap(metricsRes, "metrics", {
-    recosP0: 0,
-    recentRuns: [],
-    recentAudits: [],
-  } as Awaited<ReturnType<typeof loadCommandCenterMetrics>>);
-  const p0Counts = unwrap(p0Res, "p0Counts", new Map<string, number>());
-  const dashboard = {
-    coverage: unwrap(coverageRes, "coverage", {
-      modules: [],
-      totalClients: 0,
-    } as Awaited<ReturnType<typeof loadClosedLoopCoverage>>),
-    pillars: unwrap(pillarsRes, "pillars", [] as Awaited<ReturnType<typeof loadFleetPillarAverages>>),
-    priorities: unwrap(prioritiesRes, "priorities", {
-      P0: 0,
-      P1: 0,
-      P2: 0,
-      P3: 0,
-      total: 0,
-    } as Awaited<ReturnType<typeof loadPriorityDistribution>>),
-    business: unwrap(businessRes, "business", [] as Awaited<ReturnType<typeof loadBusinessBreakdown>>),
-    pageTypes: unwrap(pageTypesRes, "pageTypes", [] as Awaited<ReturnType<typeof loadPageTypeBreakdown>>),
-    critical: unwrap(criticalRes, "critical", [] as Awaited<ReturnType<typeof loadCriticalClients>>),
+
+  const urgent = unwrap(urgentRes, "urgent", [] as UrgentAction[]);
+  const fleet = unwrap(fleetRes, "fleet", EMPTY_FLEET);
+  const recentRuns = unwrap(runsRes, "runs", [] as Run[]);
+  const nextBest = unwrap(nextRes, "next-best", [] as NextBestAction[]);
+  const clients = unwrap(
+    clientsRes,
+    "clients",
+    [] as Awaited<ReturnType<typeof listClients>>,
+  );
+
+  const clientNameById: Record<string, { slug: string; name: string }> = {};
+  for (const c of clients) {
+    clientNameById[c.id] = { slug: c.slug, name: c.name };
+  }
+  const clientChoices = clients.map((c) => ({ slug: c.slug, name: c.name }));
+
+  return {
+    isAuthenticated: true,
+    urgent,
+    fleet,
+    recentRuns,
+    nextBest,
+    clientNameById,
+    clientChoices,
+    errors,
   };
-  return { user: userData.user, clients, metrics, p0Counts, dashboard, supabase, errors };
 }
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  const { user, clients, metrics, p0Counts, dashboard, supabase, errors } =
-    await loadOverview();
-  // Task 003 (Sprint 3) : surface the Quick-Action card + sidebar Add-Client
-  // CTA only when the current user is an admin. Catch real Supabase errors
-  // (network/RLS) so the home keeps rendering for non-admins.
-  const role = await getCurrentRole().catch((err) => {
-    console.error("[home] getCurrentRole failed:", err);
-    return null;
-  });
+export default async function HomePage() {
+  const {
+    isAuthenticated,
+    urgent,
+    fleet,
+    recentRuns,
+    nextBest,
+    clientNameById,
+    clientChoices,
+    errors,
+  } = await loadOverview();
+
+  const role = await getCurrentRole().catch(() => null);
   const isAdmin = role === "admin";
-
-  // Default to first client if no selection yet — keeps the right panel useful on
-  // first paint instead of showing an empty state.
-  const selectedSlug =
-    (searchParams.client && typeof searchParams.client === "string"
-      ? searchParams.client
-      : clients[0]?.slug) ?? null;
-
-  const p0Record: Record<string, number> = {};
-  for (const [k, v] of p0Counts) p0Record[k] = v;
-
-  // B1 (Issue #72) — clientChoices + sidebar badges moved to `app/layout.tsx`.
-  // The home page only loads the data it needs for its own panels now.
-
-  // Task 004 (Sprint 4) — Dashboard V26 Closed-Loop narrative.
-  // 3 panes assembled here as ReactNode so DashboardTabs (client island)
-  // doesn't need to know about server-only data fetching.
-  const fleetPane = (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-        gap: 16,
-      }}
-    >
-      <Card title="Les 6 piliers — moyenne fleet" actions={<span style={{ fontSize: 12, color: "var(--gc-muted)" }}>score moyen pondéré</span>}>
-        <PillarBarsFleet pillars={dashboard.pillars} />
-      </Card>
-      <Card title="Distribution priorités" actions={<span style={{ fontSize: 12, color: "var(--gc-muted)" }}>sur {dashboard.priorities.total} recos</span>}>
-        <PriorityDistribution distribution={dashboard.priorities} />
-      </Card>
-      <div style={{ gridColumn: "1 / -1" }}>
-        <Card title="Top clients critiques" actions={<span style={{ fontSize: 12, color: "var(--gc-muted)" }}>triés par nombre de P0</span>}>
-          <CriticalClientsGrid clients={dashboard.critical} />
-        </Card>
-      </div>
-    </div>
-  );
-
-  const businessPane = (
-    <Card title="Répartition par business type" actions={<span style={{ fontSize: 12, color: "var(--gc-muted)" }}>clients, audits, P0 blockers, score moyen</span>}>
-      <BusinessBreakdownTable rows={dashboard.business} />
-    </Card>
-  );
-
-  const pageTypePane = (
-    <Card title="Répartition par type de page" actions={<span style={{ fontSize: 12, color: "var(--gc-muted)" }}>home / pdp / lp_* / pricing — score moyen + P0</span>}>
-      <PageTypeBreakdownTable rows={dashboard.pageTypes} />
-    </Card>
-  );
-
-  // B1 (Issue #72) — page is now a fragment : Sidebar + StickyHeader are
-  // rendered by `app/layout.tsx` for all authenticated routes. The home page
-  // only emits its own content. The page-level inline topbar with title +
-  // subtitle + actions used to live in `CommandCenterTopbar` (dropped) ; we
-  // now use a plain `gc-topbar` block consistent with the other routes.
-  const clientChoices = clients.map((c) => ({ slug: c.slug, name: c.name }));
 
   return (
     <>
@@ -210,56 +145,70 @@ export default async function HomePage({
         <div className="gc-title">
           <h1>Command Center</h1>
           <p>
-            Fleet, priorités et client focus. Audit, recos et GSG sur le même
-            rail produit.
+            Qu&apos;est-ce que je dois faire maintenant ? Vue exécutive du
+            portefeuille — urgent first, fleet health, runs live, next best
+            actions.
           </p>
         </div>
       </div>
 
-      <CommandCenterKpis
-        clients={clients}
-        recosP0={metrics.recosP0}
-        recentRuns={metrics.recentRuns}
-        recentAudits={metrics.recentAudits}
-      />
-
-      {isAdmin ? (
-        <div style={{ margin: "16px 0" }}>
-          <QuickActionCard isAdmin={isAdmin} clientChoices={clientChoices} />
-        </div>
-      ) : null}
-
-      {/* Task 004 — V26 Closed-Loop coverage strip + 3-tab dashboard.
-          Render only when we have an authenticated user (server returns
-          empty arrays otherwise; the strip would show 0/0 across the
-          board which is a meaningless surface for an anonymous view). */}
-      {user ? (
+      {isAuthenticated ? (
         <>
-          <div style={{ margin: "16px 0" }}>
-            <ClosedLoopStrip coverage={dashboard.coverage} />
+          {/* Zone 1 — Today / Urgent (top, prominent). */}
+          <div style={{ marginTop: 16 }}>
+            <TodayUrgentZone items={urgent} />
           </div>
-          <DashboardTabs
-            fleet={fleetPane}
-            business={businessPane}
-            pagetype={pageTypePane}
-          />
+
+          {/* Zone 2 — Fleet Health (sobre KPIs). */}
+          <div style={{ marginTop: 16 }}>
+            <FleetHealthZone health={fleet} />
+          </div>
+
+          {/* Zone 3 — Recent Runs (realtime public:runs). */}
+          <div style={{ marginTop: 16 }}>
+            <RecentRunsZone
+              initialRuns={recentRuns}
+              clientNameById={clientNameById}
+            />
+          </div>
+
+          {/* Zone 4 — Next Best Actions (rule-based suggestions). */}
+          <div style={{ marginTop: 16 }}>
+            <NextBestActionsZone items={nextBest} />
+          </div>
+
+          {/* Admin-only QuickAction (Add client + Create audit) — discreet,
+              below the canonical 4 zones to avoid mixing chrome with the
+              actionable feed. */}
+          {isAdmin ? (
+            <div style={{ marginTop: 16 }}>
+              <QuickActionCard isAdmin={isAdmin} clientChoices={clientChoices} />
+            </div>
+          ) : null}
+
+          {errors.length > 0 ? (
+            <p
+              style={{
+                color: "var(--gc-muted)",
+                fontSize: 12,
+                marginTop: 16,
+              }}
+            >
+              (Données partielles : {errors.join(" · ")})
+            </p>
+          ) : null}
         </>
-      ) : null}
-
-      <div className="gc-layout" style={{ marginTop: 24 }}>
-        <FleetPanel
-          clients={clients}
-          p0CountsByClient={p0Record}
-          selectedSlug={selectedSlug}
-        />
-        <ClientHeroDetail supabase={supabase} slug={selectedSlug} />
-      </div>
-
-      {errors.length > 0 ? (
-        <p style={{ color: "var(--gc-muted)", fontSize: 12, marginTop: 16 }}>
-          (Supabase non configuré: {errors.join(" · ")})
+      ) : (
+        <p
+          style={{
+            marginTop: 24,
+            color: "var(--gc-muted)",
+            fontSize: 14,
+          }}
+        >
+          Connecte-toi pour voir le Command Center.
         </p>
-      ) : null}
+      )}
     </>
   );
 }
