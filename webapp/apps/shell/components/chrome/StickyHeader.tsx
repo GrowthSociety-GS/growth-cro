@@ -1,10 +1,12 @@
 // StickyHeader — global page chrome anchored at the top of `gc-main`.
 //
 // Sprint 11 / Task 013 global-chrome-cmdk-breadcrumbs (2026-05-15).
+// B1 (Issue #72, 2026-05-17) : ajout du slot `gc-worker-health-slot`
+// (placeholder DOM stable consommé par B3 — worker heartbeat badge).
 // Mono-concern: layout shell + Cmd+K trigger. Composes :
-//   - <DynamicBreadcrumbs/>  (left)
+//   - <DynamicBreadcrumbs/>            (left)
 //   - search button (center) — opens the CmdKPalette by emitting a Cmd+K event
-//   - actions slot           (right) — optional, route-specific
+//   - worker health slot + actions     (right) — optional, route-specific
 //
 // Visual contract (V22 tokens) :
 //   - position: sticky, top: 0  (sticky inside `gc-main`, not viewport-fixed,
@@ -91,7 +93,14 @@ export function StickyHeader({ isAdmin, clientChoices, actions }: Props) {
           <kbd className="gc-sticky-header__kbd" aria-hidden="true">⌘K</kbd>
         </button>
       </div>
-      <div className="gc-sticky-header__right">{actions ?? null}</div>
+      <div className="gc-sticky-header__right">
+        {/* B1 (Issue #72) — Worker Health Badge slot placeholder. Logic wiring
+            ships in B3 (separate issue : worker heartbeat endpoint + realtime
+            pill). Kept as a stable DOM hook so B3 can drop in a client island
+            without re-touching this file. */}
+        <div className="gc-worker-health-slot" aria-hidden="true" />
+        {actions ?? null}
+      </div>
       <CmdKPalette isAdmin={isAdmin} clientChoices={clientChoices} />
     </header>
   );

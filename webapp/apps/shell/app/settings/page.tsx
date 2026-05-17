@@ -2,15 +2,17 @@
 // Mono-concern: orchestrate server-side data load + delegate UI to children.
 // Auth: redirect to /login if unauthenticated. Org-scoped queries rely on RLS.
 
+// B1 (Issue #72, 2026-05-17) — Sidebar removed from this page : the chrome
+// (sidebar + StickyHeader + breadcrumbs) is now rendered uniformly via
+// `app/layout.tsx`. This page only emits its own content.
+
 import { redirect } from "next/navigation";
-import { Sidebar } from "@/components/Sidebar";
 import { SettingsTabs } from "@/components/settings/SettingsTabs";
 import { AccountTab } from "@/components/settings/AccountTab";
 import { TeamTab, type TeamMemberView } from "@/components/settings/TeamTab";
 import { UsageTab } from "@/components/settings/UsageTab";
 import { ApiTab } from "@/components/settings/ApiTab";
 import { createServerSupabase } from "@/lib/supabase-server";
-import { getCurrentRole } from "@/lib/auth-role";
 import { getAppConfig } from "@growthcro/config";
 import { listOrgMembers, loadUsageCounts, type UsageCounts } from "@growthcro/data";
 
@@ -85,32 +87,27 @@ export default async function SettingsPage() {
   const { email, lastSignInAt, members, counts, usageErrors } = await loadSettings();
   const config = getAppConfig();
   const projectRef = extractProjectRef(config.supabaseUrl);
-  const role = await getCurrentRole().catch(() => null);
-  const isAdmin = role === "admin";
 
   return (
-    <div className="gc-app">
-      <Sidebar email={email} isAdmin={isAdmin} />
-      <main className="gc-main">
-        <div className="gc-topbar">
-          <div className="gc-title">
-            <h1>Settings</h1>
-            <p>Compte, équipe, usage et clés API du projet Supabase.</p>
-          </div>
+    <>
+      <div className="gc-topbar">
+        <div className="gc-title">
+          <h1>Settings</h1>
+          <p>Compte, équipe, usage et clés API du projet Supabase.</p>
         </div>
-        <SettingsTabs
-          account={<AccountTab email={email} lastSignInAt={lastSignInAt} />}
-          team={<TeamTab initialMembers={members} />}
-          usage={<UsageTab counts={counts} errors={usageErrors} />}
-          api={
-            <ApiTab
-              supabaseUrl={config.supabaseUrl}
-              anonKey={config.supabaseAnonKey}
-              projectRef={projectRef}
-            />
-          }
-        />
-      </main>
-    </div>
+      </div>
+      <SettingsTabs
+        account={<AccountTab email={email} lastSignInAt={lastSignInAt} />}
+        team={<TeamTab initialMembers={members} />}
+        usage={<UsageTab counts={counts} errors={usageErrors} />}
+        api={
+          <ApiTab
+            supabaseUrl={config.supabaseUrl}
+            anonKey={config.supabaseAnonKey}
+            projectRef={projectRef}
+          />
+        }
+      />
+    </>
   );
 }

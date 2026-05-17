@@ -2,15 +2,29 @@
 // the Cmd+K palette. NO Node / server imports, NO React — this is a plain TS
 // module safe to import from any client island.
 //
-// Sprint 11 / Task 013 global-chrome-cmdk-breadcrumbs (2026-05-15).
-// Mono-concern: navigation metadata only. The palette / sidebar consume this
-// list and decorate it with counts, recent-items, admin actions, etc.
+// B1 (Issue #72, 2026-05-17) — refondu pour l'IA workflow-first signed-off A2.
+// 5 espaces + 2 utilitaires (au lieu des 4 groupes architecture-internal V1).
+// Mono-concern: navigation metadata only. Sidebar + Cmd+K palette consume this
+// registry and decorate it with counts, recent-items, admin actions, etc.
 //
-// Why a shared registry: the V26 "single source of truth" lesson — duplicating
-// the same nav array in two files invariably drifts (e.g. Sidebar gets a new
+// Why a shared registry: la leçon V26 du "single source of truth". Duplicate
+// the same nav array in two files and it WILL drift (e.g. Sidebar gets a new
 // entry, palette misses it). One module exports it ; both consume it.
+//
+// Source IA cible : .claude/docs/state/WEBAPP_TARGET_IA_2026-05.md §3.1 + §3.4.
 
-export type NavGroupId = "pipeline" | "studio" | "agency" | "admin";
+/**
+ * Top-level workflow espaces + utilities.
+ * Order matters — it drives sidebar + palette display order.
+ */
+export type NavGroupId =
+  | "command_center" // 🏠 single home
+  | "clients" // 🏢 portefeuille + workspace per client
+  | "audits" // 🔍 audits + recos workflow
+  | "gsg" // ✨ GSG Studio (génération LP)
+  | "advanced" // 🧠 Advanced Intelligence (5 modules avancés)
+  | "reference" // 📚 Doctrine utility
+  | "admin"; // ⚙️ Settings utility
 
 export type NavEntry = {
   /** URL the entry navigates to. Used as the React key + active-state match. */
@@ -21,8 +35,12 @@ export type NavEntry = {
   hint: string;
   /** Grouping in the Sidebar / Cmd+K palette. */
   group: NavGroupId;
+  /** Emoji icon (V1 — A2 §3.1 décision Mathis 2026-05-17, Lucide migration deferred Phase H1). */
+  icon?: string;
+  /** Marks this entry as a child of the `advanced` parent (collapsible group). */
+  isAdvancedChild?: boolean;
   /**
-   * Optional disabled flag — used for routes that don't yet exist (e.g. /geo).
+   * Optional disabled flag — used for routes that don't yet exist.
    * Disabled entries render greyed-out with a tooltip ; they don't navigate.
    */
   disabled?: boolean;
@@ -31,45 +49,128 @@ export type NavEntry = {
 };
 
 /**
- * Single source of truth for the 11 navigation items. Order = display order.
- *
- * GEO entry was a `disabled: true` placeholder until Sprint 12a / Task 009
- * (2026-05-15) shipped the /geo route + per-client drilldown. Flipped to
- * `disabled: false` ; the palette now navigates to it.
+ * The 7 navigation groups. Order = sidebar display order.
+ * The `advanced` group is rendered as a collapsible parent with 5 children.
+ * `command_center`, `clients`, `audits`, `gsg` render as flat top-level rows.
+ * `reference`, `admin` render in distinct footer-style sections.
  */
 export const NAV_GROUPS: { id: NavGroupId; label: string }[] = [
-  { id: "pipeline", label: "Pipeline" },
-  { id: "studio", label: "Studio" },
-  { id: "agency", label: "Agency Tools" },
+  { id: "command_center", label: "Espaces" },
+  { id: "clients", label: "Espaces" },
+  { id: "audits", label: "Espaces" },
+  { id: "gsg", label: "Espaces" },
+  { id: "advanced", label: "Espaces" },
+  { id: "reference", label: "Reference" },
   { id: "admin", label: "Admin" },
 ];
 
+/**
+ * Single source of truth for the navigation items.
+ * Order matters — drives sidebar + palette display order.
+ *
+ * Notes :
+ * - GSG Studio targets `/gsg` for V1 (the canonical `/gsg/studio` route is
+ *   created in F5). TODO: F5 — switch to /gsg/studio when route created.
+ * - `/audit-gads`, `/audit-meta` are HIDDEN from sidebar + palette (FR-25).
+ *   The URLs remain accessible directly ; they just don't appear in nav.
+ * - Advanced Intelligence children carry `isAdvancedChild: true` for the
+ *   sidebar collapsible group rendering. The Cmd+K palette ignores this flag
+ *   and renders them flat (with their group label "Espaces / Advanced").
+ */
 export const NAV_ENTRIES: NavEntry[] = [
-  // ── Pipeline ──────────────────────────────────────────────────────────
-  { href: "/", label: "Overview", hint: "Command", group: "pipeline" },
-  { href: "/clients", label: "Clients", hint: "Fleet", group: "pipeline" },
-  { href: "/audits", label: "Audits", hint: "V3.2.1", group: "pipeline" },
-  { href: "/recos", label: "Recos", hint: "Aggregator", group: "pipeline" },
-  // ── Studio ────────────────────────────────────────────────────────────
-  { href: "/gsg", label: "GSG Studio", hint: "Brief + LP", group: "studio" },
-  { href: "/doctrine", label: "Doctrine", hint: "V3.2.1", group: "studio" },
-  { href: "/reality", label: "Reality", hint: "Soon", group: "studio" },
-  { href: "/learning", label: "Learning", hint: "V29/V30", group: "studio" },
-  { href: "/scent", label: "Scent Trail", hint: "V24", group: "studio" },
-  { href: "/experiments", label: "Experiments", hint: "V27", group: "studio" },
-  // GEO Monitor — Task 009 shipped 2026-05-15 (defensive : no key → empty state).
-  { href: "/geo", label: "GEO Monitor", hint: "V31+", group: "studio" },
-  // ── Agency Tools ──────────────────────────────────────────────────────
-  { href: "/audit-gads", label: "Audit Google Ads", hint: "Agency", group: "agency" },
-  { href: "/audit-meta", label: "Audit Meta Ads", hint: "Agency", group: "agency" },
+  // ── 5 espaces principaux ──────────────────────────────────────────────
+  {
+    href: "/",
+    label: "Command Center",
+    hint: "Home overview",
+    group: "command_center",
+    icon: "🏠",
+  },
+  {
+    href: "/clients",
+    label: "Clients",
+    hint: "Fleet",
+    group: "clients",
+    icon: "🏢",
+  },
+  {
+    href: "/audits",
+    label: "Audits & Recos",
+    hint: "V3.2.1",
+    group: "audits",
+    icon: "🔍",
+  },
+  // TODO: F5 — switch to /gsg/studio when route created.
+  {
+    href: "/gsg",
+    label: "GSG Studio",
+    hint: "Brief + LP",
+    group: "gsg",
+    icon: "✨",
+  },
+  // ── Advanced Intelligence (5 sub-modules, collapsible) ────────────────
+  {
+    href: "/reality",
+    label: "Reality",
+    hint: "Connectors",
+    group: "advanced",
+    icon: "📊",
+    isAdvancedChild: true,
+  },
+  {
+    href: "/geo",
+    label: "GEO",
+    hint: "Engines",
+    group: "advanced",
+    icon: "🌐",
+    isAdvancedChild: true,
+  },
+  {
+    href: "/learning",
+    label: "Learning",
+    hint: "V29/V30",
+    group: "advanced",
+    icon: "🎓",
+    isAdvancedChild: true,
+  },
+  {
+    href: "/experiments",
+    label: "Experiments",
+    hint: "V27",
+    group: "advanced",
+    icon: "🧪",
+    isAdvancedChild: true,
+  },
+  {
+    href: "/scent",
+    label: "Scent",
+    hint: "Trails",
+    group: "advanced",
+    icon: "👃",
+    isAdvancedChild: true,
+  },
+  // ── Reference ─────────────────────────────────────────────────────────
+  {
+    href: "/doctrine",
+    label: "Doctrine",
+    hint: "V3.2.1",
+    group: "reference",
+    icon: "📚",
+  },
   // ── Admin ─────────────────────────────────────────────────────────────
-  { href: "/settings", label: "Settings", hint: "Admin", group: "admin" },
+  {
+    href: "/settings",
+    label: "Settings",
+    hint: "Account / Team",
+    group: "admin",
+    icon: "⚙️",
+  },
 ];
 
 /**
  * Returns navigation entries for a given group, preserving registry order.
- * Defensive: never returns the GEO entry when `includeDisabled` is false
- * (palette default). Sidebar passes `true` so the disabled placeholder shows.
+ * Defensive: respects the `includeDisabled` flag so the palette skips routes
+ * that aren't ready yet (currently none post Sprint 12a / Task 009).
  */
 export function entriesForGroup(
   group: NavGroupId,
@@ -77,6 +178,25 @@ export function entriesForGroup(
 ): NavEntry[] {
   return NAV_ENTRIES.filter(
     (e) => e.group === group && (includeDisabled || !e.disabled),
+  );
+}
+
+/**
+ * Returns the children of the Advanced Intelligence collapsible group.
+ * Convenience helper for the Sidebar (the palette flattens these via NAV_ENTRIES).
+ */
+export function advancedChildren(): NavEntry[] {
+  return NAV_ENTRIES.filter((e) => e.isAdvancedChild === true);
+}
+
+/**
+ * Returns true when the pathname falls under the Advanced Intelligence
+ * collapsible group (any of /reality, /geo, /learning, /experiments, /scent).
+ * Used by the Sidebar to auto-expand the parent on deep navigation.
+ */
+export function isAdvancedPath(pathname: string): boolean {
+  return advancedChildren().some(
+    (e) => pathname === e.href || pathname.startsWith(`${e.href}/`),
   );
 }
 
@@ -94,7 +214,33 @@ export function filterEntries(entries: NavEntry[], query: string): NavEntry[] {
   });
 }
 
+/**
+ * Cmd+K palette section label per group. Surfaces the workflow-first IA in
+ * the palette (e.g. "Command Center", "Clients", "Audits & Recos", "GSG Studio",
+ * "Advanced Intelligence", "Doctrine", "Settings").
+ */
+export function paletteSectionLabel(group: NavGroupId): string {
+  switch (group) {
+    case "command_center":
+      return "Command Center";
+    case "clients":
+      return "Clients";
+    case "audits":
+      return "Audits & Recos";
+    case "gsg":
+      return "GSG Studio";
+    case "advanced":
+      return "Advanced Intelligence";
+    case "reference":
+      return "Doctrine";
+    case "admin":
+      return "Settings";
+  }
+}
+
 /** localStorage key for the "Recent" section in Cmd+K. */
 export const CMDK_RECENT_KEY = "gc-cmdk-recent";
 /** Cap on the recent items kept in localStorage. */
 export const CMDK_RECENT_MAX = 5;
+/** localStorage key for the Sidebar Advanced Intelligence expand/collapse state. */
+export const SIDEBAR_ADVANCED_EXPANDED_KEY = "gc-sidebar-advanced-expanded";

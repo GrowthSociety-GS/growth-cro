@@ -23,14 +23,16 @@
 
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   CMDK_RECENT_KEY,
   CMDK_RECENT_MAX,
   NAV_ENTRIES,
   type NavEntry,
+  type NavGroupId,
   filterEntries,
+  paletteSectionLabel,
 } from "@/lib/cmdk-items";
 import { useKeyboardShortcuts } from "@/lib/use-keyboard-shortcuts";
 import { AddClientModal } from "@/components/clients/AddClientModal";
@@ -111,7 +113,37 @@ export function CmdKPalette({ isAdmin, clientChoices }: Props) {
 
   // Filter pipeline: actions first, then nav entries. We keep them logically
   // separated for rendering but merge into one keyboard-navigable list.
+  // B1 (Issue #72) — entries grouped by `NavGroupId` so the palette surfaces
+  // the workflow-first IA (Command Center / Clients / Audits & Recos / GSG
+  // Studio / Advanced Intelligence / Doctrine / Settings).
   const filteredNav = useMemo(() => filterEntries(VISIBLE_ENTRIES, query), [query]);
+  // Group order : mirrors the sidebar reading order. Reference-only groups
+  // (`reference`, `admin`) sit at the bottom.
+  const GROUP_ORDER: NavGroupId[] = useMemo(
+    () => [
+      "command_center",
+      "clients",
+      "audits",
+      "gsg",
+      "advanced",
+      "reference",
+      "admin",
+    ],
+    [],
+  );
+  // Build a stable [group, entries[]] mapping after filtering, preserving the
+  // global registry order within each group.
+  const filteredNavByGroup = useMemo(() => {
+    const map = new Map<NavGroupId, NavEntry[]>();
+    for (const g of GROUP_ORDER) map.set(g, []);
+    for (const e of filteredNav) {
+      const bucket = map.get(e.group);
+      if (bucket) bucket.push(e);
+    }
+    return GROUP_ORDER.map((g) => ({ group: g, entries: map.get(g) ?? [] })).filter(
+      (b) => b.entries.length > 0,
+    );
+  }, [filteredNav, GROUP_ORDER]);
   const filteredActions = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return actions;
@@ -316,18 +348,35 @@ export function CmdKPalette({ isAdmin, clientChoices }: Props) {
               () => runNav(entry),
             ),
           )}
-          {filteredNav.length > 0 ? (
-            <li className="gc-cmdk__section" aria-hidden="true">Navigation</li>
-          ) : null}
-          {filteredNav.map((entry, i) =>
-            renderRow(
-              `nav-${entry.href}`,
-              entry.label,
-              entry.hint,
-              filteredActions.length + recentEntries.length + i,
-              () => runNav(entry),
-            ),
-          )}
+          {/* B1 (Issue #72) — render entries grouped by NavGroupId so the
+              palette mirrors the workflow-first IA. Indices in the keyboard
+              navigation `flatItems` array stay stable because the render order
+              matches NAV_ENTRIES registry order. Fragment-only (no wrapping
+              <div>) to keep <ul> → <li> validity. */}
+          {filteredNavByGroup.map((bucket, bIdx) => {
+            const baseOffset =
+              filteredActions.length +
+              recentEntries.length +
+              filteredNavByGroup
+                .slice(0, bIdx)
+                .reduce((acc, b) => acc + b.entries.length, 0);
+            return (
+              <Fragment key={`grp-${bucket.group}`}>
+                <li className="gc-cmdk__section" aria-hidden="true">
+                  {paletteSectionLabel(bucket.group)}
+                </li>
+                {bucket.entries.map((entry, i) =>
+                  renderRow(
+                    `nav-${entry.href}`,
+                    entry.label,
+                    entry.hint,
+                    baseOffset + i,
+                    () => runNav(entry),
+                  ),
+                )}
+              </Fragment>
+            );
+          })}
         </ul>
         <div className="gc-cmdk__foot" aria-hidden="true">
           <span>↑↓ naviguer</span>
