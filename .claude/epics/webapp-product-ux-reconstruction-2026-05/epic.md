@@ -5,7 +5,7 @@ created: 2026-05-17T15:00:00Z
 updated: 2026-05-17T15:00:00Z
 progress: 0%
 prd: .claude/prds/webapp-product-ux-reconstruction-2026-05.md
-github: TBD
+github: https://github.com/GrowthSociety-GS/growth-cro/issues/65
 ---
 
 # Epic: webapp-product-ux-reconstruction-2026-05
@@ -184,12 +184,12 @@ Phases A et J0 atomiques détaillées (6 issues sur 33 totales). Phases B-J sero
 
 | # | Slug | Title | Size | Hours | Parallel? | Depends on |
 |---|------|-------|------|-------|-----------|------------|
-| 65 | A1 | Auditer routes produit + classifier garder/fusionner/cacher | M | 6 | yes | — |
-| 66 | A2 | Définir Target Information Architecture 5 espaces | M | 5 | no | #65 |
-| 67 | A3 | Définir Module Maturity Model + matrix initiale | S | 3 | yes | #65 |
-| 68 | J0-1 | Corriger webapp/README microfrontends → single shell | S | 1 | yes | — |
-| 69 | J0-2 | Clarifier epic master hierarchy (webapp-stratosphere vs reconstruction-2026-05 + 4 GSG orphelines) | S | 2 | yes | — |
-| 70 | J0-3 | Consolider CONTINUATION_PLAN cascade en 1 doc current | S | 1 | yes | — |
+| 66 | A1 | Auditer routes produit + classifier garder/fusionner/cacher | M | 6 | yes | — |
+| 67 | A2 | Définir Target Information Architecture 5 espaces | M | 5 | no | #66 |
+| 68 | A3 | Définir Module Maturity Model + matrix initiale | S | 3 | yes | #66 |
+| 69 | J0-1 | Corriger webapp/README microfrontends → single shell | S | 1 | yes | — |
+| 70 | J0-2 | Clarifier epic master hierarchy (webapp-stratosphere vs reconstruction-2026-05 + 4 GSG orphelines) | S | 2 | yes | — |
+| 71 | J0-3 | Consolider CONTINUATION_PLAN cascade en 1 doc current | S | 1 | yes | — |
 | TBD | B1 | Refondre app shell (sidebar uniforme + header + breadcrumbs + cmd-k) | L | 10 | no | #66 |
 | TBD | B2 | Implémenter 5 canonical states components | M | 6 | no | #67, B1 |
 | TBD | B3 | Worker Health endpoint + system_health migration + topbar badge | L | 10 | no | B1 |
@@ -311,11 +311,11 @@ PARALLELIZATION WAVES:
 
 > Wave 0 + Wave 1 atomic tasks created now per Mathis decision 2026-05-17 ("Créer Phase A + J0 maintenant, le reste au moment de lancer"). Waves 2-9 fichées au moment du dispatch.
 
-- [ ] #TBD — Auditer routes produit + classifier garder/fusionner/cacher — `A1.md`
-- [ ] #TBD — Définir Target Information Architecture 5 espaces — `A2.md`
-- [ ] #TBD — Définir Module Maturity Model + matrix initiale — `A3.md`
-- [ ] #TBD — Corriger webapp/README microfrontends → single shell — `J0-1.md`
-- [ ] #TBD — Clarifier epic master hierarchy — `J0-2.md`
-- [ ] #TBD — Consolider CONTINUATION_PLAN cascade en 1 doc current — `J0-3.md`
+- [ ] [#66](https://github.com/GrowthSociety-GS/growth-cro/issues/66) — A1 — Auditer routes produit + classifier garder/fusionner/cacher — `A1.md`
+- [ ] [#67](https://github.com/GrowthSociety-GS/growth-cro/issues/67) — A2 — Définir Target Information Architecture 5 espaces — `A2.md`
+- [ ] [#68](https://github.com/GrowthSociety-GS/growth-cro/issues/68) — A3 — Définir Module Maturity Model + matrix initiale — `A3.md`
+- [ ] [#69](https://github.com/GrowthSociety-GS/growth-cro/issues/69) — J0-1 — Corriger webapp/README microfrontends → single shell — `J0-1.md` (work already bundled in commit e42a36a)
+- [ ] [#70](https://github.com/GrowthSociety-GS/growth-cro/issues/70) — J0-2 — Clarifier epic master hierarchy — `J0-2.md`
+- [ ] [#71](https://github.com/GrowthSociety-GS/growth-cro/issues/71) — J0-3 — Consolider CONTINUATION_PLAN cascade en 1 doc current — `J0-3.md`
 
-GitHub issue numbers populated by CCPM sync (see `github-mapping.md`).
+Epic GitHub : [#65](https://github.com/GrowthSociety-GS/growth-cro/issues/65). Waves 2-9 issues fichées au moment du dispatch (per Mathis decision 2026-05-17).
