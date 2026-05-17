@@ -403,6 +403,44 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-17 — Pivot stratégique webapp UX/produit + epic `webapp-product-ux-reconstruction-2026-05` kickoff
+
+**Trigger** : Mathis signale 2026-05-17 que "sur Vercel ça va pas du tout" — design + architecture + UI/UX + fonctionnalités webapp. Codex audite la webapp déployée et confirme : pas une page blanche technique, mais une page blanche UX/produit au-dessus du socle existant. Renaissance Wave 2/3 (CR-04..CR-08) mis en gel pendant le chantier webapp.
+
+**Audit Phase A read-only** (Claude 4 sub-audits parallèles) :
+- Routes/UI : 20 routes — 9 vert E2E (home, /clients, /recos, /learning, /experiments, /doctrine, /settings, /audits, /audits/[c]/[id]), 4 orange (/gsg viewer, /gsg/handoff, /reality, /geo, /scent), 2 rouge (/audit-gads, /audit-meta), + dead code (CommandCenterTopbar legacy, /funnel ghost, tables `screenshots` + `experiments` fantômes).
+- Backend/data : worker daemon polling 30s solide, 9 types de runs supportés. `experiment` dispatcher = `print("not implemented")` (mensonge UX). Pas de health check worker → runs stagnent `pending` invisibles.
+- Workflows E2E : audit run non chaîné (capture déclenchée mais score+recos manuels), GSG output_path race, edit reco lifecycle endpoint séparé inconsistant, worker liveness zéro signal.
+- Docs : `webapp/README.md` décrivait encore 5 microfrontends alors que D1.A locked single shell, 2 epics master concurrentes, 4 epics GSG orphelines sans GitHub.
+
+**Verdict produit** : produit core viable (≈60%) entouré de skeleton honnêtes (≈25%) et dead UI (≈15%). On garde le socle technique (Next.js single shell + Supabase + worker + tous moteurs Python + doctrine V3.2.1 + Brand DNA + AURA + Opportunity Layer + Gates), on reconstruit l'expérience produit/UX au-dessus.
+
+**Livrables session** :
+- [`webapp/README.md`](../../../webapp/README.md) réécrit pour refléter single shell D1.A (J0.1 quick win shipped immédiat).
+- [`.claude/docs/state/WEBAPP_PRODUCT_AUDIT_2026-05-17.md`](../state/WEBAPP_PRODUCT_AUDIT_2026-05-17.md) — source de vérité primaire (9 sections : verdict, routes vert/orange/rouge, backend honesty, workflows reality, Module Maturity Model proposé, docs contradictions, OPEN QUESTIONS Reality/Learning/Experiments).
+- [`.claude/prds/webapp-product-ux-reconstruction-2026-05.md`](../../prds/webapp-product-ux-reconstruction-2026-05.md) — PRD complet (27 FRs, 7 user stories, 13 success criteria, 9 risks, Out of Scope verbatim + 8 PRD-specific, 3 Open Questions).
+- [`.claude/epics/webapp-product-ux-reconstruction-2026-05/`](../../epics/webapp-product-ux-reconstruction-2026-05/) — epic.md (10 phases A→J, 9 vagues, 33 issues prévues, ~210h dev = 6-10 semaines solo dev) + 6 issue files (A1/A2/A3/J0-1/J0-2/J0-3) atomiques + github-mapping.md.
+
+**5 espaces IA cible** : Command Center, Clients, Audits & Recos, GSG Studio, Advanced Intelligence (+ Doctrine + Settings utilitaires). Navigation workflow-first, pas architecture-internal.
+
+**OPEN QUESTIONS stratégiques** (research/decision spikes Phase G avant tout UI build) :
+- **Q1 Reality Layer** (Meta/Google/TikTok/GA4/Shopify/Clarity) : UX/architecture preparation only, backend wiring deferred (coût/value Mathis pending).
+- **Q2 Learning Layer** : approche fondamentale questionnée ("est-ce que c'est la meilleure façon pour l'IA d'apprendre ? pas sûr"). 5 alternatives à comparer (LLM-as-judge / RAG outcome-driven / skills evolutifs / memory files / status quo Bayesian). Research spike Phase G3 produit doc `LEARNING_LAYER_APPROACH_DECISION.md` avant tout build UI.
+- **Q3 Experiments** : decision spike "implement vs archive" — dispatcher actuel = noop mensonger.
+
+**Ordre d'exécution validé** : Wave 0 (J0 quick wins parallèles) → Wave 1 (A1→A2/A3) → Wave 2 (B shell foundation) → Wave 3 (C Command Center) → Wave 4 (D Clients + E Audits/Recos parallèles) → Wave 5 (F GSG Studio) → Wave 6 (G Advanced Intelligence parallèles) → Wave 7 (H design system continu) → Wave 8 (I hardening) → Wave 9 (J final docs/memory).
+
+**6 issues GitHub créées** Phase A + J0 (issues #65 epic + #66-#71 sub-issues attendues). Waves 2-9 fichées au moment du dispatch (per anti-drift discipline + Mathis decision).
+
+**Anti-régression markers** : doctrine V3.2.1 frozen · `PRESERVE_CREATIVE_LATITUDE = True` Elite Mode intouché · 215 tests Renaissance restent verts · D1.A single shell locked (pas de retour microfrontends) · moteurs Python (`moteur_gsg/`, `moteur_multi_judge/`, `growthcro/*` sauf worker handlers ajoutés) jamais réécrits.
+
+**Smoke gates final** :
+- `python3 scripts/lint_code_hygiene.py --staged` : FAIL 0, WARN 0 (uniquement .md touchés)
+- `grep "microfrontends" webapp/README.md` : 2 mentions, toutes historiques/archive (intentionnel)
+- Pre-existing unstaged modifs `deliverables/gsg_demo/*.html` non-touchées (hors scope)
+
+---
+
 ### 2026-05-17 — Post Wave 1.5 cleanup + 3 fixes runtime + /simplify review + CONTINUATION_PLAN
 
 **Session wrap-up** post Mathis runtime smoke success ("GOBSMACKED, quasi-ORBITAL" sur 3 HTML candidates Opus 4.7 Weglot lp_listicle, candidate 3 > 2 > 1 qualité croissante).
