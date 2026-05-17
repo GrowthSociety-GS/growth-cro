@@ -101,8 +101,21 @@ _MAX_REFERENCES: int = 1
 # Brand DNA + brief user-message compaction caps. We keep the user message
 # bounded (≤4K chars) so total prompt + user fits comfortably under the
 # Anthropic context budget per call.
-_USER_MESSAGE_CAP: int = 4_000
-_BRAND_DNA_SUMMARY_CAP: int = 1_000
+# F2 fix 2026-05-17: bumped brand_dna cap 1K → 2.5K to inject richer fingerprint
+# (palette_full + typography full + spacing + shape + voice_keywords). Total prompt
+# stays under SYSTEM_PROMPT_HARD_LIMIT_CHARS=6000 (was ~4420 max, +1500 = ~5920).
+_BRAND_DNA_SUMMARY_CAP: int = 2_500
+
+# F3 fix 2026-05-17: bumped user msg cap 4K → 8K to absorb brief.sourced_numbers
+# (~14 × 150 chars = 2K) + testimonials (3 × ~200 chars = 600) + LP-Creator copy
+# excerpt if available (~2K). User message NOT under the 6K system prompt cap.
+_USER_MESSAGE_CAP: int = 8_000
+
+# Design intent constant (anti-regression marker): future edits MUST preserve
+# Opus creative latitude. F2/F3 enrich INPUTS (more brand fidelity, more sourced
+# proof) but use soft wording ("use these as starting palette, adapt with taste"
+# / "USE these — do not INVENT — freely arrange") to keep Opus visually free.
+PRESERVE_CREATIVE_LATITUDE: bool = True
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -168,8 +181,36 @@ def _extract_color_hex(value: Any) -> str | None:
     return None
 
 
+def _extract_palette_full(colors: Any) -> list[str]:
+    """Extract up to 7 hex colors from brand_dna.visual_tokens.colors.palette_full.
+
+    Real shape: list of dicts with .hex + .coverage_pct. Returns deduped hex
+    list ordered by appearance, max 7.
+    """
+    if not isinstance(colors, dict):
+        return []
+    palette = colors.get("palette_full")
+    if not isinstance(palette, list):
+        return []
+    hexes: list[str] = []
+    for entry in palette:
+        if isinstance(entry, dict) and (hex_val := entry.get("hex")):
+            if hex_val not in hexes:
+                hexes.append(str(hex_val))
+        if len(hexes) >= 7:
+            break
+    return hexes
+
+
 def _summarise_brand_dna(brand_dna: dict[str, Any]) -> str:
-    """Compact brand_dna into ≤_BRAND_DNA_SUMMARY_CAP chars for Section 3."""
+    """Compact brand_dna into ≤_BRAND_DNA_SUMMARY_CAP chars for Section 3.
+
+    F2 fix 2026-05-17: enriched to inject palette_full (up to 7 colors),
+    typography full (family + weights + sizes for heading/body), spacing scale,
+    shape (border-radius), voice keywords, and image_direction hints. Wording
+    stays SOFT (Section 3 instructs "use as starting palette, adapt with taste")
+    to preserve creative latitude — F2 enriches INPUTS, not constraints.
+    """
     if not brand_dna:
         return "Brand DNA: not yet captured. Choose tasteful defaults aligned with the vertical."
 
@@ -179,7 +220,7 @@ def _summarise_brand_dna(brand_dna: dict[str, Any]) -> str:
     if (tone := brand_dna.get("tone_summary")):
         parts.append(f"tone: {tone}")
 
-    # Visual tokens — colors + typography are the highest-signal scalars.
+    # ── COLORS: primary/secondary/accent + full palette (up to 7) ────────────
     visual = brand_dna.get("visual_tokens", {}) if isinstance(brand_dna, dict) else {}
     colors = visual.get("colors", {}) if isinstance(visual, dict) else {}
     primary = _extract_color_hex(colors.get("primary")) if isinstance(colors, dict) else None
@@ -192,17 +233,96 @@ def _summarise_brand_dna(brand_dna: dict[str, Any]) -> str:
     if accent:
         parts.append(f"accent={accent}")
 
+    # Full palette (up to 7 hex) — gives Opus a real brand-faithful color world.
+    palette = _extract_palette_full(colors)
+    if palette:
+        # Skip ones already named above to avoid redundancy
+        named = {h for h in (primary, secondary, accent) if h}
+        extras = [h for h in palette if h not in named][:5]
+        if extras:
+            parts.append(f"palette_extras={','.join(extras)}")
+
+    # Neutrals (usually grays/whites/blacks for backgrounds + text)
+    neutrals = colors.get("neutrals") if isinstance(colors, dict) else None
+    if isinstance(neutrals, list) and neutrals:
+        neutral_hexes: list[str] = []
+        for n in neutrals[:4]:
+            if isinstance(n, dict) and (hex_val := n.get("hex")):
+                neutral_hexes.append(str(hex_val))
+        if neutral_hexes:
+            parts.append(f"neutrals={','.join(neutral_hexes)}")
+
+    # ── TYPOGRAPHY: family + weights + sizes for heading + body ──────────────
     typography = visual.get("typography", {}) if isinstance(visual, dict) else {}
     if isinstance(typography, dict):
         for key in ("heading", "body"):
-            family = typography.get(key, {}).get("family") if isinstance(typography.get(key), dict) else None
+            tspec = typography.get(key)
+            if not isinstance(tspec, dict):
+                continue
+            family = tspec.get("family")
+            weights = tspec.get("weights") or tspec.get("weight")
+            sizes = tspec.get("sizes") or tspec.get("size")
+            bits: list[str] = []
             if family:
-                parts.append(f"{key}_font={family}")
+                bits.append(f"{family}")
+            if isinstance(weights, list) and weights:
+                bits.append(f"weights={','.join(str(w) for w in weights[:5])}")
+            elif weights:
+                bits.append(f"weight={weights}")
+            if isinstance(sizes, list) and sizes:
+                bits.append(f"sizes={','.join(str(s) for s in sizes[:4])}")
+            elif sizes:
+                bits.append(f"size={sizes}")
+            if bits:
+                parts.append(f"{key}_font=({'; '.join(bits)})")
 
-    # Voice / tone keywords if present.
-    voice = brand_dna.get("voice_keywords") or brand_dna.get("voice", {}).get("keywords")
+    # ── SPACING + SHAPE + DEPTH (compact) ────────────────────────────────────
+    spacing = visual.get("spacing") if isinstance(visual, dict) else None
+    if isinstance(spacing, dict):
+        base = spacing.get("base") or spacing.get("unit")
+        scale = spacing.get("scale")
+        if base:
+            parts.append(f"spacing_base={base}")
+        if isinstance(scale, list) and scale:
+            parts.append(f"spacing_scale={','.join(str(s) for s in scale[:6])}")
+
+    shape = visual.get("shape") if isinstance(visual, dict) else None
+    if isinstance(shape, dict):
+        radius = shape.get("border_radius") or shape.get("radius")
+        if radius is not None:
+            if isinstance(radius, dict):
+                # e.g. {sm: 4, md: 12, lg: 24}
+                radius_str = ",".join(f"{k}={v}" for k, v in list(radius.items())[:4])
+                parts.append(f"radius=({radius_str})")
+            else:
+                parts.append(f"radius={radius}")
+
+    depth = visual.get("depth") if isinstance(visual, dict) else None
+    if isinstance(depth, dict) and depth.get("shadow_intensity"):
+        parts.append(f"shadow_intensity={depth.get('shadow_intensity')}")
+
+    # ── VOICE / TONE keywords (allow more than 6, full personality) ──────────
+    voice_tokens = brand_dna.get("voice_tokens") if isinstance(brand_dna, dict) else None
+    voice = (
+        brand_dna.get("voice_keywords")
+        or (voice_tokens.get("keywords") if isinstance(voice_tokens, dict) else None)
+        or (brand_dna.get("voice", {}).get("keywords") if isinstance(brand_dna.get("voice"), dict) else None)
+    )
     if isinstance(voice, list) and voice:
-        parts.append(f"voice_keywords={', '.join(str(v) for v in voice[:6])}")
+        parts.append(f"voice_keywords={', '.join(str(v) for v in voice[:10])}")
+
+    # ── IMAGE DIRECTION (style hints for asset/visual choice) ────────────────
+    img_dir = brand_dna.get("image_direction") if isinstance(brand_dna, dict) else None
+    if isinstance(img_dir, dict):
+        style_hints: list[str] = []
+        for k in ("style", "mood", "tone", "subjects", "lighting"):
+            if (v := img_dir.get(k)):
+                if isinstance(v, list):
+                    style_hints.append(f"{k}={','.join(str(x) for x in v[:3])}")
+                else:
+                    style_hints.append(f"{k}={v}")
+        if style_hints:
+            parts.append(f"image_direction=({'; '.join(style_hints[:4])})")
 
     summary = "; ".join(parts) if parts else "Brand DNA: minimal scalars only"
     return _truncate(summary, _BRAND_DNA_SUMMARY_CAP)
@@ -321,6 +441,124 @@ assert len(_smoke_prompt) <= SYSTEM_PROMPT_HARD_LIMIT_CHARS, (
 # ─────────────────────────────────────────────────────────────────────────────
 
 
+def _format_sourced_numbers(brief: dict[str, Any]) -> str:
+    """F3: format brief.sourced_numbers into a Markdown list Opus can copy in.
+
+    Real Weglot shape: list[dict] with .number + .source + .description fields.
+    Returns at most ~2K chars (14 items × ~150 chars each).
+    """
+    sourced = brief.get("sourced_numbers")
+    if not isinstance(sourced, list) or not sourced:
+        return ""
+    lines: list[str] = []
+    for entry in sourced[:14]:
+        if not isinstance(entry, dict):
+            continue
+        num = str(entry.get("number") or entry.get("value") or "").strip()
+        src = str(entry.get("source") or "").strip()
+        desc = str(entry.get("description") or entry.get("context") or "").strip()
+        if num and (src or desc):
+            # Truncate each item description to keep total compact
+            desc_short = desc[:120] + ("…" if len(desc) > 120 else "")
+            src_short = src[:80] + ("…" if len(src) > 80 else "")
+            lines.append(f"  - `{num}` ← {src_short} — {desc_short}")
+    return "\n".join(lines)
+
+
+def _format_testimonials(brief: dict[str, Any]) -> str:
+    """F3: format brief.testimonials into compact Markdown list."""
+    testis = brief.get("testimonials") or brief.get("validated_testimonials")
+    if not isinstance(testis, list) or not testis:
+        return ""
+    lines: list[str] = []
+    for t in testis[:5]:
+        if not isinstance(t, dict):
+            continue
+        quote = str(t.get("quote") or t.get("text") or "").strip()
+        author = str(t.get("author") or t.get("name") or "").strip()
+        role = str(t.get("role") or t.get("title") or "").strip()
+        company = str(t.get("company") or t.get("brand") or "").strip()
+        source_url = str(t.get("source_url") or t.get("source") or "").strip()
+        if quote:
+            quote_short = quote[:200] + ("…" if len(quote) > 200 else "")
+            byline_parts = [p for p in (author, role, company) if p]
+            byline = ", ".join(byline_parts) if byline_parts else "anonymous"
+            src_hint = f" (source: {source_url[:60]})" if source_url else ""
+            lines.append(f'  - "{quote_short}" — {byline}{src_hint}')
+    return "\n".join(lines)
+
+
+def _format_lp_creator_copy(brief: dict[str, Any]) -> str:
+    """F3: load LP-Creator validated copy if path present in brief.
+
+    Reuses existing structured-mode parser (mono-concern preservation per
+    Codex constraint #4: convergence at post-process only EXCEPT for reading
+    input data which is shared input layer, not rendering layer).
+
+    Returns compact summary of headlines + key sections, ≤2K chars.
+    """
+    copy_path = brief.get("lp_creator_validated_copy_path") or brief.get("copy_path")
+    if not copy_path:
+        # Fallback: brief may have inline `copy` dict from earlier LP-Creator run
+        inline_copy = brief.get("copy") or brief.get("lp_creator_copy")
+        if isinstance(inline_copy, dict):
+            return _summarize_copy_dict(inline_copy)
+        return ""
+    # Try to read external file
+    try:
+        from pathlib import Path
+        p = Path(copy_path)
+        if not p.is_absolute():
+            # relative to repo root
+            from growthcro.config import config as _cfg  # lazy import
+            p = _cfg.root() / copy_path
+        if not p.is_file():
+            return ""
+        import json
+        copy_dict = json.loads(p.read_text(encoding="utf-8"))
+        return _summarize_copy_dict(copy_dict)
+    except Exception:
+        # Graceful: copy guidance is optional, never crash
+        return ""
+
+
+def _summarize_copy_dict(copy_dict: dict[str, Any]) -> str:
+    """Compact summary of LP-Creator copy structure (headlines + bullets only)."""
+    if not isinstance(copy_dict, dict):
+        return ""
+    parts: list[str] = []
+    # Hero
+    hero = copy_dict.get("hero") or {}
+    if isinstance(hero, dict):
+        if h1 := hero.get("h1") or hero.get("headline"):
+            parts.append(f"  Hero H1: {str(h1)[:150]}")
+        if sub := hero.get("subtitle") or hero.get("subhead"):
+            parts.append(f"  Hero sub: {str(sub)[:200]}")
+    # Reasons (listicle)
+    reasons = copy_dict.get("reasons") or copy_dict.get("items") or []
+    if isinstance(reasons, list) and reasons:
+        parts.append(f"  {len(reasons)} validated reasons/items:")
+        for i, r in enumerate(reasons[:10]):
+            if isinstance(r, dict):
+                title = str(r.get("title") or r.get("headline") or "").strip()
+                if title:
+                    parts.append(f"    {i+1}. {title[:120]}")
+    # FAQ
+    faq = copy_dict.get("faq", {}).get("items") if isinstance(copy_dict.get("faq"), dict) else None
+    if isinstance(faq, list) and faq:
+        parts.append(f"  {len(faq)} validated FAQ entries (titles):")
+        for f in faq[:5]:
+            if isinstance(f, dict) and (q := f.get("question") or f.get("q")):
+                parts.append(f"    - {str(q)[:100]}")
+    # Final CTA
+    final_cta = copy_dict.get("final_cta") or {}
+    if isinstance(final_cta, dict):
+        if cta_text := final_cta.get("label") or final_cta.get("text") or final_cta.get("cta"):
+            parts.append(f"  Final CTA: {str(cta_text)[:80]}")
+    summary = "\n".join(parts)
+    return summary[:2000]  # hard cap on copy section to leave room for proof
+
+
 def _build_user_message(
     brief: dict[str, Any],
     page_type: str,
@@ -329,7 +567,15 @@ def _build_user_message(
     n_candidates: int,
     reference_abstract: str | None,
 ) -> str:
-    """Compose the user turn: brief identity + objective + audience + angle."""
+    """Compose the user turn: brief identity + objective + audience + angle.
+
+    F3 fix 2026-05-17: also inject brief.sourced_numbers + brief.testimonials
+    + LP-Creator validated copy (if available) so Opus uses real validated
+    proof points instead of inventing claims. Wording stays SOFT:
+    "USE these — do not INVENT — freely arrange in your chosen visual structure"
+    — preserves creative latitude on layout/motion/visual; constrains only
+    factual claims. (PRESERVE_CREATIVE_LATITUDE intent.)
+    """
     objective = str(brief.get("objective", "")).strip()
     audience = str(brief.get("audience", "")).strip()
     angle = str(brief.get("angle", "")).strip()
@@ -354,6 +600,36 @@ def _build_user_message(
     ]:
         if val:
             parts.append(f"  {label}: {val}")
+
+    # ── F3: COPY GUIDANCE — validated proof points + testimonials + copy ─────
+    sourced_block = _format_sourced_numbers(brief)
+    testimonial_block = _format_testimonials(brief)
+    copy_block = _format_lp_creator_copy(brief)
+
+    if sourced_block or testimonial_block or copy_block:
+        parts.append("")
+        parts.append(
+            "VALIDATED PROOF & COPY (USE these — do NOT invent claims/numbers/"
+            "testimonials; freely arrange them in your chosen visual structure):"
+        )
+        if sourced_block:
+            parts.append("")
+            parts.append("Sourced numbers (use exact values, attribute via data-evidence-id):")
+            parts.append(sourced_block)
+        if testimonial_block:
+            parts.append("")
+            parts.append("Validated testimonials (use exact quote + named author):")
+            parts.append(testimonial_block)
+        if copy_block:
+            parts.append("")
+            parts.append("LP-Creator validated copy structure (use as canonical content base, polish freely):")
+            parts.append(copy_block)
+        parts.append("")
+        parts.append(
+            "Creative latitude: layout, motion, hierarchy, hero mechanism, "
+            "visual composition, textures, decorative systems — ALL YOURS. "
+            "Constrained only on factual claims (use the validated proof above)."
+        )
 
     if reference_abstract:
         parts.append("")
@@ -709,14 +985,22 @@ def generate_html_candidates(
     # ── client init ──────────────────────────────────────────────────────
     anthropic_client = client if client is not None else get_anthropic_client()
 
-    # ── N independent calls (sequential — async retro-fit possible later) ─
+    # ── F1 fix 2026-05-17: N PARALLEL calls via ThreadPoolExecutor ───────
+    # Anthropic client.messages.create is sync/blocking but releases GIL
+    # during HTTP I/O — perfect for ThreadPoolExecutor. Expected 3x wall
+    # speedup vs sequential (11min → ~4min for 3 candidates on Weglot).
+    # Cost identical (same prompt tokens × N calls), quality identical
+    # (same prompt, same model). PRESERVE_CREATIVE_LATITUDE: zero impact.
+    from concurrent.futures import ThreadPoolExecutor
+
     t_batch_start = time.monotonic()
     candidates: list[HtmlCandidate] = []
     per_candidate_telemetry: list[dict[str, Any]] = []
     extraction_failures = 0
 
-    for i in range(n_candidates):
-        user_message = _build_user_message(
+    # Build all user messages upfront (cheap, deterministic per candidate_index)
+    user_messages = [
+        _build_user_message(
             brief=brief,
             page_type=page_type,
             business_category=business_category,
@@ -724,13 +1008,26 @@ def generate_html_candidates(
             n_candidates=n_candidates,
             reference_abstract=reference_abstract,
         )
+        for i in range(n_candidates)
+    ]
+
+    def _worker(i: int) -> tuple[int, Any]:
+        """Submit one Opus call, return (index, result or None)."""
         result = _generate_single_candidate(
             anthropic_client,
             system_prompt=system_prompt,
-            user_message=user_message,
+            user_message=user_messages[i],
             candidate_index=i,
             opus_model=opus_model,
         )
+        return i, result
+
+    # Workers = n_candidates (1, 2, or 3 max — safe to oversubscribe)
+    with ThreadPoolExecutor(max_workers=n_candidates, thread_name_prefix="elite-opus") as executor:
+        indexed_results = list(executor.map(_worker, range(n_candidates)))
+
+    # Preserve deterministic order (candidate_index 0, 1, 2) per executor.map contract
+    for i, result in indexed_results:
         if result is None:
             extraction_failures += 1
             continue
