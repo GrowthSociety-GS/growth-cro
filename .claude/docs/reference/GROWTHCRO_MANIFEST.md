@@ -403,6 +403,35 @@ python3 skills/site-capture/scripts/build_dashboard_v12.py --client <label>
 
 ## 12. Changelog manifest
 
+### 2026-05-17 — Post Wave 1.5 cleanup + 3 fixes runtime + /simplify review + CONTINUATION_PLAN
+
+**Session wrap-up** post Mathis runtime smoke success ("GOBSMACKED, quasi-ORBITAL" sur 3 HTML candidates Opus 4.7 Weglot lp_listicle, candidate 3 > 2 > 1 qualité croissante).
+
+**3 fixes runtime résiduels** (commit `7fbe190`) :
+- **F1 ThreadPoolExecutor** : 3 calls Opus parallèles via `concurrent.futures.ThreadPoolExecutor` (au lieu de séquentiel). 3× speedup wall (11min → ~4min estimé). Coût + qualité identiques.
+- **F2 brand DNA enrich** : `_summarise_brand_dna()` étendu pour injecter palette_full (jusqu'à 7 hex) + typography full (family + weights + sizes) + spacing scale + shape (border-radius) + voice_keywords (10 max) + image_direction hints. Bump `_BRAND_DNA_SUMMARY_CAP` 1K → 2.5K. Helper `_extract_color_hex()` defensive handle dict/list/None shapes (Weglot `secondary` est list, `accent` None).
+- **F3 copy guidance** : `_build_user_message()` injecte brief.sourced_numbers (14 chiffres validés Weglot avec source URLs) + brief.testimonials (3 nommés avec quote+author+source_url) + LP-Creator validated copy (via `brief.lp_creator_validated_copy_path` réutilisant `copy_lp_creator_parser`). Bump `_USER_MESSAGE_CAP` 4K → 8K. Wording SOFT : "USE these — do NOT invent claims; freely arrange in your chosen visual structure" — constrains factual claims, preserves visual latitude. Anti-régression marker `PRESERVE_CREATIVE_LATITUDE = True` constant.
+
+**2 fixes intermédiaires pré-3-fixes** (commits `ecd93a7` + `83ee55c`) :
+- Defensive color extraction (handle list/None shapes) — bug réel Weglot smoke runtime.
+- Feature-detect `_MODELS_WITHOUT_TEMPERATURE: frozenset = {"claude-opus-4-7"}` — remplace string-sniffing try/except sur "temperature deprecated" par check propre (post-/simplify cleanup).
+
+**/simplify review** (3 agents Code Reuse + Code Quality + Efficiency en parallèle) :
+- 4 quick wins fixés (commit `417b320`) : delete dead `_generate_html_candidates_async` wrapper (zero callers post-F1) + hoist `_build_copy_guidance_block` précomputé une fois par batch (au lieu de N fois) + feature-detect models sans temperature + strip narrative F1/F2/F3 comments anti-pattern.
+- ~390 LOC dedupable cross-modules identifiés (HIGH severity) : `_call_anthropic` × 4 sites → factor `growthcro/lib/anthropic_client.call_messages()` ; atomic write pattern × 4 sites → factor `growthcro/lib/atomic_write.py` ; `_truncate` × 4 sites → factor `growthcro/lib/text_utils.py` ; CLI plumbing × 2 sites → factor `_shared/cli_io.py` ; `_extract_color_hex` réinvente `moteur_gsg/core/design_tokens._hex`. **Différé en mini-sprint refacto factorisation post-Wave 2** (~2-3h dev) si on veut split orchestrator.py 1106 LOC propre avant continuer.
+- `moteur_gsg/creative_engine/elite/orchestrator.py` 1106 LOC ajouté à `KNOWN_DEBT` (pattern Sprint P1 mode_1_complete.py 1027 LOC). Split scheduled post-Wave 2 : extract `prompt_assembly.py` + `user_message.py` + `parallel_runner.py`, target ~500-600 LOC orchestrator.
+
+**CONTINUATION_PLAN doc** (commit pending) : [`docs/state/CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](../state/CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md) — single source of truth pour reprise next session post-clear. Contient : lecture obligatoire (5 min), récap shipped Wave 1+1.5, état disk+GitHub, 4 next steps prioritisés (Mathis re-smoke → Wave 2 dispatch → Wave 3 → smoke heavy GSG full pipeline), décisions tranchées Mathis sources of truth, tech debt + follow-ups, acceptance globale epic, process learnings, fallback "si tu es perdu après clear".
+
+**CLAUDE.md step #12 updated** : pointe désormais vers CONTINUATION_PLAN_2026-05-17 (au lieu de 2026-05-15 Sprint 21). Mention Two Creative Modes (structured + elite) + 4 Codex Constraints + PRESERVE_CREATIVE_LATITUDE marker + Wave 2/3 next.
+
+**State final session** :
+- pytest : 353 passed (138 Renaissance W1.5 + 77 Renaissance W1 + 138 baseline pre-Renaissance)
+- lint : FAIL 3 pré-existants only (orchestrator.py 1106 LOC tracked KNOWN_DEBT)
+- 12 commits Renaissance (CR-09 initial + 3 follow-up fixes + cleanup + docs)
+- 4/8 Renaissance sub-issues CLOSED (#56 #57 #58 #64) — reste Wave 2 + Wave 3 (5 issues #59 #60 #61 #62 #63 ouvertes)
+- Mathis verdict runtime : architecture Elite Mode VALIDÉE production-ready, quasi-ORBITAL atteint
+
 ### 2026-05-17 — Wave 1.5 Renaissance CR-09 SHIPPED — Elite Mode (Opus Unleashed direct-to-HTML)
 
 **Epic** : [`gsg-creative-renaissance`](../../epics/gsg-creative-renaissance/epic.md) [#55](https://github.com/GrowthSociety-GS/growth-cro/issues/55). Issue [#64](https://github.com/GrowthSociety-GS/growth-cro/issues/64) closed (`feat(creative_engine.elite)` commit `25f8944`).
