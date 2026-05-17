@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-14 (post-clear reprise, MÉTHODE AUDIT-FIRST)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > **Point d'entrée prochaine session Claude Code** post `/clear` context.
 >
 > User a clear le context après session 2026-05-13 marathon (13+ commits, 10 sub-PRDs Wave P0/P1/P2 + SP-11) AVEC FRUSTRATION ÉLÉGITIME : "y'a des erreurs de PARTOUT". Le plan a échoué méthodologiquement (velocity > validation).

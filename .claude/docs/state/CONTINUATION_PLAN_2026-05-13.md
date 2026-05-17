@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-13 (Next Session Entry Point)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > **Point d'entrée prochaine session Claude Code (reprise après /clear).**
 > Lis ce document + le PRD master [`webapp-full-buildout`](../../prds/webapp-full-buildout.md) avant de toucher au code.
 >

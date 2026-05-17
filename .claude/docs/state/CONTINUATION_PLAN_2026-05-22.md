@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-22 (Epic webapp-stratospheric-reconstruction-2026-05 closeout)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > **EPIC CLOSEOUT STATE** — 12/16 tasks landed (75% validated + Sprint 11 013 awaiting Mathis val + 015 no-op confirmed). 3 remaining slots (014 + 009 + 011) deferred to a follow-up PRD pending Mathis-side credentials + perms. 4 parallel-agent dispatch batches v1-v4 delivered the V26 parity restoration in 2 days wall-clock.
 
 ## 1. État closing 2026-05-15 — Sprint 11 closeout

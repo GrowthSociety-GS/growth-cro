@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-15 (post Sprint 1 + 2 + migration applied)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > **Point d'entrée prochaine session Claude Code** post-clear.
 >
 > Tu (Mathis) viens de clear le context. Cette doc + l'epic + le MEGA-PRD

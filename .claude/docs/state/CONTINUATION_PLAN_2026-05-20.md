@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-20 (post Sprint 8+9 parallel-agent merge v2)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > Sprints 8 (Task 008 experiments-v27-calculator) + 9 (Task 012 learning-
 > doctrine-dogfood-restore) shippés en parallèle via deux agents isolated
 > worktrees. Tier 3 first batch closed. **Validation gate `npm run build`

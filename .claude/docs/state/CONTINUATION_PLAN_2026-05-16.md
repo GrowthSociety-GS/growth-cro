@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-16 (post Sprint 3 code complete)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > **Point d'entrée prochaine session Claude Code** post-clear.
 >
 > Mathis : la code de Sprint 3 (Task 003 client-lifecycle-from-ui) est shipped

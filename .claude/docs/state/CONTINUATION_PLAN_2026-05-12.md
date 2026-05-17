@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-12 (Session Close)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > **Point d'entrée prochaine session Claude Code.** Lis ce document + le PRD master [`post-stratosphere-roadmap.md`](../../prds/post-stratosphere-roadmap.md) avant de toucher au code.
 >
 > Une fois lu, tu sais : (1) où on en est exactement, (2) quelles actions humaines Mathis sont pendantes, (3) quelle Wave d'epics est activable, (4) quel sub-PRD créer.

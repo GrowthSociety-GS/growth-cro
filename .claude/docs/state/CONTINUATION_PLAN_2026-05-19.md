@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-19 (post Sprint 6+7 parallel-agent merge)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > Sprints 6 (Task 005) + 7 (Task 007) shippés en parallèle via deux agents
 > isolated worktrees. Tier 2 closing strip + Tier 3 first surface live.
 > 3 sprints pending Mathis manual validation (005, 006, 007) — quand validés,

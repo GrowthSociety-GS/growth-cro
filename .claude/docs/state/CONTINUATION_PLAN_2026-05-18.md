@@ -1,5 +1,8 @@
 # Continuation Plan — 2026-05-18 (post Sprint 5 code complete)
 
+> **⚠️ Document historique** — superseded par [`CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md`](CONTINUATION_PLAN_2026-05-17_POST_WAVE_1_5_RENAISSANCE.md). Conservé pour traçabilité du raisonnement (sprint historique). État canonique post-2026-05-17 vit dans le plan Renaissance + nouveau pivot webapp UX refonte ([PRD](../../prds/webapp-product-ux-reconstruction-2026-05.md) · [Epic](../../epics/webapp-product-ux-reconstruction-2026-05/epic.md)).
+
+
 > Sprint 5 (Task 006 reco-lifecycle-bbox-and-evidence) shippé end-to-end.
 > Tier 2 batch (006 → 005 sequential, 007 parallel-safe) maintenant débloqué
 > dès que Mathis valide visuellement les recos enrichies sur prod.
