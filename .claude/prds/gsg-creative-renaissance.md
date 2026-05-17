@@ -67,7 +67,28 @@ Renaissance ajoute une **couche créative déterministe** avant le rendering : *
 
 ## Functional Requirements
 
-### FR-1 — Creative Exploration Engine (CR-01)
+### FR-9 — Elite Mode (Opus Unleashed direct-to-HTML, CR-09 Wave 1.5) ⭐ ADDED 2026-05-17
+
+Pivot hybride post-Wave 1 (Codex review 2026-05-17) : ajouter un **second chemin créatif** parallèle au structured mode (CR-01/02/03). Elite Mode = Opus 4.7 produit **1-3 candidats HTML COMPLETS directement** (pas thesis abstraites), pour atteindre le niveau visuel `landing_page_gpt_max_demo.html` (GPT-5 ORBITAL démo benchmark externe).
+
+**Codex Constraint Statement (non négociable)** :
+1. Elite HTML candidates are NOT converted to VisualComposerContract.
+2. Elite output must preserve original layout/CSS/motion unless a deterministic gate finds a concrete blocking issue.
+3. Renderer (CR-06) is fallback/structured path ONLY.
+4. Convergence between structured and elite modes happens at post-process gates (evidence/claims/SEO/screenshots/multi-judge/persist), NEVER at rendering layer.
+
+**Two Creative Modes** :
+- `structured` (Wave 1 CR-01/02/03) : thesis routes → composer → renderer. Default backward-compat, learning, scaling 56 clients, fallback safe.
+- `elite` (CR-09 NEW) : Opus Unleashed direct HTML candidates → judge HTML → post-process minimal. Opt-in, wow-factor, client demo, benchmark.
+- Mode `both` UNIQUEMENT via CLI flag `--debug-compare` (benchmark A/B testing), JAMAIS default workflow (anti coût×2 + complexity).
+
+**Creative Bar (compact per-vertical criteria, ≤1000 chars chaque)** : injecté dans prompt Opus à la place de HTML golden complets. Anti-mimicry. Anti-patchwork. Liberté créative préservée mais standards qualitatifs explicites.
+
+**2-Phase Judge** : Phase 1 HTML string pre-filter (Sonnet rapide, élimine candidates obvious broken) → Phase 2 Screenshot QA real winner (CR-05 adapté Wave 2). Winner jugé sur rendu réel pas string source.
+
+**Post-process Elite (non-destructif)** : `evidence_id_injector` inject `data-evidence-id` in-place + `seo_caps` cap title/meta in-place + `claims_source_gate` validate log + `screenshot_qa` capture+score + `multi_judge` post-run audit + `persist`. PAS de re-rendering, PAS de re-composition, PAS de sanitization lourde.
+
+### FR-1 — Creative Exploration Engine (CR-01) [STRUCTURED MODE]
 Nouveau package `moteur_gsg/creative_engine/` mono-concern (8 axes CODE_DOCTRINE) :
 - `schema.py` (Pydantic v2 stricts : `CreativeRoute`, `CreativeRouteBatch`, `RouteThesis`)
 - `orchestrator.py` (call Claude Opus 4.7 avec prompt structuré, demande 3-5 routes JSON valid)

@@ -12,15 +12,20 @@ depends_on:
   - follow-up:gate-skip-style-script (Agent Alpha P1.12 émergent, à scoper)
   - follow-up:smoke-runtime-validated-by-mathis (DONE 2026-05-16)
 sub_issues:
-  - #56 CR-01 — Creative Exploration Engine (Wave 1, L 16h)
-  - #57 CR-02 — Visual Judge / Route Selection (Wave 1, M 12h)
-  - #58 CR-03 — Contracts schemas (Wave 1, M 8h)
-  - #59 CR-04 — Visual Composer + vocabulary library multi-vertical + asset resolver (Wave 2, L 18h — image gen SKIP v1)
-  - #60 CR-05 — Screenshot QA via MCP Playwright (Wave 2, L 16h)
-  - #61 CR-06 — Renderer extension multi-vertical (Wave 3, XL 24h)
-  - #62 CR-07 — Promptfoo benchmark suite (Wave 3, L 16h)
-  - #63 CR-08 — 5 custom skills + final wire + CLAUDE.md (Wave 3, M 12h)
-total_effort: 122h dev (3-5 sprints solo, 1-2 weeks parallélisé 3-5 agents — image gen SKIP v1)
+  - #56 CR-01 — Creative Exploration Engine [STRUCTURED MODE] (Wave 1, L 16h) ✅ DONE
+  - #57 CR-02 — Visual Judge / Route Selection [STRUCTURED MODE] (Wave 1, M 12h) ✅ DONE
+  - #58 CR-03 — Contracts schemas [STRUCTURED MODE] (Wave 1, M 8h) ✅ DONE
+  - #64 CR-09 — Elite Mode (Opus Unleashed direct-to-HTML) [ELITE MODE NEW] (Wave 1.5, L 16h) — depends CR-02
+  - #59 CR-04 — Visual Composer + vocabulary library multi-vertical [STRUCTURED PATH ONLY] (Wave 2, L 18h)
+  - #60 CR-05 — Screenshot QA via MCP Playwright [BOTH MODES, picks Elite winner Phase 2] (Wave 2, L 16h)
+  - #61 CR-06 — Renderer extension multi-vertical [STRUCTURED PATH ONLY per Codex constraint #3] (Wave 3, XL 24h)
+  - #62 CR-07 — Promptfoo benchmark suite [BOTH MODES, comparative eval] (Wave 3, L 16h)
+  - #63 CR-08 — 5 custom skills + final wire mode_1 + CLAUDE.md [BOTH MODES via feature flag] (Wave 3, M 12h)
+total_effort: 138h dev (Wave 1 done 3 issues, Wave 1.5 NEW Elite Mode +16h, Wave 2-3 unchanged — 4 Codex constraints inscribed)
+creative_modes:
+  - structured: Wave 1 CR-01/02/03 path (thesis → composer → renderer), default backward-compat, learning/scaling/fallback
+  - elite: NEW CR-09 path (Opus Unleashed direct-to-HTML), opt-in, wow-factor/demo/benchmark, preserves Opus output
+  - convergence: post-process gates only (evidence_id_injector + claims_source_gate + seo_caps + screenshot_qa + multi_judge + persist), NEVER at rendering layer (Codex constraint #4)
 ---
 
 # Epic: gsg-creative-renaissance
