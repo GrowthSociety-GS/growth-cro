@@ -52,6 +52,12 @@ KNOWN_DEBT = {
     # Pre-existing god-file from Sprint 13-21 pipeline accretion (984 → 1027 LOC
     # after Wave 3 #51/#50 gate wires). Split is scheduled post-stratosphere-p0.
     "moteur_gsg/modes/mode_1_complete.py",
+    # Renaissance Elite Mode orchestrator (775 → 1106 LOC after 3 fixes
+    # F1 asyncio + F2 brand_dna enrich + F3 copy guidance, commit 7fbe190).
+    # Split scheduled post-Wave-2: extract prompt_assembly.py (Section builders
+    # + brand_dna helpers) + user_message.py (copy guidance formatters) +
+    # parallel_runner.py (ThreadPoolExecutor) — target ~500-600 LOC orchestrator.
+    "moteur_gsg/creative_engine/elite/orchestrator.py",
 }
 
 # Basename duplicates allowed by AD-1 (package-prefix disambiguates).

@@ -48,7 +48,6 @@ Cost model: ~$0.5-1 per candidate × 3 = ~$1.5-3 per run (3x vs structured).
 """
 from __future__ import annotations
 
-import asyncio
 import re
 import time
 from typing import Any
@@ -98,23 +97,25 @@ _MAX_CANDIDATES: int = 3
 # Reference bounds — opt-in feature, anti-patchwork per Codex correction #4.
 _MAX_REFERENCES: int = 1
 
-# Brand DNA + brief user-message compaction caps. We keep the user message
-# bounded (≤4K chars) so total prompt + user fits comfortably under the
-# Anthropic context budget per call.
-# F2 fix 2026-05-17: bumped brand_dna cap 1K → 2.5K to inject richer fingerprint
-# (palette_full + typography full + spacing + shape + voice_keywords). Total prompt
-# stays under SYSTEM_PROMPT_HARD_LIMIT_CHARS=6000 (was ~4420 max, +1500 = ~5920).
+# Brand DNA summary holds palette_full + typography + spacing + shape + voice
+# keywords + image_direction hints. Stays well below the 6K system prompt cap.
 _BRAND_DNA_SUMMARY_CAP: int = 2_500
 
-# F3 fix 2026-05-17: bumped user msg cap 4K → 8K to absorb brief.sourced_numbers
-# (~14 × 150 chars = 2K) + testimonials (3 × ~200 chars = 600) + LP-Creator copy
-# excerpt if available (~2K). User message NOT under the 6K system prompt cap.
+# User message holds objective + audience + angle + sourced_numbers (~14 items)
+# + testimonials + optional LP-Creator copy excerpt. Independent of the 6K
+# system prompt cap.
 _USER_MESSAGE_CAP: int = 8_000
 
-# Design intent constant (anti-regression marker): future edits MUST preserve
-# Opus creative latitude. F2/F3 enrich INPUTS (more brand fidelity, more sourced
-# proof) but use soft wording ("use these as starting palette, adapt with taste"
-# / "USE these — do not INVENT — freely arrange") to keep Opus visually free.
+# Models that have deprecated the `temperature` parameter (handle creative
+# sampling internally). Edit when Anthropic ships new opus revisions.
+_MODELS_WITHOUT_TEMPERATURE: frozenset[str] = frozenset({
+    "claude-opus-4-7",
+})
+
+# Anti-regression marker: enrich INPUTS (more brand fidelity, sourced proof),
+# never DICTATE visual structure. Soft wording in prompt sections (Section 3
+# "use as starting palette, adapt with taste" / user message "USE these — do
+# NOT invent — freely arrange") preserves Opus creative latitude on layout.
 PRESERVE_CREATIVE_LATITUDE: bool = True
 
 
@@ -205,11 +206,11 @@ def _extract_palette_full(colors: Any) -> list[str]:
 def _summarise_brand_dna(brand_dna: dict[str, Any]) -> str:
     """Compact brand_dna into ≤_BRAND_DNA_SUMMARY_CAP chars for Section 3.
 
-    F2 fix 2026-05-17: enriched to inject palette_full (up to 7 colors),
-    typography full (family + weights + sizes for heading/body), spacing scale,
-    shape (border-radius), voice keywords, and image_direction hints. Wording
-    stays SOFT (Section 3 instructs "use as starting palette, adapt with taste")
-    to preserve creative latitude — F2 enriches INPUTS, not constraints.
+    Injects palette_full (up to 7 colors), typography full (family + weights
+    + sizes for heading/body), spacing scale, shape (border-radius), voice
+    keywords, and image_direction hints. Wording stays SOFT (Section 3
+    instructs "use as starting palette, adapt with taste") to preserve creative
+    latitude — enriches INPUTS, never DICTATES visual structure.
     """
     if not brand_dna:
         return "Brand DNA: not yet captured. Choose tasteful defaults aligned with the vertical."
@@ -442,10 +443,10 @@ assert len(_smoke_prompt) <= SYSTEM_PROMPT_HARD_LIMIT_CHARS, (
 
 
 def _format_sourced_numbers(brief: dict[str, Any]) -> str:
-    """F3: format brief.sourced_numbers into a Markdown list Opus can copy in.
+    """Format brief.sourced_numbers into a Markdown list Opus can copy in.
 
-    Real Weglot shape: list[dict] with .number + .source + .description fields.
-    Returns at most ~2K chars (14 items × ~150 chars each).
+    Shape per entry: dict with .number + .source + .description. Returns at
+    most ~2K chars (14 items × ~150 chars each).
     """
     sourced = brief.get("sourced_numbers")
     if not isinstance(sourced, list) or not sourced:
@@ -466,7 +467,7 @@ def _format_sourced_numbers(brief: dict[str, Any]) -> str:
 
 
 def _format_testimonials(brief: dict[str, Any]) -> str:
-    """F3: format brief.testimonials into compact Markdown list."""
+    """Format brief.testimonials into compact Markdown list."""
     testis = brief.get("testimonials") or brief.get("validated_testimonials")
     if not isinstance(testis, list) or not testis:
         return ""
@@ -489,7 +490,7 @@ def _format_testimonials(brief: dict[str, Any]) -> str:
 
 
 def _format_lp_creator_copy(brief: dict[str, Any]) -> str:
-    """F3: load LP-Creator validated copy if path present in brief.
+    """Load LP-Creator validated copy if path present in brief.
 
     Reuses existing structured-mode parser (mono-concern preservation per
     Codex constraint #4: convergence at post-process only EXCEPT for reading
@@ -559,6 +560,46 @@ def _summarize_copy_dict(copy_dict: dict[str, Any]) -> str:
     return summary[:2000]  # hard cap on copy section to leave room for proof
 
 
+def _build_copy_guidance_block(brief: dict[str, Any]) -> str | None:
+    """Precompute the validated-proof section (sourced_numbers + testimonials
+    + LP-Creator copy). Returns the assembled markdown block or None if no
+    validated content is available. Soft wording preserves creative latitude
+    (constrains factual claims, never visual structure).
+
+    Called ONCE per batch by ``generate_html_candidates`` then passed to all N
+    candidate user messages — avoids re-reading lp_creator copy from disk and
+    re-formatting sourced_numbers/testimonials per candidate.
+    """
+    sourced_block = _format_sourced_numbers(brief)
+    testimonial_block = _format_testimonials(brief)
+    copy_block = _format_lp_creator_copy(brief)
+    if not (sourced_block or testimonial_block or copy_block):
+        return None
+    parts: list[str] = [
+        "VALIDATED PROOF & COPY (USE these — do NOT invent claims/numbers/"
+        "testimonials; freely arrange them in your chosen visual structure):",
+    ]
+    if sourced_block:
+        parts.append("")
+        parts.append("Sourced numbers (use exact values, attribute via data-evidence-id):")
+        parts.append(sourced_block)
+    if testimonial_block:
+        parts.append("")
+        parts.append("Validated testimonials (use exact quote + named author):")
+        parts.append(testimonial_block)
+    if copy_block:
+        parts.append("")
+        parts.append("LP-Creator validated copy structure (use as canonical content base, polish freely):")
+        parts.append(copy_block)
+    parts.append("")
+    parts.append(
+        "Creative latitude: layout, motion, hierarchy, hero mechanism, "
+        "visual composition, textures, decorative systems — ALL YOURS. "
+        "Constrained only on factual claims (use the validated proof above)."
+    )
+    return "\n".join(parts)
+
+
 def _build_user_message(
     brief: dict[str, Any],
     page_type: str,
@@ -566,15 +607,15 @@ def _build_user_message(
     candidate_index: int,
     n_candidates: int,
     reference_abstract: str | None,
+    copy_guidance_block: str | None = None,
 ) -> str:
     """Compose the user turn: brief identity + objective + audience + angle.
 
-    F3 fix 2026-05-17: also inject brief.sourced_numbers + brief.testimonials
-    + LP-Creator validated copy (if available) so Opus uses real validated
-    proof points instead of inventing claims. Wording stays SOFT:
-    "USE these — do not INVENT — freely arrange in your chosen visual structure"
-    — preserves creative latitude on layout/motion/visual; constrains only
-    factual claims. (PRESERVE_CREATIVE_LATITUDE intent.)
+    Injects brief.sourced_numbers + brief.testimonials + LP-Creator validated
+    copy (if available) so Opus uses real validated proof points instead of
+    inventing claims. ``copy_guidance_block`` is precomputed once per batch
+    by the caller via ``_build_copy_guidance_block`` — avoids redundant work
+    across the N candidate calls.
     """
     objective = str(brief.get("objective", "")).strip()
     audience = str(brief.get("audience", "")).strip()
@@ -601,35 +642,9 @@ def _build_user_message(
         if val:
             parts.append(f"  {label}: {val}")
 
-    # ── F3: COPY GUIDANCE — validated proof points + testimonials + copy ─────
-    sourced_block = _format_sourced_numbers(brief)
-    testimonial_block = _format_testimonials(brief)
-    copy_block = _format_lp_creator_copy(brief)
-
-    if sourced_block or testimonial_block or copy_block:
+    if copy_guidance_block:
         parts.append("")
-        parts.append(
-            "VALIDATED PROOF & COPY (USE these — do NOT invent claims/numbers/"
-            "testimonials; freely arrange them in your chosen visual structure):"
-        )
-        if sourced_block:
-            parts.append("")
-            parts.append("Sourced numbers (use exact values, attribute via data-evidence-id):")
-            parts.append(sourced_block)
-        if testimonial_block:
-            parts.append("")
-            parts.append("Validated testimonials (use exact quote + named author):")
-            parts.append(testimonial_block)
-        if copy_block:
-            parts.append("")
-            parts.append("LP-Creator validated copy structure (use as canonical content base, polish freely):")
-            parts.append(copy_block)
-        parts.append("")
-        parts.append(
-            "Creative latitude: layout, motion, hierarchy, hero mechanism, "
-            "visual composition, textures, decorative systems — ALL YOURS. "
-            "Constrained only on factual claims (use the validated proof above)."
-        )
+        parts.append(copy_guidance_block)
 
     if reference_abstract:
         parts.append("")
@@ -662,17 +677,12 @@ def _call_anthropic(
 ) -> tuple[str, dict[str, int]]:
     """Single blocking ``messages.create`` call. Returns (raw_text, token_meta).
 
-    No tool_use — Opus returns raw HTML directly.
-
-    Note: claude-opus-4-7+ has deprecated the ``temperature`` parameter (model
-    handles its own creative sampling internally). For backward compat with
-    older models that still accept it, we try with temperature first and retry
-    without on BadRequestError mentioning "temperature".
+    No tool_use — Opus returns raw HTML directly. Temperature is dropped for
+    models in ``_MODELS_WITHOUT_TEMPERATURE`` (model handles sampling itself).
     """
-    kwargs = {
+    kwargs: dict[str, Any] = {
         "model": model,
         "max_tokens": max_tokens,
-        "temperature": temperature,
         "system": [
             {
                 "type": "text",
@@ -682,16 +692,9 @@ def _call_anthropic(
         ],
         "messages": [{"role": "user", "content": user_message}],
     }
-    try:
-        response = client.messages.create(**kwargs)
-    except Exception as exc:  # noqa: BLE001 — narrow to BadRequest below
-        # Detect "temperature deprecated for this model" — strip and retry.
-        msg = str(exc).lower()
-        if "temperature" in msg and ("deprecated" in msg or "not support" in msg):
-            kwargs.pop("temperature", None)
-            response = client.messages.create(**kwargs)
-        else:
-            raise
+    if model not in _MODELS_WITHOUT_TEMPERATURE:
+        kwargs["temperature"] = temperature
+    response = client.messages.create(**kwargs)
     raw = response.content[0].text if response.content else ""
     usage = response.usage
     meta: dict[str, int] = {
@@ -985,12 +988,10 @@ def generate_html_candidates(
     # ── client init ──────────────────────────────────────────────────────
     anthropic_client = client if client is not None else get_anthropic_client()
 
-    # ── F1 fix 2026-05-17: N PARALLEL calls via ThreadPoolExecutor ───────
-    # Anthropic client.messages.create is sync/blocking but releases GIL
-    # during HTTP I/O — perfect for ThreadPoolExecutor. Expected 3x wall
-    # speedup vs sequential (11min → ~4min for 3 candidates on Weglot).
-    # Cost identical (same prompt tokens × N calls), quality identical
-    # (same prompt, same model). PRESERVE_CREATIVE_LATITUDE: zero impact.
+    # N PARALLEL calls via ThreadPoolExecutor. Anthropic SDK is sync/blocking
+    # but releases GIL during HTTP I/O — threads wait concurrently. Expected
+    # ~3x wall speedup vs sequential for n=3 candidates. Cost + quality
+    # identical (same prompt, same model). PRESERVE_CREATIVE_LATITUDE: zero impact.
     from concurrent.futures import ThreadPoolExecutor
 
     t_batch_start = time.monotonic()
@@ -998,7 +999,12 @@ def generate_html_candidates(
     per_candidate_telemetry: list[dict[str, Any]] = []
     extraction_failures = 0
 
-    # Build all user messages upfront (cheap, deterministic per candidate_index)
+    # Precompute the copy-guidance block ONCE per batch — same across all N
+    # candidates (only the "candidate i of N" header line varies). Avoids
+    # re-reading lp_creator copy from disk + re-formatting sourced_numbers /
+    # testimonials N times.
+    copy_guidance_block = _build_copy_guidance_block(brief)
+
     user_messages = [
         _build_user_message(
             brief=brief,
@@ -1007,6 +1013,7 @@ def generate_html_candidates(
             candidate_index=i,
             n_candidates=n_candidates,
             reference_abstract=reference_abstract,
+            copy_guidance_block=copy_guidance_block,
         )
         for i in range(n_candidates)
     ]
@@ -1087,13 +1094,6 @@ def generate_html_candidates(
         },
     )
     return batch
-
-
-# Async wrapper — kept available for future parallelisation (Opus calls are
-# independent). Sequential is fine for n=3 + simpler error handling.
-async def _generate_html_candidates_async(*args: Any, **kwargs: Any) -> HtmlCandidateBatch:
-    """Future async parallel implementation. Currently delegates to sync."""
-    return await asyncio.to_thread(generate_html_candidates, *args, **kwargs)
 
 
 __all__ = [
