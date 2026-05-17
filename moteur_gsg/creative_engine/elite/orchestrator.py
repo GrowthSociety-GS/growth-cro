@@ -387,20 +387,35 @@ def _call_anthropic(
     """Single blocking ``messages.create`` call. Returns (raw_text, token_meta).
 
     No tool_use — Opus returns raw HTML directly.
+
+    Note: claude-opus-4-7+ has deprecated the ``temperature`` parameter (model
+    handles its own creative sampling internally). For backward compat with
+    older models that still accept it, we try with temperature first and retry
+    without on BadRequestError mentioning "temperature".
     """
-    response = client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
-        temperature=temperature,
-        system=[
+    kwargs = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+        "system": [
             {
                 "type": "text",
                 "text": system_prompt,
                 "cache_control": {"type": "ephemeral"},
             }
         ],
-        messages=[{"role": "user", "content": user_message}],
-    )
+        "messages": [{"role": "user", "content": user_message}],
+    }
+    try:
+        response = client.messages.create(**kwargs)
+    except Exception as exc:  # noqa: BLE001 — narrow to BadRequest below
+        # Detect "temperature deprecated for this model" — strip and retry.
+        msg = str(exc).lower()
+        if "temperature" in msg and ("deprecated" in msg or "not support" in msg):
+            kwargs.pop("temperature", None)
+            response = client.messages.create(**kwargs)
+        else:
+            raise
     raw = response.content[0].text if response.content else ""
     usage = response.usage
     meta: dict[str, int] = {
