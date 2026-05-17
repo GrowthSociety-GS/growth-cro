@@ -149,6 +149,25 @@ def _section_creative_bar(business_category: BusinessCategory) -> str:
     )
 
 
+def _extract_color_hex(value: Any) -> str | None:
+    """Extract hex string from brand_dna color value — defensive shape handler.
+
+    Real-world brand_dna.visual_tokens.colors entries can be :
+    - dict {"hex": "#xxx", ...} (e.g. `primary` single dominant color)
+    - list [{"hex": "#xxx"}, {"hex": "#yyy"}] (e.g. `secondary` top-N palette)
+    - None / missing (e.g. `accent` not always extracted)
+
+    Returns first hex found, or None.
+    """
+    if isinstance(value, dict):
+        return value.get("hex")
+    if isinstance(value, list) and value:
+        first = value[0]
+        if isinstance(first, dict):
+            return first.get("hex")
+    return None
+
+
 def _summarise_brand_dna(brand_dna: dict[str, Any]) -> str:
     """Compact brand_dna into ≤_BRAND_DNA_SUMMARY_CAP chars for Section 3."""
     if not brand_dna:
@@ -163,9 +182,9 @@ def _summarise_brand_dna(brand_dna: dict[str, Any]) -> str:
     # Visual tokens — colors + typography are the highest-signal scalars.
     visual = brand_dna.get("visual_tokens", {}) if isinstance(brand_dna, dict) else {}
     colors = visual.get("colors", {}) if isinstance(visual, dict) else {}
-    primary = colors.get("primary", {}).get("hex") if isinstance(colors, dict) else None
-    secondary = colors.get("secondary", {}).get("hex") if isinstance(colors, dict) else None
-    accent = colors.get("accent", {}).get("hex") if isinstance(colors, dict) else None
+    primary = _extract_color_hex(colors.get("primary")) if isinstance(colors, dict) else None
+    secondary = _extract_color_hex(colors.get("secondary")) if isinstance(colors, dict) else None
+    accent = _extract_color_hex(colors.get("accent")) if isinstance(colors, dict) else None
     if primary:
         parts.append(f"primary={primary}")
     if secondary:
